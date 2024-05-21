@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1525
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BarclesHSoftKeyGen", "BarclesHSoftKeyGen\BarclesHSoftKeyGen.vbproj", "{66CB9BEF-99AE-48C4-94DA-AC6A3D8B5251}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "Setup1\Setup1.vdproj", "{6DEBC369-01BC-4705-B3A7-0820E72624E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66CB9BEF-99AE-48C4-94DA-AC6A3D8B5251}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{66CB9BEF-99AE-48C4-94DA-AC6A3D8B5251}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{66CB9BEF-99AE-48C4-94DA-AC6A3D8B5251}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66CB9BEF-99AE-48C4-94DA-AC6A3D8B5251}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DEBC369-01BC-4705-B3A7-0820E72624E8}.Debug|Any CPU.ActiveCfg = Release
+		{6DEBC369-01BC-4705-B3A7-0820E72624E8}.Debug|Any CPU.Build.0 = Release
+		{6DEBC369-01BC-4705-B3A7-0820E72624E8}.Release|Any CPU.ActiveCfg = Release
+		{6DEBC369-01BC-4705-B3A7-0820E72624E8}.Release|Any CPU.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {69DAADE7-AAE1-496E-A222-32EB6471F08E}
+	EndGlobalSection
+EndGlobal
