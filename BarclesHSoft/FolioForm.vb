@@ -128,8 +128,10 @@ Public Class FolioForm
 
             If elementFix.Rows.Count > 0 Then
 
+                '1- SI LES ELEMENTS SONT FIXES
+
                 'Enfin on insere le tout dans notre datagrid
-                If (toutesLesFactures.Length > 0) Then
+                If toutesLesFactures.Length > 0 Then
 
                     If Not Trim(GlobalVariable.codeReservationToUpdate) = "" Then
 
@@ -144,7 +146,7 @@ Public Class FolioForm
 
                             For i = 0 To toutesLesFactures.Length - 1
 
-                                FOLIO = restaurationDesElementsFixe(toutesLesFactures(i).id, CODE_RESERVATION, toutesLesFactures(i).Debit, toutesLesFactures(i).Credit)
+                                FOLIO = restaurationDesElementsFixe(toutesLesFactures(i).id, CODE_RESERVATION, toutesLesFactures(i).Debit, toutesLesFactures(i).Credit, Trim(GunaTextBoxCompanyName.Text))
 
                                 If FOLIO = 1 Then
                                     dt = GunaDataGridViewFolio1
@@ -172,7 +174,10 @@ Public Class FolioForm
                     End If
 
                 End If
+
             Else
+
+                '2- SI LES ELEMENTS SONT NON FIXES
 
                 'Enfin on insere le tout dans notre datagrid
                 If (toutesLesFactures.Length > 0) Then
@@ -236,7 +241,6 @@ Public Class FolioForm
         End If
 
     End Sub
-
 
     Private Sub FolioForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -2693,7 +2697,10 @@ Public Class FolioForm
 
     End Sub
 
-    Public Function restaurationDesElementsFixe(ByVal ID_LIGNE As Integer, ByVal CODE_RESERVATION As String, ByVal DEBIT As Integer, CREDIT As Integer) As Integer
+    Public Function restaurationDesElementsFixe(ByVal ID_LIGNE As Integer,
+                                                ByVal CODE_RESERVATION As String,
+                                                ByVal DEBIT As Integer,
+                                                CREDIT As Integer, ByVal ENTREPRISE As String) As Integer
 
         Dim FOLIO As Integer = 0
         Dim CHARGE_REGLEMENT As Integer = 0
@@ -2723,6 +2730,14 @@ Public Class FolioForm
                 End If
 
             Next
+
+        Else
+
+            If Trim(ENTREPRISE).Equals("") Then
+                FOLIO = 1
+            Else
+                FOLIO = 2
+            End If
 
         End If
 
