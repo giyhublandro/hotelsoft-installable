@@ -169,6 +169,52 @@
 
     End Sub
 
+
+    Public Sub autoLoadModeReglementMini(ByVal ActualLanguageValue As Integer)
+
+        MiniReglementForm.GunaComboBoxModereglement.Items.Clear()
+        MiniReglementForm.GunaComboBoxCritereElite.Items.Clear()
+
+        If ActualLanguageValue = 1 Then ' FRENCH
+
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("Cash") '0
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("Chèque") '1
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("Carte Bancaire") '2
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("Prise en charge") '3
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("MTN Money") '4
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("ORANGE Money") '5
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("Gratuitée") '6
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("Transfert En Chambre") '7
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("Transfert Vers Compte Débiteur") '8
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("Virement Bancaire") '9
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("Club Elite") '10
+
+            MiniReglementForm.GunaComboBoxCritereElite.Items.Add("Points")
+            MiniReglementForm.GunaComboBoxCritereElite.Items.Add("Nuits")
+            MiniReglementForm.GunaComboBoxCritereElite.Items.Add("Séjours")
+
+        ElseIf ActualLanguageValue = 0 Then 'ENGLISH
+
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("Cash")
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("Cheque")
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("Credit Card")
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("Taking charge")
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("MTN Money")
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("ORANGE Money")
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("Free")
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("Room Transfer")
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("Transfer to Debtor Account")
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("Bank Transfer")
+            MiniReglementForm.GunaComboBoxModereglement.Items.Add("Elite Club")
+
+            MiniReglementForm.GunaComboBoxCritereElite.Items.Add("Points")
+            MiniReglementForm.GunaComboBoxCritereElite.Items.Add("Nights")
+            MiniReglementForm.GunaComboBoxCritereElite.Items.Add("Stay")
+
+        End If
+
+    End Sub
+
     Public Sub autoLoadVersionLanguage(ByVal ActualLanguageValue As Integer)
 
         AccueilForm.GunaComboBoxVersion.Items.Clear()
@@ -2968,6 +3014,53 @@
             RoomTypeForm.GunaButtonAfficher.Text = "Afficher"
             RoomTypeForm.TabControl1.TabPages(0).Text = "Description"
             RoomTypeForm.TabControl1.TabPages(1).Text = "Liste"
+
+        End If
+
+    End Sub
+
+    Public Sub Minireglement(ByVal actualLanguageValue As Integer)
+
+        autoLoadModeReglementMini(actualLanguageValue)
+
+        If actualLanguageValue = 0 Then
+
+            MiniReglementForm.GunaLabelGestCompteGeneraux.Text = "CASH IN"
+            MiniReglementForm.LabelMontantAPayer.Text = "Amount to Pay"
+            MiniReglementForm.Label3.Text = "Received amount"
+            MiniReglementForm.LabelSolde.Text = "Balance"
+            MiniReglementForm.GunaButtonEnregistrerReglement.Text = "Cash In"
+            MiniReglementForm.Label2.Text = "Balance"
+            MiniReglementForm.Label6.Text = "Reference"
+            MiniReglementForm.Label1.Text = "Pay through"
+            MiniReglementForm.LabelContact.Text = "Transaction Reference"
+            MiniReglementForm.LabelRemarque.Text = "Remark"
+            MiniReglementForm.GunaCheckBoxOffresEnChambre.Text = "In House"
+            MiniReglementForm.Label10.Text = "Client's Name"
+            MiniReglementForm.Label10.Text = "Client's Name"
+
+        Else
+
+            MiniReglementForm.GunaLabelGestCompteGeneraux.Text = "ENCAISSEMENT"
+            MiniReglementForm.LabelMontantAPayer.Text = "Montant à Payer"
+            MiniReglementForm.Label3.Text = "Montant Versé"
+            MiniReglementForm.LabelSolde.Text = "Solde à payer"
+            MiniReglementForm.GunaButtonEnregistrerReglement.Text = "Encaisser"
+            MiniReglementForm.Label2.Text = "Situation Caisse"
+            MiniReglementForm.Label6.Text = "Référence"
+            MiniReglementForm.Label1.Text = "Mode de Règlement"
+
+            MiniReglementForm.LabelBanqueEmettrice.Text = "Banque Eméttrice"
+            MiniReglementForm.LabelNumCompte.Text = "Numéro de Compte"
+            MiniReglementForm.LabelEntreprise.Text = "Entreprise"
+            MiniReglementForm.LabelNumeroCompte.Text = "Compte Débiteur"
+            MiniReglementForm.LabelContact.Text = "Référence de Transaction"
+
+            MiniReglementForm.LabelRemarque.Text = "Remarque"
+            MiniReglementForm.GunaCheckBoxOffresEnChambre.Text = "En Chambre"
+            MiniReglementForm.Label10.Text = "Nom du Client"
+
+
 
         End If
 

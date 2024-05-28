@@ -492,6 +492,12 @@
     <Compile Include="MainWindowTechnique.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MiniReglementForm.Designer.vb">
+      <DependentUpon>MiniReglementForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MiniReglementForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MiniSageCompatibiliteForm.Designer.vb">
       <DependentUpon>MiniSageCompatibiliteForm.vb</DependentUpon>
     </Compile>
@@ -961,6 +967,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindowTechnique.resx">
       <DependentUpon>MainWindowTechnique.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MiniReglementForm.resx">
+      <DependentUpon>MiniReglementForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MiniSageCompatibiliteForm.resx">
       <DependentUpon>MiniSageCompatibiliteForm.vb</DependentUpon>

@@ -15680,9 +15680,9 @@ Partial Class MainWindow
         '
         'GunaPanel2
         '
+        Me.GunaPanel2.Controls.Add(Me.PanelEnregistrement)
         Me.GunaPanel2.Controls.Add(Me.PanelTableauDeBords)
         Me.GunaPanel2.Controls.Add(Me.PanelRapports)
-        Me.GunaPanel2.Controls.Add(Me.PanelEnregistrement)
         Me.GunaPanel2.Controls.Add(Me.GunaShadowPanelReception)
         Me.GunaPanel2.Controls.Add(Me.GunaShadowPanelReservation)
         Me.GunaPanel2.Controls.Add(Me.GunaPanelDisponibilite)

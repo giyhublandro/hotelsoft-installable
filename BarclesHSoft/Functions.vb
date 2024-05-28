@@ -1968,7 +1968,7 @@ Public Class Functions
     '--------------------------------------------------------------------
     'GET ELEMENT ON CONDITION BY DATE
 
-    Public Shared Function getElementByOnCodeAndDate(ByVal ETAT_MAIN_COURANTE As Integer, ByVal tableName As String, ByVal fieldName As String, ByVal conditionDate As Date, ByVal TYPE_RESA As String) As DataTable
+    Public Shared Function getElementByOnCodeAndDate(ByVal ETAT_MAIN_COURANTE As Integer, ByVal tableName As String, ByVal fieldName As String, ByVal conditionDate As Date, ByVal TYPE_RESA As String, Optional ByVal CODE_RESERVATION As String = "") As DataTable
 
         Dim table As New DataTable
 
@@ -1981,17 +1981,16 @@ Public Class Functions
         Dim getUserQuery As String = ""
 
         If TYPE_RESA = "main_courante_autres" Then
-
             getUserQuery = "Select * FROM " & tableName & " WHERE " & fieldName & " = @ETAT_MAIN_COURANTE And DATE_MAIN_COURANTE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_MAIN_COURANTE <='" & DateFin.ToString("yyyy-MM-dd") & "' AND ETAT_MAIN_COURANTE=@ETAT_MAIN_COURANTE"
-
         Else
-
+            getUserQuery = "Select * FROM " & tableName & " WHERE " & fieldName & " = @ETAT_MAIN_COURANTE And DATE_MAIN_COURANTE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_MAIN_COURANTE <='" & DateFin.ToString("yyyy-MM-dd") & "' AND ETAT_MAIN_COURANTE=@ETAT_MAIN_COURANTE AND NUM_RESERVATION=@CODE_RESERVATION"
         End If
 
         Dim Command As New MySqlCommand(getUserQuery, GlobalVariable.connect)
 
         'Command.Parameters.Add("@CODE", MySqlDbType.VarChar).Value = code
         Command.Parameters.Add("@ETAT_MAIN_COURANTE", MySqlDbType.Int64).Value = ETAT_MAIN_COURANTE
+        Command.Parameters.Add("@CODE_RESERVATION", MySqlDbType.VarChar).Value = CODE_RESERVATION
 
         adapter.SelectCommand = Command
         adapter.Fill(table)
@@ -5934,8 +5933,8 @@ Public Class Functions
 
         If reservationToPrint.Rows.Count > 0 Then
 
-            If Not Trim(GlobalVariable.ReservationToUpdate(0)("CODE_ENTREPRISE")) = "" Then
-                nomClient = GlobalVariable.ReservationToUpdate(0)("NOM_ENTREPRISE") & "(" & GlobalVariable.ReservationToUpdate(0)("NOM_CLIENT") & ")"
+            If Not Trim(reservationToPrint.Rows(0)("CODE_ENTREPRISE")) = "" Then
+                nomClient = reservationToPrint.Rows(0)("NOM_ENTREPRISE") & "(" & reservationToPrint.Rows(0)("NOM_CLIENT") & ")"
             ElseIf getElementByCode(client, "client", "CODE_CLIENT").Rows.Count > 0 Then
                 nomClient = getElementByCode(client, "client", "CODE_CLIENT").Rows(0)("NOM_PRENOM")
             End If
