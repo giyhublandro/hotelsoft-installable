@@ -984,6 +984,8 @@ Public Class GrandeCaisseForm
 
                                 Dim MainForm As New MainWindow()
 
+                                Dim insererDepense As Boolean = False
+
                                 If True Then
 
                                     Dim messageText As String = ""
@@ -995,6 +997,9 @@ Public Class GrandeCaisseForm
                                         Else
                                             messageText = "Fund successfully released !"
                                         End If
+
+                                        insererDepense = True
+
                                         '------------------------------- DEMANDE DE REAPPROVISIONNEMENT DE LA PETITE CAISSE -------------------------------------------------
 
                                         If GlobalVariable.decaissemtnAssocie = "remboursement petite caisse" Or GlobalVariable.decaissemtnAssocie = "petty cash reimbursement" Then
@@ -1054,6 +1059,23 @@ Public Class GrandeCaisseForm
 
                                         'ENCAISSEMENT NORMAL
                                         reglement.insertReglement(NUM_REGLEMENT, NUM_FACTURE, CODE_CAISSIER, MONTANT_VERSE, DATE_REGLEMENT, MODE_REGLEMENT, REF_REGLEMENT, CODE_MODE, IMPRIMER, CODE_AGENCE, CODE_RESERVATION, CODE_CLIENT, NUMERO_BLOC_NOTE, MODE_REG_INFO_SUP_1, MODE_REG_INFO_SUP_2, MODE_REG_INFO_SUP_3)
+
+                                        Dim depense As New Depense()
+
+                                        'GESTION DE LA CATEGORISATION DES DEPENSES
+
+                                        If insererDepense Then
+
+                                            Dim CODE_CATEGORY_DEPENSE As String = GunaTextBoxRefCompte.Text 'NUMERO COMPTE EXPLOITATION
+                                            Dim FAMILLE As String = GunaTextBoxiNTITUTLE.Text 'INTITULE COMPTE EXPLOITATION
+                                            Dim SOUS_FAMILLE As String = NUM_REGLEMENT 'CODE DEPENSE
+                                            Dim CODE As String = Functions.GeneratingRandomCodePanne("regroupement_depenses", "")
+                                            Dim LIBELLE As String = REF_REGLEMENT
+                                            Dim MONTANT As Double = MONTANT_VERSE * -1
+
+                                            depense.insertCategorieDepense(CODE_CATEGORY_DEPENSE, FAMILLE, SOUS_FAMILLE, CODE, LIBELLE, MONTANT, CODE_AGENCE)
+
+                                        End If
 
                                         Dim Cashier As New Caisse()
 
@@ -1469,14 +1491,16 @@ Public Class GrandeCaisseForm
             If Not Trim(GlobalVariable.decaissemtnAssocie) = "" Or Trim(GunaTextBoxReferenceRecette.Text) = "" Then
 
                 GlobalVariable.categorisationDeDepense = ""
-                Me.TopMost = False
-                GestionDesDepensesForm.Show()
-                GestionDesDepensesForm.TopMost = True
+                ' Me.TopMost = False
+                'GestionDesDepensesForm.Show()
+                'GestionDesDepensesForm.TopMost = True
+
+                GunaPanelGestionDePense.Visible = True
 
             End If
 
         Else
-
+            GunaPanelGestionDePense.Visible = False
         End If
 
         If GunaComboBoxNatureOperation.SelectedIndex >= 0 Then
@@ -2475,6 +2499,13 @@ Public Class GrandeCaisseForm
         TabControl1.SelectedIndex = 5
     End Sub
 
+    Private Sub GunaAdvenceButton9_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButton9.Click
+        GlobalVariable.typeDeCompte = "exploitation"
+        DepenseFamilyForm.Show()
+        DepenseFamilyForm.TopMost = True
+        DepenseFamilyForm.TabControl1.SelectedIndex = 2
+    End Sub
+
     Private Sub listeDesOperationsParNature(ByVal DateDebut As Date, ByVal DateFin As Date, ByVal ETAT_FACTURE As Integer)
 
         '------------------------------------------------------------------- FACTURES ---------------------------------------------------------------------------------------------
@@ -2740,6 +2771,60 @@ Public Class GrandeCaisseForm
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
 
         rafraichissementDelaFenetre()
+
+    End Sub
+
+    '-----------------------------------------
+
+    Private Sub GunaTextBoxCompte_TextChanged(sender As Object, e As EventArgs) Handles GunaTextBoxRefCompte.TextChanged
+
+        If Trim(GunaTextBoxRefCompte.Text) = "" Then
+
+            GunaTextBoxiNTITUTLE.Clear()
+            GunaDataGridViewPlanComptable.Columns.Clear()
+            GunaDataGridViewPlanComptable.Visible = False
+
+        Else
+
+            'REFRESHING information from database for instant visualisation 
+            Dim query As String = "SELECT COMPTE, INTITULE FROM compte_exploitation WHERE COMPTE LIKE '%" & Trim(GunaTextBoxRefCompte.Text) & "%' OR INTITULE LIKE '%" & Trim(GunaTextBoxRefCompte.Text) & "%' ORDER BY INTITULE ASC"
+            Dim command As New MySqlCommand(query, GlobalVariable.connect)
+
+            Dim adapter As New MySqlDataAdapter(command)
+            Dim table As New DataTable()
+            adapter.Fill(table)
+
+            If (table.Rows.Count > 0) Then
+                GunaDataGridViewPlanComptable.Visible = True
+                GunaDataGridViewPlanComptable.DataSource = table
+            Else
+                'GunaDataGridViewPlanComptable.Columns.Clear()
+                GunaDataGridViewPlanComptable.Visible = False
+            End If
+
+        End If
+
+    End Sub
+
+    Private Sub GunaDataGridViewPlanComptable_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles GunaDataGridViewPlanComptable.CellClick
+
+        If e.RowIndex >= 0 Then
+
+            Dim row As DataGridViewRow
+
+            row = Me.GunaDataGridViewPlanComptable.Rows(e.RowIndex)
+
+            GunaTextBoxRefCompte.Text = row.Cells("COMPTE").Value.ToString
+
+            Dim comptePlan As DataTable = Functions.getElementByCode(GunaTextBoxRefCompte.Text, "compte_exploitation", "COMPTE")
+
+            If comptePlan.Rows.Count > 0 Then
+                GunaTextBoxiNTITUTLE.Text = comptePlan.Rows(0)("INTITULE")
+            End If
+
+            GunaDataGridViewPlanComptable.Visible = False
+
+        End If
 
     End Sub
 

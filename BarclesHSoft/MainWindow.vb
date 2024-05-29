@@ -21964,6 +21964,7 @@ Public Class MainWindow
 
     'FAMILLE DEPENSE
     Private Sub FamilleDepenseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FamilleDepenseToolStripMenuItem.Click
+        GlobalVariable.typeDeCompte = "comptable"
         DepenseFamilyForm.Close()
         DepenseFamilyForm.Show()
         DepenseFamilyForm.TopMost = True
@@ -24453,6 +24454,16 @@ Public Class MainWindow
         Else
             RapportFacturesForm.GunaLabelGeneral.Text = "SALES VENTILATION FORM"
         End If
+
+    End Sub
+
+    Private Sub CompteDexploitationToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CompteDexploitationToolStripMenuItem.Click
+
+        GlobalVariable.typeDeCompte = "exploitation"
+
+        DepenseFamilyForm.Close()
+        DepenseFamilyForm.Show()
+        DepenseFamilyForm.TopMost = True
 
     End Sub
 

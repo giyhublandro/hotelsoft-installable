@@ -2850,6 +2850,7 @@ Public Class Functions
                 Dim pColumnEnlish As New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.ITALIC, BaseColor.BLUE)
                 Dim font1 As New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)
                 Dim fontTotal As New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+                Dim fontTotal1 As New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 9, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
                 Dim font2 As New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 11, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
                 Dim fontPolicyFrenchTitle As New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
                 Dim fontPolicyFrenchText As New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)
@@ -3224,7 +3225,6 @@ Public Class Functions
 
                 '---------------------------------------------------------- signature-------------------------+++++++++++--------------------------------------
 
-
                 pdfCell03 = New PdfPCell(New Paragraph(Chr(13) & "Signature du client /", pColumn))
                 pdfCell03.HorizontalAlignment = Element.ALIGN_LEFT
                 pdfCell03.Border = 0
@@ -3236,7 +3236,6 @@ Public Class Functions
                 pdfCell03.Border = 0
                 pdfCell03.Colspan = 2
                 pdfTable03.AddCell(pdfCell03)
-
 
                 Dim CODE_RESERVATION As String = Reservation.Rows(0)("CODE_RESERVATION")
                 Dim CHECKIN_PAR As String = ""
@@ -3283,7 +3282,12 @@ Public Class Functions
                 pdfCell03.Colspan = 2
                 pdfTable03.AddCell(pdfCell03)
 
-                pdfCell03 = New PdfPCell(New Paragraph("", pColumn))
+                If Reservation.Rows(0)("AFFICHER_PRIX") = 1 Then
+                    pdfCell03 = New PdfPCell(New Paragraph("Montant à payer / Nuits :  " & Format(Reservation.Rows(0)("MONTANT_ACCORDE") + MONTANT_TAXE_DE_SEJOUR, "#,##0").ToString & " " & societe.Rows(0)("CODE_MONNAIE"), fontTotal1))
+                Else
+                    pdfCell03 = New PdfPCell(New Paragraph("", pColumn))
+                End If
+
                 pdfCell03.HorizontalAlignment = Element.ALIGN_JUSTIFIED
                 pdfCell03.Border = 0
                 pdfCell03.Colspan = 2
@@ -3301,6 +3305,7 @@ Public Class Functions
                 pdfCell03.Border = 0
                 pdfCell03.Colspan = 2
                 pdfTable03.AddCell(pdfCell03)
+
 
                 pdfCell03 = New PdfPCell(New Paragraph(Chr(13) & Chr(13) & "NOUS VOUS SOUHAITONS UN AGRÉABLE SÉJOUR", pColumn))
                 pdfCell03.HorizontalAlignment = Element.ALIGN_CENTER
@@ -5862,6 +5867,26 @@ Public Class Functions
 
     End Function
 
+    Public Shared Function infoChambres(ByVal CHAMBRE As String)
+
+        Dim query As String = ""
+
+        query = "SELECT LIBELLE_TYPE_CHAMBRE, type_chambre.PRIX, CODE_CHAMBRE
+        FROM chambre, type_chambre WHERE chambre.CODE_TYPE_CHAMBRE = type_chambre.CODE_TYPE_CHAMBRE AND chambre.CODE_CHAMBRE =@CHAMBRE"
+
+        'On Affiche toute reservation dont la date d'entree figure entre les deux dates saisies
+
+        Dim command As New MySqlCommand(query, GlobalVariable.connect)
+        command.Parameters.Add("@CHAMBRE", MySqlDbType.VarChar).Value = CHAMBRE
+
+        Dim adapter As New MySqlDataAdapter(command)
+        Dim table As New DataTable()
+        adapter.Fill(table)
+
+        Return table
+
+    End Function
+
     Public Shared Sub DocumentToPrintComptoire(ByVal ElementToDuplicate As String, ByVal Table As String, ByVal ColumnTitle As String, ByVal client As String, ByVal dtligneFacture As DataGridView, Optional ByVal reservationNum As String = "", Optional ByVal reference_garantie As String = "", Optional ByVal DEPOT_DE_GARANTIE As Double = 0)
 
         Dim societe As DataTable = Functions.allTableFields("societe")
@@ -5957,18 +5982,46 @@ Public Class Functions
         sfd.FileName = titreFichier & nomClient & " " & (Date.Now().ToString("ddMMyyHHmmss"))
 
         If sfd.ShowDialog = 1 Then
-            'Dim pdfDoc As New Document(PageSize.A4, 40, 40, 80, 40)
-            Dim pdfDoc As New Document(PageSize.B7, 5, 5, 5, 5)
-            Dim pdfWrite As PdfWriter = PdfWriter.GetInstance(pdfDoc, New FileStream(sfd.FileName, FileMode.Create))
-            Dim pColumn As New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
-            Dim pColumn2 As New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 9, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
-            Dim pRow As New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
-            Dim fontTotal As New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
-            Dim font1 As New Font(iTextSharp.text.Font.FontFamily.COURIER, 8, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)
-            Dim title As New Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 13, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+
+            Dim pdfDoc As Document
+
+            Dim pdfWrite As PdfWriter
+
+            If GlobalVariable.AgenceActuelle.Rows(0)("PRINT_B7") = 1 Then
+                pdfDoc = New Document(PageSize.B7, 5, 5, 5, 5)
+                pdfWrite = PdfWriter.GetInstance(pdfDoc, New FileStream(sfd.FileName, FileMode.Create))
+            Else
+                pdfDoc = New Document(PageSize.A4, 40, 40, 80, 40)
+                pdfWrite = PdfWriter.GetInstance(pdfDoc, New FileStream(sfd.FileName, FileMode.Create))
+            End If
+
+            Dim pColumn As New Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 12, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+            Dim pColumn2 As New Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 13, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+            Dim pRow As New Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 12, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+            Dim fontTotal As New Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 12, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+            Dim font1 As New Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 12, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)
+            Dim title As New Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 16, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
 
             Dim pdfTable As New PdfPTable(3) 'Number of columns
-            pdfTable.TotalWidth = 240.0F
+
+            If GlobalVariable.AgenceActuelle.Rows(0)("PRINT_B7") = 1 Then
+
+                pColumn = New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+                pColumn2 = New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 9, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+                pRow = New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+                fontTotal = New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+                font1 = New Font(iTextSharp.text.Font.FontFamily.COURIER, 8, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)
+                title = New Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 13, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+
+            End If
+
+
+            If GlobalVariable.AgenceActuelle.Rows(0)("PRINT_B7") = 1 Then
+                pdfTable.TotalWidth = 240.0F
+            Else
+                pdfTable.TotalWidth = 540.0F
+            End If
+
             pdfTable.LockedWidth = True
             pdfTable.HorizontalAlignment = Element.ALIGN_RIGHT
             pdfTable.HeaderRows = 1
@@ -6003,7 +6056,9 @@ Public Class Functions
             pHeaderLogo.AddCell(pdfCell)
             pHeaderLogo.WriteSelectedRows(0, -1, 0, pdfDoc.GetTop(pdfDoc.TopMargin) + 125, pdfWrite.DirectContent)
 
-            pdfDoc.Add(pHeaderLogo)
+            If GlobalVariable.AgenceActuelle.Rows(0)("IMPRIMANTE_MATRICIELLE") = 0 Then
+                pdfDoc.Add(pHeaderLogo)
+            End If
 
             Dim pHeader As New PdfPTable(1)
             pHeader.TotalWidth = pdfDoc.PageSize.Width
@@ -6028,6 +6083,16 @@ Public Class Functions
             Dim termes_ As String = ""
 
             Dim clientInformation As DataTable
+            Dim LIBELLE_TYPE_CHAMBRE As String = ""
+
+            Dim infoResa As DataTable = Functions.getElementByCode(reservationNum, "reserve_conf", "CODE_RESERVATION")
+            If Not infoResa.Rows.Count > 0 Then
+                infoResa = Functions.getElementByCode(reservationNum, "reservation", "CODE_RESERVATION")
+            End If
+
+            If infoResa.Rows.Count > 0 Then
+                LIBELLE_TYPE_CHAMBRE = infoChambres(infoResa.Rows(0)("CHAMBRE_ID")).Rows(0)("LIBELLE_TYPE_CHAMBRE")
+            End If
 
             If Not Trim(reference_garantie).Equals("") Then
 
@@ -6043,12 +6108,12 @@ Public Class Functions
                     If Not infoSupReservation.Rows.Count > 0 Then
                         infoSupReservation = Functions.getElementByCode(CODE_RESERVATION, "reservation", "CODE_RESERVATION")
                         If infoSupReservation.Rows.Count > 0 Then
-                            termes = Chr(13) & "CLIENT : " & infoSupReservation.Rows(0)("NOM_CLIENT") & Chr(13) & "CHAMBRE : " & infoSupReservation.Rows(0)("CHAMBRE_ID") & Chr(13) & Chr(13)
+                            termes = Chr(13) & "CLIENT : " & infoSupReservation.Rows(0)("NOM_CLIENT") & Chr(13) & "TYPE DE CHAMBRE : " & LIBELLE_TYPE_CHAMBRE & Chr(13) & "CHAMBRE : " & infoSupReservation.Rows(0)("CHAMBRE_ID") & Chr(13) & Chr(13)
                         Else
                             termes = "CLIENT : " & client & Chr(13) & Chr(13)
                         End If
                     Else
-                        termes = Chr(13) & "CLIENT : " & infoSupReservation.Rows(0)("NOM_CLIENT") & Chr(13) & "CHAMBRE : " & infoSupReservation.Rows(0)("CHAMBRE_ID") & Chr(13) & Chr(13)
+                        termes = Chr(13) & "CLIENT : " & infoSupReservation.Rows(0)("NOM_CLIENT") & Chr(13) & "TYPE DE CHAMBRE : " & LIBELLE_TYPE_CHAMBRE & Chr(13) & "CHAMBRE : " & infoSupReservation.Rows(0)("CHAMBRE_ID") & Chr(13) & Chr(13)
                     End If
                 End If
 
@@ -6067,12 +6132,12 @@ Public Class Functions
                     If GlobalVariable.actualLanguageValue = 1 Then
 
                         If infoSupReservation.Rows.Count > 0 Then
-                            termes = Chr(13) & "CLIENT : " & infoSupReservation.Rows(0)("NOM_CLIENT") & Chr(13) & "CHAMBRE : " & infoSupReservation.Rows(0)("CHAMBRE_ID") & Chr(13) & Chr(13)
+                            termes = Chr(13) & "CLIENT : " & infoSupReservation.Rows(0)("NOM_CLIENT") & Chr(13) & "TYPE DE CHAMBRE : " & LIBELLE_TYPE_CHAMBRE & Chr(13) & "CHAMBRE : " & infoSupReservation.Rows(0)("CHAMBRE_ID") & Chr(13) & Chr(13)
                         Else
                             infoSupReservation = Functions.getElementByCode(reservationNum, "reservation", "CODE_RESERVATION")
 
                             If infoSupReservation.Rows.Count > 0 Then
-                                termes = Chr(13) & "CLIENT : " & infoSupReservation.Rows(0)("NOM_CLIENT") & Chr(13) & "CHAMBRE : " & infoSupReservation.Rows(0)("CHAMBRE_ID") & Chr(13) & Chr(13)
+                                termes = Chr(13) & "CLIENT : " & infoSupReservation.Rows(0)("NOM_CLIENT") & Chr(13) & "TYPE DE CHAMBRE : " & LIBELLE_TYPE_CHAMBRE & Chr(13) & "CHAMBRE : " & infoSupReservation.Rows(0)("CHAMBRE_ID") & Chr(13) & Chr(13)
                             End If
 
                         End If
@@ -6080,12 +6145,12 @@ Public Class Functions
                     Else
 
                         If infoSupReservation.Rows.Count > 0 Then
-                            termes = Chr(13) & "CLIENT : " & infoSupReservation.Rows(0)("NOM_CLIENT") & Chr(13) & "ROOM : " & infoSupReservation.Rows(0)("CHAMBRE_ID") & Chr(13) & Chr(13)
+                            termes = Chr(13) & "CLIENT : " & infoSupReservation.Rows(0)("NOM_CLIENT") & Chr(13) & "ROOM TYPE : " & LIBELLE_TYPE_CHAMBRE & Chr(13) & "ROOM : " & infoSupReservation.Rows(0)("CHAMBRE_ID") & Chr(13) & Chr(13)
                         Else
                             infoSupReservation = Functions.getElementByCode(reservationNum, "reservation", "CODE_RESERVATION")
 
                             If infoSupReservation.Rows.Count > 0 Then
-                                termes = Chr(13) & "CLIENT : " & infoSupReservation.Rows(0)("NOM_CLIENT") & Chr(13) & "ROOM : " & infoSupReservation.Rows(0)("CHAMBRE_ID") & Chr(13) & Chr(13)
+                                termes = Chr(13) & "CLIENT : " & infoSupReservation.Rows(0)("NOM_CLIENT") & Chr(13) & "ROOM TYPE : " & LIBELLE_TYPE_CHAMBRE & Chr(13) & "ROOM : " & infoSupReservation.Rows(0)("CHAMBRE_ID") & Chr(13) & Chr(13)
                             End If
 
                         End If
@@ -6194,9 +6259,20 @@ Public Class Functions
                         If GlobalVariable.actualLanguageValue = 1 Then
                             chiffreEnLettre = New Paragraph(Chr(13) & Chr(13) & "Reçu la somme de : " & NBLT(TotalFacture) & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE"), pRow)
                         Else
-                            chiffreEnLettre = New Paragraph(Chr(13) & Chr(13) & "Received an amount of : " & NBLT(TotalFacture) & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE"), pRow)
+                            chiffreEnLettre = New Paragraph(Chr(13) & Chr(13) & "Received an amount of xx : " & NBLT(TotalFacture) & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE"), pRow)
                         End If
                         pdfDoc.Add(chiffreEnLettre)
+
+                        ' Then
+                        If GlobalVariable.AgenceActuelle.Rows(0)("PRINT_B7") = 0 Then
+
+                            Dim signature As String = Chr(13) & "           SIGNATURE CLIENT                                                             HOTEL "
+                            If GlobalVariable.actualLanguageValue = 0 Then
+                                signature = Chr(13) & "               CLEINT'S SIGNATURE                                                                 HOTEL "
+                            End If
+                            pdfDoc.Add(New Paragraph(signature, pRow))
+
+                        End If
 
                     End If
 
@@ -6268,8 +6344,8 @@ Public Class Functions
                     End If
                     pdfDoc.Add(chiffreEnLettre)
 
-                    Dim signature As String = "                                                               Signature client"
-                    If GlobalVariable.actualLanguageValue = 1 Then
+                    Dim signature As String = "                                                          Signature client"
+                    If GlobalVariable.actualLanguageValue = 0 Then
                         signature = "                                                               Signature Client"
                     Else
                         signature = "                                                               Client's Signature"

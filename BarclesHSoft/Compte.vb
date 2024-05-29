@@ -275,14 +275,19 @@ Public Class Compte
 
     End Function
 
-    Public Function insertPlanComptable(ByVal INTITULE As String, ByVal NUMERO_COMPTE As String) As Boolean
+    Public Function insertPlanComptable(ByVal INTITULE As String, ByVal NUMERO_COMPTE As String, Optional ByVal COMPTE_PARENT As Integer = 0) As Boolean
 
         Dim insertQuery As String = "INSERT INTO `plan_comptable`(`INTITULE`, `COMPTE`) VALUES (@value2,@value3)"
+
+        If GlobalVariable.typeDeCompte = "exploitation" Then
+            insertQuery = "INSERT INTO `compte_exploitation`(`INTITULE`, `COMPTE`, COMPTE_PARENT) VALUES (@value2,@value3,@COMPTE_PARENT)"
+        End If
 
         Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
 
         command.Parameters.Add("@value2", MySqlDbType.String).Value = INTITULE
         command.Parameters.Add("@value3", MySqlDbType.String).Value = NUMERO_COMPTE
+        command.Parameters.Add("@COMPTE_PARENT", MySqlDbType.String).Value = COMPTE_PARENT
 
         If (command.ExecuteNonQuery() = 1) Then
             'connect.closeConnection()

@@ -3,6 +3,8 @@ Imports MySql.Data.MySqlClient
 
 Public Class GlobalVariable
 
+    Public Shared typeDeCompte As String = ""
+
     Public Shared libre_propre As String = ""
     Public Shared occupee_propre As String = ""
     Public Shared libre_sale As String = ""
