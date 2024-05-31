@@ -7210,7 +7210,13 @@ Public Class MainWindowEconomat
 
             GunaButtonEnregistrer.Enabled = True
             edit = False
-            GunaButtonAjouterLigne.Text = "Modifier"
+
+            If GlobalVariable.actualLanguageValue = 1 Then
+                GunaButtonAjouterLigne.Text = "Modifier"
+            Else
+                GunaButtonAjouterLigne.Text = "Update"
+            End If
+
             GunaButtonAjouterLigne.Visible = True
 
             GunaTextBoxQuantite.Text = 1

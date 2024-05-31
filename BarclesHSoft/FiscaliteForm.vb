@@ -354,7 +354,7 @@ Public Class FiscaliteForm
         Dim arrivee As Date
         Dim depart As Date
 
-        If (table.Rows.Count > 0) Then
+        If table.Rows.Count > 0 Then
 
             GunaDataGridViewReservationList.DataSource = table
 
@@ -390,6 +390,7 @@ Public Class FiscaliteForm
 
             Next
 
+            'PAR APPORT AUX FACTURES DES CLIENTS
             CA = CA_AUTRES + CA_CORPORATE
             GunaTextBoxCA.Text = Format(CA, "#,##0")
             GunaTextBoxAutres.Text = Format(CA_AUTRES, "#,##0")
@@ -397,10 +398,6 @@ Public Class FiscaliteForm
 
         Else
 
-            CA = CA_AUTRES + CA_CORPORATE
-            GunaTextBoxCA.Text = Format(CA, "#,##0")
-            GunaTextBoxAutres.Text = Format(CA_AUTRES, "#,##0")
-            GunaTextBoxCorporate.Text = Format(CA_CORPORATE, "#,##0")
 
             If False Then 'table1.Rows.Count > 0
 
@@ -443,6 +440,11 @@ Public Class FiscaliteForm
                 GunaDataGridViewReservationList.Columns.Clear()
             End If
 
+            CA = CA_AUTRES + CA_CORPORATE
+            GunaTextBoxCA.Text = Format(CA, "#,##0")
+            GunaTextBoxAutres.Text = Format(CA_AUTRES, "#,##0")
+            GunaTextBoxCorporate.Text = Format(CA_CORPORATE, "#,##0")
+
         End If
 
     End Sub
@@ -472,10 +474,9 @@ Public Class FiscaliteForm
 
     Private Sub affichageFiscalite(ByVal date_debut As Date, ByVal date_fin As Date)
 
-        Dim query As String = "SELECT `ID_FISCALITE`, `DU`, `AU`, `CA_CORPORATE` AS 'CA CORPORATE', `CA_AUTRES` AS 'CA AUTRES',  `CA` AS TOTAL, `TAUX`, `NBRE_CORPORATE` AS '# CORPORATE',
-        `NBRE_AUTRES` AS '# AUTRES', `NBRE_TOTAL` AS '# TOTAL', `DATE_CREATION`
-        FROM `fiscalite`"
-        ' WHERE DU <= '" & date_debut.ToString("yyyy-MM-dd") & "' AND AU >='" & date_fin.ToString("yyyy-MM-dd") & "'
+        Dim query As String = "SELECT `ID_FISCALITE`, `DU`, `AU`, `CA_CORPORATE` AS 'CA CORPORATE', `CA_AUTRES` AS 'CA AUTRES',  `CA` AS TOTAL, `TAUX`,
+        `NBRE_CORPORATE` AS '# CORPORATE', `NBRE_AUTRES` AS '# AUTRES', `NBRE_TOTAL` AS '# TOTAL', `DATE_CREATION`
+        FROM `fiscalite` WHERE DU <= '" & date_debut.ToString("yyyy-MM-dd") & "' AND AU >='" & date_fin.ToString("yyyy-MM-dd") & "'"
         Dim command As New MySqlCommand(query, GlobalVariable.connect)
         'command.Parameters.Add("@TYPE", MySqlDbType.VarChar).Value = "chambre"
         'command.Parameters.Add("@FSC", MySqlDbType.Int32).Value = 1
