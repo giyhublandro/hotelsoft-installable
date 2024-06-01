@@ -195,7 +195,7 @@ Public Class RapportFacturesForm
 
         Dim DateDebut As Date = GunaDateTimePickerDebut.Value.ToShortDateString
         Dim DateFin As Date = GunaDateTimePickerFin.Value.ToShortDateString
-        Dim DATE_CONTROL As Date = DateDebut
+        Dim DATE_CONTROL As Date = CDate(DateDebut).ToShortDateString
 
         DataGridViewRapports.Columns.Clear()
 
