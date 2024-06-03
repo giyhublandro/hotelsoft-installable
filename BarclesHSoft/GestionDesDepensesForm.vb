@@ -136,7 +136,7 @@ Public Class GestionDesDepensesForm
                             LIBELLE = GunaDataGridViewCategorie.Rows(i).Cells("LIBELLE").Value.ToString
                             MONTANT = GunaDataGridViewCategorie.Rows(i).Cells("MONTANT").Value
 
-                            depense.insertCategorieDepense(CODE_CATEGORY_DEPENSE, FAMILLE, SOUS_FAMILLE, CODE, LIBELLE, MONTANT, CODE_AGENCE)
+                            depense.insertCategorieDepense(CODE_CATEGORY_DEPENSE, FAMILLE, SOUS_FAMILLE, CODE, LIBELLE, MONTANT, CODE_AGENCE, GlobalVariable.DateDeTravail)
 
                         End If
 
@@ -167,7 +167,7 @@ Public Class GestionDesDepensesForm
                         LIBELLE = GunaDataGridViewCategorie.Rows(i).Cells("LIBELLE").Value.ToString
                         MONTANT = GunaDataGridViewCategorie.Rows(i).Cells("MONTANT").Value
 
-                        depense.insertCategorieDepense(CODE_CATEGORY_DEPENSE, FAMILLE, SOUS_FAMILLE, CODE, LIBELLE, MONTANT, CODE_AGENCE)
+                        depense.insertCategorieDepense(CODE_CATEGORY_DEPENSE, FAMILLE, SOUS_FAMILLE, CODE, LIBELLE, MONTANT, CODE_AGENCE, GlobalVariable.DateDeTravail)
 
                     End If
 

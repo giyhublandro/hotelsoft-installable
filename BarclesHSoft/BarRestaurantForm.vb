@@ -8778,6 +8778,7 @@ Public Class BarRestaurantForm
         GlobalVariable.DocumentToGenerate = "FICHE D'INVENTAIRE JOURNALIERE BAR"
         RapportFacturesForm.Show()
         RapportFacturesForm.TopMost = True
+        RapportFacturesForm.GunaDateTimePickerDebut.MaxDate = GlobalVariable.DateDeTravail.AddDays(-1)
 
     End Sub
 

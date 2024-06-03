@@ -243,7 +243,11 @@ Partial Class GrandeCaisseForm
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.GunaPanelGestionDePense = New Guna.UI.WinForms.GunaPanel()
         Me.GunaTextBoxiNTITUTLE = New Guna.UI.WinForms.GunaTextBox()
+        Me.GunaTextBoxMoisDernier = New Guna.UI.WinForms.GunaTextBox()
+        Me.GunaTextBoxMoisEncours = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaTextBoxRefCompte = New Guna.UI.WinForms.GunaTextBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label21 = New System.Windows.Forms.Label()
         Me.GunaDataGridViewPlanComptable = New Guna.UI.WinForms.GunaDataGridView()
         Me.GunaAdvenceButton9 = New Guna.UI.WinForms.GunaAdvenceButton()
         Me.GunaPanel1.SuspendLayout()
@@ -489,7 +493,7 @@ Partial Class GrandeCaisseForm
         Me.GunaTextBoxAPayer.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxAPayer.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaTextBoxAPayer.ForeColor = System.Drawing.Color.White
-        Me.GunaTextBoxAPayer.Location = New System.Drawing.Point(1254, 487)
+        Me.GunaTextBoxAPayer.Location = New System.Drawing.Point(1252, 475)
         Me.GunaTextBoxAPayer.Name = "GunaTextBoxAPayer"
         Me.GunaTextBoxAPayer.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxAPayer.Radius = 5
@@ -502,7 +506,7 @@ Partial Class GrandeCaisseForm
         '
         Me.LabelMontantAPayer.AutoSize = True
         Me.LabelMontantAPayer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelMontantAPayer.Location = New System.Drawing.Point(1123, 494)
+        Me.LabelMontantAPayer.Location = New System.Drawing.Point(1121, 482)
         Me.LabelMontantAPayer.Name = "LabelMontantAPayer"
         Me.LabelMontantAPayer.Size = New System.Drawing.Size(120, 16)
         Me.LabelMontantAPayer.TabIndex = 70
@@ -631,7 +635,7 @@ Partial Class GrandeCaisseForm
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(1136, 532)
+        Me.Label3.Location = New System.Drawing.Point(1134, 520)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(107, 16)
         Me.Label3.TabIndex = 70
@@ -649,7 +653,7 @@ Partial Class GrandeCaisseForm
         Me.GunaTextBoxMontantVerse.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxMontantVerse.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxMontantVerse.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxMontantVerse.Location = New System.Drawing.Point(1254, 524)
+        Me.GunaTextBoxMontantVerse.Location = New System.Drawing.Point(1252, 512)
         Me.GunaTextBoxMontantVerse.Name = "GunaTextBoxMontantVerse"
         Me.GunaTextBoxMontantVerse.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxMontantVerse.Radius = 5
@@ -663,7 +667,7 @@ Partial Class GrandeCaisseForm
         '
         Me.LabelSolde.AutoSize = True
         Me.LabelSolde.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelSolde.Location = New System.Drawing.Point(1134, 568)
+        Me.LabelSolde.Location = New System.Drawing.Point(1132, 556)
         Me.LabelSolde.Name = "LabelSolde"
         Me.LabelSolde.Size = New System.Drawing.Size(106, 16)
         Me.LabelSolde.TabIndex = 70
@@ -682,7 +686,7 @@ Partial Class GrandeCaisseForm
         Me.GunaTextBoxSolde.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxSolde.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaTextBoxSolde.ForeColor = System.Drawing.Color.White
-        Me.GunaTextBoxSolde.Location = New System.Drawing.Point(1254, 561)
+        Me.GunaTextBoxSolde.Location = New System.Drawing.Point(1252, 549)
         Me.GunaTextBoxSolde.Name = "GunaTextBoxSolde"
         Me.GunaTextBoxSolde.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxSolde.Radius = 5
@@ -2299,13 +2303,13 @@ Partial Class GrandeCaisseForm
         Me.GunaTextBoxMontantEnChiffre.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxMontantEnChiffre.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxMontantEnChiffre.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxMontantEnChiffre.Location = New System.Drawing.Point(625, 656)
+        Me.GunaTextBoxMontantEnChiffre.Location = New System.Drawing.Point(625, 661)
         Me.GunaTextBoxMontantEnChiffre.Multiline = True
         Me.GunaTextBoxMontantEnChiffre.Name = "GunaTextBoxMontantEnChiffre"
         Me.GunaTextBoxMontantEnChiffre.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxMontantEnChiffre.Radius = 5
         Me.GunaTextBoxMontantEnChiffre.SelectedText = ""
-        Me.GunaTextBoxMontantEnChiffre.Size = New System.Drawing.Size(434, 49)
+        Me.GunaTextBoxMontantEnChiffre.Size = New System.Drawing.Size(434, 44)
         Me.GunaTextBoxMontantEnChiffre.TabIndex = 94
         '
         'LabelMontantEnLettre
@@ -3375,10 +3379,14 @@ Partial Class GrandeCaisseForm
         'GunaPanelGestionDePense
         '
         Me.GunaPanelGestionDePense.Controls.Add(Me.GunaTextBoxiNTITUTLE)
+        Me.GunaPanelGestionDePense.Controls.Add(Me.GunaTextBoxMoisDernier)
+        Me.GunaPanelGestionDePense.Controls.Add(Me.GunaTextBoxMoisEncours)
         Me.GunaPanelGestionDePense.Controls.Add(Me.GunaTextBoxRefCompte)
-        Me.GunaPanelGestionDePense.Location = New System.Drawing.Point(898, 597)
+        Me.GunaPanelGestionDePense.Controls.Add(Me.Label22)
+        Me.GunaPanelGestionDePense.Controls.Add(Me.Label21)
+        Me.GunaPanelGestionDePense.Location = New System.Drawing.Point(895, 585)
         Me.GunaPanelGestionDePense.Name = "GunaPanelGestionDePense"
-        Me.GunaPanelGestionDePense.Size = New System.Drawing.Size(443, 56)
+        Me.GunaPanelGestionDePense.Size = New System.Drawing.Size(443, 71)
         Me.GunaPanelGestionDePense.TabIndex = 300
         '
         'GunaTextBoxiNTITUTLE
@@ -3393,13 +3401,53 @@ Partial Class GrandeCaisseForm
         Me.GunaTextBoxiNTITUTLE.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxiNTITUTLE.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxiNTITUTLE.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxiNTITUTLE.Location = New System.Drawing.Point(147, 5)
+        Me.GunaTextBoxiNTITUTLE.Location = New System.Drawing.Point(153, 5)
         Me.GunaTextBoxiNTITUTLE.Name = "GunaTextBoxiNTITUTLE"
         Me.GunaTextBoxiNTITUTLE.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxiNTITUTLE.Radius = 5
         Me.GunaTextBoxiNTITUTLE.SelectedText = ""
-        Me.GunaTextBoxiNTITUTLE.Size = New System.Drawing.Size(287, 30)
+        Me.GunaTextBoxiNTITUTLE.Size = New System.Drawing.Size(281, 30)
         Me.GunaTextBoxiNTITUTLE.TabIndex = 145
+        '
+        'GunaTextBoxMoisDernier
+        '
+        Me.GunaTextBoxMoisDernier.BackColor = System.Drawing.Color.Transparent
+        Me.GunaTextBoxMoisDernier.BaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxMoisDernier.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaTextBoxMoisDernier.BorderSize = 1
+        Me.GunaTextBoxMoisDernier.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.GunaTextBoxMoisDernier.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBoxMoisDernier.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxMoisDernier.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBoxMoisDernier.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBoxMoisDernier.Font = New System.Drawing.Font("Segoe UI Semibold", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaTextBoxMoisDernier.Location = New System.Drawing.Point(312, 41)
+        Me.GunaTextBoxMoisDernier.Name = "GunaTextBoxMoisDernier"
+        Me.GunaTextBoxMoisDernier.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBoxMoisDernier.Radius = 5
+        Me.GunaTextBoxMoisDernier.SelectedText = ""
+        Me.GunaTextBoxMoisDernier.Size = New System.Drawing.Size(122, 25)
+        Me.GunaTextBoxMoisDernier.TabIndex = 144
+        '
+        'GunaTextBoxMoisEncours
+        '
+        Me.GunaTextBoxMoisEncours.BackColor = System.Drawing.Color.Transparent
+        Me.GunaTextBoxMoisEncours.BaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxMoisEncours.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaTextBoxMoisEncours.BorderSize = 1
+        Me.GunaTextBoxMoisEncours.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.GunaTextBoxMoisEncours.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBoxMoisEncours.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxMoisEncours.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBoxMoisEncours.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBoxMoisEncours.Font = New System.Drawing.Font("Segoe UI Semibold", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaTextBoxMoisEncours.Location = New System.Drawing.Point(98, 41)
+        Me.GunaTextBoxMoisEncours.Name = "GunaTextBoxMoisEncours"
+        Me.GunaTextBoxMoisEncours.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBoxMoisEncours.Radius = 5
+        Me.GunaTextBoxMoisEncours.SelectedText = ""
+        Me.GunaTextBoxMoisEncours.Size = New System.Drawing.Size(121, 25)
+        Me.GunaTextBoxMoisEncours.TabIndex = 144
         '
         'GunaTextBoxRefCompte
         '
@@ -3420,6 +3468,26 @@ Partial Class GrandeCaisseForm
         Me.GunaTextBoxRefCompte.SelectedText = ""
         Me.GunaTextBoxRefCompte.Size = New System.Drawing.Size(131, 30)
         Me.GunaTextBoxRefCompte.TabIndex = 144
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label22.Location = New System.Drawing.Point(228, 46)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(76, 15)
+        Me.Label22.TabIndex = 70
+        Me.Label22.Text = "Mois dernier"
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label21.Location = New System.Drawing.Point(7, 46)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(82, 15)
+        Me.Label21.TabIndex = 70
+        Me.Label21.Text = "Mois Encours"
         '
         'GunaDataGridViewPlanComptable
         '
@@ -3456,14 +3524,14 @@ Partial Class GrandeCaisseForm
         Me.GunaDataGridViewPlanComptable.DefaultCellStyle = DataGridViewCellStyle3
         Me.GunaDataGridViewPlanComptable.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewPlanComptable.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewPlanComptable.Location = New System.Drawing.Point(908, 690)
+        Me.GunaDataGridViewPlanComptable.Location = New System.Drawing.Point(908, 624)
         Me.GunaDataGridViewPlanComptable.MultiSelect = False
         Me.GunaDataGridViewPlanComptable.Name = "GunaDataGridViewPlanComptable"
         Me.GunaDataGridViewPlanComptable.ReadOnly = True
         Me.GunaDataGridViewPlanComptable.RowHeadersVisible = False
         Me.GunaDataGridViewPlanComptable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.GunaDataGridViewPlanComptable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewPlanComptable.Size = New System.Drawing.Size(426, 190)
+        Me.GunaDataGridViewPlanComptable.Size = New System.Drawing.Size(426, 254)
         Me.GunaDataGridViewPlanComptable.TabIndex = 145
         Me.GunaDataGridViewPlanComptable.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
         Me.GunaDataGridViewPlanComptable.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
@@ -3638,6 +3706,7 @@ Partial Class GrandeCaisseForm
         Me.TabPage7.PerformLayout()
         CType(Me.GunaDataGridViewJournalBancaire, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GunaPanelGestionDePense.ResumeLayout(False)
+        Me.GunaPanelGestionDePense.PerformLayout()
         CType(Me.GunaDataGridViewPlanComptable, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -3828,4 +3897,8 @@ Partial Class GrandeCaisseForm
     Friend WithEvents GunaTextBoxRefCompte As Guna.UI.WinForms.GunaTextBox
     Friend WithEvents GunaTextBoxiNTITUTLE As Guna.UI.WinForms.GunaTextBox
     Friend WithEvents GunaAdvenceButton9 As Guna.UI.WinForms.GunaAdvenceButton
+    Friend WithEvents GunaTextBoxMoisDernier As Guna.UI.WinForms.GunaTextBox
+    Friend WithEvents GunaTextBoxMoisEncours As Guna.UI.WinForms.GunaTextBox
+    Friend WithEvents Label22 As Label
+    Friend WithEvents Label21 As Label
 End Class

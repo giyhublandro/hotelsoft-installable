@@ -169,7 +169,6 @@
 
     End Sub
 
-
     Public Sub autoLoadModeReglementMini(ByVal ActualLanguageValue As Integer)
 
         MiniReglementForm.GunaComboBoxModereglement.Items.Clear()
@@ -1072,6 +1071,8 @@
             BarRestaurantForm.ImprimerToolStripMenuItem1.Text = "Print"
             BarRestaurantForm.ImprimerToolStripMenuItem.Text = "Print"
             BarRestaurantForm.ToolStripMenuItem1.Text = "Print"
+            BarRestaurantForm.GunaButtonRapportDesVentes.Text = "DAILY SALES HISTORY"
+            BarRestaurantForm.GunaButton13.Text = "PERIODIC SALES HISTORY"
 
         ElseIf ActualLanguageValue = 1 Then
 
@@ -4081,6 +4082,21 @@
             FournisseurForm.GunaLabelGestCompteGeneraux.Text = "SUPPLIERS"
             FournisseurForm.TabControl1.TabPages(1).Text = "List"
 
+        End If
+
+    End Sub
+
+
+    Public Sub depenseFamily(ByVal actualLanguageValue As Integer)
+
+        DepenseFamilyForm.GunaComboBoxModeReglement.Items.Clear()
+
+        If GlobalVariable.actualLanguageValue = 0 Then
+            DepenseFamilyForm.GunaButton6.Text = "View"
+            DepenseFamilyForm.GunaComboBoxModeReglement.Items.Add("Cash") '0
+        Else
+            DepenseFamilyForm.GunaButton6.Text = "Afficher"
+            DepenseFamilyForm.GunaComboBoxModeReglement.Items.Add("Cash") '0
         End If
 
     End Sub

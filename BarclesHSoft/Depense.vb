@@ -79,11 +79,13 @@ Public Class Depense
 
     End Function
 
-    Public Function insertCategorieDepense(ByVal CODE_CATEGORY_DEPENSE As String, ByVal FAMILLE As String, ByVal SOUS_FAMILLE As String, ByVal CODE As String, ByVal LIBELLE As String, ByVal MONTANT As Double, ByVal CODE_AGENCE As String) As Boolean
+    Public Function insertCategorieDepense(ByVal CODE_CATEGORY_DEPENSE As String, ByVal FAMILLE As String, ByVal SOUS_FAMILLE As String, ByVal CODE As String,
+                                           ByVal LIBELLE As String, ByVal MONTANT As Double, ByVal CODE_AGENCE As String, ByVal DATE_DEPENSE As Date) As Boolean
 
         Dim insertQuery As String = ""
 
-        insertQuery = "INSERT INTO `regroupement_depenses`(`CODE_CATEGORY_DEPENSE`, `FAMILLE`, `SOUS_FAMILLE`, `CODE`, `LIBELLE`, `MONTANT`,`CODE_AGENCE`) VALUES (@value1,@value2,@value3,@value4,@value5,@value6,@value7)"
+        insertQuery = "INSERT INTO `regroupement_depenses`(`CODE_CATEGORY_DEPENSE`, `FAMILLE`, `SOUS_FAMILLE`, `CODE`, `LIBELLE`, `MONTANT`,`CODE_AGENCE`, DATE_DEPENSE)
+        VALUES (@value1,@value2,@value3,@value4,@value5,@value6,@value7, @DATE_DEPENSE)"
 
         Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
 
@@ -94,16 +96,11 @@ Public Class Depense
         command.Parameters.Add("@value5", MySqlDbType.VarChar).Value = LIBELLE
         command.Parameters.Add("@value6", MySqlDbType.Double).Value = MONTANT
         command.Parameters.Add("@value7", MySqlDbType.VarChar).Value = CODE_AGENCE
+        command.Parameters.Add("@DATE_DEPENSE", MySqlDbType.Date).Value = DATE_DEPENSE
 
-        'Opening the connection
-        'connect.openConnection()
-
-        'Excuting the command and testing if everything went on well
-        If (command.ExecuteNonQuery() = 1) Then
-            'connect.closeConnection()
+        If command.ExecuteNonQuery() = 1 Then
             Return True
         Else
-            'connect.closeConnection()
             Return False
         End If
 

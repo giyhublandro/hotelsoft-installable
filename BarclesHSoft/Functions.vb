@@ -5887,7 +5887,545 @@ Public Class Functions
 
     End Function
 
+
     Public Shared Sub DocumentToPrintComptoire(ByVal ElementToDuplicate As String, ByVal Table As String, ByVal ColumnTitle As String, ByVal client As String, ByVal dtligneFacture As DataGridView, Optional ByVal reservationNum As String = "", Optional ByVal reference_garantie As String = "", Optional ByVal DEPOT_DE_GARANTIE As Double = 0)
+
+        Dim societe As DataTable = Functions.allTableFields("societe")
+        Dim TotalFacture As Double = 0
+        'Dim totalNormal As Double = 0
+        Dim totalTVA As Double = 0
+        Dim TAxeSejour As Double = 0
+        Dim SoldeNet As Double = 0
+        Dim TotalVersement As Double = 0
+
+        Dim dt As DataTable
+        Dim dtReg As DataTable
+
+        Dim tireDocument As String = ""
+        Dim titreFichier As String = ""
+
+        If GlobalVariable.DocumentToGenerate = "facture" Then
+
+            tireDocument = "FACTURE N°: "
+            titreFichier = "FACTURE DE "
+            dt = GetAllElementsOnCondition(ElementToDuplicate, "ligne_facture", "CODE_FACTURE")
+
+            dtReg = GetAllElementsOnCondition(ElementToDuplicate, "reglement", "NUM_FACTURE")
+
+            For i = 0 To dt.Rows.Count - 1
+
+                If (Not dt.Rows(i)("LIBELLE_FACTURE") = "Taxe de sejour") Or (Not dt.Rows(i)("LIBELLE_FACTURE") = "Tourist tax") Then
+                    TotalFacture += Functions.prelevementDeTaxeSurUnMontant(dt.Rows(i)("MONTANT_TTC")) 'calcul de la somme apres prelevement de la taxe
+                    totalTVA += Functions.prelevementDeTaxeSurUnMontantPOurCalcul(dt.Rows(i)("MONTANT_TTC")) 'calcul de la somme des taxes prelevees
+                Else
+                    TAxeSejour += Functions.NonprelevementDeTaxeSurUnMontant(dt.Rows(i)("MONTANT_TTC"))
+                End If
+
+            Next
+
+            If dtReg.Rows.Count > 0 Then
+
+                For i = 0 To dtReg.Rows.Count - 1
+                    TotalVersement += Functions.NonprelevementDeTaxeSurUnMontant(dtReg.Rows(i)("MONTANT_VERSE"))
+                Next
+
+            End If
+
+        ElseIf GlobalVariable.DocumentToGenerate = "reglement" Then
+
+            If GlobalVariable.actualLanguageValue = 1 Then
+                tireDocument = "RECU N° : "
+                titreFichier = "RECU DE "
+            Else
+                tireDocument = "RECEIPT N° : "
+                titreFichier = "RECEIPT OF "
+            End If
+
+            dt = GetAllElementsOnCondition(ElementToDuplicate, "reglement", "NUM_REGLEMENT")
+
+            For i = 0 To dt.Rows.Count - 1
+
+                TotalFacture += dt.Rows(i)("MONTANT_VERSE")
+
+            Next
+
+        End If
+
+        Dim sfd As New SaveFileDialog With {.Filter = "PDF Files (*.pdf) | *.pdf"}
+
+        Dim nomClient As String = ""
+
+        Dim reservationToPrint As DataTable = Functions.getElementByCode(reservationNum, "reserve_conf", "CODE_RESERVATION")
+
+        If reservationToPrint.Rows.Count > 0 Then
+
+            If Not Trim(reservationToPrint.Rows(0)("CODE_ENTREPRISE")) = "" Then
+                nomClient = reservationToPrint.Rows(0)("NOM_ENTREPRISE") & "(" & reservationToPrint.Rows(0)("NOM_CLIENT") & ")"
+            ElseIf getElementByCode(client, "client", "CODE_CLIENT").Rows.Count > 0 Then
+                nomClient = getElementByCode(client, "client", "CODE_CLIENT").Rows(0)("NOM_PRENOM")
+            End If
+
+        Else
+
+            Dim client_Compte As DataTable = getElementByCode(client, "client", "CODE_CLIENT")
+
+            If client_Compte.Rows.Count > 0 Then
+                nomClient = client_Compte.Rows(0)("NOM_PRENOM")
+            Else
+                client_Compte = getElementByCode(client, "compte", "NUMERO_COMPTE")
+                If client_Compte.Rows.Count > 0 Then
+                    nomClient = client_Compte.Rows(0)("INTITULE")
+                End If
+            End If
+
+        End If
+
+        sfd.FileName = titreFichier & nomClient & " " & (Date.Now().ToString("ddMMyyHHmmss"))
+
+        If sfd.ShowDialog = 1 Then
+
+            Dim pdfDoc As Document
+
+            Dim pdfWrite As PdfWriter
+
+            If GlobalVariable.AgenceActuelle.Rows(0)("PRINT_B7") = 1 Then
+                pdfDoc = New Document(PageSize.B7, 5, 5, 5, 5)
+                pdfWrite = PdfWriter.GetInstance(pdfDoc, New FileStream(sfd.FileName, FileMode.Create))
+            Else
+                pdfDoc = New Document(PageSize.A4, 40, 40, 80, 40)
+                pdfWrite = PdfWriter.GetInstance(pdfDoc, New FileStream(sfd.FileName, FileMode.Create))
+            End If
+
+            Dim pColumn As New Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 12, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+            Dim pColumn2 As New Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 13, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+            Dim pRow As New Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 12, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+            Dim fontTotal As New Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 12, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+            Dim font1 As New Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 12, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)
+            Dim title As New Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 16, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+
+            Dim pdfTable As New PdfPTable(3) 'Number of columns
+
+            If GlobalVariable.AgenceActuelle.Rows(0)("PRINT_B7") = 1 Then
+
+                pColumn = New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+                pColumn2 = New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 9, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+                pRow = New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+                fontTotal = New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+                font1 = New Font(iTextSharp.text.Font.FontFamily.COURIER, 8, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)
+                title = New Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 13, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+
+            End If
+
+
+            If GlobalVariable.AgenceActuelle.Rows(0)("PRINT_B7") = 1 Then
+                pdfTable.TotalWidth = 240.0F
+            Else
+                pdfTable.TotalWidth = 540.0F
+            End If
+
+            pdfTable.LockedWidth = True
+            pdfTable.HorizontalAlignment = Element.ALIGN_RIGHT
+            pdfTable.HeaderRows = 1
+
+            Dim widths As Single() = New Single() {47.0F, 8.0F, 15.0F}
+
+            pdfTable.SetWidths(widths)
+
+            Dim pdfCell As PdfPCell = Nothing
+
+            pdfDoc.Open()
+
+            '------------------------------- LOGO SUR LE BON DE COMMANDE --------------------------------------
+
+            Dim img() As Byte
+            img = societe.Rows(0)("LOGO")
+
+            Dim mStream As New MemoryStream(img)
+
+            Dim logo As Image
+            logo = Image.GetInstance(img)
+
+
+            'Dim pHeaderLogo As New PdfPTable(1)
+            Dim pHeaderLogo As PdfPTable
+
+            If GlobalVariable.AgenceActuelle.Rows(0)("PRINT_B7") = 1 Then
+
+                logo.ScalePercent(40.0F)
+
+                pHeaderLogo = New PdfPTable(1)
+
+                pHeaderLogo.TotalWidth = pdfDoc.PageSize.Width
+                pHeaderLogo.DefaultCell.Border = 0
+
+                pdfCell = New PdfPCell(logo)
+                pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                pdfCell.PaddingLeft = 5.0F
+                pdfCell.Border = 0 'used to remove borders on the cells
+                pHeaderLogo.AddCell(pdfCell)
+                pHeaderLogo.WriteSelectedRows(0, -1, 0, pdfDoc.GetTop(pdfDoc.TopMargin) + 125, pdfWrite.DirectContent)
+
+                pdfDoc.Add(pHeaderLogo)
+
+                Dim pHeader As New PdfPTable(1)
+                pHeader.TotalWidth = pdfDoc.PageSize.Width
+                pHeader.DefaultCell.Border = 0
+
+                Dim p1 As Paragraph = New Paragraph(societe.Rows(0)("RAISON_SOCIALE"), title)
+                p1.Alignment = Element.ALIGN_CENTER
+
+                pdfDoc.Add(p1)
+
+                Dim p001_ As Paragraph = New Paragraph("NUM REG. : " & societe.Rows(0)("NUM_REGISTRE") & " / NIU : " & societe.Rows(0)("NUM_CONTRIBUABLE") & Chr(13) & societe.Rows(0)("TELEPHONE") & " - " & societe.Rows(0)("RUE") & Chr(13), pColumn2)
+                p001_.Alignment = Element.ALIGN_CENTER
+
+                pdfDoc.Add(p001_)
+
+            Else
+
+                '-------------------------------------
+                logo.ScalePercent(50.0F)
+
+                pHeaderLogo = New PdfPTable(2)
+                Dim widths_ As Single() = New Single() {20.0F, 70.0F}
+
+                pHeaderLogo.SetWidths(widths_)
+                pHeaderLogo.TotalWidth = pdfDoc.PageSize.Width
+                pHeaderLogo.DefaultCell.Border = 0
+
+                pdfCell = New PdfPCell(logo)
+                pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                pdfCell.PaddingLeft = 5.0F
+                pdfCell.Border = 0 'used to remove borders on the cells
+                pHeaderLogo.AddCell(pdfCell)
+
+                pdfCell = New PdfPCell(New Paragraph(societe.Rows(0)("RAISON_SOCIALE"), title))
+                pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                pdfCell.PaddingLeft = 5.0F
+                pdfCell.Border = 0 'used to remove borders on the cells
+                pHeaderLogo.AddCell(pdfCell)
+
+                pdfCell = New PdfPCell(New Paragraph("", title))
+                pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                pdfCell.PaddingLeft = 5.0F
+                pdfCell.Border = 0 'used to remove borders on the cells
+
+                pHeaderLogo.AddCell(pdfCell)
+
+                pdfCell = New PdfPCell(New Paragraph("NUM REG. : " & societe.Rows(0)("NUM_REGISTRE") & " / NIU : " & societe.Rows(0)("NUM_CONTRIBUABLE") & Chr(13) & " " & societe.Rows(0)("TELEPHONE") & " - " & societe.Rows(0)("RUE"), pColumn2))
+                pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                pdfCell.PaddingLeft = 5.0F
+                pdfCell.Border = 0 'used to remove borders on the cells
+
+                pHeaderLogo.AddCell(pdfCell)
+
+                pHeaderLogo.WriteSelectedRows(0, -1, 0, pdfDoc.GetTop(pdfDoc.TopMargin) + 150, pdfWrite.DirectContent)
+
+            End If
+
+            Dim p3 As Paragraph = New Paragraph(Chr(13) & Date.Now() & Chr(13), pColumn2)
+            p3.Alignment = Element.ALIGN_CENTER
+
+            pdfDoc.Add(p3)
+
+            Dim termes As String = ""
+            Dim termes_ As String = ""
+
+            Dim clientInformation As DataTable
+            Dim LIBELLE_TYPE_CHAMBRE As String = ""
+
+            Dim infoResa As DataTable = Functions.getElementByCode(reservationNum, "reserve_conf", "CODE_RESERVATION")
+            If Not infoResa.Rows.Count > 0 Then
+                infoResa = Functions.getElementByCode(reservationNum, "reservation", "CODE_RESERVATION")
+            End If
+
+            If infoResa.Rows.Count > 0 Then
+                LIBELLE_TYPE_CHAMBRE = infoChambres(infoResa.Rows(0)("CHAMBRE_ID")).Rows(0)("LIBELLE_TYPE_CHAMBRE")
+            End If
+
+            If Not Trim(reference_garantie).Equals("") Then
+
+                termes_ = Chr(13) & "RECU No : " & (Date.Now().ToString("ddMMyyHHmm")) & Chr(13) & "REFERENCE DEPOT GARANTIE : " & reference_garantie & Chr(13) & Chr(13)
+
+                Dim infoSupDepot As DataTable = Functions.getElementByCode(reference_garantie, "caution", "CODE_CAUTION")
+
+                If infoSupDepot.Rows.Count > 0 Then
+
+                    Dim CODE_RESERVATION As String = infoSupDepot.Rows(0)("CODE_RESERVATION")
+                    Dim infoSupReservation As DataTable = Functions.getElementByCode(CODE_RESERVATION, "reserve_conf", "CODE_RESERVATION")
+
+                    If Not infoSupReservation.Rows.Count > 0 Then
+                        infoSupReservation = Functions.getElementByCode(CODE_RESERVATION, "reservation", "CODE_RESERVATION")
+                        If infoSupReservation.Rows.Count > 0 Then
+                            termes = Chr(13) & "CLIENT : " & infoSupReservation.Rows(0)("NOM_CLIENT") & Chr(13) & "TYPE DE CHAMBRE : " & LIBELLE_TYPE_CHAMBRE & Chr(13) & "CHAMBRE : " & infoSupReservation.Rows(0)("CHAMBRE_ID") & Chr(13) & Chr(13)
+                        Else
+                            termes = "CLIENT : " & client & Chr(13) & Chr(13)
+                        End If
+                    Else
+                        termes = Chr(13) & "CLIENT : " & infoSupReservation.Rows(0)("NOM_CLIENT") & Chr(13) & "TYPE DE CHAMBRE : " & LIBELLE_TYPE_CHAMBRE & Chr(13) & "CHAMBRE : " & infoSupReservation.Rows(0)("CHAMBRE_ID") & Chr(13) & Chr(13)
+                    End If
+                End If
+
+            Else
+
+                termes_ = Chr(13) & "RECU DE CAISSE No : " & (Date.Now().ToString("ddMMyyHHmm")) & Chr(13)
+
+                clientInformation = Functions.getElementByCode(GlobalVariable.codeClientDevantRegler, "client", "CODE_CLIENT")
+
+                If clientInformation.Rows.Count > 0 Then
+                    termes = "CLIENT : " & clientInformation.Rows(0)("NOM_PRENOM") & Chr(13) & Chr(13)
+                Else
+
+                    Dim infoSupReservation As DataTable = Functions.getElementByCode(reservationNum, "reserve_conf", "CODE_RESERVATION")
+
+                    If GlobalVariable.actualLanguageValue = 1 Then
+
+                        If infoSupReservation.Rows.Count > 0 Then
+                            termes = Chr(13) & "CLIENT : " & infoSupReservation.Rows(0)("NOM_CLIENT") & Chr(13) & "TYPE DE CHAMBRE : " & LIBELLE_TYPE_CHAMBRE & Chr(13) & "CHAMBRE : " & infoSupReservation.Rows(0)("CHAMBRE_ID") & Chr(13) & Chr(13)
+                        Else
+                            infoSupReservation = Functions.getElementByCode(reservationNum, "reservation", "CODE_RESERVATION")
+
+                            If infoSupReservation.Rows.Count > 0 Then
+                                termes = Chr(13) & "CLIENT : " & infoSupReservation.Rows(0)("NOM_CLIENT") & Chr(13) & "TYPE DE CHAMBRE : " & LIBELLE_TYPE_CHAMBRE & Chr(13) & "CHAMBRE : " & infoSupReservation.Rows(0)("CHAMBRE_ID") & Chr(13) & Chr(13)
+                            End If
+
+                        End If
+
+                    Else
+
+                        If infoSupReservation.Rows.Count > 0 Then
+                            termes = Chr(13) & "CLIENT : " & infoSupReservation.Rows(0)("NOM_CLIENT") & Chr(13) & "ROOM TYPE : " & LIBELLE_TYPE_CHAMBRE & Chr(13) & "ROOM : " & infoSupReservation.Rows(0)("CHAMBRE_ID") & Chr(13) & Chr(13)
+                        Else
+                            infoSupReservation = Functions.getElementByCode(reservationNum, "reservation", "CODE_RESERVATION")
+
+                            If infoSupReservation.Rows.Count > 0 Then
+                                termes = Chr(13) & "CLIENT : " & infoSupReservation.Rows(0)("NOM_CLIENT") & Chr(13) & "ROOM TYPE : " & LIBELLE_TYPE_CHAMBRE & Chr(13) & "ROOM : " & infoSupReservation.Rows(0)("CHAMBRE_ID") & Chr(13) & Chr(13)
+                            End If
+
+                        End If
+
+                    End If
+
+                End If
+
+            End If
+
+            pdfDoc.Add(New Paragraph(termes_, pColumn2))
+
+            pdfDoc.Add(New Paragraph(termes, pColumn2))
+
+            '-----------------------------------
+
+            If True Then
+
+                pdfCell = New PdfPCell(New Paragraph("DESIGNATION", pColumn))
+                pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                pdfCell.MinimumHeight = 15
+                pdfCell.PaddingLeft = 5.0F
+                'pdfCell.BackgroundColor = BaseColor.LIGHT_GRAY
+                pdfTable.AddCell(pdfCell)
+
+                pdfCell = New PdfPCell(New Paragraph("QTE", pColumn))
+                pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                pdfCell.MinimumHeight = 15
+                pdfCell.PaddingLeft = 5.0F
+                'pdfCell.BackgroundColor = BaseColor.LIGHT_GRAY
+                pdfTable.AddCell(pdfCell)
+
+                pdfCell = New PdfPCell(New Paragraph("TOTAL", pColumn))
+                pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                pdfCell.MinimumHeight = 15
+                pdfCell.PaddingLeft = 5.0F
+                'pdfCell.BackgroundColor = BaseColor.LIGHT_GRAY
+                pdfTable.AddCell(pdfCell)
+
+                If Trim(reference_garantie).Equals("") Then
+
+                    If dt.Rows.Count > 0 Then
+
+                        For i = 0 To dt.Rows.Count - 1
+
+                            pdfCell = New PdfPCell(New Paragraph(dt.Rows(i)("REF_REGLEMENT"), font1))
+                            pdfCell.MinimumHeight = 15
+                            pdfCell.PaddingLeft = 5.0F
+                            pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
+                            pdfTable.AddCell(pdfCell)
+
+                            pdfCell = New PdfPCell(New Paragraph(Format(dt.Rows(i)("QUANTITE"), "#,##0"), font1))
+                            pdfCell.MinimumHeight = 15
+                            pdfCell.PaddingLeft = 5.0F
+                            pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                            pdfTable.AddCell(pdfCell)
+
+                            pdfCell = New PdfPCell(New Paragraph(Format(dt.Rows(i)("MONTANT_VERSE"), "#,##0"), font1))
+                            pdfCell.MinimumHeight = 15
+                            pdfCell.PaddingLeft = 5.0F
+                            pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT
+                            pdfTable.AddCell(pdfCell)
+
+                        Next
+
+                        pdfDoc.Add(pdfTable)
+
+                        '------------------------------------------------------------------------
+
+                        Dim pdfTable2 As New PdfPTable(3) 'Number of columns
+
+                        pdfTable2.TotalWidth = 240.0F
+                        pdfTable2.LockedWidth = True
+                        pdfTable2.HorizontalAlignment = Element.ALIGN_RIGHT
+                        'pdfTable2.HeaderRows = 1
+
+                        Dim widths2 As Single() = New Single() {47.0F, 8.0F, 15.0F}
+                        pdfTable2.SetWidths(widths2)
+
+                        Dim pdfCell2 As PdfPCell = Nothing
+
+                        If GlobalVariable.DocumentToGenerate = "reglement" Then
+                            pdfCell2 = New PdfPCell(New Paragraph(Chr(13) & "TOTAL : ", fontTotal))
+                        Else
+                            pdfCell2 = New PdfPCell(New Paragraph(Chr(13) & "TOTAL HT : ", fontTotal))
+                        End If
+
+                        pdfCell2.HorizontalAlignment = Element.ALIGN_RIGHT
+                        pdfCell2.MinimumHeight = 18
+                        pdfCell2.PaddingLeft = 15.0F
+                        pdfCell2.Border = 0
+                        pdfCell2.Colspan = 2
+                        pdfTable2.AddCell(pdfCell2)
+
+                        pdfCell2 = New PdfPCell(New Paragraph(Chr(13) & Format(TotalFacture, "#,##0"), fontTotal))
+                        pdfCell2.HorizontalAlignment = Element.ALIGN_RIGHT
+                        pdfCell2.MinimumHeight = 18
+                        pdfCell2.PaddingLeft = 5.0F
+                        'pdfCell2.Border = 0
+                        pdfTable2.AddCell(pdfCell2)
+
+                        pdfDoc.Add(pdfTable2)
+
+                        'Dim chiffreEnLettre = New Paragraph(Chr(13) & Chr(13) & "Reçu la somme de: " & NBLT(TotalFacture) & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE"), pRow)
+                        Dim chiffreEnLettre
+                        If GlobalVariable.actualLanguageValue = 1 Then
+                            chiffreEnLettre = New Paragraph(Chr(13) & Chr(13) & "Reçu la somme de : " & NBLT(TotalFacture) & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE"), pRow)
+                        Else
+                            chiffreEnLettre = New Paragraph(Chr(13) & Chr(13) & "Received an amount of xx : " & NBLT(TotalFacture) & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE"), pRow)
+                        End If
+                        pdfDoc.Add(chiffreEnLettre)
+
+                        ' Then
+                        Dim signature As String = Chr(13) & "           CLIENT                                                             HOTEL "
+                        If GlobalVariable.actualLanguageValue = 0 Then
+                            signature = Chr(13) & "               CLEINT                                                                 HOTEL "
+                        End If
+                        pdfDoc.Add(New Paragraph(signature, pRow))
+
+
+                    End If
+
+
+                Else
+
+                    pdfCell = New PdfPCell(New Paragraph("ENCAISSEMENT DE DEPOT DE GARANTIE", font1))
+                    pdfCell.MinimumHeight = 15
+                    pdfCell.PaddingLeft = 5.0F
+                    pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
+                    pdfTable.AddCell(pdfCell)
+
+                    pdfCell = New PdfPCell(New Paragraph(Format(1, "#,##0"), font1))
+                    pdfCell.MinimumHeight = 15
+                    pdfCell.PaddingLeft = 5.0F
+                    pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                    pdfTable.AddCell(pdfCell)
+
+                    pdfCell = New PdfPCell(New Paragraph(Format(DEPOT_DE_GARANTIE, "#,##0"), font1))
+                    pdfCell.MinimumHeight = 15
+                    pdfCell.PaddingLeft = 5.0F
+                    pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT
+                    pdfTable.AddCell(pdfCell)
+
+                    pdfDoc.Add(pdfTable)
+
+                    '------------------------------------------------------------------------
+
+                    Dim pdfTable2 As New PdfPTable(3) 'Number of columns
+
+                    pdfTable2.TotalWidth = 240.0F
+                    pdfTable2.LockedWidth = True
+                    pdfTable2.HorizontalAlignment = Element.ALIGN_RIGHT
+                    'pdfTable2.HeaderRows = 1
+
+                    Dim widths2 As Single() = New Single() {47.0F, 8.0F, 15.0F}
+                    pdfTable2.SetWidths(widths2)
+
+                    Dim pdfCell2 As PdfPCell = Nothing
+
+                    If GlobalVariable.DocumentToGenerate = "reglement" Then
+                        pdfCell2 = New PdfPCell(New Paragraph(Chr(13) & "TOTAL : ", fontTotal))
+                    Else
+                        pdfCell2 = New PdfPCell(New Paragraph(Chr(13) & "TOTAL HT : ", fontTotal))
+                    End If
+
+                    pdfCell2.HorizontalAlignment = Element.ALIGN_RIGHT
+                    pdfCell2.MinimumHeight = 18
+                    pdfCell2.PaddingLeft = 15.0F
+                    pdfCell2.Border = 0
+                    pdfCell2.Colspan = 2
+                    pdfTable2.AddCell(pdfCell2)
+
+                    pdfCell2 = New PdfPCell(New Paragraph(Chr(13) & Format(DEPOT_DE_GARANTIE, "#,##0"), fontTotal))
+                    pdfCell2.HorizontalAlignment = Element.ALIGN_RIGHT
+                    pdfCell2.MinimumHeight = 18
+                    pdfCell2.PaddingLeft = 5.0F
+                    'pdfCell2.Border = 0
+                    pdfTable2.AddCell(pdfCell2)
+
+                    pdfDoc.Add(pdfTable2)
+
+                    'Dim chiffreEnLettre = New Paragraph(Chr(13) & Chr(13) & "Reçu la somme de: " & NBLT(TotalFacture) & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE"), pRow)
+                    Dim chiffreEnLettre
+                    If GlobalVariable.actualLanguageValue = 1 Then
+                        chiffreEnLettre = New Paragraph(Chr(13) & Chr(13) & "Reçu la somme de : " & NBLT(DEPOT_DE_GARANTIE) & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE"), pRow)
+                    Else
+                        chiffreEnLettre = New Paragraph(Chr(13) & Chr(13) & "Received an amount of : " & NBLT(DEPOT_DE_GARANTIE) & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE"), pRow)
+                    End If
+                    pdfDoc.Add(chiffreEnLettre)
+
+                    Dim signature As String = "                                                          Signature client"
+                    If GlobalVariable.actualLanguageValue = 0 Then
+                        signature = "                                                               Signature Client"
+                    Else
+                        signature = "                                                               Client's Signature"
+                    End If
+                    pdfDoc.Add(New Paragraph(signature, pRow))
+
+                End If
+
+                '------------------------------------
+
+
+
+            End If
+
+            Dim salutation
+
+            If GlobalVariable.actualLanguageValue = 1 Then
+                salutation = New Paragraph(Chr(13) & Chr(13) & "Merci et à bientôt ", pRow)
+            Else
+                salutation = New Paragraph(Chr(13) & Chr(13) & "Thanks For your Stay ", pRow)
+            End If
+
+            pdfDoc.Add(salutation)
+
+            pdfDoc.Close()
+
+            'MessageBox.Show("PDF a été exporté " & sfd.FileName, "Generate PDF", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Process.Start(sfd.FileName)
+
+        End If
+
+    End Sub
+
+    Public Shared Sub DocumentToPrintComptoireOLdOk(ByVal ElementToDuplicate As String, ByVal Table As String, ByVal ColumnTitle As String, ByVal client As String, ByVal dtligneFacture As DataGridView, Optional ByVal reservationNum As String = "", Optional ByVal reference_garantie As String = "", Optional ByVal DEPOT_DE_GARANTIE As Double = 0)
 
         Dim societe As DataTable = Functions.allTableFields("societe")
         Dim TotalFacture As Double = 0

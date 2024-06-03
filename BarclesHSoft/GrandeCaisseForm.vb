@@ -1057,7 +1057,7 @@ Public Class GrandeCaisseForm
                                             MONTANT_VERSE *= -1
                                         End If
 
-                                        'ENCAISSEMENT NORMAL
+                                        'ENCAISSEMENT NORMAL klg
                                         reglement.insertReglement(NUM_REGLEMENT, NUM_FACTURE, CODE_CAISSIER, MONTANT_VERSE, DATE_REGLEMENT, MODE_REGLEMENT, REF_REGLEMENT, CODE_MODE, IMPRIMER, CODE_AGENCE, CODE_RESERVATION, CODE_CLIENT, NUMERO_BLOC_NOTE, MODE_REG_INFO_SUP_1, MODE_REG_INFO_SUP_2, MODE_REG_INFO_SUP_3)
 
                                         Dim depense As New Depense()
@@ -1073,7 +1073,9 @@ Public Class GrandeCaisseForm
                                             Dim LIBELLE As String = REF_REGLEMENT
                                             Dim MONTANT As Double = MONTANT_VERSE * -1
 
-                                            depense.insertCategorieDepense(CODE_CATEGORY_DEPENSE, FAMILLE, SOUS_FAMILLE, CODE, LIBELLE, MONTANT, CODE_AGENCE)
+                                            depense.insertCategorieDepense(CODE_CATEGORY_DEPENSE, FAMILLE, SOUS_FAMILLE, CODE, LIBELLE, MONTANT, CODE_AGENCE, GlobalVariable.DateDeTravail)
+
+                                            GunaTextBoxRefCompte.Clear()
 
                                         End If
 
@@ -1173,11 +1175,6 @@ Public Class GrandeCaisseForm
 
                                     End If
 
-                                    'MessageBox.Show(messageText, "Encaissement", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                                    'FacturationForm.TopMost = True
-
-                                    'We set back montPAyer to 0
                                     GunaTextBoxMontantVerse.Text = 0
 
                                 End If
@@ -2780,6 +2777,8 @@ Public Class GrandeCaisseForm
 
         If Trim(GunaTextBoxRefCompte.Text) = "" Then
 
+            GunaTextBoxMoisEncours.Clear()
+            GunaTextBoxMoisDernier.Clear()
             GunaTextBoxiNTITUTLE.Clear()
             GunaDataGridViewPlanComptable.Columns.Clear()
             GunaDataGridViewPlanComptable.Visible = False
@@ -2787,7 +2786,7 @@ Public Class GrandeCaisseForm
         Else
 
             'REFRESHING information from database for instant visualisation 
-            Dim query As String = "SELECT COMPTE, INTITULE FROM compte_exploitation WHERE COMPTE LIKE '%" & Trim(GunaTextBoxRefCompte.Text) & "%' OR INTITULE LIKE '%" & Trim(GunaTextBoxRefCompte.Text) & "%' ORDER BY INTITULE ASC"
+            Dim query As String = "SELECT COMPTE, INTITULE FROM compte_exploitation WHERE COMPTE LIKE '%" & Trim(GunaTextBoxRefCompte.Text) & "%' OR INTITULE LIKE '%" & Trim(GunaTextBoxRefCompte.Text) & "%' AND NATURE_COMPTE = 0 ORDER BY INTITULE ASC"
             Dim command As New MySqlCommand(query, GlobalVariable.connect)
 
             Dim adapter As New MySqlDataAdapter(command)
@@ -2808,6 +2807,12 @@ Public Class GrandeCaisseForm
 
     Private Sub GunaDataGridViewPlanComptable_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles GunaDataGridViewPlanComptable.CellClick
 
+        Dim dateDebut As Date = Functions.firstDayOfMonth(GlobalVariable.DateDeTravail)
+        Dim dateFin As Date = GlobalVariable.DateDeTravail
+
+        Dim dateDebut_1 As Date = Functions.firstDayOfMonth(GlobalVariable.DateDeTravail.AddMonths(-1))
+        Dim dateFin_1 As Date = Functions.lastDayOfMonth(GlobalVariable.DateDeTravail.AddMonths(-1))
+
         If e.RowIndex >= 0 Then
 
             Dim row As DataGridViewRow
@@ -2815,11 +2820,13 @@ Public Class GrandeCaisseForm
             row = Me.GunaDataGridViewPlanComptable.Rows(e.RowIndex)
 
             GunaTextBoxRefCompte.Text = row.Cells("COMPTE").Value.ToString
-
+            Dim CODE_CATEGORY_DEPENSE As String = GunaTextBoxRefCompte.Text
             Dim comptePlan As DataTable = Functions.getElementByCode(GunaTextBoxRefCompte.Text, "compte_exploitation", "COMPTE")
 
             If comptePlan.Rows.Count > 0 Then
                 GunaTextBoxiNTITUTLE.Text = comptePlan.Rows(0)("INTITULE")
+                GunaTextBoxMoisEncours.Text = Format(montantDucompteExploitation(dateDebut, dateFin, CODE_CATEGORY_DEPENSE), "#,##0")
+                GunaTextBoxMoisDernier.Text = Format(montantDucompteExploitation(dateDebut_1, dateFin_1, CODE_CATEGORY_DEPENSE), "#,##0")
             End If
 
             GunaDataGridViewPlanComptable.Visible = False
@@ -2827,5 +2834,38 @@ Public Class GrandeCaisseForm
         End If
 
     End Sub
+
+
+    Private Function montantDucompteExploitation(ByVal dateDebut As Date, ByVal dateFin As Date, ByVal CODE_CATEGORY_DEPENSE As String) As Double
+
+        Dim FillingListquery As String = ""
+
+        Dim MONTANT As Double = 0
+
+        MONTANT = 0
+
+        FillingListquery = "SELECT `CODE`, `CODE_CATEGORY_DEPENSE` AS 'COMPTE', `FAMILLE` AS 'INTITULE', MONTANT
+                    FROM regroupement_depenses WHERE DATE_DEPENSE >= '" & dateDebut.ToString("yyyy-MM-dd") & "' 
+                    AND DATE_DEPENSE <= '" & dateFin.ToString("yyyy-MM-dd") & "' AND CODE_CATEGORY_DEPENSE = @CODE_CATEGORY_DEPENSE
+                    ORDER BY regroupement_depenses.FAMILLE ASC"
+
+        Dim commandList As New MySqlCommand(FillingListquery, GlobalVariable.connect)
+        commandList.Parameters.Add("@CODE_CATEGORY_DEPENSE", MySqlDbType.VarChar).Value = CODE_CATEGORY_DEPENSE
+        Dim adapterList As New MySqlDataAdapter(commandList)
+        Dim tableList As New DataTable()
+
+        adapterList.Fill(tableList)
+
+        If tableList.Rows.Count > 0 Then
+
+            For j = 0 To tableList.Rows.Count - 1
+                MONTANT += tableList.Rows(j)("MONTANT")
+            Next
+
+        End If
+
+        Return MONTANT
+
+    End Function
 
 End Class
