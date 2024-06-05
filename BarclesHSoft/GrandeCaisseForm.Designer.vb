@@ -3524,14 +3524,14 @@ Partial Class GrandeCaisseForm
         Me.GunaDataGridViewPlanComptable.DefaultCellStyle = DataGridViewCellStyle3
         Me.GunaDataGridViewPlanComptable.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewPlanComptable.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewPlanComptable.Location = New System.Drawing.Point(908, 624)
+        Me.GunaDataGridViewPlanComptable.Location = New System.Drawing.Point(908, 652)
         Me.GunaDataGridViewPlanComptable.MultiSelect = False
         Me.GunaDataGridViewPlanComptable.Name = "GunaDataGridViewPlanComptable"
         Me.GunaDataGridViewPlanComptable.ReadOnly = True
         Me.GunaDataGridViewPlanComptable.RowHeadersVisible = False
         Me.GunaDataGridViewPlanComptable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.GunaDataGridViewPlanComptable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewPlanComptable.Size = New System.Drawing.Size(426, 254)
+        Me.GunaDataGridViewPlanComptable.Size = New System.Drawing.Size(426, 226)
         Me.GunaDataGridViewPlanComptable.TabIndex = 145
         Me.GunaDataGridViewPlanComptable.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
         Me.GunaDataGridViewPlanComptable.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White

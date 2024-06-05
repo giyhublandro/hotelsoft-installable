@@ -2365,15 +2365,21 @@ Public Class FolioForm
 
             If dialog = DialogResult.OK Then
 
-                    ReglementForm.Close()
-                    ReglementForm.Show()
-                    ReglementForm.TopMost = True
-
-                    Me.Close()
-
+                If GlobalVariable.actualLanguageValue = 1 Then
+                    GlobalVariable.ComingFromFolio1FactureType = "INDIVIDUEL"
+                Else
+                    GlobalVariable.ComingFromFolio1FactureType = "INDIVIDUAL"
                 End If
 
+                ReglementForm.Close()
+                ReglementForm.Show()
+                ReglementForm.TopMost = True
+
+                Me.Close()
+
             End If
+
+        End If
 
     End Sub
 
@@ -2395,15 +2401,15 @@ Public Class FolioForm
 
 
         Else
-            Dim dialog As DialogResult
+            ' Dim dialog As DialogResult
 
-            If GlobalVariable.actualLanguageValue = 1 Then
-                dialog = MessageBox.Show("Impossible de clôturer un Folio Entreprise sans entreprise !!", "Clôture de Folio", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            'If GlobalVariable.actualLanguageValue = 1 Then
+            'dialog = MessageBox.Show("Impossible de clôturer un Folio Entreprise sans entreprise !!", "Clôture de Folio", MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
-            Else
-                dialog = MessageBox.Show("Impossible to close a Folio with no company !!", "Close Folio", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            'Else
+            'dialog = MessageBox.Show("Impossible to close a Folio with no company !!", "Close Folio", MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
-            End If
+            'End If
         End If
 
 
@@ -2441,7 +2447,6 @@ Public Class FolioForm
 
             End If
 
-
         Else
 
             Dim dialog As DialogResult
@@ -2455,6 +2460,12 @@ Public Class FolioForm
             End If
 
             If dialog = DialogResult.OK Then
+
+                If GlobalVariable.actualLanguageValue = 1 Then
+                    GlobalVariable.ComingFromFolio1FactureType = "INDIVIDUEL"
+                Else
+                    GlobalVariable.ComingFromFolio1FactureType = "INDIVIDUAL"
+                End If
 
                 ReglementForm.Close()
                 ReglementForm.Show()
@@ -2513,6 +2524,12 @@ Public Class FolioForm
             End If
 
             If dialog = DialogResult.OK Then
+
+                If GlobalVariable.actualLanguageValue = 1 Then
+                    GlobalVariable.ComingFromFolio1FactureType = "INDIVIDUEL"
+                Else
+                    GlobalVariable.ComingFromFolio1FactureType = "INDIVIDUAL"
+                End If
 
                 ReglementForm.Close()
                 ReglementForm.Show()

@@ -614,20 +614,6 @@ Public Class BonApprovisionnementForm
 
         Dim METHODE_SUIVI_STOCK As String = "Suivi simple"
 
-        If GlobalVariable.actualLanguageValue = 0 Then
-
-            METHODE_NON_SUIVI_STOCK = "No Tracking"
-
-            METHODE_SUIVI_STOCK = "Simple Tracking"
-
-        ElseIf GlobalVariable.actualLanguageValue = 1 Then
-
-            METHODE_NON_SUIVI_STOCK = "Non suivi"
-
-            METHODE_SUIVI_STOCK = "Suivi simple"
-
-        End If
-
         Dim Command As New MySqlCommand(getArticleQuery, GlobalVariable.connect)
 
         Command.Parameters.Add("@METHODE_SUIVI_STOCK", MySqlDbType.VarChar).Value = METHODE_SUIVI_STOCK
@@ -933,7 +919,7 @@ Public Class BonApprovisionnementForm
 
             GunaDataGridViewLigneArticleCommande.Columns("CODE ARTICLE").Visible = False
 
-            GunaDataGridViewLigneArticleCommande.Columns("ITEM").ReadOnly = True
+            GunaDataGridViewLigneArticleCommande.Columns("DESIGNATION").ReadOnly = True
             GunaDataGridViewLigneArticleCommande.Columns("TOTAL PRICE").ReadOnly = True
             GunaDataGridViewLigneArticleCommande.Columns("STOCK").ReadOnly = True
 
@@ -975,7 +961,7 @@ Public Class BonApprovisionnementForm
         For i = 0 To GunaDataGridViewLigneArticleCommande.Rows.Count - 1
             If GlobalVariable.actualLanguageValue = 0 Then
                 montantGlobalAchat += GunaDataGridViewLigneArticleCommande.Rows(i).Cells("TOTAL PRICE").Value
-                montantGlobalVente += GunaDataGridViewLigneArticleCommande.Rows(i).Cells("SELLING PRICE").Value * GunaDataGridViewLigneArticleCommande.Rows(i).Cells("QUANTITE").Value
+                montantGlobalVente += GunaDataGridViewLigneArticleCommande.Rows(i).Cells("SELLING PRICE").Value * GunaDataGridViewLigneArticleCommande.Rows(i).Cells("QUANTITY").Value
             ElseIf GlobalVariable.actualLanguageValue = 1 Then
                 montantGlobalAchat += GunaDataGridViewLigneArticleCommande.Rows(i).Cells("PRIX TOTAL").Value
                 montantGlobalVente += GunaDataGridViewLigneArticleCommande.Rows(i).Cells("PRIX VENTE").Value * GunaDataGridViewLigneArticleCommande.Rows(i).Cells("QUANTITE").Value

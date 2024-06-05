@@ -1344,29 +1344,6 @@ Partial Class CloturerForm
 
                                             End If
 
-                                            Dim CODE_MAIN_COURANTE_GENERALE As DataTable = Functions.getElementByCode(tableReservation(i)("CODE_RESERVATION"), "main_courante_generale", "NUM_RESERVATION")
-
-                                            If CODE_MAIN_COURANTE_GENERALE.Rows.Count > 0 Then
-
-                                                Dim updateQueryMainCouranteGenerale As String = "UPDATE `main_courante_generale` Set `ETAT_MAIN_COURANTE` = @value1 WHERE CODE_MAIN_COURANTE_GENERALE = @CODE_MAIN_COURANTE_GENERALE"
-
-                                                Dim commandMainCouranteGenerale As New MySqlCommand(updateQueryMainCouranteGenerale, GlobalVariable.connect)
-
-                                                commandMainCouranteGenerale.Parameters.Add("@value1", MySqlDbType.Int32).Value = ETAT_MAIN_COURANTE
-                                                commandMainCouranteGenerale.Parameters.Add("@CODE_MAIN_COURANTE_GENERALE", MySqlDbType.VarChar).Value = CODE_MAIN_COURANTE_GENERALE.Rows(0)("CODE_MAIN_COURANTE_GENERALE")
-
-                                                'Opening the connection
-                                                'connect.openConnection()
-
-                                                'Excuting the command and testing if everything went on well
-                                                If (commandMainCouranteGenerale.ExecuteNonQuery() = 1) Then
-
-                                                End If
-
-                                                'connect.closeConnection()
-
-                                            End If
-
                                             '----------- MAIN COURANTE JOURNALIERE -------------------------------------------------------------------------------------------
                                             'Dim ETAT_MAIN_COURANTE_TO_COPIE As Integer = 0
                                             'ON DOIT PRENDRE UNE MAIN COURANTE D'UN CERTAIN ETAT
@@ -1522,12 +1499,9 @@ Partial Class CloturerForm
 
                                 If GlobalVariable.actualLanguageValue = 1 Then
                                     MessageBox.Show("Aucune réservation à clôturer en date du : " & GlobalVariable.DateDeTravail & " ", "Clôture", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
                                 Else
                                     MessageBox.Show("No accommodation to bill for the : " & GlobalVariable.DateDeTravail & " ", "Night Audit", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
                                 End If
-
 
                             End If
 
@@ -1578,8 +1552,10 @@ Partial Class CloturerForm
 
                             '---------------------------------------------
 
-                            'MainWindow.MainWindowManualActivation()
-                            'MainWindow.TabControlHbergement.SelectedIndex = 0
+                            Dim resa As New Reservation()
+
+                            'Compte Exploitation
+                            resa.remplissageCompteExploitation()
 
                             GunaCircleProgressBar1.Value = 100
 
@@ -2444,8 +2420,6 @@ Partial Class CloturerForm
             End If
 
         End If
-
-        'connect.closeConnection()
 
     End Function
 

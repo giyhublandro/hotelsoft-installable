@@ -1002,9 +1002,261 @@ Public Class Reservation
 
     End Function
 
+
+    Public Function remplissageCompteExploitation() As Boolean
+
+        Dim changerSigne As Integer = -1
+
+        Dim DATE_MAIN_COURANTE As Date = GlobalVariable.DateDeTravail.AddDays(-1)
+        Dim ETAT_MAIN_COURANTE As Integer = 1
+
+        Dim getUserQuery1 = "SELECT CHAMBRE_ID As 'CHAMBRE', DAY_USE, NUM_RESERVATION, ARRHES, main_courante_journaliere.NOM_CLIENT As 'NOM & PRENOM', DATE_ENTTRE As 'DATE ARRIVEE',
+            DATE_SORTIE As 'DATE DEPART', NB_PERSONNES As 'NBRE DE PAX', PDJ, DEJEUNER, DINER,CAVE, CAFE, DIVERS, ENCAISSEMENT_ESPECE AS 'ESPECES', ENCAISSEMENT_CHEQUE AS 'CHEQUE',
+            ENCAISSEMENT_CARTE_CREDIT As 'CARTE CREDIT', TELE AS 'MOBILE MONEY', main_Courante_journaliere.NUM_RESERVATION As 'RESERVATION', 
+            main_courante_journaliere.MONTANT_ACCORDE AS 'HEBERGEMENT', main_courante_journaliere.BAR_RESTAURANT AS 'BAR/RESTAURANT', BAR,
+            main_courante_journaliere.SERVICES AS 'SERVICES', main_courante_journaliere.SALON_DE_BEAUTE AS 'SALON DE BEAUTE', main_courante_journaliere.BOUTIQE AS 'BOUTIQUE',
+            main_courante_journaliere.CYBERCAFE As 'BUSINESS CENTER', main_courante_journaliere.SPORTS As 'SPORTS' , main_courante_journaliere.LOISIRS As 'LOISIRS',
+            TOTAL_JOUR, main_courante_journaliere.KIOSQUE_A_JOURNAUX as 'JOURNAUX', main_courante_journaliere.BLANCHISSERIE As BLANCHISSERIE, main_courante_journaliere.AUTRES As 'AUTRES'
+            , TOTAL_JOUR As 'RECETTE DU JOUR', REPORT_VEILLE As 'REPORT VEILLE', TOTAL_GENERAL As 'TOTAL GENERAL', A_REPORTER As 'A REPORTER', HEURE_ENTREE, HEURE_SORTIE,
+            TAUX_OCCUPATION_PCT As 'TAXE DE SEJOUR', ANTICIPE, DAY_USE, reserve_conf.TYPE FROM main_Courante_journaliere, reserve_conf WHERE DATE_MAIN_COURANTE <= '" & DATE_MAIN_COURANTE.ToString("yyyy-MM-dd") & "' 
+            AND DATE_MAIN_COURANTE >='" & DATE_MAIN_COURANTE.ToString("yyyy-MM-dd") & "' AND main_Courante_journaliere.NUM_RESERVATION = reserve_conf.CODE_RESERVATION 
+            ORDER BY CODE_CHAMBRE ASC"
+
+        Dim command1 As New MySqlCommand(getUserQuery1, GlobalVariable.connect)
+
+        command1.Parameters.Add("@ETAT_MAIN_COURANTE", MySqlDbType.Int32).Value = ETAT_MAIN_COURANTE
+
+        Dim adapter1 As New MySqlDataAdapter(command1)
+
+        Dim table As New DataTable()
+
+        adapter1.Fill(table)
+
+        '-------------------------------------------------------- MAINCOURANTE ----------------------------------------------
+
+        Dim getUserQuery01 = "SELECT CODE_CHAMBRE As 'CHAMBRE', NUM_RESERVATION, ARRHES, main_courante_autres.NOM_CLIENT As 'NOM & PRENOM', PDJ, DEJEUNER, DINER, CAVE, CAFE, DIVERS, ENCAISSEMENT_ESPECE AS 'ESPECES', ENCAISSEMENT_CHEQUE AS 'CHEQUE', ENCAISSEMENT_CARTE_CREDIT As 'CARTE CREDIT', TELE AS 'MOBILE MONEY', main_Courante_autres.NUM_RESERVATION As 'RESERVATION', main_courante_autres.MONTANT_ACCORDE AS 'HEBERGEMENT', main_courante_autres.BAR_RESTAURANT AS 'BAR/RESTAURANT', BAR, main_courante_autres.SERVICES AS 'SERVICES', main_courante_autres.SALON_DE_BEAUTE AS 'SALON DE BEAUTE', main_courante_autres.BOUTIQE AS 'BOUTIQUE', main_courante_autres.CYBERCAFE As 'BUSINESS CENTER', main_courante_autres.SPORTS As 'SPORTS' , main_courante_autres.LOISIRS As 'LOISIRS', TOTAL_JOUR, main_courante_autres.KIOSQUE_A_JOURNAUX as 'JOURNAUX', main_courante_autres.BLANCHISSERIE As BLANCHISSERIE, main_courante_autres.AUTRES As 'AUTRES', TOTAL_JOUR As 'RECETTE DU JOUR', REPORT_VEILLE As 'REPORT VEILLE', TOTAL_GENERAL As 'TOTAL GENERAL', A_REPORTER As 'A REPORTER' FROM main_Courante_autres WHERE DATE_MAIN_COURANTE <= '" & DATE_MAIN_COURANTE.ToString("yyyy-MM-dd") & "' AND DATE_MAIN_COURANTE >='" & DATE_MAIN_COURANTE.ToString("yyyy-MM-dd") & "' ORDER BY main_courante_autres.NOM_CLIENT ASC"
+
+        Dim command01 As New MySqlCommand(getUserQuery01, GlobalVariable.connect)
+
+        Dim adapter01 As New MySqlDataAdapter(command01)
+
+        Dim table0 As New DataTable()
+
+        adapter01.Fill(table0)
+
+        '--------------------------------------------------------------------------------------------------------------------
+
+        Dim RESTAURANT As Double = 0
+        Dim BAR As Double = 0
+        Dim AUTRES_VENTE As Double = 0
+        Dim HEBERGEMENT As Double = 0
+        Dim TAXE_DE_SEJOUR_REELLE As Double = 0
+        Dim DINNER As Double = 0
+        Dim DEJEUNER As Double = 0
+        Dim PETIT_DEJEUNER As Double = 0
+        Dim LOCATION_SALLE As Double = 0
+
+        If table.Rows.Count > 0 Then
+
+            Dim enChambre As Boolean = False
+
+            For i = 0 To table.Rows.Count - 1
+
+                enChambre = False
+                Dim DAY_USE As Integer = table.Rows(i)("DAY_USE")
+                Dim NUMERO_RESERVATION As String = table.Rows(i)("NUM_RESERVATION")
+
+                RESTAURANT += table.Rows(i)("PDJ") + table.Rows(i)("DEJEUNER") + table.Rows(i)("DINER")
+                BAR += table.Rows(i)("CAFE") + table.Rows(i)("CAVE") + table.Rows(i)("DIVERS")
+
+                AUTRES_VENTE += table.Rows(i)("BLANCHISSERIE") + table.Rows(i)("SERVICES") + table.Rows(i)("SALON DE BEAUTE") + table.Rows(i)("BOUTIQUE") + table.Rows(i)("BUSINESS CENTER") + table.Rows(i)("SPORTS") + table.Rows(i)("LOISIRS") + table.Rows(i)("JOURNAUX") + table.Rows(i)("AUTRES")
+
+                Dim TOTAL_RECETTE As Double = 0
+
+                Dim nuits As Integer = 0
+
+                Dim arrivee As Date = CDate(table.Rows(i)("DATE ARRIVEE")).ToShortDateString
+                Dim depart As Date = CDate(table.Rows(i)("DATE DEPART")).ToShortDateString
+
+                If DATE_MAIN_COURANTE >= arrivee And DATE_MAIN_COURANTE <= depart Then
+                    enChambre = True
+                End If
+
+                If Trim(table.Rows(i)("TYPE")).Equals("chambre") Then
+                    HEBERGEMENT += table.Rows(i)("HEBERGEMENT")
+                Else
+                    LOCATION_SALLE += table.Rows(i)("HEBERGEMENT")
+                End If
+
+
+                Dim taxeDeSejours As Double = table.Rows(i)("TAXE DE SEJOUR")
+                Dim taxeDeSejourDansLigneFacture As Double = 0
+
+                nuits = CType((depart - arrivee).TotalDays, Int64)
+
+                Dim PAX As Integer = table.Rows(i)("NBRE DE PAX")
+
+                If PAX <= 0 Then
+                    PAX = 1
+                End If
+
+                Dim SERVICE As String = ""
+
+                'ON DOIT DETERMINER QUELLE EST LE VRAI MONTANT DE LA TAXE DE SEJOUR
+
+                If GlobalVariable.actualLanguageValue = 1 Then
+                    SERVICE = "TAXE DE SEJOURS"
+                Else
+                    SERVICE = "TOURIST TAX"
+                End If
+
+                'VA AIDER A RETIRER LES TAXES DE SEJOURS EN TROP
+                TAXE_DE_SEJOUR_REELLE += Functions.totalDunServiceUnCertainJourSpecifique(DATE_MAIN_COURANTE, SERVICE, table.Rows(i)("NUM_RESERVATION"))
+
+                If HEBERGEMENT < 0 Then
+                    HEBERGEMENT = 0
+                End If
+
+                Dim TAXE_EN_TROP_NEGATIVE As Double = 0
+
+                If AUTRES_VENTE < 0 Then
+                    AUTRES_VENTE = 0
+                End If
+
+                Dim TOTAL_ENCAISSEMENT As Double = table.Rows(i)("ESPECES") + table.Rows(i)("CARTE CREDIT") + table.Rows(i)("MOBILE MONEY") + table.Rows(i)("CHEQUE")
+
+                If (RESTAURANT + BAR) = table.Rows(i)("BAR/RESTAURANT") Then
+                    TOTAL_RECETTE = AUTRES_VENTE + HEBERGEMENT + table.Rows(i)("BAR/RESTAURANT") + table.Rows(i)("BLANCHISSERIE")
+                ElseIf RESTAURANT + BAR = table.Rows(i)("BAR/RESTAURANT") Then
+                    TOTAL_RECETTE = AUTRES_VENTE + HEBERGEMENT + RESTAURANT + BAR + table.Rows(i)("BLANCHISSERIE")
+                Else
+                    TOTAL_RECETTE = table.Rows(i)("BAR/RESTAURANT") + AUTRES_VENTE + HEBERGEMENT + table.Rows(i)("BLANCHISSERIE")
+                End If
+
+                Dim A_REPORTER_SOLDE As Double = 0
+                Dim TOTAL_GENERAL_DU_JOUR As Double = 0
+                Dim TOTAL_CARTE As Double = 0
+                Dim RECETTE_TOTAL_DU_JOUR As Double = 0
+
+                If enChambre Then
+                    PETIT_DEJEUNER += table.Rows(i)("PDJ")
+                    DEJEUNER += table.Rows(i)("DEJEUNER")
+                    DINNER += table.Rows(i)("DINER")
+                End If
+
+            Next
+
+            'MAINcourantes comptoires
+            For i = 0 To table0.Rows.Count - 1
+
+                RESTAURANT += table0.Rows(i)("PDJ") + table0.Rows(i)("DEJEUNER") + table0.Rows(i)("DINER")
+                BAR += table0.Rows(i)("CAFE") + table0.Rows(i)("CAVE") + table0.Rows(i)("DIVERS")
+
+                AUTRES_VENTE += table0.Rows(i)("BLANCHISSERIE") + table0.Rows(i)("SERVICES") + table0.Rows(i)("SALON DE BEAUTE") + table0.Rows(i)("BOUTIQUE") + table0.Rows(i)("BUSINESS CENTER") + table0.Rows(i)("SPORTS") + table0.Rows(i)("LOISIRS") + table0.Rows(i)("JOURNAUX") + table0.Rows(i)("AUTRES")
+
+                PETIT_DEJEUNER += table0.Rows(i)("PDJ")
+                DEJEUNER += table0.Rows(i)("DEJEUNER")
+                DINNER += table0.Rows(i)("DINER")
+
+            Next
+
+        End If
+
+        Dim NATURE_COMPTE As Integer = 1
+        Dim compteExploitation As DataTable = Functions.getElementByCode(NATURE_COMPTE, "compte_exploitation", "NATURE_COMPTE")
+
+        Dim criteres(9) As String
+
+        If GlobalVariable.actualLanguageValue = 1 Then
+
+            criteres(0) = "AUTRES"
+            criteres(1) = "BAR"
+            criteres(2) = "DINER"
+            criteres(3) = "DEJEUNER"
+            criteres(4) = "HEBERGEMENT"
+            criteres(5) = "HALL RENTING"
+            criteres(6) = "PETIT DEJEUNER"
+            criteres(7) = "RESTAURANT"
+            criteres(8) = "TAXE DE SEJOURS"
+
+        Else
+
+            criteres(0) = "ACCOMMODATION"
+            criteres(1) = "BAR"
+            criteres(2) = "BREAK FAST"
+            criteres(3) = "DINNER"
+            criteres(4) = "LUNCH"
+            criteres(5) = "LOCATION SALLE"
+            criteres(6) = "MISCELLANEAOUS"
+            criteres(7) = "RESTAURANT"
+            criteres(8) = "TOURIST TAX"
+
+        End If
+
+        If compteExploitation.Rows.Count > 0 Then
+
+            Dim CRITERE_ASSOCIE As String = ""
+
+            Dim CODE As String = ""
+            Dim COMPTE As String = ""
+            Dim INTITULE As String = ""
+
+            Dim MONTANT As Double = 0
+            Dim DATE_CREATION As Date = GlobalVariable.DateDeTravail.AddDays(-1)
+            Dim resa As New Reservation()
+
+            Dim depenses As New Depense()
+
+            For i = 0 To compteExploitation.Rows.Count - 1
+
+                CRITERE_ASSOCIE = compteExploitation.Rows(i)("CRITERE_ASSOCIE")
+                COMPTE = compteExploitation.Rows(i)("COMPTE")
+                INTITULE = compteExploitation.Rows(i)("INTITULE")
+
+                For j = 0 To criteres.Length - 1
+
+                    MONTANT = 0
+
+                    If Trim(CRITERE_ASSOCIE).Equals(criteres(j)) Then
+
+                        If Trim(criteres(j)).Equals("AUTRES") Or Trim(criteres(j)).Equals("MISCELLANEAOUS") Then
+                            MONTANT = AUTRES_VENTE
+                        ElseIf Trim(criteres(j)).Equals("ACCOMMODATION") Or Trim(criteres(j)).Equals("HEBERGEMENT") Then
+                            MONTANT = HEBERGEMENT
+                        ElseIf Trim(criteres(j)).Equals("BAR") Then
+                            MONTANT = BAR
+                        ElseIf Trim(criteres(j)).Equals("RESTAURANT") Then
+                            MONTANT = RESTAURANT
+                        ElseIf Trim(criteres(j)).Equals("LUNCH") Or Trim(criteres(j)).Equals("DEJEUNER") Then
+                            MONTANT = DEJEUNER
+                        ElseIf Trim(criteres(j)).Equals("DINNER") Or Trim(criteres(j)).Equals("DINER") Then
+                            MONTANT = DINNER
+                        ElseIf Trim(criteres(j)).Equals("BREAK FAST") Or Trim(criteres(j)).Equals("PETIT DEJEUNER") Then
+                            MONTANT = PETIT_DEJEUNER
+                        ElseIf Trim(criteres(j)).Equals("HALL RENTING") Or Trim(criteres(j)).Equals("LOCATION SALLE") Then
+                            MONTANT = LOCATION_SALLE
+                        ElseIf Trim(criteres(j)).Equals("TOURIST TAX") Or Trim(criteres(j)).Equals("TAXE DE SEJOURS") Then
+                            MONTANT = TAXE_DE_SEJOUR_REELLE
+                        End If
+
+                        If MONTANT > 0 Then
+
+                            CODE = Functions.GeneratingRandomCodeWithSpecifications("regroupement_chiffres_affaires", "")
+                            depenses.insertCategorieChiffresAffiares(CODE, COMPTE, INTITULE, MONTANT, DATE_CREATION)
+
+                        End If
+
+                    End If
+                Next
+            Next
+
+        End If
+
+    End Function
+
     Public Sub miseAjourEtatMainCourante(ByVal CODE_MAIN_COURANTE As String, ByVal ETAT_MAIN_COURANTE As Integer)
 
-        Dim updateQueryMainCouranteJournaliereCopie As String = "UPDATE `main_courante_journaliere` SET `ETAT_MAIN_COURANTE` = @ETAT_MAIN_COURANTE WHERE CODE_MAIN_COURANTE_JOURNALIERE = @CODE_MAIN_COURANTE"
+        Dim updateQueryMainCouranteJournaliereCopie As String = "UPDATE `main_courante_journaliere` Set `ETAT_MAIN_COURANTE` = @ETAT_MAIN_COURANTE WHERE CODE_MAIN_COURANTE_JOURNALIERE = @CODE_MAIN_COURANTE"
 
         Dim commandMainCouranteJournaliereCopie As New MySqlCommand(updateQueryMainCouranteJournaliereCopie, GlobalVariable.connect)
 
@@ -1017,7 +1269,7 @@ Public Class Reservation
 
     Public Sub etatReservation(ByVal CODE_RESERVATION As String, ByVal ETAT_RESERVATION As Integer, ByVal ETAT_NOTE_RESERVATION As String)
 
-        Dim updateQueryreserve_conf As String = "UPDATE `reserve_conf` SET `ETAT_RESERVATION` = @ETAT_RESERVATION, ETAT_NOTE_RESERVATION=@ETAT_NOTE_RESERVATION WHERE CODE_RESERVATION = @CODE_RESERVATION"
+        Dim updateQueryreserve_conf As String = "UPDATE `reserve_conf` Set `ETAT_RESERVATION` = @ETAT_RESERVATION, ETAT_NOTE_RESERVATION =@ETAT_NOTE_RESERVATION WHERE CODE_RESERVATION = @CODE_RESERVATION"
 
         Dim commandMainCourantereserve_conf As New MySqlCommand(updateQueryreserve_conf, GlobalVariable.connect)
 

@@ -277,19 +277,53 @@ Public Class Compte
 
     Public Function insertPlanComptable(ByVal INTITULE As String, ByVal NUMERO_COMPTE As String, ByVal NIVEAU_COMPTE As Integer,
                                         ByVal NATURE_COMPTE As Integer, ByVal RECURRENTE As Integer, Optional ByVal COMPTE_PARENT As Integer = 0,
-                                        Optional ByVal MONTANT_DEPENSE As Double = 0) As Boolean
+                                        Optional ByVal MONTANT_DEPENSE As Double = 0, Optional ByVal CRITERE_ASSOCIE As String = "") As Boolean
 
         Dim insertQuery As String = "INSERT INTO `plan_comptable`(`INTITULE`, `COMPTE`) VALUES (@value2,@value3)"
 
         If GlobalVariable.typeDeCompte = "exploitation" Then
-            insertQuery = "INSERT INTO `compte_exploitation`(`INTITULE`, `COMPTE`, COMPTE_PARENT, NIVEAU_COMPTE, NATURE_COMPTE, RECURRENTE, MONTANT_DEPENSE) 
-            VALUES (@value2,@value3,@COMPTE_PARENT, @NIVEAU_COMPTE, @NATURE_COMPTE, @RECURRENTE, @MONTANT_DEPENSE)"
+            insertQuery = "INSERT INTO `compte_exploitation`(`INTITULE`, `COMPTE`, COMPTE_PARENT, NIVEAU_COMPTE, NATURE_COMPTE, RECURRENTE, MONTANT_DEPENSE, CRITERE_ASSOCIE) 
+            VALUES (@value2,@value3,@COMPTE_PARENT, @NIVEAU_COMPTE, @NATURE_COMPTE, @RECURRENTE, @MONTANT_DEPENSE, @CRITERE_ASSOCIE)"
         End If
 
         Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
 
         command.Parameters.Add("@value2", MySqlDbType.String).Value = INTITULE
         command.Parameters.Add("@value3", MySqlDbType.String).Value = NUMERO_COMPTE
+        command.Parameters.Add("@CRITERE_ASSOCIE", MySqlDbType.String).Value = CRITERE_ASSOCIE
+        command.Parameters.Add("@COMPTE_PARENT", MySqlDbType.Int32).Value = COMPTE_PARENT
+        command.Parameters.Add("@NIVEAU_COMPTE", MySqlDbType.Int32).Value = NIVEAU_COMPTE
+        command.Parameters.Add("@NATURE_COMPTE", MySqlDbType.Int32).Value = NATURE_COMPTE
+        command.Parameters.Add("@RECURRENTE", MySqlDbType.Int32).Value = RECURRENTE
+        command.Parameters.Add("@MONTANT_DEPENSE", MySqlDbType.Double).Value = MONTANT_DEPENSE
+
+        If (command.ExecuteNonQuery() = 1) Then
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function
+
+
+    Public Function updatePlanComptable(ByVal OLD_COMPTE As String, ByVal INTITULE As String, ByVal NUMERO_COMPTE As String, ByVal NIVEAU_COMPTE As Integer,
+                                        ByVal NATURE_COMPTE As Integer, ByVal RECURRENTE As Integer, Optional ByVal COMPTE_PARENT As Integer = 0,
+                                        Optional ByVal MONTANT_DEPENSE As Double = 0, Optional ByVal CRITERE_ASSOCIE As String = "") As Boolean
+
+        Dim insertQuery As String = ""
+
+        If GlobalVariable.typeDeCompte = "exploitation" Then
+            insertQuery = "UPDATE `compte_exploitation` 
+            SET `COMPTE`=@COMPTE,`NIVEAU_COMPTE`=@NIVEAU_COMPTE,`NATURE_COMPTE`=@NATURE_COMPTE,`COMPTE_PARENT`=@COMPTE_PARENT,`RECURRENTE`=@RECURRENTE,
+            `INTITULE`=@INTITULE,`MONTANT_DEPENSE`=@MONTANT_DEPENSE,`CRITERE_ASSOCIE`=@CRITERE_ASSOCIE WHERE COMPTE=@OLD_COMPTE"
+        End If
+
+        Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
+
+        command.Parameters.Add("@INTITULE", MySqlDbType.String).Value = INTITULE
+        command.Parameters.Add("@COMPTE", MySqlDbType.String).Value = NUMERO_COMPTE
+        command.Parameters.Add("@OLD_COMPTE", MySqlDbType.String).Value = OLD_COMPTE
+        command.Parameters.Add("@CRITERE_ASSOCIE", MySqlDbType.String).Value = CRITERE_ASSOCIE
         command.Parameters.Add("@COMPTE_PARENT", MySqlDbType.Int32).Value = COMPTE_PARENT
         command.Parameters.Add("@NIVEAU_COMPTE", MySqlDbType.Int32).Value = NIVEAU_COMPTE
         command.Parameters.Add("@NATURE_COMPTE", MySqlDbType.Int32).Value = NATURE_COMPTE

@@ -27992,4 +27992,100 @@ Public Class Functions
         Functions.ClosingOpenedConnection()
     End Sub
 
+
+    Public Shared Function montantDucompteExploitation(ByVal dateDebut As Date, ByVal dateFin As Date, ByVal COMPTE As String, ByVal NATURE_COMPTE As Integer) As Double
+
+        Dim FillingListquery As String = ""
+
+        Dim MONTANT As Double = 0
+
+        If NATURE_COMPTE = 0 Then
+
+            FillingListquery = "SELECT MONTANT FROM regroupement_depenses WHERE DATE_DEPENSE >= '" & dateDebut.ToString("yyyy-MM-dd") & "' 
+                    AND DATE_DEPENSE <= '" & dateFin.ToString("yyyy-MM-dd") & "' AND CODE_CATEGORY_DEPENSE = @CODE_CATEGORY_DEPENSE
+                    ORDER BY regroupement_depenses.FAMILLE ASC"
+
+        ElseIf NATURE_COMPTE = 1 Then
+
+            FillingListquery = "SELECT MONTANT FROM regroupement_chiffres_affaires WHERE DATE_CREATION >= '" & dateDebut.ToString("yyyy-MM-dd") & "' 
+                    AND DATE_CREATION <= '" & dateFin.ToString("yyyy-MM-dd") & "' AND COMPTE = @COMPTE
+                    ORDER BY regroupement_chiffres_affaires.INTITULE ASC"
+
+        End If
+
+        Dim commandList As New MySqlCommand(FillingListquery, GlobalVariable.connect)
+        commandList.Parameters.Add("@CODE_CATEGORY_DEPENSE", MySqlDbType.VarChar).Value = COMPTE
+        commandList.Parameters.Add("@COMPTE", MySqlDbType.VarChar).Value = COMPTE
+        Dim adapterList As New MySqlDataAdapter(commandList)
+        Dim tableList As New DataTable()
+
+        adapterList.Fill(tableList)
+
+        If tableList.Rows.Count > 0 Then
+
+            For j = 0 To tableList.Rows.Count - 1
+                MONTANT += tableList.Rows(j)("MONTANT")
+            Next
+
+        End If
+
+        Return MONTANT
+
+    End Function
+
+    Public Shared Function previsionMoisDernier(ByVal dateDebut As Date, ByVal dateFin As Date, ByVal COMPTE As String) As Double
+
+        Dim FillingListquery As String = ""
+
+        Dim MONTANT As Double = 0
+
+        FillingListquery = "SELECT * FROM compte_exploitation_previsions WHERE DATE_DEBUT >= '" & dateDebut.ToString("yyyy-MM-dd") & "' 
+                   AND DATE_FIN <= '" & dateFin.ToString("yyyy-MM-dd") & "' AND COMPTE = @COMPTE "
+
+        Dim commandList As New MySqlCommand(FillingListquery, GlobalVariable.connect)
+        commandList.Parameters.Add("@COMPTE", MySqlDbType.VarChar).Value = COMPTE
+        Dim adapterList As New MySqlDataAdapter(commandList)
+        Dim tableList As New DataTable()
+
+        adapterList.Fill(tableList)
+
+        If tableList.Rows.Count > 0 Then
+
+            For j = 0 To tableList.Rows.Count - 1
+                MONTANT += tableList.Rows(j)("MONTANT")
+            Next
+
+        End If
+
+        Return MONTANT
+
+    End Function
+
+
+    Public Shared Function previsionExist(ByVal dateDebut As Date, ByVal dateFin As Date, ByVal COMPTE As String) As Boolean
+
+        Dim exist As Boolean = False
+
+        Dim FillingListquery As String = ""
+
+        Dim MONTANT As Double = 0
+
+        FillingListquery = "SELECT * FROM compte_exploitation_previsions WHERE DATE_DEBUT >= '" & dateDebut.ToString("yyyy-MM-dd") & "' 
+                   AND DATE_FIN <= '" & dateFin.ToString("yyyy-MM-dd") & "' AND COMPTE = @COMPTE "
+
+        Dim commandList As New MySqlCommand(FillingListquery, GlobalVariable.connect)
+        commandList.Parameters.Add("@COMPTE", MySqlDbType.VarChar).Value = COMPTE
+        Dim adapterList As New MySqlDataAdapter(commandList)
+        Dim tableList As New DataTable()
+
+        adapterList.Fill(tableList)
+
+        If tableList.Rows.Count > 0 Then
+            exist = True
+        End If
+
+        Return exist
+
+    End Function
+
 End Class

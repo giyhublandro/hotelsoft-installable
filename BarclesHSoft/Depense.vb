@@ -105,4 +105,51 @@ Public Class Depense
         End If
 
     End Function
+
+    Public Function insertCategorieChiffresAffiares(ByVal CODE As String, ByVal COMPTE As String, ByVal INTITULE As String,
+                                           ByVal MONTANT As Double, ByVal DATE_CREATION As Date) As Boolean
+
+        Dim insertQuery As String = ""
+
+        insertQuery = "INSERT INTO `regroupement_chiffres_affaires`(`CODE`, `COMPTE`, `INTITULE`, `MONTANT`,  `DATE_CREATION`) 
+        VALUES (@CODE,@COMPTE,@INTITULE,@MONTANT, @DATE_CREATION)"
+
+        Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
+
+        command.Parameters.Add("@CODE", MySqlDbType.VarChar).Value = CODE
+        command.Parameters.Add("@INTITULE", MySqlDbType.VarChar).Value = INTITULE
+        command.Parameters.Add("@COMPTE", MySqlDbType.VarChar).Value = COMPTE
+        command.Parameters.Add("@MONTANT", MySqlDbType.Double).Value = MONTANT
+        command.Parameters.Add("@DATE_CREATION", MySqlDbType.Date).Value = DATE_CREATION
+
+        If command.ExecuteNonQuery() = 1 Then
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function
+
+    Public Function previsions(ByVal COMPTE As String, ByVal MONTANT As Double, ByVal DATE_DEBUT As Date, ByVal DATE_FIN As Date) As Boolean
+
+        Dim insertQuery As String = ""
+
+        insertQuery = "INSERT INTO `compte_exploitation_previsions`(`COMPTE`, `MONTANT`,  `DATE_DEBUT`,  `DATE_FIN`) 
+        VALUES (@COMPTE, @MONTANT, @DATE_DEBUT, @DATE_FIN)"
+
+        Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
+
+        command.Parameters.Add("@COMPTE", MySqlDbType.VarChar).Value = COMPTE
+        command.Parameters.Add("@MONTANT", MySqlDbType.Double).Value = MONTANT
+        command.Parameters.Add("@DATE_DEBUT", MySqlDbType.Date).Value = DATE_DEBUT
+        command.Parameters.Add("@DATE_FIN", MySqlDbType.Date).Value = DATE_FIN
+
+        If command.ExecuteNonQuery() = 1 Then
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function
+
 End Class

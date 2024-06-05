@@ -1146,12 +1146,12 @@ Partial Class BonApprovisionnementForm
         Me.GunaTextBoxLecteurRFID.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxLecteurRFID.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxLecteurRFID.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxLecteurRFID.Location = New System.Drawing.Point(6, 403)
+        Me.GunaTextBoxLecteurRFID.Location = New System.Drawing.Point(64, 403)
         Me.GunaTextBoxLecteurRFID.Name = "GunaTextBoxLecteurRFID"
         Me.GunaTextBoxLecteurRFID.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxLecteurRFID.Radius = 5
         Me.GunaTextBoxLecteurRFID.SelectedText = ""
-        Me.GunaTextBoxLecteurRFID.Size = New System.Drawing.Size(189, 34)
+        Me.GunaTextBoxLecteurRFID.Size = New System.Drawing.Size(131, 34)
         Me.GunaTextBoxLecteurRFID.TabIndex = 61
         Me.GunaTextBoxLecteurRFID.Visible = False
         '

@@ -1877,6 +1877,8 @@ Public Class ReglementForm
                                             FolioForm.Show()
                                             FolioForm.TopMost = True
 
+                                            GlobalVariable.ComingFromFolio1FactureType = ""
+
                                         End If
 
                                     Else

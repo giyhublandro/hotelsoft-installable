@@ -3466,10 +3466,10 @@ Public Class MainWindowEconomat
                 TYPE_BORDEREAUX = GlobalVariable.bon_approvisi
                 ETAT_DU_BORDEREAU = 4
             ElseIf GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.bon_reception Then
-                getQuery = "SELECT CODE_BORDEREAUX, LIBELLE_BORDEREAUX FROM bordereaux WHERE LIBELLE_BORDEREAUX LIKE '%" & Trim(GunaTextBoxReference.Text) & "%' AND TYPE_BORDEREAUX IN ('Bon de Commande', 'Liste du Marché') AND ETAT_BORDEREAU =@ETAT_BORDEREAU OR CODE_BORDEREAUX LIKE '%" & Trim(GunaTextBoxReference.Text) & "%' AND TYPE_BORDEREAUX  IN ('Bon de Commande', 'Liste du Marché') AND ETAT_BORDEREAU =@ETAT_BORDEREAU"
+                getQuery = "SELECT CODE_BORDEREAUX, LIBELLE_BORDEREAUX FROM bordereaux WHERE LIBELLE_BORDEREAUX LIKE '%" & Trim(GunaTextBoxReference.Text) & "%' AND TYPE_BORDEREAUX IN ('Bon de Commande', 'Liste du Marché', 'Market List','Order slip') AND ETAT_BORDEREAU =@ETAT_BORDEREAU OR CODE_BORDEREAUX LIKE '%" & Trim(GunaTextBoxReference.Text) & "%' AND TYPE_BORDEREAUX  IN ('Bon de Commande', 'Liste du Marché', 'Market List','Order slip') AND ETAT_BORDEREAU =@ETAT_BORDEREAU"
                 ETAT_DU_BORDEREAU = 4
             ElseIf GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.bon_approvisi Then
-                getQuery = "SELECT CODE_BORDEREAUX, LIBELLE_BORDEREAUX FROM bordereaux WHERE LIBELLE_BORDEREAUX LIKE '%" & Trim(GunaTextBoxReference.Text) & "%' AND TYPE_BORDEREAUX IN ('Bon de Commande', 'Bon Approvisionnement') OR CODE_BORDEREAUX LIKE '%" & Trim(GunaTextBoxReference.Text) & "%' AND TYPE_BORDEREAUX  IN ('Bon de Commande', 'Liste du Marché')"
+                getQuery = "SELECT CODE_BORDEREAUX, LIBELLE_BORDEREAUX FROM bordereaux WHERE LIBELLE_BORDEREAUX LIKE '%" & Trim(GunaTextBoxReference.Text) & "%' AND TYPE_BORDEREAUX IN ('Bon de Commande', 'Bon Approvisionnement', 'Order slip', 'Store Requisition') OR CODE_BORDEREAUX LIKE '%" & Trim(GunaTextBoxReference.Text) & "%' AND TYPE_BORDEREAUX  IN ('Bon de Commande', 'Liste du Marché', 'Market List','Order slip')"
                 ETAT_DU_BORDEREAU = 4
             End If
 
@@ -3580,29 +3580,62 @@ Public Class MainWindowEconomat
 
                 For i = 0 To econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows.Count - 1
 
-                    Dim UNITE_COMPTAGE As String = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("UNITE")
-                    'Dim CODE_BORDEREAUX As String = econom.ArticleDunBordereauQuelconque(bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("CODE_BORDEREAUX")
-                    Dim DESIGNATION As String = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("DESIGNATION")
-                    Dim CODE_ARTICLE As String = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("CODE ARTICLE")
+                    If GlobalVariable.actualLanguageValue = 1 Then
 
-                    Dim QUANTITE As Double = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("QUANTITE")
+                        Dim UNITE_COMPTAGE As String = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("UNITE")
 
-                    Dim EN_STOCK As Double = 0
+                        'Dim CODE_BORDEREAUX As String = econom.ArticleDunBordereauQuelconque(bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("CODE_BORDEREAUX")
+                        Dim DESIGNATION As String = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("DESIGNATION")
+                        Dim CODE_ARTICLE As String = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("CODE ARTICLE")
 
-                    If Bordereau.Rows(0)("ETAT_BORDEREAU") = 6 Then
-                        EN_STOCK = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("EN STOCK") - QUANTITE
+                        Dim QUANTITE As Double = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("QUANTITE")
+
+                        Dim EN_STOCK As Double = 0
+
+                        If Bordereau.Rows(0)("ETAT_BORDEREAU") = 6 Then
+                            EN_STOCK = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("EN STOCK") - QUANTITE
+                        Else
+                            EN_STOCK = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("EN STOCK")
+                        End If
+
+                        Dim DATE_PEREMPTION As Date = GlobalVariable.DateDeTravail
+                        Dim PRIX_VENTE As Double = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("PRIX VENTE")
+                        Dim PRIX_ACHAT As Double = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("PRIX UNITAIRE")
+                        Dim CODE_AGENCE As String = GlobalVariable.codeAgence
+                        Dim CODE_USER As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+                        Dim COUT_DU_STOCK As Double = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("PRIX TOTAL")
+
+                        econom.insertLigneBordereauTemp(CODE_ARTICLE, DESIGNATION, QUANTITE, EN_STOCK, PRIX_VENTE, PRIX_ACHAT, DATE_PEREMPTION, CODE_AGENCE, CODE_BORDEREAUX, UNITE_COMPTAGE, CODE_USER, COUT_DU_STOCK)
+
                     Else
-                        EN_STOCK = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("EN STOCK")
+
+                        Dim UNITE_COMPTAGE As String = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("UNIT")
+
+                        'Dim CODE_BORDEREAUX As String = econom.ArticleDunBordereauQuelconque(bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("CODE_BORDEREAUX")
+                        Dim DESIGNATION As String = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("DESIGNATION")
+                        Dim CODE_ARTICLE As String = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("CODE ARTICLE")
+
+                        Dim QUANTITE As Double = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("QUANTITY")
+
+                        Dim EN_STOCK As Double = 0
+
+                        If Bordereau.Rows(0)("ETAT_BORDEREAU") = 6 Then
+                            EN_STOCK = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("STOCK") - QUANTITE
+                        Else
+                            EN_STOCK = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("STOCK")
+                        End If
+
+                        Dim DATE_PEREMPTION As Date = GlobalVariable.DateDeTravail
+                        Dim PRIX_VENTE As Double = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("TOTAL PRICE")
+                        Dim PRIX_ACHAT As Double = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("UNIT PRICE")
+                        Dim CODE_AGENCE As String = GlobalVariable.codeAgence
+                        Dim CODE_USER As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+                        Dim COUT_DU_STOCK As Double = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("TOTAL PRICE")
+
+                        econom.insertLigneBordereauTemp(CODE_ARTICLE, DESIGNATION, QUANTITE, EN_STOCK, PRIX_VENTE, PRIX_ACHAT, DATE_PEREMPTION, CODE_AGENCE, CODE_BORDEREAUX, UNITE_COMPTAGE, CODE_USER, COUT_DU_STOCK)
+
+
                     End If
-
-                    Dim DATE_PEREMPTION As Date = GlobalVariable.DateDeTravail
-                    Dim PRIX_VENTE As Double = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("PRIX VENTE")
-                    Dim PRIX_ACHAT As Double = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("PRIX UNITAIRE")
-                    Dim CODE_AGENCE As String = GlobalVariable.codeAgence
-                    Dim CODE_USER As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
-                    Dim COUT_DU_STOCK As Double = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("PRIX TOTAL")
-
-                    econom.insertLigneBordereauTemp(CODE_ARTICLE, DESIGNATION, QUANTITE, EN_STOCK, PRIX_VENTE, PRIX_ACHAT, DATE_PEREMPTION, CODE_AGENCE, CODE_BORDEREAUX, UNITE_COMPTAGE, CODE_USER, COUT_DU_STOCK)
 
                 Next
 
@@ -3655,8 +3688,8 @@ Public Class MainWindowEconomat
                 GunaDataGridViewLigneArticleCommande.Columns("UNIT PRICE").DefaultCellStyle.Format = "#,##0.0"
                 GunaDataGridViewLigneArticleCommande.Columns("UNIT PRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-                GunaDataGridViewLigneArticleCommande.Columns("QUANTITy").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-                GunaDataGridViewLigneArticleCommande.Columns("QUANTITy").DefaultCellStyle.Format = "#,##0.0"
+                GunaDataGridViewLigneArticleCommande.Columns("QUANTITY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                GunaDataGridViewLigneArticleCommande.Columns("QUANTITY").DefaultCellStyle.Format = "#,##0.0"
 
                 GunaDataGridViewLigneArticleCommande.Columns("STOCK").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
                 GunaDataGridViewLigneArticleCommande.Columns("STOCK").DefaultCellStyle.Format = "#,##0.0"

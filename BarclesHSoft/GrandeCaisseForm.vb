@@ -2771,8 +2771,6 @@ Public Class GrandeCaisseForm
 
     End Sub
 
-    '-----------------------------------------
-
     Private Sub GunaTextBoxCompte_TextChanged(sender As Object, e As EventArgs) Handles GunaTextBoxRefCompte.TextChanged
 
         If Trim(GunaTextBoxRefCompte.Text) = "" Then
@@ -2823,10 +2821,12 @@ Public Class GrandeCaisseForm
             Dim CODE_CATEGORY_DEPENSE As String = GunaTextBoxRefCompte.Text
             Dim comptePlan As DataTable = Functions.getElementByCode(GunaTextBoxRefCompte.Text, "compte_exploitation", "COMPTE")
 
+            Dim NATURE_COMPTE As Integer = 0
+
             If comptePlan.Rows.Count > 0 Then
                 GunaTextBoxiNTITUTLE.Text = comptePlan.Rows(0)("INTITULE")
-                GunaTextBoxMoisEncours.Text = Format(montantDucompteExploitation(dateDebut, dateFin, CODE_CATEGORY_DEPENSE), "#,##0")
-                GunaTextBoxMoisDernier.Text = Format(montantDucompteExploitation(dateDebut_1, dateFin_1, CODE_CATEGORY_DEPENSE), "#,##0")
+                GunaTextBoxMoisEncours.Text = Format(Functions.montantDucompteExploitation(dateDebut, dateFin, CODE_CATEGORY_DEPENSE, NATURE_COMPTE), "#,##0")
+                GunaTextBoxMoisDernier.Text = Format(Functions.montantDucompteExploitation(dateDebut_1, dateFin_1, CODE_CATEGORY_DEPENSE, NATURE_COMPTE), "#,##0")
             End If
 
             GunaDataGridViewPlanComptable.Visible = False
@@ -2834,38 +2834,5 @@ Public Class GrandeCaisseForm
         End If
 
     End Sub
-
-
-    Private Function montantDucompteExploitation(ByVal dateDebut As Date, ByVal dateFin As Date, ByVal CODE_CATEGORY_DEPENSE As String) As Double
-
-        Dim FillingListquery As String = ""
-
-        Dim MONTANT As Double = 0
-
-        MONTANT = 0
-
-        FillingListquery = "SELECT `CODE`, `CODE_CATEGORY_DEPENSE` AS 'COMPTE', `FAMILLE` AS 'INTITULE', MONTANT
-                    FROM regroupement_depenses WHERE DATE_DEPENSE >= '" & dateDebut.ToString("yyyy-MM-dd") & "' 
-                    AND DATE_DEPENSE <= '" & dateFin.ToString("yyyy-MM-dd") & "' AND CODE_CATEGORY_DEPENSE = @CODE_CATEGORY_DEPENSE
-                    ORDER BY regroupement_depenses.FAMILLE ASC"
-
-        Dim commandList As New MySqlCommand(FillingListquery, GlobalVariable.connect)
-        commandList.Parameters.Add("@CODE_CATEGORY_DEPENSE", MySqlDbType.VarChar).Value = CODE_CATEGORY_DEPENSE
-        Dim adapterList As New MySqlDataAdapter(commandList)
-        Dim tableList As New DataTable()
-
-        adapterList.Fill(tableList)
-
-        If tableList.Rows.Count > 0 Then
-
-            For j = 0 To tableList.Rows.Count - 1
-                MONTANT += tableList.Rows(j)("MONTANT")
-            Next
-
-        End If
-
-        Return MONTANT
-
-    End Function
 
 End Class
