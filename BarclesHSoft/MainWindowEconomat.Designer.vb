@@ -1551,12 +1551,12 @@ Partial Class MainWindowEconomat
         Me.GunaContextMenuStripDeleteLigneBordero.RenderStyle.SelectionForeColor = System.Drawing.Color.White
         Me.GunaContextMenuStripDeleteLigneBordero.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
         Me.GunaContextMenuStripDeleteLigneBordero.RenderStyle.TextRenderingHint = Guna.UI.WinForms.DrawingTextRenderingHint.SystemDefault
-        Me.GunaContextMenuStripDeleteLigneBordero.Size = New System.Drawing.Size(181, 48)
+        Me.GunaContextMenuStripDeleteLigneBordero.Size = New System.Drawing.Size(109, 26)
         '
         'SupprimerToolStripMenuItem1
         '
         Me.SupprimerToolStripMenuItem1.Name = "SupprimerToolStripMenuItem1"
-        Me.SupprimerToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.SupprimerToolStripMenuItem1.Size = New System.Drawing.Size(108, 22)
         Me.SupprimerToolStripMenuItem1.Text = "Retirer"
         '
         'GunaButtonImpressionDirecte

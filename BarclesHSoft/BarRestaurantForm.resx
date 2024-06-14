@@ -2245,6 +2245,12 @@
         P6fYuqA+QH1fW7w/mLVF8XfqO1vif//59x/zy1FynrLg/wAAAABJRU5ErkJggg==
 </value>
   </data>
+  <metadata name="GunaContextMenuStripDeleteVente.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>368, 17</value>
+  </metadata>
+  <metadata name="GunaContextMenuStripAll.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>855, 81</value>
+  </metadata>
   <data name="PictureBoxClearArticleFields.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAEQ
@@ -2588,12 +2594,6 @@
         2fAc0Fn1UcbvsY+EbwDKXdxMJpPJNMSkSf8AutG29HDkVVsAAAAASUVORK5CYII=
 </value>
   </data>
-  <metadata name="GunaContextMenuStripDeleteVente.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>368, 17</value>
-  </metadata>
-  <metadata name="GunaContextMenuStripAll.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>855, 81</value>
-  </metadata>
   <data name="GunaAdvenceButtonLectureDeCarte.CheckedImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAcJJREFUOE+V

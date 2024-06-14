@@ -8475,6 +8475,7 @@ Public Class MainWindowEconomat
     End Sub
 
     Private Sub GunaButton16_Click(sender As Object, e As EventArgs) Handles GunaButton16.Click
+
         Dim title As String = "Inventaire " & GlobalVariable.DateDeTravail.ToString("ddMMyyHms")
         If GlobalVariable.actualLanguageValue = 0 Then
             title = "Inventory Excel " & GlobalVariable.DateDeTravail.ToString("ddMMyyHms")

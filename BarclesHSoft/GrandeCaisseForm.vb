@@ -789,6 +789,8 @@ Public Class GrandeCaisseForm
     'We save the reglement form information
     Private Sub GunaButtonEnregistrerClient_Click(sender As Object, e As EventArgs) Handles GunaButtonEnregistrerReglement.Click
 
+
+        Dim NUM_COMPTE = GunaTextBoxRefCompte.Text
         Me.Cursor = Cursors.WaitCursor
 
         GunaButtonBilletage.Visible = False
@@ -1058,7 +1060,7 @@ Public Class GrandeCaisseForm
                                         End If
 
                                         'ENCAISSEMENT NORMAL klg
-                                        reglement.insertReglement(NUM_REGLEMENT, NUM_FACTURE, CODE_CAISSIER, MONTANT_VERSE, DATE_REGLEMENT, MODE_REGLEMENT, REF_REGLEMENT, CODE_MODE, IMPRIMER, CODE_AGENCE, CODE_RESERVATION, CODE_CLIENT, NUMERO_BLOC_NOTE, MODE_REG_INFO_SUP_1, MODE_REG_INFO_SUP_2, MODE_REG_INFO_SUP_3)
+                                        reglement.insertReglement(NUM_REGLEMENT, NUM_FACTURE, CODE_CAISSIER, MONTANT_VERSE, DATE_REGLEMENT, MODE_REGLEMENT, REF_REGLEMENT, CODE_MODE, IMPRIMER, CODE_AGENCE, CODE_RESERVATION, CODE_CLIENT, NUMERO_BLOC_NOTE, MODE_REG_INFO_SUP_1, MODE_REG_INFO_SUP_2, MODE_REG_INFO_SUP_3, NUM_COMPTE)
 
                                         Dim depense As New Depense()
 

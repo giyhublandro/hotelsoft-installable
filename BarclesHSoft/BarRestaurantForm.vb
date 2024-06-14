@@ -7058,8 +7058,34 @@ Public Class BarRestaurantForm
                 GunaDataGridViewClientMaison.DataSource = table
 
             Else
+
+                'query = "SELECT INTITULE, NUMERO_COMPTE From compte WHERE 
+                'INTITULE LIKE '%" & GunaTextBoxNomPrenom.Text & "%'
+                'Or NUMERO_COMPTE LIKE '%" & Trim(GunaTextBoxNomPrenom.Text) & "%' ORDER BY INTITULE ASC"
+
+                'command = New MySqlCommand(query, GlobalVariable.connect)
+                'command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = GlobalVariable.codeAgence
+                'command.Parameters.Add("@ETAT_DU_COMPTE", MySqlDbType.Int64).Value = 1
+
+                'table = New DataTable
+                'adapter = New MySqlDataAdapter(command)
+
+                'adapter.Fill(table)
+
+                'If (table.Rows.Count > 0) Then
+
+                'GunaDataGridViewClientMaison.DataSource = table
+
+                'Else
+
+                'GunaDataGridViewClientMaison.Columns.Clear()
+                'GunaDataGridViewClientMaison.Visible = False
+
+                'End If
+
                 GunaDataGridViewClientMaison.Columns.Clear()
                 GunaDataGridViewClientMaison.Visible = False
+
             End If
 
         Else

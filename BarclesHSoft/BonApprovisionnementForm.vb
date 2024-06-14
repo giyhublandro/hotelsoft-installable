@@ -959,6 +959,7 @@ Public Class BonApprovisionnementForm
         montantGlobalVente = 0
 
         For i = 0 To GunaDataGridViewLigneArticleCommande.Rows.Count - 1
+
             If GlobalVariable.actualLanguageValue = 0 Then
                 montantGlobalAchat += GunaDataGridViewLigneArticleCommande.Rows(i).Cells("TOTAL PRICE").Value
                 montantGlobalVente += GunaDataGridViewLigneArticleCommande.Rows(i).Cells("SELLING PRICE").Value * GunaDataGridViewLigneArticleCommande.Rows(i).Cells("QUANTITY").Value

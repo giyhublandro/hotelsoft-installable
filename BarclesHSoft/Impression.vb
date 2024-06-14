@@ -25048,4 +25048,379 @@ Public Class Impression
 
     End Sub
 
+    Public Shared Sub bilan(ByVal dt As DataGridView, ByVal title As String, ByVal dateDebut As Date, ByVal dateFin As Date)
+
+        Dim monthNumber As Integer = Month(dateDebut)
+        Dim mois As String = ""
+
+        If monthNumber = 1 Then
+            mois = "Janvier"
+        ElseIf monthNumber = 2 Then
+            mois = "Fervrier"
+        ElseIf monthNumber = 3 Then
+            mois = "Mars"
+        ElseIf monthNumber = 4 Then
+            mois = "Avril"
+        ElseIf monthNumber = 5 Then
+            mois = "Mai"
+        ElseIf monthNumber = 6 Then
+            mois = "Juin"
+        ElseIf monthNumber = 7 Then
+            mois = "Juillet"
+        ElseIf monthNumber = 8 Then
+            mois = "Août"
+        ElseIf monthNumber = 9 Then
+            mois = "Septembre"
+        ElseIf monthNumber = 10 Then
+            mois = "Decembre"
+        ElseIf monthNumber = 11 Then
+            mois = "Novembre"
+        ElseIf monthNumber = 12 Then
+            mois = "Decembre"
+        End If
+
+        Dim titireFichier As String = "Bilan du mois de " & mois
+
+        If dt.Rows.Count > 0 Then
+
+            Dim sfd As FolderBrowserDialog = New FolderBrowserDialog
+
+            If sfd.ShowDialog() = DialogResult.OK Then
+
+                Dim xlApp As Excel.Application
+                Dim xlWorkBook As Excel.Workbook
+                Dim xlWorkSheet As Excel.Worksheet
+                Dim misValue As Object = System.Reflection.Missing.Value
+                Dim i As Integer
+                Dim j As Integer
+
+                xlApp = New Excel.Application
+                xlWorkBook = xlApp.Workbooks.Add(Type.Missing)
+                xlWorkSheet = xlWorkBook.Sheets(1)
+
+                Dim k As Integer = 0
+
+                For Each column As DataGridViewColumn In dt.Columns
+                    xlWorkSheet.Cells(1, k + 1) = column.HeaderText
+                    k += 1
+                Next
+
+                Dim n As Integer = 2
+                Dim m As Integer = 1
+
+                For i = 2 To dt.RowCount + 1
+
+                    For j = 1 To dt.ColumnCount
+
+                        'If dt.Rows(i - n).Cells(2).Value > 0 Then
+                        xlWorkSheet.Cells(i, j) = dt.Rows(i - n).Cells(j - m).Value
+                        'End If
+
+                    Next
+                Next
+
+                Dim fileName As String = "\" & titireFichier.ToString.ToUpper() & ".xlsx"
+                Dim finalPath = sfd.SelectedPath + fileName
+
+                xlWorkSheet.Columns.AutoFit()
+
+                xlWorkSheet.SaveAs(finalPath)
+                xlWorkBook.Close()
+                xlApp.Quit()
+
+                releaseObject(xlApp)
+                releaseObject(xlWorkBook)
+                releaseObject(xlWorkSheet)
+
+                MessageBox.Show(title & " a été exporté au format Excel", "Exportation Excel", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            End If
+
+        End If
+
+    End Sub
+
+
+    Public Shared Sub bilanPdf(ByVal dt As DataGridView, ByVal title As String, ByVal dateDebut As Date, ByVal dateFin As Date, ByVal nombreEntree As Integer)
+
+        Dim monthNumber As Integer = Month(dateDebut)
+        Dim mois As String = ""
+
+        If monthNumber = 1 Then
+            mois = "Janvier"
+        ElseIf monthNumber = 2 Then
+            mois = "Fervrier"
+        ElseIf monthNumber = 3 Then
+            mois = "Mars"
+        ElseIf monthNumber = 4 Then
+            mois = "Avril"
+        ElseIf monthNumber = 5 Then
+            mois = "Mai"
+        ElseIf monthNumber = 6 Then
+            mois = "Juin"
+        ElseIf monthNumber = 7 Then
+            mois = "Juillet"
+        ElseIf monthNumber = 8 Then
+            mois = "Août"
+        ElseIf monthNumber = 9 Then
+            mois = "Septembre"
+        ElseIf monthNumber = 10 Then
+            mois = "Decembre"
+        ElseIf monthNumber = 11 Then
+            mois = "Novembre"
+        ElseIf monthNumber = 12 Then
+            mois = "Decembre"
+        End If
+
+        If dt.Rows.Count > 0 Then
+
+            Dim societe As DataTable = Functions.allTableFields("societe")
+            Dim TotalFacture As Double = 0
+
+            Dim tireDocument As String = ""
+            Dim titreFichier As String = ""
+
+            titreFichier = "Bilan du mois de " & mois
+            tireDocument = title
+
+            If GlobalVariable.actualLanguageValue = 1 Then
+
+            Else
+
+            End If
+
+            Dim sfd As New SaveFileDialog With {.Filter = "PDF Files (*.pdf) | *.pdf"}
+
+            sfd.FileName = titreFichier & " " & (Date.Now().ToString("ddMMyyHms"))
+
+            If sfd.ShowDialog = 1 Then
+                Dim pdfDoc As New Document(PageSize.A4, 40, 40, 80, 40)
+                Dim pdfWrite As PdfWriter = PdfWriter.GetInstance(pdfDoc, New FileStream(sfd.FileName, FileMode.Create))
+                Dim pColumn As New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+                Dim pRow As New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)
+                Dim fontTotal As New Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.BOLD, BaseColor.BLACK)
+                Dim font1 As New Font(iTextSharp.text.Font.FontFamily.COURIER, 8, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)
+
+                pdfWrite.PageEvent = New HeaderFooter
+
+                pdfDoc.Open()
+
+                Dim pdfTable As New PdfPTable(6) 'Number of columns
+                pdfTable.TotalWidth = 520.0F
+                pdfTable.LockedWidth = True
+                pdfTable.HorizontalAlignment = Element.ALIGN_RIGHT
+                pdfTable.HeaderRows = 1
+
+                pdfTable.WidthPercentage = 100
+                Dim widths As Single() = New Single() {15.0F, 45.0F, 20.0F, 20.0F, 20.0F, 20.0F}
+                pdfTable.SetWidths(widths)
+
+                Dim pdfCell As PdfPCell = Nothing
+
+                Dim p10 As Paragraph = New Paragraph(Chr(13) & tireDocument.ToUpper.ToString & Chr(13) & Chr(13))
+                p10.Alignment = Element.ALIGN_CENTER
+                pdfDoc.Add(p10)
+
+                pdfCell = New PdfPCell(New Paragraph("COMPTE", pColumn))
+                pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                pdfCell.MinimumHeight = 14
+                pdfCell.PaddingLeft = 5.0
+                pdfTable.AddCell(pdfCell)
+
+                pdfCell = New PdfPCell(New Paragraph("INTITULE", pColumn))
+                pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                pdfCell.MinimumHeight = 14
+                pdfCell.PaddingLeft = 5.0F
+                pdfTable.AddCell(pdfCell)
+
+                pdfCell = New PdfPCell(New Paragraph("MOIS EN COURS", pColumn))
+                pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
+                pdfCell.MinimumHeight = 14
+                pdfCell.PaddingLeft = 5.0F
+                pdfTable.AddCell(pdfCell)
+
+                pdfCell = New PdfPCell(New Paragraph("PREVISIONNEL", pColumn))
+                pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                pdfCell.MinimumHeight = 14
+                pdfCell.PaddingLeft = 5.0F
+                pdfTable.AddCell(pdfCell)
+
+                pdfCell = New PdfPCell(New Paragraph("M-1", pColumn))
+                pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                pdfCell.MinimumHeight = 14
+                pdfCell.PaddingLeft = 5.0F
+                pdfTable.AddCell(pdfCell)
+
+                pdfCell = New PdfPCell(New Paragraph("M-2", pColumn))
+                pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                pdfCell.MinimumHeight = 14
+                pdfCell.PaddingLeft = 5.0F
+                pdfTable.AddCell(pdfCell)
+
+                Dim entrees As Double = 0
+                Dim sorties As Double = 0
+
+                Dim Previsionnel As Double = 0
+                Dim m_1 As Double = 0
+                Dim m_2 As Double = 0
+
+                If dt.Rows.Count > 0 Then
+
+                    For i = 0 To dt.Rows.Count - 1
+
+                        For j = 0 To dt.Columns.Count - 1
+
+                            If j > 1 Then
+                                pdfCell = New PdfPCell(New Paragraph(dt.Rows(i).Cells(j).Value, pRow))
+                            Else
+                                pdfCell = New PdfPCell(New Paragraph(dt.Rows(i).Cells(j).Value, pRow))
+                            End If
+
+                            If j < 2 Then
+                                pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
+                            Else
+                                pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT
+                            End If
+
+                            If j = 2 Then
+
+                                If nombreEntree - 1 < i Then
+                                    sorties += dt.Rows(i).Cells(j).Value
+                                    m_1 = 0
+                                    m_2 = 0
+                                    Previsionnel = 0
+                                Else
+                                    entrees += dt.Rows(i).Cells(j).Value
+                                End If
+
+                            ElseIf j = 3 Then
+                                Previsionnel += dt.Rows(i).Cells(j).Value
+                            ElseIf j = 4 Then
+                                m_1 += dt.Rows(i).Cells(j).Value
+                            ElseIf j = 5 Then
+                                m_2 += dt.Rows(i).Cells(j).Value
+                            End If
+
+                            pdfCell.MinimumHeight = 14
+                            pdfCell.PaddingLeft = 5.0F
+
+                            pdfTable.AddCell(pdfCell)
+
+                        Next
+
+                        If nombreEntree = i + 1 Then
+
+                            pdfCell = New PdfPCell(New Paragraph("TOTAL CHIFFRES D'AFFAIRES", pColumn))
+                            pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                            pdfCell.MinimumHeight = 14
+                            pdfCell.Colspan = 2
+                            pdfCell.PaddingLeft = 5.0F
+                            pdfTable.AddCell(pdfCell)
+
+                            pdfCell = New PdfPCell(New Paragraph(Format(entrees, "#,##0"), pColumn))
+                            pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT
+                            pdfCell.MinimumHeight = 14
+                            pdfCell.PaddingLeft = 5.0F
+                            pdfTable.AddCell(pdfCell)
+
+                            pdfCell = New PdfPCell(New Paragraph("", pColumn))
+                            pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT
+                            pdfCell.MinimumHeight = 14
+                            pdfCell.PaddingLeft = 5.0F
+                            pdfTable.AddCell(pdfCell)
+
+                            pdfCell = New PdfPCell(New Paragraph("", pColumn))
+                            pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT
+                            pdfCell.MinimumHeight = 14
+                            pdfCell.PaddingLeft = 5.0F
+                            pdfTable.AddCell(pdfCell)
+
+                            pdfCell = New PdfPCell(New Paragraph("", pColumn))
+                            pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT
+                            pdfCell.MinimumHeight = 14
+                            pdfCell.PaddingLeft = 5.0F
+                            pdfTable.AddCell(pdfCell)
+
+                        End If
+
+                    Next
+
+                    pdfCell = New PdfPCell(New Paragraph("TOTAL DEPENSES", pColumn))
+                    pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                    pdfCell.MinimumHeight = 14
+                    pdfCell.Colspan = 2
+                    pdfCell.PaddingLeft = 5.0F
+                    pdfTable.AddCell(pdfCell)
+
+                    pdfCell = New PdfPCell(New Paragraph(Format(sorties, "#,##0"), pColumn))
+                    pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT
+                    pdfCell.MinimumHeight = 14
+                    pdfCell.PaddingLeft = 5.0F
+                    pdfTable.AddCell(pdfCell)
+
+                    pdfCell = New PdfPCell(New Paragraph("", pColumn))
+                    pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT
+                    pdfCell.MinimumHeight = 14
+                    pdfCell.PaddingLeft = 5.0F
+                    pdfTable.AddCell(pdfCell)
+
+                    pdfCell = New PdfPCell(New Paragraph("", pColumn))
+                    pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT
+                    pdfCell.MinimumHeight = 14
+                    pdfCell.PaddingLeft = 5.0F
+                    pdfTable.AddCell(pdfCell)
+
+                    pdfCell = New PdfPCell(New Paragraph("", pColumn))
+                    pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT
+                    pdfCell.MinimumHeight = 14
+                    pdfCell.PaddingLeft = 5.0F
+                    pdfTable.AddCell(pdfCell)
+
+                    Dim RBE As Double = entrees - sorties
+
+                    pdfCell = New PdfPCell(New Paragraph("R.B.E", pColumn))
+                    pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                    pdfCell.MinimumHeight = 14
+                    pdfCell.Colspan = 2
+                    pdfCell.PaddingLeft = 5.0F
+                    pdfTable.AddCell(pdfCell)
+
+                    pdfCell = New PdfPCell(New Paragraph(Format(RBE, "#,##0"), pColumn))
+                    pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT
+                    pdfCell.MinimumHeight = 14
+                    pdfCell.PaddingLeft = 5.0F
+                    pdfTable.AddCell(pdfCell)
+
+                    pdfCell = New PdfPCell(New Paragraph("", pColumn))
+                    pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT
+                    pdfCell.MinimumHeight = 14
+                    pdfCell.PaddingLeft = 5.0F
+                    pdfTable.AddCell(pdfCell)
+
+                    pdfCell = New PdfPCell(New Paragraph("", pColumn))
+                    pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT
+                    pdfCell.MinimumHeight = 14
+                    pdfCell.PaddingLeft = 5.0F
+                    pdfTable.AddCell(pdfCell)
+
+                    pdfCell = New PdfPCell(New Paragraph("", pColumn))
+                    pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT
+                    pdfCell.MinimumHeight = 14
+                    pdfCell.PaddingLeft = 5.0F
+                    pdfTable.AddCell(pdfCell)
+
+                End If
+
+                pdfDoc.Add(pdfTable)
+
+                pdfDoc.Close()
+
+                Process.Start(sfd.FileName)
+
+            End If
+
+        End If
+
+    End Sub
+
 End Class

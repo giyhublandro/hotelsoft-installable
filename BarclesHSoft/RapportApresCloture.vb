@@ -3565,6 +3565,17 @@ Public Class RapportApresCloture
                     mail_.[To].Add(emailTo)
                 End If
 
+                If Not Trim(GlobalVariable.AgenceActuelle.Rows(0)("EMAIL_6")).Equals("") Then
+                    emailTo = GlobalVariable.AgenceActuelle.Rows(0)("EMAIL_6")
+                    mail.[To].Add(emailTo)
+                    mail_.[To].Add(emailTo)
+                End If
+
+                If Not Trim(GlobalVariable.AgenceActuelle.Rows(0)("EMAIL_7")).Equals("") Then
+                    emailTo = GlobalVariable.AgenceActuelle.Rows(0)("EMAIL_7")
+                    mail.[To].Add(emailTo)
+                    mail_.[To].Add(emailTo)
+                End If
                 'mail.Subject = Titre
                 mail.Subject = "RAPPORT DE CLOTURE DU " & dateTravail
                 'mail.Body = bodyText

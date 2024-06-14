@@ -2428,5 +2428,22 @@ Public Class MainWindowComptabiliteForm
 
     End Sub
 
+    Private Sub PlanComptableToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PlanComptableToolStripMenuItem.Click
 
+        GlobalVariable.typeDeCompte = "comptable"
+        DepenseFamilyForm.Close()
+        DepenseFamilyForm.Show()
+        DepenseFamilyForm.TopMost = True
+
+    End Sub
+
+    Private Sub ComptesDExploitationsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ComptesDExploitationsToolStripMenuItem.Click
+
+        GlobalVariable.typeDeCompte = "exploitation"
+
+        DepenseFamilyForm.Close()
+        DepenseFamilyForm.Show()
+        DepenseFamilyForm.TopMost = True
+
+    End Sub
 End Class

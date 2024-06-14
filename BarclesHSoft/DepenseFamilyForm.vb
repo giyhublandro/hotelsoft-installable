@@ -15,6 +15,14 @@ Public Class DepenseFamilyForm
         GunaDateTimePicker5.Value = Functions.firstDayOfMonth(GlobalVariable.DateDeTravail)
         GunaDateTimePicker4.Value = Functions.lastDayOfMonth(GlobalVariable.DateDeTravail)
 
+        GunaDateTimePicker9.Value = Functions.firstDayOfMonth(GlobalVariable.DateDeTravail)
+        GunaDateTimePicker11.Value = GlobalVariable.DateDeTravail
+
+        Label1.Text = GlobalVariable.societe.Rows(0)("CODE_MONNAIE")
+        Label2.Text = GlobalVariable.societe.Rows(0)("CODE_MONNAIE")
+        Label3.Text = GlobalVariable.societe.Rows(0)("CODE_MONNAIE")
+        Label4.Text = GlobalVariable.societe.Rows(0)("CODE_MONNAIE")
+
         If GlobalVariable.typeDeCompte = "exploitation" Then
             Functions.AffectingTitleToAForm("COMPTES D'EXPLOITATIONS", GunaLabelGestCompteGeneraux)
             GunaComboBoxNiveauCompte.Visible = True
@@ -26,6 +34,7 @@ Public Class DepenseFamilyForm
             TabControl1.TabPages.Remove(TabPage2)
             TabControl1.TabPages.Remove(TabPage1)
             TabControl1.TabPages.Remove(TabPage3)
+            TabControl1.TabPages.Remove(TabPage4)
         End If
 
         GunaComboBoxNiveauCompte.SelectedIndex = 0
@@ -39,6 +48,43 @@ Public Class DepenseFamilyForm
         SituationDeCaisse()
 
     End Sub
+
+    Private Function previsionDunCompte(ByVal COMPTE As String, ByVal dateDebut As Date, ByVal dateFin As Date)
+
+        Dim FillingListquery As String = ""
+
+        FillingListquery = "SELECT compte_exploitation_previsions.COMPTE, INTITULE, compte_exploitation_previsions.MONTANT 
+        FROM compte_exploitation, compte_exploitation_previsions WHERE compte_exploitation.COMPTE = compte_exploitation_previsions.COMPTE  
+        AND DATE_DEBUT >= '" & dateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FIN <= '" & dateFin.ToString("yyyy-MM-dd") & "'
+        AND compte_exploitation_previsions.CONPTE = @COMPTE"
+
+        Dim commandList As New MySqlCommand(FillingListquery, GlobalVariable.connect)
+        commandList.Parameters.Add("@COMPTE", MySqlDbType.VarChar).Value = COMPTE
+        Dim adapterList As New MySqlDataAdapter(commandList)
+        Dim tableList As New DataTable()
+
+        adapterList.Fill(tableList)
+
+        GunaDataGridView5.Rows.Clear()
+
+        Dim MOIS_DERNIER As Double = 0
+        Dim MONTANT_TOTAL As Double = 0
+        Dim dateDebut_ As Date = GunaDateTimePicker7.Value.AddMonths(-1)
+        Dim dateFin_ As Date = Functions.lastDayOfMonth(dateDebut_)
+
+        If tableList.Rows.Count > 0 Then
+
+            For i = 0 To tableList.Rows.Count - 1
+
+                MONTANT_TOTAL += tableList.Rows(i)(2)
+
+            Next
+
+        End If
+
+        Return MONTANT_TOTAL
+
+    End Function
 
 
     Private Sub previsions()
@@ -63,6 +109,7 @@ Public Class DepenseFamilyForm
         GunaDataGridView5.Rows.Clear()
 
         Dim MOIS_DERNIER As Double = 0
+        Dim MONTANT_TOTAL As Double = 0
         Dim COMPTE As String = ""
         Dim dateDebut_ As Date = GunaDateTimePicker7.Value.AddMonths(-1)
         Dim dateFin_ As Date = Functions.lastDayOfMonth(dateDebut_)
@@ -72,7 +119,7 @@ Public Class DepenseFamilyForm
             For i = 0 To tableList.Rows.Count - 1
 
                 COMPTE = tableList.Rows(i)(0)
-
+                MONTANT_TOTAL += tableList.Rows(i)(2)
                 MOIS_DERNIER = Functions.previsionMoisDernier(dateDebut_, dateFin_, COMPTE)
                 GunaDataGridView6.Rows.Add(tableList.Rows(i)(0), tableList.Rows(i)(1), Format(tableList.Rows(i)(2), "#,##0"), Format(MOIS_DERNIER, "#,##0"))
 
@@ -91,8 +138,9 @@ Public Class DepenseFamilyForm
             GunaDataGridView6.Columns(1).ReadOnly = True
             GunaDataGridView6.Columns(3).ReadOnly = True
 
-        End If
+            GunaTextBox4.Text = Format(MONTANT_TOTAL, "###,0")
 
+        End If
 
     End Sub
 
@@ -101,7 +149,7 @@ Public Class DepenseFamilyForm
         Dim FillingListquery As String = ""
 
         If GlobalVariable.typeDeCompte = "exploitation" Then
-            FillingListquery = "SELECT COMPTE, INTITULE FROM compte_exploitation ORDER BY COMPTE ASC"
+            FillingListquery = "SELECT COMPTE, INTITULE, REMARQUE FROM compte_exploitation ORDER BY COMPTE ASC"
         ElseIf GlobalVariable.typeDeCompte = "comptable" Then
             FillingListquery = "SELECT COMPTE, INTITULE FROM plan_comptable ORDER BY COMPTE ASC"
         End If
@@ -239,11 +287,13 @@ Public Class DepenseFamilyForm
                 COMPTE_PARENT = 0
             End If
 
+            Dim REMARQUE As String = GunaTextBoxRemarque.Text
+
             Dim account As New Compte()
 
             If GunaButtonEnregistrer.Text = "Sauvegarder" Then
 
-                account.updatePlanComptable(OLD_COMPTE, INTITULE, COMPTE, NIVEAU_COMPTE, NATURE_COMPTE, RECURRENTE, COMPTE_PARENT, MONTANT_DEPENSE, CRITERE_ASSOCIE)
+                account.updatePlanComptable(OLD_COMPTE, INTITULE, COMPTE, NIVEAU_COMPTE, NATURE_COMPTE, RECURRENTE, COMPTE_PARENT, MONTANT_DEPENSE, CRITERE_ASSOCIE, REMARQUE)
 
                 'Functions.DeleteElementByCode(OLD_COMPTE, tableName, "COMPTE")
                 GunaButtonEnregistrer.Text = "Enregistrer"
@@ -251,7 +301,7 @@ Public Class DepenseFamilyForm
                 clear = True
             Else
 
-                account.insertPlanComptable(INTITULE, COMPTE, NIVEAU_COMPTE, NATURE_COMPTE, RECURRENTE, COMPTE_PARENT, MONTANT_DEPENSE, CRITERE_ASSOCIE)
+                account.insertPlanComptable(INTITULE, COMPTE, NIVEAU_COMPTE, NATURE_COMPTE, RECURRENTE, COMPTE_PARENT, MONTANT_DEPENSE, CRITERE_ASSOCIE, REMARQUE)
 
                 MessageBox.Show("Compte crée avec succès !!", "Gestion de Compte", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
@@ -272,6 +322,7 @@ Public Class DepenseFamilyForm
 
             GunaDataGridView4.Rows.Clear()
             GunaTextBoxCompte.Clear()
+            GunaTextBoxRemarque.Clear()
             GunaTextBoxIntitule.Clear()
             GunaTextBoxMontant.Text = 0
 
@@ -294,9 +345,10 @@ Public Class DepenseFamilyForm
 
             row = Me.GunaDataGridViewPlanComptable.Rows(e.RowIndex)
 
-            GunaTextBoxOldCompte.Text = row.Cells("COMPTE").Value.ToString
-            GunaTextBoxCompte.Text = row.Cells("COMPTE").Value.ToString
-            GunaTextBoxIntitule.Text = row.Cells("INTITULE").Value.ToString
+            GunaTextBoxOldCompte.Text = row.Cells(0).Value.ToString
+            GunaTextBoxCompte.Text = row.Cells(0).Value.ToString
+            GunaTextBoxIntitule.Text = row.Cells(1).Value.ToString
+            GunaTextBoxRemarque.Text = row.Cells(2).Value.ToString
 
             If GlobalVariable.typeDeCompte = "exploitation" Then
 
@@ -352,12 +404,13 @@ Public Class DepenseFamilyForm
                 GunaDataGridView2.Visible = False
                 GunaDataGridView3.Visible = False
                 GunaDataGridViewIntitule.Visible = False
-
+                GunaTextBoxRefCompte.Clear()
                 GunaComboBoxNiveauCompte.Visible = True
 
             End If
 
             TabControl1.SelectedIndex = 0
+
 
         End If
 
@@ -365,11 +418,11 @@ Public Class DepenseFamilyForm
 
     Private Sub GunaTextBoxRefArticleMatiere_TextChanged(sender As Object, e As EventArgs) Handles GunaTextBoxRefCompte.TextChanged
 
-        If GunaCheckBoxSearch.Checked Then
+        If True Then
 
             If Trim(GunaTextBoxRefCompte.Text) = "" Then
-                GunaDataGridViewPlanComptable.Columns.Clear()
-                GunaDataGridViewPlanComptable.Visible = False
+                'GunaDataGridViewPlanComptable.Columns.Clear()
+                'GunaDataGridViewPlanComptable.Visible = False
             Else
 
                 GunaDataGridViewPlanComptable.Visible = True
@@ -382,7 +435,15 @@ Public Class DepenseFamilyForm
                 End If
 
                 'REFRESHING information from database for instant visualisation 
-                Dim query As String = "SELECT COMPTE, INTITULE FROM " & tableName & " WHERE COMPTE LIKE '%" & Trim(GunaTextBoxRefCompte.Text) & "%' OR INTITULE LIKE '%" & Trim(GunaTextBoxRefCompte.Text) & "%' ORDER BY COMPTE ASC"
+                Dim query As String = ""
+                '"SELECT COMPTE, INTITULE, REMARQUE FROM " & tableName & " WHERE COMPTE LIKE '%" & Trim(GunaTextBoxRefCompte.Text) & "%' OR INTITULE LIKE '%" & Trim(GunaTextBoxRefCompte.Text) & "%' OR REMARQUE LIKE '%" & Trim(GunaTextBoxRefCompte.Text) & "%' ORDER BY COMPTE ASC"
+
+                If GlobalVariable.typeDeCompte = "exploitation" Then
+                    query = "SELECT COMPTE, INTITULE, REMARQUE FROM " & tableName & " WHERE COMPTE LIKE '%" & Trim(GunaTextBoxRefCompte.Text) & "%' OR INTITULE LIKE '%" & Trim(GunaTextBoxRefCompte.Text) & "%' OR REMARQUE LIKE '%" & Trim(GunaTextBoxRefCompte.Text) & "%' ORDER BY COMPTE ASC"
+                Else
+                    query = "SELECT COMPTE, INTITULE FROM " & tableName & " WHERE COMPTE LIKE '%" & Trim(GunaTextBoxRefCompte.Text) & "%' OR INTITULE LIKE '%" & Trim(GunaTextBoxRefCompte.Text) & "%' ORDER BY COMPTE ASC"
+                End If
+
                 Dim command As New MySqlCommand(query, GlobalVariable.connect)
 
                 Dim adapter As New MySqlDataAdapter(command)
@@ -537,6 +598,14 @@ Public Class DepenseFamilyForm
             plan_comptable(prevision)
         End If
 
+        If TabControl1.SelectedIndex = 5 Then
+            GunaButtonBilan.Visible = True
+            GunaButtonPrint.Visible = True
+        Else
+            GunaButtonBilan.Visible = False
+            GunaButtonPrint.Visible = False
+        End If
+
     End Sub
 
     Private Sub compteExploitation(ByVal dateDebut As Date, ByVal dateFin As Date, Optional ByVal NATURE_COMPTE As Integer = 0)
@@ -570,13 +639,13 @@ Public Class DepenseFamilyForm
             Dim CODE As String = ""
             Dim INTITULE As String = ""
             Dim MONTANT As Double = 0
-
+            Dim MONTANT_TOTAL As Double = 0
             Dim COMPTE As String = ""
 
             If tableList_.Rows.Count > 0 Then
 
                 GunaDataGridView1.Rows.Clear()
-
+                'GunaButton8.Visible = True
                 For i = 0 To tableList_.Rows.Count - 1
 
                     COMPTE = tableList_.Rows(i)("COMPTE")
@@ -614,6 +683,7 @@ Public Class DepenseFamilyForm
 
                         For j = 0 To tableList.Rows.Count - 1
                             MONTANT += tableList.Rows(j)("MONTANT")
+                            MONTANT_TOTAL += tableList.Rows(j)("MONTANT")
                         Next
 
                         GunaDataGridView1.Rows.Add(CODE, COMPTE, INTITULE, Format(MONTANT, "#,##0"), Format(MONTANT_MOIS_DERNIER, "#,##0"))
@@ -625,7 +695,10 @@ Public Class DepenseFamilyForm
 
             Else
                 GunaDataGridView1.Rows.Clear()
+                'GunaButton8.Visible = False
             End If
+
+            GunaTextBox3.Text = Format(MONTANT_TOTAL, "###,0")
 
         Else
 
@@ -773,6 +846,7 @@ Public Class DepenseFamilyForm
         GunaDataGridView4.Rows.Clear()
 
         Dim MONTANT_DEPENSE As Double = 0
+        Dim MONTANT_TOTAL As Double = 0
         Dim INTITULE As String = ""
         Dim COMPTE As String = ""
 
@@ -780,6 +854,7 @@ Public Class DepenseFamilyForm
 
             For i = 0 To table.Rows.Count - 1
                 MONTANT_DEPENSE = table.Rows(i)(2)
+                MONTANT_TOTAL += table.Rows(i)(2)
                 INTITULE = table.Rows(i)(1)
                 COMPTE = table.Rows(i)(0)
                 GunaDataGridView4.Rows.Add(COMPTE, INTITULE, MONTANT_DEPENSE)
@@ -787,9 +862,16 @@ Public Class DepenseFamilyForm
 
             GunaDataGridView4.Columns(2).DefaultCellStyle.Format = "#,##0"
 
+            GunaDataGridView4.Columns(0).ReadOnly = True
+            GunaDataGridView4.Columns(1).ReadOnly = True
+            GunaDataGridView4.Columns(2).ReadOnly = False
+            GunaDataGridView4.Columns(3).ReadOnly = True
+
         Else
             GunaDataGridView4.Rows.Clear()
         End If
+
+        GunaTextBox2.Text = Format(MONTANT_TOTAL, "###,0")
 
     End Sub
 
@@ -1062,6 +1144,204 @@ Public Class DepenseFamilyForm
         If MONTANT > 0 Then
             Functions.updateOfFields("compte_exploitation_previsions", "MONTANT", MONTANT, "COMPTE", COMPTE, 1)
         End If
+
+    End Sub
+
+    Private Sub GunaDataGridView1_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GunaDataGridView1.CellDoubleClick
+
+        If e.RowIndex >= 0 Then
+
+            Dim row As DataGridViewRow
+
+            row = Me.GunaDataGridView1.Rows(e.RowIndex)
+
+            Dim COMPTE As String = row.Cells(1).Value.ToString
+
+            Dim depenses As DataTable = Functions.getElementByCode(COMPTE, "reglement", "COMPTE")
+
+            GunaDataGridViewFondsSorties.Rows.Clear()
+
+            If depenses.Rows.Count > 0 Then
+
+                For k = 0 To depenses.Rows.Count - 1
+                    GunaDataGridViewFondsSorties.Rows.Add(depenses.Rows(k)("NUM_REGLEMENT"), CDate(depenses.Rows(k)("DATE_REGLEMENT")).ToShortDateString, depenses.Rows(k)("REF_REGLEMENT"), Format(depenses.Rows(k)("MONTANT_VERSE") * -1, "#,##0"))
+                Next
+
+            End If
+
+        End If
+
+    End Sub
+
+    Private Sub GunaButton8_Click(sender As Object, e As EventArgs) Handles GunaButton8.Click
+
+        Dim dateDebut As Date = GunaDateTimePicker9.Value.ToShortDateString()
+        Dim dateFin As Date = GunaDateTimePicker11.Value.ToShortDateString()
+
+        Dim FillingListquery As String = ""
+        Dim FillingListquery_ As String = ""
+
+        Dim dateDebut_1 As Date = dateDebut.AddMonths(-1)
+        Dim dateFin_1 As Date = Functions.lastDayOfMonth(dateFin_1)
+
+        Dim dateDebut_2 As Date = dateDebut.AddMonths(-2)
+        Dim dateFin_2 As Date = Functions.lastDayOfMonth(dateFin_2)
+
+        Dim MONTANT_MOIS_1 As Double = 0
+        Dim MONTANT_MOIS_2 As Double = 0
+        Dim MONTANT_PREVISIONNEL As Double = 0
+
+        Dim TOTAL_DEPENSE As Double = 0
+        Dim TOTAL_ENTREE As Double = 0
+
+        Dim NATURE_COMPTE As Integer = 0
+
+        Dim nombreEntree As Integer = 0
+
+        GunaDataGridViewBilan.Rows.Clear()
+
+        For k = 1 To 0 Step -1
+
+            NATURE_COMPTE = k
+
+            If NATURE_COMPTE = 0 Then
+                FillingListquery_ = "SELECT DISTINCT regroupement_depenses.CODE_CATEGORY_DEPENSE AS COMPTE
+                FROM regroupement_depenses, compte_exploitation WHERE regroupement_depenses.CODE_CATEGORY_DEPENSE = compte_exploitation.COMPTE AND
+                DATE_DEPENSE >= '" & dateDebut.ToString("yyyy-MM-dd") & "' AND DATE_DEPENSE <= '" & dateFin.ToString("yyyy-MM-dd") & "' AND NIVEAU_COMPTE=@NIVEAU_COMPTE"
+            Else
+                FillingListquery_ = "SELECT DISTINCT regroupement_chiffres_affaires.COMPTE FROM regroupement_chiffres_affaires, compte_exploitation 
+                WHERE regroupement_chiffres_affaires.COMPTE = compte_exploitation.COMPTE
+                AND DATE_CREATION >= '" & dateDebut.ToString("yyyy-MM-dd") & "' AND DATE_CREATION <= '" & dateFin.ToString("yyyy-MM-dd") & "' AND NIVEAU_COMPTE=@NIVEAU_COMPTE"
+            End If
+
+            Dim commandList_ As New MySqlCommand(FillingListquery_, GlobalVariable.connect)
+            commandList_.Parameters.Add("@NIVEAU_COMPTE", MySqlDbType.Int32).Value = 0
+
+            Dim adapterList_ As New MySqlDataAdapter(commandList_)
+            Dim tableList_ As New DataTable()
+
+            adapterList_.Fill(tableList_)
+
+            Dim CODE As String = ""
+            Dim INTITULE As String = ""
+            Dim MONTANT As Double = 0
+            Dim MONTANT_TOTAL As Double = 0
+            Dim COMPTE As String = ""
+
+            Dim infoCompte As DataTable
+
+            If tableList_.Rows.Count > 0 Then
+
+                For i = 0 To tableList_.Rows.Count - 1
+
+                    COMPTE = tableList_.Rows(i)("COMPTE")
+                    infoCompte = Functions.getElementByCode(COMPTE, "compte_exploitation", "COMPTE")
+
+                    If infoCompte.Rows.Count > 0 Then
+                        If infoCompte.Rows(0)("NIVEAU_COMPTE") = 0 And infoCompte.Rows(0)("NATURE_COMPTE") = 1 Then
+                            nombreEntree += 1
+                        End If
+                    End If
+
+                    MONTANT_PREVISIONNEL = Functions.previsionMoisDernier(dateDebut, dateFin, COMPTE)
+
+                    MONTANT_MOIS_1 = Functions.montantDucompteExploitation(dateDebut_1, dateFin_1, COMPTE, NATURE_COMPTE)
+                    MONTANT_MOIS_2 = Functions.montantDucompteExploitation(dateDebut_2, dateFin_2, COMPTE, NATURE_COMPTE)
+
+                    MONTANT = 0
+
+                    If NATURE_COMPTE = 0 Then
+
+                        FillingListquery = "SELECT `CODE_CATEGORY_DEPENSE` AS 'COMPTE', `FAMILLE` AS 'INTITULE', MONTANT
+                        FROM regroupement_depenses WHERE DATE_DEPENSE >= '" & dateDebut.ToString("yyyy-MM-dd") & "' 
+                        AND DATE_DEPENSE <= '" & dateFin.ToString("yyyy-MM-dd") & "' AND CODE_CATEGORY_DEPENSE = @COMPTE ORDER BY regroupement_depenses.FAMILLE ASC"
+
+                    Else
+
+                        FillingListquery = "SELECT regroupement_chiffres_affaires.COMPTE, regroupement_chiffres_affaires.INTITULE, regroupement_chiffres_affaires.MONTANT
+                        FROM regroupement_chiffres_affaires, compte_exploitation WHERE DATE_CREATION >= '" & dateDebut.ToString("yyyy-MM-dd") & "' 
+                        AND DATE_CREATION <= '" & dateFin.ToString("yyyy-MM-dd") & "' AND regroupement_chiffres_affaires.COMPTE = @COMPTE 
+                        AND compte_exploitation.COMPTE = regroupement_chiffres_affaires.COMPTE AND NIVEAU_COMPTE=@NIVEAU_COMPTE ORDER BY regroupement_chiffres_affaires.INTITULE ASC"
+
+                    End If
+
+                    Dim continuer As Boolean = True
+
+                    Dim commandList As New MySqlCommand(FillingListquery, GlobalVariable.connect)
+                    commandList.Parameters.Add("@COMPTE", MySqlDbType.VarChar).Value = COMPTE
+                    commandList.Parameters.Add("@NIVEAU_COMPTE", MySqlDbType.Int32).Value = 0
+                    Dim adapterList As New MySqlDataAdapter(commandList)
+                    Dim tableList As New DataTable()
+
+                    adapterList.Fill(tableList)
+
+                    If tableList.Rows.Count > 0 Then
+
+                        If continuer Then
+
+                            INTITULE = tableList.Rows(0)("INTITULE")
+
+                            For j = 0 To tableList.Rows.Count - 1
+
+                                MONTANT += tableList.Rows(j)("MONTANT")
+                                If k = 0 Then
+                                    TOTAL_DEPENSE += MONTANT
+                                Else
+                                    TOTAL_ENTREE += MONTANT
+                                End If
+
+                            Next
+
+                            GunaDataGridViewBilan.Rows.Add(COMPTE, INTITULE, Format(MONTANT, "#,##0"), Format(MONTANT_PREVISIONNEL, "#,##0"), Format(MONTANT_MOIS_1, "#,##0"), Format(MONTANT_MOIS_2, "#,##0"))
+
+                        End If
+
+                    End If
+
+                Next
+
+            End If
+
+        Next
+
+        GunaTextBox6.Text = nombreEntree
+
+        Dim RBF As Double = TOTAL_ENTREE - TOTAL_DEPENSE
+
+        GunaTextBox5.Text = Format(RBF, "###,0")
+
+        If RBF > 0 Then
+            GunaTextBox5.BaseColor = Color.LightGreen
+            GunaTextBox5.ForeColor = Color.Black
+        ElseIf RBF < 0 Then
+            GunaTextBox5.BaseColor = Color.DarkRed
+            GunaTextBox5.ForeColor = Color.White
+        Else
+            GunaTextBox5.BaseColor = Color.White
+            GunaTextBox5.ForeColor = Color.Black
+        End If
+
+    End Sub
+
+    Private Sub GunaButtonBilan_Click(sender As Object, e As EventArgs) Handles GunaButtonBilan.Click
+
+        Dim dateDebut As Date = GunaDateTimePicker9.Value.ToShortDateString()
+        Dim dateFin As Date = GunaDateTimePicker11.Value.ToShortDateString()
+
+        Dim title As String = "BILAN DU " & dateDebut & " AU " & dateFin
+
+        Impression.bilan(GunaDataGridViewBilan, title, dateDebut, dateFin)
+
+    End Sub
+
+    Private Sub GunaButton10_Click(sender As Object, e As EventArgs) Handles GunaButtonPrint.Click
+
+        Dim dateDebut As Date = GunaDateTimePicker9.Value.ToShortDateString()
+        Dim dateFin As Date = GunaDateTimePicker11.Value.ToShortDateString()
+
+        Dim title As String = "BILAN DU " & dateDebut & " AU " & dateFin
+        Dim numbreSorties As Integer = GunaTextBox6.Text
+        Impression.bilanPdf(GunaDataGridViewBilan, title, dateDebut, dateFin, numbreSorties)
 
     End Sub
 

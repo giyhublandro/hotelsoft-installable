@@ -6,9 +6,15 @@ Public Class Reglement
     'Dim connect As New DataBaseManipulation()
 
     'insert a new client Catgeory
-    Public Function insertReglement(ByVal NUM_REGLEMENT As String, ByVal NUM_FACTURE As String, ByVal CODE_CAISSIER As String, ByVal MONTANT_VERSE As Double, ByVal DATE_REGLEMENT As Date, ByVal MODE_REGLEMENT As String, ByVal REF_REGLEMENT As String, ByVal CODE_MODE As String, ByVal IMPRIMER As String, ByVal CODE_AGENCE As String, ByVal CODE_RESERVATION As String, ByVal CODE_CLIENT As String, ByVal NUMERO_BLOC_NOTE As String, Optional ByVal MODE_REG_INFO_SUP_1 As String = "", Optional ByVal MODE_REG_INFO_SUP_2 As String = "", Optional ByVal MODE_REG_INFO_SUP_3 As String = "") As Boolean
+    Public Function insertReglement(ByVal NUM_REGLEMENT As String, ByVal NUM_FACTURE As String, ByVal CODE_CAISSIER As String, ByVal MONTANT_VERSE As Double,
+                                    ByVal DATE_REGLEMENT As Date, ByVal MODE_REGLEMENT As String, ByVal REF_REGLEMENT As String, ByVal CODE_MODE As String,
+                                    ByVal IMPRIMER As String, ByVal CODE_AGENCE As String, ByVal CODE_RESERVATION As String, ByVal CODE_CLIENT As String,
+                                    ByVal NUMERO_BLOC_NOTE As String, Optional ByVal MODE_REG_INFO_SUP_1 As String = "",
+                                    Optional ByVal MODE_REG_INFO_SUP_2 As String = "", Optional ByVal MODE_REG_INFO_SUP_3 As String = "",
+                                    Optional ByVal COMPTE As String = "") As Boolean
 
-        Dim insertQuery As String = "INSERT INTO `reglement`(`NUM_REGLEMENT`, `NUM_FACTURE`, `CODE_CAISSIER`, `MONTANT_VERSE`, `DATE_REGLEMENT`, `MODE_REGLEMENT`, `REF_REGLEMENT`, `CODE_MODE`, `IMPRIMER`, `CODE_AGENCE`, `CODE_RESERVATION`, `CODE_CLIENT`, `MODE_REG_INFO_SUP_1`, `MODE_REG_INFO_SUP_2`, `MODE_REG_INFO_SUP_3`,`NUMERO_BLOC_NOTE`) VALUES (@value1,@value2,@value3,@value4,@value5,@value6,@value7,@value8,@value9,@value10 ,@value11 , @value12, @value13 , @value14 , @value15 , @value16)"
+        Dim insertQuery As String = "INSERT INTO `reglement`(`NUM_REGLEMENT`, `NUM_FACTURE`, `CODE_CAISSIER`, `MONTANT_VERSE`, `DATE_REGLEMENT`, `MODE_REGLEMENT`, `REF_REGLEMENT`, `CODE_MODE`, `IMPRIMER`, `CODE_AGENCE`, `CODE_RESERVATION`, `CODE_CLIENT`, `MODE_REG_INFO_SUP_1`, `MODE_REG_INFO_SUP_2`, `MODE_REG_INFO_SUP_3`,`NUMERO_BLOC_NOTE`, `COMPTE`) 
+        VALUES (@value1,@value2,@value3,@value4,@value5,@value6,@value7,@value8,@value9,@value10 ,@value11 , @value12, @value13 , @value14 , @value15 , @value16, @COMPTE)"
 
         Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
 
@@ -29,11 +35,8 @@ Public Class Reglement
         command.Parameters.Add("@value14", MySqlDbType.VarChar).Value = MODE_REG_INFO_SUP_2
         command.Parameters.Add("@value15", MySqlDbType.VarChar).Value = MODE_REG_INFO_SUP_3
         command.Parameters.Add("@value16", MySqlDbType.VarChar).Value = NUMERO_BLOC_NOTE
+        command.Parameters.Add("@COMPTE", MySqlDbType.VarChar).Value = COMPTE
 
-        'Opening the connection
-        'connect.openConnection()
-
-        'Excuting the command and testing if everything went on well
         If (command.ExecuteNonQuery() = 1) Then
             'connect.closeConnection()
             Return True

@@ -431,7 +431,7 @@ Partial Class GrandeCaisseForm
         Me.GunaButtonEnregistrerReglement.ForeColor = System.Drawing.Color.White
         Me.GunaButtonEnregistrerReglement.Image = Nothing
         Me.GunaButtonEnregistrerReglement.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonEnregistrerReglement.Location = New System.Drawing.Point(1187, 671)
+        Me.GunaButtonEnregistrerReglement.Location = New System.Drawing.Point(1193, 674)
         Me.GunaButtonEnregistrerReglement.Name = "GunaButtonEnregistrerReglement"
         Me.GunaButtonEnregistrerReglement.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonEnregistrerReglement.OnHoverBorderColor = System.Drawing.Color.Black
@@ -3524,7 +3524,7 @@ Partial Class GrandeCaisseForm
         Me.GunaDataGridViewPlanComptable.DefaultCellStyle = DataGridViewCellStyle3
         Me.GunaDataGridViewPlanComptable.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewPlanComptable.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewPlanComptable.Location = New System.Drawing.Point(908, 652)
+        Me.GunaDataGridViewPlanComptable.Location = New System.Drawing.Point(908, 624)
         Me.GunaDataGridViewPlanComptable.MultiSelect = False
         Me.GunaDataGridViewPlanComptable.Name = "GunaDataGridViewPlanComptable"
         Me.GunaDataGridViewPlanComptable.ReadOnly = True

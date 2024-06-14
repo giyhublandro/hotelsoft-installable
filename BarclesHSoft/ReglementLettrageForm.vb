@@ -1428,6 +1428,8 @@ Public Class ReglementLettrageForm
 
                             MessageBox.Show(messageText, "Encaissement", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+                            listeDesFacturesSuivantUnePeriode()
+
                             'We set back montPAyer to 0
                             GunaTextBoxMontantVerse.Text = 0
 

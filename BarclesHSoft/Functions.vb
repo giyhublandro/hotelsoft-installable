@@ -6033,6 +6033,10 @@ Public Class Functions
 
             Dim pdfCell As PdfPCell = Nothing
 
+            If GlobalVariable.AgenceActuelle.Rows(0)("IMPRIMANTE_MATRICIELLE") = 1 Then
+                pdfWrite.PageEvent = New HeaderFooter
+            End If
+
             pdfDoc.Open()
 
             '------------------------------- LOGO SUR LE BON DE COMMANDE --------------------------------------
@@ -6083,43 +6087,46 @@ Public Class Functions
 
             Else
 
+                'PdfPTableHeader()
                 '-------------------------------------
-                logo.ScalePercent(50.0F)
+                'logo.ScalePercent(50.0F)
 
-                pHeaderLogo = New PdfPTable(2)
-                Dim widths_ As Single() = New Single() {20.0F, 70.0F}
+                'pHeaderLogo = New PdfPTable(2)
+                'Dim widths_ As Single() = New Single() {20.0F, 70.0F}
 
-                pHeaderLogo.SetWidths(widths_)
-                pHeaderLogo.TotalWidth = pdfDoc.PageSize.Width
-                pHeaderLogo.DefaultCell.Border = 0
+                'pHeaderLogo.SetWidths(widths_)
+                'pHeaderLogo.TotalWidth = pdfDoc.PageSize.Width
+                'pHeaderLogo.DefaultCell.Border = 0
 
-                pdfCell = New PdfPCell(logo)
-                pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
-                pdfCell.PaddingLeft = 5.0F
-                pdfCell.Border = 0 'used to remove borders on the cells
-                pHeaderLogo.AddCell(pdfCell)
+                'pdfCell = New PdfPCell(logo)
+                'pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                'pdfCell.PaddingLeft = 5.0F
+                'pdfCell.Border = 0 'used to remove borders on the cells
+                'pHeaderLogo.AddCell(pdfCell)
 
-                pdfCell = New PdfPCell(New Paragraph(societe.Rows(0)("RAISON_SOCIALE"), title))
-                pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
-                pdfCell.PaddingLeft = 5.0F
-                pdfCell.Border = 0 'used to remove borders on the cells
-                pHeaderLogo.AddCell(pdfCell)
+                'pdfCell = New PdfPCell(New Paragraph(societe.Rows(0)("RAISON_SOCIALE"), title))
+                'pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                'pdfCell.PaddingLeft = 5.0F
+                'pdfCell.Border = 0 'used to remove borders on the cells
+                'pHeaderLogo.AddCell(pdfCell)
 
-                pdfCell = New PdfPCell(New Paragraph("", title))
-                pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
-                pdfCell.PaddingLeft = 5.0F
-                pdfCell.Border = 0 'used to remove borders on the cells
+                'pdfCell = New PdfPCell(New Paragraph("", title))
+                'pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                'pdfCell.PaddingLeft = 5.0F
+                'pdfCell.Border = 0 'used to remove borders on the cells
 
-                pHeaderLogo.AddCell(pdfCell)
+                'pHeaderLogo.AddCell(pdfCell)
 
-                pdfCell = New PdfPCell(New Paragraph("NUM REG. : " & societe.Rows(0)("NUM_REGISTRE") & " / NIU : " & societe.Rows(0)("NUM_CONTRIBUABLE") & Chr(13) & " " & societe.Rows(0)("TELEPHONE") & " - " & societe.Rows(0)("RUE"), pColumn2))
-                pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
-                pdfCell.PaddingLeft = 5.0F
-                pdfCell.Border = 0 'used to remove borders on the cells
+                'pdfCell = New PdfPCell(New Paragraph("NUM REG. : " & societe.Rows(0)("NUM_REGISTRE") & " / NIU : " & societe.Rows(0)("NUM_CONTRIBUABLE") & Chr(13) & " " & societe.Rows(0)("TELEPHONE") & " - " & societe.Rows(0)("RUE"), pColumn2))
+                'pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
+                'pdfCell.PaddingLeft = 5.0F
+                'pdfCell.Border = 0 'used to remove borders on the cells
 
-                pHeaderLogo.AddCell(pdfCell)
+                'pHeaderLogo.AddCell(pdfCell)
 
-                pHeaderLogo.WriteSelectedRows(0, -1, 0, pdfDoc.GetTop(pdfDoc.TopMargin) + 150, pdfWrite.DirectContent)
+                'pHeaderLogo.WriteSelectedRows(0, -1, 0, pdfDoc.GetTop(pdfDoc.TopMargin) + 150, pdfWrite.DirectContent)
+
+                'pdfDoc.Add(pHeaderLogo)
 
             End If
 
@@ -6306,16 +6313,16 @@ Public Class Functions
                         'Dim chiffreEnLettre = New Paragraph(Chr(13) & Chr(13) & "Reçu la somme de: " & NBLT(TotalFacture) & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE"), pRow)
                         Dim chiffreEnLettre
                         If GlobalVariable.actualLanguageValue = 1 Then
-                            chiffreEnLettre = New Paragraph(Chr(13) & Chr(13) & "Reçu la somme de : " & NBLT(TotalFacture) & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE"), pRow)
+                            chiffreEnLettre = New Paragraph(Chr(13) & "Reçu la somme de : " & NBLT(TotalFacture) & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE"), pRow)
                         Else
-                            chiffreEnLettre = New Paragraph(Chr(13) & Chr(13) & "Received an amount of xx : " & NBLT(TotalFacture) & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE"), pRow)
+                            chiffreEnLettre = New Paragraph(Chr(13) & "Received an amount of : " & NBLT(TotalFacture) & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE"), pRow)
                         End If
                         pdfDoc.Add(chiffreEnLettre)
 
                         ' Then
                         Dim signature As String = Chr(13) & "           CLIENT                                                             HOTEL "
                         If GlobalVariable.actualLanguageValue = 0 Then
-                            signature = Chr(13) & "               CLEINT                                                                 HOTEL "
+                            signature = Chr(13) & "               CLIENT                                                                 HOTEL "
                         End If
                         pdfDoc.Add(New Paragraph(signature, pRow))
 
