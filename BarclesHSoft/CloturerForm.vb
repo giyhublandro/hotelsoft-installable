@@ -1175,17 +1175,35 @@ Partial Class CloturerForm
                                             'GESTION DES TAXES DE SEJOURS
 
                                             Dim factureHebergement As Boolean = True
-                                            'ON NE DOIT PAS FACTURER EN ANTICIPATION LES RESERVATIONS QUI SERONT EN DEPART LE JOUR SUIVANT
                                             If facturationAnticipe Then
 
                                                 If MENSUEL = 0 Then
-
+                                                    'ON NE DOIT PAS FACTURER EN ANTICIPATION LES RESERVATIONS QUI SERONT EN DEPART LE JOUR SUIVANT
                                                     If DATE_SORTIE.ToShortDateString = GlobalVariable.DateDeTravail.AddDays(1) Then
                                                         factureHebergement = False
                                                     End If
 
                                                 Else
-                                                    factureHebergement = False
+
+                                                    'ON DOIT DETERMINER SI LE JOUR ACTUEL CORRESPOND AU JOUR DE SON DEPART
+                                                    Dim dayNumberSortie As Integer = DATE_SORTIE.DayOfWeek()
+                                                    Dim dayNumberActuel As Integer = GlobalVariable.DateDeTravail.AddDays(1).DayOfWeek()
+                                                    Dim monthNumberSortie As Integer = Month(DATE_SORTIE)
+                                                    Dim monthNumberAcuel As Integer = Month(GlobalVariable.DateDeTravail.AddDays(1))
+
+                                                    If monthNumberSortie = monthNumberAcuel Then
+                                                        'SI C'EST LE MEME MOIS ON NE FACTURE PAS
+                                                        factureHebergement = False
+                                                    ElseIf monthNumberSortie > monthNumberAcuel Then
+
+                                                        If Not dayNumberSortie = dayNumberActuel Then
+                                                            factureHebergement = False
+                                                        End If
+
+                                                    Else
+                                                        factureHebergement = False
+                                                    End If
+
                                                 End If
 
                                             End If

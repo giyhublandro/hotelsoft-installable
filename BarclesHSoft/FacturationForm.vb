@@ -1183,165 +1183,184 @@ Public Class FacturationForm
     'We save the ligne facture
     Private Sub GunaButton2_Click(sender As Object, e As EventArgs) Handles GunaButtonAjouterLigne.Click
 
-        Dim proceder As Boolean = False
+        Dim infoSup As DataTable = Functions.getElementByCode(Trim(GunaTextBoxArticle.Text), "article", "DESIGNATION_FR")
 
-        proceder = gestionDesStocks(codeArticle)
+        If infoSup.Rows.Count > 0 Then
 
-        If proceder Then
+            Dim proceder As Boolean = False
 
-            GunaButtonAjouterLigne.Visible = False
+            proceder = gestionDesStocks(codeArticle)
 
-            Dim CODE_MOUVEMENT As String = Functions.GeneratingRandomCodePanne("mouvement_stock", "MS")
+            If proceder Then
 
-            Dim CODE_CHAMBRE As String = TB_RoomNo.Text
-            Dim CODE_MODE_PAIEMENT As String = GunaTextBoxNom_Prenom.Text
-            Dim NUMERO_PIECE As String = GunaTextBoxNomPrenomClient.Text
-            Dim CODE_ARTICLE As String = codeArticle
-            Dim CODE_LOT As String = ""
+                GunaButtonAjouterLigne.Visible = False
 
-            If GunaComboBoxUniteOuConso.SelectedIndex >= 0 Then
-                CODE_LOT = GunaComboBoxUniteOuConso.SelectedItem 'USED AS UNITE DE COMPTAGE => USED TO KNOW HOW TO MANIPULATE THE REMOVAL OF QUANTITIES
-            End If
+                Dim CODE_MOUVEMENT As String = Functions.GeneratingRandomCodePanne("mouvement_stock", "MS")
 
-            Dim TAXE As Double = Double.Parse(GunaTextBoxTVA.Text)
-            Dim QUANTITE As Double = Trim(GunaTextBoxQuantite.Text)
-            'Dim MONTANT_HT As Double = (Trim(GunaTextBoxMontantHT.Text) * QUANTITE) - GunaTextBoxMontantReduction.Text
-            Dim MONTANT_HT As Double = (Trim(GunaTextBoxMontantHT.Text) * QUANTITE)
-            'Dim PRIX_UNITAIRE_TTC As Double = Trim(GunaTextBoxMontantTTC.Text - GunaTextBoxMontantReduction.Text) / Trim(GunaTextBoxQuantite.Text)
-            Dim PRIX_UNITAIRE_TTC As Double = Trim(GunaTextBoxMontantTTC.Text) / Trim(GunaTextBoxQuantite.Text)
-            'Dim MONTANT_TTC As Double = Double.Parse(Trim(GunaTextBoxMontantTTC.Text) - GunaTextBoxMontantReduction.Text)
-            Dim MONTANT_TTC As Double = Double.Parse(Trim(GunaTextBoxMontantTTC.Text))
-            Dim DATE_FACTURE As Date = GlobalVariable.DateDeTravail.ToShortDateString()
-            Dim HEURE_FACTURE As DateTime = Date.Now().ToShortTimeString
-            Dim ETAT_FACTURE As Integer = 0
-            Dim DATE_OCCUPATION As Date = GlobalVariable.DateDeTravail
-            Dim HEURE_OCCUPATION As DateTime = Date.Now().ToShortTimeString
+                Dim CODE_CHAMBRE As String = TB_RoomNo.Text
+                Dim CODE_MODE_PAIEMENT As String = GunaTextBoxNom_Prenom.Text
+                Dim NUMERO_PIECE As String = GunaTextBoxNomPrenomClient.Text
+                Dim CODE_ARTICLE As String = codeArticle
+                Dim CODE_LOT As String = ""
 
-            Dim VALEUR_CONSO = 0
-
-            If Not Trim(GunaTextBoxQuantiteConso.Text) = "" Then
-                VALEUR_CONSO = Double.Parse(GunaTextBoxQuantiteConso.Text)
-                'TITRE_CONSOMMATION = "CONSOMMATION "
-            End If
-
-            Dim LIBELLE_FACTURE As String = TITRE_CONSOMMATION & GunaTextBoxArticle.Text
-            Dim TYPE_LIGNE_FACTURE As String = GunaTextBoxPointDeVente.Text
-            Dim NUMERO_SERIE As String = ""
-            Dim NUMERO_ORDRE As Double = 0
-            Dim DESCRIPTION As String = ""
-            Dim CODE_UTILISATEUR_CREA As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
-            Dim CODE_AGENCE As String = GlobalVariable.codeAgence
-            Dim MONTANT_REMISE As Double = 0
-            Dim MONTANT_TAXE As Double = GunaTextBoxMontantTTC.Text - GunaTextBoxMontantHT.Text
-            Dim NUMERO_SERIE_DEBUT As String = ""
-            Dim NUMERO_SERIE_FIN As String = ""
-            Dim CODE_MAGASIN As String = GlobalVariable.magasinActuel 'MAGASIN ACTUEL DE L'UTILISSATEUR CONNECTE
-            Dim FUSIONNEE As String = GunaTextBoxSousFamilleArticle.Text
-            Dim CODE_FACTURE As String = GunaTextBoxNumfacture.Text
-            Dim TYPE As String = GlobalVariable.typeChambreOuSalle
-
-            Dim GRIFFE_UTILISATEUR As String = GlobalVariable.ConnectedUser.Rows(0)("GRIFFE_UTILISATEUR")
-
-            'To be initialise
-            Dim CODE_RESERVATION As String = ""
-
-            If Not GlobalVariable.codeReservationToUpdate = "" Then
-
-                CODE_RESERVATION = GlobalVariable.codeReservationToUpdate
-
-                Dim resa As DataTable = Functions.getElementByCode(CODE_RESERVATION, "reserve_conf", "CODE_RESERVATION")
-
-                If resa.Rows.Count > 0 Then
-                    CODE_CHAMBRE = resa.Rows(0)("CHAMBRE_ID")
+                If GunaComboBoxUniteOuConso.SelectedIndex >= 0 Then
+                    CODE_LOT = GunaComboBoxUniteOuConso.SelectedItem 'USED AS UNITE DE COMPTAGE => USED TO KNOW HOW TO MANIPULATE THE REMOVAL OF QUANTITIES
                 End If
 
-            ElseIf Not Trim(GunaTextBoxNumReservation.Text) = "" Then
+                Dim TAXE As Double = Double.Parse(GunaTextBoxTVA.Text)
+                Dim QUANTITE As Double = Trim(GunaTextBoxQuantite.Text)
+                'Dim MONTANT_HT As Double = (Trim(GunaTextBoxMontantHT.Text) * QUANTITE) - GunaTextBoxMontantReduction.Text
+                Dim MONTANT_HT As Double = (Trim(GunaTextBoxMontantHT.Text) * QUANTITE)
+                'Dim PRIX_UNITAIRE_TTC As Double = Trim(GunaTextBoxMontantTTC.Text - GunaTextBoxMontantReduction.Text) / Trim(GunaTextBoxQuantite.Text)
+                Dim PRIX_UNITAIRE_TTC As Double = Trim(GunaTextBoxMontantTTC.Text) / Trim(GunaTextBoxQuantite.Text)
+                'Dim MONTANT_TTC As Double = Double.Parse(Trim(GunaTextBoxMontantTTC.Text) - GunaTextBoxMontantReduction.Text)
+                Dim MONTANT_TTC As Double = Double.Parse(Trim(GunaTextBoxMontantTTC.Text))
+                Dim DATE_FACTURE As Date = GlobalVariable.DateDeTravail.ToShortDateString()
+                Dim HEURE_FACTURE As DateTime = Date.Now().ToShortTimeString
+                Dim ETAT_FACTURE As Integer = 0
+                Dim DATE_OCCUPATION As Date = GlobalVariable.DateDeTravail
+                Dim HEURE_OCCUPATION As DateTime = Date.Now().ToShortTimeString
 
-                CODE_RESERVATION = GunaTextBoxNumReservation.Text
+                Dim VALEUR_CONSO = 0
 
-                If Functions.getElementByCode(CODE_RESERVATION, "reserve_conf", "CODE_RESERVATION").Rows.Count > 0 Then
+                If Not Trim(GunaTextBoxQuantiteConso.Text) = "" Then
+                    VALEUR_CONSO = Double.Parse(GunaTextBoxQuantiteConso.Text)
+                    'TITRE_CONSOMMATION = "CONSOMMATION "
+                End If
 
-                    CODE_CHAMBRE = Functions.getElementByCode(CODE_RESERVATION, "reserve_conf", "CODE_RESERVATION").Rows(0)("CHAMBRE_ID")
+                Dim LIBELLE_FACTURE As String = TITRE_CONSOMMATION & GunaTextBoxArticle.Text
+                Dim TYPE_LIGNE_FACTURE As String = GunaTextBoxPointDeVente.Text
+                Dim NUMERO_SERIE As String = ""
+                Dim NUMERO_ORDRE As Double = 0
+                Dim DESCRIPTION As String = ""
+                Dim CODE_UTILISATEUR_CREA As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+                Dim CODE_AGENCE As String = GlobalVariable.codeAgence
+                Dim MONTANT_REMISE As Double = 0
+                Dim MONTANT_TAXE As Double = GunaTextBoxMontantTTC.Text - GunaTextBoxMontantHT.Text
+                Dim NUMERO_SERIE_DEBUT As String = ""
+                Dim NUMERO_SERIE_FIN As String = ""
+                Dim CODE_MAGASIN As String = GlobalVariable.magasinActuel 'MAGASIN ACTUEL DE L'UTILISSATEUR CONNECTE
+                Dim FUSIONNEE As String = GunaTextBoxSousFamilleArticle.Text
+                Dim CODE_FACTURE As String = GunaTextBoxNumfacture.Text
+                Dim TYPE As String = GlobalVariable.typeChambreOuSalle
+
+                Dim GRIFFE_UTILISATEUR As String = GlobalVariable.ConnectedUser.Rows(0)("GRIFFE_UTILISATEUR")
+
+                'To be initialise
+                Dim CODE_RESERVATION As String = ""
+
+                If Not GlobalVariable.codeReservationToUpdate = "" Then
+
+                    CODE_RESERVATION = GlobalVariable.codeReservationToUpdate
+
+                    Dim resa As DataTable = Functions.getElementByCode(CODE_RESERVATION, "reserve_conf", "CODE_RESERVATION")
+
+                    If resa.Rows.Count > 0 Then
+                        CODE_CHAMBRE = resa.Rows(0)("CHAMBRE_ID")
+                    End If
+
+                ElseIf Not Trim(GunaTextBoxNumReservation.Text) = "" Then
+
+                    CODE_RESERVATION = GunaTextBoxNumReservation.Text
+
+                    If Functions.getElementByCode(CODE_RESERVATION, "reserve_conf", "CODE_RESERVATION").Rows.Count > 0 Then
+
+                        CODE_CHAMBRE = Functions.getElementByCode(CODE_RESERVATION, "reserve_conf", "CODE_RESERVATION").Rows(0)("CHAMBRE_ID")
+
+                    End If
+
+                Else
+
+                    CODE_RESERVATION = "-"
+                    CODE_CHAMBRE = "-"
 
                 End If
 
-            Else
+                Dim ligneFacture As New LigneFacture()
 
-                CODE_RESERVATION = "-"
-                CODE_CHAMBRE = "-"
+                Dim TABLE_LIGNE As String = "ligne_facture_temp"
 
-            End If
+                Dim NUMERO_BLOC_NOTE As String = ""
 
-            Dim ligneFacture As New LigneFacture()
+                '-------------------------- LIGNE FACTURATION--------------------------
 
-            Dim TABLE_LIGNE As String = "ligne_facture_temp"
+                If GunaComboBoxListeDesComandes.SelectedIndex >= 0 Then
 
-            Dim NUMERO_BLOC_NOTE As String = ""
+                    NUMERO_BLOC_NOTE = GunaComboBoxListeDesComandes.SelectedValue.ToString
 
-            '-------------------------- LIGNE FACTURATION--------------------------
+                    Dim MONTANT_BLOC_NOTE As Double = Trim(GunaTextBoxMontantTTC.Text) - Trim(GunaTextBoxMontantReduction.Text)
 
-            If GunaComboBoxListeDesComandes.SelectedIndex >= 0 Then
+                    'MISE A JOURS DU BLOC NOTE DES ENCHAMBRE
 
-                NUMERO_BLOC_NOTE = GunaComboBoxListeDesComandes.SelectedValue.ToString
+                    Functions.updateMontantBlocNOteEnChambre(NUMERO_BLOC_NOTE, CODE_RESERVATION, MONTANT_BLOC_NOTE)
 
-                Dim MONTANT_BLOC_NOTE As Double = Trim(GunaTextBoxMontantTTC.Text) - Trim(GunaTextBoxMontantReduction.Text)
+                End If
 
-                'MISE A JOURS DU BLOC NOTE DES ENCHAMBRE
-
-                Functions.updateMontantBlocNOteEnChambre(NUMERO_BLOC_NOTE, CODE_RESERVATION, MONTANT_BLOC_NOTE)
-
-            End If
-
-            If Trim(CODE_FACTURE) = "" Then
-                CODE_FACTURE = Functions.GeneratingRandomCode("ligne_facture", "")
-                GunaTextBoxNumfacture.Text = CODE_FACTURE
-            End If
-
-            If ligneFacture.insertLigneFactureTemp(CODE_FACTURE, CODE_RESERVATION, CODE_MOUVEMENT, CODE_CHAMBRE, CODE_MODE_PAIEMENT, NUMERO_PIECE, CODE_ARTICLE, CODE_LOT, MONTANT_HT, TAXE, QUANTITE, PRIX_UNITAIRE_TTC, MONTANT_TTC, DATE_FACTURE, HEURE_FACTURE, ETAT_FACTURE, DATE_OCCUPATION, HEURE_OCCUPATION, LIBELLE_FACTURE, TYPE_LIGNE_FACTURE, NUMERO_SERIE, NUMERO_ORDRE, DESCRIPTION, CODE_UTILISATEUR_CREA, CODE_AGENCE, MONTANT_REMISE, MONTANT_TAXE, NUMERO_SERIE_DEBUT, NUMERO_SERIE_FIN, CODE_MAGASIN, FUSIONNEE, TYPE, TABLE_LIGNE, NUMERO_BLOC_NOTE, GRIFFE_UTILISATEUR, VALEUR_CONSO) Then
-                'FUSIONNEE : UTILISE COMME SOUS FAMILLE DE L'ARTICLE
-            End If
-
-            If GunaTextBoxMontantReduction.Text > 0 Then
-
-                LIBELLE_FACTURE = "REMISE DE " & "[" & GunaTextBoxRemise.Text & " %]" & " SUR " & LIBELLE_FACTURE
-
-                MONTANT_TTC = GunaTextBoxMontantReduction.Text * -1
-                MONTANT_HT = GunaTextBoxMontantReduction.Text * -1
-                QUANTITE = 1
+                If Trim(CODE_FACTURE) = "" Then
+                    CODE_FACTURE = Functions.GeneratingRandomCode("ligne_facture", "")
+                    GunaTextBoxNumfacture.Text = CODE_FACTURE
+                End If
 
                 If ligneFacture.insertLigneFactureTemp(CODE_FACTURE, CODE_RESERVATION, CODE_MOUVEMENT, CODE_CHAMBRE, CODE_MODE_PAIEMENT, NUMERO_PIECE, CODE_ARTICLE, CODE_LOT, MONTANT_HT, TAXE, QUANTITE, PRIX_UNITAIRE_TTC, MONTANT_TTC, DATE_FACTURE, HEURE_FACTURE, ETAT_FACTURE, DATE_OCCUPATION, HEURE_OCCUPATION, LIBELLE_FACTURE, TYPE_LIGNE_FACTURE, NUMERO_SERIE, NUMERO_ORDRE, DESCRIPTION, CODE_UTILISATEUR_CREA, CODE_AGENCE, MONTANT_REMISE, MONTANT_TAXE, NUMERO_SERIE_DEBUT, NUMERO_SERIE_FIN, CODE_MAGASIN, FUSIONNEE, TYPE, TABLE_LIGNE, NUMERO_BLOC_NOTE, GRIFFE_UTILISATEUR, VALEUR_CONSO) Then
                     'FUSIONNEE : UTILISE COMME SOUS FAMILLE DE L'ARTICLE
                 End If
 
+                If GunaTextBoxMontantReduction.Text > 0 Then
+
+                    LIBELLE_FACTURE = "REMISE DE " & "[" & GunaTextBoxRemise.Text & " %]" & " SUR " & LIBELLE_FACTURE
+
+                    MONTANT_TTC = GunaTextBoxMontantReduction.Text * -1
+                    MONTANT_HT = GunaTextBoxMontantReduction.Text * -1
+                    QUANTITE = 1
+
+                    If ligneFacture.insertLigneFactureTemp(CODE_FACTURE, CODE_RESERVATION, CODE_MOUVEMENT, CODE_CHAMBRE, CODE_MODE_PAIEMENT, NUMERO_PIECE, CODE_ARTICLE, CODE_LOT, MONTANT_HT, TAXE, QUANTITE, PRIX_UNITAIRE_TTC, MONTANT_TTC, DATE_FACTURE, HEURE_FACTURE, ETAT_FACTURE, DATE_OCCUPATION, HEURE_OCCUPATION, LIBELLE_FACTURE, TYPE_LIGNE_FACTURE, NUMERO_SERIE, NUMERO_ORDRE, DESCRIPTION, CODE_UTILISATEUR_CREA, CODE_AGENCE, MONTANT_REMISE, MONTANT_TAXE, NUMERO_SERIE_DEBUT, NUMERO_SERIE_FIN, CODE_MAGASIN, FUSIONNEE, TYPE, TABLE_LIGNE, NUMERO_BLOC_NOTE, GRIFFE_UTILISATEUR, VALEUR_CONSO) Then
+                        'FUSIONNEE : UTILISE COMME SOUS FAMILLE DE L'ARTICLE
+                    End If
+
+                End If
+
+                Dim DateDeSituation As Date = GlobalVariable.DateDeTravail
+
+                GunaComboBoxUniteOuConso.Visible = False
+
+                'Refresh Datagrid To view newly inserted Articles
+                OutPutLigneFacture()
+
+                'We Refresh the general information concerning the Invoice
+                FacturationKeyInformation()
+
+                'Determining wether or not to save a facturation
+                DisplaySavingButton()
+
+                'Refreshing the client solde
+                'We update the value of the solde at the level of the front desk
+                Dim MainForm As New MainWindow()
+
+                If Not GlobalVariable.codeReservationToUpdate = "" Then
+                    MainForm.GunaLabelSolde.Text = Functions.SituationDuClient(GlobalVariable.codeReservationToUpdate)
+                End If
+
+                Dim MONTANT_BLOC_NOTE_ As Double = GunaTextBoxMontantTTCGeneral.Text
+                Functions.updateOfFields("ligne_facture_bloc_note", "MONTANT_BLOC_NOTE", MONTANT_BLOC_NOTE_, "NUMERO_BLOC_NOTE", NUMERO_BLOC_NOTE, 0)
+
             End If
 
-            Dim DateDeSituation As Date = GlobalVariable.DateDeTravail
+            'After adding a line we clear the article field
 
-            GunaComboBoxUniteOuConso.Visible = False
+        Else
 
-            'Refresh Datagrid To view newly inserted Articles
-            OutPutLigneFacture()
-
-            'We Refresh the general information concerning the Invoice
-            FacturationKeyInformation()
-
-            'Determining wether or not to save a facturation
-            DisplaySavingButton()
-
-            'Refreshing the client solde
-            'We update the value of the solde at the level of the front desk
-            Dim MainForm As New MainWindow()
-
-            If Not GlobalVariable.codeReservationToUpdate = "" Then
-                MainForm.GunaLabelSolde.Text = Functions.SituationDuClient(GlobalVariable.codeReservationToUpdate)
+            If GlobalVariable.actualLanguageValue = 0 Then
+                languageMessage = "Unknown Article"
+                languageTitle = "Article"
+            ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                languageMessage = "Article inconnu"
+                languageTitle = "Article"
             End If
 
-            Dim MONTANT_BLOC_NOTE_ As Double = GunaTextBoxMontantTTCGeneral.Text
-            Functions.updateOfFields("ligne_facture_bloc_note", "MONTANT_BLOC_NOTE", MONTANT_BLOC_NOTE_, "NUMERO_BLOC_NOTE", NUMERO_BLOC_NOTE, 0)
+            MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         End If
 
-        'After adding a line we clear the article field
         clearArticleFields()
 
     End Sub
