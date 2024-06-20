@@ -2104,9 +2104,9 @@ Partial Class MainWindowEconomat
         Me.GunaPanelListeMarche.Controls.Add(Me.GunaLabel5)
         Me.GunaPanelListeMarche.Controls.Add(Me.GunaLabel4)
         Me.GunaPanelListeMarche.Controls.Add(Me.GunaLabel3)
-        Me.GunaPanelListeMarche.Location = New System.Drawing.Point(10, 32)
+        Me.GunaPanelListeMarche.Location = New System.Drawing.Point(65, 32)
         Me.GunaPanelListeMarche.Name = "GunaPanelListeMarche"
-        Me.GunaPanelListeMarche.Size = New System.Drawing.Size(304, 64)
+        Me.GunaPanelListeMarche.Size = New System.Drawing.Size(249, 64)
         Me.GunaPanelListeMarche.TabIndex = 192
         Me.GunaPanelListeMarche.Visible = False
         '
@@ -2167,7 +2167,7 @@ Partial Class MainWindowEconomat
         Me.GunaLabel5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaLabel5.AutoSize = True
         Me.GunaLabel5.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel5.Location = New System.Drawing.Point(179, 5)
+        Me.GunaLabel5.Location = New System.Drawing.Point(124, 5)
         Me.GunaLabel5.Name = "GunaLabel5"
         Me.GunaLabel5.Size = New System.Drawing.Size(23, 17)
         Me.GunaLabel5.TabIndex = 192
@@ -2178,7 +2178,7 @@ Partial Class MainWindowEconomat
         Me.GunaLabel4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaLabel4.AutoSize = True
         Me.GunaLabel4.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel4.Location = New System.Drawing.Point(96, 5)
+        Me.GunaLabel4.Location = New System.Drawing.Point(41, 5)
         Me.GunaLabel4.Name = "GunaLabel4"
         Me.GunaLabel4.Size = New System.Drawing.Size(24, 17)
         Me.GunaLabel4.TabIndex = 193
@@ -2189,7 +2189,7 @@ Partial Class MainWindowEconomat
         Me.GunaLabel3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaLabel3.AutoSize = True
         Me.GunaLabel3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel3.Location = New System.Drawing.Point(22, 5)
+        Me.GunaLabel3.Location = New System.Drawing.Point(-33, 5)
         Me.GunaLabel3.Name = "GunaLabel3"
         Me.GunaLabel3.Size = New System.Drawing.Size(57, 17)
         Me.GunaLabel3.TabIndex = 194
