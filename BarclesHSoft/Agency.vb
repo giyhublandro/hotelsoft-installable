@@ -49,18 +49,18 @@ Public Class Agency
                                  Optional ByVal SESSION_UNIQUE As Integer = 0, Optional ByVal SERRURES As Integer = 0, ByVal Optional MESSAGE_WHATSAPP As Integer = 0,
                                  ByVal Optional CLOTURE_FACTURE As Integer = 0, ByVal Optional LANGUE As Integer = 1, ByVal Optional PRIX_BAR_RESTAU_MODIFIABLE As Integer = 1,
                                  ByVal Optional PAYER_AVANT_ENCODAGE As Integer = 0, ByVal Optional BLOQUER_PRIX_HEBERGEMENT As Integer = 0, ByVal Optional CLUB_ELITE As Integer = 0,
-                                 ByVal Optional PRINT_B7 As Integer = 0, ByVal Optional MENSUALITE As Integer = 0, ByVal Optional MONTANT_NAVETTE As Double = 0,
+                                 ByVal Optional PRINT_B7 As Integer = 0, ByVal Optional MENSUALITE As Integer = 0, ByVal Optional HEBDOMADAIRE As Integer = 0, ByVal Optional MONTANT_NAVETTE As Double = 0,
                                  ByVal Optional NUMERO_RECEPTION As String = "", ByVal Optional NUMERO_RECEPTION_CHAMBRE As String = "", ByVal Optional DIRECTION As String = "") As Boolean
 
         Dim insertQuery As String = "INSERT INTO `agence` (`NOM_AGENCE`,`CODE_AGENCE`, `FAX`, `EMAIL`, `TELEPHONE`, `VILLE`, `BOITE_POSTALE`, `PAYS`, `RUE`, 
         `CATEGORIE_HOTEL`, `WHATSAPP_1`, `WHATSAPP_2`, `WHATSAPP_3`, `WHATSAPP_4`, `WHATSAPP_5`, `WHATSAPP_6`, `WHATSAPP_7`, `GERER_STOCK`,`CLOTURE_MULTIPLE`,
         `CHEMIN_SAUVEGARDE_AUTO`, `TARIFICATION_DYNAMIQUE`, `SESSION_UNIQUE`, `EMAIL_1`, `EMAIL_2`, `EMAIL_3`, `EMAIL_4`, `EMAIL_5`, `EMAIL_6`, `EMAIL_7`,
-        `MESSAGE_WHATSAPP`, `LANGUE`, `PRIX_BAR_RESTAU_MODIFIABLE`, `PAYER_AVANT_ENCODAGE`, `BLOQUER_PRIX_HEBERGEMENT`,`CLUB_ELITE`, `PRINT_B7`,`MENSUALITE`, `NUMERO_RECEPTION`,
+        `MESSAGE_WHATSAPP`, `LANGUE`, `PRIX_BAR_RESTAU_MODIFIABLE`, `PAYER_AVANT_ENCODAGE`, `BLOQUER_PRIX_HEBERGEMENT`,`CLUB_ELITE`, `PRINT_B7`,`MENSUALITE`, `HEBDOMADAIRE`, `NUMERO_RECEPTION`,
         `NUMERO_RECEPTION_CHAMBRE`, `MONTANT_NAVETTE`, `DIRECTION`) 
         VALUES (@NOM_AGENCE, @CODE_AGENCE, @FAX, @EMAIL, @TELEPHONE, @VILLE, @BOITE_POSTALE, @PAYS, @RUE, @CATEGORIE_HOTEL , @WHATSAPP_1, @WHATSAPP_2, @WHATSAPP_3,
         @WHATSAPP_4, @WHATSAPP_5, @WHATSAPP_6, @WHATSAPP_7, @GERER_STOCK, @CLOTURE_MULTIPLE, @CHEMIN_SAUVEGARDE_AUTO, @TARIFICATION_DYNAMIQUE, @SESSION_UNIQUE, @EMAIL_1, 
         @EMAIL_2, @EMAIL_3, @EMAIL_4, @EMAIL_5, @EMAIL_6, @EMAIL_7, @MESSAGE_WHATSAPP, @LANGUE, @PRIX_BAR_RESTAU_MODIFIABLE, @PAYER_AVANT_ENCODAGE, 
-        @BLOQUER_PRIX_HEBERGEMENT, @CLUB_ELITE, @PRINT_B7, @MENSUALITE, @NUMERO_RECEPTION, @NUMERO_RECEPTION_CHAMBRE, @MONTANT_NAVETTE, @DIRECTION)"
+        @BLOQUER_PRIX_HEBERGEMENT, @CLUB_ELITE, @PRINT_B7, @MENSUALITE, @HEBDOMADAIRE, @NUMERO_RECEPTION, @NUMERO_RECEPTION_CHAMBRE, @MONTANT_NAVETTE, @DIRECTION)"
 
         Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
 
@@ -108,6 +108,7 @@ Public Class Agency
         command.Parameters.Add("@CLUB_ELITE", MySqlDbType.Int64).Value = CLUB_ELITE
         command.Parameters.Add("@PRINT_B7", MySqlDbType.Int64).Value = PRINT_B7
         command.Parameters.Add("@MENSUALITE", MySqlDbType.Int64).Value = MENSUALITE
+        command.Parameters.Add("@HEBDOMADAIRE", MySqlDbType.Int64).Value = HEBDOMADAIRE
 
         command.Parameters.Add("@NUMERO_RECEPTION_CHAMBRE", MySqlDbType.VarChar).Value = NUMERO_RECEPTION_CHAMBRE
         command.Parameters.Add("@NUMERO_RECEPTION", MySqlDbType.VarChar).Value = NUMERO_RECEPTION
@@ -163,7 +164,7 @@ Public Class Agency
                                   Optional ByVal SERRURES As Integer = 0, Optional ByVal MESSAGE_WHATSAPP As Integer = 0, ByVal Optional CLOTURE_FACTURE As Integer = 0,
                                   ByVal Optional LANGUE As Integer = 1, ByVal Optional PRIX_BAR_RESTAU_MODIFIABLE As Integer = 1, ByVal Optional PAYER_AVANT_ENCODAGE As Integer = 0,
                                   ByVal Optional BLOQUER_PRIX_HEBERGEMENT As Integer = 0, ByVal Optional CLUB_ELITE As Integer = 0,
-                                  ByVal Optional PRINT_B7 As Integer = 0, ByVal Optional MENSUALITE As Integer = 0, ByVal Optional MONTANT_NAVETTE As Double = 0,
+                                  ByVal Optional PRINT_B7 As Integer = 0, ByVal Optional MENSUALITE As Integer = 0, ByVal Optional HEBDOMADAIRE As Integer = 0, ByVal Optional MONTANT_NAVETTE As Double = 0,
                                   ByVal Optional NUMERO_RECEPTION As String = "", ByVal Optional NUMERO_RECEPTION_CHAMBRE As String = "", ByVal Optional DIRECTION As String = "") As Boolean
 
         Dim updateQuery As String = "UPDATE `agence` SET NOM_AGENCE=@NOM_AGENCE, CODE_AGENCE=@CODE_AGENCE, FAX=@FAX, EMAIL=@EMAIL, TELEPHONE=@TELEPHONE,
@@ -174,7 +175,7 @@ Public Class Agency
             TARIFICATION_DYNAMIQUE=@TARIFICATION_DYNAMIQUE, SESSION_UNIQUE=@SESSION_UNIQUE , SERRURES=@SERRURES , 
             MESSAGE_WHATSAPP =@MESSAGE_WHATSAPP, CLOTURE_FACTURE=@CLOTURE_FACTURE, LANGUE=@LANGUE, PRIX_BAR_RESTAU_MODIFIABLE=@PRIX_BAR_RESTAU_MODIFIABLE,
             PAYER_AVANT_ENCODAGE = @PAYER_AVANT_ENCODAGE, BLOQUER_PRIX_HEBERGEMENT=@BLOQUER_PRIX_HEBERGEMENT , CLUB_ELITE=@CLUB_ELITE
-            ,PRINT_B7=@PRINT_B7, MENSUALITE=@MENSUALITE, NUMERO_RECEPTION =@NUMERO_RECEPTION, NUMERO_RECEPTION_CHAMBRE=@NUMERO_RECEPTION_CHAMBRE, 
+            ,PRINT_B7=@PRINT_B7, MENSUALITE=@MENSUALITE, HEBDOMADAIRE=@HEBDOMADAIRE , NUMERO_RECEPTION =@NUMERO_RECEPTION, NUMERO_RECEPTION_CHAMBRE=@NUMERO_RECEPTION_CHAMBRE, 
             MONTANT_NAVETTE=@MONTANT_NAVETTE, DIRECTION=@DIRECTION
             WHERE CODE_AGENCE = @NUM_AGENCE"
 
@@ -225,6 +226,7 @@ Public Class Agency
         command.Parameters.Add("@CLUB_ELITE", MySqlDbType.Int64).Value = CLUB_ELITE
         command.Parameters.Add("@PRINT_B7", MySqlDbType.Int64).Value = PRINT_B7
         command.Parameters.Add("@MENSUALITE", MySqlDbType.Int64).Value = MENSUALITE
+        command.Parameters.Add("@HEBDOMADAIRE", MySqlDbType.Int64).Value = HEBDOMADAIRE
 
         command.Parameters.Add("@NUMERO_RECEPTION_CHAMBRE", MySqlDbType.VarChar).Value = NUMERO_RECEPTION_CHAMBRE
         command.Parameters.Add("@NUMERO_RECEPTION", MySqlDbType.VarChar).Value = NUMERO_RECEPTION

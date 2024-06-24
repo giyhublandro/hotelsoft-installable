@@ -42,6 +42,13 @@ Partial Class RoomTypeForm
         Me.GunaPanel2 = New Guna.UI.WinForms.GunaPanel()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.GunaGroupBox1 = New Guna.UI.WinForms.GunaGroupBox()
+        Me.GunaTextBoxSieste = New Guna.UI.WinForms.GunaTextBox()
+        Me.GunaTextBoxMensuel = New Guna.UI.WinForms.GunaTextBox()
+        Me.GunaTextBoxHebdo = New Guna.UI.WinForms.GunaTextBox()
+        Me.GunaLabelSieste = New Guna.UI.WinForms.GunaLabel()
+        Me.GunaLabelMensuel = New Guna.UI.WinForms.GunaLabel()
+        Me.GunaLabel12 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaCheckBoxPourcentage = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaTextBoxCapacite = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaTextBoxSuperficie = New Guna.UI.WinForms.GunaTextBox()
@@ -75,6 +82,7 @@ Partial Class RoomTypeForm
         Me.GunaPanel1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
+        Me.GunaGroupBox1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         CType(Me.DataGridViewRoomTypeListe, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStripDelete.SuspendLayout()
@@ -233,6 +241,7 @@ Partial Class RoomTypeForm
         'TabPage1
         '
         Me.TabPage1.BackColor = System.Drawing.Color.LightCyan
+        Me.TabPage1.Controls.Add(Me.GunaGroupBox1)
         Me.TabPage1.Controls.Add(Me.GunaCheckBoxPourcentage)
         Me.TabPage1.Controls.Add(Me.GunaTextBoxCapacite)
         Me.TabPage1.Controls.Add(Me.GunaTextBoxSuperficie)
@@ -263,6 +272,115 @@ Partial Class RoomTypeForm
         Me.TabPage1.Size = New System.Drawing.Size(902, 442)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Description"
+        '
+        'GunaGroupBox1
+        '
+        Me.GunaGroupBox1.BackColor = System.Drawing.Color.Transparent
+        Me.GunaGroupBox1.BaseColor = System.Drawing.Color.Transparent
+        Me.GunaGroupBox1.BorderColor = System.Drawing.Color.Transparent
+        Me.GunaGroupBox1.Controls.Add(Me.GunaTextBoxSieste)
+        Me.GunaGroupBox1.Controls.Add(Me.GunaTextBoxMensuel)
+        Me.GunaGroupBox1.Controls.Add(Me.GunaTextBoxHebdo)
+        Me.GunaGroupBox1.Controls.Add(Me.GunaLabelSieste)
+        Me.GunaGroupBox1.Controls.Add(Me.GunaLabelMensuel)
+        Me.GunaGroupBox1.Controls.Add(Me.GunaLabel12)
+        Me.GunaGroupBox1.LineColor = System.Drawing.Color.Gainsboro
+        Me.GunaGroupBox1.LineTop = 0
+        Me.GunaGroupBox1.Location = New System.Drawing.Point(29, 240)
+        Me.GunaGroupBox1.Name = "GunaGroupBox1"
+        Me.GunaGroupBox1.Size = New System.Drawing.Size(826, 89)
+        Me.GunaGroupBox1.TabIndex = 124
+        Me.GunaGroupBox1.TextLocation = New System.Drawing.Point(10, 8)
+        '
+        'GunaTextBoxSieste
+        '
+        Me.GunaTextBoxSieste.BackColor = System.Drawing.Color.Transparent
+        Me.GunaTextBoxSieste.BaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxSieste.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaTextBoxSieste.BorderSize = 1
+        Me.GunaTextBoxSieste.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBoxSieste.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxSieste.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBoxSieste.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBoxSieste.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaTextBoxSieste.Location = New System.Drawing.Point(335, 30)
+        Me.GunaTextBoxSieste.Name = "GunaTextBoxSieste"
+        Me.GunaTextBoxSieste.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBoxSieste.Radius = 4
+        Me.GunaTextBoxSieste.SelectedText = ""
+        Me.GunaTextBoxSieste.Size = New System.Drawing.Size(126, 34)
+        Me.GunaTextBoxSieste.TabIndex = 116
+        Me.GunaTextBoxSieste.Text = "0"
+        '
+        'GunaTextBoxMensuel
+        '
+        Me.GunaTextBoxMensuel.BackColor = System.Drawing.Color.Transparent
+        Me.GunaTextBoxMensuel.BaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxMensuel.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaTextBoxMensuel.BorderSize = 1
+        Me.GunaTextBoxMensuel.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBoxMensuel.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxMensuel.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBoxMensuel.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBoxMensuel.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaTextBoxMensuel.Location = New System.Drawing.Point(175, 30)
+        Me.GunaTextBoxMensuel.Name = "GunaTextBoxMensuel"
+        Me.GunaTextBoxMensuel.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBoxMensuel.Radius = 4
+        Me.GunaTextBoxMensuel.SelectedText = ""
+        Me.GunaTextBoxMensuel.Size = New System.Drawing.Size(126, 34)
+        Me.GunaTextBoxMensuel.TabIndex = 117
+        Me.GunaTextBoxMensuel.Text = "0"
+        '
+        'GunaTextBoxHebdo
+        '
+        Me.GunaTextBoxHebdo.BackColor = System.Drawing.Color.Transparent
+        Me.GunaTextBoxHebdo.BaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxHebdo.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaTextBoxHebdo.BorderSize = 1
+        Me.GunaTextBoxHebdo.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBoxHebdo.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxHebdo.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBoxHebdo.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBoxHebdo.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaTextBoxHebdo.Location = New System.Drawing.Point(21, 30)
+        Me.GunaTextBoxHebdo.Name = "GunaTextBoxHebdo"
+        Me.GunaTextBoxHebdo.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBoxHebdo.Radius = 4
+        Me.GunaTextBoxHebdo.SelectedText = ""
+        Me.GunaTextBoxHebdo.Size = New System.Drawing.Size(126, 34)
+        Me.GunaTextBoxHebdo.TabIndex = 118
+        Me.GunaTextBoxHebdo.Text = "0"
+        '
+        'GunaLabelSieste
+        '
+        Me.GunaLabelSieste.AutoSize = True
+        Me.GunaLabelSieste.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaLabelSieste.Location = New System.Drawing.Point(332, 9)
+        Me.GunaLabelSieste.Name = "GunaLabelSieste"
+        Me.GunaLabelSieste.Size = New System.Drawing.Size(76, 20)
+        Me.GunaLabelSieste.TabIndex = 119
+        Me.GunaLabelSieste.Text = "Prix Sieste"
+        '
+        'GunaLabelMensuel
+        '
+        Me.GunaLabelMensuel.AutoSize = True
+        Me.GunaLabelMensuel.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaLabelMensuel.Location = New System.Drawing.Point(172, 9)
+        Me.GunaLabelMensuel.Name = "GunaLabelMensuel"
+        Me.GunaLabelMensuel.Size = New System.Drawing.Size(92, 20)
+        Me.GunaLabelMensuel.TabIndex = 120
+        Me.GunaLabelMensuel.Text = "Prix Mensuel"
+        '
+        'GunaLabel12
+        '
+        Me.GunaLabel12.AutoSize = True
+        Me.GunaLabel12.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaLabel12.Location = New System.Drawing.Point(18, 9)
+        Me.GunaLabel12.Name = "GunaLabel12"
+        Me.GunaLabel12.Size = New System.Drawing.Size(138, 20)
+        Me.GunaLabel12.TabIndex = 121
+        Me.GunaLabel12.Text = "Prix Hebdomadaire"
         '
         'GunaCheckBoxPourcentage
         '
@@ -348,6 +466,7 @@ Partial Class RoomTypeForm
         Me.GunaTextBoxMontantVariable.SelectedText = ""
         Me.GunaTextBoxMontantVariable.Size = New System.Drawing.Size(113, 34)
         Me.GunaTextBoxMontantVariable.TabIndex = 110
+        Me.GunaTextBoxMontantVariable.Text = "0"
         Me.GunaTextBoxMontantVariable.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'GunaTextBoxMontatnChargeFixe
@@ -369,6 +488,7 @@ Partial Class RoomTypeForm
         Me.GunaTextBoxMontatnChargeFixe.SelectedText = ""
         Me.GunaTextBoxMontatnChargeFixe.Size = New System.Drawing.Size(113, 34)
         Me.GunaTextBoxMontatnChargeFixe.TabIndex = 110
+        Me.GunaTextBoxMontatnChargeFixe.Text = "0"
         Me.GunaTextBoxMontatnChargeFixe.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'GunaTextBoxTauxChargeFixe
@@ -410,7 +530,7 @@ Partial Class RoomTypeForm
         Me.GunaTextBoxPrix.SelectedText = ""
         Me.GunaTextBoxPrix.Size = New System.Drawing.Size(126, 34)
         Me.GunaTextBoxPrix.TabIndex = 110
-        Me.GunaTextBoxPrix.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.GunaTextBoxPrix.Text = "0"
         '
         'GunaLabel2
         '
@@ -466,11 +586,11 @@ Partial Class RoomTypeForm
         '
         Me.GunaLabel5.AutoSize = True
         Me.GunaLabel5.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel5.Location = New System.Drawing.Point(46, 177)
+        Me.GunaLabel5.Location = New System.Drawing.Point(46, 174)
         Me.GunaLabel5.Name = "GunaLabel5"
-        Me.GunaLabel5.Size = New System.Drawing.Size(37, 20)
+        Me.GunaLabel5.Size = New System.Drawing.Size(101, 20)
         Me.GunaLabel5.TabIndex = 115
-        Me.GunaLabel5.Text = "Prix "
+        Me.GunaLabel5.Text = "Prix Journalier"
         '
         'GunaTextBoxLibelle
         '
@@ -681,7 +801,7 @@ Partial Class RoomTypeForm
         Me.DataGridViewRoomTypeListe.AllowUserToResizeRows = False
         DataGridViewCellStyle4.BackColor = System.Drawing.Color.White
         Me.DataGridViewRoomTypeListe.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
-        Me.DataGridViewRoomTypeListe.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.DataGridViewRoomTypeListe.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.DataGridViewRoomTypeListe.BackgroundColor = System.Drawing.Color.LightBlue
         Me.DataGridViewRoomTypeListe.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.DataGridViewRoomTypeListe.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
@@ -797,6 +917,8 @@ Partial Class RoomTypeForm
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
+        Me.GunaGroupBox1.ResumeLayout(False)
+        Me.GunaGroupBox1.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
         CType(Me.DataGridViewRoomTypeListe, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStripDelete.ResumeLayout(False)
@@ -850,4 +972,11 @@ Partial Class RoomTypeForm
     Friend WithEvents GunaTextBoxMontantVariable As Guna.UI.WinForms.GunaTextBox
     Friend WithEvents GunaLabel11 As Guna.UI.WinForms.GunaLabel
     Friend WithEvents GunaTextBoxOldCodeTypeChambre As Guna.UI.WinForms.GunaTextBox
+    Friend WithEvents GunaGroupBox1 As Guna.UI.WinForms.GunaGroupBox
+    Friend WithEvents GunaTextBoxSieste As Guna.UI.WinForms.GunaTextBox
+    Friend WithEvents GunaTextBoxMensuel As Guna.UI.WinForms.GunaTextBox
+    Friend WithEvents GunaTextBoxHebdo As Guna.UI.WinForms.GunaTextBox
+    Friend WithEvents GunaLabelSieste As Guna.UI.WinForms.GunaLabel
+    Friend WithEvents GunaLabelMensuel As Guna.UI.WinForms.GunaLabel
+    Friend WithEvents GunaLabel12 As Guna.UI.WinForms.GunaLabel
 End Class

@@ -1219,6 +1219,8 @@
             MainWindow.GunaButton28.Text = "SALES VENTILATION FORM"
 
             MainWindow.GunaButtonSynthese.Text = "Summary Doc"
+            MainWindow.GunaCheckBoxMensuel.Text = "Monthly"
+            MainWindow.GunaCheckBoxHebdo.Text = "Weekly"
             '---------------------------------------------------------------------
             MainWindow.ReceptionToolStripMenuItem.Text = "RECEPTION"
             MainWindow.RESERVATIONToolStripMenuItem.Text = "BOOKING"
@@ -2982,7 +2984,7 @@
             RoomTypeForm.GunaLabel2.Text = "Surface Area"
             RoomTypeForm.GunaLabel3.Text = "Capacity"
             RoomTypeForm.GunaLabel7.Text = "Description"
-            RoomTypeForm.GunaLabel5.Text = "Price"
+            RoomTypeForm.GunaLabel5.Text = "Dayly Rate"
             RoomTypeForm.GunaLabel4.Text = "Percentage"
             RoomTypeForm.GunaLabel9.Text = "Lowest Price"
             RoomTypeForm.GunaLabel11.Text = "Variable Amount"
@@ -2994,6 +2996,10 @@
             RoomTypeForm.TabControl1.TabPages(0).Text = "Description"
             RoomTypeForm.TabControl1.TabPages(1).Text = "List"
 
+            RoomTypeForm.GunaLabel12.Text = "Weekly Rate"
+            RoomTypeForm.GunaLabelMensuel.Text = "Monthly Rate"
+            RoomTypeForm.GunaLabelSieste.Text = "Day use Rate"
+
         Else
 
             RoomTypeForm.GunaRadioButtonChambre.Text = "Chambres"
@@ -3004,7 +3010,7 @@
             RoomTypeForm.GunaLabel2.Text = "Superficie"
             RoomTypeForm.GunaLabel3.Text = "Capacité"
             RoomTypeForm.GunaLabel7.Text = "Description"
-            RoomTypeForm.GunaLabel5.Text = "Prix"
+            RoomTypeForm.GunaLabel5.Text = "Prix Journalier"
             RoomTypeForm.GunaLabel4.Text = "Pourcentage"
             RoomTypeForm.GunaLabel9.Text = "Prix le Plus Bas"
             RoomTypeForm.GunaLabel11.Text = "Montant variable"

@@ -178,6 +178,7 @@ Partial Class AgencyForm
         Me.GunaLabel35 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel26 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaPanel1 = New Guna.UI.WinForms.GunaPanel()
+        Me.GunaCheckBoxHebdomadaire = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaLinePanelTop.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -317,6 +318,7 @@ Partial Class AgencyForm
         Me.TabPageAdresseAgence.Controls.Add(Me.GunaCheckBoxClubElite)
         Me.TabPageAdresseAgence.Controls.Add(Me.GunaCheckBoxBloquerPrixHebergement)
         Me.TabPageAdresseAgence.Controls.Add(Me.GunaCheckBoxPayerAvantEncodage)
+        Me.TabPageAdresseAgence.Controls.Add(Me.GunaCheckBoxHebdomadaire)
         Me.TabPageAdresseAgence.Controls.Add(Me.GunaCheckBoxPrixBarFix)
         Me.TabPageAdresseAgence.Controls.Add(Me.GunaCheckBoxMessageWhatsApp)
         Me.TabPageAdresseAgence.Controls.Add(Me.GunaCheckBoxSerrure)
@@ -2714,6 +2716,18 @@ Partial Class AgencyForm
         Me.GunaPanel1.Size = New System.Drawing.Size(1119, 10)
         Me.GunaPanel1.TabIndex = 10
         '
+        'GunaCheckBoxHebdomadaire
+        '
+        Me.GunaCheckBoxHebdomadaire.BaseColor = System.Drawing.Color.White
+        Me.GunaCheckBoxHebdomadaire.CheckedOffColor = System.Drawing.Color.Gray
+        Me.GunaCheckBoxHebdomadaire.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaCheckBoxHebdomadaire.FillColor = System.Drawing.Color.White
+        Me.GunaCheckBoxHebdomadaire.Location = New System.Drawing.Point(312, 417)
+        Me.GunaCheckBoxHebdomadaire.Name = "GunaCheckBoxHebdomadaire"
+        Me.GunaCheckBoxHebdomadaire.Size = New System.Drawing.Size(238, 20)
+        Me.GunaCheckBoxHebdomadaire.TabIndex = 103
+        Me.GunaCheckBoxHebdomadaire.Text = "FACTURATION HEBDOMADAIRE"
+        '
         'AgencyForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2906,4 +2920,5 @@ Partial Class AgencyForm
     Friend WithEvents GunaButtonUpload As Guna.UI.WinForms.GunaButton
     Friend WithEvents GunaPictureBoxLogo As Guna.UI.WinForms.GunaPictureBox
     Friend WithEvents GunaCheckBoxRoomChange As Guna.UI.WinForms.GunaCheckBox
+    Friend WithEvents GunaCheckBoxHebdomadaire As Guna.UI.WinForms.GunaCheckBox
 End Class

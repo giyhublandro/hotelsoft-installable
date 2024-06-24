@@ -233,6 +233,12 @@ Public Class MainWindow
                 GunaCheckBoxMensuel.Visible = False
             End If
 
+            If GlobalVariable.AgenceActuelle.Rows(0)("HEBDOMADAIRE") = 1 Then
+                GunaCheckBoxHebdo.Visible = True
+            Else
+                GunaCheckBoxHebdo.Visible = False
+            End If
+
         Else
 
         End If
@@ -491,6 +497,7 @@ Public Class MainWindow
 
         GunaCheckBoxDayUse.Checked = False
         GunaCheckBoxMensuel.Checked = False
+        GunaCheckBoxHebdo.Checked = False
 
         If GlobalVariable.AgenceActuelle.Rows.Count > 0 Then
             GunaTextBoxSerendantA.Text = GlobalVariable.AgenceActuelle.Rows(0)("VILLE")
@@ -906,7 +913,22 @@ Public Class MainWindow
 
         GunaDataGridViewRoomType.Visible = True
 
-        Dim query As String = "SELECT CODE_TYPE_CHAMBRE, LIBELLE_TYPE_CHAMBRE , PRIX From type_chambre WHERE CODE_TYPE_CHAMBRE Like '%" & Trim(GunaTextBoxCodeTypeDeChambre.Text) & "%' AND CODE_AGENCE=@CODE_AGENCE AND TYPE=@TYPE"
+        Dim query As String = ""
+
+        If GlobalVariable.typeChambreOuSalle = "salle" Then
+            query = "SELECT CODE_TYPE_CHAMBRE, LIBELLE_TYPE_CHAMBRE, PRIX AS 'PRIX' From type_chambre WHERE CODE_TYPE_CHAMBRE Like '%" & Trim(GunaTextBoxCodeTypeDeChambre.Text) & "%' AND CODE_AGENCE=@CODE_AGENCE AND TYPE=@TYPE"
+        Else
+            If GunaCheckBoxHebdo.Checked Then
+                query = "SELECT CODE_TYPE_CHAMBRE, LIBELLE_TYPE_CHAMBRE, MONTANT_HEBDO AS 'PRIX' From type_chambre WHERE CODE_TYPE_CHAMBRE Like '%" & Trim(GunaTextBoxCodeTypeDeChambre.Text) & "%' AND CODE_AGENCE=@CODE_AGENCE AND TYPE=@TYPE"
+            ElseIf GunaCheckBoxMensuel.Checked Then
+                query = "SELECT CODE_TYPE_CHAMBRE, LIBELLE_TYPE_CHAMBRE, MONTANT_MENSUEL AS 'PRIX' From type_chambre WHERE CODE_TYPE_CHAMBRE Like '%" & Trim(GunaTextBoxCodeTypeDeChambre.Text) & "%' AND CODE_AGENCE=@CODE_AGENCE AND TYPE=@TYPE"
+            ElseIf GunaCheckBoxDayUse.Checked Then
+                query = "SELECT CODE_TYPE_CHAMBRE, LIBELLE_TYPE_CHAMBRE, MONTANT_SIESTE AS 'PRIX' From type_chambre WHERE CODE_TYPE_CHAMBRE Like '%" & Trim(GunaTextBoxCodeTypeDeChambre.Text) & "%' AND CODE_AGENCE=@CODE_AGENCE AND TYPE=@TYPE"
+            Else
+                query = "SELECT CODE_TYPE_CHAMBRE, LIBELLE_TYPE_CHAMBRE, PRIX AS 'PRIX' From type_chambre WHERE CODE_TYPE_CHAMBRE Like '%" & Trim(GunaTextBoxCodeTypeDeChambre.Text) & "%' AND CODE_AGENCE=@CODE_AGENCE AND TYPE=@TYPE"
+            End If
+        End If
+
         Dim command As New MySqlCommand(query, GlobalVariable.connect)
 
         command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = GlobalVariable.codeAgence
@@ -949,16 +971,27 @@ Public Class MainWindow
             GunaTextBoxLibelleTYpe.Text = row.Cells("LIBELLE_TYPE_CHAMBRE").Value.ToString
             GunaTextBoxCodeTypeDeChambre.Text = row.Cells("CODE_TYPE_CHAMBRE").Value.ToString
 
+            'GunaTextBoxLibelleChambre.Text = row.Cells(2).Value.ToString
+
             Dim TypeChambre As DataTable = Functions.getElementByCode(Trim(GunaTextBoxCodeTypeDeChambre.Text), "type_chambre", "CODE_TYPE_CHAMBRE")
 
             If TypeChambre.Rows.Count > 0 Then
 
-
                 If GunaRadioButtonChambre.Checked Then
 
                     Dim prix As Double = 0
-                    Double.TryParse(TypeChambre.Rows(0)("PRIX"), prix)
-                    GunaTextBoxpPrixAffiche.Text = Format(prix, "#,##0")
+
+                    If GunaCheckBoxHebdo.Checked Then
+                        prix = TypeChambre.Rows(0)("MONTANT_HEBDO")
+                    ElseIf GunaCheckBoxMensuel.Checked Then
+                        prix = TypeChambre.Rows(0)("MONTANT_MENSUEL")
+                    ElseIf GunaCheckBoxDayUse.Checked Then
+                        prix = TypeChambre.Rows(0)("MONTANT_SIESTE")
+                    Else
+                        prix = TypeChambre.Rows(0)("PRIX")
+                    End If
+
+                    GunaTextBoxpPrixAffiche.Text = Format(Double.Parse(prix), "#,##0")
 
                     'LE PRIX PAR DEFAUT NE DOIT PAS CHANGER LE PRIX DE LA CHAMBRE SI LA GRATUITEE EST ACTIVEE
 
@@ -1858,6 +1891,7 @@ Public Class MainWindow
 
         GunaCheckBoxDayUse.Checked = False
         GunaCheckBoxMensuel.Checked = False
+        GunaCheckBoxHebdo.Checked = False
 
         Dim NB_PERSONNES As Integer = 0
         'In case the reservation is not found in reservation, it will be found in reserve_conf
@@ -1873,6 +1907,12 @@ Public Class MainWindow
 
             If MENSUEL = 1 Then
                 GunaCheckBoxMensuel.Checked = True
+            End If
+
+            Dim HEBDOMADAIRE As Integer = Integer.Parse(reservation.Rows(0)("HEBDOMADAIRE"))
+
+            If HEBDOMADAIRE = 1 Then
+                GunaCheckBoxHebdo.Checked = True
             End If
 
             NB_PERSONNES = CType(reservation.Rows(0)("NB_PERSONNES"), Int32)
@@ -1978,6 +2018,14 @@ Public Class MainWindow
                 GunaComboBoxHeureDepart.SelectedItem = CDate(DateTimeDepartStringFormat).ToLongTimeString
 
                 If GunaCheckBoxMensuel.Checked Then
+
+                    If GlobalVariable.actualLanguageValue = 1 Then
+                        GunaLabelTempsAFaire.Text = "Total jour(s)"
+                    Else
+                        GunaLabelTempsAFaire.Text = "Total day(s)"
+                    End If
+
+                ElseIf GunaCheckBoxHebdo.Checked Then
 
                     If GlobalVariable.actualLanguageValue = 1 Then
                         GunaLabelTempsAFaire.Text = "Total jour(s)"
@@ -2351,7 +2399,7 @@ Public Class MainWindow
             GunaComboBoxHeureArrivee.Enabled = False
         End If
 
-        If GunaCheckBoxMensuel.Checked Then
+        If GunaCheckBoxMensuel.Checked Or GunaCheckBoxHebdo.Checked Then
             GunaTextBoxTempsAFaire.Text = ((GunaDateTimePickerDepart.Value - GunaDateTimePickerArrivee.Value).TotalDays)
             GunaTextBoxPrixParNuitee.Text = Format(montantAccorde, "#,##0")
             GunaTextBoxPrixSejour.Text = Format(montantAccorde, "#,##0")
@@ -2376,7 +2424,7 @@ Public Class MainWindow
 
         'CALCUL DU MONTANT LIE AUX CHAMBRES 
 
-        If GunaCheckBoxMensuel.Checked Then
+        If GunaCheckBoxMensuel.Checked Or GunaCheckBoxHebdo.Checked Then
 
             GunaTextBoxTempsAFaire.Text = ((GunaDateTimePickerDepart.Value - GunaDateTimePickerArrivee.Value).TotalDays)
             GunaTextBoxNombreDeJourTotal.Text = ((GunaDateTimePickerDepart.Value - GunaDateTimePickerArrivee.Value).TotalDays)
@@ -2957,9 +3005,17 @@ Public Class MainWindow
                 GunaLabelPrixParNuitee.Text = "Monthly Price"
             End If
 
-        Else
+        ElseIf GunaCheckBoxHebdo.Checked Then
 
-            'GunaCheckBoxDayUse.Checked = False
+            If GlobalVariable.actualLanguageValue = 1 Then
+                GunaLabelTotalHeure.Text = "Nombre de jour(s)"
+                GunaLabelPrixParNuitee.Text = "Prix Hebdo"
+            Else
+                GunaLabelTotalHeure.Text = "Number of days(s)"
+                GunaLabelPrixParNuitee.Text = "Weekly Price"
+            End If
+
+        Else
 
             If GlobalVariable.typeChambreOuSalle = "chambre" Then
 
@@ -4102,6 +4158,12 @@ Public Class MainWindow
                                 MENSUEL = 1
                             End If
 
+                            Dim HEBDOMADAIRE As Integer = 0
+
+                            If GunaCheckBoxHebdo.Checked Then
+                                HEBDOMADAIRE = 1
+                            End If
+
                             Dim ETAT As Integer = 0 'gratuitee_de_resa
                             If GunaCheckBoxGratuitee.Checked Then
                                 ETAT = 1
@@ -4953,7 +5015,7 @@ Public Class MainWindow
 
                                     'As the Global variable codeReservationToUpdate is empty => new Reservation Entry 
 
-                                    If reservation.insertReservation(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, BC_ENTREPRISE, TYPE_CHAMBRE, TYPE_CHAMBRE_OU_SALLE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE) Then
+                                    If reservation.insertReservation(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, HEBDOMADAIRE, BC_ENTREPRISE, TYPE_CHAMBRE, TYPE_CHAMBRE_OU_SALLE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE) Then
 
                                         Dim TABLE As String = "reservation"
 
@@ -5070,7 +5132,7 @@ Public Class MainWindow
 
                                         ' The Reseravtion is found in reservation
 
-                                        If reservation.updateReservation(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, BC_ENTREPRISE, TYPE_CHAMBRE, TYPE_CHAMBRE_OU_SALLE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE) Then
+                                        If reservation.updateReservation(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, HEBDOMADAIRE, BC_ENTREPRISE, TYPE_CHAMBRE, TYPE_CHAMBRE_OU_SALLE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE) Then
 
                                             Dim TABLE As String = "reservation"
 
@@ -5150,7 +5212,7 @@ Public Class MainWindow
 
                                             End If
 
-                                            If reservation.updateReservationConf(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, ETAT_NOTE_RESERVATION, DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, BC_ENTREPRISE, TYPE_CHAMBRE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE) Then
+                                            If reservation.updateReservationConf(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, ETAT_NOTE_RESERVATION, DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, HEBDOMADAIRE, BC_ENTREPRISE, TYPE_CHAMBRE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE) Then
 
                                                 Dim TABLE As String = "reserve_conf"
 
@@ -5295,7 +5357,7 @@ Public Class MainWindow
                             '-------------------------------------------- GESTION DES TRACES DES UTILISATEURS ----------------------------------------------------------
                             Dim ACTION_FAITE As String = GunaButtonReservation.Text
                             Dim FAITE_PAR As String = GlobalVariable.ConnectedUser.Rows(0)("NOM_UTILISATEUR")
-                            reservation.insertTrace(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, BC_ENTREPRISE, TYPE_CHAMBRE, ACTION_FAITE, FAITE_PAR, TYPE_CHAMBRE_OU_SALLE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE, SOLDE_RESERVATION)
+                            reservation.insertTrace(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, HEBDOMADAIRE, BC_ENTREPRISE, TYPE_CHAMBRE, ACTION_FAITE, FAITE_PAR, TYPE_CHAMBRE_OU_SALLE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE, SOLDE_RESERVATION)
 
                             'REENCODAGE DE LA CARTE EN CAS DE CHANGEMENT DE DATE OU HEURE
 
@@ -6480,6 +6542,12 @@ Public Class MainWindow
                                     MENSUEL = 1
                                 End If
 
+                                Dim HEBDOMADAIRE As Integer = 0
+
+                                If GunaCheckBoxHebdo.Checked Then
+                                    HEBDOMADAIRE = 1
+                                End If
+
                                 Dim CLIENT_ID As String = GunaTextBoxRefClient.Text
 
                                 Dim UTILISATEUR_ID As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
@@ -7138,7 +7206,7 @@ Public Class MainWindow
                                     'We check if the code of the reservation already exist in the database
                                     If Not Functions.entryCodeExists(CODE_RESERVATION, "reserve_conf", "CODE_RESERVATION") Then
 
-                                        If reservationConf.insertReservationConf(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, BC_ENTREPRISE, TYPE_CHAMBRE, TYPE_CHAMBRE_OU_SALLE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE) Then
+                                        If reservationConf.insertReservationConf(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, HEBDOMADAIRE, BC_ENTREPRISE, TYPE_CHAMBRE, TYPE_CHAMBRE_OU_SALLE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE) Then
 
                                             'FACTURATION ANTICIPE
                                             If facturationAnticipe Then
@@ -7237,7 +7305,7 @@ Public Class MainWindow
 
                                     If reservationTable.Rows.Count > 0 Then
 
-                                        If reservation.updateReservation(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, BC_ENTREPRISE, TYPE_CHAMBRE, TYPE_CHAMBRE_OU_SALLE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE) Then
+                                        If reservation.updateReservation(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, HEBDOMADAIRE, BC_ENTREPRISE, TYPE_CHAMBRE, TYPE_CHAMBRE_OU_SALLE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE) Then
 
                                             Dim TABLE As String = "reserve_conf"
 
@@ -7590,8 +7658,7 @@ Public Class MainWindow
                                 Dim ACTION_FAITE As String = GunaButtonCheckIn.Text
                                 Dim FAITE_PAR As String = GlobalVariable.ConnectedUser.Rows(0)("NOM_UTILISATEUR")
 
-                                reservation.insertTrace(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, BC_ENTREPRISE, TYPE_CHAMBRE, ACTION_FAITE, FAITE_PAR, TYPE_CHAMBRE_OU_SALLE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE, SOLDE_RESERVATION)
-
+                                reservation.insertTrace(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, HEBDOMADAIRE, BC_ENTREPRISE, TYPE_CHAMBRE, ACTION_FAITE, FAITE_PAR, TYPE_CHAMBRE_OU_SALLE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE, SOLDE_RESERVATION)
 
                                 Dim CODE_RESERVATAION_ As String = CODE_RESERVATION
                                 Dim NOM_PRENOM_ As String = GunaTextBoxNomPrenom.Text
@@ -8257,6 +8324,12 @@ Public Class MainWindow
                         MENSUEL = 1
                     End If
 
+                    Dim HEBDOMADAIRE As Integer = 0
+
+                    If GunaCheckBoxHebdo.Checked Then
+                        HEBDOMADAIRE = 1
+                    End If
+
                     If Trim(GunaTextBoxMontantCaution.Text) = "" Then
                         GunaTextBoxMontantCaution.Text = 0
                     End If
@@ -8856,6 +8929,11 @@ Public Class MainWindow
                     If GunaCheckBoxMensuel.Checked Then
                         MENSUEL = 1
                     End If
+
+                    If GunaCheckBoxHebdo.Checked Then
+                        HEBDOMADAIRE = 1
+                    End If
+
                     '-------------------------GESTION DE LIBERATION DES CHAMBRES POUR LES METTRES DANS DES CHAMBRES FICTIVE----------
 
                     ' Dim Solde As Double = Functions.SituationDuClient(GlobalVariable.codeClientToUpdate)
@@ -8932,7 +9010,7 @@ Public Class MainWindow
                             Dim ACTION_FAITE As String = GunaButtonCheckOut.Text
                             Dim FAITE_PAR As String = GlobalVariable.ConnectedUser.Rows(0)("NOM_UTILISATEUR")
 
-                            reservation.insertTrace(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, BC_ENTREPRISE, TYPE_CHAMBRE, ACTION_FAITE, FAITE_PAR, TYPE_CHAMBRE_OU_SALLE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE)
+                            reservation.insertTrace(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, HEBDOMADAIRE, BC_ENTREPRISE, TYPE_CHAMBRE, ACTION_FAITE, FAITE_PAR, TYPE_CHAMBRE_OU_SALLE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE)
 
                             '------------------------ NORMAL CHECKOUT CAR SOLDE SUPEIEUR A ZERO -----------------------------
 
@@ -8963,7 +9041,7 @@ Public Class MainWindow
 
                                 'MISE AJOUR DE L'ETAT DE LA CHAMBRE
 
-                                If reservationConf.updateReservationConf(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, "", DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, BC_ENTREPRISE, TYPE_CHAMBRE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE) Then
+                                If reservationConf.updateReservationConf(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, "", DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, HEBDOMADAIRE, BC_ENTREPRISE, TYPE_CHAMBRE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE) Then
 
                                 End If
 
@@ -12689,6 +12767,22 @@ Public Class MainWindow
 
                 End If
 
+            ElseIf GunaCheckBoxHebdo.Checked Then
+
+                If GlobalVariable.actualLanguageValue = 1 Then
+                    GunaLabelTotalHeure.Text = "Nombre de Jour"
+                    GunaLabelPrixParNuitee.Text = "Prix Hebdomadaire"
+                    GunaLabelPrixSejours.Text = "Total Hebdo" '"Total Mensuel"
+                    GunaLabelTempsAFaire.Text = "Total jour(s)" '"Total jour(s)"
+                    GunaLabelTypeDeSejour.Text = "HEBDOMADAIRE"
+                Else
+                    GunaLabelTotalHeure.Text = "Number of Days"
+                    GunaLabelPrixParNuitee.Text = "Weekly price"
+                    GunaLabelPrixSejours.Text = "Total Weekly"
+                    GunaLabelTempsAFaire.Text = "Total Week(s)"
+                    GunaLabelTypeDeSejour.Text = "WEEKLY"
+                End If
+
             Else
 
                 If GlobalVariable.actualLanguageValue = 1 Then
@@ -15953,6 +16047,7 @@ Public Class MainWindow
         GunaCheckBoxGratuitee.Enabled = True
         GunaCheckBoxDayUse.Enabled = True
         GunaCheckBoxMensuel.Enabled = True
+        GunaCheckBoxHebdo.Enabled = True
 
         'REINISIALISATION DES BOUTONS DE GESTION DES RESERVATIONDE GROUPE
         If GunaCheckBoxReservationDeGroupe.Checked Then
@@ -16017,6 +16112,7 @@ Public Class MainWindow
         GunaButtonCheckOut.Enabled = True
         GunaCheckBoxDayUse.Enabled = True
         GunaCheckBoxMensuel.Enabled = True
+        GunaCheckBoxHebdo.Enabled = True
         GunaCheckBoxGratuitee.Enabled = True
         GunaCheckBoxReservationDeGroupe.Enabled = True
 
@@ -18030,6 +18126,7 @@ Public Class MainWindow
                     Dim DEPOT_DE_GARANTIE = reservationToUpdateInReservation.Rows(0)("DEPOT_DE_GARANTIE")
                     Dim DAY_USE = reservationToUpdateInReservation.Rows(0)("DAY_USE")
                     Dim MENSUEL = reservationToUpdateInReservation.Rows(0)("MENSUEL")
+                    Dim HEBDOMADAIRE = reservationToUpdateInReservation.Rows(0)("HEBDOMADAIRE")
                     Dim BC_ENTREPRISE = reservationToUpdateInReservation.Rows(0)("BC_ENTREPRISE")
                     Dim TYPE_CHAMBRE = reservationToUpdateInReservation.Rows(0)("TYPE_CHAMBRE")
                     Dim TYPE_CHAMBRE_OU_SALLE = reservationToUpdateInReservation.Rows(0)("TYPE")
@@ -18043,8 +18140,7 @@ Public Class MainWindow
                     Dim CODE_ENTREPRISE = reservationToUpdateInReservation.Rows(0)("CODE_ENTREPRISE")
                     Dim NOM_ENTREPRISE = reservationToUpdateInReservation.Rows(0)("NOM_ENTREPRISE")
 
-                    Reservation.insertTrace(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, BC_ENTREPRISE, TYPE_CHAMBRE, ACTION_FAITE, FAITE_PAR, TYPE_CHAMBRE_OU_SALLE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE)
-
+                    Reservation.insertTrace(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, HEBDOMADAIRE, BC_ENTREPRISE, TYPE_CHAMBRE, ACTION_FAITE, FAITE_PAR, TYPE_CHAMBRE_OU_SALLE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE)
 
                 End If
 
@@ -19485,6 +19581,8 @@ Public Class MainWindow
         If GunaCheckBoxDayUse.Checked Then
 
             GunaCheckBoxMensuel.Checked = False
+            GunaCheckBoxHebdo.Checked = False
+            GunaButtonTarifAppliquable.Visible = False
 
             If GlobalVariable.actualLanguageValue = 1 Then
                 GunaLabelTotalHeure.Text = "Nombre de heures"
@@ -19566,6 +19664,9 @@ Public Class MainWindow
 
         End If
 
+        Dim CODE_TYPE_CHAMBRE As String = GunaTextBoxCodeTypeDeChambre.Text
+        prixHebergementAUtiliser(CODE_TYPE_CHAMBRE)
+
     End Sub
 
     Private Sub GunaComboBoxHeureDepart_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GunaComboBoxHeureDepart.SelectedIndexChanged
@@ -19636,6 +19737,7 @@ Public Class MainWindow
             GunaComboBoxHeureDepart.Enabled = False
             GunaCheckBoxDayUse.Enabled = False
             GunaCheckBoxMensuel.Enabled = False
+            GunaCheckBoxHebdo.Enabled = False
             GunaCheckBoxGratuitee.Enabled = False
             GunaTextBoxTempsAFaire.Enabled = False
             GunaTextBoxCodeTypeDeChambre.Enabled = False
@@ -19662,6 +19764,7 @@ Public Class MainWindow
             GunaComboBoxHeureDepart.Enabled = True
             GunaCheckBoxDayUse.Enabled = True
             GunaCheckBoxMensuel.Enabled = True
+            GunaCheckBoxHebdo.Enabled = True
             GunaTextBoxTempsAFaire.Enabled = True
             GunaTextBoxCodeTypeDeChambre.Enabled = True
             GunaButtonListeDesCategorieDeChambre.Enabled = True
@@ -21041,7 +21144,13 @@ Public Class MainWindow
 
             If tarif.Rows.Count > 0 Then
 
-                If Not Trim(GunaTextBoxAuthoriseePar.Text).Equals("") Then
+                If Trim(GunaTextBoxAuthoriseePar.Text).Equals("") Then
+
+                    GunaTextBoxMontantAccorde.Text = GunaTextBoxpPrixAffiche.Text
+                    GunaComboBoxCodeTarif.Visible = False
+                    GunaLabelCodeTarif.Visible = False
+
+                Else
 
                     GunaComboBoxCodeTarif.DataSource = tarif
                     GunaComboBoxCodeTarif.ValueMember = "CODE_TARIF"
@@ -21053,10 +21162,6 @@ Public Class MainWindow
                     GunaLabelCodeTarif.Visible = True
                     GunaTextBoxMontantAccorde.Text = 0
 
-                Else
-                    GunaTextBoxMontantAccorde.Text = GunaTextBoxpPrixAffiche.Text
-                    GunaComboBoxCodeTarif.Visible = False
-                    GunaLabelCodeTarif.Visible = False
                 End If
 
             End If
@@ -24374,6 +24479,8 @@ Public Class MainWindow
         If GunaCheckBoxMensuel.Checked Then
 
             GunaCheckBoxDayUse.Checked = False
+            GunaCheckBoxHebdo.Checked = False
+            GunaButtonTarifAppliquable.Visible = True
 
             GunaComboBoxHeureArrivee.Items.Clear()
             GunaComboBoxHeureArrivee.Items.Add(CDate(GunaLabelTemps.Text).ToLongTimeString)
@@ -24393,16 +24500,18 @@ Public Class MainWindow
                 GunaLabelTotalHeure.Text = "Number of Days"
                 GunaLabelPrixParNuitee.Text = "Monthly price"
                 GunaLabelPrixSejours.Text = "Total Monthly"
-                GunaLabelTempsAFaire.Text = "Total Months(s)"
+                GunaLabelTempsAFaire.Text = "Total day(s)"
                 GunaLabelTypeDeSejour.Text = "MONTHLY"
             End If
 
-            GunaDateTimePickerDepart.Value = GlobalVariable.DateDeTravail.AddDays(1)
+            GunaDateTimePickerDepart.Value = GlobalVariable.DateDeTravail.AddMonths(1)
             GunaDateTimePickerArrivee.Value = GlobalVariable.DateDeTravail
 
             GunaTextBoxTempsAFaire.Visible = True
 
         Else
+
+            GunaButtonTarifAppliquable.Visible = False
 
             GunaComboBoxHeureArrivee.Items.Clear()
             GunaComboBoxHeureArrivee.Items.Add("12:00:00")
@@ -24439,6 +24548,9 @@ Public Class MainWindow
 
         End If
 
+        Dim CODE_TYPE_CHAMBRE As String = GunaTextBoxCodeTypeDeChambre.Text
+        prixHebergementAUtiliser(CODE_TYPE_CHAMBRE)
+
     End Sub
 
     Private Sub GunaButton28_Click_1(sender As Object, e As EventArgs) Handles GunaButton28.Click
@@ -24466,5 +24578,113 @@ Public Class MainWindow
         DepenseFamilyForm.TopMost = True
 
     End Sub
+
+    Private Sub GunaCheckBoxHebdo_Click(sender As Object, e As EventArgs) Handles GunaCheckBoxHebdo.Click
+
+        If GunaCheckBoxHebdo.Checked Then
+
+            GunaCheckBoxDayUse.Checked = False
+            GunaCheckBoxMensuel.Checked = False
+            GunaButtonTarifAppliquable.Visible = True
+
+            GunaComboBoxHeureArrivee.Items.Clear()
+            GunaComboBoxHeureArrivee.Items.Add(CDate(GunaLabelTemps.Text).ToLongTimeString)
+            GunaComboBoxHeureArrivee.SelectedItem = GunaLabelTemps.Text
+
+            GunaComboBoxHeureDepart.Items.Clear()
+            GunaComboBoxHeureDepart.Items.Add("12:00:00")
+            GunaComboBoxHeureDepart.SelectedItem = "12:00:00"
+
+            If GlobalVariable.actualLanguageValue = 1 Then
+                GunaLabelTotalHeure.Text = "Nombre de Jour"
+                GunaLabelPrixParNuitee.Text = "Prix Hebdomadaire"
+                GunaLabelPrixSejours.Text = "Total Hebdo" '"Total Mensuel"
+                GunaLabelTempsAFaire.Text = "Total jour(s)" '"Total jour(s)"
+                GunaLabelTypeDeSejour.Text = "HEBDOMADAIRE"
+            Else
+                GunaLabelTotalHeure.Text = "Number of Days"
+                GunaLabelPrixParNuitee.Text = "Weekly price"
+                GunaLabelPrixSejours.Text = "Total Weekly"
+                GunaLabelTempsAFaire.Text = "Total Week(s)"
+                GunaLabelTypeDeSejour.Text = "WEEKLY"
+            End If
+
+            GunaDateTimePickerArrivee.Value = GlobalVariable.DateDeTravail
+            GunaDateTimePickerDepart.Value = GlobalVariable.DateDeTravail.AddDays(7)
+
+            GunaTextBoxTempsAFaire.Visible = True
+
+        Else
+
+            GunaButtonTarifAppliquable.Visible = False
+
+            GunaComboBoxHeureArrivee.Items.Clear()
+            GunaComboBoxHeureArrivee.Items.Add("12:00:00")
+            GunaComboBoxHeureArrivee.SelectedItem = "12:00:00"
+
+            GunaComboBoxHeureDepart.Items.Clear()
+            GunaComboBoxHeureDepart.Items.Add("12:00:00")
+            GunaComboBoxHeureDepart.SelectedItem = "12:00:00"
+
+            If GlobalVariable.actualLanguageValue = 1 Then
+
+                GunaLabelTotalHeure.Text = "Nombre de nuitée(s)"
+                GunaLabelPrixParNuitee.Text = "Prix par nuitée"
+                GunaLabelPrixSejours.Text = "Prix du séjours"
+
+                GunaLabelTypeDeSejour.Text = "COURT SEJOURS"
+                GunaLabelTempsAFaire.Text = "Total nuitées"
+
+            Else
+
+                GunaLabelTotalHeure.Text = "Number of night(s)"
+                GunaLabelPrixParNuitee.Text = "Price per night"
+                GunaLabelPrixSejours.Text = "Price of stay"
+
+                GunaLabelTypeDeSejour.Text = "SHORT STAY"
+                GunaLabelTempsAFaire.Text = "Total nights"
+
+            End If
+
+            GunaDateTimePickerDepart.Value = GlobalVariable.DateDeTravail.AddDays(1)
+            GunaDateTimePickerArrivee.Value = GlobalVariable.DateDeTravail
+
+            GunaTextBoxTempsAFaire.Visible = True
+
+        End If
+
+        Dim CODE_TYPE_CHAMBRE As String = GunaTextBoxCodeTypeDeChambre.Text
+        prixHebergementAUtiliser(CODE_TYPE_CHAMBRE)
+
+    End Sub
+
+    Public Function prixHebergementAUtiliser(ByVal CODE_TYPE_CHAMBRE As String)
+
+        If Not Trim(CODE_TYPE_CHAMBRE).Equals("") Then
+
+            Dim type_chambre As DataTable = Functions.getElementByCode(CODE_TYPE_CHAMBRE, "type_chambre", "CODE_TYPE_CHAMBRE")
+
+            If type_chambre.Rows.Count > 0 Then
+
+                Dim prix As Double = 0
+
+                If GunaCheckBoxHebdo.Checked Then
+                    prix = type_chambre.Rows(0)("MONTANT_HEBDO")
+                ElseIf GunaCheckBoxMensuel.Checked Then
+                    prix = type_chambre.Rows(0)("MONTANT_MENSUEL")
+                ElseIf GunaCheckBoxDayUse.Checked Then
+                    prix = type_chambre.Rows(0)("MONTANT_SIESTE")
+                Else
+                    prix = type_chambre.Rows(0)("PRIX")
+                End If
+
+                GunaTextBoxpPrixAffiche.Text = Format(Double.Parse(prix), "#,##0")
+                GunaTextBoxMontantAccorde.Text = Format(Double.Parse(prix), "#,##0")
+
+            End If
+
+        End If
+
+    End Function
 
 End Class

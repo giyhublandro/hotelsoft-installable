@@ -42,22 +42,63 @@
 
     End Sub
 
+    Private Sub facturationAvenir(ByVal TYPE_FACTURATION As Integer)
+
+        GunaDataGridViewTarifs.Columns.Add("DATE", "DATE")
+        GunaDataGridViewTarifs.Columns.Add("MONTANT", "MONTANT")
+
+        If TYPE_FACTURATION = 1 Then 'HEBDOMADAIRE
+
+        ElseIf TYPE_FACTURATION = 2 Then 'DAY_USE
+
+        ElseIf TYPE_FACTURATION = 3 Then 'MENSUEL
+
+        ElseIf TYPE_FACTURATION = 0 Then 'JOURNALIER
+
+        End If
+
+        GunaButtonEdit.Visible = False
+        GunaButtonSave.Visible = False
+
+    End Sub
+
+
     Private Sub TarificationDeReservationForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         GunaDataGridViewTarifs.ReadOnly = False
+        Dim HEBDO As Integer = 1
+        Dim DAY_USE As Integer = 2
+        Dim MENSUEL As Integer = 3
+        Dim JOURNALIER As Integer = 0
 
-        If Not Trim(GlobalVariable.codeReservationToUpdate).Equals("") Then
-
-            Dim CODE_RESERVATION As String = GlobalVariable.codeReservationToUpdate
-
-            Dim repertoire As String = "RESERVATIONS"
-
-            Dim cheminDuFichierText As String = GlobalVariable.AgenceActuelle.Rows(0)("CHEMIN_SAUVEGARDE_AUTO") & "\" & repertoire
-
-            listeDesTarification(CODE_RESERVATION, cheminDuFichierText)
-
+        If MainWindow.GunaCheckBoxHebdo.Checked Then
+            facturationAvenir(HEBDO)
+        ElseIf MainWindow.GunaCheckBoxDayUse.Checked Then
+            facturationAvenir(DAY_USE)
+        ElseIf MainWindow.GunaCheckBoxMensuel.Checked Then
+            facturationAvenir(MENSUEL)
         Else
-            GunaButtonEdit.Visible = False
+
+            If GlobalVariable.AgenceActuelle.Rows(0)("TARIFICATION_DYNAMIQUE") = 1 Then
+
+                If Not Trim(GlobalVariable.codeReservationToUpdate).Equals("") Then
+
+                    Dim CODE_RESERVATION As String = GlobalVariable.codeReservationToUpdate
+
+                    Dim repertoire As String = "RESERVATIONS"
+
+                    Dim cheminDuFichierText As String = GlobalVariable.AgenceActuelle.Rows(0)("CHEMIN_SAUVEGARDE_AUTO") & "\" & repertoire
+
+                    listeDesTarification(CODE_RESERVATION, cheminDuFichierText)
+
+                Else
+                    GunaButtonEdit.Visible = False
+                End If
+
+            Else
+                facturationAvenir(JOURNALIER)
+            End If
+
         End If
 
     End Sub

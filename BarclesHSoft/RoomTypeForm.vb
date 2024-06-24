@@ -31,8 +31,10 @@ Public Class RoomTypeForm
 
             If GunaRadioButtonChambre.Checked Then
                 GlobalVariable.typeChambreOuSalle = "chambre"
+                GunaGroupBox1.Visible = True
             ElseIf GunaRadioButtonSalle.Checked Then
                 GlobalVariable.typeChambreOuSalle = "salle"
+                GunaGroupBox1.Visible = False
             End If
 
             roomTypeList()
@@ -48,9 +50,15 @@ Public Class RoomTypeForm
         Dim query As String = ""
 
         If GlobalVariable.typeChambreOuSalle = "chambre" Then
-            query = "SELECT `LIBELLE_TYPE_CHAMBRE` AS LIBELLE, `DESCRIPTION`, `PRIX`, `CODE_TYPE_CHAMBRE` AS 'CODE TYPE', TAUX_CHARGE_FIXE As 'TAUX CHARGES FIXES', `NOMBRE_LIT_UNE_PLACE` AS 'LIT UNE PLACE', `NOMBRE_LIT_DEUX_PLACES` As 'LIT DEUX PLACES' FROM type_chambre WHERE TYPE=@TYPE ORDER BY LIBELLE_TYPE_CHAMBRE ASC"
+
+            If GlobalVariable.actualLanguageValue = 1 Then
+                query = "SELECT `CODE_TYPE_CHAMBRE` AS 'CODE TYPE', `LIBELLE_TYPE_CHAMBRE` AS LIBELLE, `DESCRIPTION`, `PRIX` AS 'PRIX JOURNALIER',  MONTANT_SIESTE AS 'PRIX SIESTE', MONTANT_HEBDO AS 'PRIX HEBDOMADAIRE', MONTANT_MENSUEL AS 'PRIX MENSUEL', TAUX_CHARGE_FIXE As 'TAUX CHARGES FIXES', `NOMBRE_LIT_UNE_PLACE` AS 'LIT UNE PLACE', `NOMBRE_LIT_DEUX_PLACES` As 'LIT DEUX PLACES' FROM type_chambre WHERE TYPE=@TYPE ORDER BY LIBELLE_TYPE_CHAMBRE ASC"
+            Else
+                query = "SELECT `CODE_TYPE_CHAMBRE` AS 'CODE TYPE', `LIBELLE_TYPE_CHAMBRE` AS NAME, `DESCRIPTION`, `PRIX` AS 'DAILY RATE',  MONTANT_SIESTE AS 'DAY USE RATE', MONTANT_HEBDO AS 'WEEKLY RATE', MONTANT_MENSUEL AS 'MONTHLY RATE', TAUX_CHARGE_FIXE As 'TAUX CHARGES FIXES', `NOMBRE_LIT_UNE_PLACE` AS 'LIT UNE PLACE', `NOMBRE_LIT_DEUX_PLACES` As 'LIT DEUX PLACES' FROM type_chambre WHERE TYPE=@TYPE ORDER BY LIBELLE_TYPE_CHAMBRE ASC"
+            End If
+
         ElseIf GlobalVariable.typeChambreOuSalle = "salle" Then
-            query = "SELECT `LIBELLE_TYPE_CHAMBRE` AS LIBELLE, `DESCRIPTION`, `PRIX`, `CODE_TYPE_CHAMBRE` AS 'CODE TYPE', `CAPACITE`, `SUPERFICIE`, TAUX_CHARGE_FIXE As 'TAUX CHARGES FIXES' FROM type_chambre WHERE TYPE=@TYPE ORDER BY LIBELLE_TYPE_CHAMBRE ASC"
+            query = "SELECT `CODE_TYPE_CHAMBRE` AS 'CODE TYPE', `LIBELLE_TYPE_CHAMBRE` AS LIBELLE, `DESCRIPTION`, `PRIX`, `CAPACITE`, `SUPERFICIE`, TAUX_CHARGE_FIXE As 'TAUX CHARGES FIXES' FROM type_chambre WHERE TYPE=@TYPE ORDER BY LIBELLE_TYPE_CHAMBRE ASC"
         End If
 
         'Dim query As String = "SELECT * FROM type_chambre ORDER BY LIBELLE_TYPE_CHAMBRE"
@@ -65,8 +73,20 @@ Public Class RoomTypeForm
         If (table.Rows.Count > 0) Then
 
             DataGridViewRoomTypeListe.DataSource = table
-            DataGridViewRoomTypeListe.Columns("PRIX").DefaultCellStyle.Format = "#,##0"
-            DataGridViewRoomTypeListe.Columns("PRIX").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            DataGridViewRoomTypeListe.Columns(3).DefaultCellStyle.Format = "#,##0"
+            DataGridViewRoomTypeListe.Columns(3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+            If GlobalVariable.typeChambreOuSalle = "chambre" Then
+                DataGridViewRoomTypeListe.Columns(6).DefaultCellStyle.Format = "#,##0"
+                DataGridViewRoomTypeListe.Columns(6).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+                DataGridViewRoomTypeListe.Columns(4).DefaultCellStyle.Format = "#,##0"
+                DataGridViewRoomTypeListe.Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+                DataGridViewRoomTypeListe.Columns(5).DefaultCellStyle.Format = "#,##0"
+                DataGridViewRoomTypeListe.Columns(5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+            End If
 
         Else
             DataGridViewRoomTypeListe.Columns.Clear()
@@ -109,6 +129,31 @@ Public Class RoomTypeForm
 
     End Function
 
+    Public Sub resetFields()
+
+        ' We Empty the fields
+        GunaTextBoxCode.Text = ""
+        GunaTextBoxLibelle.Text = ""
+        GunaTextBoxPrix.Text = ""
+        GunaTextBoxDescription.Text = ""
+        GunaTextBoxSuperficie.Text = ""
+
+        Functions.SiplifiedClearTextBox(Me)
+        GunaTextBoxTauxChargeFixe.Text = 50
+
+        GunaTextBoxTauxChargeFixe.Text = "50"
+        GunaTextBoxSuperficie.Text = "0"
+        GunaTextBoxCapacite.Text = "0"
+
+        GunaTextBoxPrix.Text = 0
+        GunaTextBoxMontatnChargeFixe.Text = 0
+        GunaTextBoxMontantVariable.Text = 0
+        GunaTextBoxHebdo.Text = 0
+        GunaTextBoxMensuel.Text = 0
+        GunaTextBoxSieste.Text = 0
+
+    End Sub
+
     'Insertion d'une nouvelle ligne
     Private Sub GunaButtonEnregistrer_Click(sender As Object, e As EventArgs) Handles GunaButtonEnregistrer.Click
 
@@ -125,6 +170,22 @@ Public Class RoomTypeForm
         Dim CODE_TYPE As String = ""
         Dim SUPERFICIE As Double = 0
         Dim CAPACITE As Double = 0
+
+        Dim MONTANT_HEBDO As Double = 0
+        Dim MONTANT_SIESTE As Double = 0
+        Dim MONTANT_MENSUEL As Double = 0
+
+        If Not Trim(GunaTextBoxHebdo.Text).Equals("") Then
+            MONTANT_HEBDO = GunaTextBoxHebdo.Text
+        End If
+
+        If Not Trim(GunaTextBoxMensuel.Text).Equals("") Then
+            MONTANT_MENSUEL = GunaTextBoxMensuel.Text
+        End If
+
+        If Not Trim(GunaTextBoxSieste.Text).Equals("") Then
+            MONTANT_SIESTE = GunaTextBoxSieste.Text
+        End If
 
         Dim TAUX_CHARGE_FIXE As Double = GunaTextBoxTauxChargeFixe.Text
 
@@ -144,7 +205,7 @@ Public Class RoomTypeForm
         If GunaButtonEnregistrer.Text = "Sauvegarder" Or GunaButtonEnregistrer.Text = "Update" Then
 
             'We update the value of the row in case of any change
-            If roomType.UpdateChambre(LIBELLE_TYPE_CHAMBRE, DESCRIPTION, PRIX, CODE_TYPE_CHAMBRE, CODE_UTILISATEUR_MODIF, DATE_MODIFICATION, TAUX_CHARGE_FIXE, CODE_AGENCE, OLD_CODE_TYPE_CHAMBRE, SUPERFICIE, CAPACITE, CODE_TYPE) Then
+            If roomType.UpdateChambre(LIBELLE_TYPE_CHAMBRE, DESCRIPTION, PRIX, CODE_TYPE_CHAMBRE, CODE_UTILISATEUR_MODIF, DATE_MODIFICATION, TAUX_CHARGE_FIXE, CODE_AGENCE, OLD_CODE_TYPE_CHAMBRE, MONTANT_HEBDO, MONTANT_SIESTE, MONTANT_MENSUEL, SUPERFICIE, CAPACITE, CODE_TYPE) Then
 
                 If GlobalVariable.actualLanguageValue = 1 Then
                     MessageBox.Show("Mise à jour effectuée avec succès", "Création de Type", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -158,15 +219,7 @@ Public Class RoomTypeForm
 
             End If
 
-            'We empty the fields
-            GunaTextBoxCode.Text = ""
-            GunaTextBoxLibelle.Text = ""
-            GunaTextBoxPrix.Text = ""
-            GunaTextBoxDescription.Text = ""
-            GunaTextBoxSuperficie.Text = ""
-
-            Functions.SiplifiedClearTextBox(Me)
-            GunaTextBoxTauxChargeFixe.Text = 50
+            resetFields()
 
         Else
             'company verifyfields function
@@ -193,16 +246,7 @@ Public Class RoomTypeForm
                                 MessageBox.Show("New type of room successfully created", "Room Type creation", MessageBoxButtons.OK, MessageBoxIcon.Information)
                             End If
 
-                            'We empty the fields
-                            GunaTextBoxCode.Text = ""
-                            GunaTextBoxLibelle.Text = ""
-                            GunaTextBoxPrix.Text = ""
-                            GunaTextBoxDescription.Text = ""
-                            GunaTextBoxSuperficie.Text = ""
-
-                            Functions.SiplifiedClearTextBox(Me)
-
-                            GunaTextBoxTauxChargeFixe.Text = 50
+                            resetFields()
 
                         Else
 
@@ -216,7 +260,7 @@ Public Class RoomTypeForm
 
                         End If
 
-                        Functions.ClearTextBox(Me)
+                        'Functions.ClearTextBox(Me)
 
                     ElseIf GlobalVariable.typeChambreOuSalle = "salle" Then
 
@@ -229,16 +273,8 @@ Public Class RoomTypeForm
                                 MessageBox.Show("New type of hall successfully created", "Hall Type creation", MessageBoxButtons.OK, MessageBoxIcon.Information)
                             End If
 
-
-                            'We empty the fields
-                            GunaTextBoxCode.Text = ""
-                            GunaTextBoxLibelle.Text = ""
-                            GunaTextBoxPrix.Text = ""
-                            GunaTextBoxDescription.Text = ""
-                            GunaTextBoxSuperficie.Text = ""
-
-                            Functions.SiplifiedClearTextBox(Me)
-                            GunaTextBoxTauxChargeFixe.Text = 50
+                            resetFields()
+                            DataGridViewRoomTypeListe.Columns.Clear()
 
                         Else
 
@@ -252,7 +288,7 @@ Public Class RoomTypeForm
 
                         End If
 
-                        Functions.ClearTextBox(Me)
+                        'Functions.ClearTextBox(Me)
 
                     End If
 
@@ -276,16 +312,10 @@ Public Class RoomTypeForm
 
         End If
 
-        GunaTextBoxTauxChargeFixe.Text = "50"
-        GunaTextBoxSuperficie.Text = "0"
-        GunaTextBoxCapacite.Text = "0"
-
-        DataGridViewRoomTypeListe.Columns.Clear()
-
     End Sub
 
     'We double to update a row
-    Private Sub DataGridView1_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridViewRoomTypeListe.CellDoubleClick
+    Private Sub DataGridViewRoomTypeListe_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridViewRoomTypeListe.CellDoubleClick
 
         'When we doubleclick on the room category datagrid it is either for update or for bringing the selected row to front desk
 
@@ -300,7 +330,7 @@ Public Class RoomTypeForm
             If GlobalVariable.addCategorieFromFrontOffice Then
 
                 'We come from the front desk to fill the room form part of the front desk
-                GlobalVariable.CategorieAddedFromFrontOffice = Functions.getElementByCode(row.Cells("CODE TYPE").Value.ToString, "type_Chambre", "CODE_TYPE_CHAMBRE")
+                GlobalVariable.CategorieAddedFromFrontOffice = Functions.getElementByCode(row.Cells(0).Value.ToString, "type_Chambre", "CODE_TYPE_CHAMBRE")
 
                 'We make sure it is possible to Choose a room if a room type is choosen first
                 'We set back the diasbled values after checkin or save
@@ -318,8 +348,8 @@ Public Class RoomTypeForm
                 If GlobalVariable.typeChambreOuSalle = "salle" Then
 
                     If Trim(MainWindow.GunaTextBoxMontantAfficherSalle.Text).Equals("") Then
-                        MainWindow.GunaTextBoxMontantAfficherSalle.Text = Format(row.Cells("PRIX").Value, "#,##0")
-                        MainWindow.GunaTextBoxMontantReelSalle.Text = Format(row.Cells("PRIX").Value, "#,##0")
+                        MainWindow.GunaTextBoxMontantAfficherSalle.Text = Format(row.Cells(2).Value, "#,##0")
+                        MainWindow.GunaTextBoxMontantReelSalle.Text = Format(row.Cells(2).Value, "#,##0")
                     End If
 
                 End If
@@ -328,12 +358,18 @@ Public Class RoomTypeForm
 
             Else
 
-                GunaTextBoxCode.Text = row.Cells("CODE TYPE").Value.ToString
-                GunaTextBoxOldCodeTypeChambre.Text = row.Cells("CODE TYPE").Value.ToString
-                GunaTextBoxLibelle.Text = row.Cells("LIBELLE").Value.ToString
-                GunaTextBoxPrix.Text = Format(row.Cells("PRIX").Value, "#,##0")
+                GunaTextBoxCode.Text = row.Cells(0).Value.ToString
+                GunaTextBoxOldCodeTypeChambre.Text = row.Cells(0).Value.ToString
+                GunaTextBoxLibelle.Text = row.Cells(1).Value.ToString
                 GunaTextBoxDescription.Text = row.Cells("DESCRIPTION").Value.ToString
-                GunaTextBoxTauxChargeFixe.Text = row.Cells("TAUX CHARGES FIXES").Value
+                GunaTextBoxPrix.Text = Format(row.Cells(3).Value, "#,##0")
+
+                If GlobalVariable.typeChambreOuSalle = "chambre" Then
+                    GunaTextBoxTauxChargeFixe.Text = row.Cells("TAUX CHARGES FIXES").Value
+                    GunaTextBoxHebdo.Text = Format(row.Cells(5).Value, "#,##0") 'row.Cells("PRIX HEBDOMADAIRE").Value
+                    GunaTextBoxSieste.Text = Format(row.Cells(4).Value, "#,##0")
+                    GunaTextBoxMensuel.Text = Format(row.Cells(6).Value, "#,##0")
+                End If
 
                 If GlobalVariable.typeChambreOuSalle = "salle" Then
 
@@ -379,7 +415,8 @@ Public Class RoomTypeForm
 
         If GunaRadioButtonChambre.Checked Then
             GlobalVariable.typeChambreOuSalle = "chambre"
-            Functions.SiplifiedClearTextBox(Me)
+            resetFields()
+            GunaGroupBox1.Visible = True
         End If
 
         libelleDelaFenetre()
@@ -438,7 +475,8 @@ Public Class RoomTypeForm
 
         If GunaRadioButtonSalle.Checked Then
             GlobalVariable.typeChambreOuSalle = "salle"
-            Functions.SiplifiedClearTextBox(Me)
+            resetFields()
+            GunaGroupBox1.Visible = False
         End If
 
         libelleDelaFenetre()
@@ -461,17 +499,17 @@ Public Class RoomTypeForm
             Dim dialog As DialogResult
 
             If GlobalVariable.actualLanguageValue = 1 Then
-                dialog = MessageBox.Show("Voulez-vous vraiment Supprimer " & DataGridViewRoomTypeListe.CurrentRow.Cells("CODE TYPE").Value.ToString, "Demande de suppression", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                dialog = MessageBox.Show("Voulez-vous vraiment Supprimer " & DataGridViewRoomTypeListe.CurrentRow.Cells(0).Value.ToString, "Demande de suppression", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
             Else
-                dialog = MessageBox.Show("Do you really want to delete " & DataGridViewRoomTypeListe.CurrentRow.Cells("CODE TYPE").Value.ToString, "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                dialog = MessageBox.Show("Do you really want to delete " & DataGridViewRoomTypeListe.CurrentRow.Cells(0).Value.ToString, "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
             End If
 
             If dialog = DialogResult.No Then
                 'e.Cancel = True
             Else
-                Functions.DeleteRowFromDataGridGeneral(DataGridViewRoomTypeListe, DataGridViewRoomTypeListe.CurrentRow.Cells("CODE TYPE").Value.ToString, "type_chambre", "CODE_TYPE_CHAMBRE")
+                Functions.DeleteRowFromDataGridGeneral(DataGridViewRoomTypeListe, DataGridViewRoomTypeListe.CurrentRow.Cells(0).Value.ToString, "type_chambre", "CODE_TYPE_CHAMBRE")
 
                 DataGridViewRoomTypeListe.Columns.Clear()
 
@@ -513,17 +551,18 @@ Public Class RoomTypeForm
         If GunaCheckBoxPourcentage.Checked Then
 
             Dim TAUX_CHARGE_FIXE As Double = 0
+            Dim PRIX_JOURNALIER As Double = 0
 
             If Not Trim(GunaTextBoxTauxChargeFixe.Text).Equals("") Then
                 TAUX_CHARGE_FIXE = GunaTextBoxTauxChargeFixe.Text
             End If
 
             If Not Trim(GunaTextBoxPrix.Text).Equals("") Then
+                PRIX_JOURNALIER = GunaTextBoxPrix.Text
+            End If
 
-                If Double.Parse(GunaTextBoxPrix.Text) > 0 Then
-                    GunaTextBoxMontatnChargeFixe.Text = Format((TAUX_CHARGE_FIXE * GunaTextBoxPrix.Text) / 100, "#,##0")
-                End If
-
+            If PRIX_JOURNALIER > 0 Then
+                GunaTextBoxMontatnChargeFixe.Text = Format((TAUX_CHARGE_FIXE * PRIX_JOURNALIER) / 100, "#,##0")
             End If
 
         Else

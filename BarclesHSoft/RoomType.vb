@@ -7,9 +7,15 @@ Public Class RoomType
     'Dim connect As New DataBaseManipulation()
 
     'insert a new ROOM TYPE
-    Public Function Insert(ByVal LIBELLE_TYPE_CHAMBRE As String, ByVal DESCRIPTION As String, ByVal PRIX As Integer, ByVal CODE_TYPE_CHAMBRE As String, ByVal DATE_CREATION As Date, ByVal CODE_UTILISATEUR_MODIF As String, ByVal DATE_MODIFICATION As Date, ByVal TAUX_CHARGE_FIXE As Double, ByVal CODE_AGENCE As String, Optional ByVal SUPERFICIE As Double = 0, Optional ByVal CAPACITE As Double = 0, Optional ByVal CODE_TYPE As String = "chambre") As Boolean
+    Public Function Insert(ByVal LIBELLE_TYPE_CHAMBRE As String, ByVal DESCRIPTION As String, ByVal PRIX As Integer, ByVal CODE_TYPE_CHAMBRE As String,
+                           ByVal DATE_CREATION As Date, ByVal CODE_UTILISATEUR_MODIF As String, ByVal DATE_MODIFICATION As Date, ByVal TAUX_CHARGE_FIXE As Double,
+                           ByVal CODE_AGENCE As String, Optional ByVal SUPERFICIE As Double = 0, Optional ByVal CAPACITE As Double = 0,
+                           Optional ByVal CODE_TYPE As String = "chambre", Optional ByVal MONTANT_HEBDO As Double = 0, Optional ByVal MONTANT_SIESTE As Double = 0,
+                                  Optional ByVal MONTANT_MENSUEL As Double = 0) As Boolean
 
-        Dim insertQuery As String = "INSERT INTO `type_chambre` (`LIBELLE_TYPE_CHAMBRE`, `DESCRIPTION`, `PRIX`, `CODE_TYPE_CHAMBRE`, `DATE_CREATION`, `CODE_UTILISATEUR_MODIF`, `DATE_MODIFICATION`, `TAUX_CHARGE_FIXE`, `CODE_AGENCE`, `SUPERFICIE`, `CAPACITE`,`TYPE`) VALUES (@LIBELLE_TYPE_CHAMBRE, @DESCRIPTION, @PRIX, @CODE_TYPE_CHAMBRE, @DATE_CREATION, @CODE_UTILISATEUR_MODIF, @DATE_MODIFICATION, @TAUX_CHARGE_FIXE, @CODE_AGENCE,@SUPERFICIE,@CAPACITE,@TYPE)"
+        Dim insertQuery As String = "INSERT INTO `type_chambre` (`LIBELLE_TYPE_CHAMBRE`, `DESCRIPTION`, `PRIX`, `CODE_TYPE_CHAMBRE`, `DATE_CREATION`, `CODE_UTILISATEUR_MODIF`, `DATE_MODIFICATION`, 
+        `TAUX_CHARGE_FIXE`, `CODE_AGENCE`, `SUPERFICIE`, `CAPACITE`,`TYPE`, `MONTANT_HEBDO`,  `MONTANT_SIESTE`, `MONTANT_MENSUEL`)
+        VALUES (@LIBELLE_TYPE_CHAMBRE, @DESCRIPTION, @PRIX, @CODE_TYPE_CHAMBRE, @DATE_CREATION, @CODE_UTILISATEUR_MODIF, @DATE_MODIFICATION, @TAUX_CHARGE_FIXE, @CODE_AGENCE,@SUPERFICIE,@CAPACITE,@TYPE,@MONTANT_HEBDO, @MONTANT_SIESTE,@MONTANT_MENSUEL)"
 
         Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
 
@@ -25,6 +31,9 @@ Public Class RoomType
         command.Parameters.Add("@SUPERFICIE", MySqlDbType.Double).Value = SUPERFICIE
         command.Parameters.Add("@CAPACITE", MySqlDbType.Double).Value = CAPACITE
         command.Parameters.Add("@TAUX_CHARGE_FIXE", MySqlDbType.Double).Value = TAUX_CHARGE_FIXE
+        command.Parameters.Add("@MONTANT_MENSUEL", MySqlDbType.Double).Value = MONTANT_MENSUEL
+        command.Parameters.Add("@MONTANT_HEBDO", MySqlDbType.Double).Value = MONTANT_HEBDO
+        command.Parameters.Add("@MONTANT_SIESTE", MySqlDbType.Double).Value = MONTANT_SIESTE
 
         'Opening the connection
         'connect.openConnection()
@@ -127,9 +136,17 @@ Public Class RoomType
     End Function
 
     'create a function to update the selected entry
-    Public Function UpdateChambre(ByVal LIBELLE_TYPE_CHAMBRE As String, ByVal DESCRIPTION As String, ByVal PRIX As Double, ByVal CODE_TYPE_CHAMBRE As String, ByVal CODE_UTILISATEUR_MODIF As String, ByVal DATE_MODIFICATION As Date, ByVal TAUX_CHARGE_FIXE As Double, ByVal CODE_AGENCE As String, ByVal OLD_CODE_TYPE_CHAMBRE As String, Optional ByVal SUPERFICIE As Double = 0, Optional ByVal CAPACITE As Double = 0, Optional ByVal CODE_TYPE As String = "chambre") As Boolean
+    Public Function UpdateChambre(ByVal LIBELLE_TYPE_CHAMBRE As String, ByVal DESCRIPTION As String, ByVal PRIX As Double, ByVal CODE_TYPE_CHAMBRE As String,
+                                   ByVal CODE_UTILISATEUR_MODIF As String, ByVal DATE_MODIFICATION As Date, ByVal TAUX_CHARGE_FIXE As Double,
+                                  ByVal CODE_AGENCE As String, ByVal OLD_CODE_TYPE_CHAMBRE As String, ByVal MONTANT_HEBDO As Double, ByVal MONTANT_SIESTE As Double,
+                                  ByVal MONTANT_MENSUEL As Double, Optional ByVal SUPERFICIE As Double = 0, Optional ByVal CAPACITE As Double = 0,
+                                  Optional ByVal CODE_TYPE As String = "chambre") As Boolean
 
-        Dim updateQuery As String = "UPDATE type_chambre SET LIBELLE_TYPE_CHAMBRE=@LIBELLE_TYPE_CHAMBRE, DESCRIPTION=@DESCRIPTION, PRIX=@PRIX, CODE_TYPE_CHAMBRE=@CODE_TYPE_CHAMBRE, CAPACITE=@CAPACITE , SUPERFICIE=@SUPERFICIE ,CODE_UTILISATEUR_MODIF=@CODE_UTILISATEUR_MODIF, DATE_MODIFICATION=@DATE_MODIFICATION, TAUX_CHARGE_FIXE=@TAUX_CHARGE_FIXE, CODE_AGENCE=@CODE_AGENCE WHERE CODE_TYPE_CHAMBRE = @OLD_CODE_TYPE_CHAMBRE"
+        Dim updateQuery As String = "UPDATE type_chambre SET LIBELLE_TYPE_CHAMBRE=@LIBELLE_TYPE_CHAMBRE, DESCRIPTION=@DESCRIPTION, PRIX=@PRIX, 
+        CODE_TYPE_CHAMBRE=@CODE_TYPE_CHAMBRE, CAPACITE=@CAPACITE , SUPERFICIE=@SUPERFICIE ,CODE_UTILISATEUR_MODIF=@CODE_UTILISATEUR_MODIF,
+        DATE_MODIFICATION=@DATE_MODIFICATION, TAUX_CHARGE_FIXE=@TAUX_CHARGE_FIXE, CODE_AGENCE=@CODE_AGENCE, MONTANT_HEBDO=@MONTANT_HEBDO, 
+        MONTANT_SIESTE=@MONTANT_SIESTE, MONTANT_MENSUEL=@MONTANT_MENSUEL
+        WHERE CODE_TYPE_CHAMBRE = @OLD_CODE_TYPE_CHAMBRE"
 
         Dim command As New MySqlCommand(updateQuery, GlobalVariable.connect)
 
@@ -145,6 +162,10 @@ Public Class RoomType
         command.Parameters.Add("@SUPERFICIE", MySqlDbType.Double).Value = SUPERFICIE
         command.Parameters.Add("@CAPACITE", MySqlDbType.Double).Value = CAPACITE
         command.Parameters.Add("@TAUX_CHARGE_FIXE", MySqlDbType.Double).Value = TAUX_CHARGE_FIXE
+
+        command.Parameters.Add("@MONTANT_MENSUEL", MySqlDbType.Double).Value = MONTANT_MENSUEL
+        command.Parameters.Add("@MONTANT_HEBDO", MySqlDbType.Double).Value = MONTANT_HEBDO
+        command.Parameters.Add("@MONTANT_SIESTE", MySqlDbType.Double).Value = MONTANT_SIESTE
 
         command.ExecuteNonQuery()
 
