@@ -90,29 +90,11 @@ Public Class MainWindowEconomat
 
         AutoLoadlisteMagasinDestination()
 
-        'utilis seulement si on souhaite faire un tranfert inter magains
-        'GunaComboBoxMagasinDeProvenance.SelectedIndex = -1
-
-        'Entete du tableau des articles pour entrer en magasin
-
-        'GunaDataGridViewLigneArticleCommande.Columns.Add("CODE ARTICLE", "CODE ARTICLE")
-        'GunaDataGridViewLigneArticleCommande.Columns.Add("DESIGNATION", "DESIGNATION")
-        'GunaDataGridViewLigneArticleCommande.Columns.Add("QUANTITE", "QUANTITE")
-        'GunaDataGridViewLigneArticleCommande.Columns.Add("EN STOCK", "EN STOCK")
-        'GunaDataGridViewLigneArticleCommande.Columns.Add("PRIX ACHAT", "PRIX ACHAT")
-        'GunaDataGridViewLigneArticleCommande.Columns.Add("PRIX VENTE", "PRIX VENTE")
-
-        'Pour être sur de ne gérer le lot que au bon moment
         GunaComboBoxListeDesLots.SelectedIndex = -1
 
         GunaComboBoxTypeTiers.SelectedIndex = 1
 
         GunaComboBoxTypeBordereau.SelectedIndex = 1
-
-        firstLoad = False
-
-        'RECUPERATION DES INFORMATIONS EN CAS DE FERMETURE DU LOGICIELS
-        recuperationDesSaisies()
 
         notification()
         '----------------------------END ECONOMAT ------------------
@@ -129,7 +111,11 @@ Public Class MainWindowEconomat
 
     End Sub
 
-    Private Sub recuperationDesSaisies()
+    Private Function recuperationDesSaisies()
+
+        GunaDataGridViewLigneArticleCommande.Columns.Clear()
+
+        Dim recuperer As Boolean = False
 
         Dim econom As New Economat
         Dim CODE_BORDEREAU As String = ""
@@ -137,17 +123,21 @@ Public Class MainWindowEconomat
         Dim infoSupBordereau As DataTable = Functions.GetAllElementsOnCondition(CODE_USER, "bordereau_ligne_temp", "CODE_USER")
 
         If infoSupBordereau.Rows.Count > 0 Then
+
+            recuperer = True
+
             CODE_BORDEREAU = infoSupBordereau.Rows(0)("CODE_BORDEREAU")
             'GunaTextBoxLibelleBordereau.Text = CODE_BORDEREAU
             GunaTextBoxCodeBordereau.Text = infoSupBordereau.Rows(0)("CODE_BORDEREAU")
             'GunaDataGridViewLigneArticleCommande = Nothing
             GunaDataGridViewLigneArticleCommande.DataSource = econom.ligneBordereauTempElementsSuivantBordoro(GlobalVariable.codeAgence, CODE_BORDEREAU)
             GunaDataGridViewLigneArticleCommande.Columns("ID_LIGNE_BORDEREAU").Visible = False 'false
-        Else
-            gestionCodeDesBons()
+
         End If
 
-    End Sub
+        Return recuperer
+
+    End Function
 
     Private Sub GunaImageButton1_Click(sender As Object, e As EventArgs) Handles GunaImageButton1.Click
         Functions.exitApplicationThread()
@@ -704,10 +694,7 @@ Public Class MainWindowEconomat
 
             End If
 
-            Dim CODE_AGENCE As String = GlobalVariable.codeAgence
-            Dim CODE_USER As String = GlobalVariable.codeUser
-
-            econom.freeligneBordereauTempElements(CODE_AGENCE, CODE_USER)
+            initArticleTable()
 
             TabControlEconomat.SelectedIndex = 1
 
@@ -724,6 +711,18 @@ Public Class MainWindowEconomat
                 MessageBox.Show("Bien vouloir remplir le bordereau!", "Bordereau", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
         End If
+
+    End Sub
+
+    Public Sub initArticleTable()
+
+        Dim CODE_AGENCE As String = GlobalVariable.codeAgence
+        Dim CODE_USER As String = GlobalVariable.codeUser
+
+        Dim econom As New Economat()
+
+        GunaDataGridViewLigneArticleCommande.Columns.Clear()
+        econom.freeligneBordereauTempElements(CODE_AGENCE, CODE_USER)
 
     End Sub
 
@@ -2093,6 +2092,8 @@ Public Class MainWindowEconomat
             Functions.SiplifiedClearTextBox(Me)
 
         End If
+
+        initArticleTable()
 
         GunaButtonController.Visible = False
         GunaButtonEnregistrer.Visible = False
@@ -4806,6 +4807,7 @@ Public Class MainWindowEconomat
         If TabControlEconomat.SelectedIndex = 1 Then
 
             GunaDataGridViewListeBordereauxValides.Columns.Clear()
+
         End If
 
         Dim CODE_AGENCE As String = GlobalVariable.codeAgence
@@ -5210,6 +5212,8 @@ Public Class MainWindowEconomat
 
         End If
 
+        initArticleTable()
+
         NewBonDeRequisition()
 
         Me.Cursor = Cursors.Default
@@ -5289,18 +5293,18 @@ Public Class MainWindowEconomat
             If Not infoSupBordoro.Rows.Count > 0 Then
 
                 nom_table = "ligne_bordereaux"
-                infoSupBordoro = Functions.getElementByCode(OLD_CODE_BORDEREAU, nom_table, "CODE_BORDEREAU")
+                infoSupBordoro = Functions.getElementByCode(OLD_CODE_BORDEREAU, nom_table, "CODE_BORDEREAUX")
 
             End If
 
             If infoSupBordoro.Rows.Count > 0 Then
 
-                Functions.updateOfFields(nom_table, "CODE_BORDEREAU", NEW_CODE_BORDEREAU, "CODE_BORDEREAU", OLD_CODE_BORDEREAU, 2)
-
                 If nom_table.Equals("ligne_bordereaux") Then
+                    Functions.updateOfFields(nom_table, "CODE_BORDEREAUX", NEW_CODE_BORDEREAU, "CODE_BORDEREAUX", OLD_CODE_BORDEREAU, 2)
                     'SI ON TRAITE UN ELEMENT DEJA ENREGISTRE ALORS ON DOIT MODIFIER LE BORDEREAU AUSSI
                     Functions.updateOfFields("bordereaux", "CODE_BORDEREAUX", NEW_CODE_BORDEREAU, "CODE_BORDEREAUX", OLD_CODE_BORDEREAU, 2)
-
+                Else
+                    Functions.updateOfFields(nom_table, "CODE_BORDEREAU", NEW_CODE_BORDEREAU, "CODE_BORDEREAU", OLD_CODE_BORDEREAU, 2)
                 End If
 
             End If
@@ -5312,6 +5316,8 @@ Public Class MainWindowEconomat
     End Sub
 
     Public Sub NewBonDeRequisition()
+
+        GunaDataGridViewLigneArticleCommande.Columns.Clear()
 
         GunaTextBoxCodeArticle.Clear()
 
@@ -5329,10 +5335,6 @@ Public Class MainWindowEconomat
         'GunaComboBoxTypeBordereau.SelectedIndex = 0
 
         Functions.SiplifiedClearTextBox(Me)
-
-        'If Not GunaDataGridViewLigneArticleCommande.Rows.Count > 0 Then
-        'GunaDataGridViewLigneArticleCommande.Columns.Clear()
-        'End If
 
         GunaTextBoxCoutDuStock.Text = 0
 
@@ -5376,7 +5378,6 @@ Public Class MainWindowEconomat
         Dim CODE_AGENCE = GlobalVariable.codeAgence
         Dim CODE_USER = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
 
-        'econom.freeligneBordereauTempElements(CODE_AGENCE, CODE_USER)
 
     End Sub
 
@@ -5392,6 +5393,14 @@ Public Class MainWindowEconomat
 
     Private Sub GunaButton1_Click(sender As Object, e As EventArgs) Handles GunaButton1.Click
 
+        GunaDataGridViewLigneArticleCommande.Columns.Clear()
+
+        'EN CAS DE NOUVEAU BORDEREAU ON DOIT VIDER LIGNE_TEMP
+        Dim CODE_USER As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+        Dim CODE_AGENCE As String = GlobalVariable.AgenceActuelle.Rows(0)("CODE_AGENCE")
+        Dim econom As New Economat
+        econom.freeligneBordereauTempElements(CODE_AGENCE, CODE_USER)
+
         NewBonDeRequisition()
 
         gestionCodeDesBons()
@@ -5400,9 +5409,18 @@ Public Class MainWindowEconomat
 
     Private Sub GunaAdvenceButton2_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButton2.Click
 
-        NewBonDeRequisition()
+        'RECUPERATION DES INFORMATIONS EN CAS DE FERMETURE DU LOGICIELS
+        Dim recuper As Boolean = recuperationDesSaisies()
 
-        GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.bon_requisition
+        If Not recuper Then
+
+            NewBonDeRequisition()
+
+            gestionCodeDesBons()
+
+            GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.bon_requisition
+
+        End If
 
         TabControlEconomat.SelectedIndex = 1
 
@@ -5414,7 +5432,6 @@ Public Class MainWindowEconomat
             End If
 
         End If
-
 
     End Sub
 
@@ -6385,6 +6402,8 @@ Public Class MainWindowEconomat
 
         TabControlEconomat.SelectedIndex = 0
 
+        initArticleTable()
+
     End Sub
 
     'ON VIDE LE CHAMP D'ARTICLE POUR FORCER UNE NOUVELLE SAISIE
@@ -7024,6 +7043,8 @@ Public Class MainWindowEconomat
 
         TabControlEconomat.SelectedIndex = 0
 
+        initArticleTable()
+
     End Sub
 
     Private Sub GunaButtonAnnulerBordereau_Click(sender As Object, e As EventArgs) Handles GunaButtonAnnulerBordereau.Click
@@ -7266,9 +7287,19 @@ Public Class MainWindowEconomat
 
                 For i = 0 To GunaDataGridViewLigneArticleCommande.Rows.Count - 1
 
-                    montantGlobalAchat += GunaDataGridViewLigneArticleCommande.Rows(i).Cells("PRIX TOTAL").Value
+                    If GlobalVariable.actualLanguageValue = 1 Then
 
-                    montantGlobalVente += GunaDataGridViewLigneArticleCommande.Rows(i).Cells("PRIX VENTE").Value * GunaDataGridViewLigneArticleCommande.Rows(i).Cells("QUANTITE").Value
+                        montantGlobalAchat += GunaDataGridViewLigneArticleCommande.Rows(i).Cells("PRIX TOTAL").Value
+
+                        montantGlobalVente += GunaDataGridViewLigneArticleCommande.Rows(i).Cells("PRIX VENTE").Value * GunaDataGridViewLigneArticleCommande.Rows(i).Cells("QUANTITE").Value
+
+                    Else
+
+                        montantGlobalAchat += GunaDataGridViewLigneArticleCommande.Rows(i).Cells("TOTAL PRICE").Value
+
+                        montantGlobalVente += GunaDataGridViewLigneArticleCommande.Rows(i).Cells("SELLING PRICE").Value * GunaDataGridViewLigneArticleCommande.Rows(i).Cells("QUANTITY").Value
+
+                    End If
 
                 Next
 

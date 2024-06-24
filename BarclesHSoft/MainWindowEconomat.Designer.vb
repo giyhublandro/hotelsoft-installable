@@ -880,7 +880,7 @@ Partial Class MainWindowEconomat
         Me.TabControlEconomat.Controls.Add(Me.Lots)
         Me.TabControlEconomat.Controls.Add(Me.TabPageRapport)
         Me.TabControlEconomat.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TabControlEconomat.Location = New System.Drawing.Point(22, 117)
+        Me.TabControlEconomat.Location = New System.Drawing.Point(22, 116)
         Me.TabControlEconomat.Name = "TabControlEconomat"
         Me.TabControlEconomat.SelectedIndex = 0
         Me.TabControlEconomat.Size = New System.Drawing.Size(1216, 664)

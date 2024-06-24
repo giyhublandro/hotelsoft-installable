@@ -1186,8 +1186,8 @@ Partial Class CloturerForm
                                                 Else
 
                                                     'ON DOIT DETERMINER SI LE JOUR ACTUEL CORRESPOND AU JOUR DE SON DEPART
-                                                    Dim dayNumberSortie As Integer = DATE_SORTIE.DayOfWeek()
-                                                    Dim dayNumberActuel As Integer = GlobalVariable.DateDeTravail.AddDays(1).DayOfWeek()
+                                                    Dim dayNumberSortie As Integer = DATE_SORTIE.Day()
+                                                    Dim dayNumberActuel As Integer = GlobalVariable.DateDeTravail.AddDays(1).Day()
                                                     Dim monthNumberSortie As Integer = Month(DATE_SORTIE)
                                                     Dim monthNumberAcuel As Integer = Month(GlobalVariable.DateDeTravail.AddDays(1))
 
@@ -1196,8 +1196,14 @@ Partial Class CloturerForm
                                                         factureHebergement = False
                                                     ElseIf monthNumberSortie > monthNumberAcuel Then
 
-                                                        If Not dayNumberSortie = dayNumberActuel Then
+                                                        'SI C'EST CA DATE DE DEPART EST ARRIVE ON NE FACTURE PAS
+                                                        If DATE_SORTIE.ToShortDateString = GlobalVariable.DateDeTravail.AddDays(1) Then
                                                             factureHebergement = False
+                                                        Else
+
+                                                            If Not dayNumberSortie = dayNumberActuel Then
+                                                                factureHebergement = False
+                                                            End If
                                                         End If
 
                                                     Else
