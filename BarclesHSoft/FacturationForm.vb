@@ -1182,10 +1182,18 @@ Public Class FacturationForm
 
     'We save the ligne facture
     Private Sub GunaButton2_Click(sender As Object, e As EventArgs) Handles GunaButtonAjouterLigne.Click
+        Dim continuer As Boolean = False
 
-        Dim infoSup As DataTable = Functions.getElementByCode(Trim(GunaTextBoxArticle.Text), "article", "DESIGNATION_FR")
+        If Trim(GunaTextBoxArticle.Text).Contains("CONSO") Or Trim(GunaTextBoxArticle.Text).Contains("SHOT") Then
+            continuer = True
+        Else
+            Dim infoSup As DataTable = Functions.getElementByCode(Trim(GunaTextBoxArticle.Text), "article", "DESIGNATION_FR")
+            If infoSup.Rows.Count > 0 Then
+                continuer = True
+            End If
+        End If
 
-        If infoSup.Rows.Count > 0 Then
+        If continuer Then
 
             Dim proceder As Boolean = False
 

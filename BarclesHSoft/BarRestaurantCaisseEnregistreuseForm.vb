@@ -1,6 +1,8 @@
 ﻿Imports MySql.Data.MySqlClient
+Imports System.Runtime.InteropServices
 
-Public Class BarRestaurantForm
+
+Public Class BarRestaurantCaisseEnregistreuseForm
 
     Public Class ArgumentType
 
@@ -174,13 +176,13 @@ Public Class BarRestaurantForm
         End If
     End Sub
 
-    Private Sub BarRestaurantForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub BarRestaurantCaisseEnregistreuseForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         TimerRefreshConnexion.Start()
 
         Dim language As New Languages()
 
-        language.barRestaurant(GlobalVariable.actualLanguageValue)
+        language.barRestaurantMini(GlobalVariable.actualLanguageValue)
 
         If GlobalVariable.AgenceActuelle.Rows(0)("SESSION_UNIQUE") = 0 Then
             GunaComboBoxFiltreBlocNotre.Visible = True
@@ -232,6 +234,9 @@ Public Class BarRestaurantForm
 
         Dim notifications As DataTable = Functions.GetAllElementsOnTwoConditions(GlobalVariable.ConnectedUser.Rows(0)("CATEG_UTILISATEUR"), "notification", "CODE_PROFIL", 0, "ETAT_NOTIFCATION")
 
+        ToolStripSeparatorCloture.Visible = False
+
+
         If notifications.Rows.Count > 0 Then
             GunaLabelNotification.Text = "(" & notifications.Rows.Count & ")"
         End If
@@ -255,7 +260,9 @@ Public Class BarRestaurantForm
             GlobalVariable.ArticleFamily = "BAR"
         End If
 
-        ToolStripSeparatorCloture.Visible = False
+        ToolStripMenuItemConfig.Visible = False
+        ToolStripMenuItemServTech.Visible = False
+        ToolStripMenuItemSecurite.Visible = False
         'Oon affiche le bouton permettant de lire la carte si on traite un client en chambre
         'gestion des cartes d'acces
         CB_Software.SelectedIndex = 0
@@ -2353,14 +2360,12 @@ Public Class BarRestaurantForm
 
                 If (Client.Rows.Count > 0) Then
 
-                    '-----------------------------------------------------------------
                     Dim CODE_CLIENT_FIDEL As String = Client.Rows(0)("CODE_CLIENT")
                     Dim CODE_ELITE As String = Client.Rows(0)("CODE_ELITE")
                     '-----------------------------------------------------------------
                     Dim ClientFidel As DataTable = Functions.getElementByCode(CODE_CLIENT_FIDEL, "client", "CODE_CLIENT")
 
                     If ClientFidel.Rows.Count > 0 Then
-
                         GunaTextBoxNomPrenom.Text = ClientFidel.Rows(0)("NOM_PRENOM") 'Nom du client Fidel
 
                         If GlobalVariable.AgenceActuelle.Rows(0)("CLUB_ELITE") = 1 Then
@@ -2370,7 +2375,6 @@ Public Class BarRestaurantForm
                     Else
                         GunaTextBoxNomPrenom.Text = ""
                     End If
-
                     Dim CODE_RESERVATION As String = ""
 
                     If GunaDataGridViewClient.Columns.Count = 3 Then
@@ -3278,13 +3282,110 @@ Public Class BarRestaurantForm
 
     End Sub
 
+    Public Class RawPrinter
+            ' ----- Define the data type that supplies basic print job information to the spooler.
+            <StructLayout(LayoutKind.Sequential, CharSet:=CharSet.Unicode)>
+            Public Structure DOCINFO
+                <MarshalAs(UnmanagedType.LPWStr)>
+                Public pDocName As String
+                <MarshalAs(UnmanagedType.LPWStr)>
+                Public pOutputFile As String
+                <MarshalAs(UnmanagedType.LPWStr)>
+                Public pDataType As String
+            End Structure
+
+            ' ----- Define interfaces to the functions supplied in the DLL.
+            <DllImport("winspool.drv", EntryPoint:="OpenPrinterW", SetLastError:=True, CharSet:=CharSet.Unicode, ExactSpelling:=True, CallingConvention:=CallingConvention.StdCall)>
+            Public Shared Function OpenPrinter(ByVal printerName As String, ByRef hPrinter As IntPtr, ByVal printerDefaults As Integer) As Boolean
+            End Function
+
+            <DllImport("winspool.drv", EntryPoint:="ClosePrinter", SetLastError:=True, CharSet:=CharSet.Unicode, ExactSpelling:=True, CallingConvention:=CallingConvention.StdCall)>
+            Public Shared Function ClosePrinter(ByVal hPrinter As IntPtr) As Boolean
+            End Function
+
+            <DllImport("winspool.drv", EntryPoint:="StartDocPrinterW", SetLastError:=True, CharSet:=CharSet.Unicode, ExactSpelling:=True, CallingConvention:=CallingConvention.StdCall)>
+            Public Shared Function StartDocPrinter(ByVal hPrinter As IntPtr, ByVal level As Integer, ByRef documentInfo As DOCINFO) As Boolean
+            End Function
+
+            <DllImport("winspool.drv", EntryPoint:="EndDocPrinter", SetLastError:=True, CharSet:=CharSet.Unicode, ExactSpelling:=True, CallingConvention:=CallingConvention.StdCall)>
+            Public Shared Function EndDocPrinter(ByVal hPrinter As IntPtr) As Boolean
+            End Function
+
+            <DllImport("winspool.drv", EntryPoint:="StartPagePrinter", SetLastError:=True, CharSet:=CharSet.Unicode, ExactSpelling:=True, CallingConvention:=CallingConvention.StdCall)>
+            Public Shared Function StartPagePrinter(ByVal hPrinter As IntPtr) As Boolean
+            End Function
+
+            <DllImport("winspool.drv", EntryPoint:="EndPagePrinter", SetLastError:=True, CharSet:=CharSet.Unicode, ExactSpelling:=True, CallingConvention:=CallingConvention.StdCall)>
+            Public Shared Function EndPagePrinter(ByVal hPrinter As IntPtr) As Boolean
+            End Function
+
+            <DllImport("winspool.drv", EntryPoint:="WritePrinter", SetLastError:=True, CharSet:=CharSet.Unicode, ExactSpelling:=True, CallingConvention:=CallingConvention.StdCall)>
+            Public Shared Function WritePrinter(ByVal hPrinter As IntPtr, ByVal buffer As IntPtr, ByVal bufferLength As Integer, ByRef bytesWritten As Integer) As Boolean
+            End Function
+
+            Public Shared Function PrintRaw(ByVal printerName As String, ByVal origString As String) As Boolean
+                ' ----- Send a string of  raw data to  the printer.
+                Dim hPrinter As IntPtr
+                Dim spoolData As New DOCINFO
+                Dim dataToSend As IntPtr
+                Dim dataSize As Integer
+                Dim bytesWritten As Integer
+
+                ' ----- The internal format of a .NET String is just
+                '       different enough from what the printer expects
+                '       that there will be a problem if we send it
+                '       directly. Convert it to ANSI format before
+                '       sending.
+                dataSize = origString.Length()
+                dataToSend = Marshal.StringToCoTaskMemAnsi(origString)
+
+                ' ----- Prepare information for the spooler.
+                spoolData.pDocName = "OpenDrawer" ' class='highlight'
+                spoolData.pDataType = "RAW"
+
+                Try
+                    ' ----- Open a channel to  the printer or spooler.
+                    Call OpenPrinter(printerName, hPrinter, 0)
+
+                    ' ----- Start a new document and Section 1.1.
+                    Call StartDocPrinter(hPrinter, 1, spoolData)
+                    Call StartPagePrinter(hPrinter)
+
+                    ' ----- Send the data to the printer.
+                    Call WritePrinter(hPrinter, dataToSend,
+               dataSize, bytesWritten)
+
+                    ' ----- Close everything that we opened.
+                    EndPagePrinter(hPrinter)
+                    EndDocPrinter(hPrinter)
+                    ClosePrinter(hPrinter)
+                    PrintRaw = True
+                Catch ex As Exception
+                    MsgBox("Error occurred: " & ex.ToString)
+                    PrintRaw = False
+                Finally
+                    ' ----- Get rid of the special ANSI version.
+                    Marshal.FreeCoTaskMem(dataToSend)
+                End Try
+            End Function
+        End Class
+
+        Public Sub OpenCashdrawer()
+        'Modify DrawerCode to your receipt printer open drawer code
+        Dim DrawerCode As String = Chr(27) & Chr(112) & Chr(48) & Chr(64) & Chr(64)
+        'Modify PrinterName to your receipt printer name
+        Dim PrinterName As String = "CAISSE ENREGISTREUSE"
+
+        RawPrinter.PrintRaw(PrinterName, DrawerCode)
+
+    End Sub
+
     Private Sub GunaButtonnNouvelleFacture_Click(sender As Object, e As EventArgs) Handles GunaButtonnNouvelleFacture.Click
 
         Me.Cursor = Cursors.WaitCursor
 
         GunaTextBoxNomPrenom.Clear()
         GunaTextBoxCodeClient.Clear()
-
         discounStays = False
 
         GunaTextBoxCodeElite.Clear()
@@ -7374,8 +7475,13 @@ Public Class BarRestaurantForm
         GunaDataGridViewLigneArticleCommande.Columns.Clear()
         Functions.SiplifiedClearTextBox(Me)
 
-        GunaComboBoxTypeTiers.SelectedIndex = 0
-        GunaComboBoxTypeBordereau.SelectedIndex = 0
+        If GunaComboBoxTypeTiers.Items.Count > 0 Then
+            GunaComboBoxTypeTiers.SelectedIndex = 0
+        End If
+
+        If GunaComboBoxTypeBordereau.Items.Count > 0 Then
+            GunaComboBoxTypeBordereau.SelectedIndex = 0
+        End If
 
         GunaTextBoxTiers.Text = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
         GunaTextBoxNomTiers.Text = GlobalVariable.ConnectedUser.Rows(0)("NOM_UTILISATEUR")
@@ -9608,5 +9714,13 @@ Public Class BarRestaurantForm
         GunaTextBox5.Text = ""
     End Sub
 
+    Private Sub AgenceToolStripMenuItem_Click(sender As Object, e As EventArgs)
 
+
+    End Sub
+
+    Private Sub AgenceToolStripMenuItem_Click_1(sender As Object, e As EventArgs) Handles AgenceToolStripMenuItem.Click
+        AgencyForm.Show()
+        AgencyForm.TopMost = True
+    End Sub
 End Class

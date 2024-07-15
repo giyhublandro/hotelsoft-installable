@@ -188,6 +188,12 @@
     <Compile Include="ArticleForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="BarRestaurantCaisseEnregistreuseForm.Designer.vb">
+      <DependentUpon>BarRestaurantCaisseEnregistreuseForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BarRestaurantCaisseEnregistreuseForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ClubElite.vb" />
     <Compile Include="ClubEliteForm.Designer.vb">
       <DependentUpon>ClubEliteForm.vb</DependentUpon>
@@ -798,6 +804,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ArticleForm.resx">
       <DependentUpon>ArticleForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BarRestaurantCaisseEnregistreuseForm.resx">
+      <DependentUpon>BarRestaurantCaisseEnregistreuseForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ClubEliteForm.resx">
       <DependentUpon>ClubEliteForm.vb</DependentUpon>

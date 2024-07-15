@@ -147,6 +147,7 @@
             ReglementForm.GunaComboBoxCritereElite.Items.Add("Nuits")
             ReglementForm.GunaComboBoxCritereElite.Items.Add("Séjours")
 
+
         ElseIf ActualLanguageValue = 0 Then 'ENGLISH
 
             ReglementForm.GunaComboBoxModereglement.Items.Add("Cash")
@@ -164,6 +165,8 @@
             ReglementForm.GunaComboBoxCritereElite.Items.Add("Points")
             ReglementForm.GunaComboBoxCritereElite.Items.Add("Nights")
             ReglementForm.GunaComboBoxCritereElite.Items.Add("Stay")
+
+            ReglementForm.GunaButtonDepotDeGarantie.Text = "Arrhes Reference"
 
         End If
 
@@ -209,6 +212,8 @@
             MiniReglementForm.GunaComboBoxCritereElite.Items.Add("Points")
             MiniReglementForm.GunaComboBoxCritereElite.Items.Add("Nights")
             MiniReglementForm.GunaComboBoxCritereElite.Items.Add("Stay")
+
+            MiniReglementForm.GunaButtonDepotDeGarantie.Text = "Arrhes Reference"
 
         End If
 
@@ -896,7 +901,7 @@
     Public Sub banque(ByVal ActualLanguageValue As Integer)
 
         If ActualLanguageValue = 0 Then
-            BankForm.GunaLabelGestCompteGeneraux.Text = "BQNK LIST"
+            BankForm.GunaLabelGestCompteGeneraux.Text = "BANK LIST"
             BankForm.SupprimerToolStripMenuItem.Text = "Delete"
             BankForm.GunaButton1.Text = "Close"
             BankForm.GunaButtonEnregistrerBanque.Text = "Add"
@@ -936,6 +941,262 @@
         End If
 
     End Sub
+
+
+    Public Sub barRestaurantMini(ByVal ActualLanguageValue As Integer)
+
+        BarRestaurantCaisseEnregistreuseForm.ClôturerToolStripMenuItem.Visible = False
+        BarRestaurantCaisseEnregistreuseForm.ToolStripSeparatorCloture.Visible = False
+
+        If ActualLanguageValue = 0 Then '
+
+            'only up
+            BarRestaurantCaisseEnregistreuseForm.GunaButton12.Text = "BAR DAILY INVENTORY FORM"
+            BarRestaurantCaisseEnregistreuseForm.GunaButton1.Text = "STORE INVENTORY"
+            BarRestaurantCaisseEnregistreuseForm.GunaButton2.Text = "SALES INVENTORYY"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonCaisseJournalier.Text = "SHIFT CASH REGISTER STATE"
+            BarRestaurantCaisseEnregistreuseForm.GunaButton3.Text = "SALES VENTILATION FORM"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonVenteShift.Text = "SALES HISTORY - SHIFT"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonListePetitDejeuner.Text = "ENTITLED TO BREAKFAST"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonInventaire.Text = "INVENTORY FORM"
+
+
+            '---------------------------------------------------------------------
+            BarRestaurantCaisseEnregistreuseForm.GunaAdvenceButtonFacturationDesEnChambres.Text = "IN HOUSE"
+            BarRestaurantCaisseEnregistreuseForm.GunaAdvenceButtonAuComptant.Text = "WALK IN"
+            BarRestaurantCaisseEnregistreuseForm.GunaAdvenceButtonEvent.Text = "EVENT"
+            BarRestaurantCaisseEnregistreuseForm.GunaAdvenceButtonGesBloc.Text = "RECEIPT MANAGEMENT"
+            BarRestaurantCaisseEnregistreuseForm.GunaAdvenceButtonAppro.Text = "REQUISITION"
+            BarRestaurantCaisseEnregistreuseForm.GunaAdvenceButtonPetiteCaisse.Text = "PETTY CASH"
+            BarRestaurantCaisseEnregistreuseForm.GunaAdvenceButtonRapportBar.Text = "REPORTS"
+
+            '---------------------------------------------------------------------
+            BarRestaurantCaisseEnregistreuseForm.Label21.Text = "WALK IN SALE"
+            BarRestaurantCaisseEnregistreuseForm.Label22.Text = "IN HOUSE SALE"
+            BarRestaurantCaisseEnregistreuseForm.Label2.Text = "FREE SALE"
+            BarRestaurantCaisseEnregistreuseForm.Label4.Text = "TRANSFERED ACCOUNT"
+            BarRestaurantCaisseEnregistreuseForm.Label24.Text = "TOTAL SALES"
+
+            '--------------------------------------------------------------------
+            BarRestaurantCaisseEnregistreuseForm.GunaLabelHeader.Text = "WALK IN"
+            BarRestaurantCaisseEnregistreuseForm.GunaCheckBoxChangeSecteur.Text = "Sale Points"
+            BarRestaurantCaisseEnregistreuseForm.LabelRef.Text = "Account" 'Account
+            BarRestaurantCaisseEnregistreuseForm.Label1.Text = "Loyal Client" 'Loyal customer
+            BarRestaurantCaisseEnregistreuseForm.LabelBlocNoteOuTable.Text = "Receipt / Table N°" 'Receipt Number
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonFactures.Text = "Bills" 'Receipt Number
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonNouveauBloc.Text = "Add" 'Receipt Number
+            BarRestaurantCaisseEnregistreuseForm.LibelleFacturation.Text = "BAR BILLING" 'Receipt Number
+            BarRestaurantCaisseEnregistreuseForm.LabelBlocNoteOuvert.Text = "OPENED RECEIPTS" 'Receipt Number
+            BarRestaurantCaisseEnregistreuseForm.LabelBlocNoteTraitee.Text = "CLOSED RECEIPTS"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonAjouterLigne.Text = "Add"
+            BarRestaurantCaisseEnregistreuseForm.Label13.Text = "Montant TTC"
+            BarRestaurantCaisseEnregistreuseForm.Label12.Text = "Unit Price"
+            BarRestaurantCaisseEnregistreuseForm.Label11.Text = "Quantity"
+            BarRestaurantCaisseEnregistreuseForm.Label10.Text = "Item"
+            BarRestaurantCaisseEnregistreuseForm.Label19.Text = "Discount (%)"
+            BarRestaurantCaisseEnregistreuseForm.Label25.Text = "Discount"
+            BarRestaurantCaisseEnregistreuseForm.Label8.Text = "Amount"
+            BarRestaurantCaisseEnregistreuseForm.GunaCheckBoxLecteurRFID.Text = "RFID Reader" 'RFDI Reader
+            BarRestaurantCaisseEnregistreuseForm.Label20.Text = "Stock Magasin"
+            BarRestaurantCaisseEnregistreuseForm.Label23.Text = "Stock Economat"
+            BarRestaurantCaisseEnregistreuseForm.Label6.Text = "Account Balance"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonRefresh.Text = "Refresh"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonSaveFacturation.Text = "Save"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonImprimer.Text = "Print"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonnNouvelleFacture.Text = "New"
+            BarRestaurantCaisseEnregistreuseForm.Label9.Text = "EVENTS"
+            BarRestaurantCaisseEnregistreuseForm.LabelSoldeEvent.Text = "BALANCE"
+            BarRestaurantCaisseEnregistreuseForm.LabelNumeroChambre.Text = "Room N°"
+            BarRestaurantCaisseEnregistreuseForm.Label5.Text = "BALANCE"
+            BarRestaurantCaisseEnregistreuseForm.GunaAdvenceButtonLectureDeCarte.Text = "READ CARD"
+
+            '--------------------------------------------------------------------------
+            BarRestaurantCaisseEnregistreuseForm.GunaGroupBox1.Text = "SEARCH"
+            BarRestaurantCaisseEnregistreuseForm.GunaLabel86.Text = "RECEIPT NUMBER"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonArricherBlocNotes.Text = "Afficher"
+            BarRestaurantCaisseEnregistreuseForm.GunaLabelListe.Text = "LISTE OF RECEIPTS"
+            BarRestaurantCaisseEnregistreuseForm.GunaLabel3.Text = "RECEIPTS DETAILS"
+            BarRestaurantCaisseEnregistreuseForm.GunaGroupBoxCreationBordereau.Text = "Slip Creation"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonNouveau.Text = "New"
+            BarRestaurantCaisseEnregistreuseForm.GunaGroupBoxListeDesBordereaux.Text = "Slip Content"
+            BarRestaurantCaisseEnregistreuseForm.LabelBon.Text = "STORE REQUISITION"
+            BarRestaurantCaisseEnregistreuseForm.GunaLabel89.Text = "Voucher Type"
+            BarRestaurantCaisseEnregistreuseForm.GunaLabel93.Text = "Voucher Wording"
+            BarRestaurantCaisseEnregistreuseForm.GunaLabel97.Text = "Employee"
+            BarRestaurantCaisseEnregistreuseForm.GunaLabel91.Text = "Employee"
+            BarRestaurantCaisseEnregistreuseForm.GunaLabel92.Text = "Observation"
+            BarRestaurantCaisseEnregistreuseForm.GunaLabelMagasinDeDestination.Text = "Receiving Store"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonAjouterLigneAppro.Text = "Add"
+            BarRestaurantCaisseEnregistreuseForm.Label33.Text = "ITEM"
+            BarRestaurantCaisseEnregistreuseForm.LabelQuantite.Text = "QTY"
+            BarRestaurantCaisseEnregistreuseForm.LabelCout.Text = "UP"
+            BarRestaurantCaisseEnregistreuseForm.Label30.Text = "UNIT"
+            BarRestaurantCaisseEnregistreuseForm.Label31.Text = "Stock Qty "
+            BarRestaurantCaisseEnregistreuseForm.Label32.Text = "Lowest"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonEnregistrer.Text = "Emit"
+            BarRestaurantCaisseEnregistreuseForm.GunaCheckBox1.Text = "RFID Reader"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonImpressionDirecteAppro.Text = "Print"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonAccueil.Text = "Home"
+            BarRestaurantCaisseEnregistreuseForm.Label26.Text = "PURCHASE AMOUNT"
+            BarRestaurantCaisseEnregistreuseForm.Label28.Text = "SALE AMOUNT"
+
+            BarRestaurantCaisseEnregistreuseForm.RetirerToolStripMenuItem.Text = "Remove"
+            BarRestaurantCaisseEnregistreuseForm.ImprimerToolStripMenuItem.Text = "Print"
+            BarRestaurantCaisseEnregistreuseForm.TransférerToolStripMenuItem.Text = "Transfert"
+            BarRestaurantCaisseEnregistreuseForm.SupprimerToolStripMenuItem.Text = "Delete"
+            BarRestaurantCaisseEnregistreuseForm.SupprimerToolStripMenuItem1.Text = "Delete"
+
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonArricherBlocNotes.Text = "View"
+            BarRestaurantCaisseEnregistreuseForm.Label29Evenement.Text = "EVENT"
+
+            '-----------------------------------------------------------------
+            BarRestaurantCaisseEnregistreuseForm.ReceptionToolStripMenuItem.Text = "RECEPTION"
+            BarRestaurantCaisseEnregistreuseForm.RESERVATIONToolStripMenuItem.Text = "BOOKING"
+            BarRestaurantCaisseEnregistreuseForm.SERVICEDETAGEToolStripMenuItem.Text = "HOUSE KEEPING"
+            BarRestaurantCaisseEnregistreuseForm.ToolStripMenuItemCusine.Text = "KITCHEN"
+            BarRestaurantCaisseEnregistreuseForm.ComptabilitéToolStripMenuItem.Text = "ACCOUNTING AND FINANCES"
+            BarRestaurantCaisseEnregistreuseForm.ECONOMATToolStripMenuItem.Text = "PURCHASE"
+            BarRestaurantCaisseEnregistreuseForm.TECHNIQUEToolStripMenuItem.Text = "TECHNICAL"
+
+            '-----------------------------------------------------------------------
+            BarRestaurantCaisseEnregistreuseForm.SupprimerToolStripMenuItem2.Text = "Delete"
+            BarRestaurantCaisseEnregistreuseForm.ToolStripMenuItemSupLigneBlocNoteGestBlocNote.Text = "Delete"
+
+            BarRestaurantCaisseEnregistreuseForm.ToolStripMenuItemSession.Text = "SESSION"
+            BarRestaurantCaisseEnregistreuseForm.ToolStripMenuItem117.Text = "Change password"
+            BarRestaurantCaisseEnregistreuseForm.FermerCaisseToolStripMenuItem.Text = "Close cash Register"
+            BarRestaurantCaisseEnregistreuseForm.PETITEToolStripMenuItem.Text = "Petty Cash Flow"
+            BarRestaurantCaisseEnregistreuseForm.OuvrirCaisseToolStripMenuItem.Text = "Open Cash Register"
+            BarRestaurantCaisseEnregistreuseForm.ToolStripMenuItem119.Text = "Close Session"
+
+            BarRestaurantCaisseEnregistreuseForm.ChoisirMagasinDeTravailToolStripMenuItem.Text = "Change the working store"
+
+            BarRestaurantCaisseEnregistreuseForm.TransférerToolStripMenuItem.Text = "Transfer"
+            BarRestaurantCaisseEnregistreuseForm.SupprimerToolStripMenuItem2.Text = "Delete"
+            BarRestaurantCaisseEnregistreuseForm.SupprimerToolStripMenuItem.Text = "Delete"
+            BarRestaurantCaisseEnregistreuseForm.ImprimerToolStripMenuItem1.Text = "Print"
+            BarRestaurantCaisseEnregistreuseForm.ImprimerToolStripMenuItem.Text = "Print"
+            BarRestaurantCaisseEnregistreuseForm.ToolStripMenuItem1.Text = "Print"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonRapportDesVentes.Text = "DAILY SALES HISTORY"
+            BarRestaurantCaisseEnregistreuseForm.GunaButton13.Text = "PERIODIC SALES HISTORY"
+
+        ElseIf ActualLanguageValue = 1 Then
+
+            '---------------------------------------------------------------------
+            BarRestaurantCaisseEnregistreuseForm.GunaAdvenceButtonFacturationDesEnChambres.Text = "EN CHAMBRE"
+            BarRestaurantCaisseEnregistreuseForm.GunaAdvenceButtonAuComptant.Text = "COMPTOIR"
+            BarRestaurantCaisseEnregistreuseForm.GunaAdvenceButtonEvent.Text = "EVENEMENTIEL"
+            BarRestaurantCaisseEnregistreuseForm.GunaAdvenceButtonGesBloc.Text = "GESTION DES BLOC NOTES"
+            BarRestaurantCaisseEnregistreuseForm.GunaAdvenceButtonAppro.Text = "APPROVISIONNEMENT"
+            BarRestaurantCaisseEnregistreuseForm.GunaAdvenceButtonPetiteCaisse.Text = "PETITE CAISSE"
+            BarRestaurantCaisseEnregistreuseForm.GunaAdvenceButtonRapportBar.Text = "RAPPORTS"
+
+            '---------------------------------------------------------------------
+            BarRestaurantCaisseEnregistreuseForm.Label21.Text = "VENTE COMPTOIR"
+            BarRestaurantCaisseEnregistreuseForm.Label22.Text = "VENTE EN CHAMBRE"
+            BarRestaurantCaisseEnregistreuseForm.Label2.Text = "OFFRES"
+            BarRestaurantCaisseEnregistreuseForm.Label4.Text = "TRANSFERT COMPTE"
+            BarRestaurantCaisseEnregistreuseForm.Label24.Text = "TOTAL VENTES"
+
+            '--------------------------------------------------------------------
+            BarRestaurantCaisseEnregistreuseForm.GunaLabelHeader.Text = "COMPTOIR"
+            BarRestaurantCaisseEnregistreuseForm.GunaCheckBoxChangeSecteur.Text = "Points de Vente"
+            BarRestaurantCaisseEnregistreuseForm.LabelRef.Text = "Journal" 'Account
+            BarRestaurantCaisseEnregistreuseForm.Label1.Text = "Clients maison" 'Loyal customer
+            BarRestaurantCaisseEnregistreuseForm.LabelBlocNoteOuTable.Text = "N° table / Bloc note" 'Receipt Number
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonFactures.Text = "Factures" 'Receipt Number
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonNouveauBloc.Text = "Ajouter" 'Receipt Number
+            BarRestaurantCaisseEnregistreuseForm.LibelleFacturation.Text = "FACTURATION BAR" 'Receipt Number
+            BarRestaurantCaisseEnregistreuseForm.LabelBlocNoteOuvert.Text = "BLOC NOTES EN COURS" 'Receipt Number
+            BarRestaurantCaisseEnregistreuseForm.LabelBlocNoteTraitee.Text = "BLOC NOTES TRAITES"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonAjouterLigne.Text = "Ajouter"
+            BarRestaurantCaisseEnregistreuseForm.Label13.Text = "Montant TTC"
+            BarRestaurantCaisseEnregistreuseForm.Label12.Text = "Prix Unitaire"
+            BarRestaurantCaisseEnregistreuseForm.Label11.Text = "Quantité"
+            BarRestaurantCaisseEnregistreuseForm.Label10.Text = "Article"
+            BarRestaurantCaisseEnregistreuseForm.Label19.Text = "Remise (%)"
+            BarRestaurantCaisseEnregistreuseForm.Label25.Text = "Réduction"
+            BarRestaurantCaisseEnregistreuseForm.Label8.Text = "Montant"
+            BarRestaurantCaisseEnregistreuseForm.GunaCheckBoxLecteurRFID.Text = "Lecteur RFID" 'RFDI Reader
+            BarRestaurantCaisseEnregistreuseForm.Label20.Text = "Stock Magasin"
+            BarRestaurantCaisseEnregistreuseForm.Label23.Text = "Stock Economat"
+            BarRestaurantCaisseEnregistreuseForm.Label6.Text = "Situation Caisse"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonRefresh.Text = "Rafrachir"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonSaveFacturation.Text = "Enregistrer"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonImprimer.Text = "Imprimer"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonnNouvelleFacture.Text = "Nouveau"
+            BarRestaurantCaisseEnregistreuseForm.Label9.Text = "EVENEMENTS"
+            BarRestaurantCaisseEnregistreuseForm.LabelSoldeEvent.Text = "SOLDE"
+            BarRestaurantCaisseEnregistreuseForm.LabelNumeroChambre.Text = "Chambre N°"
+            BarRestaurantCaisseEnregistreuseForm.Label5.Text = "SOLDE"
+            BarRestaurantCaisseEnregistreuseForm.GunaAdvenceButtonLectureDeCarte.Text = "LIRE CARTE"
+            BarRestaurantCaisseEnregistreuseForm.Label29Evenement.Text = "EVENEMENT"
+            '--------------------------------------------------------------------------
+            BarRestaurantCaisseEnregistreuseForm.GunaGroupBox1.Text = "RECHERCHER"
+            BarRestaurantCaisseEnregistreuseForm.GunaLabel86.Text = "NUMERO BLOC NOTE"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonArricherBlocNotes.Text = "Afficher"
+            BarRestaurantCaisseEnregistreuseForm.GunaLabelListe.Text = "LISTE DES BLOC NOTES"
+            BarRestaurantCaisseEnregistreuseForm.GunaLabel3.Text = "DETAILS DES BLOCS NOTES"
+            BarRestaurantCaisseEnregistreuseForm.GunaGroupBoxCreationBordereau.Text = "Création de Bordereau"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonNouveau.Text = "Nouveau"
+            BarRestaurantCaisseEnregistreuseForm.GunaGroupBoxListeDesBordereaux.Text = "Contenu du bordereau"
+            BarRestaurantCaisseEnregistreuseForm.LabelBon.Text = "APPROVISIONNEMENT"
+            BarRestaurantCaisseEnregistreuseForm.GunaLabel89.Text = "Type de bordereau"
+            BarRestaurantCaisseEnregistreuseForm.GunaLabel93.Text = "Libellé Bordereau"
+            BarRestaurantCaisseEnregistreuseForm.GunaLabel97.Text = "Employé"
+            BarRestaurantCaisseEnregistreuseForm.GunaLabel91.Text = "Employé"
+            BarRestaurantCaisseEnregistreuseForm.GunaLabel92.Text = "Observation"
+            BarRestaurantCaisseEnregistreuseForm.GunaLabelMagasinDeDestination.Text = "Magasin de Réception"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonAjouterLigneAppro.Text = "Ajouter"
+            BarRestaurantCaisseEnregistreuseForm.Label33.Text = "ARTICLE"
+            BarRestaurantCaisseEnregistreuseForm.LabelQuantite.Text = "QTE"
+            BarRestaurantCaisseEnregistreuseForm.LabelCout.Text = "PU"
+            BarRestaurantCaisseEnregistreuseForm.Label30.Text = "UNITE"
+            BarRestaurantCaisseEnregistreuseForm.Label31.Text = "Qté En Stock"
+            BarRestaurantCaisseEnregistreuseForm.Label32.Text = "Seuile"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonEnregistrer.Text = "Emettre"
+            BarRestaurantCaisseEnregistreuseForm.GunaCheckBox1.Text = "Lecteur RFID"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonImpressionDirecteAppro.Text = "Imprimer"
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonAccueil.Text = "Accueil"
+            BarRestaurantCaisseEnregistreuseForm.Label26.Text = "MONTANT ACHAT"
+            BarRestaurantCaisseEnregistreuseForm.Label28.Text = "MONTANT VENTE"
+
+            BarRestaurantCaisseEnregistreuseForm.RetirerToolStripMenuItem.Text = "Retirer"
+            BarRestaurantCaisseEnregistreuseForm.ImprimerToolStripMenuItem.Text = "Imprimer"
+            BarRestaurantCaisseEnregistreuseForm.TransférerToolStripMenuItem.Text = "Transférer"
+            BarRestaurantCaisseEnregistreuseForm.SupprimerToolStripMenuItem.Text = "Supprimer"
+            BarRestaurantCaisseEnregistreuseForm.SupprimerToolStripMenuItem1.Text = "Supprimer"
+
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonArricherBlocNotes.Text = "Afficher"
+
+            '-----------------------------------------------------------------
+            BarRestaurantCaisseEnregistreuseForm.ReceptionToolStripMenuItem.Text = "RECEPTION"
+            BarRestaurantCaisseEnregistreuseForm.RESERVATIONToolStripMenuItem.Text = "RESERVATION"
+            BarRestaurantCaisseEnregistreuseForm.SERVICEDETAGEToolStripMenuItem.Text = "SERVICE ETAGE"
+            BarRestaurantCaisseEnregistreuseForm.ToolStripMenuItemCusine.Text = "CUISINE"
+            BarRestaurantCaisseEnregistreuseForm.ComptabilitéToolStripMenuItem.Text = "COMPATBILITE ET FICNANCES"
+            BarRestaurantCaisseEnregistreuseForm.ECONOMATToolStripMenuItem.Text = "ECONOMAT"
+            BarRestaurantCaisseEnregistreuseForm.TECHNIQUEToolStripMenuItem.Text = "TECHNIQUE"
+
+            BarRestaurantCaisseEnregistreuseForm.SupprimerToolStripMenuItem2.Text = "Supprimer"
+            BarRestaurantCaisseEnregistreuseForm.ToolStripMenuItemSupLigneBlocNoteGestBlocNote.Text = "Supprimer"
+
+            BarRestaurantCaisseEnregistreuseForm.ToolStripMenuItemSession.Text = "SESSION"
+            BarRestaurantCaisseEnregistreuseForm.ToolStripMenuItem117.Text = "Changer mot de passe"
+            BarRestaurantCaisseEnregistreuseForm.FermerCaisseToolStripMenuItem.Text = "Fermer Caisse"
+            BarRestaurantCaisseEnregistreuseForm.PETITEToolStripMenuItem.Text = "Petite Caisse"
+            BarRestaurantCaisseEnregistreuseForm.OuvrirCaisseToolStripMenuItem.Text = "Ouvrir Caisse"
+            BarRestaurantCaisseEnregistreuseForm.ToolStripMenuItem119.Text = "Fermer Session"
+            BarRestaurantCaisseEnregistreuseForm.ChoisirMagasinDeTravailToolStripMenuItem.Text = "Choisir Magasin de Travail"
+
+        End If
+
+        autoLoadEmployeeMini(GlobalVariable.actualLanguageValue)
+
+        autoLoadSlipTypeMini(GlobalVariable.actualLanguageValue)
+
+    End Sub
+
 
     Public Sub barRestaurant(ByVal ActualLanguageValue As Integer)
 
@@ -1627,6 +1888,7 @@
         ElseIf ActualLanguageValue = 1 Then
 
             MainWindow.GunaButtonImpressionPourDST.Text = "Imprimer"
+            MainWindow.GunaButton17.Text = "FICHE D'EFFECTIF JOURNALIER"
 
             MainWindow.GunaAdvenceButton2.Text = "CLUB ELITE"
             MainWindow.ClubEliteToolStripMenuItem.Text = "Club Elite"
@@ -1919,6 +2181,33 @@
 
     End Sub
 
+    Public Sub autoLoadEmployeeMini(ByVal actualLanguage As Integer)
+
+        BarRestaurantCaisseEnregistreuseForm.GunaComboBoxTypeTiers.Items.Clear()
+
+        If actualLanguage = 0 Then
+            BarRestaurantCaisseEnregistreuseForm.GunaComboBoxTypeTiers.Items.Add("Employee")
+        ElseIf actualLanguage = 1 Then
+            BarRestaurantCaisseEnregistreuseForm.GunaComboBoxTypeTiers.Items.Add("Personnel")
+        End If
+
+        BarRestaurantCaisseEnregistreuseForm.GunaComboBoxTypeTiers.SelectedIndex = 0
+
+    End Sub
+
+    Public Sub autoLoadSlipTypeMini(ByVal actualLanguage As Integer)
+
+        BarRestaurantCaisseEnregistreuseForm.GunaComboBoxTypeBordereau.Items.Clear()
+
+        If actualLanguage = 0 Then
+            BarRestaurantCaisseEnregistreuseForm.GunaComboBoxTypeBordereau.Items.Add("Store Requisition")
+        ElseIf actualLanguage = 1 Then
+            BarRestaurantCaisseEnregistreuseForm.GunaComboBoxTypeBordereau.Items.Add(GlobalVariable.bon_approvisi)
+        End If
+
+        BarRestaurantCaisseEnregistreuseForm.GunaComboBoxTypeBordereau.SelectedIndex = 0
+
+    End Sub
     Public Sub situationClient(ByVal actualLanguage As Integer)
 
         If actualLanguage = 0 Then
@@ -2727,15 +3016,21 @@
 
     Public Sub client(ByVal actualLanguageValue As Integer)
 
+        ClientForm.GunaComboBoxTypeDeFiltre.Items.Clear()
+
         autoLoadCivilte(actualLanguageValue)
         clientFormModeReglement(actualLanguageValue)
 
         If actualLanguageValue = 0 Then
 
+            ClientForm.GunaComboBoxTypeDeFiltre.Items.Add("Individual")
+            ClientForm.GunaComboBoxTypeDeFiltre.Items.Add("Company")
+            ClientForm.GunaComboBoxTypeDeFiltre.Items.Add("Account")
+
             ClientForm.GunaLabel40.Text = "Elite Member Code"
             ClientForm.GunaLabel2.Text = "Client Code"
             ClientForm.GunaLabel3.Text = "Type of Client"
-            ClientForm.GunaLabel4.Text = "First Name"
+            ClientForm.GunaLabel4.Text = "First Name *"
             ClientForm.GunaLabel6.Text = "Surname"
             ClientForm.GunaLabel5.Text = "Maiden name"
             ClientForm.GunaLabel7.Text = "Profession"
@@ -2809,7 +3104,7 @@
             ClientForm.Label1.Text = "PAYMENT METHOD"
             ClientForm.Label2.Text = "OPERATION"
             ClientForm.LabelMontantAPayer.Text = "Amount to Pay"
-            ClientForm.Label3.Text = "Given Amount"
+            ClientForm.Label3.Text = "Amount"
             ClientForm.LabelSolde.Text = "Balance"
             ClientForm.Label14.Text = "Generated Incom"
             ClientForm.Label4.Text = "Balance"
@@ -2820,7 +3115,14 @@
             ClientForm.TransférerToolStripMenuItem.Text = "Pay"
             ClientForm.GunaButtonEnregistrerReglement.Text = "Save"
 
+            ClientForm.TabControl2.TabPages(0).Text = "Bills"
+            ClientForm.TabControl2.TabPages(1).Text = "Stay"
+
         ElseIf actualLanguageValue = 1 Then
+
+            ClientForm.GunaComboBoxTypeDeFiltre.Items.Add("Individuel")
+            ClientForm.GunaComboBoxTypeDeFiltre.Items.Add("Entreprise")
+            ClientForm.GunaComboBoxTypeDeFiltre.Items.Add("Compte")
 
             ClientForm.TabControl1.TabPages(5).Text = "Club Elite"
             ClientForm.GunaButtonCreateEliteCarte.Text = "Créer"
@@ -3259,6 +3561,7 @@
             ReglementLettrageForm.GunaComboBoxModeReglement.Items.Add("Cover")
             ReglementLettrageForm.GunaComboBoxModeReglement.Items.Add("Arrhes")
             ReglementLettrageForm.GunaComboBoxModeReglement.Items.Add("Deduction")
+            ReglementLettrageForm.GunaComboBoxModeReglement.Items.Add("Free")
 
             ReglementLettrageForm.ImprimerToolStripMenuItem.Text = "Print Detailed Invoice"
             ReglementLettrageForm.ImprimerFactureSynthèseToolStripMenuItem.Text = "Print Summarised Invoice"
@@ -3509,6 +3812,7 @@
             MainWindowComptabiliteForm.GroupBox1.Text = "HISTORY"
             MainWindowComptabiliteForm.GroupBox2.Text = "LOGS"
             MainWindowComptabiliteForm.GunaButton7.Text = "REVENUES"
+            MainWindowComptabiliteForm.FacturesToolStripMenuItem.Text = "Bills"
 
         ElseIf ActualLanguageValue = 1 Then
 
@@ -3732,7 +4036,7 @@
             MainWindowServiceEtageForm.GunaAdvenceButton1.Text = "PLANNING"
             MainWindowServiceEtageForm.GunaAdvenceButton2.Text = "ETATS DES CHAMBRES"
             MainWindowServiceEtageForm.GunaAdvenceButtonHistorique.Text = "HISTORIQUES"
-            MainWindowServiceEtageForm.GunaAdvenceButton7.Text = "Hors Service"
+            MainWindowServiceEtageForm.GunaAdvenceButton7.Text = "HORS SERVICES"
             MainWindowServiceEtageForm.GunaRadioButtonSalle.Text = "Salles"
             MainWindowServiceEtageForm.GunaAdvenceButton32.Text = "OBJETS TROUVES / PERDUS"
             MainWindowServiceEtageForm.GunaAdvenceButtonStatutsChambre.Text = "STATUTS DES CHAMBRES"
@@ -4106,5 +4410,26 @@
         End If
 
     End Sub
+
+    Public Sub depotGarantie(ByVal actualLanguageValue As Integer)
+
+        DepotGarantieForm.GunaComboBoxTypeDepot.Items.Clear()
+
+        If GlobalVariable.actualLanguageValue = 0 Then
+            DepotGarantieForm.GunaComboBoxTypeDepot.Items.Add("Reservations")
+            DepotGarantieForm.GunaComboBoxTypeDepot.Items.Add("Invidual / Company")
+            DepotGarantieForm.GunaLabelTitle.Text = "ARRHES"
+            DepotGarantieForm.GunaLabel1.Text = "AMOUNT"
+            DepotGarantieForm.GunaButtonEnregistrer.Text = "Save"
+            DepotGarantieForm.GunaLabel41.Text = "TOTAL DEBIT"
+            DepotGarantieForm.GunaLabel2.Text = "TOTAL CREDIT"
+            DepotGarantieForm.GunaLabel4.Text = "BALANCE"
+            DepotGarantieForm.GunaLabel5.Text = "TOTAL BALANCE"
+        Else
+
+        End If
+
+    End Sub
+
 
 End Class

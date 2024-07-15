@@ -181,17 +181,6 @@ Public Class ClientForm
         'On charge les colonnes du datagrid des tarifs
         GunaDataGridViewTarifsAuquelOnAEffecteDesPrix.BringToFront()
 
-        'GunaDataGridViewTarifsAuquelOnAEffecteDesPrix.Columns.Add("ID_TARIF_PRIX", "ID")
-        'GunaDataGridViewTarifsAuquelOnAEffecteDesPrix.Columns.Add("CODE_TARIF", "CODE APPLIQUE")
-        'GunaDataGridViewTarifsAuquelOnAEffecteDesPrix.Columns.Add("TYPE_TARIF", "TYPE TARIF")
-        'GunaDataGridViewTarifsAuquelOnAEffecteDesPrix.Columns.Add("CODE_TYPE", "CODE TYPE")
-        'GunaDataGridViewTarifsAuquelOnAEffecteDesPrix.Columns.Add("PRIX_TARIF_ENCOURS", "PRIX ENCOURS")
-        'GunaDataGridViewTarifsAuquelOnAEffecteDesPrix.Columns.Add("PRIX_TARIF1", "PRIX 1")
-        'GunaDataGridViewTarifsAuquelOnAEffecteDesPrix.Columns.Add("PRIX_TARIF2", "PRIX 2")
-        'GunaDataGridViewTarifsAuquelOnAEffecteDesPrix.Columns.Add("PRIX_TARIF3", "PRIX 3")
-        'GunaDataGridViewTarifsAuquelOnAEffecteDesPrix.Columns.Add("PRIX_TARIF4", "PRIX 4")
-        'GunaDataGridViewTarifsAuquelOnAEffecteDesPrix.Columns.Add("PRIX_TARIF5", "PRIX 5")
-
         'We hide the datagrid for displaying company
         GunaDataGridViewCompany.Visible = False
 
@@ -220,6 +209,32 @@ Public Class ClientForm
             GunaComboBoxEliteClub.DataSource = typeDeMembre
             GunaComboBoxEliteClub.DisplayMember = "MEMBRE"
             GunaComboBoxEliteClub.ValueMember = "MEMBRE"
+
+        End If
+
+        'SI ON CLICK SUR FACTURE DEPUIS A LA RECEPTION AYANT PREALABLEMENT CHARGE LE NOM DU CLIENT
+
+        GunaTextBoxCodeClient.Text = MainWindow.GunaTextBoxRefClient.Text
+
+        If Not Trim(GunaTextBoxCodeClient.Text).Equals("") Then
+
+            Dim CodeClient As String = GunaTextBoxCodeClient.Text
+
+            Dim factures As DataTable = Functions.getElementByCode(CodeClient, "facture", "CODE_CLIENT")
+
+            If factures.Rows.Count > 0 Then
+
+                Dim ChiffresAffaire As Double = 0
+
+                For j = 0 To factures.Rows.Count - 1
+                    ChiffresAffaire += factures.Rows(j)("MONTANT_TTC")
+                Next
+
+                GunaTextBoxChiffreAffaire.Text = Format(ChiffresAffaire, "#,##0")
+
+                situationDuClientEntreprise(CodeClient)
+
+            End If
 
         End If
 
@@ -2033,9 +2048,10 @@ Public Class ClientForm
 
                 Dim CODE_CLIENT As String = ""
 
-                If Not IsNothing(row.Cells("CODE_CLIENT").Value.ToString) Then
+                If Not IsNothing(row.Cells("CODE_CLIENT").Value) Then
 
-                    CODE_CLIENT = row.Cells("CODE_CLIENT").Value.ToString
+                    'CODE_CLIENT = row.Cells("CODE_CLIENT").Value.ToString
+                    CODE_CLIENT = GunaTextBoxCodeClient.Text
 
                     Dim infoLigneFacture As DataTable = Functions.getElementByCode(CODE_CLIENT, "compte", "NUMERO_COMPTE")
 
@@ -2110,8 +2126,6 @@ Public Class ClientForm
         'MessageBox.Show(CODE_RESERVATION & " - " & CODE_ENTREPRISE & " / " & tableFacture.Rows.Count)
 
         'On selectionne l'ensemble des reglement du client n'incluant pas les remboursements
-        'Dim query3 As String = "SELECT REF_REGLEMENT, MODE_REGLEMENT ,NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, TRIM(MODE_REGLEMENT) FROM reglement WHERE CODE_CLIENT = @CODE_CLIENT AND CODE_RESERVATION =@CODE_RESERVATION AND IMPRIMER = 1 AND CODE_MODE = @CODE_MODE ORDER BY DATE_REGLEMENT DESC"
-        'Dim query3 As String = "SELECT REF_REGLEMENT, MODE_REGLEMENT ,NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, TRIM(MODE_REGLEMENT) FROM reglement WHERE CODE_CLIENT = @CODE_CLIENT AND IMPRIMER = 1 AND CODE_MODE = @CODE_MODE ORDER BY DATE_REGLEMENT DESC"
         Dim query3 As String = "SELECT REF_REGLEMENT, MODE_REGLEMENT ,NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, TRIM(MODE_REGLEMENT), CODE_MODE , LETTRAGE FROM reglement WHERE CODE_CLIENT = @CODE_CLIENT AND IMPRIMER = 2 ORDER BY DATE_REGLEMENT DESC"
         Dim command3 As New MySqlCommand(query3, GlobalVariable.connect)
 
@@ -2166,16 +2180,114 @@ Public Class ClientForm
 
     End Sub
 
-    Private Sub GunaButtonAfficherLesFacturesEtReglement_Click(sender As Object, e As EventArgs) Handles GunaButtonAfficherLesFacturesEtReglement.Click
+    Private Sub ListeDesFacturesEtReglementsSuivantUnComptePaymaster(ByVal NUMERO_COMPTE_PAYMASTER As String, ByVal DateDebut As Date, ByVal DateFin As Date)
+
+        Dim query2 As String = ""
+
+        If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("FISCALITE") = 1 Then
+            'query2 = "SELECT CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT SOLDE', LETTRAGE, CODE_CLIENT FROM facture WHERE FSC=@FSC AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateFin.ToString("yyyy-MM-dd") & "' AND ETAT_FACTURE = 1 AND CODE_COMMANDE=@CODE_COMMANDE ORDER BY DATE_FACTURE DESC"
+            query2 = "SELECT CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT SOLDE', LETTRAGE, CODE_CLIENT FROM facture WHERE FSC=@FSC AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateFin.ToString("yyyy-MM-dd") & "' AND ETAT_FACTURE = 1 AND CODE_CLIENT=@CODE_CLIENT ORDER BY DATE_FACTURE DESC"
+        Else
+            'query2 = "SELECT CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT SOLDE', LETTRAGE, CODE_CLIENT FROM facture WHERE DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateFin.ToString("yyyy-MM-dd") & "' AND ETAT_FACTURE = 1 AND CODE_COMMANDE=@CODE_COMMANDE ORDER BY DATE_FACTURE DESC"
+            query2 = "SELECT CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT SOLDE', LETTRAGE, CODE_CLIENT FROM facture WHERE DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateFin.ToString("yyyy-MM-dd") & "' AND ETAT_FACTURE = 1 AND CODE_CLIENT=@CODE_CLIENT ORDER BY DATE_FACTURE DESC"
+        End If
+
+        Dim command2 As New MySqlCommand(query2, GlobalVariable.connect)
+        'command2.Parameters.Add("@CODE_COMMANDE", MySqlDbType.VarChar).Value = NUMERO_COMPTE_PAYMASTER
+        command2.Parameters.Add("@CODE_CLIENT", MySqlDbType.VarChar).Value = NUMERO_COMPTE_PAYMASTER
+
+        If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("FISCALITE") = 1 Then
+            command2.Parameters.Add("@FSC", MySqlDbType.Int32).Value = 1
+        Else
+            command2.Parameters.Add("@FSC", MySqlDbType.Int32).Value = 0
+        End If
+
+        Dim adapter2 As New MySqlDataAdapter(command2)
+        Dim tableFacture As New DataTable()
+
+        adapter2.Fill(tableFacture)
+
+        Dim query3 As String = "SELECT REF_REGLEMENT, MODE_REGLEMENT ,NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, TRIM(MODE_REGLEMENT), CODE_MODE , LETTRAGE FROM reglement WHERE CODE_CLIENT = @CODE_CLIENT AND IMPRIMER = 2 ORDER BY DATE_REGLEMENT DESC"
+        Dim command3 As New MySqlCommand(query3, GlobalVariable.connect)
+
+        command3.Parameters.Add("@CODE_CLIENT", MySqlDbType.VarChar).Value = NUMERO_COMPTE_PAYMASTER
+        'command3.Parameters.Add("@CODE_RESERVATION", MySqlDbType.VarChar).Value = CODE_RESERVATION
+
+        Dim CODE_MODE As String = "AVOIR"
+        'command3.Parameters.Add("@CODE_MODE", MySqlDbType.VarChar).Value = CODE_MODE
+
+        Dim adapter3 As New MySqlDataAdapter(command3)
+        Dim tableReglement As New DataTable()
+
+        adapter3.Fill(tableReglement)
+
+        Dim tailleDuTableau As Integer = tableFacture.Rows.Count
+
+        'On crée une structure de tableau
+        Dim toutesLesFactures(tailleDuTableau) As SituationClient
+
+        Dim niemElementDutableau As Integer = 0
+
+        Dim totalFacture As Double = 0
+        Dim totalReglement As Double = 0
 
         GunaDataGridViewListeFacture.Rows.Clear()
 
-        If GunaComboBoxTypeDeFiltre.SelectedItem = "Entreprise" Or GunaComboBoxTypeDeFiltre.SelectedItem = "Individuel" Then
-            'We take all the invoice of the current user for reglement and insert the values of the field of RegelementForm
-            Dim CODE_CLIENT As String = GunaTextBoxCodeEntreprise.Text
-            ListeDesFacturesEtReglements(CODE_CLIENT, GunaDateTimePickerDebutClientForm.Value, GunaDateTimePickerFinClientForm.Value)
-        End If
+        'niemElementDutableau += 1
 
+        'Enfin on insere le tout dans notre datagrid
+
+        For j = 0 To tableFacture.Rows.Count - 1
+
+            totalFacture = totalFacture + tableFacture.Rows(j)("MONTANT")
+
+            GunaDataGridViewListeFacture.Rows.Add(tableFacture.Rows(j)("REFERENCE"), CDate(tableFacture.Rows(j)("DATE")).ToShortDateString, "FACTURE", tableFacture.Rows(j)("LIBELLE"), tableFacture.Rows(j)("LETTRAGE"), Format(tableFacture.Rows(j)("MONTANT"), "#,##0"), Format(tableFacture.Rows(j)("MONTANT SOLDE"), "#,##0"), Format(Double.Parse(tableFacture.Rows(j)("MONTANT SOLDE")) - Double.Parse(tableFacture.Rows(j)("MONTANT")), "#,##0"))
+
+        Next
+
+        For k = 0 To tableReglement.Rows.Count - 1
+
+            totalReglement = totalReglement + tableReglement.Rows(k)("MONTANT_VERSE")
+
+            Dim AVOIR As String = "REGLEMENT"
+
+            If Not Trim(tableReglement.Rows(k)("CODE_MODE")).Equals("") Then
+                AVOIR = tableReglement.Rows(k)("CODE_MODE")
+            End If
+
+            GunaDataGridViewListeFacture.Rows.Add(tableReglement.Rows(k)("NUM_REGLEMENT"), CDate(tableReglement.Rows(k)("DATE_REGLEMENT")).ToShortDateString, AVOIR, tableReglement.Rows(k)("REF_REGLEMENT"), tableReglement.Rows(k)("LETTRAGE"), "", Format(tableReglement.Rows(k)("MONTANT_VERSE"), "#,##0"), "")
+
+        Next
+
+    End Sub
+
+    Private Sub affichageDesFacturesEtReglements()
+
+        GunaDataGridViewListeFacture.Rows.Clear()
+
+        If GunaComboBoxTypeDeFiltre.SelectedIndex >= 0 And GunaComboBoxTypeDeFiltre.SelectedIndex <= 1 Then
+            'We take all the invoice of the current user for reglement and insert the values of the field of RegelementForm
+            Dim CODE_CLIENT As String = GunaTextBoxCodeClient.Text
+            ListeDesFacturesEtReglements(CODE_CLIENT, GunaDateTimePickerDebutClientForm.Value, GunaDateTimePickerFinClientForm.Value)
+
+            situationDuClientEntreprise(CODE_CLIENT)
+
+        Else
+
+            If GunaComboBoxTypeDeFiltre.SelectedIndex = 2 Then
+                Dim NUMERO_COMPTE As String = GunaTextBoxCompteDebiteur.Text
+                GunaTextBoxCodeEntreprise.Text = NUMERO_COMPTE
+                ListeDesFacturesEtReglementsSuivantUnComptePaymaster(NUMERO_COMPTE, GunaDateTimePickerDebutClientForm.Value, GunaDateTimePickerFinClientForm.Value)
+
+                situationDuCompte(NUMERO_COMPTE)
+
+            End If
+
+        End If
+    End Sub
+
+    Private Sub GunaButtonAfficherLesFacturesEtReglement_Click(sender As Object, e As EventArgs) Handles GunaButtonAfficherLesFacturesEtReglement.Click
+        affichageDesFacturesEtReglements()
     End Sub
 
     Private Sub ImprimerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ImprimerToolStripMenuItem.Click
@@ -2391,11 +2503,13 @@ Public Class ClientForm
 
         Me.Cursor = Cursors.WaitCursor
 
-        If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("GRANDE_CAISSE") Then
+        If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("GRANDE_CAISSE") = 1 Then
 
             'Même si on a le droit a la caisse on doit encore être associé à une caisse pour pouvoir encaisser
 
             If Functions.getElementByCode(GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR"), "caisse", "CODE_UTILISATEUR").Rows.Count > 0 Then
+
+                GunaButtonEnregistrerReglement.Visible = False
 
                 Dim ETAT_CAISSE As Integer = 0
 
@@ -2628,11 +2742,15 @@ Public Class ClientForm
                                 If (MONTANT_VERSE * -1) <= Double.Parse(GunaTextBoxAPayer.Text) Then
                                     Dim MONTANT_VERSE_PAR_AVOIR As Double = Double.Parse(GunaTextBoxAPayer.Text) * -1
 
+                                    REF_REGLEMENT = REF_REGLEMENT & " " & GunaTextBoxNom.Text
+
                                     reglement.insertReglement(NUM_REGLEMENT, NUM_FACTURE, CODE_CAISSIER, MONTANT_VERSE_PAR_AVOIR, DATE_REGLEMENT, MODE_REGLEMENT, REF_REGLEMENT, CODE_MODE, IMPRIMER, CODE_AGENCE, CODE_RESERVATION, CODE_CLIENT, NUMERO_BLOC_NOTE, MODE_REG_INFO_SUP_1, MODE_REG_INFO_SUP_2, MODE_REG_INFO_SUP_3)
 
                                 End If
 
                             Else
+
+                                REF_REGLEMENT = REF_REGLEMENT & " " & GunaTextBoxNom.Text
 
                                 'REGELEMENT NORMAL
                                 reglement.insertReglement(NUM_REGLEMENT, NUM_FACTURE, CODE_CAISSIER, MONTANT_VERSE, DATE_REGLEMENT, MODE_REGLEMENT, REF_REGLEMENT, CODE_MODE, IMPRIMER, CODE_AGENCE, CODE_RESERVATION, CODE_CLIENT, NUMERO_BLOC_NOTE, MODE_REG_INFO_SUP_1, MODE_REG_INFO_SUP_2, MODE_REG_INFO_SUP_3)
@@ -2738,7 +2856,7 @@ Public Class ClientForm
                         If Trim(GunaComboBoxNatureOperation.SelectedItem) = "REGLEMENT" Then
 
                             '****************************** REGLEMENTS DE L'ENSEMBLE DES FACTURES SELECTIONNEES* **************************************************************************
-                            '2klg
+
                             ReglementDesFacturesSelectionnees(montantVerse)
 
                         End If
@@ -2780,7 +2898,20 @@ Public Class ClientForm
 
         End If
 
+        situation()
+
         Me.Cursor = Cursors.Default
+
+    End Sub
+
+    Private Sub situation()
+
+        If GunaComboBoxTypeDeFiltre.SelectedIndex = 2 Then
+            situationDuCompte(Trim(GunaTextBoxCompteDebiteur.Text))
+        Else
+            affichageDesFacturesEtReglements()
+            GunaTextBoxSolde.Text = 0
+        End If
 
     End Sub
 
@@ -3332,7 +3463,31 @@ Public Class ClientForm
 
     End Sub
 
-    Private Sub GunaTextBoxPreference_TextChanged(sender As Object, e As EventArgs) Handles GunaTextBoxPreference.TextChanged
+
+    Public Sub situationDuCompte(ByVal NUMERO_COMPTE As String)
+
+        ' ------------------------------ display of information into datagrid in the form dateOperation-Libelle-Debit-Credit -----------------------------
+
+        'Dim query2 As String = "SELECT CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT SOLDE', LETTRAGE  FROM facture WHERE ETAT_FACTURE = 1 AND CODE_CLIENT=@CODE_CLIENT ORDER BY DATE_FACTURE DESC"
+        Dim query2 As String = "SELECT CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT SOLDE', LETTRAGE  FROM facture WHERE CODE_CLIENT=@CODE_CLIENT ORDER BY DATE_FACTURE DESC"
+        Dim command2 As New MySqlCommand(query2, GlobalVariable.connect)
+        command2.Parameters.Add("@CODE_CLIENT", MySqlDbType.VarChar).Value = NUMERO_COMPTE
+        'command2.Parameters.Add("@CODE_RESERVATION", MySqlDbType.VarChar).Value = CODE_RESERVATION
+
+        Dim adapter2 As New MySqlDataAdapter(command2)
+        Dim tableFacture As New DataTable()
+
+        adapter2.Fill(tableFacture)
+
+        Dim totalFacture As Double = 0
+        Dim totalReglement As Double = 0
+
+        For j = 0 To tableFacture.Rows.Count - 1
+            totalFacture = totalFacture + tableFacture.Rows(j)("MONTANT")
+            totalReglement += tableFacture.Rows(j)("MONTANT SOLDE")
+        Next
+
+        GunaTextBoxSoldeCompte.Text = Format(Double.Parse(totalReglement) - Double.Parse(totalFacture), "#,##0")
 
     End Sub
 
@@ -3764,6 +3919,189 @@ Public Class ClientForm
 
         GunaTextBoxLike.Clear()
         listEliteCode(UPGRADE, GunaDataGridViewToUpgrade)
+
+    End Sub
+
+    Private Sub GunaTextBoxNom_TextChanged(sender As Object, e As EventArgs) Handles GunaTextBoxNom.TextChanged
+
+        If Not Trim(GunaTextBoxNom.Text).Equals("") Then
+
+            If GunaComboBoxTypeDeFiltre.SelectedIndex >= 0 Then
+
+                GunaDataGridView2.Visible = True
+
+                Dim query As String = ""
+                If GunaComboBoxTypeDeFiltre.SelectedItem = "Entreprise" Or GunaComboBoxTypeDeFiltre.SelectedItem = "Company" Then
+                    query = "SELECT NOM_PRENOM, CODE_CLIENT FROM client WHERE NOM_PRENOM LIKE '%" & GunaTextBoxNom.Text & "%' AND TYPE_CLIENT = @TYPE_CLIENT OR NUM_COMPTE LIKE '%" & GunaTextBoxNom.Text & "%' AND TYPE_CLIENT = @TYPE_CLIENT"
+                ElseIf GunaComboBoxTypeDeFiltre.SelectedItem = "Individuel" Or GunaComboBoxTypeDeFiltre.SelectedItem = "Individual" Then
+                    query = "SELECT NOM_PRENOM, CODE_CLIENT FROM client WHERE NOM_PRENOM LIKE '%" & GunaTextBoxNom.Text & "%' AND TYPE_CLIENT = @TYPE_CLIENT OR NUM_COMPTE LIKE '%" & GunaTextBoxNom.Text & "%' AND TYPE_CLIENT = @TYPE_CLIENT"
+                ElseIf GunaComboBoxTypeDeFiltre.SelectedItem = "Compte" Or GunaComboBoxTypeDeFiltre.SelectedItem = "Account" Then
+                    'CLIENT N'ETANT PAS ASSOCIE A UN COMPTE
+                    query = "SELECT NUMERO_COMPTE, INTITULE, CODE_CLIENT FROM compte WHERE INTITULE LIKE '%" & GunaTextBoxNom.Text & "%' AND CODE_CLIENT = @CODE_CLIENT AND ETAT_DU_COMPTE=@ETAT_DU_COMPTE"
+                End If
+
+                Dim command As New MySqlCommand(query, GlobalVariable.connect)
+
+                Dim ETAT_DU_COMPTE As Integer = 1
+
+                command.Parameters.Add("@TYPE_CLIENT", MySqlDbType.VarChar).Value = GunaComboBoxTypeDeFiltre.SelectedItem
+                command.Parameters.Add("@CODE_CLIENT", MySqlDbType.VarChar).Value = ""
+                command.Parameters.Add("@ETAT_DU_COMPTE", MySqlDbType.Int64).Value = ETAT_DU_COMPTE
+
+                Dim adapter As New MySqlDataAdapter(command)
+
+                Dim table As New DataTable()
+
+                adapter.Fill(table)
+
+                If (table.Rows.Count > 0) Then
+
+                    GunaDataGridView2.DataSource = table
+
+                    If (Not GunaComboBoxTypeDeFiltre.SelectedItem = "Compte") Or (Not GunaComboBoxTypeDeFiltre.SelectedItem = "Account") Then
+                        GunaDataGridView2.Columns("CODE_CLIENT").Visible = False
+                    End If
+
+                Else
+                    GunaDataGridView2.Columns.Clear()
+                    GunaDataGridView2.Visible = False
+                End If
+
+                If GunaTextBoxNom.Text = "" Then
+                    GunaDataGridView2.Visible = False
+                End If
+
+            End If
+
+        Else
+
+            If GunaComboBoxTypeDeFiltre.SelectedIndex = 0 Then
+                GunaTextBoxSoldeCompte.Text = 0
+            End If
+
+            GunaDataGridView2.DataSource = Nothing
+            GunaDataGridView2.Visible = False
+        End If
+
+    End Sub
+
+    Private Sub GunaDataGridView2_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles GunaDataGridView2.CellClick
+
+
+        GunaDataGridView2.Visible = False
+
+        effacementDesDetails()
+
+        If e.RowIndex >= 0 Then
+
+            Dim row As DataGridViewRow
+
+            row = Me.GunaDataGridView2.Rows(e.RowIndex)
+
+            Dim CodeClient As String = ""
+            Dim numeroCompte As String = ""
+
+            If GunaComboBoxTypeDeFiltre.SelectedItem = "Compte" Or GunaComboBoxTypeDeFiltre.SelectedItem = "Account" Then
+
+                numeroCompte = row.Cells("NUMERO_COMPTE").Value.ToString
+
+                Dim compte As DataTable = Functions.getElementByCode(numeroCompte, "compte", "NUMERO_COMPTE")
+
+                If compte.Rows.Count > 0 Then
+
+                    GunaTextBoxCompteDebiteur.Text = compte.Rows(0)("NUMERO_COMPTE")
+
+                    GunaTextBoxNom.Text = compte.Rows(0)("INTITULE")
+
+                    GunaTextBoxSoldeCompte.Text = Format(compte.Rows(0)("SOLDE_COMPTE"), "#,##0")
+
+                    GunaTextBoxPersonneAContacter.Text = compte.Rows(0)("PERSONNE_A_CONTACTER")
+
+                    If GunaComboBoxNatureOperation.SelectedIndex >= 0 Then
+                        GunaTextBoxReference.Text = GunaComboBoxNatureOperation.SelectedItem & " " & Trim(GunaTextBoxNom.Text) & " " & Date.Now()
+                    End If
+
+                    Dim NUMERO_COMPTE As String = Trim(GunaTextBoxCompteDebiteur.Text)
+                    Dim factures As DataTable = Functions.getElementByCode(NUMERO_COMPTE, "facture", "CODE_CLIENT")
+
+                    If factures.Rows.Count > 0 Then
+
+                        Dim ChiffresAffaire As Double = 0
+
+                        For j = 0 To factures.Rows.Count - 1
+                            ChiffresAffaire += factures.Rows(j)("MONTANT_TTC")
+                        Next
+
+                        GunaTextBoxChiffreAffaire.Text = Format(ChiffresAffaire, "#,##0")
+
+                    End If
+
+                End If
+
+            ElseIf GunaComboBoxTypeDeFiltre.SelectedItem = "Entreprise" Or GunaComboBoxTypeDeFiltre.SelectedItem = "Individuel" Or GunaComboBoxTypeDeFiltre.SelectedItem = "Company" Or GunaComboBoxTypeDeFiltre.SelectedItem = "Individual" Then
+
+                CodeClient = row.Cells("CODE_CLIENT").Value.ToString
+
+                GunaTextBoxCodeClient.Text = CodeClient
+
+                Dim client As DataTable = Functions.getElementByCode(CodeClient, "client", "CODE_CLIENT")
+
+                If client.Rows.Count > 0 Then
+
+                    GunaTextBoxNom.Text = client.Rows(0)("NOM_PRENOM")
+
+                    Dim compte As DataTable = Functions.getElementByCode(Trim(CodeClient), "compte", "CODE_CLIENT")
+                    Dim NUMERO_COMPTE As String = 0
+
+                    If compte.Rows.Count > 0 Then
+
+                        GunaTextBoxCompteDebiteur.Text = compte.Rows(0)("NUMERO_COMPTE")
+
+                        GunaTextBoxSoldeCompte.Text = Format(compte.Rows(0)("SOLDE_COMPTE"), "#,##0")
+                        GunaTextBoxPersonneAContacter.Text = compte.Rows(0)("PERSONNE_A_CONTACTER")
+
+                    End If
+
+                    GunaTextBoxNom.Clear()
+
+                    'We take all the invoice of the current user for reglement and insert the values of the field of RegelementForm
+                    'ListeDesFacturesEtReglements(CodeClient)
+
+                    Dim factures As DataTable = Functions.getElementByCode(CodeClient, "facture", "CODE_CLIENT")
+
+                    If factures.Rows.Count > 0 Then
+
+                        Dim ChiffresAffaire As Double = 0
+
+                        For j = 0 To factures.Rows.Count - 1
+                            ChiffresAffaire += factures.Rows(j)("MONTANT_TTC")
+                        Next
+
+                        GunaTextBoxChiffreAffaire.Text = Format(ChiffresAffaire, "#,##0")
+
+                    End If
+
+                    GunaTextBoxAPayer.Text = 0
+
+                    GunaTextBoxSolde.Text = 0
+
+                    GunaTextBoxMontantVerse.Text = 0
+
+                    If GunaComboBoxNatureOperation.SelectedIndex >= 0 Then
+                        GunaTextBoxReference.Text = GunaComboBoxNatureOperation.SelectedItem & " " & Trim(GunaTextBoxNom.Text) & " " & Date.Now()
+                    End If
+
+                    situationDuClientEntreprise(CodeClient)
+
+                End If
+
+            End If
+
+        End If
+
+        GunaDataGridView2.Visible = False
+
+        situation()
 
     End Sub
 

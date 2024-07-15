@@ -307,7 +307,7 @@ Partial Class GrandeCaisseForm
         Me.GunaPanel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.GunaPanel1.Location = New System.Drawing.Point(0, 0)
         Me.GunaPanel1.Name = "GunaPanel1"
-        Me.GunaPanel1.Size = New System.Drawing.Size(1350, 25)
+        Me.GunaPanel1.Size = New System.Drawing.Size(1300, 25)
         Me.GunaPanel1.TabIndex = 2
         '
         'GunaButtonRefresh
@@ -368,7 +368,7 @@ Partial Class GrandeCaisseForm
         Me.GunaImageButtonFermer.DialogResult = System.Windows.Forms.DialogResult.None
         Me.GunaImageButtonFermer.Image = CType(resources.GetObject("GunaImageButtonFermer.Image"), System.Drawing.Image)
         Me.GunaImageButtonFermer.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaImageButtonFermer.Location = New System.Drawing.Point(1317, 2)
+        Me.GunaImageButtonFermer.Location = New System.Drawing.Point(1267, 2)
         Me.GunaImageButtonFermer.Name = "GunaImageButtonFermer"
         Me.GunaImageButtonFermer.OnHoverImage = Nothing
         Me.GunaImageButtonFermer.OnHoverImageOffset = New System.Drawing.Point(0, 0)
@@ -381,7 +381,7 @@ Partial Class GrandeCaisseForm
         Me.GunaImageButton1.DialogResult = System.Windows.Forms.DialogResult.None
         Me.GunaImageButton1.Image = Nothing
         Me.GunaImageButton1.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaImageButton1.Location = New System.Drawing.Point(1315, 2)
+        Me.GunaImageButton1.Location = New System.Drawing.Point(1265, 2)
         Me.GunaImageButton1.Name = "GunaImageButton1"
         Me.GunaImageButton1.OnHoverImage = Nothing
         Me.GunaImageButton1.OnHoverImageOffset = New System.Drawing.Point(0, 0)
@@ -394,7 +394,7 @@ Partial Class GrandeCaisseForm
         Me.GunaLabel1.AutoSize = True
         Me.GunaLabel1.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaLabel1.ForeColor = System.Drawing.Color.White
-        Me.GunaLabel1.Location = New System.Drawing.Point(2517, -2)
+        Me.GunaLabel1.Location = New System.Drawing.Point(2467, -2)
         Me.GunaLabel1.Name = "GunaLabel1"
         Me.GunaLabel1.Size = New System.Drawing.Size(24, 25)
         Me.GunaLabel1.TabIndex = 1
@@ -431,7 +431,7 @@ Partial Class GrandeCaisseForm
         Me.GunaButtonEnregistrerReglement.ForeColor = System.Drawing.Color.White
         Me.GunaButtonEnregistrerReglement.Image = Nothing
         Me.GunaButtonEnregistrerReglement.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonEnregistrerReglement.Location = New System.Drawing.Point(1193, 674)
+        Me.GunaButtonEnregistrerReglement.Location = New System.Drawing.Point(1193, 665)
         Me.GunaButtonEnregistrerReglement.Name = "GunaButtonEnregistrerReglement"
         Me.GunaButtonEnregistrerReglement.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonEnregistrerReglement.OnHoverBorderColor = System.Drawing.Color.Black
@@ -439,7 +439,7 @@ Partial Class GrandeCaisseForm
         Me.GunaButtonEnregistrerReglement.OnHoverImage = Nothing
         Me.GunaButtonEnregistrerReglement.OnPressedColor = System.Drawing.Color.Black
         Me.GunaButtonEnregistrerReglement.Radius = 4
-        Me.GunaButtonEnregistrerReglement.Size = New System.Drawing.Size(97, 37)
+        Me.GunaButtonEnregistrerReglement.Size = New System.Drawing.Size(97, 32)
         Me.GunaButtonEnregistrerReglement.TabIndex = 7
         Me.GunaButtonEnregistrerReglement.Text = "Enregistrer"
         Me.GunaButtonEnregistrerReglement.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -493,7 +493,7 @@ Partial Class GrandeCaisseForm
         Me.GunaTextBoxAPayer.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxAPayer.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaTextBoxAPayer.ForeColor = System.Drawing.Color.White
-        Me.GunaTextBoxAPayer.Location = New System.Drawing.Point(1252, 475)
+        Me.GunaTextBoxAPayer.Location = New System.Drawing.Point(1209, 475)
         Me.GunaTextBoxAPayer.Name = "GunaTextBoxAPayer"
         Me.GunaTextBoxAPayer.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxAPayer.Radius = 5
@@ -506,7 +506,7 @@ Partial Class GrandeCaisseForm
         '
         Me.LabelMontantAPayer.AutoSize = True
         Me.LabelMontantAPayer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelMontantAPayer.Location = New System.Drawing.Point(1121, 482)
+        Me.LabelMontantAPayer.Location = New System.Drawing.Point(1078, 482)
         Me.LabelMontantAPayer.Name = "LabelMontantAPayer"
         Me.LabelMontantAPayer.Size = New System.Drawing.Size(120, 16)
         Me.LabelMontantAPayer.TabIndex = 70
@@ -635,7 +635,7 @@ Partial Class GrandeCaisseForm
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(1134, 520)
+        Me.Label3.Location = New System.Drawing.Point(1091, 520)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(107, 16)
         Me.Label3.TabIndex = 70
@@ -653,7 +653,7 @@ Partial Class GrandeCaisseForm
         Me.GunaTextBoxMontantVerse.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxMontantVerse.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxMontantVerse.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxMontantVerse.Location = New System.Drawing.Point(1252, 512)
+        Me.GunaTextBoxMontantVerse.Location = New System.Drawing.Point(1209, 512)
         Me.GunaTextBoxMontantVerse.Name = "GunaTextBoxMontantVerse"
         Me.GunaTextBoxMontantVerse.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxMontantVerse.Radius = 5
@@ -667,7 +667,7 @@ Partial Class GrandeCaisseForm
         '
         Me.LabelSolde.AutoSize = True
         Me.LabelSolde.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelSolde.Location = New System.Drawing.Point(1132, 556)
+        Me.LabelSolde.Location = New System.Drawing.Point(1089, 556)
         Me.LabelSolde.Name = "LabelSolde"
         Me.LabelSolde.Size = New System.Drawing.Size(106, 16)
         Me.LabelSolde.TabIndex = 70
@@ -686,7 +686,7 @@ Partial Class GrandeCaisseForm
         Me.GunaTextBoxSolde.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxSolde.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaTextBoxSolde.ForeColor = System.Drawing.Color.White
-        Me.GunaTextBoxSolde.Location = New System.Drawing.Point(1252, 549)
+        Me.GunaTextBoxSolde.Location = New System.Drawing.Point(1209, 549)
         Me.GunaTextBoxSolde.Name = "GunaTextBoxSolde"
         Me.GunaTextBoxSolde.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxSolde.Radius = 5
@@ -1186,9 +1186,9 @@ Partial Class GrandeCaisseForm
         'GunaPanel3
         '
         Me.GunaPanel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
-        Me.GunaPanel3.Location = New System.Drawing.Point(-7, 709)
+        Me.GunaPanel3.Location = New System.Drawing.Point(0, 709)
         Me.GunaPanel3.Name = "GunaPanel3"
-        Me.GunaPanel3.Size = New System.Drawing.Size(1370, 10)
+        Me.GunaPanel3.Size = New System.Drawing.Size(1300, 10)
         Me.GunaPanel3.TabIndex = 86
         '
         'GunaLabelTitreTraitement
@@ -1227,7 +1227,7 @@ Partial Class GrandeCaisseForm
         Me.GunaTextBoxSoldeCompte.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxSoldeCompte.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxSoldeCompte.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxSoldeCompte.Location = New System.Drawing.Point(1226, 437)
+        Me.GunaTextBoxSoldeCompte.Location = New System.Drawing.Point(1183, 437)
         Me.GunaTextBoxSoldeCompte.Name = "GunaTextBoxSoldeCompte"
         Me.GunaTextBoxSoldeCompte.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxSoldeCompte.Radius = 5
@@ -1241,7 +1241,7 @@ Partial Class GrandeCaisseForm
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(1244, 420)
+        Me.Label7.Location = New System.Drawing.Point(1201, 420)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(57, 16)
         Me.Label7.TabIndex = 73
@@ -1452,7 +1452,7 @@ Partial Class GrandeCaisseForm
         Me.GunaComboBoxNatureOperation.FormattingEnabled = True
         Me.GunaComboBoxNatureOperation.ItemHeight = 25
         Me.GunaComboBoxNatureOperation.Items.AddRange(New Object() {"ENTREE DE RECETTE", "ENTREE DE FONDS", "SORTIE DE FONDS"})
-        Me.GunaComboBoxNatureOperation.Location = New System.Drawing.Point(862, 498)
+        Me.GunaComboBoxNatureOperation.Location = New System.Drawing.Point(820, 498)
         Me.GunaComboBoxNatureOperation.Name = "GunaComboBoxNatureOperation"
         Me.GunaComboBoxNatureOperation.OnHoverItemBaseColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaComboBoxNatureOperation.OnHoverItemForeColor = System.Drawing.Color.White
@@ -1464,7 +1464,7 @@ Partial Class GrandeCaisseForm
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(859, 479)
+        Me.Label2.Location = New System.Drawing.Point(817, 479)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(144, 15)
         Me.Label2.TabIndex = 70
@@ -2124,17 +2124,17 @@ Partial Class GrandeCaisseForm
         Me.GunaComboBoxTypeDeFiltre.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
         Me.GunaComboBoxTypeDeFiltre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.GunaComboBoxTypeDeFiltre.FocusedColor = System.Drawing.Color.Empty
-        Me.GunaComboBoxTypeDeFiltre.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.GunaComboBoxTypeDeFiltre.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaComboBoxTypeDeFiltre.ForeColor = System.Drawing.Color.Black
         Me.GunaComboBoxTypeDeFiltre.FormattingEnabled = True
-        Me.GunaComboBoxTypeDeFiltre.ItemHeight = 30
+        Me.GunaComboBoxTypeDeFiltre.ItemHeight = 25
         Me.GunaComboBoxTypeDeFiltre.Items.AddRange(New Object() {"ENTREE DE FONDS", "SORTIE DE FONDS", "ENTREE DE RECETTE"})
-        Me.GunaComboBoxTypeDeFiltre.Location = New System.Drawing.Point(13, 23)
+        Me.GunaComboBoxTypeDeFiltre.Location = New System.Drawing.Point(13, 26)
         Me.GunaComboBoxTypeDeFiltre.Name = "GunaComboBoxTypeDeFiltre"
         Me.GunaComboBoxTypeDeFiltre.OnHoverItemBaseColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaComboBoxTypeDeFiltre.OnHoverItemForeColor = System.Drawing.Color.White
         Me.GunaComboBoxTypeDeFiltre.Radius = 5
-        Me.GunaComboBoxTypeDeFiltre.Size = New System.Drawing.Size(196, 36)
+        Me.GunaComboBoxTypeDeFiltre.Size = New System.Drawing.Size(196, 31)
         Me.GunaComboBoxTypeDeFiltre.TabIndex = 102
         '
         'GunaButtonAfficherLesFacturesEtReglement
@@ -2336,7 +2336,7 @@ Partial Class GrandeCaisseForm
         Me.GunaButtonImprimerListeDesComptes.ForeColor = System.Drawing.Color.White
         Me.GunaButtonImprimerListeDesComptes.Image = CType(resources.GetObject("GunaButtonImprimerListeDesComptes.Image"), System.Drawing.Image)
         Me.GunaButtonImprimerListeDesComptes.ImageSize = New System.Drawing.Size(30, 30)
-        Me.GunaButtonImprimerListeDesComptes.Location = New System.Drawing.Point(1065, 672)
+        Me.GunaButtonImprimerListeDesComptes.Location = New System.Drawing.Point(1065, 664)
         Me.GunaButtonImprimerListeDesComptes.Name = "GunaButtonImprimerListeDesComptes"
         Me.GunaButtonImprimerListeDesComptes.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonImprimerListeDesComptes.OnHoverBorderColor = System.Drawing.Color.Black
@@ -3089,12 +3089,12 @@ Partial Class GrandeCaisseForm
         Me.GunaAdvenceButton1.CheckedLineColor = System.Drawing.Color.DimGray
         Me.GunaAdvenceButton1.DialogResult = System.Windows.Forms.DialogResult.None
         Me.GunaAdvenceButton1.FocusedColor = System.Drawing.Color.Empty
-        Me.GunaAdvenceButton1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.GunaAdvenceButton1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaAdvenceButton1.ForeColor = System.Drawing.Color.Black
         Me.GunaAdvenceButton1.Image = Nothing
         Me.GunaAdvenceButton1.ImageSize = New System.Drawing.Size(20, 20)
         Me.GunaAdvenceButton1.LineColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.GunaAdvenceButton1.Location = New System.Drawing.Point(13, 34)
+        Me.GunaAdvenceButton1.Location = New System.Drawing.Point(7, 34)
         Me.GunaAdvenceButton1.Name = "GunaAdvenceButton1"
         Me.GunaAdvenceButton1.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaAdvenceButton1.OnHoverBorderColor = System.Drawing.Color.Black
@@ -3122,12 +3122,12 @@ Partial Class GrandeCaisseForm
         Me.GunaAdvenceButton2.CheckedLineColor = System.Drawing.Color.DimGray
         Me.GunaAdvenceButton2.DialogResult = System.Windows.Forms.DialogResult.None
         Me.GunaAdvenceButton2.FocusedColor = System.Drawing.Color.Empty
-        Me.GunaAdvenceButton2.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.GunaAdvenceButton2.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaAdvenceButton2.ForeColor = System.Drawing.Color.Black
         Me.GunaAdvenceButton2.Image = Nothing
         Me.GunaAdvenceButton2.ImageSize = New System.Drawing.Size(20, 20)
         Me.GunaAdvenceButton2.LineColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.GunaAdvenceButton2.Location = New System.Drawing.Point(208, 34)
+        Me.GunaAdvenceButton2.Location = New System.Drawing.Point(202, 34)
         Me.GunaAdvenceButton2.Name = "GunaAdvenceButton2"
         Me.GunaAdvenceButton2.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaAdvenceButton2.OnHoverBorderColor = System.Drawing.Color.Black
@@ -3155,12 +3155,12 @@ Partial Class GrandeCaisseForm
         Me.GunaAdvenceButton3.CheckedLineColor = System.Drawing.Color.DimGray
         Me.GunaAdvenceButton3.DialogResult = System.Windows.Forms.DialogResult.None
         Me.GunaAdvenceButton3.FocusedColor = System.Drawing.Color.Empty
-        Me.GunaAdvenceButton3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.GunaAdvenceButton3.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaAdvenceButton3.ForeColor = System.Drawing.Color.Black
         Me.GunaAdvenceButton3.Image = Nothing
         Me.GunaAdvenceButton3.ImageSize = New System.Drawing.Size(20, 20)
         Me.GunaAdvenceButton3.LineColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.GunaAdvenceButton3.Location = New System.Drawing.Point(414, 34)
+        Me.GunaAdvenceButton3.Location = New System.Drawing.Point(410, 34)
         Me.GunaAdvenceButton3.Name = "GunaAdvenceButton3"
         Me.GunaAdvenceButton3.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaAdvenceButton3.OnHoverBorderColor = System.Drawing.Color.Black
@@ -3169,7 +3169,7 @@ Partial Class GrandeCaisseForm
         Me.GunaAdvenceButton3.OnHoverLineColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.GunaAdvenceButton3.OnPressedColor = System.Drawing.Color.Black
         Me.GunaAdvenceButton3.Radius = 2
-        Me.GunaAdvenceButton3.Size = New System.Drawing.Size(140, 24)
+        Me.GunaAdvenceButton3.Size = New System.Drawing.Size(113, 24)
         Me.GunaAdvenceButton3.TabIndex = 188
         Me.GunaAdvenceButton3.Text = "FONDS SORTIES"
         Me.GunaAdvenceButton3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -3188,12 +3188,12 @@ Partial Class GrandeCaisseForm
         Me.GunaAdvenceButton4.CheckedLineColor = System.Drawing.Color.DimGray
         Me.GunaAdvenceButton4.DialogResult = System.Windows.Forms.DialogResult.None
         Me.GunaAdvenceButton4.FocusedColor = System.Drawing.Color.Empty
-        Me.GunaAdvenceButton4.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.GunaAdvenceButton4.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaAdvenceButton4.ForeColor = System.Drawing.Color.White
         Me.GunaAdvenceButton4.Image = Nothing
         Me.GunaAdvenceButton4.ImageSize = New System.Drawing.Size(20, 20)
         Me.GunaAdvenceButton4.LineColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.GunaAdvenceButton4.Location = New System.Drawing.Point(560, 34)
+        Me.GunaAdvenceButton4.Location = New System.Drawing.Point(532, 34)
         Me.GunaAdvenceButton4.Name = "GunaAdvenceButton4"
         Me.GunaAdvenceButton4.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaAdvenceButton4.OnHoverBorderColor = System.Drawing.Color.Black
@@ -3202,7 +3202,7 @@ Partial Class GrandeCaisseForm
         Me.GunaAdvenceButton4.OnHoverLineColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.GunaAdvenceButton4.OnPressedColor = System.Drawing.Color.Black
         Me.GunaAdvenceButton4.Radius = 2
-        Me.GunaAdvenceButton4.Size = New System.Drawing.Size(150, 24)
+        Me.GunaAdvenceButton4.Size = New System.Drawing.Size(121, 24)
         Me.GunaAdvenceButton4.TabIndex = 188
         Me.GunaAdvenceButton4.Text = "FONDS ENTREES"
         Me.GunaAdvenceButton4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -3221,12 +3221,12 @@ Partial Class GrandeCaisseForm
         Me.GunaAdvenceButton5.CheckedLineColor = System.Drawing.Color.DimGray
         Me.GunaAdvenceButton5.DialogResult = System.Windows.Forms.DialogResult.None
         Me.GunaAdvenceButton5.FocusedColor = System.Drawing.Color.Empty
-        Me.GunaAdvenceButton5.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.GunaAdvenceButton5.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaAdvenceButton5.ForeColor = System.Drawing.Color.White
         Me.GunaAdvenceButton5.Image = Nothing
         Me.GunaAdvenceButton5.ImageSize = New System.Drawing.Size(20, 20)
         Me.GunaAdvenceButton5.LineColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.GunaAdvenceButton5.Location = New System.Drawing.Point(716, 34)
+        Me.GunaAdvenceButton5.Location = New System.Drawing.Point(664, 34)
         Me.GunaAdvenceButton5.Name = "GunaAdvenceButton5"
         Me.GunaAdvenceButton5.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaAdvenceButton5.OnHoverBorderColor = System.Drawing.Color.Black
@@ -3254,12 +3254,12 @@ Partial Class GrandeCaisseForm
         Me.GunaAdvenceButton6.CheckedLineColor = System.Drawing.Color.DimGray
         Me.GunaAdvenceButton6.DialogResult = System.Windows.Forms.DialogResult.None
         Me.GunaAdvenceButton6.FocusedColor = System.Drawing.Color.Empty
-        Me.GunaAdvenceButton6.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.GunaAdvenceButton6.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaAdvenceButton6.ForeColor = System.Drawing.Color.White
         Me.GunaAdvenceButton6.Image = Nothing
         Me.GunaAdvenceButton6.ImageSize = New System.Drawing.Size(20, 20)
         Me.GunaAdvenceButton6.LineColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.GunaAdvenceButton6.Location = New System.Drawing.Point(904, 34)
+        Me.GunaAdvenceButton6.Location = New System.Drawing.Point(852, 34)
         Me.GunaAdvenceButton6.Name = "GunaAdvenceButton6"
         Me.GunaAdvenceButton6.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaAdvenceButton6.OnHoverBorderColor = System.Drawing.Color.Black
@@ -3287,12 +3287,12 @@ Partial Class GrandeCaisseForm
         Me.GunaAdvenceButton7.CheckedLineColor = System.Drawing.Color.DimGray
         Me.GunaAdvenceButton7.DialogResult = System.Windows.Forms.DialogResult.None
         Me.GunaAdvenceButton7.FocusedColor = System.Drawing.Color.Empty
-        Me.GunaAdvenceButton7.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.GunaAdvenceButton7.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaAdvenceButton7.ForeColor = System.Drawing.Color.White
         Me.GunaAdvenceButton7.Image = Nothing
         Me.GunaAdvenceButton7.ImageSize = New System.Drawing.Size(20, 20)
         Me.GunaAdvenceButton7.LineColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.GunaAdvenceButton7.Location = New System.Drawing.Point(1050, 34)
+        Me.GunaAdvenceButton7.Location = New System.Drawing.Point(998, 34)
         Me.GunaAdvenceButton7.Name = "GunaAdvenceButton7"
         Me.GunaAdvenceButton7.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaAdvenceButton7.OnHoverBorderColor = System.Drawing.Color.Black
@@ -3319,7 +3319,7 @@ Partial Class GrandeCaisseForm
         Me.GunaButtonImprimerSituation.ForeColor = System.Drawing.Color.White
         Me.GunaButtonImprimerSituation.Image = CType(resources.GetObject("GunaButtonImprimerSituation.Image"), System.Drawing.Image)
         Me.GunaButtonImprimerSituation.ImageSize = New System.Drawing.Size(30, 30)
-        Me.GunaButtonImprimerSituation.Location = New System.Drawing.Point(1109, 437)
+        Me.GunaButtonImprimerSituation.Location = New System.Drawing.Point(1066, 437)
         Me.GunaButtonImprimerSituation.Name = "GunaButtonImprimerSituation"
         Me.GunaButtonImprimerSituation.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonImprimerSituation.OnHoverBorderColor = System.Drawing.Color.Black
@@ -3343,7 +3343,7 @@ Partial Class GrandeCaisseForm
         Me.GunaDateTimePickerDateDeTravailFictif.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.GunaDateTimePickerDateDeTravailFictif.ForeColor = System.Drawing.Color.Black
         Me.GunaDateTimePickerDateDeTravailFictif.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.GunaDateTimePickerDateDeTravailFictif.Location = New System.Drawing.Point(1139, 630)
+        Me.GunaDateTimePickerDateDeTravailFictif.Location = New System.Drawing.Point(1108, 630)
         Me.GunaDateTimePickerDateDeTravailFictif.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.GunaDateTimePickerDateDeTravailFictif.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.GunaDateTimePickerDateDeTravailFictif.Name = "GunaDateTimePickerDateDeTravailFictif"
@@ -3365,7 +3365,7 @@ Partial Class GrandeCaisseForm
         Me.GunaCheckBoxDateFictive.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxDateFictive.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxDateFictive.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxDateFictive.Location = New System.Drawing.Point(1268, 604)
+        Me.GunaCheckBoxDateFictive.Location = New System.Drawing.Point(1226, 604)
         Me.GunaCheckBoxDateFictive.Name = "GunaCheckBoxDateFictive"
         Me.GunaCheckBoxDateFictive.Size = New System.Drawing.Size(20, 20)
         Me.GunaCheckBoxDateFictive.TabIndex = 298
@@ -3384,7 +3384,7 @@ Partial Class GrandeCaisseForm
         Me.GunaPanelGestionDePense.Controls.Add(Me.GunaTextBoxRefCompte)
         Me.GunaPanelGestionDePense.Controls.Add(Me.Label22)
         Me.GunaPanelGestionDePense.Controls.Add(Me.Label21)
-        Me.GunaPanelGestionDePense.Location = New System.Drawing.Point(895, 585)
+        Me.GunaPanelGestionDePense.Location = New System.Drawing.Point(852, 585)
         Me.GunaPanelGestionDePense.Name = "GunaPanelGestionDePense"
         Me.GunaPanelGestionDePense.Size = New System.Drawing.Size(443, 71)
         Me.GunaPanelGestionDePense.TabIndex = 300
@@ -3524,7 +3524,7 @@ Partial Class GrandeCaisseForm
         Me.GunaDataGridViewPlanComptable.DefaultCellStyle = DataGridViewCellStyle3
         Me.GunaDataGridViewPlanComptable.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewPlanComptable.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewPlanComptable.Location = New System.Drawing.Point(908, 624)
+        Me.GunaDataGridViewPlanComptable.Location = New System.Drawing.Point(866, 624)
         Me.GunaDataGridViewPlanComptable.MultiSelect = False
         Me.GunaDataGridViewPlanComptable.Name = "GunaDataGridViewPlanComptable"
         Me.GunaDataGridViewPlanComptable.ReadOnly = True
@@ -3559,6 +3559,8 @@ Partial Class GrandeCaisseForm
         '
         'GunaAdvenceButton9
         '
+        Me.GunaAdvenceButton9.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaAdvenceButton9.AnimationHoverSpeed = 0.07!
         Me.GunaAdvenceButton9.AnimationSpeed = 0.03!
         Me.GunaAdvenceButton9.BackColor = System.Drawing.Color.Transparent
@@ -3571,12 +3573,12 @@ Partial Class GrandeCaisseForm
         Me.GunaAdvenceButton9.CheckedLineColor = System.Drawing.Color.DimGray
         Me.GunaAdvenceButton9.DialogResult = System.Windows.Forms.DialogResult.None
         Me.GunaAdvenceButton9.FocusedColor = System.Drawing.Color.Empty
-        Me.GunaAdvenceButton9.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.GunaAdvenceButton9.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaAdvenceButton9.ForeColor = System.Drawing.Color.Black
         Me.GunaAdvenceButton9.Image = Nothing
         Me.GunaAdvenceButton9.ImageSize = New System.Drawing.Size(20, 20)
         Me.GunaAdvenceButton9.LineColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.GunaAdvenceButton9.Location = New System.Drawing.Point(1193, 34)
+        Me.GunaAdvenceButton9.Location = New System.Drawing.Point(1141, 34)
         Me.GunaAdvenceButton9.Name = "GunaAdvenceButton9"
         Me.GunaAdvenceButton9.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaAdvenceButton9.OnHoverBorderColor = System.Drawing.Color.Black
@@ -3584,8 +3586,8 @@ Partial Class GrandeCaisseForm
         Me.GunaAdvenceButton9.OnHoverImage = Nothing
         Me.GunaAdvenceButton9.OnHoverLineColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.GunaAdvenceButton9.OnPressedColor = System.Drawing.Color.Black
-        Me.GunaAdvenceButton9.Radius = 2
-        Me.GunaAdvenceButton9.Size = New System.Drawing.Size(145, 24)
+        Me.GunaAdvenceButton9.Radius = 5
+        Me.GunaAdvenceButton9.Size = New System.Drawing.Size(154, 24)
         Me.GunaAdvenceButton9.TabIndex = 188
         Me.GunaAdvenceButton9.Text = "COMPTE EXPLOITATION"
         Me.GunaAdvenceButton9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -3595,7 +3597,7 @@ Partial Class GrandeCaisseForm
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LemonChiffon
-        Me.ClientSize = New System.Drawing.Size(1350, 720)
+        Me.ClientSize = New System.Drawing.Size(1300, 720)
         Me.Controls.Add(Me.GunaDataGridViewPlanComptable)
         Me.Controls.Add(Me.GunaPanelGestionDePense)
         Me.Controls.Add(Me.GunaDateTimePickerDateDeTravailFictif)

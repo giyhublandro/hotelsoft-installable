@@ -3066,13 +3066,11 @@ Public Class LigneFacture
             If GlobalVariable.actualLanguageValue = 1 Then
                 Query = "SELECT MONTANT_VERSE, TYPE_CHAMBRE FROM reglement, reserve_conf 
                 WHERE DATE_REGLEMENT >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_REGLEMENT <='" & DateDebut.ToString("yyyy-MM-dd") & "' 
-                AND TYPE_CHAMBRE=@TYPE_CHAMBRE AND reglement.CODE_RESERVATION = reserve_conf.CODE_RESERVATION AND MODE_REGLEMENT IN ('Espèce','Virement Bancaire','MTN Money', 'ORANGE Money', 'Carte Credit')"
-
+                AND TYPE_CHAMBRE=@TYPE_CHAMBRE AND reglement.CODE_RESERVATION = reserve_conf.CODE_RESERVATION AND MODE_REGLEMENT IN ('Cash','Virement Bancaire','MTN Money', 'ORANGE Money', 'Carte Credit')"
             Else
                 Query = "SELECT MONTANT_VERSE, TYPE_CHAMBRE FROM reglement, reserve_conf 
                 WHERE DATE_REGLEMENT >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_REGLEMENT <='" & DateDebut.ToString("yyyy-MM-dd") & "' 
                 AND TYPE_CHAMBRE=@TYPE_CHAMBRE AND reglement.CODE_RESERVATION = reserve_conf.CODE_RESERVATION AND MODE_REGLEMENT IN ('Cash','Credit Card','MTN Money', 'ORANGE Money','Bank Transfer')"
-
             End If
 
         End If
@@ -3105,7 +3103,7 @@ Public Class LigneFacture
 
         Dim Query As String = ""
 
-        Dim query01 As String = "SELECT * FROM reserve_conf WHERE DATE_SORTIE > '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_ENTTRE <='" & DateDebut.ToString("yyyy-MM-dd") & "' AND TYPE_CHAMBRE=@TYPE_CHAMBRE "
+        Dim query01 As String = "SELECT * FROM reserve_conf WHERE DATE_SORTIE > '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_ENTTRE <='" & DateDebut.ToString("yyyy-MM-dd") & "' AND TYPE_CHAMBRE=@TYPE_CHAMBRE AND DAY_USE=0"
 
         Dim command01 As New MySqlCommand(query01, GlobalVariable.connect)
         command01.Parameters.Add("@TYPE_CHAMBRE", MySqlDbType.VarChar).Value = TYPE_CHAMBRE

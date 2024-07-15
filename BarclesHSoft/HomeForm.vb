@@ -1,4 +1,6 @@
-﻿Public Class HomeForm
+﻿Imports System.Net.NetworkInformation
+
+Public Class HomeForm
 
     Private Sub GunaImageButton1_Click(sender As Object, e As EventArgs) Handles GunaImageButtonClose.Click
         Application.ExitThread()
@@ -65,17 +67,27 @@
 
         Me.Cursor = Cursors.WaitCursor
 
-        MainWindow.PanelTableauDeBords.Hide()
-        MainWindow.GunaShadowPanelReception.Hide()
+        'MainWindow.PanelTableauDeBords.Hide()
+        'MainWindow.GunaShadowPanelReception.Hide()
 
-        MainWindow.GunaShadowPanelReservation.Show()
-        MainWindow.PanelEnregistrement.Show()
+        'MainWindow.GunaShadowPanelReservation.Show()
+        'MainWindow.PanelEnregistrement.Show()
 
-        MainWindow.Show()
+        'MainWindow.Show()
 
-        MainWindow.LectureDeCarte()
+        'MainWindow.LectureDeCarte()
 
-        Me.Close()
+        'Me.Close()
+
+
+        If True Then
+
+            GlobalVariable.zenlockForm = "frontdesk"
+            ZenoLockForm.Close()
+            ZenoLockForm.Show()
+            ZenoLockForm.TopMost = True
+
+        End If
 
         Me.Cursor = Cursors.Default
 
@@ -104,9 +116,34 @@
 
         Me.Cursor = Cursors.WaitCursor
 
-        BarRestaurantForm.GunaLabelHeader.Text = "COMPTOIR"
+        'Dim mac As String = Trim(Functions.getMacAddresse())
+
+        'Dim miniForm As Boolean = False
+
+        'If Trim(GlobalVariable.AgenceActuelle.Rows(0)("CAISSE_ENREGISTREUSE_1")).Equals(mac) And Not Trim(mac).Equals("") Then
+        'miniForm = True
+        'ElseIf Trim(GlobalVariable.AgenceActuelle.Rows(0)("CAISSE_ENREGISTREUSE_2")).Equals(mac) And Not Trim(mac).Equals("") Then
+        'miniForm = True
+        'End If
+
         GlobalVariable.typeDeClientAFacturer = "comptoir"
-        BarRestaurantForm.Show()
+
+        If Trim(GlobalVariable.AgenceActuelle.Rows(0)("CAISSE_ENREGISTREUSE_1")).Equals("") Then
+            BarRestaurantForm.Show()
+            BarRestaurantForm.GunaLabelHeader.Text = "COMPTOIR"
+        Else
+            BarRestaurantCaisseEnregistreuseForm.Show()
+            BarRestaurantCaisseEnregistreuseForm.GunaLabelHeader.Text = "COMPTOIR"
+        End If
+
+        'If miniForm Then
+
+        'Else
+
+        'End If
+
+        'BarRestaurantCaisseEnregistreuseForm.Show()
+        'BarRestaurantCaisseEnregistreuseForm.GunaLabelHeader.Text = "COMPTOIR"
 
         Me.Close()
 

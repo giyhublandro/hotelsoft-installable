@@ -48,6 +48,7 @@ Partial Class AgencyForm
         Me.GunaCheckBoxClubElite = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaCheckBoxBloquerPrixHebergement = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaCheckBoxPayerAvantEncodage = New Guna.UI.WinForms.GunaCheckBox()
+        Me.GunaCheckBoxHebdomadaire = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaCheckBoxPrixBarFix = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaCheckBoxMessageWhatsApp = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaCheckBoxSerrure = New Guna.UI.WinForms.GunaCheckBox()
@@ -178,7 +179,10 @@ Partial Class AgencyForm
         Me.GunaLabel35 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel26 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaPanel1 = New Guna.UI.WinForms.GunaPanel()
-        Me.GunaCheckBoxHebdomadaire = New Guna.UI.WinForms.GunaCheckBox()
+        Me.GunaTextBoxMac1 = New Guna.UI.WinForms.GunaTextBox()
+        Me.GunaTextBoxMac2 = New Guna.UI.WinForms.GunaTextBox()
+        Me.GunaCheckBoxMac1 = New Guna.UI.WinForms.GunaCheckBox()
+        Me.GunaCheckBoxMac2 = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaLinePanelTop.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -309,12 +313,16 @@ Partial Class AgencyForm
         'TabPageAdresseAgence
         '
         Me.TabPageAdresseAgence.BackColor = System.Drawing.Color.Transparent
+        Me.TabPageAdresseAgence.Controls.Add(Me.GunaCheckBoxMac2)
+        Me.TabPageAdresseAgence.Controls.Add(Me.GunaCheckBoxMac1)
         Me.TabPageAdresseAgence.Controls.Add(Me.GunaCheckBoxRoomChange)
         Me.TabPageAdresseAgence.Controls.Add(Me.GunaCheckBoxClotureFacture)
         Me.TabPageAdresseAgence.Controls.Add(Me.GunaCheckBoxTarificationDynamique)
         Me.TabPageAdresseAgence.Controls.Add(Me.GunaCheckBoxAthoriserClotureMultiple)
         Me.TabPageAdresseAgence.Controls.Add(Me.GunaCheckBoxSessionUniqueAuBar)
         Me.TabPageAdresseAgence.Controls.Add(Me.GunaCheckBoxImprimerB7)
+        Me.TabPageAdresseAgence.Controls.Add(Me.GunaTextBoxMac2)
+        Me.TabPageAdresseAgence.Controls.Add(Me.GunaTextBoxMac1)
         Me.TabPageAdresseAgence.Controls.Add(Me.GunaCheckBoxClubElite)
         Me.TabPageAdresseAgence.Controls.Add(Me.GunaCheckBoxBloquerPrixHebergement)
         Me.TabPageAdresseAgence.Controls.Add(Me.GunaCheckBoxPayerAvantEncodage)
@@ -440,6 +448,18 @@ Partial Class AgencyForm
         Me.GunaCheckBoxPayerAvantEncodage.Size = New System.Drawing.Size(177, 20)
         Me.GunaCheckBoxPayerAvantEncodage.TabIndex = 103
         Me.GunaCheckBoxPayerAvantEncodage.Text = "PAYER AVANT ENCODAGE"
+        '
+        'GunaCheckBoxHebdomadaire
+        '
+        Me.GunaCheckBoxHebdomadaire.BaseColor = System.Drawing.Color.White
+        Me.GunaCheckBoxHebdomadaire.CheckedOffColor = System.Drawing.Color.Gray
+        Me.GunaCheckBoxHebdomadaire.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaCheckBoxHebdomadaire.FillColor = System.Drawing.Color.White
+        Me.GunaCheckBoxHebdomadaire.Location = New System.Drawing.Point(312, 417)
+        Me.GunaCheckBoxHebdomadaire.Name = "GunaCheckBoxHebdomadaire"
+        Me.GunaCheckBoxHebdomadaire.Size = New System.Drawing.Size(205, 20)
+        Me.GunaCheckBoxHebdomadaire.TabIndex = 103
+        Me.GunaCheckBoxHebdomadaire.Text = "FACTURATION HEBDOMADAIRE"
         '
         'GunaCheckBoxPrixBarFix
         '
@@ -1192,7 +1212,7 @@ Partial Class AgencyForm
         Me.GunaButtonFermer.ForeColor = System.Drawing.Color.White
         Me.GunaButtonFermer.Image = Nothing
         Me.GunaButtonFermer.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonFermer.Location = New System.Drawing.Point(811, 363)
+        Me.GunaButtonFermer.Location = New System.Drawing.Point(885, 419)
         Me.GunaButtonFermer.Name = "GunaButtonFermer"
         Me.GunaButtonFermer.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonFermer.OnHoverBorderColor = System.Drawing.Color.Black
@@ -2716,17 +2736,73 @@ Partial Class AgencyForm
         Me.GunaPanel1.Size = New System.Drawing.Size(1119, 10)
         Me.GunaPanel1.TabIndex = 10
         '
-        'GunaCheckBoxHebdomadaire
+        'GunaTextBoxMac1
         '
-        Me.GunaCheckBoxHebdomadaire.BaseColor = System.Drawing.Color.White
-        Me.GunaCheckBoxHebdomadaire.CheckedOffColor = System.Drawing.Color.Gray
-        Me.GunaCheckBoxHebdomadaire.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaCheckBoxHebdomadaire.FillColor = System.Drawing.Color.White
-        Me.GunaCheckBoxHebdomadaire.Location = New System.Drawing.Point(312, 417)
-        Me.GunaCheckBoxHebdomadaire.Name = "GunaCheckBoxHebdomadaire"
-        Me.GunaCheckBoxHebdomadaire.Size = New System.Drawing.Size(238, 20)
-        Me.GunaCheckBoxHebdomadaire.TabIndex = 103
-        Me.GunaCheckBoxHebdomadaire.Text = "FACTURATION HEBDOMADAIRE"
+        Me.GunaTextBoxMac1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.GunaTextBoxMac1.BackColor = System.Drawing.Color.Transparent
+        Me.GunaTextBoxMac1.BaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxMac1.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaTextBoxMac1.BorderSize = 1
+        Me.GunaTextBoxMac1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.GunaTextBoxMac1.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBoxMac1.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxMac1.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBoxMac1.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBoxMac1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaTextBoxMac1.Location = New System.Drawing.Point(929, 334)
+        Me.GunaTextBoxMac1.Name = "GunaTextBoxMac1"
+        Me.GunaTextBoxMac1.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBoxMac1.Radius = 3
+        Me.GunaTextBoxMac1.SelectedText = ""
+        Me.GunaTextBoxMac1.Size = New System.Drawing.Size(153, 28)
+        Me.GunaTextBoxMac1.TabIndex = 7
+        '
+        'GunaTextBoxMac2
+        '
+        Me.GunaTextBoxMac2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.GunaTextBoxMac2.BackColor = System.Drawing.Color.Transparent
+        Me.GunaTextBoxMac2.BaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxMac2.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaTextBoxMac2.BorderSize = 1
+        Me.GunaTextBoxMac2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.GunaTextBoxMac2.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBoxMac2.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxMac2.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBoxMac2.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBoxMac2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaTextBoxMac2.Location = New System.Drawing.Point(929, 368)
+        Me.GunaTextBoxMac2.Name = "GunaTextBoxMac2"
+        Me.GunaTextBoxMac2.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBoxMac2.Radius = 3
+        Me.GunaTextBoxMac2.SelectedText = ""
+        Me.GunaTextBoxMac2.Size = New System.Drawing.Size(153, 28)
+        Me.GunaTextBoxMac2.TabIndex = 7
+        '
+        'GunaCheckBoxMac1
+        '
+        Me.GunaCheckBoxMac1.BaseColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMac1.CheckedOffColor = System.Drawing.Color.Gray
+        Me.GunaCheckBoxMac1.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaCheckBoxMac1.FillColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMac1.Location = New System.Drawing.Point(835, 338)
+        Me.GunaCheckBoxMac1.Name = "GunaCheckBoxMac1"
+        Me.GunaCheckBoxMac1.Size = New System.Drawing.Size(88, 20)
+        Me.GunaCheckBoxMac1.TabIndex = 113
+        Me.GunaCheckBoxMac1.Text = "@ MAC 1"
+        '
+        'GunaCheckBoxMac2
+        '
+        Me.GunaCheckBoxMac2.BaseColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMac2.CheckedOffColor = System.Drawing.Color.Gray
+        Me.GunaCheckBoxMac2.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaCheckBoxMac2.FillColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMac2.Location = New System.Drawing.Point(835, 372)
+        Me.GunaCheckBoxMac2.Name = "GunaCheckBoxMac2"
+        Me.GunaCheckBoxMac2.Size = New System.Drawing.Size(88, 20)
+        Me.GunaCheckBoxMac2.TabIndex = 113
+        Me.GunaCheckBoxMac2.Text = "@ MAC 2"
         '
         'AgencyForm
         '
@@ -2921,4 +2997,8 @@ Partial Class AgencyForm
     Friend WithEvents GunaPictureBoxLogo As Guna.UI.WinForms.GunaPictureBox
     Friend WithEvents GunaCheckBoxRoomChange As Guna.UI.WinForms.GunaCheckBox
     Friend WithEvents GunaCheckBoxHebdomadaire As Guna.UI.WinForms.GunaCheckBox
+    Friend WithEvents GunaCheckBoxMac2 As Guna.UI.WinForms.GunaCheckBox
+    Friend WithEvents GunaCheckBoxMac1 As Guna.UI.WinForms.GunaCheckBox
+    Friend WithEvents GunaTextBoxMac2 As Guna.UI.WinForms.GunaTextBox
+    Friend WithEvents GunaTextBoxMac1 As Guna.UI.WinForms.GunaTextBox
 End Class

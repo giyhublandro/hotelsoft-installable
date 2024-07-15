@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class TarificationDeReservationForm
     Inherits System.Windows.Forms.Form
 
     'Form remplace la méthode Dispose pour nettoyer la liste des composants.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,12 +20,13 @@ Partial Class TarificationDeReservationForm
     'REMARQUE : la procédure suivante est requise par le Concepteur Windows Form
     'Elle peut être modifiée à l'aide du Concepteur Windows Form.  
     'Ne la modifiez pas à l'aide de l'éditeur de code.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(TarificationDeReservationForm))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GunaPanel1 = New Guna.UI.WinForms.GunaPanel()
         Me.GunaImageButton7 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaImageButton6 = New Guna.UI.WinForms.GunaImageButton()
@@ -34,13 +35,15 @@ Partial Class TarificationDeReservationForm
         Me.GunaImageButton3 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaImageButton2 = New Guna.UI.WinForms.GunaImageButton()
         Me.NomDuTarif = New Guna.UI.WinForms.GunaLabel()
-        Me.GunaLabelGestCompteGeneraux = New Guna.UI.WinForms.GunaLabel()
+        Me.GunaLabelTitre = New Guna.UI.WinForms.GunaLabel()
         Me.GunaImageButton1 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaLabel1 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaDataGridViewTarifs = New Guna.UI.WinForms.GunaDataGridView()
         Me.GunaButtonEdit = New Guna.UI.WinForms.GunaButton()
         Me.GunaButtonSave = New Guna.UI.WinForms.GunaButton()
         Me.GunaPanel2 = New Guna.UI.WinForms.GunaPanel()
+        Me.GunaDragControl1 = New Guna.UI.WinForms.GunaDragControl(Me.components)
+        Me.GunaDragControl2 = New Guna.UI.WinForms.GunaDragControl(Me.components)
         Me.GunaPanel1.SuspendLayout()
         CType(Me.GunaDataGridViewTarifs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -55,7 +58,7 @@ Partial Class TarificationDeReservationForm
         Me.GunaPanel1.Controls.Add(Me.GunaImageButton3)
         Me.GunaPanel1.Controls.Add(Me.GunaImageButton2)
         Me.GunaPanel1.Controls.Add(Me.NomDuTarif)
-        Me.GunaPanel1.Controls.Add(Me.GunaLabelGestCompteGeneraux)
+        Me.GunaPanel1.Controls.Add(Me.GunaLabelTitre)
         Me.GunaPanel1.Controls.Add(Me.GunaImageButton1)
         Me.GunaPanel1.Controls.Add(Me.GunaLabel1)
         Me.GunaPanel1.Dock = System.Windows.Forms.DockStyle.Top
@@ -155,17 +158,17 @@ Partial Class TarificationDeReservationForm
         Me.NomDuTarif.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.NomDuTarif.Visible = False
         '
-        'GunaLabelGestCompteGeneraux
+        'GunaLabelTitre
         '
-        Me.GunaLabelGestCompteGeneraux.AutoSize = True
-        Me.GunaLabelGestCompteGeneraux.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabelGestCompteGeneraux.ForeColor = System.Drawing.Color.White
-        Me.GunaLabelGestCompteGeneraux.Location = New System.Drawing.Point(112, 2)
-        Me.GunaLabelGestCompteGeneraux.Name = "GunaLabelGestCompteGeneraux"
-        Me.GunaLabelGestCompteGeneraux.Size = New System.Drawing.Size(244, 21)
-        Me.GunaLabelGestCompteGeneraux.TabIndex = 4
-        Me.GunaLabelGestCompteGeneraux.Text = "TARIFICATION DE RESERVATION"
-        Me.GunaLabelGestCompteGeneraux.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.GunaLabelTitre.AutoSize = True
+        Me.GunaLabelTitre.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaLabelTitre.ForeColor = System.Drawing.Color.White
+        Me.GunaLabelTitre.Location = New System.Drawing.Point(112, 2)
+        Me.GunaLabelTitre.Name = "GunaLabelTitre"
+        Me.GunaLabelTitre.Size = New System.Drawing.Size(244, 21)
+        Me.GunaLabelTitre.TabIndex = 4
+        Me.GunaLabelTitre.Text = "TARIFICATION DE RESERVATION"
+        Me.GunaLabelTitre.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'GunaImageButton1
         '
@@ -198,31 +201,31 @@ Partial Class TarificationDeReservationForm
         Me.GunaDataGridViewTarifs.AllowUserToDeleteRows = False
         Me.GunaDataGridViewTarifs.AllowUserToResizeColumns = False
         Me.GunaDataGridViewTarifs.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewTarifs.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle13.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewTarifs.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
         Me.GunaDataGridViewTarifs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.GunaDataGridViewTarifs.BackgroundColor = System.Drawing.Color.LightBlue
         Me.GunaDataGridViewTarifs.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewTarifs.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewTarifs.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 10.5!)
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewTarifs.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Segoe UI", 10.5!)
+        DataGridViewCellStyle14.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewTarifs.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle14
         Me.GunaDataGridViewTarifs.ColumnHeadersHeight = 24
         Me.GunaDataGridViewTarifs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 10.5!)
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewTarifs.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle15.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle15.Font = New System.Drawing.Font("Segoe UI", 10.5!)
+        DataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewTarifs.DefaultCellStyle = DataGridViewCellStyle15
         Me.GunaDataGridViewTarifs.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewTarifs.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewTarifs.Location = New System.Drawing.Point(12, 34)
@@ -317,6 +320,14 @@ Partial Class TarificationDeReservationForm
         Me.GunaPanel2.Size = New System.Drawing.Size(468, 12)
         Me.GunaPanel2.TabIndex = 57
         '
+        'GunaDragControl1
+        '
+        Me.GunaDragControl1.TargetControl = Me.GunaPanel1
+        '
+        'GunaDragControl2
+        '
+        Me.GunaDragControl2.TargetControl = Me.GunaLabelTitre
+        '
         'TarificationDeReservationForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -346,11 +357,13 @@ Partial Class TarificationDeReservationForm
     Friend WithEvents GunaImageButton3 As Guna.UI.WinForms.GunaImageButton
     Friend WithEvents GunaImageButton2 As Guna.UI.WinForms.GunaImageButton
     Friend WithEvents NomDuTarif As Guna.UI.WinForms.GunaLabel
-    Friend WithEvents GunaLabelGestCompteGeneraux As Guna.UI.WinForms.GunaLabel
+    Friend WithEvents GunaLabelTitre As Guna.UI.WinForms.GunaLabel
     Friend WithEvents GunaImageButton1 As Guna.UI.WinForms.GunaImageButton
     Friend WithEvents GunaLabel1 As Guna.UI.WinForms.GunaLabel
     Friend WithEvents GunaDataGridViewTarifs As Guna.UI.WinForms.GunaDataGridView
     Friend WithEvents GunaButtonEdit As Guna.UI.WinForms.GunaButton
     Friend WithEvents GunaButtonSave As Guna.UI.WinForms.GunaButton
     Friend WithEvents GunaPanel2 As Guna.UI.WinForms.GunaPanel
+    Friend WithEvents GunaDragControl1 As Guna.UI.WinForms.GunaDragControl
+    Friend WithEvents GunaDragControl2 As Guna.UI.WinForms.GunaDragControl
 End Class

@@ -36,9 +36,6 @@ Partial Class BarRestaurantForm
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -51,6 +48,9 @@ Partial Class BarRestaurantForm
         Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -470,69 +470,69 @@ Partial Class BarRestaurantForm
         Me.BackgroundWorker3 = New System.ComponentModel.BackgroundWorker()
         Me.BackgroundWorker4 = New System.ComponentModel.BackgroundWorker()
         Me.GunaPanelTopPanel.SuspendLayout
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.MenuStripLeftSideMenu.SuspendLayout
-        Me.MenuStripMainMenu.SuspendLayout
-        Me.GunaShadowPanelBarRestaurant.SuspendLayout
-        Me.GunaPanelRecapDesVentes.SuspendLayout
-        Me.Panel3.SuspendLayout
-        Me.Panel4.SuspendLayout
-        Me.Panel7.SuspendLayout
-        Me.Panel5.SuspendLayout
-        Me.Panel1.SuspendLayout
-        Me.Panel2.SuspendLayout
-        Me.GunaPanelBottom.SuspendLayout
-        Me.Panel6.SuspendLayout
-        Me.PanelSituationCaisse.SuspendLayout
-        Me.TabControlBarRestaurant.SuspendLayout
-        Me.TabPage1.SuspendLayout
-        CType(Me.GunaDataGridViewClientMaison, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.GunaDataGridViewArticle, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.GunaPanel1.SuspendLayout
-        CType(Me.PictureBoxClearArticleFields, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.GunaPictureBoxLecteurRFI, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.GunaDataGridViewLigneFacture, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.GunaContextMenuStripDeleteVente.SuspendLayout
-        Me.GunaPanelVentes.SuspendLayout
-        CType(Me.GunaDataGridViewBills, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.GunaContextMenuStripAll.SuspendLayout
-        Me.GunaPanelEnChambre.SuspendLayout
-        CType(Me.GunaDataGridViewChambreReservation, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.GunaPanelClientComptoirSup.SuspendLayout
-        CType(Me.GunaDataGridViewBlocNoteOuvert, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.GunaContextMenuStripTransfertDeBlocNote.SuspendLayout
-        CType(Me.GunaDataGridViewBlocNoteFermee, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.GunaContextMenuStripCleared.SuspendLayout
-        CType(Me.GunaDataGridViewClient, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.GunaShadowPanel2.SuspendLayout
-        Me.GunaPanelComptoirBloc.SuspendLayout
-        Me.GunaPanelEventsSup.SuspendLayout
-        CType(Me.GunaDataGridViewEventsResa, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.TabPage2.SuspendLayout
-        CType(Me.GunaDataGridViewReglmentBlocNOtes, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.GunaDataGridViewFolio3, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.GunaContextMenuStripDelLigneGestBlocNote.SuspendLayout
-        CType(Me.GunaDataGridViewBlocNote, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.GunaContextMenuStripGestionBlocNote.SuspendLayout
-        Me.GunaGroupBox1.SuspendLayout
-        Me.TabPage4.SuspendLayout
-        Me.TabControlApprovisionnement.SuspendLayout
-        Me.Bordereau.SuspendLayout
-        Me.GunaGroupBoxCreationBordereau.SuspendLayout
-        CType(Me.GunaDataGridViewArticleAppro, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.PictureBoxNext3, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.PictureBoxNext1, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.PictureBox1NextStage, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.GunaPictureBox1, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.GunaDataGridViewTiers, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.GunaGroupBoxListeDesBordereaux.SuspendLayout
-        CType(Me.GunaDataGridViewLigneArticleCommande, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.GunaContextMenuStripDeleteCmdLine.SuspendLayout
-        Me.TabPage3.SuspendLayout
-        Me.TabPage5.SuspendLayout
-        CType(Me.DataGridViewRapports, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.GroupBoxConfig.SuspendLayout
-        Me.SuspendLayout
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStripLeftSideMenu.SuspendLayout()
+        Me.MenuStripMainMenu.SuspendLayout()
+        Me.GunaShadowPanelBarRestaurant.SuspendLayout()
+        Me.GunaPanelRecapDesVentes.SuspendLayout()
+        Me.Panel3.SuspendLayout()
+        Me.Panel4.SuspendLayout()
+        Me.Panel7.SuspendLayout()
+        Me.Panel5.SuspendLayout()
+        Me.Panel1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
+        Me.GunaPanelBottom.SuspendLayout()
+        Me.Panel6.SuspendLayout()
+        Me.PanelSituationCaisse.SuspendLayout()
+        Me.TabControlBarRestaurant.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
+        CType(Me.GunaDataGridViewClientMaison, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GunaDataGridViewArticle, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GunaPanel1.SuspendLayout()
+        CType(Me.PictureBoxClearArticleFields, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GunaPictureBoxLecteurRFI, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GunaDataGridViewLigneFacture, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GunaContextMenuStripDeleteVente.SuspendLayout()
+        Me.GunaPanelVentes.SuspendLayout()
+        CType(Me.GunaDataGridViewBills, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GunaContextMenuStripAll.SuspendLayout()
+        Me.GunaPanelEnChambre.SuspendLayout()
+        CType(Me.GunaDataGridViewChambreReservation, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GunaPanelClientComptoirSup.SuspendLayout()
+        CType(Me.GunaDataGridViewBlocNoteOuvert, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GunaContextMenuStripTransfertDeBlocNote.SuspendLayout()
+        CType(Me.GunaDataGridViewBlocNoteFermee, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GunaContextMenuStripCleared.SuspendLayout()
+        CType(Me.GunaDataGridViewClient, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GunaShadowPanel2.SuspendLayout()
+        Me.GunaPanelComptoirBloc.SuspendLayout()
+        Me.GunaPanelEventsSup.SuspendLayout()
+        CType(Me.GunaDataGridViewEventsResa, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage2.SuspendLayout()
+        CType(Me.GunaDataGridViewReglmentBlocNOtes, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GunaDataGridViewFolio3, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GunaContextMenuStripDelLigneGestBlocNote.SuspendLayout()
+        CType(Me.GunaDataGridViewBlocNote, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GunaContextMenuStripGestionBlocNote.SuspendLayout()
+        Me.GunaGroupBox1.SuspendLayout()
+        Me.TabPage4.SuspendLayout()
+        Me.TabControlApprovisionnement.SuspendLayout()
+        Me.Bordereau.SuspendLayout()
+        Me.GunaGroupBoxCreationBordereau.SuspendLayout()
+        CType(Me.GunaDataGridViewArticleAppro, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBoxNext3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBoxNext1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1NextStage, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GunaPictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GunaDataGridViewTiers, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GunaGroupBoxListeDesBordereaux.SuspendLayout()
+        CType(Me.GunaDataGridViewLigneArticleCommande, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GunaContextMenuStripDeleteCmdLine.SuspendLayout()
+        Me.TabPage3.SuspendLayout()
+        Me.TabPage5.SuspendLayout()
+        CType(Me.DataGridViewRapports, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBoxConfig.SuspendLayout()
+        Me.SuspendLayout()
         '
         'GunaPanelTopPanel
         '
@@ -549,7 +549,7 @@ Partial Class BarRestaurantForm
         Me.GunaPanelTopPanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.GunaPanelTopPanel.Location = New System.Drawing.Point(0, 0)
         Me.GunaPanelTopPanel.Name = "GunaPanelTopPanel"
-        Me.GunaPanelTopPanel.Size = New System.Drawing.Size(1200, 25)
+        Me.GunaPanelTopPanel.Size = New System.Drawing.Size(1259, 25)
         Me.GunaPanelTopPanel.TabIndex = 2
         '
         'GunaLabelDateDeTravail
@@ -648,7 +648,7 @@ Partial Class BarRestaurantForm
         Me.GunaImageButton2.DialogResult = System.Windows.Forms.DialogResult.None
         Me.GunaImageButton2.Image = CType(resources.GetObject("GunaImageButton2.Image"), System.Drawing.Image)
         Me.GunaImageButton2.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaImageButton2.Location = New System.Drawing.Point(1146, 3)
+        Me.GunaImageButton2.Location = New System.Drawing.Point(1205, 3)
         Me.GunaImageButton2.Name = "GunaImageButton2"
         Me.GunaImageButton2.OnHoverImage = Nothing
         Me.GunaImageButton2.OnHoverImageOffset = New System.Drawing.Point(0, 0)
@@ -661,7 +661,7 @@ Partial Class BarRestaurantForm
         Me.GunaImageButton1.DialogResult = System.Windows.Forms.DialogResult.None
         Me.GunaImageButton1.Image = CType(resources.GetObject("GunaImageButton1.Image"), System.Drawing.Image)
         Me.GunaImageButton1.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaImageButton1.Location = New System.Drawing.Point(1170, 3)
+        Me.GunaImageButton1.Location = New System.Drawing.Point(1229, 3)
         Me.GunaImageButton1.Name = "GunaImageButton1"
         Me.GunaImageButton1.OnHoverImage = Nothing
         Me.GunaImageButton1.OnHoverImageOffset = New System.Drawing.Point(0, 0)
@@ -674,7 +674,7 @@ Partial Class BarRestaurantForm
         Me.GunaLabel1.AutoSize = True
         Me.GunaLabel1.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaLabel1.ForeColor = System.Drawing.Color.White
-        Me.GunaLabel1.Location = New System.Drawing.Point(2367, -2)
+        Me.GunaLabel1.Location = New System.Drawing.Point(2426, -2)
         Me.GunaLabel1.Name = "GunaLabel1"
         Me.GunaLabel1.Size = New System.Drawing.Size(24, 25)
         Me.GunaLabel1.TabIndex = 1
@@ -682,10 +682,9 @@ Partial Class BarRestaurantForm
         '
         'MenuStripLeftSideMenu
         '
-        Me.MenuStripLeftSideMenu.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.MenuStripLeftSideMenu.Dock = System.Windows.Forms.DockStyle.None
         Me.MenuStripLeftSideMenu.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MenuStripLeftSideMenu.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.MenuStripLeftSideMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItemSession, Me.ToolStripMenuItemConfig, Me.ToolStripMenuItemServTech, Me.ToolStripMenuItemSecurite, Me.ToolStripMenuItemHelp})
         Me.MenuStripLeftSideMenu.Location = New System.Drawing.Point(848, 25)
         Me.MenuStripLeftSideMenu.Name = "MenuStripLeftSideMenu"
@@ -899,97 +898,97 @@ Partial Class BarRestaurantForm
         'ToolStripMenuItem97
         '
         Me.ToolStripMenuItem97.Name = "ToolStripMenuItem97"
-        Me.ToolStripMenuItem97.Size = New System.Drawing.Size(198, 22)
+        Me.ToolStripMenuItem97.Size = New System.Drawing.Size(202, 26)
         Me.ToolStripMenuItem97.Text = "Localisation"
         '
         'ToolStripSeparator19
         '
         Me.ToolStripSeparator19.Name = "ToolStripSeparator19"
-        Me.ToolStripSeparator19.Size = New System.Drawing.Size(195, 6)
+        Me.ToolStripSeparator19.Size = New System.Drawing.Size(199, 6)
         '
         'ToolStripMenuItem98
         '
         Me.ToolStripMenuItem98.Name = "ToolStripMenuItem98"
-        Me.ToolStripMenuItem98.Size = New System.Drawing.Size(198, 22)
+        Me.ToolStripMenuItem98.Size = New System.Drawing.Size(202, 26)
         Me.ToolStripMenuItem98.Text = "Prix par catégorie client"
         '
         'ToolStripMenuItem99
         '
         Me.ToolStripMenuItem99.Name = "ToolStripMenuItem99"
-        Me.ToolStripMenuItem99.Size = New System.Drawing.Size(198, 22)
+        Me.ToolStripMenuItem99.Size = New System.Drawing.Size(202, 26)
         Me.ToolStripMenuItem99.Text = "Catégorie client"
         '
         'ToolStripMenuItem100
         '
         Me.ToolStripMenuItem100.Name = "ToolStripMenuItem100"
-        Me.ToolStripMenuItem100.Size = New System.Drawing.Size(198, 22)
+        Me.ToolStripMenuItem100.Size = New System.Drawing.Size(202, 26)
         Me.ToolStripMenuItem100.Text = "Clients"
         '
         'ToolStripSeparator20
         '
         Me.ToolStripSeparator20.Name = "ToolStripSeparator20"
-        Me.ToolStripSeparator20.Size = New System.Drawing.Size(195, 6)
+        Me.ToolStripSeparator20.Size = New System.Drawing.Size(199, 6)
         '
         'ToolStripMenuItem101
         '
         Me.ToolStripMenuItem101.Name = "ToolStripMenuItem101"
-        Me.ToolStripMenuItem101.Size = New System.Drawing.Size(198, 22)
+        Me.ToolStripMenuItem101.Size = New System.Drawing.Size(202, 26)
         Me.ToolStripMenuItem101.Text = "Prix clients/articles"
         '
         'ToolStripSeparator21
         '
         Me.ToolStripSeparator21.Name = "ToolStripSeparator21"
-        Me.ToolStripSeparator21.Size = New System.Drawing.Size(195, 6)
+        Me.ToolStripSeparator21.Size = New System.Drawing.Size(199, 6)
         '
         'ToolStripMenuItem102
         '
         Me.ToolStripMenuItem102.Name = "ToolStripMenuItem102"
-        Me.ToolStripMenuItem102.Size = New System.Drawing.Size(198, 22)
+        Me.ToolStripMenuItem102.Size = New System.Drawing.Size(202, 26)
         Me.ToolStripMenuItem102.Text = "Messages clients"
         '
         'ToolStripSeparator22
         '
         Me.ToolStripSeparator22.Name = "ToolStripSeparator22"
-        Me.ToolStripSeparator22.Size = New System.Drawing.Size(195, 6)
+        Me.ToolStripSeparator22.Size = New System.Drawing.Size(199, 6)
         '
         'ToolStripMenuItem103
         '
         Me.ToolStripMenuItem103.Name = "ToolStripMenuItem103"
-        Me.ToolStripMenuItem103.Size = New System.Drawing.Size(198, 22)
+        Me.ToolStripMenuItem103.Size = New System.Drawing.Size(202, 26)
         Me.ToolStripMenuItem103.Text = "Type personnel"
         '
         'ToolStripMenuItem104
         '
         Me.ToolStripMenuItem104.Name = "ToolStripMenuItem104"
-        Me.ToolStripMenuItem104.Size = New System.Drawing.Size(198, 22)
+        Me.ToolStripMenuItem104.Size = New System.Drawing.Size(202, 26)
         Me.ToolStripMenuItem104.Text = "Personnel"
         '
         'ToolStripSeparator23
         '
         Me.ToolStripSeparator23.Name = "ToolStripSeparator23"
-        Me.ToolStripSeparator23.Size = New System.Drawing.Size(195, 6)
+        Me.ToolStripSeparator23.Size = New System.Drawing.Size(199, 6)
         '
         'ToolStripMenuItem105
         '
         Me.ToolStripMenuItem105.Name = "ToolStripMenuItem105"
-        Me.ToolStripMenuItem105.Size = New System.Drawing.Size(198, 22)
+        Me.ToolStripMenuItem105.Size = New System.Drawing.Size(202, 26)
         Me.ToolStripMenuItem105.Text = "Fournisseurs"
         '
         'ToolStripMenuItem106
         '
         Me.ToolStripMenuItem106.Name = "ToolStripMenuItem106"
-        Me.ToolStripMenuItem106.Size = New System.Drawing.Size(198, 22)
+        Me.ToolStripMenuItem106.Size = New System.Drawing.Size(202, 26)
         Me.ToolStripMenuItem106.Text = "Commerciaux"
         '
         'ToolStripSeparator24
         '
         Me.ToolStripSeparator24.Name = "ToolStripSeparator24"
-        Me.ToolStripSeparator24.Size = New System.Drawing.Size(195, 6)
+        Me.ToolStripSeparator24.Size = New System.Drawing.Size(199, 6)
         '
         'ToolStripMenuItem107
         '
         Me.ToolStripMenuItem107.Name = "ToolStripMenuItem107"
-        Me.ToolStripMenuItem107.Size = New System.Drawing.Size(198, 22)
+        Me.ToolStripMenuItem107.Size = New System.Drawing.Size(202, 26)
         Me.ToolStripMenuItem107.Text = "Types chambre"
         '
         'ToolStripMenuItem108
@@ -997,48 +996,48 @@ Partial Class BarRestaurantForm
         Me.ToolStripMenuItem108.Image = CType(resources.GetObject("ToolStripMenuItem108.Image"), System.Drawing.Image)
         Me.ToolStripMenuItem108.Name = "ToolStripMenuItem108"
         Me.ToolStripMenuItem108.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.C), System.Windows.Forms.Keys)
-        Me.ToolStripMenuItem108.Size = New System.Drawing.Size(198, 22)
+        Me.ToolStripMenuItem108.Size = New System.Drawing.Size(202, 26)
         Me.ToolStripMenuItem108.Text = "Chambre"
         '
         'ToolStripSeparator25
         '
         Me.ToolStripSeparator25.Name = "ToolStripSeparator25"
-        Me.ToolStripSeparator25.Size = New System.Drawing.Size(195, 6)
+        Me.ToolStripSeparator25.Size = New System.Drawing.Size(199, 6)
         '
         'TypeDévènementToolStripMenuItemEvent
         '
         Me.TypeDévènementToolStripMenuItemEvent.Name = "TypeDévènementToolStripMenuItemEvent"
-        Me.TypeDévènementToolStripMenuItemEvent.Size = New System.Drawing.Size(198, 22)
+        Me.TypeDévènementToolStripMenuItemEvent.Size = New System.Drawing.Size(202, 26)
         Me.TypeDévènementToolStripMenuItemEvent.Text = "Type d'évènement"
         '
         'ToolStripMenuItem109
         '
         Me.ToolStripMenuItem109.Name = "ToolStripMenuItem109"
-        Me.ToolStripMenuItem109.Size = New System.Drawing.Size(198, 22)
+        Me.ToolStripMenuItem109.Size = New System.Drawing.Size(202, 26)
         Me.ToolStripMenuItem109.Text = "Types de salle"
         '
         'ToolStripMenuItem110
         '
         Me.ToolStripMenuItem110.Name = "ToolStripMenuItem110"
         Me.ToolStripMenuItem110.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
-        Me.ToolStripMenuItem110.Size = New System.Drawing.Size(198, 22)
+        Me.ToolStripMenuItem110.Size = New System.Drawing.Size(202, 26)
         Me.ToolStripMenuItem110.Text = "Salle"
         '
         'ToolStripSeparator26
         '
         Me.ToolStripSeparator26.Name = "ToolStripSeparator26"
-        Me.ToolStripSeparator26.Size = New System.Drawing.Size(195, 6)
+        Me.ToolStripSeparator26.Size = New System.Drawing.Size(199, 6)
         '
         'ToolStripMenuItem111
         '
         Me.ToolStripMenuItem111.Name = "ToolStripMenuItem111"
-        Me.ToolStripMenuItem111.Size = New System.Drawing.Size(198, 22)
+        Me.ToolStripMenuItem111.Size = New System.Drawing.Size(202, 26)
         Me.ToolStripMenuItem111.Text = "Source de réservation"
         '
         'ToolStripMenuItem112
         '
         Me.ToolStripMenuItem112.Name = "ToolStripMenuItem112"
-        Me.ToolStripMenuItem112.Size = New System.Drawing.Size(198, 22)
+        Me.ToolStripMenuItem112.Size = New System.Drawing.Size(202, 26)
         Me.ToolStripMenuItem112.Text = "Taxes séjour"
         '
         'ToolStripSeparator27
@@ -1168,11 +1167,12 @@ Partial Class BarRestaurantForm
         'MenuStripMainMenu
         '
         Me.MenuStripMainMenu.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.MenuStripMainMenu.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.MenuStripMainMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ReceptionToolStripMenuItem, Me.RESERVATIONToolStripMenuItem, Me.SERVICEDETAGEToolStripMenuItem, Me.BarRestaurationToolStripMenuItem, Me.ToolStripMenuItemCusine, Me.ComptabilitéToolStripMenuItem, Me.ECONOMATToolStripMenuItem, Me.TECHNIQUEToolStripMenuItem})
         Me.MenuStripMainMenu.Location = New System.Drawing.Point(0, 25)
         Me.MenuStripMainMenu.Name = "MenuStripMainMenu"
         Me.MenuStripMainMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.MenuStripMainMenu.Size = New System.Drawing.Size(1200, 24)
+        Me.MenuStripMainMenu.Size = New System.Drawing.Size(1259, 24)
         Me.MenuStripMainMenu.TabIndex = 303
         Me.MenuStripMainMenu.Text = "MenuStripMainMenu"
         '
@@ -1261,7 +1261,7 @@ Partial Class BarRestaurantForm
         Me.GunaShadowPanelBarRestaurant.ShadowDepth = 80
         Me.GunaShadowPanelBarRestaurant.ShadowShift = 3
         Me.GunaShadowPanelBarRestaurant.ShadowStyle = Guna.UI.WinForms.ShadowMode.Dropped
-        Me.GunaShadowPanelBarRestaurant.Size = New System.Drawing.Size(1416, 66)
+        Me.GunaShadowPanelBarRestaurant.Size = New System.Drawing.Size(1635, 66)
         Me.GunaShadowPanelBarRestaurant.TabIndex = 304
         '
         'GunaAdvenceButtonPetiteCaisse
@@ -1542,7 +1542,7 @@ Partial Class BarRestaurantForm
         Me.GunaPanelRecapDesVentes.Controls.Add(Me.Panel2)
         Me.GunaPanelRecapDesVentes.Location = New System.Drawing.Point(0, 100)
         Me.GunaPanelRecapDesVentes.Name = "GunaPanelRecapDesVentes"
-        Me.GunaPanelRecapDesVentes.Size = New System.Drawing.Size(1200, 55)
+        Me.GunaPanelRecapDesVentes.Size = New System.Drawing.Size(1419, 55)
         Me.GunaPanelRecapDesVentes.TabIndex = 305
         '
         'GunaCheckBoxChangeSecteur
@@ -1553,7 +1553,7 @@ Partial Class BarRestaurantForm
         Me.GunaCheckBoxChangeSecteur.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxChangeSecteur.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxChangeSecteur.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxChangeSecteur.Location = New System.Drawing.Point(1028, 5)
+        Me.GunaCheckBoxChangeSecteur.Location = New System.Drawing.Point(1092, 5)
         Me.GunaCheckBoxChangeSecteur.Name = "GunaCheckBoxChangeSecteur"
         Me.GunaCheckBoxChangeSecteur.Size = New System.Drawing.Size(125, 20)
         Me.GunaCheckBoxChangeSecteur.TabIndex = 321
@@ -1583,7 +1583,7 @@ Partial Class BarRestaurantForm
         Me.GunaComboBoxPointDeVente.ForeColor = System.Drawing.Color.Black
         Me.GunaComboBoxPointDeVente.FormattingEnabled = True
         Me.GunaComboBoxPointDeVente.ItemHeight = 20
-        Me.GunaComboBoxPointDeVente.Location = New System.Drawing.Point(1028, 27)
+        Me.GunaComboBoxPointDeVente.Location = New System.Drawing.Point(1092, 27)
         Me.GunaComboBoxPointDeVente.Name = "GunaComboBoxPointDeVente"
         Me.GunaComboBoxPointDeVente.OnHoverItemBaseColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaComboBoxPointDeVente.OnHoverItemForeColor = System.Drawing.Color.White
@@ -1788,9 +1788,9 @@ Partial Class BarRestaurantForm
         Me.GunaPanelBottom.Controls.Add(Me.Label6)
         Me.GunaPanelBottom.Controls.Add(Me.GunaButtonImprimer)
         Me.GunaPanelBottom.Controls.Add(Me.GunaButtonSaveFacturation)
-        Me.GunaPanelBottom.Location = New System.Drawing.Point(3, 751)
+        Me.GunaPanelBottom.Location = New System.Drawing.Point(11, 586)
         Me.GunaPanelBottom.Name = "GunaPanelBottom"
-        Me.GunaPanelBottom.Size = New System.Drawing.Size(1193, 34)
+        Me.GunaPanelBottom.Size = New System.Drawing.Size(1235, 32)
         Me.GunaPanelBottom.TabIndex = 308
         '
         'GunaButtonRefresh
@@ -1807,7 +1807,7 @@ Partial Class BarRestaurantForm
         Me.GunaButtonRefresh.ForeColor = System.Drawing.Color.Black
         Me.GunaButtonRefresh.Image = Nothing
         Me.GunaButtonRefresh.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonRefresh.Location = New System.Drawing.Point(550, 7)
+        Me.GunaButtonRefresh.Location = New System.Drawing.Point(571, 7)
         Me.GunaButtonRefresh.Name = "GunaButtonRefresh"
         Me.GunaButtonRefresh.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonRefresh.OnHoverBorderColor = System.Drawing.Color.Black
@@ -1856,7 +1856,7 @@ Partial Class BarRestaurantForm
         Me.GunaButtonnNouvelleFacture.ForeColor = System.Drawing.Color.Black
         Me.GunaButtonnNouvelleFacture.Image = Nothing
         Me.GunaButtonnNouvelleFacture.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonnNouvelleFacture.Location = New System.Drawing.Point(1091, 4)
+        Me.GunaButtonnNouvelleFacture.Location = New System.Drawing.Point(1112, 3)
         Me.GunaButtonnNouvelleFacture.Name = "GunaButtonnNouvelleFacture"
         Me.GunaButtonnNouvelleFacture.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonnNouvelleFacture.OnHoverBorderColor = System.Drawing.Color.Black
@@ -1925,7 +1925,7 @@ Partial Class BarRestaurantForm
         Me.GunaButtonImprimer.ForeColor = System.Drawing.Color.Black
         Me.GunaButtonImprimer.Image = Nothing
         Me.GunaButtonImprimer.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonImprimer.Location = New System.Drawing.Point(985, 4)
+        Me.GunaButtonImprimer.Location = New System.Drawing.Point(1006, 3)
         Me.GunaButtonImprimer.Name = "GunaButtonImprimer"
         Me.GunaButtonImprimer.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonImprimer.OnHoverBorderColor = System.Drawing.Color.Black
@@ -1953,7 +1953,7 @@ Partial Class BarRestaurantForm
         Me.GunaButtonSaveFacturation.ForeColor = System.Drawing.Color.Black
         Me.GunaButtonSaveFacturation.Image = Nothing
         Me.GunaButtonSaveFacturation.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonSaveFacturation.Location = New System.Drawing.Point(879, 4)
+        Me.GunaButtonSaveFacturation.Location = New System.Drawing.Point(900, 3)
         Me.GunaButtonSaveFacturation.Name = "GunaButtonSaveFacturation"
         Me.GunaButtonSaveFacturation.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonSaveFacturation.OnHoverBorderColor = System.Drawing.Color.Black
@@ -1977,23 +1977,23 @@ Partial Class BarRestaurantForm
         Me.TabControlBarRestaurant.Controls.Add(Me.TabPage4)
         Me.TabControlBarRestaurant.Controls.Add(Me.TabPage3)
         Me.TabControlBarRestaurant.Controls.Add(Me.TabPage5)
-        Me.TabControlBarRestaurant.Location = New System.Drawing.Point(4, 135)
+        Me.TabControlBarRestaurant.Location = New System.Drawing.Point(4, 134)
         Me.TabControlBarRestaurant.Name = "TabControlBarRestaurant"
         Me.TabControlBarRestaurant.SelectedIndex = 0
-        Me.TabControlBarRestaurant.Size = New System.Drawing.Size(1194, 603)
+        Me.TabControlBarRestaurant.Size = New System.Drawing.Size(1413, 650)
         Me.TabControlBarRestaurant.TabIndex = 309
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.GunaPanelBottom)
         Me.TabPage1.Controls.Add(Me.GunaDataGridViewClientMaison)
-        Me.TabPage1.Controls.Add(Me.GunaDataGridViewArticle)
         Me.TabPage1.Controls.Add(Me.GunaPanel1)
         Me.TabPage1.Controls.Add(Me.GunaDataGridViewLigneFacture)
         Me.TabPage1.Controls.Add(Me.GunaPanelVentes)
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(1186, 577)
+        Me.TabPage1.Size = New System.Drawing.Size(1405, 624)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Vente"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -2041,7 +2041,7 @@ Partial Class BarRestaurantForm
         Me.GunaDataGridViewClientMaison.RowHeadersVisible = False
         Me.GunaDataGridViewClientMaison.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.GunaDataGridViewClientMaison.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewClientMaison.Size = New System.Drawing.Size(301, 111)
+        Me.GunaDataGridViewClientMaison.Size = New System.Drawing.Size(520, 111)
         Me.GunaDataGridViewClientMaison.TabIndex = 308
         Me.GunaDataGridViewClientMaison.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
         Me.GunaDataGridViewClientMaison.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
@@ -2102,14 +2102,14 @@ Partial Class BarRestaurantForm
         Me.GunaDataGridViewArticle.DefaultCellStyle = DataGridViewCellStyle6
         Me.GunaDataGridViewArticle.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewArticle.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewArticle.Location = New System.Drawing.Point(70, 227)
+        Me.GunaDataGridViewArticle.Location = New System.Drawing.Point(64, 43)
         Me.GunaDataGridViewArticle.MultiSelect = False
         Me.GunaDataGridViewArticle.Name = "GunaDataGridViewArticle"
         Me.GunaDataGridViewArticle.ReadOnly = True
         Me.GunaDataGridViewArticle.RowHeadersVisible = False
         Me.GunaDataGridViewArticle.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.GunaDataGridViewArticle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewArticle.Size = New System.Drawing.Size(363, 272)
+        Me.GunaDataGridViewArticle.Size = New System.Drawing.Size(363, 178)
         Me.GunaDataGridViewArticle.TabIndex = 319
         Me.GunaDataGridViewArticle.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
         Me.GunaDataGridViewArticle.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
@@ -2140,6 +2140,7 @@ Partial Class BarRestaurantForm
         Me.GunaPanel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaPanel1.Controls.Add(Me.GunaLabel4)
+        Me.GunaPanel1.Controls.Add(Me.GunaDataGridViewArticle)
         Me.GunaPanel1.Controls.Add(Me.GunaLabel6)
         Me.GunaPanel1.Controls.Add(Me.GunaLabel5)
         Me.GunaPanel1.Controls.Add(Me.GunaLabel2)
@@ -2174,7 +2175,7 @@ Partial Class BarRestaurantForm
         Me.GunaPanel1.Controls.Add(Me.Label10)
         Me.GunaPanel1.Location = New System.Drawing.Point(6, 189)
         Me.GunaPanel1.Name = "GunaPanel1"
-        Me.GunaPanel1.Size = New System.Drawing.Size(1174, 142)
+        Me.GunaPanel1.Size = New System.Drawing.Size(1240, 142)
         Me.GunaPanel1.TabIndex = 165
         '
         'GunaLabel4
@@ -2334,7 +2335,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxRemise.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxRemise.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxRemise.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxRemise.Location = New System.Drawing.Point(635, 49)
+        Me.GunaTextBoxRemise.Location = New System.Drawing.Point(634, 49)
         Me.GunaTextBoxRemise.Name = "GunaTextBoxRemise"
         Me.GunaTextBoxRemise.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxRemise.Radius = 5
@@ -2644,7 +2645,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxQuantite.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxQuantite.Radius = 5
         Me.GunaTextBoxQuantite.SelectedText = ""
-        Me.GunaTextBoxQuantite.Size = New System.Drawing.Size(52, 28)
+        Me.GunaTextBoxQuantite.Size = New System.Drawing.Size(52, 32)
         Me.GunaTextBoxQuantite.TabIndex = 310
         Me.GunaTextBoxQuantite.Text = "1"
         Me.GunaTextBoxQuantite.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2753,7 +2754,7 @@ Partial Class BarRestaurantForm
         Me.GunaDataGridViewLigneFacture.RowHeadersVisible = False
         Me.GunaDataGridViewLigneFacture.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.GunaDataGridViewLigneFacture.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewLigneFacture.Size = New System.Drawing.Size(1174, 234)
+        Me.GunaDataGridViewLigneFacture.Size = New System.Drawing.Size(1240, 240)
         Me.GunaDataGridViewLigneFacture.TabIndex = 164
         Me.GunaDataGridViewLigneFacture.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
         Me.GunaDataGridViewLigneFacture.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
@@ -2780,6 +2781,7 @@ Partial Class BarRestaurantForm
         '
         'GunaContextMenuStripDeleteVente
         '
+        Me.GunaContextMenuStripDeleteVente.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.GunaContextMenuStripDeleteVente.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SupprimerToolStripMenuItem1})
         Me.GunaContextMenuStripDeleteVente.Name = "GunaContextMenuStripDelete"
         Me.GunaContextMenuStripDeleteVente.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -2804,6 +2806,7 @@ Partial Class BarRestaurantForm
         Me.GunaPanelVentes.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaPanelVentes.Controls.Add(Me.GunaDataGridViewBills)
+        Me.GunaPanelVentes.Controls.Add(Me.GunaPanelEventsSup)
         Me.GunaPanelVentes.Controls.Add(Me.GunaPanelEnChambre)
         Me.GunaPanelVentes.Controls.Add(Me.GunaButtonCodeEliteDetails)
         Me.GunaPanelVentes.Controls.Add(Me.GunaButtonInventaire)
@@ -2820,10 +2823,9 @@ Partial Class BarRestaurantForm
         Me.GunaPanelVentes.Controls.Add(Me.Label1)
         Me.GunaPanelVentes.Controls.Add(Me.GunaTextBoxNomPrenom)
         Me.GunaPanelVentes.Controls.Add(Me.GunaPanelComptoirBloc)
-        Me.GunaPanelVentes.Controls.Add(Me.GunaPanelEventsSup)
         Me.GunaPanelVentes.Location = New System.Drawing.Point(6, 6)
         Me.GunaPanelVentes.Name = "GunaPanelVentes"
-        Me.GunaPanelVentes.Size = New System.Drawing.Size(1174, 177)
+        Me.GunaPanelVentes.Size = New System.Drawing.Size(1393, 177)
         Me.GunaPanelVentes.TabIndex = 163
         '
         'GunaDataGridViewBills
@@ -2863,13 +2865,13 @@ Partial Class BarRestaurantForm
         Me.GunaDataGridViewBills.DefaultCellStyle = DataGridViewCellStyle12
         Me.GunaDataGridViewBills.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewBills.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewBills.Location = New System.Drawing.Point(817, 36)
+        Me.GunaDataGridViewBills.Location = New System.Drawing.Point(861, 40)
         Me.GunaDataGridViewBills.Name = "GunaDataGridViewBills"
         Me.GunaDataGridViewBills.ReadOnly = True
         Me.GunaDataGridViewBills.RowHeadersVisible = False
         Me.GunaDataGridViewBills.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.GunaDataGridViewBills.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewBills.Size = New System.Drawing.Size(272, 107)
+        Me.GunaDataGridViewBills.Size = New System.Drawing.Size(272, 120)
         Me.GunaDataGridViewBills.TabIndex = 306
         Me.GunaDataGridViewBills.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
         Me.GunaDataGridViewBills.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
@@ -2897,6 +2899,7 @@ Partial Class BarRestaurantForm
         '
         'GunaContextMenuStripAll
         '
+        Me.GunaContextMenuStripAll.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.GunaContextMenuStripAll.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem2})
         Me.GunaContextMenuStripAll.Name = "GunaContextMenuStripGestionBlocNote"
         Me.GunaContextMenuStripAll.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -2925,9 +2928,9 @@ Partial Class BarRestaurantForm
         Me.GunaPanelEnChambre.Controls.Add(Me.GunaAdvenceButtonLectureDeCarte)
         Me.GunaPanelEnChambre.Controls.Add(Me.TB_RoomNo)
         Me.GunaPanelEnChambre.Controls.Add(Me.LabelNumeroChambre)
-        Me.GunaPanelEnChambre.Location = New System.Drawing.Point(630, 157)
+        Me.GunaPanelEnChambre.Location = New System.Drawing.Point(666, 42)
         Me.GunaPanelEnChambre.Name = "GunaPanelEnChambre"
-        Me.GunaPanelEnChambre.Size = New System.Drawing.Size(537, 14)
+        Me.GunaPanelEnChambre.Size = New System.Drawing.Size(537, 132)
         Me.GunaPanelEnChambre.TabIndex = 307
         Me.GunaPanelEnChambre.Visible = False
         '
@@ -2938,42 +2941,42 @@ Partial Class BarRestaurantForm
         Me.GunaDataGridViewChambreReservation.AllowUserToOrderColumns = True
         Me.GunaDataGridViewChambreReservation.AllowUserToResizeColumns = False
         Me.GunaDataGridViewChambreReservation.AllowUserToResizeRows = False
-        DataGridViewCellStyle13.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewChambreReservation.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle16.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewChambreReservation.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle16
         Me.GunaDataGridViewChambreReservation.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.GunaDataGridViewChambreReservation.BackgroundColor = System.Drawing.Color.LightBlue
         Me.GunaDataGridViewChambreReservation.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewChambreReservation.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewChambreReservation.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle14.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewChambreReservation.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle17.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewChambreReservation.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle17
         Me.GunaDataGridViewChambreReservation.ColumnHeadersHeight = 4
         Me.GunaDataGridViewChambreReservation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridViewChambreReservation.ColumnHeadersVisible = False
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle15.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewChambreReservation.DefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle18.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewChambreReservation.DefaultCellStyle = DataGridViewCellStyle18
         Me.GunaDataGridViewChambreReservation.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewChambreReservation.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewChambreReservation.Location = New System.Drawing.Point(103, 35)
+        Me.GunaDataGridViewChambreReservation.Location = New System.Drawing.Point(103, 32)
         Me.GunaDataGridViewChambreReservation.MultiSelect = False
         Me.GunaDataGridViewChambreReservation.Name = "GunaDataGridViewChambreReservation"
         Me.GunaDataGridViewChambreReservation.ReadOnly = True
         Me.GunaDataGridViewChambreReservation.RowHeadersVisible = False
         Me.GunaDataGridViewChambreReservation.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.GunaDataGridViewChambreReservation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewChambreReservation.Size = New System.Drawing.Size(269, 94)
+        Me.GunaDataGridViewChambreReservation.Size = New System.Drawing.Size(269, 97)
         Me.GunaDataGridViewChambreReservation.TabIndex = 170
         Me.GunaDataGridViewChambreReservation.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
         Me.GunaDataGridViewChambreReservation.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
@@ -3054,7 +3057,7 @@ Partial Class BarRestaurantForm
         Me.GunaAdvenceButtonLectureDeCarte.Image = CType(resources.GetObject("GunaAdvenceButtonLectureDeCarte.Image"), System.Drawing.Image)
         Me.GunaAdvenceButtonLectureDeCarte.ImageSize = New System.Drawing.Size(50, 45)
         Me.GunaAdvenceButtonLectureDeCarte.LineColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.GunaAdvenceButtonLectureDeCarte.Location = New System.Drawing.Point(376, -114)
+        Me.GunaAdvenceButtonLectureDeCarte.Location = New System.Drawing.Point(376, 4)
         Me.GunaAdvenceButtonLectureDeCarte.Name = "GunaAdvenceButtonLectureDeCarte"
         Me.GunaAdvenceButtonLectureDeCarte.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaAdvenceButtonLectureDeCarte.OnHoverBorderColor = System.Drawing.Color.Black
@@ -3157,7 +3160,7 @@ Partial Class BarRestaurantForm
         Me.GunaPanelClientComptoirSup.Controls.Add(Me.GunaDataGridViewBlocNoteFermee)
         Me.GunaPanelClientComptoirSup.Controls.Add(Me.LabelBlocNoteTraitee)
         Me.GunaPanelClientComptoirSup.Controls.Add(Me.LabelBlocNoteOuvert)
-        Me.GunaPanelClientComptoirSup.Location = New System.Drawing.Point(629, 40)
+        Me.GunaPanelClientComptoirSup.Location = New System.Drawing.Point(668, 42)
         Me.GunaPanelClientComptoirSup.Name = "GunaPanelClientComptoirSup"
         Me.GunaPanelClientComptoirSup.Size = New System.Drawing.Size(537, 132)
         Me.GunaPanelClientComptoirSup.TabIndex = 172
@@ -3169,34 +3172,34 @@ Partial Class BarRestaurantForm
         Me.GunaDataGridViewBlocNoteOuvert.AllowUserToOrderColumns = True
         Me.GunaDataGridViewBlocNoteOuvert.AllowUserToResizeColumns = False
         Me.GunaDataGridViewBlocNoteOuvert.AllowUserToResizeRows = False
-        DataGridViewCellStyle16.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewBlocNoteOuvert.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle16
+        DataGridViewCellStyle19.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewBlocNoteOuvert.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle19
         Me.GunaDataGridViewBlocNoteOuvert.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaDataGridViewBlocNoteOuvert.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCellsExceptHeader
         Me.GunaDataGridViewBlocNoteOuvert.BackgroundColor = System.Drawing.Color.LightBlue
         Me.GunaDataGridViewBlocNoteOuvert.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewBlocNoteOuvert.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewBlocNoteOuvert.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle17.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewBlocNoteOuvert.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle17
+        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle20.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle20.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewBlocNoteOuvert.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle20
         Me.GunaDataGridViewBlocNoteOuvert.ColumnHeadersHeight = 24
         Me.GunaDataGridViewBlocNoteOuvert.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridViewBlocNoteOuvert.ColumnHeadersVisible = False
         Me.GunaDataGridViewBlocNoteOuvert.ContextMenuStrip = Me.GunaContextMenuStripTransfertDeBlocNote
-        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle18.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewBlocNoteOuvert.DefaultCellStyle = DataGridViewCellStyle18
+        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle21.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle21.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewBlocNoteOuvert.DefaultCellStyle = DataGridViewCellStyle21
         Me.GunaDataGridViewBlocNoteOuvert.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewBlocNoteOuvert.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewBlocNoteOuvert.Location = New System.Drawing.Point(7, 22)
@@ -3233,6 +3236,7 @@ Partial Class BarRestaurantForm
         '
         'GunaContextMenuStripTransfertDeBlocNote
         '
+        Me.GunaContextMenuStripTransfertDeBlocNote.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.GunaContextMenuStripTransfertDeBlocNote.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TransférerToolStripMenuItem, Me.SupprimerToolStripMenuItem, Me.ImprimerToolStripMenuItem1})
         Me.GunaContextMenuStripTransfertDeBlocNote.Name = "GunaContextMenuStripTransfertDeBlocNote"
         Me.GunaContextMenuStripTransfertDeBlocNote.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -3271,34 +3275,34 @@ Partial Class BarRestaurantForm
         Me.GunaDataGridViewBlocNoteFermee.AllowUserToOrderColumns = True
         Me.GunaDataGridViewBlocNoteFermee.AllowUserToResizeColumns = False
         Me.GunaDataGridViewBlocNoteFermee.AllowUserToResizeRows = False
-        DataGridViewCellStyle19.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewBlocNoteFermee.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle19
+        DataGridViewCellStyle22.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewBlocNoteFermee.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle22
         Me.GunaDataGridViewBlocNoteFermee.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaDataGridViewBlocNoteFermee.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.GunaDataGridViewBlocNoteFermee.BackgroundColor = System.Drawing.Color.PaleTurquoise
         Me.GunaDataGridViewBlocNoteFermee.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewBlocNoteFermee.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewBlocNoteFermee.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle20.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle20.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewBlocNoteFermee.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle20
+        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle23.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle23.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewBlocNoteFermee.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle23
         Me.GunaDataGridViewBlocNoteFermee.ColumnHeadersHeight = 24
         Me.GunaDataGridViewBlocNoteFermee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridViewBlocNoteFermee.ColumnHeadersVisible = False
         Me.GunaDataGridViewBlocNoteFermee.ContextMenuStrip = Me.GunaContextMenuStripCleared
-        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle21.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle21.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewBlocNoteFermee.DefaultCellStyle = DataGridViewCellStyle21
+        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle24.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewBlocNoteFermee.DefaultCellStyle = DataGridViewCellStyle24
         Me.GunaDataGridViewBlocNoteFermee.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewBlocNoteFermee.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewBlocNoteFermee.Location = New System.Drawing.Point(282, 21)
@@ -3334,6 +3338,7 @@ Partial Class BarRestaurantForm
         '
         'GunaContextMenuStripCleared
         '
+        Me.GunaContextMenuStripCleared.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.GunaContextMenuStripCleared.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
         Me.GunaContextMenuStripCleared.Name = "GunaContextMenuStripGestionBlocNote"
         Me.GunaContextMenuStripCleared.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -3386,7 +3391,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBox5.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBox5.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBox5.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBox5.Location = New System.Drawing.Point(817, 8)
+        Me.GunaTextBox5.Location = New System.Drawing.Point(861, 11)
         Me.GunaTextBox5.Name = "GunaTextBox5"
         Me.GunaTextBox5.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBox5.Radius = 5
@@ -3401,32 +3406,32 @@ Partial Class BarRestaurantForm
         Me.GunaDataGridViewClient.AllowUserToOrderColumns = True
         Me.GunaDataGridViewClient.AllowUserToResizeColumns = False
         Me.GunaDataGridViewClient.AllowUserToResizeRows = False
-        DataGridViewCellStyle22.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewClient.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle22
+        DataGridViewCellStyle25.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewClient.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle25
         Me.GunaDataGridViewClient.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.GunaDataGridViewClient.BackgroundColor = System.Drawing.Color.LightBlue
         Me.GunaDataGridViewClient.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewClient.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewClient.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle23.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle23.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewClient.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle23
+        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle26.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle26.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle26.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewClient.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle26
         Me.GunaDataGridViewClient.ColumnHeadersHeight = 4
         Me.GunaDataGridViewClient.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridViewClient.ColumnHeadersVisible = False
-        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle24.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewClient.DefaultCellStyle = DataGridViewCellStyle24
+        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle27.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle27.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle27.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewClient.DefaultCellStyle = DataGridViewCellStyle27
         Me.GunaDataGridViewClient.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewClient.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewClient.Location = New System.Drawing.Point(81, 74)
@@ -3476,12 +3481,12 @@ Partial Class BarRestaurantForm
         Me.GunaComboBoxFiltreBlocNotre.ForeColor = System.Drawing.Color.Black
         Me.GunaComboBoxFiltreBlocNotre.FormattingEnabled = True
         Me.GunaComboBoxFiltreBlocNotre.ItemHeight = 20
-        Me.GunaComboBoxFiltreBlocNotre.Location = New System.Drawing.Point(938, 7)
+        Me.GunaComboBoxFiltreBlocNotre.Location = New System.Drawing.Point(982, 11)
         Me.GunaComboBoxFiltreBlocNotre.Name = "GunaComboBoxFiltreBlocNotre"
         Me.GunaComboBoxFiltreBlocNotre.OnHoverItemBaseColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaComboBoxFiltreBlocNotre.OnHoverItemForeColor = System.Drawing.Color.White
         Me.GunaComboBoxFiltreBlocNotre.Radius = 5
-        Me.GunaComboBoxFiltreBlocNotre.Size = New System.Drawing.Size(228, 26)
+        Me.GunaComboBoxFiltreBlocNotre.Size = New System.Drawing.Size(235, 26)
         Me.GunaComboBoxFiltreBlocNotre.TabIndex = 73
         '
         'GunaTextBoxCompteDebiteur
@@ -3566,7 +3571,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxCodeClient.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxCodeClient.Radius = 5
         Me.GunaTextBoxCodeClient.SelectedText = ""
-        Me.GunaTextBoxCodeClient.Size = New System.Drawing.Size(160, 28)
+        Me.GunaTextBoxCodeClient.Size = New System.Drawing.Size(160, 29)
         Me.GunaTextBoxCodeClient.TabIndex = 75
         '
         'GunaShadowPanel2
@@ -3583,7 +3588,7 @@ Partial Class BarRestaurantForm
         Me.GunaShadowPanel2.ShadowColor = System.Drawing.Color.Black
         Me.GunaShadowPanel2.ShadowDepth = 20
         Me.GunaShadowPanel2.ShadowShift = 4
-        Me.GunaShadowPanel2.Size = New System.Drawing.Size(532, 29)
+        Me.GunaShadowPanel2.Size = New System.Drawing.Size(569, 29)
         Me.GunaShadowPanel2.TabIndex = 70
         '
         'LibelleFacturation
@@ -3692,7 +3697,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxBlocNote.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxBlocNote.Radius = 5
         Me.GunaTextBoxBlocNote.SelectedText = ""
-        Me.GunaTextBoxBlocNote.Size = New System.Drawing.Size(120, 26)
+        Me.GunaTextBoxBlocNote.Size = New System.Drawing.Size(120, 30)
         Me.GunaTextBoxBlocNote.TabIndex = 75
         '
         'GunaComboBoxListeDesComandes
@@ -3751,7 +3756,7 @@ Partial Class BarRestaurantForm
         Me.GunaPanelEventsSup.Controls.Add(Me.GunaComboBoxListeDesResaEvents)
         Me.GunaPanelEventsSup.Controls.Add(Me.GunaTextBoxSituationEvents)
         Me.GunaPanelEventsSup.Controls.Add(Me.GunaTextBoxEvents)
-        Me.GunaPanelEventsSup.Location = New System.Drawing.Point(634, 39)
+        Me.GunaPanelEventsSup.Location = New System.Drawing.Point(694, 41)
         Me.GunaPanelEventsSup.Name = "GunaPanelEventsSup"
         Me.GunaPanelEventsSup.Size = New System.Drawing.Size(531, 132)
         Me.GunaPanelEventsSup.TabIndex = 307
@@ -3784,33 +3789,33 @@ Partial Class BarRestaurantForm
         Me.GunaDataGridViewEventsResa.AllowUserToOrderColumns = True
         Me.GunaDataGridViewEventsResa.AllowUserToResizeColumns = False
         Me.GunaDataGridViewEventsResa.AllowUserToResizeRows = False
-        DataGridViewCellStyle25.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewEventsResa.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle25
+        DataGridViewCellStyle13.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewEventsResa.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
         Me.GunaDataGridViewEventsResa.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GunaDataGridViewEventsResa.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.GunaDataGridViewEventsResa.BackgroundColor = System.Drawing.Color.PaleTurquoise
         Me.GunaDataGridViewEventsResa.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewEventsResa.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewEventsResa.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle26.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle26.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle26.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewEventsResa.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle26
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle14.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewEventsResa.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle14
         Me.GunaDataGridViewEventsResa.ColumnHeadersHeight = 24
         Me.GunaDataGridViewEventsResa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridViewEventsResa.ColumnHeadersVisible = False
-        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle27.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle27.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle27.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewEventsResa.DefaultCellStyle = DataGridViewCellStyle27
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle15.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewEventsResa.DefaultCellStyle = DataGridViewCellStyle15
         Me.GunaDataGridViewEventsResa.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewEventsResa.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewEventsResa.Location = New System.Drawing.Point(235, 23)
@@ -3922,7 +3927,7 @@ Partial Class BarRestaurantForm
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(1186, 577)
+        Me.TabPage2.Size = New System.Drawing.Size(1405, 605)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Gestion des blocs notes"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -3940,7 +3945,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxNumBlocNoteDet.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxNumBlocNoteDet.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxNumBlocNoteDet.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.GunaTextBoxNumBlocNoteDet.Location = New System.Drawing.Point(416, 128)
+        Me.GunaTextBoxNumBlocNoteDet.Location = New System.Drawing.Point(465, 130)
         Me.GunaTextBoxNumBlocNoteDet.Name = "GunaTextBoxNumBlocNoteDet"
         Me.GunaTextBoxNumBlocNoteDet.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxNumBlocNoteDet.Radius = 5
@@ -3961,7 +3966,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxTotalDesBlocNotes.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxTotalDesBlocNotes.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxTotalDesBlocNotes.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.GunaTextBoxTotalDesBlocNotes.Location = New System.Drawing.Point(261, 128)
+        Me.GunaTextBoxTotalDesBlocNotes.Location = New System.Drawing.Point(259, 130)
         Me.GunaTextBoxTotalDesBlocNotes.Name = "GunaTextBoxTotalDesBlocNotes"
         Me.GunaTextBoxTotalDesBlocNotes.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxTotalDesBlocNotes.Radius = 5
@@ -3982,7 +3987,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxNombreDeBlocNote.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxNombreDeBlocNote.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxNombreDeBlocNote.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.GunaTextBoxNombreDeBlocNote.Location = New System.Drawing.Point(199, 128)
+        Me.GunaTextBoxNombreDeBlocNote.Location = New System.Drawing.Point(197, 130)
         Me.GunaTextBoxNombreDeBlocNote.Name = "GunaTextBoxNombreDeBlocNote"
         Me.GunaTextBoxNombreDeBlocNote.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxNombreDeBlocNote.Radius = 5
@@ -4003,7 +4008,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxTotalBlocNote.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxTotalBlocNote.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxTotalBlocNote.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.GunaTextBoxTotalBlocNote.Location = New System.Drawing.Point(1009, 130)
+        Me.GunaTextBoxTotalBlocNote.Location = New System.Drawing.Point(1064, 131)
         Me.GunaTextBoxTotalBlocNote.Name = "GunaTextBoxTotalBlocNote"
         Me.GunaTextBoxTotalBlocNote.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxTotalBlocNote.Radius = 5
@@ -4047,7 +4052,7 @@ Partial Class BarRestaurantForm
         Me.GunaDataGridViewReglmentBlocNOtes.DefaultCellStyle = DataGridViewCellStyle31
         Me.GunaDataGridViewReglmentBlocNOtes.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewReglmentBlocNOtes.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewReglmentBlocNOtes.Location = New System.Drawing.Point(414, 458)
+        Me.GunaDataGridViewReglmentBlocNOtes.Location = New System.Drawing.Point(465, 458)
         Me.GunaDataGridViewReglmentBlocNOtes.MultiSelect = False
         Me.GunaDataGridViewReglmentBlocNOtes.Name = "GunaDataGridViewReglmentBlocNOtes"
         Me.GunaDataGridViewReglmentBlocNOtes.ReadOnly = True
@@ -4135,7 +4140,7 @@ Partial Class BarRestaurantForm
         Me.GunaDataGridViewFolio3.DefaultCellStyle = DataGridViewCellStyle36
         Me.GunaDataGridViewFolio3.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewFolio3.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewFolio3.Location = New System.Drawing.Point(414, 164)
+        Me.GunaDataGridViewFolio3.Location = New System.Drawing.Point(465, 164)
         Me.GunaDataGridViewFolio3.MultiSelect = False
         Me.GunaDataGridViewFolio3.Name = "GunaDataGridViewFolio3"
         Me.GunaDataGridViewFolio3.ReadOnly = True
@@ -4197,6 +4202,7 @@ Partial Class BarRestaurantForm
         '
         'GunaContextMenuStripDelLigneGestBlocNote
         '
+        Me.GunaContextMenuStripDelLigneGestBlocNote.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.GunaContextMenuStripDelLigneGestBlocNote.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItemSupLigneBlocNoteGestBlocNote})
         Me.GunaContextMenuStripDelLigneGestBlocNote.Name = "GunaContextMenuStripGestionBlocNote"
         Me.GunaContextMenuStripDelLigneGestBlocNote.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -4259,7 +4265,7 @@ Partial Class BarRestaurantForm
         Me.GunaDataGridViewBlocNote.ReadOnly = True
         Me.GunaDataGridViewBlocNote.RowHeadersVisible = False
         Me.GunaDataGridViewBlocNote.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewBlocNote.Size = New System.Drawing.Size(394, 407)
+        Me.GunaDataGridViewBlocNote.Size = New System.Drawing.Size(445, 407)
         Me.GunaDataGridViewBlocNote.TabIndex = 193
         Me.GunaDataGridViewBlocNote.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
         Me.GunaDataGridViewBlocNote.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
@@ -4306,6 +4312,7 @@ Partial Class BarRestaurantForm
         '
         'GunaContextMenuStripGestionBlocNote
         '
+        Me.GunaContextMenuStripGestionBlocNote.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.GunaContextMenuStripGestionBlocNote.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ImprimerToolStripMenuItem, Me.SupprimerToolStripMenuItem2})
         Me.GunaContextMenuStripGestionBlocNote.Name = "GunaContextMenuStripGestionBlocNote"
         Me.GunaContextMenuStripGestionBlocNote.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -4350,9 +4357,9 @@ Partial Class BarRestaurantForm
         Me.GunaGroupBox1.LineColor = System.Drawing.Color.Peru
         Me.GunaGroupBox1.LineLeft = 1
         Me.GunaGroupBox1.LineRight = 1
-        Me.GunaGroupBox1.Location = New System.Drawing.Point(183, 17)
+        Me.GunaGroupBox1.Location = New System.Drawing.Point(183, 25)
         Me.GunaGroupBox1.Name = "GunaGroupBox1"
-        Me.GunaGroupBox1.Size = New System.Drawing.Size(864, 101)
+        Me.GunaGroupBox1.Size = New System.Drawing.Size(915, 101)
         Me.GunaGroupBox1.TabIndex = 191
         Me.GunaGroupBox1.Text = "RECHERCHER"
         Me.GunaGroupBox1.TextLocation = New System.Drawing.Point(10, 8)
@@ -4412,7 +4419,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxSearchBlocNote.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxSearchBlocNote.Radius = 5
         Me.GunaTextBoxSearchBlocNote.SelectedText = ""
-        Me.GunaTextBoxSearchBlocNote.Size = New System.Drawing.Size(146, 33)
+        Me.GunaTextBoxSearchBlocNote.Size = New System.Drawing.Size(146, 35)
         Me.GunaTextBoxSearchBlocNote.TabIndex = 25
         '
         'GunaDateTimePickerParDateDebut
@@ -4509,7 +4516,7 @@ Partial Class BarRestaurantForm
         '
         Me.GunaLabel3.AutoSize = True
         Me.GunaLabel3.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel3.Location = New System.Drawing.Point(788, 135)
+        Me.GunaLabel3.Location = New System.Drawing.Point(788, 137)
         Me.GunaLabel3.Name = "GunaLabel3"
         Me.GunaLabel3.Size = New System.Drawing.Size(205, 21)
         Me.GunaLabel3.TabIndex = 189
@@ -4519,7 +4526,7 @@ Partial Class BarRestaurantForm
         '
         Me.GunaLabelListe.AutoSize = True
         Me.GunaLabelListe.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabelListe.Location = New System.Drawing.Point(10, 130)
+        Me.GunaLabelListe.Location = New System.Drawing.Point(10, 136)
         Me.GunaLabelListe.Name = "GunaLabelListe"
         Me.GunaLabelListe.Size = New System.Drawing.Size(183, 21)
         Me.GunaLabelListe.TabIndex = 190
@@ -4531,7 +4538,7 @@ Partial Class BarRestaurantForm
         Me.TabPage4.Controls.Add(Me.TabControlApprovisionnement)
         Me.TabPage4.Location = New System.Drawing.Point(4, 22)
         Me.TabPage4.Name = "TabPage4"
-        Me.TabPage4.Size = New System.Drawing.Size(1186, 577)
+        Me.TabPage4.Size = New System.Drawing.Size(1405, 605)
         Me.TabPage4.TabIndex = 3
         Me.TabPage4.Text = "Approvisionnement"
         Me.TabPage4.UseVisualStyleBackColor = True
@@ -4558,7 +4565,7 @@ Partial Class BarRestaurantForm
         Me.TabControlApprovisionnement.Location = New System.Drawing.Point(-57, -33)
         Me.TabControlApprovisionnement.Name = "TabControlApprovisionnement"
         Me.TabControlApprovisionnement.SelectedIndex = 0
-        Me.TabControlApprovisionnement.Size = New System.Drawing.Size(1300, 654)
+        Me.TabControlApprovisionnement.Size = New System.Drawing.Size(1351, 682)
         Me.TabControlApprovisionnement.TabIndex = 181
         '
         'Bordereau
@@ -4569,7 +4576,7 @@ Partial Class BarRestaurantForm
         Me.Bordereau.Location = New System.Drawing.Point(4, 25)
         Me.Bordereau.Name = "Bordereau"
         Me.Bordereau.Padding = New System.Windows.Forms.Padding(3)
-        Me.Bordereau.Size = New System.Drawing.Size(1292, 625)
+        Me.Bordereau.Size = New System.Drawing.Size(1343, 653)
         Me.Bordereau.TabIndex = 0
         Me.Bordereau.Text = "Bordereau"
         Me.Bordereau.UseVisualStyleBackColor = True
@@ -4635,7 +4642,7 @@ Partial Class BarRestaurantForm
         Me.GunaGroupBoxCreationBordereau.Controls.Add(Me.GunaTextBoxLibelleBordereau)
         Me.GunaGroupBoxCreationBordereau.Controls.Add(Me.GunaTextBoxCodeBordereau)
         Me.GunaGroupBoxCreationBordereau.LineColor = System.Drawing.Color.Gainsboro
-        Me.GunaGroupBoxCreationBordereau.Location = New System.Drawing.Point(56, 34)
+        Me.GunaGroupBoxCreationBordereau.Location = New System.Drawing.Point(56, 47)
         Me.GunaGroupBoxCreationBordereau.Name = "GunaGroupBoxCreationBordereau"
         Me.GunaGroupBoxCreationBordereau.Size = New System.Drawing.Size(557, 590)
         Me.GunaGroupBoxCreationBordereau.TabIndex = 0
@@ -4724,14 +4731,14 @@ Partial Class BarRestaurantForm
         Me.GunaDataGridViewArticleAppro.DefaultCellStyle = DataGridViewCellStyle43
         Me.GunaDataGridViewArticleAppro.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewArticleAppro.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewArticleAppro.Location = New System.Drawing.Point(6, 438)
+        Me.GunaDataGridViewArticleAppro.Location = New System.Drawing.Point(6, 517)
         Me.GunaDataGridViewArticleAppro.MultiSelect = False
         Me.GunaDataGridViewArticleAppro.Name = "GunaDataGridViewArticleAppro"
         Me.GunaDataGridViewArticleAppro.ReadOnly = True
         Me.GunaDataGridViewArticleAppro.RowHeadersVisible = False
         Me.GunaDataGridViewArticleAppro.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.GunaDataGridViewArticleAppro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewArticleAppro.Size = New System.Drawing.Size(274, 109)
+        Me.GunaDataGridViewArticleAppro.Size = New System.Drawing.Size(274, 30)
         Me.GunaDataGridViewArticleAppro.TabIndex = 63
         Me.GunaDataGridViewArticleAppro.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
         Me.GunaDataGridViewArticleAppro.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
@@ -4856,7 +4863,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxArticleRFID.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxArticleRFID.Radius = 5
         Me.GunaTextBoxArticleRFID.SelectedText = ""
-        Me.GunaTextBoxArticleRFID.Size = New System.Drawing.Size(146, 34)
+        Me.GunaTextBoxArticleRFID.Size = New System.Drawing.Size(146, 28)
         Me.GunaTextBoxArticleRFID.TabIndex = 61
         Me.GunaTextBoxArticleRFID.Visible = False
         '
@@ -4936,7 +4943,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxGrandeUniteDeCompatge.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxGrandeUniteDeCompatge.Radius = 5
         Me.GunaTextBoxGrandeUniteDeCompatge.SelectedText = ""
-        Me.GunaTextBoxGrandeUniteDeCompatge.Size = New System.Drawing.Size(106, 32)
+        Me.GunaTextBoxGrandeUniteDeCompatge.Size = New System.Drawing.Size(106, 33)
         Me.GunaTextBoxGrandeUniteDeCompatge.TabIndex = 113
         Me.GunaTextBoxGrandeUniteDeCompatge.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -5303,7 +5310,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxCoutDuStock.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxCoutDuStock.Radius = 5
         Me.GunaTextBoxCoutDuStock.SelectedText = ""
-        Me.GunaTextBoxCoutDuStock.Size = New System.Drawing.Size(73, 34)
+        Me.GunaTextBoxCoutDuStock.Size = New System.Drawing.Size(73, 28)
         Me.GunaTextBoxCoutDuStock.TabIndex = 66
         Me.GunaTextBoxCoutDuStock.Text = "0"
         Me.GunaTextBoxCoutDuStock.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -5325,7 +5332,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxQteAppro.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxQteAppro.Radius = 5
         Me.GunaTextBoxQteAppro.SelectedText = ""
-        Me.GunaTextBoxQteAppro.Size = New System.Drawing.Size(49, 34)
+        Me.GunaTextBoxQteAppro.Size = New System.Drawing.Size(49, 28)
         Me.GunaTextBoxQteAppro.TabIndex = 62
         Me.GunaTextBoxQteAppro.Text = "1"
         Me.GunaTextBoxQteAppro.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -5374,7 +5381,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxAchat.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxAchat.Radius = 5
         Me.GunaTextBoxAchat.SelectedText = ""
-        Me.GunaTextBoxAchat.Size = New System.Drawing.Size(79, 28)
+        Me.GunaTextBoxAchat.Size = New System.Drawing.Size(79, 32)
         Me.GunaTextBoxAchat.TabIndex = 66
         Me.GunaTextBoxAchat.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.GunaTextBoxAchat.Visible = False
@@ -5426,7 +5433,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxPrixVente.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxPrixVente.Radius = 5
         Me.GunaTextBoxPrixVente.SelectedText = ""
-        Me.GunaTextBoxPrixVente.Size = New System.Drawing.Size(85, 28)
+        Me.GunaTextBoxPrixVente.Size = New System.Drawing.Size(85, 32)
         Me.GunaTextBoxPrixVente.TabIndex = 68
         Me.GunaTextBoxPrixVente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.GunaTextBoxPrixVente.Visible = False
@@ -5500,7 +5507,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxArticleAppro.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxArticleAppro.Radius = 5
         Me.GunaTextBoxArticleAppro.SelectedText = ""
-        Me.GunaTextBoxArticleAppro.Size = New System.Drawing.Size(187, 34)
+        Me.GunaTextBoxArticleAppro.Size = New System.Drawing.Size(187, 28)
         Me.GunaTextBoxArticleAppro.TabIndex = 61
         '
         'GunaLabel92
@@ -5613,7 +5620,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxObservation.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxObservation.Radius = 5
         Me.GunaTextBoxObservation.SelectedText = ""
-        Me.GunaTextBoxObservation.Size = New System.Drawing.Size(530, 53)
+        Me.GunaTextBoxObservation.Size = New System.Drawing.Size(530, 63)
         Me.GunaTextBoxObservation.TabIndex = 0
         '
         'GunaTextBoxLibelleBordereau
@@ -5681,9 +5688,9 @@ Partial Class BarRestaurantForm
         Me.GunaGroupBoxListeDesBordereaux.Controls.Add(Me.GunaTextBoxID_LIGNE_TEMP)
         Me.GunaGroupBoxListeDesBordereaux.Controls.Add(Me.GunaTextBox4)
         Me.GunaGroupBoxListeDesBordereaux.LineColor = System.Drawing.Color.Gainsboro
-        Me.GunaGroupBoxListeDesBordereaux.Location = New System.Drawing.Point(619, 32)
+        Me.GunaGroupBoxListeDesBordereaux.Location = New System.Drawing.Point(619, 46)
         Me.GunaGroupBoxListeDesBordereaux.Name = "GunaGroupBoxListeDesBordereaux"
-        Me.GunaGroupBoxListeDesBordereaux.Size = New System.Drawing.Size(614, 592)
+        Me.GunaGroupBoxListeDesBordereaux.Size = New System.Drawing.Size(665, 592)
         Me.GunaGroupBoxListeDesBordereaux.TabIndex = 0
         Me.GunaGroupBoxListeDesBordereaux.Text = "Contenu du Bordereau"
         Me.GunaGroupBoxListeDesBordereaux.TextLocation = New System.Drawing.Point(10, 8)
@@ -5731,7 +5738,7 @@ Partial Class BarRestaurantForm
         Me.GunaDataGridViewLigneArticleCommande.RowHeadersVisible = False
         Me.GunaDataGridViewLigneArticleCommande.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.GunaDataGridViewLigneArticleCommande.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewLigneArticleCommande.Size = New System.Drawing.Size(592, 369)
+        Me.GunaDataGridViewLigneArticleCommande.Size = New System.Drawing.Size(643, 369)
         Me.GunaDataGridViewLigneArticleCommande.TabIndex = 62
         Me.GunaDataGridViewLigneArticleCommande.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
         Me.GunaDataGridViewLigneArticleCommande.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
@@ -5758,6 +5765,7 @@ Partial Class BarRestaurantForm
         '
         'GunaContextMenuStripDeleteCmdLine
         '
+        Me.GunaContextMenuStripDeleteCmdLine.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.GunaContextMenuStripDeleteCmdLine.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RetirerToolStripMenuItem})
         Me.GunaContextMenuStripDeleteCmdLine.Name = "GunaContextMenuStripDeleteCmdLine"
         Me.GunaContextMenuStripDeleteCmdLine.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -5791,7 +5799,7 @@ Partial Class BarRestaurantForm
         Me.GunaButtonImpressionDirecteAppro.ForeColor = System.Drawing.Color.White
         Me.GunaButtonImpressionDirecteAppro.Image = CType(resources.GetObject("GunaButtonImpressionDirecteAppro.Image"), System.Drawing.Image)
         Me.GunaButtonImpressionDirecteAppro.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonImpressionDirecteAppro.Location = New System.Drawing.Point(271, 519)
+        Me.GunaButtonImpressionDirecteAppro.Location = New System.Drawing.Point(296, 519)
         Me.GunaButtonImpressionDirecteAppro.Name = "GunaButtonImpressionDirecteAppro"
         Me.GunaButtonImpressionDirecteAppro.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonImpressionDirecteAppro.OnHoverBorderColor = System.Drawing.Color.Black
@@ -5820,7 +5828,7 @@ Partial Class BarRestaurantForm
         Me.GunaLabelAnnuler.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GunaLabelAnnuler.AutoSize = True
         Me.GunaLabelAnnuler.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.GunaLabelAnnuler.Location = New System.Drawing.Point(31, 509)
+        Me.GunaLabelAnnuler.Location = New System.Drawing.Point(56, 509)
         Me.GunaLabelAnnuler.Name = "GunaLabelAnnuler"
         Me.GunaLabelAnnuler.Size = New System.Drawing.Size(37, 15)
         Me.GunaLabelAnnuler.TabIndex = 118
@@ -5844,7 +5852,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBox1.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBox1.Radius = 5
         Me.GunaTextBox1.SelectedText = ""
-        Me.GunaTextBox1.Size = New System.Drawing.Size(161, 28)
+        Me.GunaTextBox1.Size = New System.Drawing.Size(161, 32)
         Me.GunaTextBox1.TabIndex = 293
         Me.GunaTextBox1.Text = "SUIVRE ARTICLE NON SUIVIE"
         Me.GunaTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -5867,7 +5875,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBox2.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBox2.Radius = 5
         Me.GunaTextBox2.SelectedText = ""
-        Me.GunaTextBox2.Size = New System.Drawing.Size(97, 28)
+        Me.GunaTextBox2.Size = New System.Drawing.Size(97, 32)
         Me.GunaTextBox2.TabIndex = 293
         Me.GunaTextBox2.Text = "UNITE DE COMPTAGE"
         Me.GunaTextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -5887,7 +5895,7 @@ Partial Class BarRestaurantForm
         Me.GunaButtonAnnulerBordereau.ForeColor = System.Drawing.Color.White
         Me.GunaButtonAnnulerBordereau.Image = Nothing
         Me.GunaButtonAnnulerBordereau.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonAnnulerBordereau.Location = New System.Drawing.Point(5, 526)
+        Me.GunaButtonAnnulerBordereau.Location = New System.Drawing.Point(30, 526)
         Me.GunaButtonAnnulerBordereau.Name = "GunaButtonAnnulerBordereau"
         Me.GunaButtonAnnulerBordereau.OnHoverBaseColor = System.Drawing.Color.Indigo
         Me.GunaButtonAnnulerBordereau.OnHoverBorderColor = System.Drawing.Color.Black
@@ -5915,7 +5923,7 @@ Partial Class BarRestaurantForm
         Me.GunaButtonAccueil.ForeColor = System.Drawing.Color.White
         Me.GunaButtonAccueil.Image = Nothing
         Me.GunaButtonAccueil.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonAccueil.Location = New System.Drawing.Point(518, 518)
+        Me.GunaButtonAccueil.Location = New System.Drawing.Point(543, 518)
         Me.GunaButtonAccueil.Name = "GunaButtonAccueil"
         Me.GunaButtonAccueil.OnHoverBaseColor = System.Drawing.Color.Red
         Me.GunaButtonAccueil.OnHoverBorderColor = System.Drawing.Color.Black
@@ -5933,7 +5941,7 @@ Partial Class BarRestaurantForm
         Me.Label26.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label26.AutoSize = True
         Me.Label26.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label26.Location = New System.Drawing.Point(57, 41)
+        Me.Label26.Location = New System.Drawing.Point(82, 41)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(120, 15)
         Me.Label26.TabIndex = 66
@@ -5953,7 +5961,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxVenteAppro.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxVenteAppro.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxVenteAppro.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxVenteAppro.Location = New System.Drawing.Point(418, 59)
+        Me.GunaTextBoxVenteAppro.Location = New System.Drawing.Point(443, 59)
         Me.GunaTextBoxVenteAppro.Name = "GunaTextBoxVenteAppro"
         Me.GunaTextBoxVenteAppro.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxVenteAppro.Radius = 5
@@ -5967,7 +5975,7 @@ Partial Class BarRestaurantForm
         Me.Label27.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label27.AutoSize = True
         Me.Label27.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label27.Location = New System.Drawing.Point(284, 41)
+        Me.Label27.Location = New System.Drawing.Point(309, 41)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(31, 15)
         Me.Label27.TabIndex = 67
@@ -5988,7 +5996,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBox3.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBox3.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBox3.Font = New System.Drawing.Font("Segoe UI", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBox3.Location = New System.Drawing.Point(258, 60)
+        Me.GunaTextBox3.Location = New System.Drawing.Point(283, 60)
         Me.GunaTextBox3.Name = "GunaTextBox3"
         Me.GunaTextBox3.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBox3.Radius = 5
@@ -6012,7 +6020,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxMontantHTGeneralAppro.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxMontantHTGeneralAppro.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxMontantHTGeneralAppro.Font = New System.Drawing.Font("Segoe UI", 16.0!, System.Drawing.FontStyle.Bold)
-        Me.GunaTextBoxMontantHTGeneralAppro.Location = New System.Drawing.Point(54, 60)
+        Me.GunaTextBoxMontantHTGeneralAppro.Location = New System.Drawing.Point(79, 60)
         Me.GunaTextBoxMontantHTGeneralAppro.Name = "GunaTextBoxMontantHTGeneralAppro"
         Me.GunaTextBoxMontantHTGeneralAppro.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxMontantHTGeneralAppro.Radius = 5
@@ -6026,7 +6034,7 @@ Partial Class BarRestaurantForm
         Me.Label28.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label28.AutoSize = True
         Me.Label28.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label28.Location = New System.Drawing.Point(423, 40)
+        Me.Label28.Location = New System.Drawing.Point(448, 40)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(121, 15)
         Me.Label28.TabIndex = 68
@@ -6093,7 +6101,7 @@ Partial Class BarRestaurantForm
         Me.TabPage3.Controls.Add(Me.GunaButton12)
         Me.TabPage3.Location = New System.Drawing.Point(4, 22)
         Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(1186, 577)
+        Me.TabPage3.Size = New System.Drawing.Size(1405, 605)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Rapports"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -6438,7 +6446,7 @@ Partial Class BarRestaurantForm
         Me.TabPage5.Controls.Add(Me.GroupBoxConfig)
         Me.TabPage5.Location = New System.Drawing.Point(4, 22)
         Me.TabPage5.Name = "TabPage5"
-        Me.TabPage5.Size = New System.Drawing.Size(1186, 577)
+        Me.TabPage5.Size = New System.Drawing.Size(1405, 605)
         Me.TabPage5.TabIndex = 4
         Me.TabPage5.Text = "config"
         Me.TabPage5.UseVisualStyleBackColor = True
@@ -6485,7 +6493,7 @@ Partial Class BarRestaurantForm
         Me.DataGridViewRapports.RowHeadersVisible = False
         Me.DataGridViewRapports.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.DataGridViewRapports.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridViewRapports.Size = New System.Drawing.Size(1150, 28)
+        Me.DataGridViewRapports.Size = New System.Drawing.Size(1201, 28)
         Me.DataGridViewRapports.TabIndex = 346
         Me.DataGridViewRapports.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
         Me.DataGridViewRapports.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
@@ -6527,7 +6535,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxCodeElite.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxCodeElite.Radius = 5
         Me.GunaTextBoxCodeElite.SelectedText = ""
-        Me.GunaTextBoxCodeElite.Size = New System.Drawing.Size(126, 25)
+        Me.GunaTextBoxCodeElite.Size = New System.Drawing.Size(126, 28)
         Me.GunaTextBoxCodeElite.TabIndex = 345
         Me.GunaTextBoxCodeElite.Text = "CODE_ELITE"
         '
@@ -6550,7 +6558,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxRefClient.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxRefClient.Radius = 3
         Me.GunaTextBoxRefClient.SelectedText = ""
-        Me.GunaTextBoxRefClient.Size = New System.Drawing.Size(87, 29)
+        Me.GunaTextBoxRefClient.Size = New System.Drawing.Size(87, 60)
         Me.GunaTextBoxRefClient.TabIndex = 344
         '
         'TB_CardNo
@@ -6703,7 +6711,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxTVARecap.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxTVARecap.Radius = 5
         Me.GunaTextBoxTVARecap.SelectedText = ""
-        Me.GunaTextBoxTVARecap.Size = New System.Drawing.Size(56, 39)
+        Me.GunaTextBoxTVARecap.Size = New System.Drawing.Size(56, 46)
         Me.GunaTextBoxTVARecap.TabIndex = 336
         Me.GunaTextBoxTVARecap.Text = "0"
         Me.GunaTextBoxTVARecap.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -6725,7 +6733,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxSuivreArticleNonSuivi.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxSuivreArticleNonSuivi.Radius = 5
         Me.GunaTextBoxSuivreArticleNonSuivi.SelectedText = ""
-        Me.GunaTextBoxSuivreArticleNonSuivi.Size = New System.Drawing.Size(204, 28)
+        Me.GunaTextBoxSuivreArticleNonSuivi.Size = New System.Drawing.Size(204, 32)
         Me.GunaTextBoxSuivreArticleNonSuivi.TabIndex = 335
         Me.GunaTextBoxSuivreArticleNonSuivi.Text = "SUIVRE ARTICLE NON SUIVIE"
         Me.GunaTextBoxSuivreArticleNonSuivi.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -6747,7 +6755,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxCodeUniteComptage.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxCodeUniteComptage.Radius = 5
         Me.GunaTextBoxCodeUniteComptage.SelectedText = ""
-        Me.GunaTextBoxCodeUniteComptage.Size = New System.Drawing.Size(155, 28)
+        Me.GunaTextBoxCodeUniteComptage.Size = New System.Drawing.Size(155, 32)
         Me.GunaTextBoxCodeUniteComptage.TabIndex = 334
         Me.GunaTextBoxCodeUniteComptage.Text = "UNITE DE COMPTAGE"
         Me.GunaTextBoxCodeUniteComptage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -6768,7 +6776,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxPointDeVente.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxPointDeVente.Radius = 5
         Me.GunaTextBoxPointDeVente.SelectedText = ""
-        Me.GunaTextBoxPointDeVente.Size = New System.Drawing.Size(87, 26)
+        Me.GunaTextBoxPointDeVente.Size = New System.Drawing.Size(87, 30)
         Me.GunaTextBoxPointDeVente.TabIndex = 333
         '
         'GunaTextBoxNumReservation
@@ -6787,7 +6795,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxNumReservation.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxNumReservation.Radius = 5
         Me.GunaTextBoxNumReservation.SelectedText = ""
-        Me.GunaTextBoxNumReservation.Size = New System.Drawing.Size(87, 26)
+        Me.GunaTextBoxNumReservation.Size = New System.Drawing.Size(87, 30)
         Me.GunaTextBoxNumReservation.TabIndex = 333
         '
         'GunaTextBoxFacturationDate
@@ -6806,7 +6814,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxFacturationDate.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxFacturationDate.Radius = 5
         Me.GunaTextBoxFacturationDate.SelectedText = ""
-        Me.GunaTextBoxFacturationDate.Size = New System.Drawing.Size(87, 26)
+        Me.GunaTextBoxFacturationDate.Size = New System.Drawing.Size(87, 30)
         Me.GunaTextBoxFacturationDate.TabIndex = 333
         '
         'GunaTextBoxCodeArticleAppro
@@ -6825,7 +6833,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxCodeArticleAppro.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxCodeArticleAppro.Radius = 5
         Me.GunaTextBoxCodeArticleAppro.SelectedText = ""
-        Me.GunaTextBoxCodeArticleAppro.Size = New System.Drawing.Size(87, 26)
+        Me.GunaTextBoxCodeArticleAppro.Size = New System.Drawing.Size(87, 30)
         Me.GunaTextBoxCodeArticleAppro.TabIndex = 333
         '
         'GunaTextBoxSousFamilleArticle
@@ -6844,7 +6852,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxSousFamilleArticle.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxSousFamilleArticle.Radius = 5
         Me.GunaTextBoxSousFamilleArticle.SelectedText = ""
-        Me.GunaTextBoxSousFamilleArticle.Size = New System.Drawing.Size(85, 26)
+        Me.GunaTextBoxSousFamilleArticle.Size = New System.Drawing.Size(85, 30)
         Me.GunaTextBoxSousFamilleArticle.TabIndex = 332
         '
         'GunaTextBoxNumfacture
@@ -6904,7 +6912,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxQuantiteConso.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxQuantiteConso.Radius = 5
         Me.GunaTextBoxQuantiteConso.SelectedText = ""
-        Me.GunaTextBoxQuantiteConso.Size = New System.Drawing.Size(82, 26)
+        Me.GunaTextBoxQuantiteConso.Size = New System.Drawing.Size(82, 30)
         Me.GunaTextBoxQuantiteConso.TabIndex = 331
         '
         'GunaTextBoxBlocNoteActif
@@ -6923,7 +6931,7 @@ Partial Class BarRestaurantForm
         Me.GunaTextBoxBlocNoteActif.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxBlocNoteActif.Radius = 5
         Me.GunaTextBoxBlocNoteActif.SelectedText = ""
-        Me.GunaTextBoxBlocNoteActif.Size = New System.Drawing.Size(87, 26)
+        Me.GunaTextBoxBlocNoteActif.Size = New System.Drawing.Size(87, 30)
         Me.GunaTextBoxBlocNoteActif.TabIndex = 330
         '
         'GroupBoxConfig
@@ -7061,7 +7069,7 @@ Partial Class BarRestaurantForm
         Me.tb_server.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.tb_server.Radius = 4
         Me.tb_server.SelectedText = ""
-        Me.tb_server.Size = New System.Drawing.Size(295, 28)
+        Me.tb_server.Size = New System.Drawing.Size(295, 32)
         Me.tb_server.TabIndex = 131
         '
         'TimerRefreshConnection
@@ -7095,111 +7103,110 @@ Partial Class BarRestaurantForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1200, 788)
+        Me.ClientSize = New System.Drawing.Size(1259, 788)
         Me.Controls.Add(Me.GunaPanelRecapDesVentes)
         Me.Controls.Add(Me.GunaShadowPanelBarRestaurant)
         Me.Controls.Add(Me.MenuStripLeftSideMenu)
         Me.Controls.Add(Me.MenuStripMainMenu)
         Me.Controls.Add(Me.TabControlBarRestaurant)
         Me.Controls.Add(Me.GunaPanelTopPanel)
-        Me.Controls.Add(Me.GunaPanelBottom)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "BarRestaurantForm"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show
         Me.Text = "BarRestaurantForm"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.GunaPanelTopPanel.ResumeLayout(False)
-        Me.GunaPanelTopPanel.PerformLayout
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit
+        Me.GunaPanelTopPanel.PerformLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStripLeftSideMenu.ResumeLayout(False)
-        Me.MenuStripLeftSideMenu.PerformLayout
+        Me.MenuStripLeftSideMenu.PerformLayout()
         Me.MenuStripMainMenu.ResumeLayout(False)
-        Me.MenuStripMainMenu.PerformLayout
+        Me.MenuStripMainMenu.PerformLayout()
         Me.GunaShadowPanelBarRestaurant.ResumeLayout(False)
         Me.GunaPanelRecapDesVentes.ResumeLayout(False)
-        Me.GunaPanelRecapDesVentes.PerformLayout
+        Me.GunaPanelRecapDesVentes.PerformLayout()
         Me.Panel3.ResumeLayout(False)
-        Me.Panel3.PerformLayout
+        Me.Panel3.PerformLayout()
         Me.Panel4.ResumeLayout(False)
-        Me.Panel4.PerformLayout
+        Me.Panel4.PerformLayout()
         Me.Panel7.ResumeLayout(False)
-        Me.Panel7.PerformLayout
+        Me.Panel7.PerformLayout()
         Me.Panel5.ResumeLayout(False)
-        Me.Panel5.PerformLayout
+        Me.Panel5.PerformLayout()
         Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout
+        Me.Panel1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
-        Me.Panel2.PerformLayout
+        Me.Panel2.PerformLayout()
         Me.GunaPanelBottom.ResumeLayout(False)
-        Me.GunaPanelBottom.PerformLayout
+        Me.GunaPanelBottom.PerformLayout()
         Me.Panel6.ResumeLayout(False)
-        Me.Panel6.PerformLayout
+        Me.Panel6.PerformLayout()
         Me.PanelSituationCaisse.ResumeLayout(False)
-        Me.PanelSituationCaisse.PerformLayout
+        Me.PanelSituationCaisse.PerformLayout()
         Me.TabControlBarRestaurant.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
-        CType(Me.GunaDataGridViewClientMaison, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.GunaDataGridViewArticle, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.GunaDataGridViewClientMaison, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GunaDataGridViewArticle, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GunaPanel1.ResumeLayout(False)
-        Me.GunaPanel1.PerformLayout
-        CType(Me.PictureBoxClearArticleFields, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.GunaPictureBoxLecteurRFI, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.GunaDataGridViewLigneFacture, System.ComponentModel.ISupportInitialize).EndInit
+        Me.GunaPanel1.PerformLayout()
+        CType(Me.PictureBoxClearArticleFields, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GunaPictureBoxLecteurRFI, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GunaDataGridViewLigneFacture, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GunaContextMenuStripDeleteVente.ResumeLayout(False)
         Me.GunaPanelVentes.ResumeLayout(False)
-        Me.GunaPanelVentes.PerformLayout
-        CType(Me.GunaDataGridViewBills, System.ComponentModel.ISupportInitialize).EndInit
+        Me.GunaPanelVentes.PerformLayout()
+        CType(Me.GunaDataGridViewBills, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GunaContextMenuStripAll.ResumeLayout(False)
         Me.GunaPanelEnChambre.ResumeLayout(False)
-        Me.GunaPanelEnChambre.PerformLayout
-        CType(Me.GunaDataGridViewChambreReservation, System.ComponentModel.ISupportInitialize).EndInit
+        Me.GunaPanelEnChambre.PerformLayout()
+        CType(Me.GunaDataGridViewChambreReservation, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GunaPanelClientComptoirSup.ResumeLayout(False)
-        Me.GunaPanelClientComptoirSup.PerformLayout
-        CType(Me.GunaDataGridViewBlocNoteOuvert, System.ComponentModel.ISupportInitialize).EndInit
+        Me.GunaPanelClientComptoirSup.PerformLayout()
+        CType(Me.GunaDataGridViewBlocNoteOuvert, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GunaContextMenuStripTransfertDeBlocNote.ResumeLayout(False)
-        CType(Me.GunaDataGridViewBlocNoteFermee, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.GunaDataGridViewBlocNoteFermee, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GunaContextMenuStripCleared.ResumeLayout(False)
-        CType(Me.GunaDataGridViewClient, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.GunaDataGridViewClient, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GunaShadowPanel2.ResumeLayout(False)
-        Me.GunaShadowPanel2.PerformLayout
+        Me.GunaShadowPanel2.PerformLayout()
         Me.GunaPanelComptoirBloc.ResumeLayout(False)
-        Me.GunaPanelComptoirBloc.PerformLayout
+        Me.GunaPanelComptoirBloc.PerformLayout()
         Me.GunaPanelEventsSup.ResumeLayout(False)
-        Me.GunaPanelEventsSup.PerformLayout
-        CType(Me.GunaDataGridViewEventsResa, System.ComponentModel.ISupportInitialize).EndInit
+        Me.GunaPanelEventsSup.PerformLayout()
+        CType(Me.GunaDataGridViewEventsResa, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
-        Me.TabPage2.PerformLayout
-        CType(Me.GunaDataGridViewReglmentBlocNOtes, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.GunaDataGridViewFolio3, System.ComponentModel.ISupportInitialize).EndInit
+        Me.TabPage2.PerformLayout()
+        CType(Me.GunaDataGridViewReglmentBlocNOtes, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GunaDataGridViewFolio3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GunaContextMenuStripDelLigneGestBlocNote.ResumeLayout(False)
-        CType(Me.GunaDataGridViewBlocNote, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.GunaDataGridViewBlocNote, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GunaContextMenuStripGestionBlocNote.ResumeLayout(False)
         Me.GunaGroupBox1.ResumeLayout(False)
-        Me.GunaGroupBox1.PerformLayout
+        Me.GunaGroupBox1.PerformLayout()
         Me.TabPage4.ResumeLayout(False)
-        Me.TabPage4.PerformLayout
+        Me.TabPage4.PerformLayout()
         Me.TabControlApprovisionnement.ResumeLayout(False)
         Me.Bordereau.ResumeLayout(False)
         Me.GunaGroupBoxCreationBordereau.ResumeLayout(False)
-        Me.GunaGroupBoxCreationBordereau.PerformLayout
-        CType(Me.GunaDataGridViewArticleAppro, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.PictureBoxNext3, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.PictureBoxNext1, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.PictureBox1NextStage, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.GunaPictureBox1, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.GunaDataGridViewTiers, System.ComponentModel.ISupportInitialize).EndInit
+        Me.GunaGroupBoxCreationBordereau.PerformLayout()
+        CType(Me.GunaDataGridViewArticleAppro, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBoxNext3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBoxNext1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1NextStage, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GunaPictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GunaDataGridViewTiers, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GunaGroupBoxListeDesBordereaux.ResumeLayout(False)
-        Me.GunaGroupBoxListeDesBordereaux.PerformLayout
-        CType(Me.GunaDataGridViewLigneArticleCommande, System.ComponentModel.ISupportInitialize).EndInit
+        Me.GunaGroupBoxListeDesBordereaux.PerformLayout()
+        CType(Me.GunaDataGridViewLigneArticleCommande, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GunaContextMenuStripDeleteCmdLine.ResumeLayout(False)
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage5.ResumeLayout(False)
-        Me.TabPage5.PerformLayout
-        CType(Me.DataGridViewRapports, System.ComponentModel.ISupportInitialize).EndInit
+        Me.TabPage5.PerformLayout()
+        CType(Me.DataGridViewRapports, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBoxConfig.ResumeLayout(False)
-        Me.GroupBoxConfig.PerformLayout
+        Me.GroupBoxConfig.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout
+        Me.PerformLayout()
 
     End Sub
 
@@ -7220,7 +7227,6 @@ Partial Class BarRestaurantForm
     Friend WithEvents FermerCaisseToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PETITEToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents OuvrirCaisseToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents ToolStripSeparatorCloture As ToolStripSeparator
     Friend WithEvents ToolStripMenuItem119 As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItemConfig As ToolStripMenuItem
@@ -7596,4 +7602,5 @@ Partial Class BarRestaurantForm
     Friend WithEvents GunaDataGridViewBills As Guna.UI.WinForms.GunaDataGridView
     Friend WithEvents GunaContextMenuStripAll As Guna.UI.WinForms.GunaContextMenuStrip
     Friend WithEvents ToolStripMenuItem2 As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
 End Class

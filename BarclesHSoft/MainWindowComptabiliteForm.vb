@@ -145,7 +145,13 @@ Public Class MainWindowComptabiliteForm
 
         GlobalVariable.typeDeClientAFacturer = "comptoir"
 
-        BarRestaurantForm.Show()
+        If Trim(GlobalVariable.AgenceActuelle.Rows(0)("CAISSE_ENREGISTREUSE_1")).Equals("") Then
+            BarRestaurantForm.Show()
+            BarRestaurantForm.GunaLabelHeader.Text = "COMPTOIR"
+        Else
+            BarRestaurantCaisseEnregistreuseForm.Show()
+            BarRestaurantCaisseEnregistreuseForm.GunaLabelHeader.Text = "COMPTOIR"
+        End If
 
         Me.Close()
 
@@ -601,10 +607,6 @@ Public Class MainWindowComptabiliteForm
             ETAT_DU_COMPTE = 1
         End If
 
-        If True Then
-
-        End If
-
         DataGridViewListeDesComptes.DataSource = account.listeDesComptesActifOuPas(ETAT_DU_COMPTE)
 
         DataGridViewListeDesComptes.Columns(0).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
@@ -618,6 +620,8 @@ Public Class MainWindowComptabiliteForm
 
         DataGridViewListeDesComptes.Columns("SOLDE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
         DataGridViewListeDesComptes.Columns("SOLDE").DefaultCellStyle.Format = "#,##0"
+
+        DataGridViewListeDesComptes.Columns("CODE_CLIENT").Visible = False
 
     End Sub
 
@@ -2446,4 +2450,32 @@ Public Class MainWindowComptabiliteForm
         DepenseFamilyForm.TopMost = True
 
     End Sub
+
+    Private Sub FacturesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FacturesToolStripMenuItem.Click
+
+        Dim NUMERO_COMPTE As String = DataGridViewListeDesComptes.CurrentRow.Cells(0).Value.ToString
+
+        Dim CODE_CLIENT As String = DataGridViewListeDesComptes.CurrentRow.Cells(8).Value.ToString
+
+        Dim infoSupClient As DataTable = Functions.getElementByCode(CODE_CLIENT, "client", "CODE_CLIENT")
+        Dim TYPE_CLIENT As String = ""
+        Dim clientIndex As Integer = 2
+
+        If infoSupClient.Rows.Count > 0 Then
+
+            TYPE_CLIENT = infoSupClient.Rows(0)("TYPE_CLIENT")
+
+            If TYPE_CLIENT.Equals("ENTREPRISE") Or TYPE_CLIENT.Equals("COMPANY") Then
+                clientIndex = 1
+            Else
+                clientIndex = 0
+            End If
+
+        End If
+
+        ReglementLettrageForm.Show()
+        ReglementLettrageForm.GunaComboBoxTypeDeFiltre.SelectedIndex = clientIndex
+
+    End Sub
+
 End Class

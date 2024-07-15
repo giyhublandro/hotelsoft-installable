@@ -1313,10 +1313,7 @@ Public Class RapportFacturesForm
 
             If table.Rows.Count > 0 Then
 
-                Dim nombreDePointDeVente = table.Rows.Count
-
                 'AJOUT DES EN TETES
-
                 DataGridViewRapports.Columns.Add("DATE", "DATE")
 
                 For i = 0 To table.Rows.Count - 1
@@ -1336,6 +1333,7 @@ Public Class RapportFacturesForm
 
                     Dim venteDu As Date = DateDebutStat.AddDays(i).ToShortDateString
 
+                    'On parcours les types de chambres
                     For j = 0 To table.Rows.Count - 1
                         valeursRapportHegergement(j, table, venteDu, INCOM_GENERATED_CASHED_IN)
                     Next
@@ -2400,7 +2398,7 @@ Public Class RapportFacturesForm
 
 
     Public Function valeursRapportHegergement(ByVal j As Integer, ByVal roomType As DataTable, ByVal dateStat As Date, ByVal INCOM_GENERATED_CASHED_IN As Integer)
-        '2KLG
+
         Dim ligne_facture As New LigneFacture()
         Dim room_type As String = ""
 

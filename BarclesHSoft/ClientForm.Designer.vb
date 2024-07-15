@@ -78,6 +78,9 @@ Partial Class ClientForm
         Dim DataGridViewCellStyle52 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle53 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle54 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle55 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle56 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle57 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GunaLabelGestCompteGeneraux = New Guna.UI.WinForms.GunaLabel()
         Me.GunaPanel1 = New Guna.UI.WinForms.GunaPanel()
         Me.GunaImageButton3 = New Guna.UI.WinForms.GunaImageButton()
@@ -207,6 +210,8 @@ Partial Class ClientForm
         Me.TabPageSituation = New System.Windows.Forms.TabPage()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.GunaDataGridView2 = New Guna.UI.WinForms.GunaDataGridView()
+        Me.GunaTextBoxNom = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaTextBoxSoldeCompte = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaComboBoxModeReglementPratique = New Guna.UI.WinForms.GunaComboBox()
         Me.GunaPanelMobileMOney = New Guna.UI.WinForms.GunaPanel()
@@ -260,15 +265,6 @@ Partial Class ClientForm
         Me.Label3 = New System.Windows.Forms.Label()
         Me.LabelMontantAPayer = New System.Windows.Forms.Label()
         Me.GunaDataGridViewListeFacture = New Guna.UI.WinForms.GunaDataGridView()
-        Me.REFERENCE = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DATE_FACTURE = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.NATURE = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.LIBELLE = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.LETTRAGE = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.MONTANT = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.MONTANT_SOLDE = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SOLDE = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CODE_CLIENT = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GunaContextMenuStripFactureARegler = New Guna.UI.WinForms.GunaContextMenuStrip()
         Me.ImprimerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TransférerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -349,6 +345,15 @@ Partial Class ClientForm
         Me.GunaTextBoxCompteDebiteur = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaTextBoxInconnu = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaTextBoxEntrepriseHistorique = New Guna.UI.WinForms.GunaTextBox()
+        Me.REFERENCE = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DATE_FACTURE = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.NATURE = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.LIBELLE = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.LETTRAGE = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MONTANT = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MONTANT_SOLDE = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SOLDE = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CODE_CLIENT = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GunaPanel1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPageDescription.SuspendLayout()
@@ -361,6 +366,7 @@ Partial Class ClientForm
         Me.TabPageSituation.SuspendLayout()
         Me.TabControl2.SuspendLayout()
         Me.TabPage1.SuspendLayout()
+        CType(Me.GunaDataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GunaPanelMobileMOney.SuspendLayout()
         Me.GunaPanelPriseEncharge.SuspendLayout()
         CType(Me.GunaDataGridViewPriseEnCharge, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1541,12 +1547,12 @@ Partial Class ClientForm
         Me.GunaTextBoxCodeMembreElite.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxCodeMembreElite.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxCodeMembreElite.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.GunaTextBoxCodeMembreElite.Location = New System.Drawing.Point(48, 57)
+        Me.GunaTextBoxCodeMembreElite.Location = New System.Drawing.Point(50, 57)
         Me.GunaTextBoxCodeMembreElite.Name = "GunaTextBoxCodeMembreElite"
         Me.GunaTextBoxCodeMembreElite.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxCodeMembreElite.Radius = 5
         Me.GunaTextBoxCodeMembreElite.SelectedText = ""
-        Me.GunaTextBoxCodeMembreElite.Size = New System.Drawing.Size(155, 30)
+        Me.GunaTextBoxCodeMembreElite.Size = New System.Drawing.Size(153, 30)
         Me.GunaTextBoxCodeMembreElite.TabIndex = 34
         '
         'GunaTextBoxCodeClient
@@ -2555,6 +2561,8 @@ Partial Class ClientForm
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.GunaDataGridView2)
+        Me.TabPage1.Controls.Add(Me.GunaTextBoxNom)
         Me.TabPage1.Controls.Add(Me.GunaTextBoxSoldeCompte)
         Me.TabPage1.Controls.Add(Me.GunaComboBoxModeReglementPratique)
         Me.TabPage1.Controls.Add(Me.GunaPanelMobileMOney)
@@ -2592,6 +2600,93 @@ Partial Class ClientForm
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Factures"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'GunaDataGridView2
+        '
+        Me.GunaDataGridView2.AllowUserToAddRows = False
+        Me.GunaDataGridView2.AllowUserToDeleteRows = False
+        Me.GunaDataGridView2.AllowUserToResizeColumns = False
+        Me.GunaDataGridView2.AllowUserToResizeRows = False
+        DataGridViewCellStyle13.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridView2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
+        Me.GunaDataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCellsExceptHeader
+        Me.GunaDataGridView2.BackgroundColor = System.Drawing.Color.LightBlue
+        Me.GunaDataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.GunaDataGridView2.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.GunaDataGridView2.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle14.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle14
+        Me.GunaDataGridView2.ColumnHeadersHeight = 4
+        Me.GunaDataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.GunaDataGridView2.ColumnHeadersVisible = False
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle15.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridView2.DefaultCellStyle = DataGridViewCellStyle15
+        Me.GunaDataGridView2.EnableHeadersVisualStyles = False
+        Me.GunaDataGridView2.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDataGridView2.Location = New System.Drawing.Point(52, 360)
+        Me.GunaDataGridView2.MultiSelect = False
+        Me.GunaDataGridView2.Name = "GunaDataGridView2"
+        Me.GunaDataGridView2.ReadOnly = True
+        Me.GunaDataGridView2.RowHeadersVisible = False
+        Me.GunaDataGridView2.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        Me.GunaDataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.GunaDataGridView2.Size = New System.Drawing.Size(375, 207)
+        Me.GunaDataGridView2.TabIndex = 118
+        Me.GunaDataGridView2.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
+        Me.GunaDataGridView2.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridView2.ThemeStyle.AlternatingRowsStyle.Font = Nothing
+        Me.GunaDataGridView2.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty
+        Me.GunaDataGridView2.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty
+        Me.GunaDataGridView2.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty
+        Me.GunaDataGridView2.ThemeStyle.BackColor = System.Drawing.Color.LightBlue
+        Me.GunaDataGridView2.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDataGridView2.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDataGridView2.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+        Me.GunaDataGridView2.ThemeStyle.HeaderStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaDataGridView2.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White
+        Me.GunaDataGridView2.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.GunaDataGridView2.ThemeStyle.HeaderStyle.Height = 4
+        Me.GunaDataGridView2.ThemeStyle.ReadOnly = True
+        Me.GunaDataGridView2.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridView2.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.GunaDataGridView2.ThemeStyle.RowsStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaDataGridView2.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.GunaDataGridView2.ThemeStyle.RowsStyle.Height = 22
+        Me.GunaDataGridView2.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDataGridView2.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.GunaDataGridView2.Visible = False
+        '
+        'GunaTextBoxNom
+        '
+        Me.GunaTextBoxNom.BackColor = System.Drawing.Color.Transparent
+        Me.GunaTextBoxNom.BaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxNom.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaTextBoxNom.BorderSize = 1
+        Me.GunaTextBoxNom.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.GunaTextBoxNom.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBoxNom.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxNom.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBoxNom.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBoxNom.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaTextBoxNom.Location = New System.Drawing.Point(52, 330)
+        Me.GunaTextBoxNom.Name = "GunaTextBoxNom"
+        Me.GunaTextBoxNom.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBoxNom.Radius = 5
+        Me.GunaTextBoxNom.SelectedText = ""
+        Me.GunaTextBoxNom.Size = New System.Drawing.Size(375, 28)
+        Me.GunaTextBoxNom.TabIndex = 119
         '
         'GunaTextBoxSoldeCompte
         '
@@ -2694,31 +2789,31 @@ Partial Class ClientForm
         '
         Me.GunaDataGridViewPriseEnCharge.AllowUserToAddRows = False
         Me.GunaDataGridViewPriseEnCharge.AllowUserToDeleteRows = False
-        DataGridViewCellStyle13.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewPriseEnCharge.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle16.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewPriseEnCharge.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle16
         Me.GunaDataGridViewPriseEnCharge.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.GunaDataGridViewPriseEnCharge.BackgroundColor = System.Drawing.Color.LightBlue
         Me.GunaDataGridViewPriseEnCharge.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewPriseEnCharge.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewPriseEnCharge.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle14.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewPriseEnCharge.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle17.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle17.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewPriseEnCharge.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle17
         Me.GunaDataGridViewPriseEnCharge.ColumnHeadersHeight = 4
         Me.GunaDataGridViewPriseEnCharge.ColumnHeadersVisible = False
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle15.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewPriseEnCharge.DefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle18.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle18.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewPriseEnCharge.DefaultCellStyle = DataGridViewCellStyle18
         Me.GunaDataGridViewPriseEnCharge.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewPriseEnCharge.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewPriseEnCharge.Location = New System.Drawing.Point(12, 60)
@@ -3271,12 +3366,12 @@ Partial Class ClientForm
         Me.GunaTextBoxReference.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxReference.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxReference.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxReference.Location = New System.Drawing.Point(54, 330)
+        Me.GunaTextBoxReference.Location = New System.Drawing.Point(324, 330)
         Me.GunaTextBoxReference.Name = "GunaTextBoxReference"
         Me.GunaTextBoxReference.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxReference.Radius = 5
         Me.GunaTextBoxReference.SelectedText = ""
-        Me.GunaTextBoxReference.Size = New System.Drawing.Size(370, 28)
+        Me.GunaTextBoxReference.Size = New System.Drawing.Size(103, 28)
         Me.GunaTextBoxReference.TabIndex = 102
         '
         'Label6
@@ -3323,7 +3418,7 @@ Partial Class ClientForm
         Me.GunaButtonEnregistrerReglement.ForeColor = System.Drawing.Color.White
         Me.GunaButtonEnregistrerReglement.Image = Nothing
         Me.GunaButtonEnregistrerReglement.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonEnregistrerReglement.Location = New System.Drawing.Point(801, 367)
+        Me.GunaButtonEnregistrerReglement.Location = New System.Drawing.Point(801, 358)
         Me.GunaButtonEnregistrerReglement.Name = "GunaButtonEnregistrerReglement"
         Me.GunaButtonEnregistrerReglement.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonEnregistrerReglement.OnHoverBorderColor = System.Drawing.Color.Black
@@ -3377,7 +3472,7 @@ Partial Class ClientForm
         Me.GunaTextBoxChiffreAffaire.SelectedText = ""
         Me.GunaTextBoxChiffreAffaire.Size = New System.Drawing.Size(129, 28)
         Me.GunaTextBoxChiffreAffaire.TabIndex = 97
-        Me.GunaTextBoxChiffreAffaire.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.GunaTextBoxChiffreAffaire.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'GunaTextBoxSolde
         '
@@ -3392,7 +3487,7 @@ Partial Class ClientForm
         Me.GunaTextBoxSolde.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxSolde.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaTextBoxSolde.ForeColor = System.Drawing.Color.White
-        Me.GunaTextBoxSolde.Location = New System.Drawing.Point(699, 363)
+        Me.GunaTextBoxSolde.Location = New System.Drawing.Point(699, 354)
         Me.GunaTextBoxSolde.Name = "GunaTextBoxSolde"
         Me.GunaTextBoxSolde.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxSolde.Radius = 5
@@ -3413,7 +3508,7 @@ Partial Class ClientForm
         Me.GunaTextBoxMontantVerse.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxMontantVerse.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxMontantVerse.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxMontantVerse.Location = New System.Drawing.Point(572, 364)
+        Me.GunaTextBoxMontantVerse.Location = New System.Drawing.Point(572, 355)
         Me.GunaTextBoxMontantVerse.Name = "GunaTextBoxMontantVerse"
         Me.GunaTextBoxMontantVerse.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxMontantVerse.Radius = 5
@@ -3426,7 +3521,7 @@ Partial Class ClientForm
         '
         Me.LabelSolde.AutoSize = True
         Me.LabelSolde.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelSolde.Location = New System.Drawing.Point(722, 342)
+        Me.LabelSolde.Location = New System.Drawing.Point(722, 333)
         Me.LabelSolde.Name = "LabelSolde"
         Me.LabelSolde.Size = New System.Drawing.Size(49, 16)
         Me.LabelSolde.TabIndex = 90
@@ -3446,7 +3541,7 @@ Partial Class ClientForm
         Me.GunaTextBoxAPayer.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxAPayer.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaTextBoxAPayer.ForeColor = System.Drawing.Color.White
-        Me.GunaTextBoxAPayer.Location = New System.Drawing.Point(439, 364)
+        Me.GunaTextBoxAPayer.Location = New System.Drawing.Point(439, 355)
         Me.GunaTextBoxAPayer.Name = "GunaTextBoxAPayer"
         Me.GunaTextBoxAPayer.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxAPayer.Radius = 5
@@ -3459,7 +3554,7 @@ Partial Class ClientForm
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(577, 343)
+        Me.Label3.Location = New System.Drawing.Point(577, 334)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(107, 16)
         Me.Label3.TabIndex = 91
@@ -3469,7 +3564,7 @@ Partial Class ClientForm
         '
         Me.LabelMontantAPayer.AutoSize = True
         Me.LabelMontantAPayer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelMontantAPayer.Location = New System.Drawing.Point(439, 343)
+        Me.LabelMontantAPayer.Location = New System.Drawing.Point(439, 334)
         Me.LabelMontantAPayer.Name = "LabelMontantAPayer"
         Me.LabelMontantAPayer.Size = New System.Drawing.Size(120, 16)
         Me.LabelMontantAPayer.TabIndex = 92
@@ -3481,42 +3576,42 @@ Partial Class ClientForm
         Me.GunaDataGridViewListeFacture.AllowUserToDeleteRows = False
         Me.GunaDataGridViewListeFacture.AllowUserToResizeColumns = False
         Me.GunaDataGridViewListeFacture.AllowUserToResizeRows = False
-        DataGridViewCellStyle16.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewListeFacture.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle16
-        Me.GunaDataGridViewListeFacture.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        DataGridViewCellStyle19.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewListeFacture.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle19
+        Me.GunaDataGridViewListeFacture.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.GunaDataGridViewListeFacture.BackgroundColor = System.Drawing.Color.LightBlue
         Me.GunaDataGridViewListeFacture.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewListeFacture.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewListeFacture.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle17.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle17.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewListeFacture.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle17
+        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle20.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle20.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewListeFacture.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle20
         Me.GunaDataGridViewListeFacture.ColumnHeadersHeight = 25
         Me.GunaDataGridViewListeFacture.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridViewListeFacture.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.REFERENCE, Me.DATE_FACTURE, Me.NATURE, Me.LIBELLE, Me.LETTRAGE, Me.MONTANT, Me.MONTANT_SOLDE, Me.SOLDE, Me.CODE_CLIENT})
         Me.GunaDataGridViewListeFacture.ContextMenuStrip = Me.GunaContextMenuStripFactureARegler
-        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle18.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle18.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewListeFacture.DefaultCellStyle = DataGridViewCellStyle18
+        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle21.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle21.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle21.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewListeFacture.DefaultCellStyle = DataGridViewCellStyle21
         Me.GunaDataGridViewListeFacture.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewListeFacture.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewListeFacture.Location = New System.Drawing.Point(6, 56)
+        Me.GunaDataGridViewListeFacture.Location = New System.Drawing.Point(6, 59)
         Me.GunaDataGridViewListeFacture.Name = "GunaDataGridViewListeFacture"
         Me.GunaDataGridViewListeFacture.ReadOnly = True
         Me.GunaDataGridViewListeFacture.RowHeadersVisible = False
         Me.GunaDataGridViewListeFacture.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.GunaDataGridViewListeFacture.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewListeFacture.Size = New System.Drawing.Size(885, 270)
+        Me.GunaDataGridViewListeFacture.Size = New System.Drawing.Size(885, 267)
         Me.GunaDataGridViewListeFacture.TabIndex = 89
         Me.GunaDataGridViewListeFacture.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
         Me.GunaDataGridViewListeFacture.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
@@ -3540,61 +3635,6 @@ Partial Class ClientForm
         Me.GunaDataGridViewListeFacture.ThemeStyle.RowsStyle.Height = 22
         Me.GunaDataGridViewListeFacture.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewListeFacture.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        '
-        'REFERENCE
-        '
-        Me.REFERENCE.HeaderText = "REFERENCE"
-        Me.REFERENCE.Name = "REFERENCE"
-        Me.REFERENCE.ReadOnly = True
-        '
-        'DATE_FACTURE
-        '
-        Me.DATE_FACTURE.HeaderText = "DATE"
-        Me.DATE_FACTURE.Name = "DATE_FACTURE"
-        Me.DATE_FACTURE.ReadOnly = True
-        '
-        'NATURE
-        '
-        Me.NATURE.HeaderText = "NATURE"
-        Me.NATURE.Name = "NATURE"
-        Me.NATURE.ReadOnly = True
-        '
-        'LIBELLE
-        '
-        Me.LIBELLE.HeaderText = "LIBELLE"
-        Me.LIBELLE.Name = "LIBELLE"
-        Me.LIBELLE.ReadOnly = True
-        '
-        'LETTRAGE
-        '
-        Me.LETTRAGE.HeaderText = "LETTRAGE"
-        Me.LETTRAGE.Name = "LETTRAGE"
-        Me.LETTRAGE.ReadOnly = True
-        '
-        'MONTANT
-        '
-        Me.MONTANT.HeaderText = "DEBIT"
-        Me.MONTANT.Name = "MONTANT"
-        Me.MONTANT.ReadOnly = True
-        '
-        'MONTANT_SOLDE
-        '
-        Me.MONTANT_SOLDE.HeaderText = "CREDIT"
-        Me.MONTANT_SOLDE.Name = "MONTANT_SOLDE"
-        Me.MONTANT_SOLDE.ReadOnly = True
-        '
-        'SOLDE
-        '
-        Me.SOLDE.HeaderText = "SOLDE"
-        Me.SOLDE.Name = "SOLDE"
-        Me.SOLDE.ReadOnly = True
-        '
-        'CODE_CLIENT
-        '
-        Me.CODE_CLIENT.HeaderText = "CODE_CLIENT"
-        Me.CODE_CLIENT.Name = "CODE_CLIENT"
-        Me.CODE_CLIENT.ReadOnly = True
-        Me.CODE_CLIENT.Visible = False
         '
         'GunaContextMenuStripFactureARegler
         '
@@ -3629,32 +3669,32 @@ Partial Class ClientForm
         Me.GunaDataGridViewDetailsFactures.AllowUserToDeleteRows = False
         Me.GunaDataGridViewDetailsFactures.AllowUserToResizeColumns = False
         Me.GunaDataGridViewDetailsFactures.AllowUserToResizeRows = False
-        DataGridViewCellStyle19.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewDetailsFactures.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle19
+        DataGridViewCellStyle22.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewDetailsFactures.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle22
         Me.GunaDataGridViewDetailsFactures.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.GunaDataGridViewDetailsFactures.BackgroundColor = System.Drawing.Color.PaleTurquoise
         Me.GunaDataGridViewDetailsFactures.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewDetailsFactures.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewDetailsFactures.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle20.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle20.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewDetailsFactures.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle20
+        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle23.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle23.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewDetailsFactures.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle23
         Me.GunaDataGridViewDetailsFactures.ColumnHeadersHeight = 25
         Me.GunaDataGridViewDetailsFactures.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridViewDetailsFactures.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DateOperation, Me.LibelleOperation, Me.Debit, Me.Credit})
-        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle21.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle21.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle21.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewDetailsFactures.DefaultCellStyle = DataGridViewCellStyle21
+        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle24.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle24.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewDetailsFactures.DefaultCellStyle = DataGridViewCellStyle24
         Me.GunaDataGridViewDetailsFactures.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewDetailsFactures.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewDetailsFactures.Location = New System.Drawing.Point(6, 364)
@@ -3809,8 +3849,8 @@ Partial Class ClientForm
         Me.GunaDataGridViewResaDuClient.AllowUserToAddRows = False
         Me.GunaDataGridViewResaDuClient.AllowUserToResizeColumns = False
         Me.GunaDataGridViewResaDuClient.AllowUserToResizeRows = False
-        DataGridViewCellStyle22.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewResaDuClient.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle22
+        DataGridViewCellStyle25.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewResaDuClient.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle25
         Me.GunaDataGridViewResaDuClient.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaDataGridViewResaDuClient.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
@@ -3818,24 +3858,24 @@ Partial Class ClientForm
         Me.GunaDataGridViewResaDuClient.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewResaDuClient.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewResaDuClient.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle23.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle23.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewResaDuClient.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle23
+        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle26.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle26.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle26.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewResaDuClient.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle26
         Me.GunaDataGridViewResaDuClient.ColumnHeadersHeight = 25
         Me.GunaDataGridViewResaDuClient.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle24.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle24.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewResaDuClient.DefaultCellStyle = DataGridViewCellStyle24
+        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle27.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle27.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle27.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle27.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewResaDuClient.DefaultCellStyle = DataGridViewCellStyle27
         Me.GunaDataGridViewResaDuClient.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewResaDuClient.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewResaDuClient.Location = New System.Drawing.Point(6, 53)
@@ -3879,7 +3919,7 @@ Partial Class ClientForm
         Me.TabPage3.Controls.Add(Me.GunaDataGridViewPreferences)
         Me.TabPage3.Location = New System.Drawing.Point(4, 25)
         Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(918, 631)
+        Me.TabPage3.Size = New System.Drawing.Size(918, 633)
         Me.TabPage3.TabIndex = 4
         Me.TabPage3.Text = "Préférences"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -3993,8 +4033,8 @@ Partial Class ClientForm
         Me.GunaDataGridViewPreferences.AllowUserToAddRows = False
         Me.GunaDataGridViewPreferences.AllowUserToResizeColumns = False
         Me.GunaDataGridViewPreferences.AllowUserToResizeRows = False
-        DataGridViewCellStyle25.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewPreferences.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle25
+        DataGridViewCellStyle28.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewPreferences.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle28
         Me.GunaDataGridViewPreferences.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaDataGridViewPreferences.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
@@ -4002,24 +4042,24 @@ Partial Class ClientForm
         Me.GunaDataGridViewPreferences.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewPreferences.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewPreferences.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle26.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle26.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle26.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewPreferences.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle26
+        DataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle29.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle29.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle29.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle29.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle29.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle29.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewPreferences.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle29
         Me.GunaDataGridViewPreferences.ColumnHeadersHeight = 25
         Me.GunaDataGridViewPreferences.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle27.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle27.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle27.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle27.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewPreferences.DefaultCellStyle = DataGridViewCellStyle27
+        DataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle30.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle30.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle30.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle30.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle30.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewPreferences.DefaultCellStyle = DataGridViewCellStyle30
         Me.GunaDataGridViewPreferences.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewPreferences.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewPreferences.Location = New System.Drawing.Point(15, 101)
@@ -4064,7 +4104,7 @@ Partial Class ClientForm
         Me.TabPageListe.Controls.Add(Me.GunaDataGridViewClient)
         Me.TabPageListe.Location = New System.Drawing.Point(4, 25)
         Me.TabPageListe.Name = "TabPageListe"
-        Me.TabPageListe.Size = New System.Drawing.Size(918, 631)
+        Me.TabPageListe.Size = New System.Drawing.Size(918, 633)
         Me.TabPageListe.TabIndex = 2
         Me.TabPageListe.Text = "Liste"
         '
@@ -4074,32 +4114,32 @@ Partial Class ClientForm
         Me.GunaDataGridViewEntreprise.AllowUserToDeleteRows = False
         Me.GunaDataGridViewEntreprise.AllowUserToResizeColumns = False
         Me.GunaDataGridViewEntreprise.AllowUserToResizeRows = False
-        DataGridViewCellStyle28.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewEntreprise.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle28
+        DataGridViewCellStyle31.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewEntreprise.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle31
         Me.GunaDataGridViewEntreprise.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.GunaDataGridViewEntreprise.BackgroundColor = System.Drawing.Color.LightGreen
         Me.GunaDataGridViewEntreprise.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewEntreprise.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewEntreprise.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle29.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle29.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle29.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle29.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle29.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle29.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewEntreprise.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle29
+        DataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle32.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle32.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle32.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle32.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle32.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewEntreprise.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle32
         Me.GunaDataGridViewEntreprise.ColumnHeadersHeight = 4
         Me.GunaDataGridViewEntreprise.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridViewEntreprise.ColumnHeadersVisible = False
-        DataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle30.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle30.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle30.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle30.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle30.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewEntreprise.DefaultCellStyle = DataGridViewCellStyle30
+        DataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle33.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle33.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle33.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle33.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle33.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle33.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewEntreprise.DefaultCellStyle = DataGridViewCellStyle33
         Me.GunaDataGridViewEntreprise.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewEntreprise.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewEntreprise.Location = New System.Drawing.Point(580, 98)
@@ -4142,32 +4182,32 @@ Partial Class ClientForm
         Me.GunaDataGridViewTelephone.AllowUserToDeleteRows = False
         Me.GunaDataGridViewTelephone.AllowUserToResizeColumns = False
         Me.GunaDataGridViewTelephone.AllowUserToResizeRows = False
-        DataGridViewCellStyle31.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewTelephone.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle31
+        DataGridViewCellStyle34.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewTelephone.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle34
         Me.GunaDataGridViewTelephone.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.GunaDataGridViewTelephone.BackgroundColor = System.Drawing.Color.LightGreen
         Me.GunaDataGridViewTelephone.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewTelephone.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewTelephone.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle32.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle32.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle32.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle32.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle32.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewTelephone.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle32
+        DataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle35.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle35.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle35.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle35.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle35.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle35.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewTelephone.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle35
         Me.GunaDataGridViewTelephone.ColumnHeadersHeight = 4
         Me.GunaDataGridViewTelephone.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridViewTelephone.ColumnHeadersVisible = False
-        DataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle33.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle33.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle33.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle33.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle33.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle33.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewTelephone.DefaultCellStyle = DataGridViewCellStyle33
+        DataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle36.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle36.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle36.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle36.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle36.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle36.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewTelephone.DefaultCellStyle = DataGridViewCellStyle36
         Me.GunaDataGridViewTelephone.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewTelephone.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewTelephone.Location = New System.Drawing.Point(406, 98)
@@ -4210,32 +4250,32 @@ Partial Class ClientForm
         Me.GunaDataGridViewNomClient.AllowUserToDeleteRows = False
         Me.GunaDataGridViewNomClient.AllowUserToResizeColumns = False
         Me.GunaDataGridViewNomClient.AllowUserToResizeRows = False
-        DataGridViewCellStyle34.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewNomClient.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle34
+        DataGridViewCellStyle37.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewNomClient.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle37
         Me.GunaDataGridViewNomClient.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.GunaDataGridViewNomClient.BackgroundColor = System.Drawing.Color.LightGreen
         Me.GunaDataGridViewNomClient.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewNomClient.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewNomClient.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle35.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle35.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle35.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle35.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle35.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle35.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewNomClient.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle35
+        DataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle38.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle38.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle38.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle38.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle38.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle38.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewNomClient.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle38
         Me.GunaDataGridViewNomClient.ColumnHeadersHeight = 4
         Me.GunaDataGridViewNomClient.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridViewNomClient.ColumnHeadersVisible = False
-        DataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle36.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle36.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle36.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle36.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle36.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle36.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewNomClient.DefaultCellStyle = DataGridViewCellStyle36
+        DataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle39.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle39.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle39.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle39.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle39.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle39.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewNomClient.DefaultCellStyle = DataGridViewCellStyle39
         Me.GunaDataGridViewNomClient.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewNomClient.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewNomClient.Location = New System.Drawing.Point(199, 98)
@@ -4278,32 +4318,32 @@ Partial Class ClientForm
         Me.GunaDataGridViewRefClient.AllowUserToDeleteRows = False
         Me.GunaDataGridViewRefClient.AllowUserToResizeColumns = False
         Me.GunaDataGridViewRefClient.AllowUserToResizeRows = False
-        DataGridViewCellStyle37.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewRefClient.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle37
+        DataGridViewCellStyle40.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewRefClient.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle40
         Me.GunaDataGridViewRefClient.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.GunaDataGridViewRefClient.BackgroundColor = System.Drawing.Color.LightGreen
         Me.GunaDataGridViewRefClient.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewRefClient.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewRefClient.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle38.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle38.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle38.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle38.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle38.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle38.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewRefClient.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle38
+        DataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle41.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle41.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle41.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle41.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle41.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle41.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewRefClient.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle41
         Me.GunaDataGridViewRefClient.ColumnHeadersHeight = 4
         Me.GunaDataGridViewRefClient.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridViewRefClient.ColumnHeadersVisible = False
-        DataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle39.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle39.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle39.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle39.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle39.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle39.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewRefClient.DefaultCellStyle = DataGridViewCellStyle39
+        DataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle42.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle42.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle42.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle42.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle42.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle42.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewRefClient.DefaultCellStyle = DataGridViewCellStyle42
         Me.GunaDataGridViewRefClient.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewRefClient.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewRefClient.Location = New System.Drawing.Point(38, 98)
@@ -4647,31 +4687,31 @@ Partial Class ClientForm
         Me.GunaDataGridViewClient.AllowUserToOrderColumns = True
         Me.GunaDataGridViewClient.AllowUserToResizeColumns = False
         Me.GunaDataGridViewClient.AllowUserToResizeRows = False
-        DataGridViewCellStyle40.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewClient.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle40
+        DataGridViewCellStyle43.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewClient.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle43
         Me.GunaDataGridViewClient.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.GunaDataGridViewClient.BackgroundColor = System.Drawing.Color.LightBlue
         Me.GunaDataGridViewClient.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewClient.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewClient.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle41.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle41.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle41.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle41.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle41.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle41.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewClient.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle41
+        DataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle44.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle44.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle44.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle44.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle44.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle44.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewClient.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle44
         Me.GunaDataGridViewClient.ColumnHeadersHeight = 25
         Me.GunaDataGridViewClient.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        DataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle42.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle42.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle42.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle42.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle42.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle42.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewClient.DefaultCellStyle = DataGridViewCellStyle42
+        DataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle45.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle45.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle45.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle45.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle45.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle45.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewClient.DefaultCellStyle = DataGridViewCellStyle45
         Me.GunaDataGridViewClient.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewClient.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewClient.Location = New System.Drawing.Point(9, 118)
@@ -4715,7 +4755,7 @@ Partial Class ClientForm
         Me.TabPage4.Location = New System.Drawing.Point(4, 25)
         Me.TabPage4.Name = "TabPage4"
         Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage4.Size = New System.Drawing.Size(918, 631)
+        Me.TabPage4.Size = New System.Drawing.Size(918, 633)
         Me.TabPage4.TabIndex = 5
         Me.TabPage4.Text = "Club Elite"
         '
@@ -4725,32 +4765,32 @@ Partial Class ClientForm
         Me.GunaDataGridView1.AllowUserToDeleteRows = False
         Me.GunaDataGridView1.AllowUserToResizeColumns = False
         Me.GunaDataGridView1.AllowUserToResizeRows = False
-        DataGridViewCellStyle43.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle43
+        DataGridViewCellStyle46.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle46
         Me.GunaDataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.GunaDataGridView1.BackgroundColor = System.Drawing.Color.LightBlue
         Me.GunaDataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle44.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle44.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle44.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle44.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle44.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle44.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle44
+        DataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle47.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle47.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle47.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle47.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle47.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle47.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle47
         Me.GunaDataGridView1.ColumnHeadersHeight = 4
         Me.GunaDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridView1.ColumnHeadersVisible = False
-        DataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle45.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle45.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle45.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle45.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle45.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle45.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridView1.DefaultCellStyle = DataGridViewCellStyle45
+        DataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle48.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle48.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle48.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle48.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle48.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle48.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridView1.DefaultCellStyle = DataGridViewCellStyle48
         Me.GunaDataGridView1.EnableHeadersVisualStyles = False
         Me.GunaDataGridView1.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridView1.Location = New System.Drawing.Point(380, 103)
@@ -4813,32 +4853,32 @@ Partial Class ClientForm
         Me.GunaDataGridViewCodeEliteMembre.AllowUserToOrderColumns = True
         Me.GunaDataGridViewCodeEliteMembre.AllowUserToResizeColumns = False
         Me.GunaDataGridViewCodeEliteMembre.AllowUserToResizeRows = False
-        DataGridViewCellStyle46.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewCodeEliteMembre.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle46
+        DataGridViewCellStyle49.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewCodeEliteMembre.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle49
         Me.GunaDataGridViewCodeEliteMembre.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.GunaDataGridViewCodeEliteMembre.BackgroundColor = System.Drawing.Color.LightBlue
         Me.GunaDataGridViewCodeEliteMembre.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewCodeEliteMembre.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewCodeEliteMembre.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle47.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle47.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle47.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle47.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle47.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle47.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewCodeEliteMembre.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle47
+        DataGridViewCellStyle50.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle50.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle50.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle50.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle50.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle50.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle50.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewCodeEliteMembre.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle50
         Me.GunaDataGridViewCodeEliteMembre.ColumnHeadersHeight = 30
         Me.GunaDataGridViewCodeEliteMembre.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridViewCodeEliteMembre.ContextMenuStrip = Me.ContextMenuStripHistoriques
-        DataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle48.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle48.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle48.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle48.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle48.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle48.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewCodeEliteMembre.DefaultCellStyle = DataGridViewCellStyle48
+        DataGridViewCellStyle51.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle51.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle51.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle51.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle51.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle51.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle51.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewCodeEliteMembre.DefaultCellStyle = DataGridViewCellStyle51
         Me.GunaDataGridViewCodeEliteMembre.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewCodeEliteMembre.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewCodeEliteMembre.Location = New System.Drawing.Point(5, 84)
@@ -5143,7 +5183,7 @@ Partial Class ClientForm
         Me.TabPage5.Location = New System.Drawing.Point(4, 25)
         Me.TabPage5.Name = "TabPage5"
         Me.TabPage5.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage5.Size = New System.Drawing.Size(918, 631)
+        Me.TabPage5.Size = New System.Drawing.Size(918, 633)
         Me.TabPage5.TabIndex = 6
         Me.TabPage5.Text = "Historiques Points"
         '
@@ -5154,8 +5194,8 @@ Partial Class ClientForm
         Me.GunaDataGridViewHistoriquesDesPoints.AllowUserToOrderColumns = True
         Me.GunaDataGridViewHistoriquesDesPoints.AllowUserToResizeColumns = False
         Me.GunaDataGridViewHistoriquesDesPoints.AllowUserToResizeRows = False
-        DataGridViewCellStyle49.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewHistoriquesDesPoints.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle49
+        DataGridViewCellStyle52.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewHistoriquesDesPoints.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle52
         Me.GunaDataGridViewHistoriquesDesPoints.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaDataGridViewHistoriquesDesPoints.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
@@ -5163,24 +5203,24 @@ Partial Class ClientForm
         Me.GunaDataGridViewHistoriquesDesPoints.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewHistoriquesDesPoints.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewHistoriquesDesPoints.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle50.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle50.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle50.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle50.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle50.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle50.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle50.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewHistoriquesDesPoints.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle50
+        DataGridViewCellStyle53.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle53.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle53.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle53.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle53.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle53.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle53.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewHistoriquesDesPoints.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle53
         Me.GunaDataGridViewHistoriquesDesPoints.ColumnHeadersHeight = 30
         Me.GunaDataGridViewHistoriquesDesPoints.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        DataGridViewCellStyle51.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle51.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle51.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle51.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle51.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle51.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle51.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewHistoriquesDesPoints.DefaultCellStyle = DataGridViewCellStyle51
+        DataGridViewCellStyle54.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle54.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle54.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle54.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle54.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle54.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle54.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewHistoriquesDesPoints.DefaultCellStyle = DataGridViewCellStyle54
         Me.GunaDataGridViewHistoriquesDesPoints.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewHistoriquesDesPoints.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewHistoriquesDesPoints.Location = New System.Drawing.Point(10, 90)
@@ -5220,7 +5260,7 @@ Partial Class ClientForm
         Me.TabPage6.Controls.Add(Me.GunaGroupBox3)
         Me.TabPage6.Location = New System.Drawing.Point(4, 25)
         Me.TabPage6.Name = "TabPage6"
-        Me.TabPage6.Size = New System.Drawing.Size(918, 631)
+        Me.TabPage6.Size = New System.Drawing.Size(918, 633)
         Me.TabPage6.TabIndex = 7
         Me.TabPage6.Text = "Upgrade Client"
         Me.TabPage6.UseVisualStyleBackColor = True
@@ -5252,32 +5292,32 @@ Partial Class ClientForm
         Me.GunaDataGridViewToUpgrade.AllowUserToOrderColumns = True
         Me.GunaDataGridViewToUpgrade.AllowUserToResizeColumns = False
         Me.GunaDataGridViewToUpgrade.AllowUserToResizeRows = False
-        DataGridViewCellStyle52.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewToUpgrade.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle52
+        DataGridViewCellStyle55.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewToUpgrade.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle55
         Me.GunaDataGridViewToUpgrade.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.GunaDataGridViewToUpgrade.BackgroundColor = System.Drawing.Color.LightBlue
         Me.GunaDataGridViewToUpgrade.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewToUpgrade.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewToUpgrade.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle53.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle53.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle53.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle53.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle53.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle53.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle53.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewToUpgrade.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle53
+        DataGridViewCellStyle56.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle56.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle56.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle56.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle56.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle56.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle56.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewToUpgrade.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle56
         Me.GunaDataGridViewToUpgrade.ColumnHeadersHeight = 30
         Me.GunaDataGridViewToUpgrade.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridViewToUpgrade.ContextMenuStrip = Me.ContextMenuStripHistoriques
-        DataGridViewCellStyle54.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle54.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle54.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle54.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle54.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle54.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle54.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewToUpgrade.DefaultCellStyle = DataGridViewCellStyle54
+        DataGridViewCellStyle57.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle57.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle57.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle57.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle57.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle57.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle57.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewToUpgrade.DefaultCellStyle = DataGridViewCellStyle57
         Me.GunaDataGridViewToUpgrade.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewToUpgrade.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewToUpgrade.Location = New System.Drawing.Point(5, 84)
@@ -5467,12 +5507,12 @@ Partial Class ClientForm
         Me.GunaTextBoxCompteDebiteur.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxCompteDebiteur.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxCompteDebiteur.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxCompteDebiteur.Location = New System.Drawing.Point(576, 699)
+        Me.GunaTextBoxCompteDebiteur.Location = New System.Drawing.Point(562, 699)
         Me.GunaTextBoxCompteDebiteur.Name = "GunaTextBoxCompteDebiteur"
         Me.GunaTextBoxCompteDebiteur.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxCompteDebiteur.Radius = 5
         Me.GunaTextBoxCompteDebiteur.SelectedText = ""
-        Me.GunaTextBoxCompteDebiteur.Size = New System.Drawing.Size(79, 28)
+        Me.GunaTextBoxCompteDebiteur.Size = New System.Drawing.Size(93, 28)
         Me.GunaTextBoxCompteDebiteur.TabIndex = 78
         Me.GunaTextBoxCompteDebiteur.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.GunaTextBoxCompteDebiteur.Visible = False
@@ -5525,6 +5565,70 @@ Partial Class ClientForm
         Me.GunaTextBoxEntrepriseHistorique.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.GunaTextBoxEntrepriseHistorique.Visible = False
         '
+        'REFERENCE
+        '
+        Me.REFERENCE.HeaderText = "REFERENCE"
+        Me.REFERENCE.Name = "REFERENCE"
+        Me.REFERENCE.ReadOnly = True
+        Me.REFERENCE.Width = 104
+        '
+        'DATE_FACTURE
+        '
+        Me.DATE_FACTURE.HeaderText = "DATE"
+        Me.DATE_FACTURE.Name = "DATE_FACTURE"
+        Me.DATE_FACTURE.ReadOnly = True
+        Me.DATE_FACTURE.Width = 61
+        '
+        'NATURE
+        '
+        Me.NATURE.HeaderText = "NATURE"
+        Me.NATURE.Name = "NATURE"
+        Me.NATURE.ReadOnly = True
+        Me.NATURE.Width = 79
+        '
+        'LIBELLE
+        '
+        Me.LIBELLE.HeaderText = "LIBELLE"
+        Me.LIBELLE.Name = "LIBELLE"
+        Me.LIBELLE.ReadOnly = True
+        Me.LIBELLE.Width = 78
+        '
+        'LETTRAGE
+        '
+        Me.LETTRAGE.HeaderText = "LETTRAGE"
+        Me.LETTRAGE.Name = "LETTRAGE"
+        Me.LETTRAGE.ReadOnly = True
+        Me.LETTRAGE.Width = 92
+        '
+        'MONTANT
+        '
+        Me.MONTANT.HeaderText = "DEBIT"
+        Me.MONTANT.Name = "MONTANT"
+        Me.MONTANT.ReadOnly = True
+        Me.MONTANT.Width = 65
+        '
+        'MONTANT_SOLDE
+        '
+        Me.MONTANT_SOLDE.HeaderText = "CREDIT"
+        Me.MONTANT_SOLDE.Name = "MONTANT_SOLDE"
+        Me.MONTANT_SOLDE.ReadOnly = True
+        Me.MONTANT_SOLDE.Width = 74
+        '
+        'SOLDE
+        '
+        Me.SOLDE.HeaderText = "SOLDE"
+        Me.SOLDE.Name = "SOLDE"
+        Me.SOLDE.ReadOnly = True
+        Me.SOLDE.Width = 71
+        '
+        'CODE_CLIENT
+        '
+        Me.CODE_CLIENT.HeaderText = "CODE_CLIENT"
+        Me.CODE_CLIENT.Name = "CODE_CLIENT"
+        Me.CODE_CLIENT.ReadOnly = True
+        Me.CODE_CLIENT.Visible = False
+        Me.CODE_CLIENT.Width = 113
+        '
         'ClientForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -5563,6 +5667,7 @@ Partial Class ClientForm
         Me.TabControl2.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
+        CType(Me.GunaDataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GunaPanelMobileMOney.ResumeLayout(False)
         Me.GunaPanelMobileMOney.PerformLayout()
         Me.GunaPanelPriseEncharge.ResumeLayout(False)
@@ -5755,15 +5860,6 @@ Partial Class ClientForm
     Friend WithEvents GunaTextBoxPreference As Guna.UI.WinForms.GunaTextBox
     Friend WithEvents GunaButtonAfficherLesPreferences As Guna.UI.WinForms.GunaButton
     Friend WithEvents GunaDataGridViewListeFacture As Guna.UI.WinForms.GunaDataGridView
-    Friend WithEvents REFERENCE As DataGridViewTextBoxColumn
-    Friend WithEvents DATE_FACTURE As DataGridViewTextBoxColumn
-    Friend WithEvents NATURE As DataGridViewTextBoxColumn
-    Friend WithEvents LIBELLE As DataGridViewTextBoxColumn
-    Friend WithEvents LETTRAGE As DataGridViewTextBoxColumn
-    Friend WithEvents MONTANT As DataGridViewTextBoxColumn
-    Friend WithEvents MONTANT_SOLDE As DataGridViewTextBoxColumn
-    Friend WithEvents SOLDE As DataGridViewTextBoxColumn
-    Friend WithEvents CODE_CLIENT As DataGridViewTextBoxColumn
     Friend WithEvents GunaDataGridViewDetailsFactures As Guna.UI.WinForms.GunaDataGridView
     Friend WithEvents Label14 As Label
     Friend WithEvents GunaTextBoxChiffreAffaire As Guna.UI.WinForms.GunaTextBox
@@ -5880,4 +5976,15 @@ Partial Class ClientForm
     Friend WithEvents GunaLabel48 As Guna.UI.WinForms.GunaLabel
     Friend WithEvents GunaLabel49 As Guna.UI.WinForms.GunaLabel
     Friend WithEvents GunaButton4 As Guna.UI.WinForms.GunaButton
+    Friend WithEvents GunaDataGridView2 As Guna.UI.WinForms.GunaDataGridView
+    Friend WithEvents GunaTextBoxNom As Guna.UI.WinForms.GunaTextBox
+    Friend WithEvents REFERENCE As DataGridViewTextBoxColumn
+    Friend WithEvents DATE_FACTURE As DataGridViewTextBoxColumn
+    Friend WithEvents NATURE As DataGridViewTextBoxColumn
+    Friend WithEvents LIBELLE As DataGridViewTextBoxColumn
+    Friend WithEvents LETTRAGE As DataGridViewTextBoxColumn
+    Friend WithEvents MONTANT As DataGridViewTextBoxColumn
+    Friend WithEvents MONTANT_SOLDE As DataGridViewTextBoxColumn
+    Friend WithEvents SOLDE As DataGridViewTextBoxColumn
+    Friend WithEvents CODE_CLIENT As DataGridViewTextBoxColumn
 End Class

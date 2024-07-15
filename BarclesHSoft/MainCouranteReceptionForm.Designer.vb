@@ -195,6 +195,7 @@ Partial Class MainCouranteReceptionForm
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DataGridViewMainCouranteReception.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.DataGridViewMainCouranteReception.ColumnHeadersHeight = 25
+        Me.DataGridViewMainCouranteReception.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
         DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -210,6 +211,7 @@ Partial Class MainCouranteReceptionForm
         Me.DataGridViewMainCouranteReception.Name = "DataGridViewMainCouranteReception"
         Me.DataGridViewMainCouranteReception.ReadOnly = True
         Me.DataGridViewMainCouranteReception.RowHeadersVisible = False
+        Me.DataGridViewMainCouranteReception.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.DataGridViewMainCouranteReception.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridViewMainCouranteReception.Size = New System.Drawing.Size(1176, 425)
         Me.DataGridViewMainCouranteReception.TabIndex = 34
@@ -225,7 +227,7 @@ Partial Class MainCouranteReceptionForm
         Me.DataGridViewMainCouranteReception.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         Me.DataGridViewMainCouranteReception.ThemeStyle.HeaderStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DataGridViewMainCouranteReception.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White
-        Me.DataGridViewMainCouranteReception.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing
+        Me.DataGridViewMainCouranteReception.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.DataGridViewMainCouranteReception.ThemeStyle.HeaderStyle.Height = 25
         Me.DataGridViewMainCouranteReception.ThemeStyle.ReadOnly = True
         Me.DataGridViewMainCouranteReception.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White

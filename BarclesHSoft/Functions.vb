@@ -16,6 +16,8 @@ Imports System.Net
 
 Imports System.ComponentModel
 
+Imports System.Net.NetworkInformation
+
 Public Class Functions
 
     Structure ResumeParService
@@ -3548,11 +3550,23 @@ Public Class Functions
                 Dim PAX As Integer = 1
                 Dim MENSUEL As Integer = 0
 
+                Dim HEBDOMADAIRE As Integer = 0
+                Dim HEBDO_MENSUEL As Integer = -1
+                Dim CODE_TYPE_CHAMBRE As String = ""
+
                 If infoSupResa.Rows.Count > 0 Then
                     DEPOT_DE_GARANTIE = infoSupResa.Rows(0)("DEPOT_DE_GARANTIE")
                     CAUTION = infoSupResa.Rows(0)("MONTANT_TOTAL_CAUTION")
                     PAX = infoSupResa.Rows(0)("NB_PERSONNES")
                     MENSUEL = infoSupResa.Rows(0)("MENSUEL")
+                    HEBDOMADAIRE = infoSupResa.Rows(0)("HEBDOMADAIRE")
+                    CODE_TYPE_CHAMBRE = infoSupResa.Rows(0)("TYPE_CHAMBRE")
+                End If
+
+                If MENSUEL = 1 Then
+                    HEBDO_MENSUEL = 1
+                ElseIf HEBDOMADAIRE = 1 Then
+                    HEBDO_MENSUEL = 0
                 End If
 
                 If GlobalVariable.typeChambreOuSalle = "salle" Then
@@ -3563,14 +3577,24 @@ Public Class Functions
 
                 Else
 
-                    If MENSUEL = 0 Then
-                        Libelle = "Type Chambre :"
-                        LibelleJour = "Nuitée(s) : "
-                        libelleMontant = "Tarif TTC"
+                    If HEBDO_MENSUEL = 0 Then
+
+                        Libelle = "Type Logement : "
+                        LibelleJour = "Jour(s) : "
+                        libelleMontant = "Loyer Hebdomadaire : "
+
+                    ElseIf HEBDO_MENSUEL = 1 Then
+
+                        Libelle = "Type Logement : "
+                        LibelleJour = "Jour(s) : "
+                        libelleMontant = "Loyer Mensuel : "
+
                     Else
-                        Libelle = "Type Logement :"
-                        LibelleJour = "Jour(s) :"
-                        libelleMontant = "Loyer Mensuel :"
+
+                        Libelle = "Type Chambre : "
+                        LibelleJour = "Nuitée(s) : "
+                        libelleMontant = "Tarif TTC : "
+
                     End If
 
                 End If
@@ -3810,7 +3834,7 @@ Public Class Functions
                 pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
                 tR1.AddCell(pdfCell)
 
-                pdfCell = New PdfPCell(New Paragraph("Arrivé : ", font1))
+                pdfCell = New PdfPCell(New Paragraph("Arrivée : ", font1))
                 pdfCell.Border = 0
                 pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
                 tR1.AddCell(pdfCell)
@@ -3855,7 +3879,9 @@ Public Class Functions
                 pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
                 tR1.AddCell(pdfCell)
 
-                pdfCell = New PdfPCell(New Paragraph(NbreNuitee, font1))
+                Dim detail As String = detailSejourMensuelHebdo(DateDebut, DateFin, HEBDO_MENSUEL)
+
+                pdfCell = New PdfPCell(New Paragraph(NbreNuitee & " (" & detail & ")", font1))
                 pdfCell.Border = 0
                 pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
                 tR1.AddCell(pdfCell)
@@ -3870,7 +3896,23 @@ Public Class Functions
                 pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
                 tR1.AddCell(pdfCell)
 
-                pdfCell = New PdfPCell(New Paragraph("Taxe de séjour ", font1))
+                If HEBDO_MENSUEL = 0 Or HEBDO_MENSUEL = 1 Then
+
+                    pdfCell = New PdfPCell(New Paragraph("Tarif Journalier : ", font1))
+                    pdfCell.Border = 0
+                    pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
+                    tR1.AddCell(pdfCell)
+
+                    Dim tarifJournalier As Double = Functions.calculJournalierHebdoMensuel(HEBDO_MENSUEL, tarif)
+
+                    pdfCell = New PdfPCell(New Paragraph(Format(tarifJournalier, "#,##0") & " " & CODE_MONNAIE, font1))
+                    pdfCell.Border = 0
+                    pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
+                    tR1.AddCell(pdfCell)
+
+                End If
+
+                pdfCell = New PdfPCell(New Paragraph("Taxe de séjour : ", font1))
                 pdfCell.Border = 0
                 pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
                 tR1.AddCell(pdfCell)
@@ -3884,6 +3926,10 @@ Public Class Functions
                 pdfCell.Border = 0
                 pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
                 tR1.AddCell(pdfCell)
+
+                If HEBDO_MENSUEL = 0 Or HEBDO_MENSUEL = 1 Then
+                    MONTANT_HT = MONTANT_TAXE_DE_SEJOUR + prixSejourMensuelHebdo(CODE_TYPE_CHAMBRE, HEBDO_MENSUEL, DateDebut, DateFin, tarif)
+                End If
 
                 pdfCell = New PdfPCell(New Paragraph(Chr(13) & Format(MONTANT_HT, "#,##0") & " " & CODE_MONNAIE, pColumn))
                 pdfCell.Border = 0
@@ -6580,7 +6626,7 @@ Public Class Functions
             pdfDoc.Open()
 
             '------------------------------- LOGO SUR LE BON DE COMMANDE --------------------------------------
-            'klg
+
             Dim img() As Byte
             img = societe.Rows(0)("LOGO")
 
@@ -7175,7 +7221,7 @@ Public Class Functions
 
                 If GlobalVariable.AgenceActuelle.Rows(0)("PRINT_B7") = 1 Then
                     '------------------------------- LOGO SUR LE BON DE COMMANDE --------------------------------------
-                    'klg
+
                     Dim img() As Byte
                     img = societe.Rows(0)("LOGO")
 
@@ -28094,5 +28140,276 @@ Public Class Functions
         Return exist
 
     End Function
+
+    Public Shared Function montantLogementFacture(ByVal dateDebut As Date, ByVal CODE_RESERVATION As String) As Double
+
+        Dim exist As Boolean = False
+
+        Dim FillingListquery As String = ""
+
+        Dim MONTANT As Double = 0
+
+        FillingListquery = "SELECT * FROM ligne_facture WHERE DATE_FACTURE >= '" & dateDebut.ToString("yyyy-MM-dd") & "' 
+                   AND DATE_FACTURE <= '" & dateDebut.ToString("yyyy-MM-dd") & "' AND CODE_RESERVATION = @CODE_RESERVATION "
+
+        Dim commandList As New MySqlCommand(FillingListquery, GlobalVariable.connect)
+        commandList.Parameters.Add("@CODE_RESERVATION", MySqlDbType.VarChar).Value = CODE_RESERVATION
+        Dim adapterList As New MySqlDataAdapter(commandList)
+        Dim tableList As New DataTable()
+
+        adapterList.Fill(tableList)
+
+        If tableList.Rows.Count > 0 Then
+            MONTANT = tableList.Rows(0)("MONTANT_ACCORDE")
+        End If
+
+        Return MONTANT
+
+    End Function
+
+    Public Shared Function detailSejourMensuelHebdo(ByVal DATE_ARRIVEE As Date, ByVal DATE_DEPART As Date, ByVal HEBDO_MENSUEL As Integer)
+
+        Dim totalSejour As Double = 0
+
+        Dim detail As String = ""
+
+        Dim numberOfWeeks As Integer = 0
+        Dim numberOfDays As Integer = 0
+        Dim numberOfMonths As Integer = 0
+
+        Dim monthNumberArrivee As Integer = 0
+        Dim monthNumberDepart As Integer = 0
+        Dim dayNumberSortie As Integer = 0
+        Dim dayNumberEntree As Integer = 0
+
+        Dim tempsAFaire As Integer = CType((DATE_DEPART - DATE_ARRIVEE).TotalDays, Int32)
+
+        Dim prix As Double = 0
+        Dim prixJournalier As Double = 0
+
+        Dim pluriel As String = ""
+        Dim plurielDay As String = ""
+
+        If HEBDO_MENSUEL = 0 Then
+
+            '2- ON DETERMINE LE NOMBRE DE JOUR APRES EXTRACTION DES SEMAINES POUR ATTEINDRE LA DATE DE DEPART 
+            numberOfDays = tempsAFaire Mod 7
+
+            '1- ON DETERMINE LE NOMBRE DE SEMAINE A FAIRE PAR APPORT AU NOMBRE DE JOUR EXISTANT ENTRE L'ARRIVEE ET DEPART
+            numberOfWeeks = ((tempsAFaire - numberOfDays) / 7)
+
+            If numberOfWeeks > 1 Then
+                pluriel = "s"
+            End If
+
+            If numberOfDays > 1 Then
+                plurielDay = "s"
+            End If
+
+            If GlobalVariable.actualLanguageValue = 1 Then
+                detail = numberOfWeeks & " Semaine" & pluriel & " " & numberOfDays & " jour" & plurielDay
+            Else
+                detail = numberOfWeeks & " Week" & pluriel & " " & numberOfDays & " day" & plurielDay
+            End If
+
+        ElseIf HEBDO_MENSUEL = 1 Then
+
+            '1- ON DETERMINE LE NOMBRE DE MOIS A FAIRE PAR APPORT A L'ARRIVEE ET DEPART
+            '1.1- ON DETERMINE LES ECARTS DE MOIS ENTRE L'ARRIVEE ET DEPART
+            monthNumberArrivee = Month(DATE_ARRIVEE)
+            monthNumberDepart = Month(DATE_DEPART)
+
+            dayNumberSortie = DATE_DEPART.Day()
+            dayNumberEntree = DATE_ARRIVEE.Day()
+
+            numberOfMonths = monthNumberDepart - monthNumberArrivee
+            If dayNumberSortie < dayNumberEntree Then
+                numberOfMonths -= 1
+            End If
+
+            If numberOfMonths = 0 Then
+                numberOfDays = tempsAFaire
+            Else
+
+                For i = 0 To numberOfMonths
+
+                    If i = numberOfMonths Then
+
+                        If dayNumberSortie >= dayNumberEntree Then
+                            numberOfDays = dayNumberSortie - dayNumberEntree
+                        ElseIf dayNumberSortie < dayNumberEntree Then
+                            numberOfDays = CType((DATE_DEPART - DATE_ARRIVEE.AddMonths(numberOfMonths)).TotalDays, Int32)
+                        End If
+
+                    End If
+                Next
+
+            End If
+
+            If numberOfMonths = 0 Then
+
+                If numberOfDays > 1 Then
+                    plurielDay = "s"
+                End If
+
+                If GlobalVariable.actualLanguageValue = 1 Then
+                    detail = numberOfDays & " jour" & plurielDay
+                Else
+                    detail = numberOfDays & " day" & plurielDay
+                End If
+
+            ElseIf numberOfMonths > 0 Then
+
+                If Math.Abs(numberOfDays) > 0 Then
+
+                    If numberOfMonths > 1 Then
+                        pluriel = "s"
+                    End If
+
+                    If numberOfDays > 1 Then
+                        plurielDay = "s"
+                    End If
+
+                    If GlobalVariable.actualLanguageValue = 1 Then
+                        detail = numberOfMonths & " Mois " & numberOfDays & " jour" & plurielDay
+                    Else
+                        detail = numberOfMonths & " Month" & pluriel & " " & numberOfDays & " day" & plurielDay
+                    End If
+
+                Else
+
+                    If numberOfMonths > 1 Then
+                        pluriel = "s"
+                    End If
+
+                    If GlobalVariable.actualLanguageValue = 1 Then
+                        detail = numberOfMonths & " Mois"
+                    Else
+                        detail = numberOfMonths & " Month" & pluriel
+                    End If
+
+                End If
+
+            End If
+
+        End If
+
+        Return detail
+
+    End Function
+
+    Public Shared Function prixSejourMensuelHebdo(ByVal CODE_TYPE_CHAMBRE As String, ByVal HEBDO_MENSUEL As Integer, ByVal DATE_ARRIVEE As Date, ByVal DATE_DEPART As Date, ByVal prix As Integer) As Double
+
+        Dim totalSejour As Double = 0
+
+        Dim numberOfWeeks As Integer = 0
+        Dim numberOfDays As Integer = 0
+        Dim numberOfMonths As Integer = 0
+
+        Dim monthNumberArrivee As Integer = 0
+        Dim monthNumberDepart As Integer = 0
+        Dim dayNumberSortie As Integer = 0
+        Dim dayNumberEntree As Integer = 0
+
+        Dim tempsAFaire As Integer = CType((DATE_DEPART - DATE_ARRIVEE).TotalDays, Int32)
+
+        Dim prixJournalier As Double = 0
+
+        If HEBDO_MENSUEL = 0 Then
+
+            '2- ON DETERMINE LE NOMBRE DE JOUR APRES EXTRACTION DES SEMAINES POUR ATTEINDRE LA DATE DE DEPART 
+            numberOfDays = tempsAFaire Mod 7
+
+            '1- ON DETERMINE LE NOMBRE DE SEMAINE A FAIRE PAR APPORT AU NOMBRE DE JOUR EXISTANT ENTRE L'ARRIVEE ET DEPART
+            numberOfWeeks = ((tempsAFaire - numberOfDays) / 7)
+
+            prixJournalier = Functions.calculJournalierHebdoMensuel(HEBDO_MENSUEL, prix)
+
+            totalSejour = (numberOfWeeks * prix) + (numberOfDays * prixJournalier)
+
+        ElseIf HEBDO_MENSUEL = 1 Then
+
+            monthNumberArrivee = Month(DATE_ARRIVEE)
+            monthNumberDepart = Month(DATE_DEPART)
+
+            dayNumberSortie = DATE_DEPART.Day()
+            dayNumberEntree = DATE_ARRIVEE.Day()
+
+            numberOfMonths = monthNumberDepart - monthNumberArrivee
+            If dayNumberSortie < dayNumberEntree Then
+                numberOfMonths -= 1
+            End If
+
+            prixJournalier = Functions.calculJournalierHebdoMensuel(HEBDO_MENSUEL, prix)
+
+            If numberOfMonths = 0 Then
+
+                numberOfDays = tempsAFaire
+                totalSejour = (numberOfDays * prixJournalier)
+
+            Else
+
+                For i = 0 To numberOfMonths
+
+                    If i = numberOfMonths Then
+
+                        dayNumberSortie = DATE_DEPART.Day()
+                        dayNumberEntree = DATE_ARRIVEE.Day()
+
+                        numberOfDays = dayNumberSortie - dayNumberEntree
+
+                        If dayNumberSortie >= dayNumberEntree Then
+                            numberOfDays = dayNumberSortie - dayNumberEntree
+                        ElseIf dayNumberSortie < dayNumberEntree Then
+                            numberOfDays = CType((DATE_DEPART - DATE_ARRIVEE.AddMonths(numberOfMonths)).TotalDays, Int32)
+                        End If
+
+                    End If
+                Next
+
+            End If
+
+            totalSejour = (numberOfMonths * prix) + (numberOfDays * prixJournalier)
+
+        End If
+
+        Return totalSejour
+
+    End Function
+
+
+    Public Shared Function calculJournalierHebdoMensuel(ByVal HEBDO_MENSUEL As Integer, ByVal MONTANT_ACCORDE As Double)
+
+        Dim montant As Double = 0
+        Dim annee = Year(GlobalVariable.DateDeTravail)
+        Dim totalNumberOfDays = 0
+
+        If DateTime.IsLeapYear(annee) Then
+            totalNumberOfDays = 366
+        Else
+            totalNumberOfDays = 365
+        End If
+
+        If totalNumberOfDays > 0 Then
+
+            If HEBDO_MENSUEL = 0 Then 'HEBDOMADAIRE
+                montant = (MONTANT_ACCORDE * 52) / totalNumberOfDays
+            ElseIf HEBDO_MENSUEL = 1 Then 'MENSUEL
+                montant = (MONTANT_ACCORDE * 12) / totalNumberOfDays
+            End If
+
+        End If
+
+        Return montant
+
+    End Function
+
+    Public Shared Function getMacAddresse()
+
+        Dim nics() As NetworkInterface = NetworkInterface.GetAllNetworkInterfaces()
+        Return nics(1).GetPhysicalAddress.ToString
+
+    End Function
+
 
 End Class

@@ -117,7 +117,7 @@ Partial Class AccueilForm
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.Size = New System.Drawing.Size(433, 12)
         Me.TextBox3.TabIndex = 8
-        Me.TextBox3.Text = "V.1.0.1"
+        Me.TextBox3.Text = "V.1.0.2"
         Me.TextBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'TextBox2

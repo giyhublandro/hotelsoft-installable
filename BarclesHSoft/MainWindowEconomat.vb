@@ -3814,8 +3814,15 @@ Public Class MainWindowEconomat
 
         GlobalVariable.typeDeClientAFacturer = "comptoir"
         'MainWindowBarRestaurantForm.Show()
-        BarRestaurantForm.Show()
-        BarRestaurantForm.TopMost = True
+
+        If Trim(GlobalVariable.AgenceActuelle.Rows(0)("CAISSE_ENREGISTREUSE_1")).Equals("") Then
+            BarRestaurantForm.Show()
+            BarRestaurantForm.GunaLabelHeader.Text = "COMPTOIR"
+        Else
+            BarRestaurantCaisseEnregistreuseForm.Show()
+            BarRestaurantCaisseEnregistreuseForm.GunaLabelHeader.Text = "COMPTOIR"
+        End If
+
 
         Me.Close()
     End Sub

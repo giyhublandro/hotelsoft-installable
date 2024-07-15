@@ -864,9 +864,9 @@ ETAT_NOTE_RESERVATION = @value31 , CODE_ENTREPRISE=@value32 , NOM_ENTREPRISE = @
 
         'VERIF SI IL A ETE FACTURE ALORS l'HEBERGEMENT NE PEUT ETRE NUL
         If MENSUEL = 1 Then
-            MONTANT_ACCORDE = 0
+            MONTANT_ACCORDE = Functions.montantLogementFacture(GlobalVariable.DateDeTravail.AddDays(1), CODE_RESERVATION)
         ElseIf HEBDOMADAIRE = 1 Then
-            MONTANT_ACCORDE = 0
+            MONTANT_ACCORDE = Functions.montantLogementFacture(GlobalVariable.DateDeTravail.AddDays(1), CODE_RESERVATION)
         Else
             If DATE_SORTIE.ToShortDateString = nouvellEDateDeTravail.ToShortDateString Then
                 MONTANT_ACCORDE = 0
@@ -1721,6 +1721,9 @@ ETAT_NOTE_RESERVATION = @value31 , CODE_ENTREPRISE=@value32 , NOM_ENTREPRISE = @
 
         Dim DateDebut As Date = GlobalVariable.DateDeTravail.ToString("yyyy-MM-dd")
 
+        Dim MENSUEL As Integer = 0
+        Dim HEBDOMADAIRE As Integer = 0
+
         Dim query As String = "SELECT * FROM reserve_conf WHERE CODE_RESERVATION=@CODE_RESERVATION"
 
         Dim commandReservation As New MySqlCommand(query, GlobalVariable.connect)
@@ -1733,6 +1736,9 @@ ETAT_NOTE_RESERVATION = @value31 , CODE_ENTREPRISE=@value32 , NOM_ENTREPRISE = @
 
             For i = 0 To tableReservation.Rows.Count - 1
 
+                HEBDOMADAIRE = tableReservation.Rows(0)("HEBDOMADAIRE")
+                MENSUEL = tableReservation.Rows(0)("MENSUEL")
+
                 Dim clientInfo As DataTable = Functions.getElementByCode(tableReservation.Rows(i)("CLIENT_ID"), "client", "CODE_CLIENT")
 
                 Dim typeClient As String = ""
@@ -1744,17 +1750,143 @@ ETAT_NOTE_RESERVATION = @value31 , CODE_ENTREPRISE=@value32 , NOM_ENTREPRISE = @
                 Dim TITRE As String = ""
                 Dim TITRE_TYPE As String = ""
 
+                Dim monthNumber As Integer = Month(GlobalVariable.DateDeTravail)
+                Dim annee = Year(GlobalVariable.DateDeTravail.AddDays(1))
+                Dim mois As String = ""
+
+                If GlobalVariable.actualLanguageValue = 1 Then
+
+                    If monthNumber = 1 Then
+                        mois = "Janvier"
+                    ElseIf monthNumber = 2 Then
+                        mois = "Fervrier"
+                    ElseIf monthNumber = 3 Then
+                        mois = "Mars"
+                    ElseIf monthNumber = 4 Then
+                        mois = "Avril"
+                    ElseIf monthNumber = 5 Then
+                        mois = "Mai"
+                    ElseIf monthNumber = 6 Then
+                        mois = "Juin"
+                    ElseIf monthNumber = 7 Then
+                        mois = "Juillet"
+                    ElseIf monthNumber = 8 Then
+                        mois = "Août"
+                    ElseIf monthNumber = 9 Then
+                        mois = "Septembre"
+                    ElseIf monthNumber = 10 Then
+                        mois = "Decembre"
+                    ElseIf monthNumber = 11 Then
+                        mois = "Novembre"
+                    ElseIf monthNumber = 12 Then
+                        mois = "Decembre"
+                    End If
+
+                Else
+
+                    If monthNumber = 1 Then
+                        mois = "January"
+                    ElseIf monthNumber = 2 Then
+                        mois = "February"
+                    ElseIf monthNumber = 3 Then
+                        mois = "March"
+                    ElseIf monthNumber = 4 Then
+                        mois = "April"
+                    ElseIf monthNumber = 5 Then
+                        mois = "May"
+                    ElseIf monthNumber = 6 Then
+                        mois = "June"
+                    ElseIf monthNumber = 7 Then
+                        mois = "Jully"
+                    ElseIf monthNumber = 8 Then
+                        mois = "August"
+                    ElseIf monthNumber = 9 Then
+                        mois = "September"
+                    ElseIf monthNumber = 10 Then
+                        mois = "October"
+                    ElseIf monthNumber = 11 Then
+                        mois = "November"
+                    ElseIf monthNumber = 12 Then
+                        mois = "December"
+                    End If
+
+                End If
+
                 If tableReservation.Rows(i)("TYPE") = "chambre" Then
 
-                    If GlobalVariable.actualLanguageValue = 1 Then
-                        TITRE = "HEBERGEMENT"
+                    If MENSUEL = 1 Then
+
+                        If GlobalVariable.actualLanguageValue = 1 Then
+                            TITRE = "LOYER MENSUEL DE " & mois.ToString.ToUpper & " " & annee
+                        Else
+                            TITRE = "MONTHLY RENT OF " & mois.ToString.ToUpper & " " & annee
+                        End If
+
+                    ElseIf HEBDOMADAIRE = 1 Then
+
+                        If GlobalVariable.actualLanguageValue = 1 Then
+                            TITRE = "LOYER HEBDOMADAIRE DE " & mois.ToString.ToUpper & " " & annee
+                        Else
+                            TITRE = "WEEKLY RENT OF " & mois.ToString.ToUpper & " " & annee
+                        End If
+
                     Else
-                        TITRE = "ACCOMMODATION"
+
+                        If GlobalVariable.actualLanguageValue = 1 Then
+                            TITRE = "HEBERGEMENT"
+                        Else
+                            TITRE = "ACCOMMODATION"
+                        End If
+
                     End If
 
                     TITRE_TYPE = "chambre"
 
                 ElseIf tableReservation.Rows(i)("TYPE") = "salle" Then
+
+
+                    If GlobalVariable.actualLanguageValue = 1 Then
+                        TITRE = "LOCATION SALLE"
+                    Else
+                        TITRE = "HALL RENTING"
+                    End If
+
+                    TITRE_TYPE = "salle"
+
+                End If
+
+                If tableReservation.Rows(i)("TYPE") = "chambre" Then
+
+                    If MENSUEL = 1 Then
+
+                        If GlobalVariable.actualLanguageValue = 1 Then
+                            TITRE = "LOYER MENSUEL DE " & mois.ToString.ToUpper & " " & annee
+                        Else
+                            TITRE = "MONTHLY RENT OF " & mois.ToString.ToUpper & " " & annee
+                        End If
+
+                    ElseIf HEBDOMADAIRE = 1 Then
+
+                        If GlobalVariable.actualLanguageValue = 1 Then
+                            TITRE = "LOYER HEBDOMADAIRE DE " & mois.ToString.ToUpper & " " & annee
+                        Else
+                            TITRE = "WEEKLY RENT OF " & mois.ToString.ToUpper & " " & annee
+                        End If
+
+                    Else
+
+                        If GlobalVariable.actualLanguageValue = 1 Then
+                            TITRE = "HEBERGEMENT"
+                        Else
+                            TITRE = "ACCOMMODATION"
+                        End If
+
+                    End If
+
+                    TITRE_TYPE = "chambre"
+
+                ElseIf tableReservation.Rows(i)("TYPE") = "salle" Then
+
 
                     If GlobalVariable.actualLanguageValue = 1 Then
                         TITRE = "LOCATION SALLE"

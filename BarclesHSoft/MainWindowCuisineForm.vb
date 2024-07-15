@@ -191,9 +191,16 @@ Public Class MainWindowCuisineForm
 
     Private Sub BarRestaurationToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BarRestaurationToolStripMenuItem.Click
         GlobalVariable.typeDeClientAFacturer = "comptoir"
-        BarRestaurantForm.Close()
-        BarRestaurantForm.Show()
-        ArticleForm.Close()
+        If Trim(GlobalVariable.AgenceActuelle.Rows(0)("CAISSE_ENREGISTREUSE_1")).Equals("") Then
+            BarRestaurantForm.Close()
+            BarRestaurantForm.Show()
+            BarRestaurantForm.GunaLabelHeader.Text = "COMPTOIR"
+        Else
+            BarRestaurantCaisseEnregistreuseForm.Close()
+            BarRestaurantCaisseEnregistreuseForm.Show()
+            BarRestaurantCaisseEnregistreuseForm.GunaLabelHeader.Text = "COMPTOIR"
+        End If
+
         Me.Close()
     End Sub
 

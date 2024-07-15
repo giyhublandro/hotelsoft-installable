@@ -106,11 +106,12 @@ Partial Class HomeForm
         '
         'GunaImageButtonMinimized
         '
-        Me.GunaImageButtonMinimized.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.GunaImageButtonMinimized.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaImageButtonMinimized.DialogResult = System.Windows.Forms.DialogResult.None
         Me.GunaImageButtonMinimized.Image = CType(resources.GetObject("GunaImageButtonMinimized.Image"), System.Drawing.Image)
         Me.GunaImageButtonMinimized.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaImageButtonMinimized.Location = New System.Drawing.Point(1296, 2)
+        Me.GunaImageButtonMinimized.Location = New System.Drawing.Point(1287, 2)
         Me.GunaImageButtonMinimized.Name = "GunaImageButtonMinimized"
         Me.GunaImageButtonMinimized.OnHoverImage = Nothing
         Me.GunaImageButtonMinimized.OnHoverImageOffset = New System.Drawing.Point(0, 0)
@@ -119,11 +120,12 @@ Partial Class HomeForm
         '
         'GunaImageButtonClose
         '
-        Me.GunaImageButtonClose.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.GunaImageButtonClose.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaImageButtonClose.DialogResult = System.Windows.Forms.DialogResult.None
         Me.GunaImageButtonClose.Image = CType(resources.GetObject("GunaImageButtonClose.Image"), System.Drawing.Image)
         Me.GunaImageButtonClose.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaImageButtonClose.Location = New System.Drawing.Point(1320, 2)
+        Me.GunaImageButtonClose.Location = New System.Drawing.Point(1311, 2)
         Me.GunaImageButtonClose.Name = "GunaImageButtonClose"
         Me.GunaImageButtonClose.OnHoverImage = Nothing
         Me.GunaImageButtonClose.OnHoverImageOffset = New System.Drawing.Point(0, 0)
@@ -138,7 +140,6 @@ Partial Class HomeForm
         Me.GunaPanel1.Controls.Add(Me.GunaImageButtonMinimized)
         Me.GunaPanel1.Controls.Add(Me.GunaImageButtonClose)
         Me.GunaPanel1.Controls.Add(Me.GunaLabel1)
-        Me.GunaPanel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.GunaPanel1.Location = New System.Drawing.Point(0, 0)
         Me.GunaPanel1.Name = "GunaPanel1"
         Me.GunaPanel1.Size = New System.Drawing.Size(1350, 25)

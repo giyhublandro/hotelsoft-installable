@@ -23,6 +23,7 @@ Partial Class ReglementForm
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ReglementForm))
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -36,9 +37,10 @@ Partial Class ReglementForm
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ReglementForm))
         Me.GunaLabelGestCompteGeneraux = New Guna.UI.WinForms.GunaLabel()
         Me.GunaPanel1 = New Guna.UI.WinForms.GunaPanel()
+        Me.GunaImageButtonReduce = New Guna.UI.WinForms.GunaImageButton()
+        Me.GunaImageButtonFermer = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaImageButton5 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaImageButton4 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaImageButton3 = New Guna.UI.WinForms.GunaImageButton()
@@ -130,6 +132,7 @@ Partial Class ReglementForm
         Me.LabelChambre = New System.Windows.Forms.Label()
         Me.GunaTextBoxNumeroCompte = New Guna.UI.WinForms.GunaAdvenceButton()
         Me.PanelTransfertVersCompte = New System.Windows.Forms.Panel()
+        Me.PictureBoxClearArticleFields = New System.Windows.Forms.PictureBox()
         Me.GunaAdvenceButtonCodeClientDuCompte = New Guna.UI.WinForms.GunaAdvenceButton()
         Me.GunaComboBoxCompteIndividuelOuPaymaster = New Guna.UI.WinForms.GunaComboBox()
         Me.GunaPanelGestCaisse = New Guna.UI.WinForms.GunaPanel()
@@ -150,9 +153,6 @@ Partial Class ReglementForm
         Me.GunaButtonDepotDeGarantie = New Guna.UI.WinForms.GunaButton()
         Me.GunaTextBoxRefDepot = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaDataGridViewDepot = New Guna.UI.WinForms.GunaDataGridView()
-        Me.PictureBoxClearArticleFields = New System.Windows.Forms.PictureBox()
-        Me.GunaImageButtonReduce = New Guna.UI.WinForms.GunaImageButton()
-        Me.GunaImageButtonFermer = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaPanel1.SuspendLayout()
         CType(Me.GunaDataGridViewLigneFactureReglement, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GunaDataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -163,10 +163,10 @@ Partial Class ReglementForm
         Me.GunaPanelGratuite.SuspendLayout()
         Me.GunaPanelTransfertEnChambre.SuspendLayout()
         Me.PanelTransfertVersCompte.SuspendLayout()
+        CType(Me.PictureBoxClearArticleFields, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GunaPanelGestCaisse.SuspendLayout()
         Me.GunaPanelClubElite.SuspendLayout()
         CType(Me.GunaDataGridViewDepot, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBoxClearArticleFields, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GunaLabelGestCompteGeneraux
@@ -202,6 +202,32 @@ Partial Class ReglementForm
         Me.GunaPanel1.Name = "GunaPanel1"
         Me.GunaPanel1.Size = New System.Drawing.Size(834, 25)
         Me.GunaPanel1.TabIndex = 2
+        '
+        'GunaImageButtonReduce
+        '
+        Me.GunaImageButtonReduce.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.GunaImageButtonReduce.DialogResult = System.Windows.Forms.DialogResult.None
+        Me.GunaImageButtonReduce.Image = CType(resources.GetObject("GunaImageButtonReduce.Image"), System.Drawing.Image)
+        Me.GunaImageButtonReduce.ImageSize = New System.Drawing.Size(20, 20)
+        Me.GunaImageButtonReduce.Location = New System.Drawing.Point(779, 3)
+        Me.GunaImageButtonReduce.Name = "GunaImageButtonReduce"
+        Me.GunaImageButtonReduce.OnHoverImage = Nothing
+        Me.GunaImageButtonReduce.OnHoverImageOffset = New System.Drawing.Point(0, 0)
+        Me.GunaImageButtonReduce.Size = New System.Drawing.Size(27, 21)
+        Me.GunaImageButtonReduce.TabIndex = 11
+        '
+        'GunaImageButtonFermer
+        '
+        Me.GunaImageButtonFermer.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.GunaImageButtonFermer.DialogResult = System.Windows.Forms.DialogResult.None
+        Me.GunaImageButtonFermer.Image = CType(resources.GetObject("GunaImageButtonFermer.Image"), System.Drawing.Image)
+        Me.GunaImageButtonFermer.ImageSize = New System.Drawing.Size(20, 20)
+        Me.GunaImageButtonFermer.Location = New System.Drawing.Point(803, 3)
+        Me.GunaImageButtonFermer.Name = "GunaImageButtonFermer"
+        Me.GunaImageButtonFermer.OnHoverImage = Nothing
+        Me.GunaImageButtonFermer.OnHoverImageOffset = New System.Drawing.Point(0, 0)
+        Me.GunaImageButtonFermer.Size = New System.Drawing.Size(27, 21)
+        Me.GunaImageButtonFermer.TabIndex = 10
         '
         'GunaImageButton5
         '
@@ -1724,6 +1750,18 @@ Partial Class ReglementForm
         Me.PanelTransfertVersCompte.Size = New System.Drawing.Size(443, 214)
         Me.PanelTransfertVersCompte.TabIndex = 90
         '
+        'PictureBoxClearArticleFields
+        '
+        Me.PictureBoxClearArticleFields.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.PictureBoxClearArticleFields.Image = CType(resources.GetObject("PictureBoxClearArticleFields.Image"), System.Drawing.Image)
+        Me.PictureBoxClearArticleFields.InitialImage = CType(resources.GetObject("PictureBoxClearArticleFields.InitialImage"), System.Drawing.Image)
+        Me.PictureBoxClearArticleFields.Location = New System.Drawing.Point(279, 28)
+        Me.PictureBoxClearArticleFields.Name = "PictureBoxClearArticleFields"
+        Me.PictureBoxClearArticleFields.Size = New System.Drawing.Size(22, 25)
+        Me.PictureBoxClearArticleFields.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PictureBoxClearArticleFields.TabIndex = 190
+        Me.PictureBoxClearArticleFields.TabStop = False
+        '
         'GunaAdvenceButtonCodeClientDuCompte
         '
         Me.GunaAdvenceButtonCodeClientDuCompte.AnimationHoverSpeed = 0.07!
@@ -2080,6 +2118,7 @@ Partial Class ReglementForm
         'GunaDataGridViewDepot
         '
         Me.GunaDataGridViewDepot.AllowUserToAddRows = False
+        Me.GunaDataGridViewDepot.AllowUserToDeleteRows = False
         Me.GunaDataGridViewDepot.AllowUserToResizeColumns = False
         Me.GunaDataGridViewDepot.AllowUserToResizeRows = False
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
@@ -2110,7 +2149,9 @@ Partial Class ReglementForm
         Me.GunaDataGridViewDepot.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewDepot.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewDepot.Location = New System.Drawing.Point(198, 399)
+        Me.GunaDataGridViewDepot.MultiSelect = False
         Me.GunaDataGridViewDepot.Name = "GunaDataGridViewDepot"
+        Me.GunaDataGridViewDepot.ReadOnly = True
         DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -2138,7 +2179,7 @@ Partial Class ReglementForm
         Me.GunaDataGridViewDepot.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White
         Me.GunaDataGridViewDepot.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridViewDepot.ThemeStyle.HeaderStyle.Height = 25
-        Me.GunaDataGridViewDepot.ThemeStyle.ReadOnly = False
+        Me.GunaDataGridViewDepot.ThemeStyle.ReadOnly = True
         Me.GunaDataGridViewDepot.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White
         Me.GunaDataGridViewDepot.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewDepot.ThemeStyle.RowsStyle.Font = New System.Drawing.Font("Segoe UI", 10.5!)
@@ -2147,44 +2188,6 @@ Partial Class ReglementForm
         Me.GunaDataGridViewDepot.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewDepot.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
         Me.GunaDataGridViewDepot.Visible = False
-        '
-        'PictureBoxClearArticleFields
-        '
-        Me.PictureBoxClearArticleFields.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.PictureBoxClearArticleFields.Image = CType(resources.GetObject("PictureBoxClearArticleFields.Image"), System.Drawing.Image)
-        Me.PictureBoxClearArticleFields.InitialImage = CType(resources.GetObject("PictureBoxClearArticleFields.InitialImage"), System.Drawing.Image)
-        Me.PictureBoxClearArticleFields.Location = New System.Drawing.Point(279, 28)
-        Me.PictureBoxClearArticleFields.Name = "PictureBoxClearArticleFields"
-        Me.PictureBoxClearArticleFields.Size = New System.Drawing.Size(22, 25)
-        Me.PictureBoxClearArticleFields.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.PictureBoxClearArticleFields.TabIndex = 190
-        Me.PictureBoxClearArticleFields.TabStop = False
-        '
-        'GunaImageButtonReduce
-        '
-        Me.GunaImageButtonReduce.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.GunaImageButtonReduce.DialogResult = System.Windows.Forms.DialogResult.None
-        Me.GunaImageButtonReduce.Image = CType(resources.GetObject("GunaImageButtonReduce.Image"), System.Drawing.Image)
-        Me.GunaImageButtonReduce.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaImageButtonReduce.Location = New System.Drawing.Point(779, 3)
-        Me.GunaImageButtonReduce.Name = "GunaImageButtonReduce"
-        Me.GunaImageButtonReduce.OnHoverImage = Nothing
-        Me.GunaImageButtonReduce.OnHoverImageOffset = New System.Drawing.Point(0, 0)
-        Me.GunaImageButtonReduce.Size = New System.Drawing.Size(27, 21)
-        Me.GunaImageButtonReduce.TabIndex = 11
-        '
-        'GunaImageButtonFermer
-        '
-        Me.GunaImageButtonFermer.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.GunaImageButtonFermer.DialogResult = System.Windows.Forms.DialogResult.None
-        Me.GunaImageButtonFermer.Image = CType(resources.GetObject("GunaImageButtonFermer.Image"), System.Drawing.Image)
-        Me.GunaImageButtonFermer.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaImageButtonFermer.Location = New System.Drawing.Point(803, 3)
-        Me.GunaImageButtonFermer.Name = "GunaImageButtonFermer"
-        Me.GunaImageButtonFermer.OnHoverImage = Nothing
-        Me.GunaImageButtonFermer.OnHoverImageOffset = New System.Drawing.Point(0, 0)
-        Me.GunaImageButtonFermer.Size = New System.Drawing.Size(27, 21)
-        Me.GunaImageButtonFermer.TabIndex = 10
         '
         'ReglementForm
         '
@@ -2252,12 +2255,12 @@ Partial Class ReglementForm
         Me.GunaPanelTransfertEnChambre.PerformLayout()
         Me.PanelTransfertVersCompte.ResumeLayout(False)
         Me.PanelTransfertVersCompte.PerformLayout()
+        CType(Me.PictureBoxClearArticleFields, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GunaPanelGestCaisse.ResumeLayout(False)
         Me.GunaPanelGestCaisse.PerformLayout()
         Me.GunaPanelClubElite.ResumeLayout(False)
         Me.GunaPanelClubElite.PerformLayout()
         CType(Me.GunaDataGridViewDepot, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBoxClearArticleFields, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

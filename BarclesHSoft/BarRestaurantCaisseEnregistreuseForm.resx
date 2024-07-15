@@ -574,50 +574,6 @@
         l60AAAAASUVORK5CYII=
 </value>
   </data>
-  <metadata name="MenuStripLeftSideMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="ToolStripMenuItem108.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        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
-        RU5ErkJggg==
-</value>
-  </data>
-  <metadata name="MenuStripMainMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>201, 17</value>
-  </metadata>
   <data name="GunaAdvenceButtonPetiteCaisse.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
@@ -2245,46 +2201,55 @@
         P6fYuqA+QH1fW7w/mLVF8XfqO1vif//59x/zy1FynrLg/wAAAABJRU5ErkJggg==
 </value>
   </data>
-  <metadata name="GunaPanelBottom.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="GunaCheckBoxChangeSecteur.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="GunaButtonRefresh.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="GunaLabelHeader.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="Panel6.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="GunaComboBoxPointDeVente.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="GunaButtonnNouvelleFacture.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Label21.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="PanelSituationCaisse.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Panel3.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="LabelNomCaissier.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Label2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="Label6.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Label22.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="GunaButtonImprimer.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Label29Evenement.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="GunaButtonSaveFacturation.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Label4.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="GunaLabel4.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Label24.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="GunaDataGridViewArticle.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Panel4.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="GunaLabel6.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Panel7.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="GunaLabel5.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Panel5.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="GunaLabel2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Panel1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Panel2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="TabControlBarRestaurant.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="GunaPanel1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="Label14.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -2721,13 +2686,19 @@
     <value>True</value>
   </metadata>
   <metadata name="GunaContextMenuStripDeleteVente.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>368, 17</value>
+    <value>1048, 81</value>
+  </metadata>
+  <metadata name="GunaPanelVentes.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="GunaDataGridViewClient.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="GunaDataGridViewBills.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
   <metadata name="GunaContextMenuStripAll.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>855, 81</value>
-  </metadata>
-  <metadata name="GunaPanelEventsSup.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
+    <value>17, 120</value>
   </metadata>
   <metadata name="GunaPanelEnChambre.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -3415,15 +3386,12 @@
     <value>True</value>
   </metadata>
   <metadata name="GunaContextMenuStripTransfertDeBlocNote.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>615, 17</value>
+    <value>210, 120</value>
   </metadata>
   <metadata name="GunaContextMenuStripCleared.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>669, 81</value>
+    <value>503, 120</value>
   </metadata>
   <metadata name="GunaTextBox5.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaDataGridViewClient.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="GunaComboBoxFiltreBlocNotre.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -3456,25 +3424,10 @@
   <metadata name="GunaPanelComptoirBloc.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="GunaTextBoxNumBlocNoteDet.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaTextBoxTotalDesBlocNotes.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaTextBoxNombreDeBlocNote.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaTextBoxTotalBlocNote.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaDataGridViewReglmentBlocNOtes.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="GunaPanelEventsSup.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="ID_REGLEMENT.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaDataGridViewFolio3.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="DataGridViewTextBoxColumn11.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -3484,10 +3437,7 @@
     <value>True</value>
   </metadata>
   <metadata name="GunaContextMenuStripDelLigneGestBlocNote.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>908, 42</value>
-  </metadata>
-  <metadata name="GunaDataGridViewBlocNote.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
+    <value>724, 120</value>
   </metadata>
   <metadata name="DataGridViewTextBoxColumn2.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -3496,46 +3446,7 @@
     <value>True</value>
   </metadata>
   <metadata name="GunaContextMenuStripGestionBlocNote.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>908, 17</value>
-  </metadata>
-  <metadata name="GunaGroupBox1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaLabel3.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaLabelListe.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaGroupBoxCreationBordereau.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaComboBoxUniteComptageAppro.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaDataGridViewArticleAppro.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaLabelEnregistreur.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaLabelCommandeur.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaLabelVerification.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaLabelValideur.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaLabelControleur.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaTextBoxArticleRFID.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="PictureBoxNext3.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
+    <value>1026, 120</value>
   </metadata>
   <data name="PictureBoxNext3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -5655,9 +5566,6 @@
         jP6eIAhCa8CSc7PDxbTajmedNZ0ue64/6Sq8IwdEgiAIwv8C/T//P6ZJdBWF7N8XAAAAAElFTkSuQmCC
 </value>
   </data>
-  <metadata name="PictureBoxNext1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="PictureBoxNext1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAA0UAAAKtCAYAAADo58XuAAAABGdBTUEAAK0N7j3eVAAAACBjSFJNAACH
@@ -7776,9 +7684,6 @@
         jP6eIAhCa8CSc7PDxbTajmedNZ0ue64/6Sq8IwdEgiAIwv8C/T//P6ZJdBWF7N8XAAAAAElFTkSuQmCC
 </value>
   </data>
-  <metadata name="PictureBox1NextStage.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="PictureBox1NextStage.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAA0UAAAKtCAYAAADo58XuAAAABGdBTUEAAK0N7j3eVAAAACBjSFJNAACH
@@ -9897,9 +9802,6 @@
         jP6eIAhCa8CSc7PDxbTajmedNZ0ue64/6Sq8IwdEgiAIwv8C/T//P6ZJdBWF7N8XAAAAAElFTkSuQmCC
 </value>
   </data>
-  <metadata name="GunaPictureBox1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="GunaPictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABGdBTUEAALGPC/xhBQAAB2ZJREFUeF7t
@@ -9937,125 +9839,8 @@
         2fAc0Fn1UcbvsY+EbwDKXdxMJpPJNMSkSf8AutG29HDkVVsAAAAASUVORK5CYII=
 </value>
   </data>
-  <metadata name="GunaCheckBox1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaTextBoxGrandeUniteDeCompatge.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaTextBoxConsoAppro.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaTextBoxEnStock.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaTextBoxSeuile.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaComboBoxTypeBordereau.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaDataGridViewTiers.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaButtonVerification.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaButtonCommander.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaButtonValider.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaButtonController.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaComboBoxMagasinSource.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaButtonEnregistrer.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaLabelMagasinDeDestination.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="LabelCout.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="LabelQuantite.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaTextBoxCoutDuStock.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaTextBoxQteAppro.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaButtonAjouterLigneAppro.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="LabelConso.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Label30.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Label31.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Label32.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Label33.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaComboBoxTypeTiers.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaLabel89.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaTextBoxArticleAppro.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaLabel92.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaLabel97.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaLabel91.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaLabel93.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaTextBoxNomTiers.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaTextBoxTiers.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaLabel88.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaTextBoxObservation.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaTextBoxLibelleBordereau.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaTextBoxCodeBordereau.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaGroupBoxListeDesBordereaux.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GunaDataGridViewLigneArticleCommande.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <metadata name="GunaContextMenuStripDeleteCmdLine.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>464, 42</value>
+    <value>17, 159</value>
   </metadata>
   <data name="GunaButtonImpressionDirecteAppro.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -10086,41 +9871,91 @@
         QmCC
 </value>
   </data>
-  <metadata name="Label26.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="GunaButtonRefresh.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="GunaTextBoxVenteAppro.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Panel6.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="Label27.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="GunaButtonnNouvelleFacture.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="GunaTextBox3.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="PanelSituationCaisse.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="GunaTextBoxMontantHTGeneralAppro.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="LabelNomCaissier.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="Label28.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Label6.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="GunaButtonImprimer.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="GunaButtonSaveFacturation.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="MenuStripMainMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="MenuStripLeftSideMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>201, 17</value>
+  </metadata>
+  <data name="ToolStripMenuItem108.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+        RU5ErkJggg==
+</value>
+  </data>
   <metadata name="TimerRefreshConnection.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>727, 16</value>
+    <value>280, 159</value>
   </metadata>
   <metadata name="TimerRefreshConnexion.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>727, 42</value>
+    <value>466, 159</value>
   </metadata>
   <metadata name="BackgroundWorker1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 81</value>
+    <value>647, 159</value>
   </metadata>
   <metadata name="BackgroundWorker2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>180, 81</value>
+    <value>810, 159</value>
   </metadata>
   <metadata name="BackgroundWorker3.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>343, 81</value>
+    <value>973, 159</value>
   </metadata>
   <metadata name="BackgroundWorker4.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>506, 81</value>
+    <value>1136, 159</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>25</value>

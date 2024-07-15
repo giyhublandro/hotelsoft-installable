@@ -5781,17 +5781,30 @@ Public Class RapportApresCloture
             infoSupResa = Functions.getElementByCode(NumConfirmation, "reserve_conf", "CODE_RESERVATION")
         End If
 
-            Dim DEPOT_DE_GARANTIE As Double = 0
-            Dim CAUTION As Double = 0
-            Dim PAX As Integer = 1
-            Dim MENSUEL As Integer = 0
+        Dim DEPOT_DE_GARANTIE As Double = 0
+        Dim CAUTION As Double = 0
+        Dim PAX As Integer = 1
+        Dim MENSUEL As Integer = 0
 
-            If infoSupResa.Rows.Count > 0 Then
-                DEPOT_DE_GARANTIE = infoSupResa.Rows(0)("DEPOT_DE_GARANTIE")
-                CAUTION = infoSupResa.Rows(0)("MONTANT_TOTAL_CAUTION")
-                PAX = infoSupResa.Rows(0)("NB_PERSONNES")
-                MENSUEL = infoSupResa.Rows(0)("MENSUEL")
-            End If
+        Dim HEBDOMADAIRE As Integer = 0
+        Dim HEBDO_MENSUEL As Integer = -1
+        Dim CODE_TYPE_CHAMBRE As String = ""
+
+        If infoSupResa.Rows.Count > 0 Then
+            DEPOT_DE_GARANTIE = infoSupResa.Rows(0)("DEPOT_DE_GARANTIE")
+            CAUTION = infoSupResa.Rows(0)("MONTANT_TOTAL_CAUTION")
+            PAX = infoSupResa.Rows(0)("NB_PERSONNES")
+            MENSUEL = infoSupResa.Rows(0)("MENSUEL")
+            HEBDOMADAIRE = infoSupResa.Rows(0)("HEBDOMADAIRE")
+            CODE_TYPE_CHAMBRE = infoSupResa.Rows(0)("TYPE_CHAMBRE")
+        End If
+
+        If MENSUEL = 1 Then
+            HEBDO_MENSUEL = 1
+        ElseIf HEBDOMADAIRE = 1 Then
+            HEBDO_MENSUEL = 0
+        End If
+
 
         If GlobalVariable.typeChambreOuSalle = "salle" Then
 
@@ -5801,17 +5814,28 @@ Public Class RapportApresCloture
 
         Else
 
-            If MENSUEL = 0 Then
-                Libelle = "Type Chambre :"
-                LibelleJour = "Nuitée(s) : "
-                libelleMontant = "Tarif TTC"
+            If HEBDO_MENSUEL = 0 Then
+
+                Libelle = "Type Logement : "
+                LibelleJour = "Jour(s) : "
+                libelleMontant = "Loyer Hebdomadaire : "
+
+            ElseIf HEBDO_MENSUEL = 1 Then
+
+                Libelle = "Type Logement : "
+                LibelleJour = "Jour(s) : "
+                libelleMontant = "Loyer Mensuel : "
+
             Else
-                Libelle = "Type Logement :"
-                LibelleJour = "Jour(s) :"
-                libelleMontant = "Loyer Mensuel :"
+
+                Libelle = "Type Chambre : "
+                LibelleJour = "Nuitée(s) : "
+                libelleMontant = "Tarif TTC : "
+
             End If
 
         End If
+
 
         Dim intro As String = ""
 
@@ -6094,22 +6118,39 @@ Public Class RapportApresCloture
             pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
             tR1.AddCell(pdfCell)
 
-            pdfCell = New PdfPCell(New Paragraph(NbreNuitee, font1))
+        Dim detail As String = Functions.detailSejourMensuelHebdo(DateDebut, DateFin, HEBDO_MENSUEL)
+
+        pdfCell = New PdfPCell(New Paragraph(NbreNuitee & " (" & detail & ")", font1))
+        pdfCell.Border = 0
+        pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
+        tR1.AddCell(pdfCell)
+
+        pdfCell = New PdfPCell(New Paragraph(libelleMontant, font1))
+        pdfCell.Border = 0
+        pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
+        tR1.AddCell(pdfCell)
+
+        pdfCell = New PdfPCell(New Paragraph(Format(tarif, "#,##0") & " " & CODE_MONNAIE, font1))
             pdfCell.Border = 0
             pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
             tR1.AddCell(pdfCell)
 
-            pdfCell = New PdfPCell(New Paragraph(libelleMontant, font1))
+        If HEBDO_MENSUEL = 0 Or HEBDO_MENSUEL = 1 Then
+
+            pdfCell = New PdfPCell(New Paragraph("Tarif Journalier : ", font1))
             pdfCell.Border = 0
             pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
             tR1.AddCell(pdfCell)
 
-            pdfCell = New PdfPCell(New Paragraph(Format(tarif, "#,##0") & " " & CODE_MONNAIE, font1))
+            Dim tarifJournalier As Double = Functions.calculJournalierHebdoMensuel(HEBDO_MENSUEL, tarif)
+
+            pdfCell = New PdfPCell(New Paragraph(Format(tarifJournalier, "#,##0") & " " & CODE_MONNAIE, font1))
             pdfCell.Border = 0
             pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
             tR1.AddCell(pdfCell)
 
-            pdfCell = New PdfPCell(New Paragraph("Taxe de séjour ", font1))
+        End If
+        pdfCell = New PdfPCell(New Paragraph("Taxe de séjour ", font1))
             pdfCell.Border = 0
             pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
             tR1.AddCell(pdfCell)
@@ -6124,7 +6165,11 @@ Public Class RapportApresCloture
             pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
             tR1.AddCell(pdfCell)
 
-            pdfCell = New PdfPCell(New Paragraph(Chr(13) & Format(MONTANT_HT, "#,##0") & " " & CODE_MONNAIE, pColumn))
+        If HEBDO_MENSUEL = 0 Or HEBDO_MENSUEL = 1 Then
+            MONTANT_HT = MONTANT_TAXE_DE_SEJOUR + Functions.prixSejourMensuelHebdo(CODE_TYPE_CHAMBRE, HEBDO_MENSUEL, DateDebut, DateFin, tarif)
+        End If
+
+        pdfCell = New PdfPCell(New Paragraph(Chr(13) & Format(MONTANT_HT, "#,##0") & " " & CODE_MONNAIE, pColumn))
             pdfCell.Border = 0
             pdfCell.HorizontalAlignment = Element.ALIGN_LEFT
             tR1.AddCell(pdfCell)

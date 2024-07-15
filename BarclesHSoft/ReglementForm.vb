@@ -77,13 +77,13 @@ Public Class ReglementForm
                     Dim DEPOT_DE_GARANTIE As Double = GlobalVariable.ReservationToUpdate.Rows(0)("DEPOT_DE_GARANTIE")
 
                     If DEPOT_DE_GARANTIE > 0 Then
-                        GunaCheckBoxArrhes.Visible = True
+                        GunaCheckBoxArrhes.Visible = False
                     Else
 
                         Dim CODE_RESERVATION_CLIENT As String = GlobalVariable.codeClientToUpdate
                         Dim infoSupDepot As DataTable = resa.infoCautionUtilisableDepot(CODE_RESERVATION_CLIENT)
                         If infoSupDepot.Rows.Count > 0 Then
-                            GunaCheckBoxArrhes.Visible = True
+                            GunaCheckBoxArrhes.Visible = False
                         Else
                             GunaCheckBoxArrhes.Visible = False
                         End If
@@ -157,7 +157,12 @@ Public Class ReglementForm
                 ' ---------------------- CLIENT COMPTOIRE -------------------------------
 
                 'LIGNE DE LA FACTURE A REGLER
-                dt = BarRestaurantForm.GunaDataGridViewLigneFacture
+
+                If Trim(GlobalVariable.AgenceActuelle.Rows(0)("CAISSE_ENREGISTREUSE_1")).Equals("") Then
+                    dt = BarRestaurantForm.GunaDataGridViewLigneFacture
+                Else
+                    dt = BarRestaurantCaisseEnregistreuseForm.GunaDataGridViewLigneFacture
+                End If
 
                 Dim ClientDevantRegler As DataTable = Functions.getElementByCode(GlobalVariable.codeClientDevantRegler, "client", "CODE_CLIENT")
 
@@ -168,8 +173,14 @@ Public Class ReglementForm
 
                     GunaTextBoxNom.Text = ClientDevantRegler.Rows(0)("CODE_CLIENT")
                     GunaTextBoxClientAFacturer.Text = ClientDevantRegler.Rows(0)("NOM_PRENOM")
-                    GunaTextBoxCodeElite.Text = BarRestaurantForm.GunaTextBoxCodeElite.Text
-                    GunaTextBoxCodeClientFidele.Text = BarRestaurantForm.GunaTextBoxRefClient.Text
+
+                    If Trim(GlobalVariable.AgenceActuelle.Rows(0)("CAISSE_ENREGISTREUSE_1")).Equals("") Then
+                        GunaTextBoxCodeElite.Text = BarRestaurantForm.GunaTextBoxCodeElite.Text
+                        GunaTextBoxCodeClientFidele.Text = BarRestaurantForm.GunaTextBoxRefClient.Text
+                    Else
+                        GunaTextBoxCodeElite.Text = BarRestaurantCaisseEnregistreuseForm.GunaTextBoxCodeElite.Text
+                        GunaTextBoxCodeClientFidele.Text = BarRestaurantCaisseEnregistreuseForm.GunaTextBoxRefClient.Text
+                    End If
 
                     ComptoireEtEnChambreReglementOuFacturation(GlobalVariable.codeClientDevantRegler)
 
@@ -2110,17 +2121,37 @@ Public Class ReglementForm
 
                             If blocNoteTermine Then
                                 'RAFRAICHISSEMENT DES BLOC NOTES
-                                BarRestaurantForm.GunaTextBoxNomPrenom.Text = ""
-                                BarRestaurantForm.manualRefresh()
+
+                                If Trim(GlobalVariable.AgenceActuelle.Rows(0)("CAISSE_ENREGISTREUSE_1")).Equals("") Then
+                                    BarRestaurantForm.GunaTextBoxNomPrenom.Text = ""
+                                    BarRestaurantForm.manualRefresh()
+                                Else
+                                    BarRestaurantCaisseEnregistreuseForm.GunaTextBoxNomPrenom.Text = ""
+                                    BarRestaurantCaisseEnregistreuseForm.manualRefresh()
+                                End If
 
                                 'ON SELECTION PAR DEFAUT UN BLOC NOTES APRES REGLEMENT DES AUTRES BLOCS NOTES
 
-                                If BarRestaurantForm.GunaComboBoxListeDesComandes.Items.Count > 0 Then
-                                    BarRestaurantForm.GunaComboBoxListeDesComandes.SelectedIndex = 0
-                                    GlobalVariable.blocNoteARegler = BarRestaurantForm.GunaComboBoxListeDesComandes.SelectedValue.ToString
+                                If Trim(GlobalVariable.AgenceActuelle.Rows(0)("CAISSE_ENREGISTREUSE_1")).Equals("") Then
+
+                                    If BarRestaurantForm.GunaComboBoxListeDesComandes.Items.Count > 0 Then
+                                        BarRestaurantForm.GunaComboBoxListeDesComandes.SelectedIndex = 0
+                                        GlobalVariable.blocNoteARegler = BarRestaurantForm.GunaComboBoxListeDesComandes.SelectedValue.ToString
+                                    Else
+                                        BarRestaurantForm.GunaDataGridViewLigneFacture.DataSource = Nothing
+                                        GlobalVariable.blocNoteARegler = ""
+                                    End If
+
                                 Else
-                                    BarRestaurantForm.GunaDataGridViewLigneFacture.DataSource = Nothing
-                                    GlobalVariable.blocNoteARegler = ""
+
+                                    If BarRestaurantCaisseEnregistreuseForm.GunaComboBoxListeDesComandes.Items.Count > 0 Then
+                                        BarRestaurantCaisseEnregistreuseForm.GunaComboBoxListeDesComandes.SelectedIndex = 0
+                                        GlobalVariable.blocNoteARegler = BarRestaurantCaisseEnregistreuseForm.GunaComboBoxListeDesComandes.SelectedValue.ToString
+                                    Else
+                                        BarRestaurantCaisseEnregistreuseForm.GunaDataGridViewLigneFacture.DataSource = Nothing
+                                        GlobalVariable.blocNoteARegler = ""
+                                    End If
+
                                 End If
 
                                 If GunaComboBoxModereglement.SelectedIndex = 6 Then
@@ -2130,8 +2161,6 @@ Public Class ReglementForm
                                 Me.Close()
 
                                 Functions.DeleteElementByCode(NUMERO_BLOC_NOTE, "ligne_facture_temp", "NUMERO_BLOC_NOTE")
-
-
 
                                 fermer = False
 
@@ -2555,7 +2584,7 @@ Public Class ReglementForm
             If GlobalVariable.actualLanguageValue = 1 Then
                 DEPOT_GARANTIE_PAR = "PAR DEPOT GARANTIE / "
             Else
-                DEPOT_GARANTIE_PAR = ""
+                DEPOT_GARANTIE_PAR = "BY ARRHES / "
             End If
         Else
             DEPOT_GARANTIE_PAR = ""
@@ -2901,6 +2930,8 @@ Public Class ReglementForm
         End If
 
         If GunaCheckBoxRemboursement.Checked Then
+
+            GunaTextBoxRefDepot.Clear()
 
             If GlobalVariable.actualLanguageValue = 1 Then
                 LabelMontantAPayer.Text = "Montant à rembourser"
@@ -3632,9 +3663,12 @@ Public Class ReglementForm
 
     Private Sub GunaCheckBoxArrhes_CheckedChanged(sender As Object, e As EventArgs) Handles GunaCheckBoxArrhes.CheckedChanged
 
-
-        If GlobalVariable.actualLanguageValue = 1 Then
-            DEPOT_GARANTIE_PAR = "PAR DEPOT GARANTIE / "
+        If GunaCheckBoxArrhes.Checked Then
+            If GlobalVariable.actualLanguageValue = 1 Then
+                DEPOT_GARANTIE_PAR = "PAR DEPOT GARANTIE -"
+            Else
+                DEPOT_GARANTIE_PAR = "BY ARRHES -"
+            End If
         Else
             DEPOT_GARANTIE_PAR = ""
         End If
@@ -3677,6 +3711,7 @@ Public Class ReglementForm
         Else
             GunaDataGridViewDepot.Visible = False
             GunaCheckBoxArrhes.Visible = False
+            GunaTextBoxCodeDepot.Clear()
         End If
 
     End Sub
@@ -3703,7 +3738,7 @@ Public Class ReglementForm
         Dim query As String = ""
         Dim query1 As String = ""
 
-        query = "SELECT CODE_CAUTION As REFERENCE, NOM_CLIENT As 'CLIENT' FROM caution WHERE caution.TYPE=1 AND CODE_CAUTION LIKE '%" & reference & "%' ORDER BY CODE_CAUTION DESC"
+        query = "SELECT CODE_CAUTION As REFERENCE, NOM_CLIENT As 'CLIENT', SOLDE FROM caution WHERE caution.TYPE=1 AND CODE_CAUTION LIKE '%" & reference & "%' AND SOLDE > 0 OR caution.TYPE=1 AND NOM_CLIENT LIKE '%" & reference & "%' AND SOLDE > 0 ORDER BY CODE_CAUTION DESC"
 
         Dim command As New MySqlCommand(query, GlobalVariable.connect)
         Dim adapter As New MySqlDataAdapter(command)
@@ -3718,51 +3753,64 @@ Public Class ReglementForm
 
         If e.RowIndex >= 0 Then
 
-            Dim row As DataGridViewRow
+            'ON NE PEUT PAS REMBOURSER PAR APPORT A UN DEPOT DE GARANTIE
 
-            row = Me.GunaDataGridViewDepot.Rows(e.RowIndex)
+            If Not GunaCheckBoxRemboursement.Checked Then
 
-            Dim referenceDepot As String = row.Cells("REFERENCE").Value.ToString()
+                Dim row As DataGridViewRow
 
-            Dim infoDepot As DataTable = Functions.getElementByCode(referenceDepot, "caution", "CODE_CAUTION")
+                row = Me.GunaDataGridViewDepot.Rows(e.RowIndex)
 
-            Dim solde As Double = 0
+                Dim referenceDepot As String = row.Cells("REFERENCE").Value.ToString()
 
-            If infoDepot.Rows.Count > 0 Then
+                Dim infoDepot As DataTable = Functions.getElementByCode(referenceDepot, "caution", "CODE_CAUTION")
 
-                solde = infoDepot.Rows(0)("SOLDE")
+                Dim solde As Double = 0
 
-                If solde > 0 Then
+                If infoDepot.Rows.Count > 0 Then
 
-                    GunaCheckBoxArrhes.Checked = True
-                    GunaTextBoxMontantDepot.Text = solde
-                    GunaTextBoxMontantVerse.Text = Format(solde, "#,##0")
-                    GunaTextBoxCodeDepot.Text = infoDepot.Rows(0)("CODE_CAUTION")
-                    GunaTextBoxRefDepot.Text = infoDepot.Rows(0)("NOM_CLIENT")
+                    solde = infoDepot.Rows(0)("SOLDE")
 
-                    GunaCheckBoxArrhes.Visible = True
-                    GunaCheckBoxArrhes.Checked = True
+                    If solde > 0 Then
 
-                Else
+                        GunaCheckBoxArrhes.Checked = True
+                        GunaTextBoxMontantDepot.Text = solde
+                        GunaTextBoxMontantVerse.Text = Format(solde, "#,##0")
+                        GunaTextBoxCodeDepot.Text = infoDepot.Rows(0)("CODE_CAUTION")
+                        GunaTextBoxRefDepot.Text = infoDepot.Rows(0)("NOM_CLIENT")
 
-                    GunaTextBoxMontantVerse.Text = 0
-                    GunaTextBoxMontantDepot.Text = ""
-                    GunaTextBoxRefDepot.Text = ""
-                    GunaTextBoxCodeDepot.Text = ""
-                    GunaCheckBoxArrhes.Checked = False
+                        GunaCheckBoxArrhes.Visible = False
+                        GunaCheckBoxArrhes.Checked = True
 
-                    GunaCheckBoxArrhes.Visible = False
+                    Else
 
-                    MessageBox.Show("Ce Dépot de Garantie a déjà été utilisé ", "Garantie", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        GunaTextBoxMontantVerse.Text = 0
+                        GunaTextBoxMontantDepot.Text = ""
+                        GunaTextBoxRefDepot.Text = ""
+                        GunaTextBoxCodeDepot.Text = ""
+                        GunaCheckBoxArrhes.Checked = False
+
+                        GunaCheckBoxArrhes.Visible = False
+
+                        If GlobalVariable.actualLanguageValue = 0 Then
+                            MessageBox.Show("This arrhes has already been consumed ", "Garantie", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Else
+                            MessageBox.Show("Ce Dépot de Garantie a déjà été utilisé ", "Garantie", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        End If
+
+                    End If
 
                 End If
 
-            End If
+                GunaDataGridViewDepot.Visible = False
 
-            GunaDataGridViewDepot.Visible = False
+            Else
+                GunaDataGridViewDepot.Visible = False
+                GunaTextBoxRefDepot.Clear()
+            End If
 
         End If
 
-
     End Sub
+
 End Class

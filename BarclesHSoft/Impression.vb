@@ -13292,8 +13292,8 @@ Public Class Impression
         Else
 
             If typeDerapport = 0 Then
-                tireDocument = "CLEANING OF THE " & Date.Now().ToString("ddMMyyHHmmss") & " "
-                title = "CLEANING OF THE "
+                tireDocument = "DAILY EFFECTIF FORM OF " & Date.Now().ToString("ddMMyyHHmmss") & " "
+                title = "DAILY EFFECTIF FORM OF THE "
             ElseIf typeDerapport = 1 Then
                 tireDocument = "PRODUCTIVITY REPORT OF THE " & Date.Now().ToString("ddMMyyHHmmss") & " "
             End If
@@ -13405,7 +13405,7 @@ Public Class Impression
 
             End If
 
-            Dim p2 As Paragraph = New Paragraph(Chr(13) & title & DateDebut.ToShortDateString & Chr(13) & Chr(13), fontTotal)
+            Dim p2 As Paragraph = New Paragraph(Chr(13) & title & DateDebut.AddDays(-1).ToShortDateString & Chr(13) & Chr(13), fontTotal)
             p2.Alignment = Element.ALIGN_CENTER
 
             pdfDoc.Add(p2)
@@ -25165,7 +25165,7 @@ Public Class Impression
         ElseIf monthNumber = 9 Then
             mois = "Septembre"
         ElseIf monthNumber = 10 Then
-            mois = "Decembre"
+            mois = "Octobre"
         ElseIf monthNumber = 11 Then
             mois = "Novembre"
         ElseIf monthNumber = 12 Then

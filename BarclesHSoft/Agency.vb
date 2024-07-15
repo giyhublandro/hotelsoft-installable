@@ -165,7 +165,8 @@ Public Class Agency
                                   ByVal Optional LANGUE As Integer = 1, ByVal Optional PRIX_BAR_RESTAU_MODIFIABLE As Integer = 1, ByVal Optional PAYER_AVANT_ENCODAGE As Integer = 0,
                                   ByVal Optional BLOQUER_PRIX_HEBERGEMENT As Integer = 0, ByVal Optional CLUB_ELITE As Integer = 0,
                                   ByVal Optional PRINT_B7 As Integer = 0, ByVal Optional MENSUALITE As Integer = 0, ByVal Optional HEBDOMADAIRE As Integer = 0, ByVal Optional MONTANT_NAVETTE As Double = 0,
-                                  ByVal Optional NUMERO_RECEPTION As String = "", ByVal Optional NUMERO_RECEPTION_CHAMBRE As String = "", ByVal Optional DIRECTION As String = "") As Boolean
+                                  ByVal Optional NUMERO_RECEPTION As String = "", ByVal Optional NUMERO_RECEPTION_CHAMBRE As String = "", ByVal Optional DIRECTION As String = "",
+                                  ByVal Optional CAISSE_ENREGISTREUSE_1 As String = "", ByVal Optional CAISSE_ENREGISTREUSE_2 As String = "") As Boolean
 
         Dim updateQuery As String = "UPDATE `agence` SET NOM_AGENCE=@NOM_AGENCE, CODE_AGENCE=@CODE_AGENCE, FAX=@FAX, EMAIL=@EMAIL, TELEPHONE=@TELEPHONE,
             VILLE=@VILLE, BOITE_POSTALE=@BOITE_POSTALE, PAYS=@PAYS, RUE=@RUE, CATEGORIE_HOTEL=@CATEGORIE_HOTEL, RUE=@RUE, CATEGORIE_HOTEL=@CATEGORIE_HOTEL,
@@ -176,7 +177,7 @@ Public Class Agency
             MESSAGE_WHATSAPP =@MESSAGE_WHATSAPP, CLOTURE_FACTURE=@CLOTURE_FACTURE, LANGUE=@LANGUE, PRIX_BAR_RESTAU_MODIFIABLE=@PRIX_BAR_RESTAU_MODIFIABLE,
             PAYER_AVANT_ENCODAGE = @PAYER_AVANT_ENCODAGE, BLOQUER_PRIX_HEBERGEMENT=@BLOQUER_PRIX_HEBERGEMENT , CLUB_ELITE=@CLUB_ELITE
             ,PRINT_B7=@PRINT_B7, MENSUALITE=@MENSUALITE, HEBDOMADAIRE=@HEBDOMADAIRE , NUMERO_RECEPTION =@NUMERO_RECEPTION, NUMERO_RECEPTION_CHAMBRE=@NUMERO_RECEPTION_CHAMBRE, 
-            MONTANT_NAVETTE=@MONTANT_NAVETTE, DIRECTION=@DIRECTION
+            MONTANT_NAVETTE=@MONTANT_NAVETTE, DIRECTION=@DIRECTION, CAISSE_ENREGISTREUSE_1=@CAISSE_ENREGISTREUSE_1, CAISSE_ENREGISTREUSE_2=@CAISSE_ENREGISTREUSE_2
             WHERE CODE_AGENCE = @NUM_AGENCE"
 
         Dim command As New MySqlCommand(updateQuery, GlobalVariable.connect)
@@ -232,6 +233,8 @@ Public Class Agency
         command.Parameters.Add("@NUMERO_RECEPTION", MySqlDbType.VarChar).Value = NUMERO_RECEPTION
 
         command.Parameters.Add("@DIRECTION", MySqlDbType.VarChar).Value = DIRECTION
+        command.Parameters.Add("@CAISSE_ENREGISTREUSE_1", MySqlDbType.VarChar).Value = CAISSE_ENREGISTREUSE_1
+        command.Parameters.Add("@CAISSE_ENREGISTREUSE_2", MySqlDbType.VarChar).Value = CAISSE_ENREGISTREUSE_2
         command.Parameters.Add("@MONTANT_NAVETTE", MySqlDbType.Double).Value = MONTANT_NAVETTE
 
         If command.ExecuteNonQuery() = 1 Then

@@ -124,6 +124,9 @@ Public Class DepotGarantieForm
 
     Private Sub DepotGarantieForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        Dim language As New Languages()
+        language.depotGarantie(GlobalVariable.actualLanguageValue)
+
         GunaComboBoxTypeDepot.SelectedIndex = 0
 
         Dim n As Integer = GunaComboBoxTypeDepot.SelectedIndex
@@ -308,7 +311,7 @@ Public Class DepotGarantieForm
 
     End Sub
 
-    Private Sub GunaButtonEnregistrerFiscValue_Click(sender As Object, e As EventArgs) Handles GunaButtonEnregistrer.Click
+    Private Sub GunaButtonEnregistrer_Click(sender As Object, e As EventArgs) Handles GunaButtonEnregistrer.Click
 
         GunaComboBoxTypeDepot.SelectedIndex = 1
 
@@ -318,6 +321,9 @@ Public Class DepotGarantieForm
 
         'LE CODE N'EXISTE PAS ALORS ON INSERE
         Dim ETAT_DEPOT As String = "Disponible"
+        If GlobalVariable.actualLanguageValue = 0 Then
+            ETAT_DEPOT = "Available"
+        End If
         Dim resa As New Reservation()
 
         Dim CODE_CAUTION As String = Functions.GeneratingRandomCodePanne("caution", "DG")
@@ -334,7 +340,7 @@ Public Class DepotGarantieForm
         If GlobalVariable.actualLanguageValue = 1 Then
             MessageBox.Show("Dépot de Garantie enregistré avec succès ", "Garantie", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Else
-
+            MessageBox.Show("Arrhes successfully saved ", "Arrhes", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
 
         Dim n As Integer = GunaComboBoxTypeDepot.SelectedIndex

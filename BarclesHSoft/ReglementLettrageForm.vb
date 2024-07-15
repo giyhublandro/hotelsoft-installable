@@ -554,7 +554,8 @@ Public Class ReglementLettrageForm
 
         Dim CODE_ENTREPRISE As String = Trim(CODE_CLIENT)
 
-        Dim query2 As String = "SELECT CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT SOLDE', LETTRAGE  FROM facture WHERE ETAT_FACTURE = 1 AND CODE_CLIENT=@CODE_CLIENT ORDER BY DATE_FACTURE DESC"
+        'Dim query2 As String = "SELECT CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT SOLDE', LETTRAGE  FROM facture WHERE ETAT_FACTURE = 1 AND CODE_CLIENT=@CODE_CLIENT ORDER BY DATE_FACTURE DESC"
+        Dim query2 As String = "SELECT CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT SOLDE', LETTRAGE  FROM facture WHERE CODE_CLIENT=@CODE_CLIENT ORDER BY DATE_FACTURE DESC"
         Dim command2 As New MySqlCommand(query2, GlobalVariable.connect)
         command2.Parameters.Add("@CODE_CLIENT", MySqlDbType.VarChar).Value = CODE_ENTREPRISE
         'command2.Parameters.Add("@CODE_RESERVATION", MySqlDbType.VarChar).Value = CODE_RESERVATION
@@ -780,7 +781,7 @@ Public Class ReglementLettrageForm
 
                     GunaTextBoxPlafonds.Text = Format(compte.Rows(0)("PLAFONDS_DU_COMPTE"), "#,##0")
 
-                    'ListeDesFacturesEtReglementsSuivantUnComptePaymaster(numeroCompte)
+                    situationDuCompte(Trim(GunaTextBoxCompteDebiteur.Text))
 
                 End If
 
@@ -1042,6 +1043,8 @@ Public Class ReglementLettrageForm
     Private Sub GunaButtonEnregistrerClient_Click(sender As Object, e As EventArgs) Handles GunaButtonEnregistrerReglement.Click
 
         Me.Cursor = Cursors.WaitCursor
+
+        GunaButtonEnregistrerReglement.Visible = False
 
         If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("GRANDE_CAISSE") Then
 
@@ -1335,6 +1338,10 @@ Public Class ReglementLettrageForm
                                 'REGELEMENT NORMAL
                                 reglement.insertReglement(NUM_REGLEMENT, NUM_FACTURE, CODE_CAISSIER, MONTANT_VERSE, DATE_REGLEMENT, MODE_REGLEMENT, REF_REGLEMENT, CODE_MODE, IMPRIMER, CODE_AGENCE, CODE_RESERVATION, CODE_CLIENT, NUMERO_BLOC_NOTE, MODE_REG_INFO_SUP_1, MODE_REG_INFO_SUP_2, MODE_REG_INFO_SUP_3)
 
+                                If GunaComboBoxModeReglement.SelectedItem.Equals("Gratuitée") Or GunaComboBoxModeReglement.SelectedItem.Equals("Free") Then
+                                    reglement.insertReglement(NUM_REGLEMENT, NUM_FACTURE, CODE_CAISSIER, MONTANT_VERSE * -1, DATE_REGLEMENT, MODE_REGLEMENT, REF_REGLEMENT, CODE_MODE, IMPRIMER, CODE_AGENCE, CODE_RESERVATION, CODE_CLIENT, NUMERO_BLOC_NOTE, MODE_REG_INFO_SUP_1, MODE_REG_INFO_SUP_2, MODE_REG_INFO_SUP_3)
+                                End If
+
                             End If
 
                             'INSERTION DE INFORMATIONS POUR LES REGLEMENTS ASSOCIES AUX BANQUES
@@ -1491,6 +1498,8 @@ Public Class ReglementLettrageForm
             End If
 
         End If
+
+        listeDesFacturesSuivantUnePeriode()
 
         Me.Cursor = Cursors.Default
 
@@ -1880,6 +1889,8 @@ Public Class ReglementLettrageForm
 
     Private Sub effacementDesDetails()
 
+        GunaTextBoxSoldeCompte.Text = 0
+        GunaTextBoxChiffreAffaire.Text = 0
         GunaDataGridViewDetailsFactures.Rows.Clear()
         GunaTextBoxCodeFacture.Clear()
 
@@ -2056,40 +2067,44 @@ Public Class ReglementLettrageForm
 
     Private Sub TransférerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TransférerToolStripMenuItem.Click
 
-        Dim NATURE_OPERATION As String = GunaDataGridViewListeFacture.CurrentRow.Cells("NATURE").Value.ToString
+        If GunaDataGridViewListeFacture.CurrentRow.Cells("NATURE").Value.ToString IsNot Nothing Then
 
-        If Trim(NATURE_OPERATION) = "FACTURE" Then
+            Dim NATURE_OPERATION As String = GunaDataGridViewListeFacture.CurrentRow.Cells("NATURE").Value.ToString
 
-            Dim MONTANT_TOTAL_DES_FACTURES As Double = 0
-            Dim CODE_FACTURE As String = ""
+            If Trim(NATURE_OPERATION) = "FACTURE" Then
 
+                Dim MONTANT_TOTAL_DES_FACTURES As Double = 0
+                Dim CODE_FACTURE As String = ""
 
-            If GunaDataGridViewListeFacture.Rows.Count > 0 Then
+                If GunaDataGridViewListeFacture.Rows.Count > 0 Then
 
-                Dim i As Integer = 0
+                    Dim i As Integer = 0
 
-                For Each row As DataGridViewRow In GunaDataGridViewListeFacture.SelectedRows
+                    For Each row As DataGridViewRow In GunaDataGridViewListeFacture.SelectedRows
 
-                    CODE_FACTURE = Trim(row.Cells(0).Value.ToString)
+                        CODE_FACTURE = Trim(row.Cells(0).Value.ToString)
 
-                    MONTANT_TOTAL_DES_FACTURES += Double.Parse(Trim(row.Cells(7).Value))
+                        MONTANT_TOTAL_DES_FACTURES += Double.Parse(Trim(row.Cells(7).Value))
 
-                    ENSEMBLE_DES_FACTURES(i).CODE_FACTURE = CODE_FACTURE
+                        ENSEMBLE_DES_FACTURES(i).CODE_FACTURE = CODE_FACTURE
 
-                    i += 1
+                        i += 1
 
-                Next
+                    Next
 
-                GunaTextBoxAPayer.Text = Format(Math.Abs(MONTANT_TOTAL_DES_FACTURES), "#,##0")
+                    GunaTextBoxAPayer.Text = Format(Math.Abs(MONTANT_TOTAL_DES_FACTURES), "#,##0")
 
-                GunaComboBoxNatureOperation.SelectedItem = "REGLEMENT"
+                    GunaComboBoxNatureOperation.SelectedItem = "REGLEMENT"
 
+                End If
+
+            Else
+                'REGLEMENT DES REGLEMENTS
             End If
 
-        Else
-            'REGLEMENT DES REGLEMENTS
-        End If
 
+
+        End If
 
     End Sub
 
@@ -2364,6 +2379,7 @@ Public Class ReglementLettrageForm
         End If
 
     End Sub
+
     'AFFICHAGE FACTURES SUIVANT UNE PERIODE
     Private Sub GunaButtonAfficherLesFacturesEtReglement_Click(sender As Object, e As EventArgs) Handles GunaButtonAfficherLesFacturesEtReglement.Click
         listeDesFacturesSuivantUnePeriode()
@@ -2612,4 +2628,32 @@ Public Class ReglementLettrageForm
             MessageBox.Show("OUps", "Gestion de caisse", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
     End Sub
+
+    Public Sub situationDuCompte(ByVal NUMERO_COMPTE As String)
+
+        ' ------------------------------ display of information into datagrid in the form dateOperation-Libelle-Debit-Credit -----------------------------
+
+        'Dim query2 As String = "SELECT CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT SOLDE', LETTRAGE  FROM facture WHERE ETAT_FACTURE = 1 AND CODE_CLIENT=@CODE_CLIENT ORDER BY DATE_FACTURE DESC"
+        Dim query2 As String = "SELECT CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT SOLDE', LETTRAGE  FROM facture WHERE CODE_CLIENT=@CODE_CLIENT ORDER BY DATE_FACTURE DESC"
+        Dim command2 As New MySqlCommand(query2, GlobalVariable.connect)
+        command2.Parameters.Add("@CODE_CLIENT", MySqlDbType.VarChar).Value = NUMERO_COMPTE
+        'command2.Parameters.Add("@CODE_RESERVATION", MySqlDbType.VarChar).Value = CODE_RESERVATION
+
+        Dim adapter2 As New MySqlDataAdapter(command2)
+        Dim tableFacture As New DataTable()
+
+        adapter2.Fill(tableFacture)
+
+        Dim totalFacture As Double = 0
+        Dim totalReglement As Double = 0
+
+        For j = 0 To tableFacture.Rows.Count - 1
+            totalFacture = totalFacture + tableFacture.Rows(j)("MONTANT")
+            totalReglement += tableFacture.Rows(j)("MONTANT SOLDE")
+        Next
+
+        GunaTextBoxSoldeCompte.Text = Format(Double.Parse(totalReglement) - Double.Parse(totalFacture), "#,##0")
+
+    End Sub
+
 End Class

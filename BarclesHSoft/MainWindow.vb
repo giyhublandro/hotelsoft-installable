@@ -826,9 +826,10 @@ Public Class MainWindow
 
     End Sub
 
-    Private Sub GunaAdvenceButtonEnregistrement_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButtonDepartsList.Click
+    Private Sub GunaAdvenceButtonDepartsList_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButtonDepartsList.Click
         PanelTableauDeBords.Hide()
         TabControlHbergement.SelectedIndex = 4
+        PanelEnregistrement.BringToFront()
         PanelEnregistrement.Show()
         PanelPlanning.Hide()
     End Sub
@@ -1901,18 +1902,25 @@ Public Class MainWindow
 
             If DAY_USE = 1 Then
                 GunaCheckBoxDayUse.Checked = True
+                If GlobalVariable.AgenceActuelle.Rows(0)("TARIFICATION_DYNAMIQUE") = 1 Then
+                    GunaButtonTarifAppliquable.Visible = True
+                Else
+                    GunaButtonTarifAppliquable.Visible = False
+                End If
             End If
 
             Dim MENSUEL As Integer = Integer.Parse(reservation.Rows(0)("MENSUEL"))
 
             If MENSUEL = 1 Then
                 GunaCheckBoxMensuel.Checked = True
+                GunaButtonTarifAppliquable.Visible = True
             End If
 
             Dim HEBDOMADAIRE As Integer = Integer.Parse(reservation.Rows(0)("HEBDOMADAIRE"))
 
             If HEBDOMADAIRE = 1 Then
                 GunaCheckBoxHebdo.Checked = True
+                GunaButtonTarifAppliquable.Visible = True
             End If
 
             NB_PERSONNES = CType(reservation.Rows(0)("NB_PERSONNES"), Int32)
@@ -2025,6 +2033,8 @@ Public Class MainWindow
                         GunaLabelTempsAFaire.Text = "Total day(s)"
                     End If
 
+                    GunaButtonTarifAppliquable.Visible = True
+
                 ElseIf GunaCheckBoxHebdo.Checked Then
 
                     If GlobalVariable.actualLanguageValue = 1 Then
@@ -2033,12 +2043,20 @@ Public Class MainWindow
                         GunaLabelTempsAFaire.Text = "Total day(s)"
                     End If
 
+                    GunaButtonTarifAppliquable.Visible = True
+
                 Else
 
                     If GlobalVariable.actualLanguageValue = 1 Then
                         GunaLabelTempsAFaire.Text = "Total nuitées"
                     Else
                         GunaLabelTempsAFaire.Text = "Total nights"
+                    End If
+
+                    If GlobalVariable.AgenceActuelle.Rows(0)("TARIFICATION_DYNAMIQUE") = 1 Then
+                        GunaButtonTarifAppliquable.Visible = True
+                    Else
+                        GunaButtonTarifAppliquable.Visible = False
                     End If
 
                 End If
@@ -2400,9 +2418,20 @@ Public Class MainWindow
         End If
 
         If GunaCheckBoxMensuel.Checked Or GunaCheckBoxHebdo.Checked Then
-            GunaTextBoxTempsAFaire.Text = ((GunaDateTimePickerDepart.Value - GunaDateTimePickerArrivee.Value).TotalDays)
-            GunaTextBoxPrixParNuitee.Text = Format(montantAccorde, "#,##0")
-            GunaTextBoxPrixSejour.Text = Format(montantAccorde, "#,##0")
+
+            GunaButtonTarifAppliquable.Visible = True
+
+        Else
+            GunaButtonTarifAppliquable.Visible = False
+            'On doit determiner les montant a venir
+            'kklg
+            'GunaTextBoxTempsAFaire.Text = ((GunaDateTimePickerDepart.Value - GunaDateTimePickerArrivee.Value).TotalDays)
+            'GunaTextBoxPrixParNuitee.Text = Format(montantAccorde, "#,##0")
+            'GunaTextBoxPrixSejour.Text = Format(montantAccorde, "#,##0")
+
+            'Dim CODE_TYPE_CHAMBRE As String = GunaTextBoxCodeTypeDeChambre.Text
+            'prixSejourMensuelHebdo(CODE_TYPE_CHAMBRE)
+
         End If
 
     End Sub
@@ -2425,11 +2454,16 @@ Public Class MainWindow
         'CALCUL DU MONTANT LIE AUX CHAMBRES 
 
         If GunaCheckBoxMensuel.Checked Or GunaCheckBoxHebdo.Checked Then
-
+            'kklg
             GunaTextBoxTempsAFaire.Text = ((GunaDateTimePickerDepart.Value - GunaDateTimePickerArrivee.Value).TotalDays)
             GunaTextBoxNombreDeJourTotal.Text = ((GunaDateTimePickerDepart.Value - GunaDateTimePickerArrivee.Value).TotalDays)
             GunaTextBoxPrixParNuitee.Text = GunaTextBoxMontantAccorde.Text
-            GunaTextBoxPrixSejour.Text = GunaTextBoxMontantAccorde.Text
+
+            Dim CODE_TYPE_CHAMBRE As String = GunaTextBoxCodeTypeDeChambre.Text
+            'prixSejourMensuelHebdo(CODE_TYPE_CHAMBRE)
+
+            'GunaTextBoxPrixSejour.Text = GunaTextBoxMontantAccorde.Text
+            GunaTextBoxPrixSejour.Text = Format(prixSejourMensuelHebdo(CODE_TYPE_CHAMBRE), "#,##0")
 
             GunaTextBoxTotal.Text = GunaTextBoxPrixSejour.Text
             If Trim(GunaTextBoxPrixSejour.Text).Equals("") Then
@@ -2439,6 +2473,8 @@ Public Class MainWindow
 
             Double.TryParse(GunaTextBoxServiceEtProduitSup.Text.Trim(), ServiceEtProduitSup)
             GunaTextBoxMontantARegler.Text = Format(ServiceEtProduitSup + totalSejour, "#,##0")
+
+            'GunaTextBoxPrixSejour.Text = Format(totalSejour, "#,##0")
 
         Else
 
@@ -2705,6 +2741,13 @@ Public Class MainWindow
 
         'We display buttons
         reservationButtonToDisplay()
+
+        If GunaCheckBoxMensuel.Checked Or GunaCheckBoxHebdo.Checked Then
+            detailSejourMensuelHebdo()
+            GunaLabelDetailSejours.Visible = True
+        Else
+            GunaLabelDetailSejours.Visible = False
+        End If
 
     End Sub
 
@@ -3705,6 +3748,9 @@ Public Class MainWindow
             If CREDIT > 0 Then
                 'LE CODE N'EXISTE PAS ALORS ON INSERE
                 Dim ETAT_DEPOT As String = "Affecté"
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    ETAT_DEPOT = "Affected"
+                End If
                 resa.insertionCaution(CODE_CAUTION, CODE_RESERVATION, DEBIT, CREDIT, DATE_CREATION, CODE_UTILISATEUR_CREA, TYPE, ETAT_DEPOT, NOM_CLIENT)
             End If
 
@@ -6177,13 +6223,28 @@ Public Class MainWindow
 
                     GunaTextBoxLibelleTYpe.Text = GlobalVariable.CategorieAddedFromFrontOffice.Rows(0)("LIBELLE_TYPE_CHAMBRE")
 
-                    Dim PrixAffiche As Double
+                    Dim PrixAffiche As Double = 0
                     Double.TryParse(GlobalVariable.CategorieAddedFromFrontOffice.Rows(0)("PRIX"), PrixAffiche)
                     GunaTextBoxpPrixAffiche.Text = Format(PrixAffiche, "#,##0")
 
-                    Dim prixAccorde As Double
-                    Double.TryParse(GlobalVariable.CategorieAddedFromFrontOffice.Rows(0)("PRIX"), prixAccorde)
+                    Dim prixAccorde As Double = 0
+                    'Double.TryParse(GlobalVariable.CategorieAddedFromFrontOffice.Rows(0)("PRIX"), prixAccorde)
 
+                    Dim prix As Double = 0
+
+                    If GunaCheckBoxHebdo.Checked Then
+                        prix = Double.Parse(GlobalVariable.CategorieAddedFromFrontOffice.Rows(0)("MONTANT_HEBDO"))
+                    ElseIf GunaCheckBoxMensuel.Checked Then
+                        prix = Double.Parse(GlobalVariable.CategorieAddedFromFrontOffice.Rows(0)("MONTANT_MENSUEL"))
+                    ElseIf GunaCheckBoxDayUse.Checked Then
+                        prix = Double.Parse(GlobalVariable.CategorieAddedFromFrontOffice.Rows(0)("MONTANT_SIESTE"))
+                    Else
+                        prix = Double.Parse(GlobalVariable.CategorieAddedFromFrontOffice.Rows(0)("PRIX"))
+                    End If
+
+                    prixAccorde = prix
+
+                    GunaTextBoxpPrixAffiche.Text = Format(Double.Parse(prix), "#,##0")
                     'LE PRIX DU TYPE DE CHAMBRE NE DOIT PAS MODIFIER LE PRIX DE VENTE (0) EN CAS DE GRATUITEE
 
                     If GunaCheckBoxGratuitee.Checked Then
@@ -7240,9 +7301,10 @@ Public Class MainWindow
                                             'We check if the the main courante already exist
                                             If Not Functions.entryCodeExists(CODE_MAIN_COURANTE, "main_courante", "CODE_MAIN_COURANTE") Then
 
-                                                If mainCourante.insertMainCourante(CODE_MAIN_COURANTE, CODE_CLIENT, CODE_RESERVATION, CODE_CHAMBRE, ETAT_CHAMBRE, ETAT_RESERVATION, DATE_ETAT, CODE_AGENCE, TYPE_CHAMBRE_OU_SALLE) Then
+                                                'If mainCourante.insertMainCourante(CODE_MAIN_COURANTE, CODE_CLIENT, CODE_RESERVATION, CODE_CHAMBRE, ETAT_CHAMBRE, ETAT_RESERVATION, DATE_ETAT, CODE_AGENCE, TYPE_CHAMBRE_OU_SALLE) Then
 
-                                                End If
+                                                'End If
+
                                             End If
 
                                             '----------- MAIN COURANTE GENERALE ------------------------------
@@ -7250,9 +7312,9 @@ Public Class MainWindow
                                             'We check if the the main courante generale already exist
                                             If Not Functions.entryCodeExists(CODE_MAIN_COURANTE_GENERALE, "main_courante_generale", "CODE_MAIN_COURANTE_GENERALE") Then
 
-                                                If mainCourante.insertMainCouranteGenerale(CODE_MAIN_COURANTE_GENERALE, DATE_MAIN_COURANTE, CODE_CHAMBRE, MONTANT_ACCORDE, ETAT_CHAMBRE, NOM_CLIENT, PDJ_FOOD, PDJ_BOISSON, DEJEUNER_FOOD, DEJEUNER_BOISSON, DINER_FOOD, DINER_BOISSON, BANQUET_FOOD, BANQUET_BOISSON, BAR_MATIN, BAR_SOIR, DIVERS, TOTAL_JOUR, REPORT_VEILLE, TOTAL_GENERAL, NUM_RESERVATION, DEDUCTION, ENCAISSEMENT_ESPECE, ENCAISSEMENT_CHEQUE, ENCAISSEMENT_CARTE_CREDIT, A_REPORTER, OBSERVATIONS, TYPE_CHAMBRE, CODE_CLIENT, INDICE_FREQUENTATION, INDICE_FREQUENTATION_PCT, TAUX_OCCUPATION, TAUX_OCCUPATION_PCT, CLIENTS_ATTENDUS, CLIENTS_EN_CHAMBRE, CHAMBRES_DISPONIBLES, TOTAL_HORS_SERVICE, CHAMBRES_HORS_SERVICE, TOTAL_FICTIVES, CHAMBRES_FICTIVES, NOMBRE_MESSAGES, TOTAL_GRATUITES, CHAMBRES_GRATUITES, TOTAL_NON_FACTUREES, CHAMBRES_NON_FACTUREES, CODE_AGENCE, TYPE_CHAMBRE_OU_SALLE) Then
+                                                'If mainCourante.insertMainCouranteGenerale(CODE_MAIN_COURANTE_GENERALE, DATE_MAIN_COURANTE, CODE_CHAMBRE, MONTANT_ACCORDE, ETAT_CHAMBRE, NOM_CLIENT, PDJ_FOOD, PDJ_BOISSON, DEJEUNER_FOOD, DEJEUNER_BOISSON, DINER_FOOD, DINER_BOISSON, BANQUET_FOOD, BANQUET_BOISSON, BAR_MATIN, BAR_SOIR, DIVERS, TOTAL_JOUR, REPORT_VEILLE, TOTAL_GENERAL, NUM_RESERVATION, DEDUCTION, ENCAISSEMENT_ESPECE, ENCAISSEMENT_CHEQUE, ENCAISSEMENT_CARTE_CREDIT, A_REPORTER, OBSERVATIONS, TYPE_CHAMBRE, CODE_CLIENT, INDICE_FREQUENTATION, INDICE_FREQUENTATION_PCT, TAUX_OCCUPATION, TAUX_OCCUPATION_PCT, CLIENTS_ATTENDUS, CLIENTS_EN_CHAMBRE, CHAMBRES_DISPONIBLES, TOTAL_HORS_SERVICE, CHAMBRES_HORS_SERVICE, TOTAL_FICTIVES, CHAMBRES_FICTIVES, NOMBRE_MESSAGES, TOTAL_GRATUITES, CHAMBRES_GRATUITES, TOTAL_NON_FACTUREES, CHAMBRES_NON_FACTUREES, CODE_AGENCE, TYPE_CHAMBRE_OU_SALLE) Then
 
-                                                End If
+                                                'End If
 
                                             End If
 
@@ -7268,7 +7330,6 @@ Public Class MainWindow
                                                     '-------------------UTILISE POUR LES RESERVATION DONT L'ENCAISSEMENT EST FAIT AVANT L'ENREGISTREMENT -------------------------
                                                     miseAjourDeRegelementApresCreationDeMainCourante(NUM_RESERVATION, CODE_MAIN_COURANTE_JOURNALIERE)
                                                     '------------------------------------------------------------------------------------------------------
-
 
                                                 End If
 
@@ -7892,6 +7953,10 @@ Public Class MainWindow
                                     TYPE_DEPOT_CAUTION = 1
                                     cautionEnregistrement(CODE_RESERVATION, 0, DEPOT_DE_GARANTIE, TYPE_DEPOT_CAUTION)
                                 End If
+
+                                A_REPORTER = Functions.SituationDeReservation(CODE_RESERVATION)
+
+                                Functions.updateOfFields("main_courante_journaliere", "A_REPORTER", A_REPORTER, "CODE_MAIN_COURANTE_JOURNALIERE", CODE_MAIN_COURANTE_JOURNALIERE, 1)
 
                                 'cautionEnregistrement(CODE_RESERVATION, 0, GunaTextBoxMontantCaution.Text)
 
@@ -14450,10 +14515,10 @@ Public Class MainWindow
                     propre += 1
                 ElseIf Room.Rows(i)("ETAT_CHAMBRE_NOTE") = GlobalVariable.hors_service Then
                     horsService += 1
-                ElseIf Room.Rows(i)("ETAT_CHAMBRE_NOTE") = "Nettoyage" Then
+                ElseIf Room.Rows(i)("ETAT_CHAMBRE_NOTE") = "Nettoyage" Or Room.Rows(i)("ETAT_CHAMBRE_NOTE") = "Cleaning" Then
                     'En cours de nettoyage
                     enCours += 1
-                ElseIf Room.Rows(i)("ETAT_CHAMBRE_NOTE") = "Attente" Then
+                ElseIf Room.Rows(i)("ETAT_CHAMBRE_NOTE") = "Attente" Or Room.Rows(i)("ETAT_CHAMBRE_NOTE") = "Waiting" Then
                     'Chambre dont le nettoyage est termine et en attente de validation
                     aInspecter += 1
                 End If
@@ -15824,7 +15889,13 @@ Public Class MainWindow
 
         GlobalVariable.typeDeClientAFacturer = "comptoir"
 
-        BarRestaurantForm.Show()
+        If Trim(GlobalVariable.AgenceActuelle.Rows(0)("CAISSE_ENREGISTREUSE_1")).Equals("") Then
+            BarRestaurantForm.Show()
+            BarRestaurantForm.GunaLabelHeader.Text = "COMPTOIR"
+        Else
+            BarRestaurantCaisseEnregistreuseForm.Show()
+            BarRestaurantCaisseEnregistreuseForm.GunaLabelHeader.Text = "COMPTOIR"
+        End If
 
         Me.Close()
 
@@ -17987,290 +18058,339 @@ Public Class MainWindow
 
         '-------------------------------- OCCUPATION CHAMBRE ------------------------------
 
-        Dim CODE_OCCUPATION_CHAMBRE = Functions.GeneratingRandomCodeWithSpecifications("occupation_chambre", "")
-        Dim MONTANT_HT As Double = 0
+        'On ne peut pas annuler si la reservation est asscociee a un depot de garatie ou un paiment
 
-        If Not Trim(GunaTextBoxMontantAccorde.Text) = "" Then
-            MONTANT_HT = Double.Parse(GunaTextBoxMontantAccorde.Text)
+        Dim arrhes As Double = 0
+        Dim solde As Double = 0
+
+        If Not Trim(GunaTextBoxDepotDeGarantie.Text).Equals("") Then
+            arrhes = GunaTextBoxDepotDeGarantie.Text
         End If
 
-        Dim TAXE As Double = 0
-        Dim MONTANT_TTC As Double = 0
-        Dim DATE_OCCUPATION As Date = GunaDateTimePickerArrivee.Value.ToShortDateString()
-        'Dim OBSERVATIONS As String =""
-        Dim COMMENTAIRE1 As String = ""
-        Dim COMMENTAIRE2 As String = ""
-        Dim COMMENTAIRE3 As String = ""
-        Dim COMMENTAIRE4 As String = ""
-        Dim DATE_LIBERATION As Date = GunaDateTimePickerDepart.Value.ToShortDateString()
-        Dim CODE_UTILISATEUR_CREA As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
-        Dim DATE_PREMIERE_ARRIVEE As Date = GlobalVariable.DateDeTravail
-        Dim TYPE_RESERVATION As String = GlobalVariable.typeChambreOuSalle
-        Dim PDJ_INCLUS As String = ""
-        Dim TAXE_SEJOURS_INCLUS As String = ""
-        Dim TVA_INCLUS As String = ""
-        Dim CODE_CLIENT_REEL As String = GunaTextBoxRefClient.Text
-        Dim OBSERVATIONS As String = ""
-        Dim CODE_CHAMBRE = GunaTextBoxNumeroChambre.Text
-        Dim CODE_AGENCE As String = GlobalVariable.AgenceActuelle.Rows(0)("CODE_AGENCE")
-        Dim STATUT_RESERVATION As String = ""
-
-        If GlobalVariable.actualLanguageValue = 1 Then
-            STATUT_RESERVATION = "ANNULEE"
-        Else
-            STATUT_RESERVATION = "CANCELED"
+        If Not Trim(GunaLabelSolde.Text).Equals("") Then
+            solde = GunaLabelSolde.Text
         End If
 
+        Dim continuer As Boolean = False
 
-        Dim Reservation As New Reservation
-        Dim occupationChambre As New OccupationChambre()
-        Dim CODE_RESERVATION As String = GlobalVariable.codeReservationToUpdate
-        Dim dialog As DialogResult
+        If arrhes > 0 And solde > 0 Then
+            continuer = True
+        End If
 
-        Dim dayDiff = CType((GlobalVariable.DateDeTravail - GunaDateTimePickerDepart.Value).TotalHours, Int32)
+        If continuer Then
 
-        If dayDiff >= 0 Then
 
-            If GlobalVariable.actualLanguageValue = 1 Then
-                MessageBox.Show("Bien vouloir vérifier la date de départ", "Réservation", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Else
-                MessageBox.Show("Please check the departure date", "Reservation", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Dim CODE_OCCUPATION_CHAMBRE = Functions.GeneratingRandomCodeWithSpecifications("occupation_chambre", "")
+            Dim MONTANT_HT As Double = 0
+
+            If Not Trim(GunaTextBoxMontantAccorde.Text) = "" Then
+                MONTANT_HT = Double.Parse(GunaTextBoxMontantAccorde.Text)
             End If
 
-        Else
+            Dim TAXE As Double = 0
+            Dim MONTANT_TTC As Double = 0
+            Dim DATE_OCCUPATION As Date = GunaDateTimePickerArrivee.Value.ToShortDateString()
+            'Dim OBSERVATIONS As String =""
+            Dim COMMENTAIRE1 As String = ""
+            Dim COMMENTAIRE2 As String = ""
+            Dim COMMENTAIRE3 As String = ""
+            Dim COMMENTAIRE4 As String = ""
+            Dim DATE_LIBERATION As Date = GunaDateTimePickerDepart.Value.ToShortDateString()
+            Dim CODE_UTILISATEUR_CREA As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+            Dim DATE_PREMIERE_ARRIVEE As Date = GlobalVariable.DateDeTravail
+            Dim TYPE_RESERVATION As String = GlobalVariable.typeChambreOuSalle
+            Dim PDJ_INCLUS As String = ""
+            Dim TAXE_SEJOURS_INCLUS As String = ""
+            Dim TVA_INCLUS As String = ""
+            Dim CODE_CLIENT_REEL As String = GunaTextBoxRefClient.Text
+            Dim OBSERVATIONS As String = ""
+            Dim CODE_CHAMBRE = GunaTextBoxNumeroChambre.Text
+            Dim CODE_AGENCE As String = GlobalVariable.AgenceActuelle.Rows(0)("CODE_AGENCE")
+            Dim STATUT_RESERVATION As String = ""
 
             If GlobalVariable.actualLanguageValue = 1 Then
-                dialog = MessageBox.Show("Voulez vous vraiment Annuler cette réservation ", "Annulation de réservation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-
+                STATUT_RESERVATION = "ANNULEE"
             Else
-                dialog = MessageBox.Show("Do you really want to cancel this booking ", "Booking cancelation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-
+                STATUT_RESERVATION = "CANCELED"
             End If
 
-            If dialog = DialogResult.No Then
 
-            Else
+            Dim Reservation As New Reservation
+            Dim occupationChambre As New OccupationChambre()
+            Dim CODE_RESERVATION As String = GlobalVariable.codeReservationToUpdate
+            Dim dialog As DialogResult
 
-                Me.Cursor = Cursors.WaitCursor
+            Dim dayDiff = CType((GlobalVariable.DateDeTravail - GunaDateTimePickerDepart.Value).TotalHours, Int32)
 
-                'MOTIF ANNULATION
-                '----------------------------------------------
-                Dim motifDelogement As String = ""
+            If dayDiff >= 0 Then
 
                 If GlobalVariable.actualLanguageValue = 1 Then
-                    motifDelogement = InputBox("ANNULATION ", "Motif de l'annulation", "")
+                    MessageBox.Show("Bien vouloir vérifier la date de départ", "Réservation", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Else
+                    MessageBox.Show("Please check the departure date", "Reservation", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+
+            Else
+
+                If GlobalVariable.actualLanguageValue = 1 Then
+                    dialog = MessageBox.Show("Voulez vous vraiment Annuler cette réservation ", "Annulation de réservation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
                 Else
-                    motifDelogement = InputBox("CANCELATION ", "Reason for canceling", "")
+                    dialog = MessageBox.Show("Do you really want to cancel this booking ", "Booking cancelation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
                 End If
 
-                OBSERVATIONS = motifDelogement
-
-                '------------------------------------------------
-                Dim ETAT_RESERVATION As Integer
-
-                'ANNULATION DE LA RESERVATION 
-                Dim reservationToUpdateInReservation As DataTable = Functions.getElementByCode(CODE_RESERVATION, "reservation", "CODE_RESERVATION")
-
-                'SOIT DANS RESERVATION
-                If reservationToUpdateInReservation.Rows.Count > 0 Then
-
-                    'ANNULATION DE LA RESERVATION
-                    ETAT_RESERVATION = 2 'RESERVATION ANNULEE
-                    Reservation.AnnulationDeReservation(CODE_RESERVATION, "reservation", ETAT_RESERVATION, STATUT_RESERVATION)
+                If dialog = DialogResult.No Then
 
                 Else
 
-                    'OU DANS RESERVATION
-                    Dim reservationToUpdateInReserve_conf As DataTable = Functions.getElementByCode(CODE_RESERVATION, "reserve_conf", "CODE_RESERVATION")
+                    Me.Cursor = Cursors.WaitCursor
 
-                    If reservationToUpdateInReserve_conf.Rows.Count > 0 Then
+                    'MOTIF ANNULATION
+                    '----------------------------------------------
+                    Dim motifDelogement As String = ""
 
-                        ETAT_RESERVATION = 2
-                        '2 = RESERVATION ANNULEE; 1 = RESERVATION ABOUTI ; 0 = RESERVATION ANNULEE NORMALEMENT VIA UN CHECK OUT A LA BONNE DATE DE DEPART
-                        'Reservation.AnnulationDeReservation(CODE_RESERVATION, "reserve_conf", ETAT_RESERVATION)
+                    If GlobalVariable.actualLanguageValue = 1 Then
+                        motifDelogement = InputBox("ANNULATION ", "Motif de l'annulation", "")
+
+                    Else
+                        motifDelogement = InputBox("CANCELATION ", "Reason for canceling", "")
 
                     End If
 
+                    OBSERVATIONS = motifDelogement
+
+                    '------------------------------------------------
+                    Dim ETAT_RESERVATION As Integer
+
+                    'ANNULATION DE LA RESERVATION 
+                    Dim reservationToUpdateInReservation As DataTable = Functions.getElementByCode(CODE_RESERVATION, "reservation", "CODE_RESERVATION")
+
+                    'SOIT DANS RESERVATION
+                    If reservationToUpdateInReservation.Rows.Count > 0 Then
+
+                        'ANNULATION DE LA RESERVATION
+                        ETAT_RESERVATION = 2 'RESERVATION ANNULEE
+                        Reservation.AnnulationDeReservation(CODE_RESERVATION, "reservation", ETAT_RESERVATION, STATUT_RESERVATION)
+
+                    Else
+
+                        'OU DANS RESERVATION
+                        Dim reservationToUpdateInReserve_conf As DataTable = Functions.getElementByCode(CODE_RESERVATION, "reserve_conf", "CODE_RESERVATION")
+
+                        If reservationToUpdateInReserve_conf.Rows.Count > 0 Then
+
+                            ETAT_RESERVATION = 2
+                            '2 = RESERVATION ANNULEE; 1 = RESERVATION ABOUTI ; 0 = RESERVATION ANNULEE NORMALEMENT VIA UN CHECK OUT A LA BONNE DATE DE DEPART
+                            'Reservation.AnnulationDeReservation(CODE_RESERVATION, "reserve_conf", ETAT_RESERVATION)
+
+                        End If
+
+                    End If
+
+                    Dim ETAT_NOTE_RESERVATION As String = "ANNULEE"
+
+                    If reservationToUpdateInReservation.Rows.Count > 0 Then
+
+                        Dim ACTION_FAITE As String = GunaButtonAnnulerResa.Text
+                        Dim FAITE_PAR As String = GlobalVariable.ConnectedUser.Rows(0)("NOM_UTILISATEUR")
+
+                        Dim CLIENT_ID = reservationToUpdateInReservation.Rows(0)("CLIENT_ID")
+                        Dim UTILISATEUR_ID = reservationToUpdateInReservation.Rows(0)("UTILISATEUR_ID")
+                        Dim CHAMBRE_ID = reservationToUpdateInReservation.Rows(0)("CHAMBRE_ID")
+                        Dim AGENCE_ID = reservationToUpdateInReservation.Rows(0)("AGENCE_ID")
+                        Dim NOM_CLIENT = reservationToUpdateInReservation.Rows(0)("NOM_CLIENT")
+                        Dim DATE_ENTTRE = reservationToUpdateInReservation.Rows(0)("DATE_ENTTRE")
+                        Dim HEURE_ENTREE = reservationToUpdateInReservation.Rows(0)("HEURE_ENTREE")
+                        Dim DATE_SORTIE = reservationToUpdateInReservation.Rows(0)("DATE_SORTIE")
+                        Dim HEURE_SORTIE = reservationToUpdateInReservation.Rows(0)("HEURE_SORTIE")
+                        Dim ADULTES = reservationToUpdateInReservation.Rows(0)("ADULTES")
+                        Dim NB_PERSONNES = reservationToUpdateInReservation.Rows(0)("NB_PERSONNES")
+                        Dim ENFANTS = reservationToUpdateInReservation.Rows(0)("ENFANTS")
+                        Dim RECEVOIR_EMAIL = reservationToUpdateInReservation.Rows(0)("RECEVOIR_EMAIL")
+                        Dim RECEVOIR_SMS = reservationToUpdateInReservation.Rows(0)("RECEVOIR_SMS")
+                        Dim DATE_CREATION = reservationToUpdateInReservation.Rows(0)("DATE_CREATION")
+                        Dim HEURE_CREATION = reservationToUpdateInReservation.Rows(0)("HEURE_CREATION")
+                        Dim MONTANT_TOTAL_CAUTION = reservationToUpdateInReservation.Rows(0)("MONTANT_TOTAL_CAUTION")
+                        Dim MOTIF_ETAT = reservationToUpdateInReservation.Rows(0)("MOTIF_ETAT")
+                        Dim DATE_ETAT = reservationToUpdateInReservation.Rows(0)("DATE_ETAT")
+                        Dim MONTANT_ACCORDE = reservationToUpdateInReservation.Rows(0)("MONTANT_ACCORDE")
+                        Dim GROUPE = reservationToUpdateInReservation.Rows(0)("GROUPE")
+                        Dim DEPOT_DE_GARANTIE = reservationToUpdateInReservation.Rows(0)("DEPOT_DE_GARANTIE")
+                        Dim DAY_USE = reservationToUpdateInReservation.Rows(0)("DAY_USE")
+                        Dim MENSUEL = reservationToUpdateInReservation.Rows(0)("MENSUEL")
+                        Dim HEBDOMADAIRE = reservationToUpdateInReservation.Rows(0)("HEBDOMADAIRE")
+                        Dim BC_ENTREPRISE = reservationToUpdateInReservation.Rows(0)("BC_ENTREPRISE")
+                        Dim TYPE_CHAMBRE = reservationToUpdateInReservation.Rows(0)("TYPE_CHAMBRE")
+                        Dim TYPE_CHAMBRE_OU_SALLE = reservationToUpdateInReservation.Rows(0)("TYPE")
+                        Dim PETIT_DEJEUNER_ROUTAGE = reservationToUpdateInReservation.Rows(0)("PETIT_DEJEUNER_ROUTAGE")
+                        Dim CHAMBRE_ROUTAGE = reservationToUpdateInReservation.Rows(0)("CHAMBRE_ROUTAGE")
+                        Dim VENANT_DE = reservationToUpdateInReservation.Rows(0)("VENANT_DE")
+                        Dim SE_RENDANT_A = reservationToUpdateInReservation.Rows(0)("SE_RENDANT_A")
+                        Dim RAISON = reservationToUpdateInReservation.Rows(0)("RAISON")
+                        Dim SOURCE_RESERVATION = reservationToUpdateInReservation.Rows(0)("SOURCE_RESERVATION")
+                        Dim ROUTAGE = reservationToUpdateInReservation.Rows(0)("ROUTAGE")
+                        Dim CODE_ENTREPRISE = reservationToUpdateInReservation.Rows(0)("CODE_ENTREPRISE")
+                        Dim NOM_ENTREPRISE = reservationToUpdateInReservation.Rows(0)("NOM_ENTREPRISE")
+
+                        Reservation.insertTrace(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, HEBDOMADAIRE, BC_ENTREPRISE, TYPE_CHAMBRE, ACTION_FAITE, FAITE_PAR, TYPE_CHAMBRE_OU_SALLE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE)
+
+                    End If
+
+                    '-------------------------------------- MOUCHARDS ---------------------------------------------------
+                    Dim ACTION As String = ""
+
+                    If GlobalVariable.actualLanguageValue = 1 Then
+                        ACTION = "ANNULATION DE LA RESERVATION [CHAMBRE " & GunaTextBoxNumeroChambre.Text & " / " & GunaTextBoxNomPrenom.Text & "  MOTIF : " & OBSERVATIONS & "]"
+
+                    Else
+                        ACTION = "BOOKING CANCELATION [ROOM " & GunaTextBoxNumeroChambre.Text & " / " & GunaTextBoxNomPrenom.Text & "  REASON : " & OBSERVATIONS & "]"
+
+                    End If
+
+                    User.mouchard(ACTION)
+                    '----------------------------------------------------------------------------------------------------
+
+                    User.updateSuiviDesReservations("ANNULER_PAR", GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR"), CODE_RESERVATION)
+
+                    'UPDATE THE ROOM
+                    Dim updateQuery1 As String = "UPDATE `chambre` SET `ETAT_CHAMBRE`=@ETAT_CHAMBRE, ETAT_CHAMBRE_NOTE=@ETAT_CHAMBRE_NOTE WHERE CODE_CHAMBRE=@code"
+
+                    Dim command1 As New MySqlCommand(updateQuery1, GlobalVariable.connect)
+
+                    command1.Parameters.Add("@ETAT_CHAMBRE", MySqlDbType.Int32).Value = 0
+                    command1.Parameters.Add("@code", MySqlDbType.VarChar).Value = GlobalVariable.codeChambre
+                    command1.Parameters.Add("@ETAT_CHAMBRE_NOTE", MySqlDbType.VarChar).Value = GlobalVariable.libre_propre
+
+                    If (command1.ExecuteNonQuery() = 1) Then
+                        'connect.closeConnection()
+                    End If
+
+                    'trace de l'annulation de reservation 
+                    Dim ETAT_CHAMBRE As Integer = 1
+
+                    If occupationChambre.insertOccupationChambre(CODE_OCCUPATION_CHAMBRE, CODE_RESERVATION, CODE_CHAMBRE, MONTANT_HT, TAXE, MONTANT_TTC, DATE_OCCUPATION, ETAT_CHAMBRE, OBSERVATIONS, COMMENTAIRE1, COMMENTAIRE2, COMMENTAIRE3, COMMENTAIRE4, DATE_LIBERATION, CODE_UTILISATEUR_CREA, DATE_PREMIERE_ARRIVEE, TYPE_RESERVATION, PDJ_INCLUS, TAXE_SEJOURS_INCLUS, TVA_INCLUS, CODE_CLIENT_REEL, CODE_AGENCE) Then
+
+                    End If
+
+                    'ANNULATIIO DE RESERVATION MAINCOURANTE = 2
+                    'MISE A JOURS DE LA MAIN COURANTE JOURNALIERE DE LA CHAMBRE ANNULEE
+
+                    Dim updateQuery2 As String = "UPDATE `main_courante_journaliere` SET `ETAT_MAIN_COURANTE`=@ETAT_MAIN_COURANTE WHERE NUM_RESERVATION=@NUM_RESERVATION"
+
+                    Dim command2 As New MySqlCommand(updateQuery2, GlobalVariable.connect)
+
+                    command2.Parameters.Add("@ETAT_MAIN_COURANTE", MySqlDbType.Int32).Value = 2
+                    command2.Parameters.Add("@NUM_RESERVATION", MySqlDbType.VarChar).Value = CODE_RESERVATION
+
+                    If (command2.ExecuteNonQuery() = 1) Then
+                        'connect.closeConnection()
+                    End If
+
+                    'MISE A JOURS DE LA MAIN COURANTE GENERALE DE LA CHAMBRE ANNULEE
+
+                    Dim updateQuery3 As String = "UPDATE `main_courante_generale` SET `ETAT_MAIN_COURANTE`=@ETAT_MAIN_COURANTE WHERE NUM_RESERVATION=@NUM_RESERVATION"
+
+                    Dim command3 As New MySqlCommand(updateQuery3, GlobalVariable.connect)
+
+                    command3.Parameters.Add("@ETAT_MAIN_COURANTE", MySqlDbType.Int32).Value = 2
+                    command3.Parameters.Add("@NUM_RESERVATION", MySqlDbType.VarChar).Value = CODE_RESERVATION
+
+                    If (command3.ExecuteNonQuery() = 1) Then
+                        'connect.closeConnection()
+                    End If
+
+                    Reservation.updateEtatReservationNote(CODE_RESERVATION, "reservation", ETAT_NOTE_RESERVATION)
+
+                    'RSERVATION NORMALE
+
+                    'Clearing all the informations found in the the reseravtion field
+                    emtptyRegistrationFields()
+
+                    'We set all the global variables used for update to their original values
+                    Functions.EmtyGlobalVariablesContainingCodeToUpdate()
+
+                    'Renitialisation des dates en plus de la date de travail après avoir vidé les variables globales
+                    ReinitialisationDesDates()
+
+                    Functions.SiplifiedClearTextBox(Me)
+
+                    'On masque les tarifs associés au client si existe 
+                    GunaComboBoxCodeTarif.Visible = False
+                    GunaLabelCodeTarif.Visible = False
+
+                    'Desactivation du bouton de gestion de groupe
+                    GunaCheckBoxReservationDeGroupe.Checked = False
+
+                    ReservationList("all", "none")
+
+                    'Used to know which button to display among enregistrer, checkin, checkout, annuler
+                    reservationButtonToDisplay()
+
+                    GunaCheckBoxPetitDejeuenerInclus.Checked = False
+                    GunaCheckBoxTaxeSejour.Checked = False
+                    GunaTextBoxPetitDejeuner.Visible = False
+                    GunaTextBoxPetitDejeunerRoutage.Visible = False
+
+
+                    'Obtention des informations pour les statistiques
+                    Dim stat As New statistiques()
+
+                    stat.ObtenirDerniereStatistique()
+
+                    Dim codeDelaDerniereStatistique As String = stat.ObtenirDerniereStatistique()
+
+                    'DERNIER STATISTIQUE
+                    GlobalVariable.informationDesStatistiques = Functions.getElementByCode(codeDelaDerniereStatistique, "statistiques", "CODE_STATISTIQUE")
+
+                    GlobalVariable.entierAnnulation = -1
+
+                    If GlobalVariable.actualLanguageValue = 1 Then
+                        MessageBox.Show("Réservation annulée avec succès", "Annulation de Réservation", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    Else
+                        MessageBox.Show("Booking successfully canceled", "Booking cancelation", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    End If
+
+                    GunaButtonCheckOut.Visible = False
+
+                    GlobalVariable.entierAnnulation = 0
+
+                    VidageDesChampsPourNouvelleReservation()
+
+                    Me.Cursor = Cursors.Default
+
                 End If
-
-                Dim ETAT_NOTE_RESERVATION As String = "ANNULEE"
-
-                If reservationToUpdateInReservation.Rows.Count > 0 Then
-
-                    Dim ACTION_FAITE As String = GunaButtonAnnulerResa.Text
-                    Dim FAITE_PAR As String = GlobalVariable.ConnectedUser.Rows(0)("NOM_UTILISATEUR")
-
-                    Dim CLIENT_ID = reservationToUpdateInReservation.Rows(0)("CLIENT_ID")
-                    Dim UTILISATEUR_ID = reservationToUpdateInReservation.Rows(0)("UTILISATEUR_ID")
-                    Dim CHAMBRE_ID = reservationToUpdateInReservation.Rows(0)("CHAMBRE_ID")
-                    Dim AGENCE_ID = reservationToUpdateInReservation.Rows(0)("AGENCE_ID")
-                    Dim NOM_CLIENT = reservationToUpdateInReservation.Rows(0)("NOM_CLIENT")
-                    Dim DATE_ENTTRE = reservationToUpdateInReservation.Rows(0)("DATE_ENTTRE")
-                    Dim HEURE_ENTREE = reservationToUpdateInReservation.Rows(0)("HEURE_ENTREE")
-                    Dim DATE_SORTIE = reservationToUpdateInReservation.Rows(0)("DATE_SORTIE")
-                    Dim HEURE_SORTIE = reservationToUpdateInReservation.Rows(0)("HEURE_SORTIE")
-                    Dim ADULTES = reservationToUpdateInReservation.Rows(0)("ADULTES")
-                    Dim NB_PERSONNES = reservationToUpdateInReservation.Rows(0)("NB_PERSONNES")
-                    Dim ENFANTS = reservationToUpdateInReservation.Rows(0)("ENFANTS")
-                    Dim RECEVOIR_EMAIL = reservationToUpdateInReservation.Rows(0)("RECEVOIR_EMAIL")
-                    Dim RECEVOIR_SMS = reservationToUpdateInReservation.Rows(0)("RECEVOIR_SMS")
-                    Dim DATE_CREATION = reservationToUpdateInReservation.Rows(0)("DATE_CREATION")
-                    Dim HEURE_CREATION = reservationToUpdateInReservation.Rows(0)("HEURE_CREATION")
-                    Dim MONTANT_TOTAL_CAUTION = reservationToUpdateInReservation.Rows(0)("MONTANT_TOTAL_CAUTION")
-                    Dim MOTIF_ETAT = reservationToUpdateInReservation.Rows(0)("MOTIF_ETAT")
-                    Dim DATE_ETAT = reservationToUpdateInReservation.Rows(0)("DATE_ETAT")
-                    Dim MONTANT_ACCORDE = reservationToUpdateInReservation.Rows(0)("MONTANT_ACCORDE")
-                    Dim GROUPE = reservationToUpdateInReservation.Rows(0)("GROUPE")
-                    Dim DEPOT_DE_GARANTIE = reservationToUpdateInReservation.Rows(0)("DEPOT_DE_GARANTIE")
-                    Dim DAY_USE = reservationToUpdateInReservation.Rows(0)("DAY_USE")
-                    Dim MENSUEL = reservationToUpdateInReservation.Rows(0)("MENSUEL")
-                    Dim HEBDOMADAIRE = reservationToUpdateInReservation.Rows(0)("HEBDOMADAIRE")
-                    Dim BC_ENTREPRISE = reservationToUpdateInReservation.Rows(0)("BC_ENTREPRISE")
-                    Dim TYPE_CHAMBRE = reservationToUpdateInReservation.Rows(0)("TYPE_CHAMBRE")
-                    Dim TYPE_CHAMBRE_OU_SALLE = reservationToUpdateInReservation.Rows(0)("TYPE")
-                    Dim PETIT_DEJEUNER_ROUTAGE = reservationToUpdateInReservation.Rows(0)("PETIT_DEJEUNER_ROUTAGE")
-                    Dim CHAMBRE_ROUTAGE = reservationToUpdateInReservation.Rows(0)("CHAMBRE_ROUTAGE")
-                    Dim VENANT_DE = reservationToUpdateInReservation.Rows(0)("VENANT_DE")
-                    Dim SE_RENDANT_A = reservationToUpdateInReservation.Rows(0)("SE_RENDANT_A")
-                    Dim RAISON = reservationToUpdateInReservation.Rows(0)("RAISON")
-                    Dim SOURCE_RESERVATION = reservationToUpdateInReservation.Rows(0)("SOURCE_RESERVATION")
-                    Dim ROUTAGE = reservationToUpdateInReservation.Rows(0)("ROUTAGE")
-                    Dim CODE_ENTREPRISE = reservationToUpdateInReservation.Rows(0)("CODE_ENTREPRISE")
-                    Dim NOM_ENTREPRISE = reservationToUpdateInReservation.Rows(0)("NOM_ENTREPRISE")
-
-                    Reservation.insertTrace(CODE_RESERVATION, CLIENT_ID, UTILISATEUR_ID, CHAMBRE_ID, AGENCE_ID, NOM_CLIENT, DATE_ENTTRE, HEURE_ENTREE, DATE_SORTIE, HEURE_SORTIE, ADULTES, NB_PERSONNES, ENFANTS, RECEVOIR_EMAIL, RECEVOIR_SMS, ETAT_RESERVATION, DATE_CREATION, HEURE_CREATION, MONTANT_TOTAL_CAUTION, MOTIF_ETAT, DATE_ETAT, MONTANT_ACCORDE, GROUPE, DEPOT_DE_GARANTIE, DAY_USE, MENSUEL, HEBDOMADAIRE, BC_ENTREPRISE, TYPE_CHAMBRE, ACTION_FAITE, FAITE_PAR, TYPE_CHAMBRE_OU_SALLE, PETIT_DEJEUNER_ROUTAGE, CHAMBRE_ROUTAGE, VENANT_DE, SE_RENDANT_A, RAISON, SOURCE_RESERVATION, ROUTAGE, ETAT_NOTE_RESERVATION, CODE_ENTREPRISE, NOM_ENTREPRISE)
-
-                End If
-
-                '-------------------------------------- MOUCHARDS ---------------------------------------------------
-                Dim ACTION As String = ""
-
-                If GlobalVariable.actualLanguageValue = 1 Then
-                    ACTION = "ANNULATION DE LA RESERVATION [CHAMBRE " & GunaTextBoxNumeroChambre.Text & " / " & GunaTextBoxNomPrenom.Text & "  MOTIF : " & OBSERVATIONS & "]"
-
-                Else
-                    ACTION = "BOOKING CANCELATION [ROOM " & GunaTextBoxNumeroChambre.Text & " / " & GunaTextBoxNomPrenom.Text & "  REASON : " & OBSERVATIONS & "]"
-
-                End If
-
-                User.mouchard(ACTION)
-                '----------------------------------------------------------------------------------------------------
-
-                User.updateSuiviDesReservations("ANNULER_PAR", GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR"), CODE_RESERVATION)
-
-                'UPDATE THE ROOM
-                Dim updateQuery1 As String = "UPDATE `chambre` SET `ETAT_CHAMBRE`=@ETAT_CHAMBRE, ETAT_CHAMBRE_NOTE=@ETAT_CHAMBRE_NOTE WHERE CODE_CHAMBRE=@code"
-
-                Dim command1 As New MySqlCommand(updateQuery1, GlobalVariable.connect)
-
-                command1.Parameters.Add("@ETAT_CHAMBRE", MySqlDbType.Int32).Value = 0
-                command1.Parameters.Add("@code", MySqlDbType.VarChar).Value = GlobalVariable.codeChambre
-                command1.Parameters.Add("@ETAT_CHAMBRE_NOTE", MySqlDbType.VarChar).Value = GlobalVariable.libre_propre
-
-                If (command1.ExecuteNonQuery() = 1) Then
-                    'connect.closeConnection()
-                End If
-
-                'trace de l'annulation de reservation 
-                Dim ETAT_CHAMBRE As Integer = 1
-
-                If occupationChambre.insertOccupationChambre(CODE_OCCUPATION_CHAMBRE, CODE_RESERVATION, CODE_CHAMBRE, MONTANT_HT, TAXE, MONTANT_TTC, DATE_OCCUPATION, ETAT_CHAMBRE, OBSERVATIONS, COMMENTAIRE1, COMMENTAIRE2, COMMENTAIRE3, COMMENTAIRE4, DATE_LIBERATION, CODE_UTILISATEUR_CREA, DATE_PREMIERE_ARRIVEE, TYPE_RESERVATION, PDJ_INCLUS, TAXE_SEJOURS_INCLUS, TVA_INCLUS, CODE_CLIENT_REEL, CODE_AGENCE) Then
-
-                End If
-
-                'ANNULATIIO DE RESERVATION MAINCOURANTE = 2
-                'MISE A JOURS DE LA MAIN COURANTE JOURNALIERE DE LA CHAMBRE ANNULEE
-
-                Dim updateQuery2 As String = "UPDATE `main_courante_journaliere` SET `ETAT_MAIN_COURANTE`=@ETAT_MAIN_COURANTE WHERE NUM_RESERVATION=@NUM_RESERVATION"
-
-                Dim command2 As New MySqlCommand(updateQuery2, GlobalVariable.connect)
-
-                command2.Parameters.Add("@ETAT_MAIN_COURANTE", MySqlDbType.Int32).Value = 2
-                command2.Parameters.Add("@NUM_RESERVATION", MySqlDbType.VarChar).Value = CODE_RESERVATION
-
-                If (command2.ExecuteNonQuery() = 1) Then
-                    'connect.closeConnection()
-                End If
-
-                'MISE A JOURS DE LA MAIN COURANTE GENERALE DE LA CHAMBRE ANNULEE
-
-                Dim updateQuery3 As String = "UPDATE `main_courante_generale` SET `ETAT_MAIN_COURANTE`=@ETAT_MAIN_COURANTE WHERE NUM_RESERVATION=@NUM_RESERVATION"
-
-                Dim command3 As New MySqlCommand(updateQuery3, GlobalVariable.connect)
-
-                command3.Parameters.Add("@ETAT_MAIN_COURANTE", MySqlDbType.Int32).Value = 2
-                command3.Parameters.Add("@NUM_RESERVATION", MySqlDbType.VarChar).Value = CODE_RESERVATION
-
-                If (command3.ExecuteNonQuery() = 1) Then
-                    'connect.closeConnection()
-                End If
-
-                Reservation.updateEtatReservationNote(CODE_RESERVATION, "reservation", ETAT_NOTE_RESERVATION)
-
-                'RSERVATION NORMALE
-
-                'Clearing all the informations found in the the reseravtion field
-                emtptyRegistrationFields()
-
-                'We set all the global variables used for update to their original values
-                Functions.EmtyGlobalVariablesContainingCodeToUpdate()
-
-                'Renitialisation des dates en plus de la date de travail après avoir vidé les variables globales
-                ReinitialisationDesDates()
-
-                Functions.SiplifiedClearTextBox(Me)
-
-                'On masque les tarifs associés au client si existe 
-                GunaComboBoxCodeTarif.Visible = False
-                GunaLabelCodeTarif.Visible = False
-
-                'Desactivation du bouton de gestion de groupe
-                GunaCheckBoxReservationDeGroupe.Checked = False
-
-                ReservationList("all", "none")
-
-                'Used to know which button to display among enregistrer, checkin, checkout, annuler
-                reservationButtonToDisplay()
-
-                GunaCheckBoxPetitDejeuenerInclus.Checked = False
-                GunaCheckBoxTaxeSejour.Checked = False
-                GunaTextBoxPetitDejeuner.Visible = False
-                GunaTextBoxPetitDejeunerRoutage.Visible = False
-
-
-                'Obtention des informations pour les statistiques
-                Dim stat As New statistiques()
-
-                stat.ObtenirDerniereStatistique()
-
-                Dim codeDelaDerniereStatistique As String = stat.ObtenirDerniereStatistique()
-
-                'DERNIER STATISTIQUE
-                GlobalVariable.informationDesStatistiques = Functions.getElementByCode(codeDelaDerniereStatistique, "statistiques", "CODE_STATISTIQUE")
-
-                GlobalVariable.entierAnnulation = -1
-
-                If GlobalVariable.actualLanguageValue = 1 Then
-                    MessageBox.Show("Réservation annulée avec succès", "Annulation de Réservation", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                Else
-                    MessageBox.Show("Booking successfully canceled", "Booking cancelation", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                End If
-
-                GunaButtonCheckOut.Visible = False
-
-                GlobalVariable.entierAnnulation = 0
-
-                VidageDesChampsPourNouvelleReservation()
-
-                Me.Cursor = Cursors.Default
 
             End If
 
+        Else
+
+            Dim shortMessage As String = ""
+
+            If arrhes > 0 Then
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    shortMessage = " , the reservation is associated to an arrhes"
+                Else
+                    shortMessage = " , la reservation est associée à un dépot de garantie"
+                End If
+            ElseIf solde > 0 Then
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    shortMessage = ", the reservation has a positif balance"
+                Else
+                    shortMessage = ", la reservation a un solde positif"
+                End If
+            End If
+
+            If GlobalVariable.actualLanguageValue = 1 Then
+                MessageBox.Show("Impossible d'annuler" & shortMessage, "Réservation", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                MessageBox.Show("Impossible to cancel" & shortMessage, "Reservation", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
         End If
+
+
 
 
 
@@ -22592,6 +22712,7 @@ Public Class MainWindow
         ClientForm.Show()
         ClientForm.TopMost = True
 
+        'kklg
         historiqueApartirDuCardex()
 
         ClientForm.TabControl1.SelectedIndex = 2
@@ -22636,10 +22757,10 @@ Public Class MainWindow
 
         ClientForm.GunaComboBoxNatureOperation.SelectedIndex = 0
 
-        Dim CodeClient As String = GunaTextBoxRefClient.Text
-        ClientForm.GunaTextBoxCodeEntreprise.Text = GunaTextBoxRefClient.Text
-
         'On rempli la description du client pour des eventuelles modifications
+
+        Dim CodeClient As String = GunaTextBoxRefClient.Text
+        ClientForm.GunaTextBoxCodeClient.Text = GunaTextBoxRefClient.Text
 
         Dim client As DataTable = Functions.getElementByCode(CodeClient, "client", "CODE_CLIENT")
 
@@ -22739,6 +22860,11 @@ Public Class MainWindow
 
                 End If
 
+                If client.Rows(0)("TYPE_CLIENT").Equals("INDIVIDUEL") Or client.Rows(0)("TYPE_CLIENT").Equals("INDIVIDUAL") Then
+                    ClientForm.GunaComboBoxTypeDeFiltre.SelectedIndex = 0
+                ElseIf client.Rows(0)("TYPE_CLIENT").Equals("ENTREPRISE") Or client.Rows(0)("TYPE_CLIENT").Equals("COMPANY") Then
+                    ClientForm.GunaComboBoxTypeDeFiltre.SelectedIndex = 1
+                End If
 
                 Functions.AffectingTitleToAForm(ClientForm.GunaTextBoxNomRaisonSociale.Text + " " + ClientForm.GunaTextBoxPrenom.Text, ClientForm.GunaLabelTitreForm)
 
@@ -22836,7 +22962,11 @@ Public Class MainWindow
 
             End If
 
+        Else
+            ClientForm.GunaComboBoxTypeDeFiltre.SelectedIndex = 2
         End If
+
+        ClientForm.GunaComboBoxTypeDeFiltre.Enabled = False
 
     End Sub
 
@@ -24426,6 +24556,9 @@ Public Class MainWindow
         If Not chambreExist.Rows.Count > 0 Then
 
             Dim query As String = "SELECT * FROM `chambre` WHERE `ETAT_CHAMBRE_NOTE` LIKE '%sale%' AND TYPE=@TYPE ORDER BY CODE_CHAMBRE ASC"
+            If GlobalVariable.actualLanguageValue = 0 Then
+                query = "SELECT * FROM `chambre` WHERE `ETAT_CHAMBRE_NOTE` LIKE '%dirty%' AND TYPE=@TYPE ORDER BY CODE_CHAMBRE ASC"
+            End If
             Dim command As New MySqlCommand(query, GlobalVariable.connect)
             command.Parameters.Add("@TYPE", MySqlDbType.VarChar).Value = "chambre"
 
@@ -24686,5 +24819,283 @@ Public Class MainWindow
         End If
 
     End Function
+
+    Public Function prixSejourMensuelHebdo(ByVal CODE_TYPE_CHAMBRE As String) As Double
+
+        Dim HEBDO_MENSUEL
+        Dim totalSejour As Double = 0
+        Dim DATE_ARRIVEE As Date = GunaDateTimePickerArrivee.Value
+        Dim DATE_DEPART As Date = GunaDateTimePickerDepart.Value
+
+        Dim numberOfWeeks As Integer = 0
+        Dim numberOfDays As Integer = 0
+        Dim numberOfMonths As Integer = 0
+
+        Dim monthNumberArrivee As Integer = 0
+        Dim monthNumberDepart As Integer = 0
+        Dim dayNumberSortie As Integer = 0
+        Dim dayNumberEntree As Integer = 0
+
+        Dim tempsAFaire As Integer = CType((DATE_DEPART - DATE_ARRIVEE).TotalDays, Int32)
+
+        Dim prix As Double = 0
+        Dim prixJournalier As Double = 0
+
+        If Not Trim(GunaTextBoxMontantAccorde.Text).Equals("") Then
+
+            prix = GunaTextBoxMontantAccorde.Text
+
+            If GunaCheckBoxHebdo.Checked Then
+
+                HEBDO_MENSUEL = 0
+                '2- ON DETERMINE LE NOMBRE DE JOUR APRES EXTRACTION DES SEMAINES POUR ATTEINDRE LA DATE DE DEPART 
+                numberOfDays = tempsAFaire Mod 7
+
+                '1- ON DETERMINE LE NOMBRE DE SEMAINE A FAIRE PAR APPORT AU NOMBRE DE JOUR EXISTANT ENTRE L'ARRIVEE ET DEPART
+                numberOfWeeks = ((tempsAFaire - numberOfDays) / 7)
+
+                prixJournalier = calculJournalierHebdoMensuel(HEBDO_MENSUEL, prix)
+
+                totalSejour = (numberOfWeeks * prix) + (numberOfDays * prixJournalier)
+
+            ElseIf GunaCheckBoxMensuel.Checked Then
+
+                HEBDO_MENSUEL = 1
+                '1- ON DETERMINE LE NOMBRE DE MOIS A FAIRE PAR APPORT A L'ARRIVEE ET DEPART
+                '1.1- ON DETERMINE LES ECARTS DE MOIS ENTRE L'ARRIVEE ET DEPART
+                monthNumberArrivee = Month(DATE_ARRIVEE)
+                monthNumberDepart = Month(DATE_DEPART)
+
+                dayNumberSortie = DATE_DEPART.Day()
+                dayNumberEntree = DATE_ARRIVEE.Day()
+
+                numberOfMonths = monthNumberDepart - monthNumberArrivee
+                If dayNumberSortie < dayNumberEntree Then
+                    numberOfMonths -= 1
+                End If
+
+                prixJournalier = calculJournalierHebdoMensuel(HEBDO_MENSUEL, prix)
+
+                If numberOfMonths = 0 Then
+
+                    numberOfDays = tempsAFaire
+                    totalSejour = (numberOfDays * prixJournalier)
+
+                Else
+
+                    For i = 0 To numberOfMonths
+
+                        If i = numberOfMonths Then
+                            '1.2- AU DERNIER MOIS DONC MOI DE DEPART ON DOIT FACTURER PAR APPORT AU MOIS EN COURS ET AU JOUR EXEDENTAIRES
+                            '1.2.1- ON FACTURE D'ABORDS POUR LE MOIS
+                            'totalSejour += prix
+                            '1.2.2- VERIFIER SI IL Y'A DES JOURS EXEDENTAIRES
+
+                            numberOfDays = dayNumberSortie - dayNumberEntree
+
+                            If dayNumberSortie >= dayNumberEntree Then
+                                numberOfDays = dayNumberSortie - dayNumberEntree
+                            ElseIf dayNumberSortie < dayNumberEntree Then
+                                numberOfDays = Math.Abs(CType((DATE_DEPART - DATE_ARRIVEE.AddMonths(numberOfMonths)).TotalDays, Int32))
+                            End If
+
+                        End If
+                    Next
+
+                End If
+
+                totalSejour = (numberOfMonths * prix) + (numberOfDays * prixJournalier)
+
+            End If
+
+        End If
+
+        If Trim(GunaTextBoxCodeTypeDeChambre.Text).Equals("") Then
+            totalSejour = 0
+        End If
+
+        Return totalSejour
+
+    End Function
+
+    Public Function calculJournalierHebdoMensuel(ByVal HEBDO_MENSUEL As Integer, ByVal MONTANT_ACCORDE As Double)
+
+        Dim montant As Double = 0
+        Dim annee = Year(GlobalVariable.DateDeTravail)
+        Dim totalNumberOfDays = 0
+
+        If DateTime.IsLeapYear(annee) Then
+            totalNumberOfDays = 366
+        Else
+            totalNumberOfDays = 365
+        End If
+
+        If totalNumberOfDays > 0 Then
+
+            If HEBDO_MENSUEL = 0 Then 'HEBDOMADAIRE
+                montant = (MONTANT_ACCORDE * 52) / totalNumberOfDays
+            ElseIf HEBDO_MENSUEL = 1 Then 'MENSUEL
+                montant = (MONTANT_ACCORDE * 12) / totalNumberOfDays
+            End If
+
+        End If
+
+        If Trim(GunaTextBoxCodeTypeDeChambre.Text).Equals("") Then
+            montant = 0
+        End If
+
+        Return montant
+
+    End Function
+
+    Public Function detailSejourMensuelHebdo()
+
+        Dim HEBDO_MENSUEL
+        Dim totalSejour As Double = 0
+        Dim DATE_ARRIVEE As Date = GunaDateTimePickerArrivee.Value
+        Dim DATE_DEPART As Date = GunaDateTimePickerDepart.Value
+
+        Dim numberOfWeeks As Integer = 0
+        Dim numberOfDays As Integer = 0
+        Dim numberOfMonths As Integer = 0
+
+        Dim monthNumberArrivee As Integer = 0
+        Dim monthNumberDepart As Integer = 0
+        Dim dayNumberSortie As Integer = 0
+        Dim dayNumberEntree As Integer = 0
+
+        Dim tempsAFaire As Integer = CType((DATE_DEPART - DATE_ARRIVEE).TotalDays, Int32)
+
+        Dim prix As Double = 0
+        Dim prixJournalier As Double = 0
+
+        Dim pluriel As String = ""
+        Dim plurielDay As String = ""
+
+        If Not Trim(GunaTextBoxMontantAccorde.Text).Equals("") Then
+
+            prix = GunaTextBoxMontantAccorde.Text
+
+            If GunaCheckBoxHebdo.Checked Then
+
+                HEBDO_MENSUEL = 0
+                '2- ON DETERMINE LE NOMBRE DE JOUR APRES EXTRACTION DES SEMAINES POUR ATTEINDRE LA DATE DE DEPART 
+                numberOfDays = tempsAFaire Mod 7
+
+                '1- ON DETERMINE LE NOMBRE DE SEMAINE A FAIRE PAR APPORT AU NOMBRE DE JOUR EXISTANT ENTRE L'ARRIVEE ET DEPART
+                numberOfWeeks = ((tempsAFaire - numberOfDays) / 7)
+
+                If numberOfWeeks > 1 Then
+                    pluriel = "s"
+                End If
+
+                If numberOfDays > 1 Then
+                    plurielDay = "s"
+                End If
+
+                If GlobalVariable.actualLanguageValue = 1 Then
+                    GunaLabelDetailSejours.Text = numberOfWeeks & " Semaine" & pluriel & " " & numberOfDays & " jour" & plurielDay
+                Else
+                    GunaLabelDetailSejours.Text = numberOfWeeks & " Week" & pluriel & " " & numberOfDays & " day" & plurielDay
+                End If
+
+            ElseIf GunaCheckBoxMensuel.Checked Then
+
+                HEBDO_MENSUEL = 1
+                '1- ON DETERMINE LE NOMBRE DE MOIS A FAIRE PAR APPORT A L'ARRIVEE ET DEPART
+                '1.1- ON DETERMINE LES ECARTS DE MOIS ENTRE L'ARRIVEE ET DEPART
+                monthNumberArrivee = Month(DATE_ARRIVEE)
+                monthNumberDepart = Month(DATE_DEPART)
+
+                dayNumberSortie = DATE_DEPART.Day()
+                dayNumberEntree = DATE_ARRIVEE.Day()
+
+                numberOfMonths = monthNumberDepart - monthNumberArrivee
+                If dayNumberSortie < dayNumberEntree Then
+                    numberOfMonths -= 1
+                End If
+
+                If numberOfMonths = 0 Then
+                    numberOfDays = tempsAFaire
+                Else
+
+                    For i = 0 To numberOfMonths
+
+                        If i = numberOfMonths Then
+
+                            If dayNumberSortie >= dayNumberEntree Then
+                                numberOfDays = dayNumberSortie - dayNumberEntree
+                            ElseIf dayNumberSortie < dayNumberEntree Then
+                                numberOfDays = Math.Abs(CType((DATE_DEPART - DATE_ARRIVEE.AddMonths(numberOfMonths)).TotalDays, Int32))
+                            End If
+
+                        End If
+                    Next
+
+                End If
+
+                If numberOfMonths = 0 Then
+
+                    If numberOfDays > 1 Then
+                        plurielDay = "s"
+                    End If
+
+                    If GlobalVariable.actualLanguageValue = 1 Then
+                        GunaLabelDetailSejours.Text = numberOfDays & " jour" & plurielDay
+                    Else
+                        GunaLabelDetailSejours.Text = numberOfDays & " day" & plurielDay
+                    End If
+
+                ElseIf numberOfMonths > 0 Then
+
+                    If Math.Abs(numberOfDays) > 0 Then
+
+                        If numberOfMonths > 1 Then
+                            pluriel = "s"
+                        End If
+
+                        If numberOfDays > 1 Then
+                            plurielDay = "s"
+                        End If
+
+                        If GlobalVariable.actualLanguageValue = 1 Then
+                            GunaLabelDetailSejours.Text = numberOfMonths & " Mois " & numberOfDays & " jour" & plurielDay
+                        Else
+                            GunaLabelDetailSejours.Text = numberOfMonths & " Month" & pluriel & " " & numberOfDays & " day" & plurielDay
+                        End If
+
+                    Else
+
+                        If numberOfMonths > 1 Then
+                            pluriel = "s"
+                        End If
+
+                        If GlobalVariable.actualLanguageValue = 1 Then
+                            GunaLabelDetailSejours.Text = numberOfMonths & " Mois"
+                        Else
+                            GunaLabelDetailSejours.Text = numberOfMonths & " Month" & pluriel
+                        End If
+
+                    End If
+
+                End If
+
+            End If
+
+        End If
+
+    End Function
+
+    Private Sub GunaAdvenceButton30_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButton30.Click
+
+        GunaDateTimePickerAu.Value = GlobalVariable.DateDeTravail
+
+        PanelRapports.BringToFront()
+        PanelRapports.Show()
+
+        'Raports de la réception
+        TabControlRapport.SelectedIndex = 0
+
+    End Sub
 
 End Class

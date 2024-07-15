@@ -172,8 +172,9 @@ Partial Class FacturationForm
         Me.GunaPanel1.Controls.Add(Me.GunaLabel1)
         Me.GunaPanel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.GunaPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.GunaPanel1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaPanel1.Name = "GunaPanel1"
-        Me.GunaPanel1.Size = New System.Drawing.Size(1350, 25)
+        Me.GunaPanel1.Size = New System.Drawing.Size(1730, 31)
         Me.GunaPanel1.TabIndex = 2
         '
         'GunaLabelHeader
@@ -182,9 +183,10 @@ Partial Class FacturationForm
         Me.GunaLabelHeader.AutoSize = True
         Me.GunaLabelHeader.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaLabelHeader.ForeColor = System.Drawing.Color.White
-        Me.GunaLabelHeader.Location = New System.Drawing.Point(564, 3)
+        Me.GunaLabelHeader.Location = New System.Drawing.Point(752, 4)
+        Me.GunaLabelHeader.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.GunaLabelHeader.Name = "GunaLabelHeader"
-        Me.GunaLabelHeader.Size = New System.Drawing.Size(116, 21)
+        Me.GunaLabelHeader.Size = New System.Drawing.Size(142, 28)
         Me.GunaLabelHeader.TabIndex = 4
         Me.GunaLabelHeader.Text = "FACTURATION"
         Me.GunaLabelHeader.TextAlign = System.Drawing.ContentAlignment.TopCenter
@@ -195,11 +197,12 @@ Partial Class FacturationForm
         Me.GunaImageButtonReduce.DialogResult = System.Windows.Forms.DialogResult.None
         Me.GunaImageButtonReduce.Image = CType(resources.GetObject("GunaImageButtonReduce.Image"), System.Drawing.Image)
         Me.GunaImageButtonReduce.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaImageButtonReduce.Location = New System.Drawing.Point(1296, 2)
+        Me.GunaImageButtonReduce.Location = New System.Drawing.Point(1658, 2)
+        Me.GunaImageButtonReduce.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaImageButtonReduce.Name = "GunaImageButtonReduce"
         Me.GunaImageButtonReduce.OnHoverImage = Nothing
         Me.GunaImageButtonReduce.OnHoverImageOffset = New System.Drawing.Point(0, 0)
-        Me.GunaImageButtonReduce.Size = New System.Drawing.Size(27, 21)
+        Me.GunaImageButtonReduce.Size = New System.Drawing.Size(36, 26)
         Me.GunaImageButtonReduce.TabIndex = 9
         '
         'GunaImageButtonClose
@@ -208,11 +211,12 @@ Partial Class FacturationForm
         Me.GunaImageButtonClose.DialogResult = System.Windows.Forms.DialogResult.None
         Me.GunaImageButtonClose.Image = CType(resources.GetObject("GunaImageButtonClose.Image"), System.Drawing.Image)
         Me.GunaImageButtonClose.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaImageButtonClose.Location = New System.Drawing.Point(1320, 2)
+        Me.GunaImageButtonClose.Location = New System.Drawing.Point(1690, 2)
+        Me.GunaImageButtonClose.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaImageButtonClose.Name = "GunaImageButtonClose"
         Me.GunaImageButtonClose.OnHoverImage = Nothing
         Me.GunaImageButtonClose.OnHoverImageOffset = New System.Drawing.Point(0, 0)
-        Me.GunaImageButtonClose.Size = New System.Drawing.Size(27, 21)
+        Me.GunaImageButtonClose.Size = New System.Drawing.Size(36, 26)
         Me.GunaImageButtonClose.TabIndex = 8
         '
         'GunaImageButton3
@@ -221,11 +225,12 @@ Partial Class FacturationForm
         Me.GunaImageButton3.DialogResult = System.Windows.Forms.DialogResult.None
         Me.GunaImageButton3.Image = Nothing
         Me.GunaImageButton3.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaImageButton3.Location = New System.Drawing.Point(1316, 2)
+        Me.GunaImageButton3.Location = New System.Drawing.Point(1685, 2)
+        Me.GunaImageButton3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaImageButton3.Name = "GunaImageButton3"
         Me.GunaImageButton3.OnHoverImage = Nothing
         Me.GunaImageButton3.OnHoverImageOffset = New System.Drawing.Point(0, 0)
-        Me.GunaImageButton3.Size = New System.Drawing.Size(27, 21)
+        Me.GunaImageButton3.Size = New System.Drawing.Size(36, 26)
         Me.GunaImageButton3.TabIndex = 7
         '
         'GunaImageButton2
@@ -234,11 +239,12 @@ Partial Class FacturationForm
         Me.GunaImageButton2.DialogResult = System.Windows.Forms.DialogResult.None
         Me.GunaImageButton2.Image = Nothing
         Me.GunaImageButton2.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaImageButton2.Location = New System.Drawing.Point(1316, 3)
+        Me.GunaImageButton2.Location = New System.Drawing.Point(1685, 4)
+        Me.GunaImageButton2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaImageButton2.Name = "GunaImageButton2"
         Me.GunaImageButton2.OnHoverImage = Nothing
         Me.GunaImageButton2.OnHoverImageOffset = New System.Drawing.Point(0, 0)
-        Me.GunaImageButton2.Size = New System.Drawing.Size(27, 21)
+        Me.GunaImageButton2.Size = New System.Drawing.Size(36, 26)
         Me.GunaImageButton2.TabIndex = 6
         '
         'GunaImageButton1
@@ -247,11 +253,12 @@ Partial Class FacturationForm
         Me.GunaImageButton1.DialogResult = System.Windows.Forms.DialogResult.None
         Me.GunaImageButton1.Image = Nothing
         Me.GunaImageButton1.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaImageButton1.Location = New System.Drawing.Point(1315, 2)
+        Me.GunaImageButton1.Location = New System.Drawing.Point(1683, 2)
+        Me.GunaImageButton1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaImageButton1.Name = "GunaImageButton1"
         Me.GunaImageButton1.OnHoverImage = Nothing
         Me.GunaImageButton1.OnHoverImageOffset = New System.Drawing.Point(0, 0)
-        Me.GunaImageButton1.Size = New System.Drawing.Size(27, 21)
+        Me.GunaImageButton1.Size = New System.Drawing.Size(36, 26)
         Me.GunaImageButton1.TabIndex = 2
         '
         'GunaLabel1
@@ -260,9 +267,10 @@ Partial Class FacturationForm
         Me.GunaLabel1.AutoSize = True
         Me.GunaLabel1.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaLabel1.ForeColor = System.Drawing.Color.White
-        Me.GunaLabel1.Location = New System.Drawing.Point(2517, -2)
+        Me.GunaLabel1.Location = New System.Drawing.Point(3286, -2)
+        Me.GunaLabel1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.GunaLabel1.Name = "GunaLabel1"
-        Me.GunaLabel1.Size = New System.Drawing.Size(24, 25)
+        Me.GunaLabel1.Size = New System.Drawing.Size(31, 32)
         Me.GunaLabel1.TabIndex = 1
         Me.GunaLabel1.Text = "X"
         '
@@ -309,9 +317,10 @@ Partial Class FacturationForm
         Me.GunaPanel2.Controls.Add(Me.GunaTextBoxSoldeClient)
         Me.GunaPanel2.Controls.Add(Me.LabelNumeroChambre)
         Me.GunaPanel2.Controls.Add(Me.Label8)
-        Me.GunaPanel2.Location = New System.Drawing.Point(97, 31)
+        Me.GunaPanel2.Location = New System.Drawing.Point(129, 38)
+        Me.GunaPanel2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaPanel2.Name = "GunaPanel2"
-        Me.GunaPanel2.Size = New System.Drawing.Size(1313, 182)
+        Me.GunaPanel2.Size = New System.Drawing.Size(1751, 224)
         Me.GunaPanel2.TabIndex = 21
         '
         'TB_RoomNo
@@ -326,12 +335,13 @@ Partial Class FacturationForm
         Me.TB_RoomNo.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.TB_RoomNo.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.TB_RoomNo.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TB_RoomNo.Location = New System.Drawing.Point(823, 133)
+        Me.TB_RoomNo.Location = New System.Drawing.Point(1097, 164)
+        Me.TB_RoomNo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TB_RoomNo.Name = "TB_RoomNo"
         Me.TB_RoomNo.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TB_RoomNo.Radius = 4
         Me.TB_RoomNo.SelectedText = ""
-        Me.TB_RoomNo.Size = New System.Drawing.Size(94, 30)
+        Me.TB_RoomNo.Size = New System.Drawing.Size(125, 39)
         Me.TB_RoomNo.TabIndex = 146
         '
         'GunaTextBoxBlocNote
@@ -346,12 +356,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxBlocNote.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxBlocNote.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxBlocNote.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.GunaTextBoxBlocNote.Location = New System.Drawing.Point(237, 136)
+        Me.GunaTextBoxBlocNote.Location = New System.Drawing.Point(316, 167)
+        Me.GunaTextBoxBlocNote.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxBlocNote.Name = "GunaTextBoxBlocNote"
         Me.GunaTextBoxBlocNote.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxBlocNote.Radius = 5
         Me.GunaTextBoxBlocNote.SelectedText = ""
-        Me.GunaTextBoxBlocNote.Size = New System.Drawing.Size(216, 30)
+        Me.GunaTextBoxBlocNote.Size = New System.Drawing.Size(288, 43)
         Me.GunaTextBoxBlocNote.TabIndex = 75
         '
         'GunaTextBoxNomPrenomClient
@@ -366,12 +377,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxNomPrenomClient.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxNomPrenomClient.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxNomPrenomClient.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.GunaTextBoxNomPrenomClient.Location = New System.Drawing.Point(237, 95)
+        Me.GunaTextBoxNomPrenomClient.Location = New System.Drawing.Point(316, 117)
+        Me.GunaTextBoxNomPrenomClient.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxNomPrenomClient.Name = "GunaTextBoxNomPrenomClient"
         Me.GunaTextBoxNomPrenomClient.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxNomPrenomClient.Radius = 5
         Me.GunaTextBoxNomPrenomClient.SelectedText = ""
-        Me.GunaTextBoxNomPrenomClient.Size = New System.Drawing.Size(192, 30)
+        Me.GunaTextBoxNomPrenomClient.Size = New System.Drawing.Size(256, 43)
         Me.GunaTextBoxNomPrenomClient.TabIndex = 75
         '
         'GunaButtonNouveauBloc
@@ -387,7 +399,8 @@ Partial Class FacturationForm
         Me.GunaButtonNouveauBloc.ForeColor = System.Drawing.Color.White
         Me.GunaButtonNouveauBloc.Image = Nothing
         Me.GunaButtonNouveauBloc.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonNouveauBloc.Location = New System.Drawing.Point(460, 137)
+        Me.GunaButtonNouveauBloc.Location = New System.Drawing.Point(613, 169)
+        Me.GunaButtonNouveauBloc.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaButtonNouveauBloc.Name = "GunaButtonNouveauBloc"
         Me.GunaButtonNouveauBloc.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonNouveauBloc.OnHoverBorderColor = System.Drawing.Color.Black
@@ -395,7 +408,7 @@ Partial Class FacturationForm
         Me.GunaButtonNouveauBloc.OnHoverImage = Nothing
         Me.GunaButtonNouveauBloc.OnPressedColor = System.Drawing.Color.Black
         Me.GunaButtonNouveauBloc.Radius = 4
-        Me.GunaButtonNouveauBloc.Size = New System.Drawing.Size(94, 29)
+        Me.GunaButtonNouveauBloc.Size = New System.Drawing.Size(125, 36)
         Me.GunaButtonNouveauBloc.TabIndex = 13
         Me.GunaButtonNouveauBloc.Text = "Nouveau"
         Me.GunaButtonNouveauBloc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -407,9 +420,10 @@ Partial Class FacturationForm
         Me.GunaCheckBoxChangeSecteur.CheckedOffColor = System.Drawing.Color.Gray
         Me.GunaCheckBoxChangeSecteur.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxChangeSecteur.FillColor = System.Drawing.Color.White
-        Me.GunaCheckBoxChangeSecteur.Location = New System.Drawing.Point(778, 12)
+        Me.GunaCheckBoxChangeSecteur.Location = New System.Drawing.Point(1037, 15)
+        Me.GunaCheckBoxChangeSecteur.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaCheckBoxChangeSecteur.Name = "GunaCheckBoxChangeSecteur"
-        Me.GunaCheckBoxChangeSecteur.Size = New System.Drawing.Size(136, 20)
+        Me.GunaCheckBoxChangeSecteur.Size = New System.Drawing.Size(156, 20)
         Me.GunaCheckBoxChangeSecteur.TabIndex = 74
         Me.GunaCheckBoxChangeSecteur.Text = "Autres point de vente"
         '
@@ -426,12 +440,13 @@ Partial Class FacturationForm
         Me.GunaComboBoxListeDesComandes.ForeColor = System.Drawing.Color.Black
         Me.GunaComboBoxListeDesComandes.FormattingEnabled = True
         Me.GunaComboBoxListeDesComandes.ItemHeight = 25
-        Me.GunaComboBoxListeDesComandes.Location = New System.Drawing.Point(563, 136)
+        Me.GunaComboBoxListeDesComandes.Location = New System.Drawing.Point(751, 167)
+        Me.GunaComboBoxListeDesComandes.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaComboBoxListeDesComandes.Name = "GunaComboBoxListeDesComandes"
         Me.GunaComboBoxListeDesComandes.OnHoverItemBaseColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaComboBoxListeDesComandes.OnHoverItemForeColor = System.Drawing.Color.White
         Me.GunaComboBoxListeDesComandes.Radius = 5
-        Me.GunaComboBoxListeDesComandes.Size = New System.Drawing.Size(160, 31)
+        Me.GunaComboBoxListeDesComandes.Size = New System.Drawing.Size(212, 31)
         Me.GunaComboBoxListeDesComandes.TabIndex = 73
         '
         'GunaButtonLecture
@@ -447,7 +462,8 @@ Partial Class FacturationForm
         Me.GunaButtonLecture.ForeColor = System.Drawing.Color.White
         Me.GunaButtonLecture.Image = Nothing
         Me.GunaButtonLecture.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonLecture.Location = New System.Drawing.Point(823, 96)
+        Me.GunaButtonLecture.Location = New System.Drawing.Point(1097, 118)
+        Me.GunaButtonLecture.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaButtonLecture.Name = "GunaButtonLecture"
         Me.GunaButtonLecture.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonLecture.OnHoverBorderColor = System.Drawing.Color.Black
@@ -455,7 +471,7 @@ Partial Class FacturationForm
         Me.GunaButtonLecture.OnHoverImage = Nothing
         Me.GunaButtonLecture.OnPressedColor = System.Drawing.Color.Black
         Me.GunaButtonLecture.Radius = 4
-        Me.GunaButtonLecture.Size = New System.Drawing.Size(94, 29)
+        Me.GunaButtonLecture.Size = New System.Drawing.Size(125, 36)
         Me.GunaButtonLecture.TabIndex = 13
         Me.GunaButtonLecture.Text = "Lire Carte"
         Me.GunaButtonLecture.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -465,9 +481,10 @@ Partial Class FacturationForm
         '
         Me.GunaSeparator1.BackColor = System.Drawing.SystemColors.Control
         Me.GunaSeparator1.LineColor = System.Drawing.Color.White
-        Me.GunaSeparator1.Location = New System.Drawing.Point(0, 171)
+        Me.GunaSeparator1.Location = New System.Drawing.Point(0, 210)
+        Me.GunaSeparator1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaSeparator1.Name = "GunaSeparator1"
-        Me.GunaSeparator1.Size = New System.Drawing.Size(976, 11)
+        Me.GunaSeparator1.Size = New System.Drawing.Size(1301, 14)
         Me.GunaSeparator1.TabIndex = 71
         Me.GunaSeparator1.Thickness = 2
         '
@@ -484,12 +501,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxFacturationDate.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxFacturationDate.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxFacturationDate.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxFacturationDate.Location = New System.Drawing.Point(354, 6)
+        Me.GunaTextBoxFacturationDate.Location = New System.Drawing.Point(472, 7)
+        Me.GunaTextBoxFacturationDate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxFacturationDate.Name = "GunaTextBoxFacturationDate"
         Me.GunaTextBoxFacturationDate.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxFacturationDate.Radius = 5
         Me.GunaTextBoxFacturationDate.SelectedText = ""
-        Me.GunaTextBoxFacturationDate.Size = New System.Drawing.Size(119, 31)
+        Me.GunaTextBoxFacturationDate.Size = New System.Drawing.Size(159, 39)
         Me.GunaTextBoxFacturationDate.TabIndex = 2
         Me.GunaTextBoxFacturationDate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.GunaTextBoxFacturationDate.Visible = False
@@ -507,12 +525,13 @@ Partial Class FacturationForm
         Me.GunaComboBoxTypeArticle.ForeColor = System.Drawing.Color.Black
         Me.GunaComboBoxTypeArticle.FormattingEnabled = True
         Me.GunaComboBoxTypeArticle.ItemHeight = 27
-        Me.GunaComboBoxTypeArticle.Location = New System.Drawing.Point(919, 6)
+        Me.GunaComboBoxTypeArticle.Location = New System.Drawing.Point(1225, 7)
+        Me.GunaComboBoxTypeArticle.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaComboBoxTypeArticle.Name = "GunaComboBoxTypeArticle"
         Me.GunaComboBoxTypeArticle.OnHoverItemBaseColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaComboBoxTypeArticle.OnHoverItemForeColor = System.Drawing.Color.White
         Me.GunaComboBoxTypeArticle.Radius = 5
-        Me.GunaComboBoxTypeArticle.Size = New System.Drawing.Size(258, 33)
+        Me.GunaComboBoxTypeArticle.Size = New System.Drawing.Size(343, 33)
         Me.GunaComboBoxTypeArticle.TabIndex = 102
         Me.GunaComboBoxTypeArticle.Visible = False
         '
@@ -524,12 +543,13 @@ Partial Class FacturationForm
         Me.GunaShadowPanel2.Controls.Add(Me.GunaTextBoxCodeArticle)
         Me.GunaShadowPanel2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaShadowPanel2.ForeColor = System.Drawing.Color.White
-        Me.GunaShadowPanel2.Location = New System.Drawing.Point(151, 43)
+        Me.GunaShadowPanel2.Location = New System.Drawing.Point(201, 53)
+        Me.GunaShadowPanel2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaShadowPanel2.Name = "GunaShadowPanel2"
         Me.GunaShadowPanel2.ShadowColor = System.Drawing.Color.Black
         Me.GunaShadowPanel2.ShadowDepth = 20
         Me.GunaShadowPanel2.ShadowShift = 4
-        Me.GunaShadowPanel2.Size = New System.Drawing.Size(731, 46)
+        Me.GunaShadowPanel2.Size = New System.Drawing.Size(975, 57)
         Me.GunaShadowPanel2.TabIndex = 70
         '
         'LibelleFacturation
@@ -537,9 +557,10 @@ Partial Class FacturationForm
         Me.LibelleFacturation.AutoSize = True
         Me.LibelleFacturation.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LibelleFacturation.ForeColor = System.Drawing.Color.White
-        Me.LibelleFacturation.Location = New System.Drawing.Point(270, 13)
+        Me.LibelleFacturation.Location = New System.Drawing.Point(360, 16)
+        Me.LibelleFacturation.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LibelleFacturation.Name = "LibelleFacturation"
-        Me.LibelleFacturation.Size = New System.Drawing.Size(116, 21)
+        Me.LibelleFacturation.Size = New System.Drawing.Size(142, 28)
         Me.LibelleFacturation.TabIndex = 4
         Me.LibelleFacturation.Text = "FACTURATION"
         Me.LibelleFacturation.TextAlign = System.Drawing.ContentAlignment.TopCenter
@@ -554,11 +575,12 @@ Partial Class FacturationForm
         Me.GunaTextBoxCodeArticle.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxCodeArticle.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxCodeArticle.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.GunaTextBoxCodeArticle.Location = New System.Drawing.Point(590, 8)
+        Me.GunaTextBoxCodeArticle.Location = New System.Drawing.Point(787, 10)
+        Me.GunaTextBoxCodeArticle.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxCodeArticle.Name = "GunaTextBoxCodeArticle"
         Me.GunaTextBoxCodeArticle.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxCodeArticle.SelectedText = ""
-        Me.GunaTextBoxCodeArticle.Size = New System.Drawing.Size(101, 30)
+        Me.GunaTextBoxCodeArticle.Size = New System.Drawing.Size(135, 37)
         Me.GunaTextBoxCodeArticle.TabIndex = 72
         Me.GunaTextBoxCodeArticle.Visible = False
         '
@@ -566,9 +588,10 @@ Partial Class FacturationForm
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(20, 13)
+        Me.Label1.Location = New System.Drawing.Point(27, 16)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(96, 16)
+        Me.Label1.Size = New System.Drawing.Size(118, 20)
         Me.Label1.TabIndex = 54
         Me.Label1.Text = "ProForma N°"
         Me.Label1.Visible = False
@@ -577,9 +600,10 @@ Partial Class FacturationForm
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(20, 58)
+        Me.Label4.Location = New System.Drawing.Point(27, 71)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(55, 16)
+        Me.Label4.Size = New System.Drawing.Size(65, 20)
         Me.Label4.TabIndex = 60
         Me.Label4.Text = "Libellé"
         Me.Label4.Visible = False
@@ -588,9 +612,10 @@ Partial Class FacturationForm
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(307, 13)
+        Me.Label2.Location = New System.Drawing.Point(409, 16)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(41, 16)
+        Me.Label2.Size = New System.Drawing.Size(49, 20)
         Me.Label2.TabIndex = 56
         Me.Label2.Text = "Date"
         Me.Label2.Visible = False
@@ -599,9 +624,10 @@ Partial Class FacturationForm
         '
         Me.Label19.AutoSize = True
         Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label19.Location = New System.Drawing.Point(20, 102)
+        Me.Label19.Location = New System.Drawing.Point(27, 126)
+        Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(47, 16)
+        Me.Label19.Size = New System.Drawing.Size(58, 20)
         Me.Label19.TabIndex = 55
         Me.Label19.Text = "Client"
         '
@@ -609,9 +635,10 @@ Partial Class FacturationForm
         '
         Me.LabelBlocNoteOuTable.AutoSize = True
         Me.LabelBlocNoteOuTable.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelBlocNoteOuTable.Location = New System.Drawing.Point(20, 140)
+        Me.LabelBlocNoteOuTable.Location = New System.Drawing.Point(27, 172)
+        Me.LabelBlocNoteOuTable.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LabelBlocNoteOuTable.Name = "LabelBlocNoteOuTable"
-        Me.LabelBlocNoteOuTable.Size = New System.Drawing.Size(213, 16)
+        Me.LabelBlocNoteOuTable.Size = New System.Drawing.Size(259, 20)
         Me.LabelBlocNoteOuTable.TabIndex = 55
         Me.LabelBlocNoteOuTable.Text = "Numéro de table ou Bloc note"
         '
@@ -628,12 +655,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxNumReservation.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxNumReservation.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxNumReservation.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxNumReservation.Location = New System.Drawing.Point(611, 6)
+        Me.GunaTextBoxNumReservation.Location = New System.Drawing.Point(815, 7)
+        Me.GunaTextBoxNumReservation.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxNumReservation.Name = "GunaTextBoxNumReservation"
         Me.GunaTextBoxNumReservation.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxNumReservation.Radius = 5
         Me.GunaTextBoxNumReservation.SelectedText = ""
-        Me.GunaTextBoxNumReservation.Size = New System.Drawing.Size(147, 31)
+        Me.GunaTextBoxNumReservation.Size = New System.Drawing.Size(196, 39)
         Me.GunaTextBoxNumReservation.TabIndex = 3
         Me.GunaTextBoxNumReservation.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.GunaTextBoxNumReservation.Visible = False
@@ -651,12 +679,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxNumfacture.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxNumfacture.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxNumfacture.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxNumfacture.Location = New System.Drawing.Point(126, 6)
+        Me.GunaTextBoxNumfacture.Location = New System.Drawing.Point(168, 7)
+        Me.GunaTextBoxNumfacture.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxNumfacture.Name = "GunaTextBoxNumfacture"
         Me.GunaTextBoxNumfacture.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxNumfacture.Radius = 5
         Me.GunaTextBoxNumfacture.SelectedText = ""
-        Me.GunaTextBoxNumfacture.Size = New System.Drawing.Size(163, 31)
+        Me.GunaTextBoxNumfacture.Size = New System.Drawing.Size(217, 39)
         Me.GunaTextBoxNumfacture.TabIndex = 1
         Me.GunaTextBoxNumfacture.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.GunaTextBoxNumfacture.Visible = False
@@ -665,9 +694,10 @@ Partial Class FacturationForm
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(493, 13)
+        Me.Label3.Location = New System.Drawing.Point(657, 16)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(112, 16)
+        Me.Label3.Size = New System.Drawing.Size(136, 20)
         Me.Label3.TabIndex = 58
         Me.Label3.Text = "N° Réservation"
         Me.Label3.Visible = False
@@ -676,9 +706,10 @@ Partial Class FacturationForm
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(925, 56)
+        Me.Label6.Location = New System.Drawing.Point(1233, 69)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(49, 16)
+        Me.Label6.Size = New System.Drawing.Size(56, 20)
         Me.Label6.TabIndex = 57
         Me.Label6.Text = "Solde"
         '
@@ -694,12 +725,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxNom_Prenom.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxNom_Prenom.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxNom_Prenom.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxNom_Prenom.Location = New System.Drawing.Point(459, 93)
+        Me.GunaTextBoxNom_Prenom.Location = New System.Drawing.Point(612, 114)
+        Me.GunaTextBoxNom_Prenom.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxNom_Prenom.Name = "GunaTextBoxNom_Prenom"
         Me.GunaTextBoxNom_Prenom.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxNom_Prenom.Radius = 5
         Me.GunaTextBoxNom_Prenom.SelectedText = ""
-        Me.GunaTextBoxNom_Prenom.Size = New System.Drawing.Size(358, 34)
+        Me.GunaTextBoxNom_Prenom.Size = New System.Drawing.Size(477, 42)
         Me.GunaTextBoxNom_Prenom.TabIndex = 6
         Me.GunaTextBoxNom_Prenom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -716,12 +748,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxMontantTTCGeneral.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxMontantTTCGeneral.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxMontantTTCGeneral.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxMontantTTCGeneral.Location = New System.Drawing.Point(1023, 135)
+        Me.GunaTextBoxMontantTTCGeneral.Location = New System.Drawing.Point(1364, 166)
+        Me.GunaTextBoxMontantTTCGeneral.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxMontantTTCGeneral.Name = "GunaTextBoxMontantTTCGeneral"
         Me.GunaTextBoxMontantTTCGeneral.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxMontantTTCGeneral.Radius = 5
         Me.GunaTextBoxMontantTTCGeneral.SelectedText = ""
-        Me.GunaTextBoxMontantTTCGeneral.Size = New System.Drawing.Size(153, 38)
+        Me.GunaTextBoxMontantTTCGeneral.Size = New System.Drawing.Size(204, 45)
         Me.GunaTextBoxMontantTTCGeneral.TabIndex = 10
         Me.GunaTextBoxMontantTTCGeneral.Text = "0"
         Me.GunaTextBoxMontantTTCGeneral.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -730,9 +763,10 @@ Partial Class FacturationForm
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(954, 102)
+        Me.Label7.Location = New System.Drawing.Point(1272, 126)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(38, 16)
+        Me.Label7.Size = New System.Drawing.Size(44, 20)
         Me.Label7.TabIndex = 59
         Me.Label7.Text = "TVA"
         '
@@ -749,12 +783,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxTVARecap.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxTVARecap.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxTVARecap.Font = New System.Drawing.Font("Segoe UI", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxTVARecap.Location = New System.Drawing.Point(1023, 90)
+        Me.GunaTextBoxTVARecap.Location = New System.Drawing.Point(1364, 111)
+        Me.GunaTextBoxTVARecap.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxTVARecap.Name = "GunaTextBoxTVARecap"
         Me.GunaTextBoxTVARecap.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxTVARecap.Radius = 5
         Me.GunaTextBoxTVARecap.SelectedText = ""
-        Me.GunaTextBoxTVARecap.Size = New System.Drawing.Size(153, 39)
+        Me.GunaTextBoxTVARecap.Size = New System.Drawing.Size(204, 46)
         Me.GunaTextBoxTVARecap.TabIndex = 9
         Me.GunaTextBoxTVARecap.Text = "0"
         Me.GunaTextBoxTVARecap.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -772,12 +807,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxSoldeClient.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxSoldeClient.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxSoldeClient.Font = New System.Drawing.Font("Segoe UI", 16.0!, System.Drawing.FontStyle.Bold)
-        Me.GunaTextBoxSoldeClient.Location = New System.Drawing.Point(1023, 46)
+        Me.GunaTextBoxSoldeClient.Location = New System.Drawing.Point(1364, 57)
+        Me.GunaTextBoxSoldeClient.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxSoldeClient.Name = "GunaTextBoxSoldeClient"
         Me.GunaTextBoxSoldeClient.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxSoldeClient.Radius = 5
         Me.GunaTextBoxSoldeClient.SelectedText = ""
-        Me.GunaTextBoxSoldeClient.Size = New System.Drawing.Size(153, 39)
+        Me.GunaTextBoxSoldeClient.Size = New System.Drawing.Size(204, 46)
         Me.GunaTextBoxSoldeClient.TabIndex = 8
         Me.GunaTextBoxSoldeClient.Text = "0"
         Me.GunaTextBoxSoldeClient.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -786,9 +822,10 @@ Partial Class FacturationForm
         '
         Me.LabelNumeroChambre.AutoSize = True
         Me.LabelNumeroChambre.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelNumeroChambre.Location = New System.Drawing.Point(729, 141)
+        Me.LabelNumeroChambre.Location = New System.Drawing.Point(972, 174)
+        Me.LabelNumeroChambre.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LabelNumeroChambre.Name = "LabelNumeroChambre"
-        Me.LabelNumeroChambre.Size = New System.Drawing.Size(90, 16)
+        Me.LabelNumeroChambre.Size = New System.Drawing.Size(111, 20)
         Me.LabelNumeroChambre.TabIndex = 61
         Me.LabelNumeroChambre.Text = "Chambre N°"
         '
@@ -796,9 +833,10 @@ Partial Class FacturationForm
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(938, 150)
+        Me.Label8.Location = New System.Drawing.Point(1251, 185)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(62, 16)
+        Me.Label8.Size = New System.Drawing.Size(76, 20)
         Me.Label8.TabIndex = 61
         Me.Label8.Text = "Montant"
         '
@@ -837,14 +875,15 @@ Partial Class FacturationForm
         Me.GunaDataGridViewClient.DefaultCellStyle = DataGridViewCellStyle6
         Me.GunaDataGridViewClient.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewClient.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewClient.Location = New System.Drawing.Point(336, 159)
+        Me.GunaDataGridViewClient.Location = New System.Drawing.Point(448, 196)
+        Me.GunaDataGridViewClient.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaDataGridViewClient.MultiSelect = False
         Me.GunaDataGridViewClient.Name = "GunaDataGridViewClient"
         Me.GunaDataGridViewClient.ReadOnly = True
         Me.GunaDataGridViewClient.RowHeadersVisible = False
         Me.GunaDataGridViewClient.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.GunaDataGridViewClient.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewClient.Size = New System.Drawing.Size(315, 118)
+        Me.GunaDataGridViewClient.Size = New System.Drawing.Size(420, 145)
         Me.GunaDataGridViewClient.TabIndex = 60
         Me.GunaDataGridViewClient.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
         Me.GunaDataGridViewClient.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
@@ -907,13 +946,14 @@ Partial Class FacturationForm
         Me.GunaDataGridViewLigneFacture.DefaultCellStyle = DataGridViewCellStyle12
         Me.GunaDataGridViewLigneFacture.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewLigneFacture.GridColor = System.Drawing.Color.FromArgb(CType(CType(222, Byte), Integer), CType(CType(201, Byte), Integer), CType(CType(231, Byte), Integer))
-        Me.GunaDataGridViewLigneFacture.Location = New System.Drawing.Point(98, 366)
+        Me.GunaDataGridViewLigneFacture.Location = New System.Drawing.Point(131, 450)
+        Me.GunaDataGridViewLigneFacture.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaDataGridViewLigneFacture.Name = "GunaDataGridViewLigneFacture"
         Me.GunaDataGridViewLigneFacture.ReadOnly = True
         Me.GunaDataGridViewLigneFacture.RowHeadersVisible = False
         Me.GunaDataGridViewLigneFacture.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.GunaDataGridViewLigneFacture.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewLigneFacture.Size = New System.Drawing.Size(1204, 212)
+        Me.GunaDataGridViewLigneFacture.Size = New System.Drawing.Size(1605, 261)
         Me.GunaDataGridViewLigneFacture.TabIndex = 20
         Me.GunaDataGridViewLigneFacture.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Amethyst
         Me.GunaDataGridViewLigneFacture.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(205, Byte), Integer), CType(CType(233, Byte), Integer))
@@ -940,23 +980,25 @@ Partial Class FacturationForm
         '
         'ContextMenuStrip1
         '
+        Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SupprimerToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(130, 26)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(148, 28)
         '
         'SupprimerToolStripMenuItem
         '
         Me.SupprimerToolStripMenuItem.Name = "SupprimerToolStripMenuItem"
-        Me.SupprimerToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.SupprimerToolStripMenuItem.Size = New System.Drawing.Size(147, 24)
         Me.SupprimerToolStripMenuItem.Text = "Supprimer"
         '
         'Label9
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(741, 346)
+        Me.Label9.Location = New System.Drawing.Point(988, 426)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(131, 16)
+        Me.Label9.Size = New System.Drawing.Size(165, 20)
         Me.Label9.TabIndex = 19
         Me.Label9.Text = "Détails de la Facture"
         '
@@ -974,21 +1016,23 @@ Partial Class FacturationForm
         Me.GunaShadowPanel1.Controls.Add(Me.GunaButtonSaveFacturation)
         Me.GunaShadowPanel1.Controls.Add(Me.GunaButtonFermer)
         Me.GunaShadowPanel1.Controls.Add(Me.GunaCheckBoxClientComptoire)
-        Me.GunaShadowPanel1.Location = New System.Drawing.Point(71, 588)
+        Me.GunaShadowPanel1.Location = New System.Drawing.Point(95, 724)
+        Me.GunaShadowPanel1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaShadowPanel1.Name = "GunaShadowPanel1"
         Me.GunaShadowPanel1.ShadowColor = System.Drawing.Color.Black
         Me.GunaShadowPanel1.ShadowDepth = 20
         Me.GunaShadowPanel1.ShadowShift = 4
-        Me.GunaShadowPanel1.Size = New System.Drawing.Size(1121, 60)
+        Me.GunaShadowPanel1.Size = New System.Drawing.Size(1495, 74)
         Me.GunaShadowPanel1.TabIndex = 18
         '
         'LabelNomCaissier
         '
         Me.LabelNomCaissier.AutoSize = True
         Me.LabelNomCaissier.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelNomCaissier.Location = New System.Drawing.Point(500, 22)
+        Me.LabelNomCaissier.Location = New System.Drawing.Point(667, 27)
+        Me.LabelNomCaissier.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LabelNomCaissier.Name = "LabelNomCaissier"
-        Me.LabelNomCaissier.Size = New System.Drawing.Size(120, 16)
+        Me.LabelNomCaissier.Size = New System.Drawing.Size(147, 20)
         Me.LabelNomCaissier.TabIndex = 83
         Me.LabelNomCaissier.Text = "Situation Caisse"
         '
@@ -996,18 +1040,20 @@ Partial Class FacturationForm
         '
         Me.PanelSituationCaisse.BackColor = System.Drawing.Color.Pink
         Me.PanelSituationCaisse.Controls.Add(Me.LabelSituationCaisse)
-        Me.PanelSituationCaisse.Location = New System.Drawing.Point(309, 15)
+        Me.PanelSituationCaisse.Location = New System.Drawing.Point(412, 18)
+        Me.PanelSituationCaisse.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.PanelSituationCaisse.Name = "PanelSituationCaisse"
-        Me.PanelSituationCaisse.Size = New System.Drawing.Size(179, 34)
+        Me.PanelSituationCaisse.Size = New System.Drawing.Size(239, 42)
         Me.PanelSituationCaisse.TabIndex = 82
         '
         'LabelSituationCaisse
         '
         Me.LabelSituationCaisse.AutoSize = True
         Me.LabelSituationCaisse.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelSituationCaisse.Location = New System.Drawing.Point(84, 5)
+        Me.LabelSituationCaisse.Location = New System.Drawing.Point(112, 6)
+        Me.LabelSituationCaisse.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LabelSituationCaisse.Name = "LabelSituationCaisse"
-        Me.LabelSituationCaisse.Size = New System.Drawing.Size(20, 24)
+        Me.LabelSituationCaisse.Size = New System.Drawing.Size(26, 29)
         Me.LabelSituationCaisse.TabIndex = 0
         Me.LabelSituationCaisse.Text = "0"
         '
@@ -1015,9 +1061,10 @@ Partial Class FacturationForm
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(154, 24)
+        Me.Label5.Location = New System.Drawing.Point(205, 30)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(120, 16)
+        Me.Label5.Size = New System.Drawing.Size(147, 20)
         Me.Label5.TabIndex = 81
         Me.Label5.Text = "Situation Caisse"
         '
@@ -1035,7 +1082,8 @@ Partial Class FacturationForm
         Me.GunaButtonnNouvelleFacture.ForeColor = System.Drawing.Color.White
         Me.GunaButtonnNouvelleFacture.Image = Nothing
         Me.GunaButtonnNouvelleFacture.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonnNouvelleFacture.Location = New System.Drawing.Point(946, 12)
+        Me.GunaButtonnNouvelleFacture.Location = New System.Drawing.Point(1261, 15)
+        Me.GunaButtonnNouvelleFacture.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaButtonnNouvelleFacture.Name = "GunaButtonnNouvelleFacture"
         Me.GunaButtonnNouvelleFacture.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonnNouvelleFacture.OnHoverBorderColor = System.Drawing.Color.Black
@@ -1043,7 +1091,7 @@ Partial Class FacturationForm
         Me.GunaButtonnNouvelleFacture.OnHoverImage = Nothing
         Me.GunaButtonnNouvelleFacture.OnPressedColor = System.Drawing.Color.Black
         Me.GunaButtonnNouvelleFacture.Radius = 4
-        Me.GunaButtonnNouvelleFacture.Size = New System.Drawing.Size(94, 37)
+        Me.GunaButtonnNouvelleFacture.Size = New System.Drawing.Size(125, 46)
         Me.GunaButtonnNouvelleFacture.TabIndex = 11
         Me.GunaButtonnNouvelleFacture.Text = "Nouveau"
         Me.GunaButtonnNouvelleFacture.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1062,7 +1110,8 @@ Partial Class FacturationForm
         Me.GunaButton3.ForeColor = System.Drawing.Color.White
         Me.GunaButton3.Image = Nothing
         Me.GunaButton3.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButton3.Location = New System.Drawing.Point(840, 12)
+        Me.GunaButton3.Location = New System.Drawing.Point(1120, 15)
+        Me.GunaButton3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaButton3.Name = "GunaButton3"
         Me.GunaButton3.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButton3.OnHoverBorderColor = System.Drawing.Color.Black
@@ -1070,7 +1119,7 @@ Partial Class FacturationForm
         Me.GunaButton3.OnHoverImage = Nothing
         Me.GunaButton3.OnPressedColor = System.Drawing.Color.Black
         Me.GunaButton3.Radius = 4
-        Me.GunaButton3.Size = New System.Drawing.Size(94, 37)
+        Me.GunaButton3.Size = New System.Drawing.Size(125, 46)
         Me.GunaButton3.TabIndex = 12
         Me.GunaButton3.Text = "Imprimer"
         Me.GunaButton3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1089,7 +1138,8 @@ Partial Class FacturationForm
         Me.GunaButtonSaveFacturation.ForeColor = System.Drawing.Color.White
         Me.GunaButtonSaveFacturation.Image = Nothing
         Me.GunaButtonSaveFacturation.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonSaveFacturation.Location = New System.Drawing.Point(734, 12)
+        Me.GunaButtonSaveFacturation.Location = New System.Drawing.Point(979, 15)
+        Me.GunaButtonSaveFacturation.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaButtonSaveFacturation.Name = "GunaButtonSaveFacturation"
         Me.GunaButtonSaveFacturation.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonSaveFacturation.OnHoverBorderColor = System.Drawing.Color.Black
@@ -1097,7 +1147,7 @@ Partial Class FacturationForm
         Me.GunaButtonSaveFacturation.OnHoverImage = Nothing
         Me.GunaButtonSaveFacturation.OnPressedColor = System.Drawing.Color.Black
         Me.GunaButtonSaveFacturation.Radius = 4
-        Me.GunaButtonSaveFacturation.Size = New System.Drawing.Size(94, 37)
+        Me.GunaButtonSaveFacturation.Size = New System.Drawing.Size(125, 46)
         Me.GunaButtonSaveFacturation.TabIndex = 13
         Me.GunaButtonSaveFacturation.Text = "Enregistrer"
         Me.GunaButtonSaveFacturation.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1116,7 +1166,8 @@ Partial Class FacturationForm
         Me.GunaButtonFermer.ForeColor = System.Drawing.Color.White
         Me.GunaButtonFermer.Image = Nothing
         Me.GunaButtonFermer.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonFermer.Location = New System.Drawing.Point(34, 12)
+        Me.GunaButtonFermer.Location = New System.Drawing.Point(45, 15)
+        Me.GunaButtonFermer.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaButtonFermer.Name = "GunaButtonFermer"
         Me.GunaButtonFermer.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonFermer.OnHoverBorderColor = System.Drawing.Color.Black
@@ -1124,7 +1175,7 @@ Partial Class FacturationForm
         Me.GunaButtonFermer.OnHoverImage = Nothing
         Me.GunaButtonFermer.OnPressedColor = System.Drawing.Color.Black
         Me.GunaButtonFermer.Radius = 4
-        Me.GunaButtonFermer.Size = New System.Drawing.Size(94, 37)
+        Me.GunaButtonFermer.Size = New System.Drawing.Size(125, 46)
         Me.GunaButtonFermer.TabIndex = 14
         Me.GunaButtonFermer.Text = "Fermer"
         Me.GunaButtonFermer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1135,9 +1186,10 @@ Partial Class FacturationForm
         Me.GunaCheckBoxClientComptoire.CheckedOffColor = System.Drawing.Color.Gray
         Me.GunaCheckBoxClientComptoire.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxClientComptoire.FillColor = System.Drawing.Color.White
-        Me.GunaCheckBoxClientComptoire.Location = New System.Drawing.Point(186, 22)
+        Me.GunaCheckBoxClientComptoire.Location = New System.Drawing.Point(248, 27)
+        Me.GunaCheckBoxClientComptoire.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaCheckBoxClientComptoire.Name = "GunaCheckBoxClientComptoire"
-        Me.GunaCheckBoxClientComptoire.Size = New System.Drawing.Size(114, 20)
+        Me.GunaCheckBoxClientComptoire.Size = New System.Drawing.Size(130, 20)
         Me.GunaCheckBoxClientComptoire.TabIndex = 74
         Me.GunaCheckBoxClientComptoire.Text = "Client Comptoire"
         Me.GunaCheckBoxClientComptoire.Visible = False
@@ -1146,9 +1198,10 @@ Partial Class FacturationForm
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(95, 232)
+        Me.Label10.Location = New System.Drawing.Point(127, 286)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(52, 16)
+        Me.Label10.Size = New System.Drawing.Size(64, 20)
         Me.Label10.TabIndex = 57
         Me.Label10.Text = "Article"
         '
@@ -1156,9 +1209,10 @@ Partial Class FacturationForm
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(359, 233)
+        Me.Label11.Location = New System.Drawing.Point(479, 287)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(65, 16)
+        Me.Label11.Size = New System.Drawing.Size(80, 20)
         Me.Label11.TabIndex = 57
         Me.Label11.Text = "Quantité"
         '
@@ -1166,9 +1220,10 @@ Partial Class FacturationForm
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(487, 233)
+        Me.Label12.Location = New System.Drawing.Point(649, 287)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(92, 16)
+        Me.Label12.Size = New System.Drawing.Size(114, 20)
         Me.Label12.TabIndex = 57
         Me.Label12.Text = "Prix Unitaire"
         '
@@ -1184,12 +1239,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxMontantHT.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxMontantHT.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxMontantHT.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxMontantHT.Location = New System.Drawing.Point(580, 224)
+        Me.GunaTextBoxMontantHT.Location = New System.Drawing.Point(773, 276)
+        Me.GunaTextBoxMontantHT.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxMontantHT.Name = "GunaTextBoxMontantHT"
         Me.GunaTextBoxMontantHT.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxMontantHT.Radius = 5
         Me.GunaTextBoxMontantHT.SelectedText = ""
-        Me.GunaTextBoxMontantHT.Size = New System.Drawing.Size(100, 34)
+        Me.GunaTextBoxMontantHT.Size = New System.Drawing.Size(133, 42)
         Me.GunaTextBoxMontantHT.TabIndex = 20
         Me.GunaTextBoxMontantHT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -1197,9 +1253,10 @@ Partial Class FacturationForm
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(780, 232)
+        Me.Label13.Location = New System.Drawing.Point(1040, 286)
+        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(96, 16)
+        Me.Label13.Size = New System.Drawing.Size(117, 20)
         Me.Label13.TabIndex = 57
         Me.Label13.Text = "Montant TTC"
         '
@@ -1216,12 +1273,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxMontantTTC.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxMontantTTC.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxMontantTTC.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxMontantTTC.Location = New System.Drawing.Point(883, 223)
+        Me.GunaTextBoxMontantTTC.Location = New System.Drawing.Point(1177, 274)
+        Me.GunaTextBoxMontantTTC.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxMontantTTC.Name = "GunaTextBoxMontantTTC"
         Me.GunaTextBoxMontantTTC.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxMontantTTC.Radius = 5
         Me.GunaTextBoxMontantTTC.SelectedText = ""
-        Me.GunaTextBoxMontantTTC.Size = New System.Drawing.Size(114, 34)
+        Me.GunaTextBoxMontantTTC.Size = New System.Drawing.Size(152, 42)
         Me.GunaTextBoxMontantTTC.TabIndex = 20
         Me.GunaTextBoxMontantTTC.Text = "0"
         Me.GunaTextBoxMontantTTC.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -1239,7 +1297,8 @@ Partial Class FacturationForm
         Me.GunaButtonAjouterLigne.ForeColor = System.Drawing.Color.White
         Me.GunaButtonAjouterLigne.Image = Nothing
         Me.GunaButtonAjouterLigne.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonAjouterLigne.Location = New System.Drawing.Point(1024, 223)
+        Me.GunaButtonAjouterLigne.Location = New System.Drawing.Point(1365, 274)
+        Me.GunaButtonAjouterLigne.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaButtonAjouterLigne.Name = "GunaButtonAjouterLigne"
         Me.GunaButtonAjouterLigne.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonAjouterLigne.OnHoverBorderColor = System.Drawing.Color.Black
@@ -1247,7 +1306,7 @@ Partial Class FacturationForm
         Me.GunaButtonAjouterLigne.OnHoverImage = Nothing
         Me.GunaButtonAjouterLigne.OnPressedColor = System.Drawing.Color.Black
         Me.GunaButtonAjouterLigne.Radius = 4
-        Me.GunaButtonAjouterLigne.Size = New System.Drawing.Size(94, 33)
+        Me.GunaButtonAjouterLigne.Size = New System.Drawing.Size(125, 41)
         Me.GunaButtonAjouterLigne.TabIndex = 13
         Me.GunaButtonAjouterLigne.Text = "Ajouter"
         Me.GunaButtonAjouterLigne.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1265,12 +1324,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxQuantite.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxQuantite.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxQuantite.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxQuantite.Location = New System.Drawing.Point(427, 224)
+        Me.GunaTextBoxQuantite.Location = New System.Drawing.Point(569, 276)
+        Me.GunaTextBoxQuantite.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxQuantite.Name = "GunaTextBoxQuantite"
         Me.GunaTextBoxQuantite.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxQuantite.Radius = 5
         Me.GunaTextBoxQuantite.SelectedText = ""
-        Me.GunaTextBoxQuantite.Size = New System.Drawing.Size(52, 34)
+        Me.GunaTextBoxQuantite.Size = New System.Drawing.Size(69, 42)
         Me.GunaTextBoxQuantite.TabIndex = 20
         Me.GunaTextBoxQuantite.Text = "1"
         Me.GunaTextBoxQuantite.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1279,9 +1339,10 @@ Partial Class FacturationForm
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(682, 233)
+        Me.Label14.Location = New System.Drawing.Point(909, 287)
+        Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(38, 16)
+        Me.Label14.Size = New System.Drawing.Size(44, 20)
         Me.Label14.TabIndex = 57
         Me.Label14.Text = "TVA"
         Me.Label14.Visible = False
@@ -1298,12 +1359,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxTVA.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxTVA.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxTVA.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxTVA.Location = New System.Drawing.Point(720, 223)
+        Me.GunaTextBoxTVA.Location = New System.Drawing.Point(960, 274)
+        Me.GunaTextBoxTVA.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxTVA.Name = "GunaTextBoxTVA"
         Me.GunaTextBoxTVA.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxTVA.Radius = 5
         Me.GunaTextBoxTVA.SelectedText = ""
-        Me.GunaTextBoxTVA.Size = New System.Drawing.Size(54, 34)
+        Me.GunaTextBoxTVA.Size = New System.Drawing.Size(72, 42)
         Me.GunaTextBoxTVA.TabIndex = 20
         Me.GunaTextBoxTVA.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.GunaTextBoxTVA.Visible = False
@@ -1320,12 +1382,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxArticle.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxArticle.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxArticle.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxArticle.Location = New System.Drawing.Point(145, 224)
+        Me.GunaTextBoxArticle.Location = New System.Drawing.Point(193, 276)
+        Me.GunaTextBoxArticle.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxArticle.Name = "GunaTextBoxArticle"
         Me.GunaTextBoxArticle.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxArticle.Radius = 5
         Me.GunaTextBoxArticle.SelectedText = ""
-        Me.GunaTextBoxArticle.Size = New System.Drawing.Size(212, 34)
+        Me.GunaTextBoxArticle.Size = New System.Drawing.Size(283, 42)
         Me.GunaTextBoxArticle.TabIndex = 5
         '
         'GunaPanel3
@@ -1333,9 +1396,10 @@ Partial Class FacturationForm
         Me.GunaPanel3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaPanel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
-        Me.GunaPanel3.Location = New System.Drawing.Point(0, 654)
+        Me.GunaPanel3.Location = New System.Drawing.Point(0, 805)
+        Me.GunaPanel3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaPanel3.Name = "GunaPanel3"
-        Me.GunaPanel3.Size = New System.Drawing.Size(1360, 10)
+        Me.GunaPanel3.Size = New System.Drawing.Size(1813, 12)
         Me.GunaPanel3.TabIndex = 58
         '
         'GunaDataGridViewArticle
@@ -1373,14 +1437,15 @@ Partial Class FacturationForm
         Me.GunaDataGridViewArticle.DefaultCellStyle = DataGridViewCellStyle3
         Me.GunaDataGridViewArticle.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewArticle.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewArticle.Location = New System.Drawing.Point(145, 260)
+        Me.GunaDataGridViewArticle.Location = New System.Drawing.Point(193, 320)
+        Me.GunaDataGridViewArticle.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaDataGridViewArticle.MultiSelect = False
         Me.GunaDataGridViewArticle.Name = "GunaDataGridViewArticle"
         Me.GunaDataGridViewArticle.ReadOnly = True
         Me.GunaDataGridViewArticle.RowHeadersVisible = False
         Me.GunaDataGridViewArticle.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.GunaDataGridViewArticle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewArticle.Size = New System.Drawing.Size(300, 199)
+        Me.GunaDataGridViewArticle.Size = New System.Drawing.Size(400, 245)
         Me.GunaDataGridViewArticle.TabIndex = 60
         Me.GunaDataGridViewArticle.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
         Me.GunaDataGridViewArticle.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
@@ -1419,9 +1484,11 @@ Partial Class FacturationForm
         Me.GroupBoxConfig.Controls.Add(Me.Label18)
         Me.GroupBoxConfig.Controls.Add(Me.tb_server)
         Me.GroupBoxConfig.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBoxConfig.Location = New System.Drawing.Point(451, 426)
+        Me.GroupBoxConfig.Location = New System.Drawing.Point(601, 524)
+        Me.GroupBoxConfig.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBoxConfig.Name = "GroupBoxConfig"
-        Me.GroupBoxConfig.Size = New System.Drawing.Size(790, 140)
+        Me.GroupBoxConfig.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBoxConfig.Size = New System.Drawing.Size(1053, 172)
         Me.GroupBoxConfig.TabIndex = 145
         Me.GroupBoxConfig.TabStop = False
         Me.GroupBoxConfig.Text = "Configuration"
@@ -1438,12 +1505,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxPointDeVente.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxPointDeVente.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxPointDeVente.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.GunaTextBoxPointDeVente.Location = New System.Drawing.Point(639, 98)
+        Me.GunaTextBoxPointDeVente.Location = New System.Drawing.Point(852, 121)
+        Me.GunaTextBoxPointDeVente.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxPointDeVente.Name = "GunaTextBoxPointDeVente"
         Me.GunaTextBoxPointDeVente.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxPointDeVente.Radius = 5
         Me.GunaTextBoxPointDeVente.SelectedText = ""
-        Me.GunaTextBoxPointDeVente.Size = New System.Drawing.Size(87, 26)
+        Me.GunaTextBoxPointDeVente.Size = New System.Drawing.Size(116, 37)
         Me.GunaTextBoxPointDeVente.TabIndex = 334
         Me.GunaTextBoxPointDeVente.Visible = False
         '
@@ -1456,11 +1524,12 @@ Partial Class FacturationForm
         Me.GunaTextBoxSousFamilleArticle.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxSousFamilleArticle.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxSousFamilleArticle.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.GunaTextBoxSousFamilleArticle.Location = New System.Drawing.Point(566, 42)
+        Me.GunaTextBoxSousFamilleArticle.Location = New System.Drawing.Point(755, 52)
+        Me.GunaTextBoxSousFamilleArticle.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxSousFamilleArticle.Name = "GunaTextBoxSousFamilleArticle"
         Me.GunaTextBoxSousFamilleArticle.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxSousFamilleArticle.SelectedText = ""
-        Me.GunaTextBoxSousFamilleArticle.Size = New System.Drawing.Size(160, 30)
+        Me.GunaTextBoxSousFamilleArticle.Size = New System.Drawing.Size(213, 37)
         Me.GunaTextBoxSousFamilleArticle.TabIndex = 296
         Me.GunaTextBoxSousFamilleArticle.Text = "GunaTextBoxSousFamilleArticle"
         '
@@ -1477,12 +1546,13 @@ Partial Class FacturationForm
         Me.CB_Port.ForeColor = System.Drawing.Color.Black
         Me.CB_Port.FormattingEnabled = True
         Me.CB_Port.Items.AddRange(New Object() {"USB", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9"})
-        Me.CB_Port.Location = New System.Drawing.Point(329, 46)
+        Me.CB_Port.Location = New System.Drawing.Point(439, 57)
+        Me.CB_Port.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CB_Port.Name = "CB_Port"
         Me.CB_Port.OnHoverItemBaseColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.CB_Port.OnHoverItemForeColor = System.Drawing.Color.White
         Me.CB_Port.Radius = 5
-        Me.CB_Port.Size = New System.Drawing.Size(143, 26)
+        Me.CB_Port.Size = New System.Drawing.Size(189, 31)
         Me.CB_Port.TabIndex = 150
         '
         'CB_Software
@@ -1498,12 +1568,13 @@ Partial Class FacturationForm
         Me.CB_Software.ForeColor = System.Drawing.Color.Black
         Me.CB_Software.FormattingEnabled = True
         Me.CB_Software.Items.AddRange(New Object() {"MHS", "THS"})
-        Me.CB_Software.Location = New System.Drawing.Point(164, 46)
+        Me.CB_Software.Location = New System.Drawing.Point(219, 57)
+        Me.CB_Software.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CB_Software.Name = "CB_Software"
         Me.CB_Software.OnHoverItemBaseColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.CB_Software.OnHoverItemForeColor = System.Drawing.Color.White
         Me.CB_Software.Radius = 5
-        Me.CB_Software.Size = New System.Drawing.Size(143, 26)
+        Me.CB_Software.Size = New System.Drawing.Size(189, 31)
         Me.CB_Software.TabIndex = 150
         '
         'CB_DB
@@ -1519,47 +1590,52 @@ Partial Class FacturationForm
         Me.CB_DB.ForeColor = System.Drawing.Color.Black
         Me.CB_DB.FormattingEnabled = True
         Me.CB_DB.Items.AddRange(New Object() {"ACCESS", "MSSQL"})
-        Me.CB_DB.Location = New System.Drawing.Point(10, 46)
+        Me.CB_DB.Location = New System.Drawing.Point(13, 57)
+        Me.CB_DB.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CB_DB.Name = "CB_DB"
         Me.CB_DB.OnHoverItemBaseColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.CB_DB.OnHoverItemForeColor = System.Drawing.Color.White
         Me.CB_DB.Radius = 5
-        Me.CB_DB.Size = New System.Drawing.Size(143, 26)
+        Me.CB_DB.Size = New System.Drawing.Size(189, 31)
         Me.CB_DB.TabIndex = 150
         '
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(6, 78)
+        Me.Label15.Location = New System.Drawing.Point(8, 96)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(85, 17)
+        Me.Label15.Size = New System.Drawing.Size(103, 20)
         Me.Label15.TabIndex = 149
         Me.Label15.Text = "DB Location"
         '
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(6, 26)
+        Me.Label16.Location = New System.Drawing.Point(8, 32)
+        Me.Label16.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(27, 17)
+        Me.Label16.Size = New System.Drawing.Size(34, 20)
         Me.Label16.TabIndex = 148
         Me.Label16.Text = "DB"
         '
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(326, 26)
+        Me.Label17.Location = New System.Drawing.Point(435, 32)
+        Me.Label17.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(47, 17)
+        Me.Label17.Size = New System.Drawing.Size(55, 20)
         Me.Label17.TabIndex = 146
         Me.Label17.Text = "PORT"
         '
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(161, 26)
+        Me.Label18.Location = New System.Drawing.Point(215, 32)
+        Me.Label18.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(63, 17)
+        Me.Label18.Size = New System.Drawing.Size(75, 20)
         Me.Label18.TabIndex = 147
         Me.Label18.Text = "Software"
         '
@@ -1575,12 +1651,13 @@ Partial Class FacturationForm
         Me.tb_server.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.tb_server.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.tb_server.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tb_server.Location = New System.Drawing.Point(10, 98)
+        Me.tb_server.Location = New System.Drawing.Point(13, 121)
+        Me.tb_server.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tb_server.Name = "tb_server"
         Me.tb_server.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.tb_server.Radius = 4
         Me.tb_server.SelectedText = ""
-        Me.tb_server.Size = New System.Drawing.Size(295, 28)
+        Me.tb_server.Size = New System.Drawing.Size(393, 39)
         Me.tb_server.TabIndex = 131
         '
         'TB_IDNo
@@ -1595,12 +1672,13 @@ Partial Class FacturationForm
         Me.TB_IDNo.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.TB_IDNo.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.TB_IDNo.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TB_IDNo.Location = New System.Drawing.Point(12, 148)
+        Me.TB_IDNo.Location = New System.Drawing.Point(16, 182)
+        Me.TB_IDNo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TB_IDNo.Name = "TB_IDNo"
         Me.TB_IDNo.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TB_IDNo.Radius = 4
         Me.TB_IDNo.SelectedText = ""
-        Me.TB_IDNo.Size = New System.Drawing.Size(79, 34)
+        Me.TB_IDNo.Size = New System.Drawing.Size(105, 42)
         Me.TB_IDNo.TabIndex = 147
         Me.TB_IDNo.Text = "ID CARTE"
         Me.TB_IDNo.Visible = False
@@ -1617,12 +1695,13 @@ Partial Class FacturationForm
         Me.TB_Time.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.TB_Time.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.TB_Time.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TB_Time.Location = New System.Drawing.Point(12, 195)
+        Me.TB_Time.Location = New System.Drawing.Point(16, 240)
+        Me.TB_Time.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TB_Time.Name = "TB_Time"
         Me.TB_Time.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TB_Time.Radius = 4
         Me.TB_Time.SelectedText = ""
-        Me.TB_Time.Size = New System.Drawing.Size(79, 34)
+        Me.TB_Time.Size = New System.Drawing.Size(105, 42)
         Me.TB_Time.TabIndex = 148
         Me.TB_Time.Text = "TB_TIME"
         Me.TB_Time.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1633,9 +1712,10 @@ Partial Class FacturationForm
         Me.CB_Breakfast.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CB_Breakfast.FormattingEnabled = True
         Me.CB_Breakfast.Items.AddRange(New Object() {"0", "1"})
-        Me.CB_Breakfast.Location = New System.Drawing.Point(12, 251)
+        Me.CB_Breakfast.Location = New System.Drawing.Point(16, 309)
+        Me.CB_Breakfast.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CB_Breakfast.Name = "CB_Breakfast"
-        Me.CB_Breakfast.Size = New System.Drawing.Size(79, 26)
+        Me.CB_Breakfast.Size = New System.Drawing.Size(104, 32)
         Me.CB_Breakfast.TabIndex = 149
         Me.CB_Breakfast.Visible = False
         '
@@ -1651,12 +1731,13 @@ Partial Class FacturationForm
         Me.TB_Status.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.TB_Status.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.TB_Status.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TB_Status.Location = New System.Drawing.Point(12, 328)
+        Me.TB_Status.Location = New System.Drawing.Point(16, 404)
+        Me.TB_Status.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TB_Status.Name = "TB_Status"
         Me.TB_Status.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TB_Status.Radius = 4
         Me.TB_Status.SelectedText = ""
-        Me.TB_Status.Size = New System.Drawing.Size(79, 34)
+        Me.TB_Status.Size = New System.Drawing.Size(105, 42)
         Me.TB_Status.TabIndex = 150
         Me.TB_Status.Text = "STATUTS"
         Me.TB_Status.Visible = False
@@ -1673,12 +1754,13 @@ Partial Class FacturationForm
         Me.TB_Result.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.TB_Result.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.TB_Result.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TB_Result.Location = New System.Drawing.Point(12, 288)
+        Me.TB_Result.Location = New System.Drawing.Point(16, 354)
+        Me.TB_Result.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TB_Result.Name = "TB_Result"
         Me.TB_Result.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TB_Result.Radius = 4
         Me.TB_Result.SelectedText = ""
-        Me.TB_Result.Size = New System.Drawing.Size(79, 34)
+        Me.TB_Result.Size = New System.Drawing.Size(105, 42)
         Me.TB_Result.TabIndex = 151
         Me.TB_Result.Text = "RESULTAT"
         Me.TB_Result.Visible = False
@@ -1695,12 +1777,13 @@ Partial Class FacturationForm
         Me.TB_CardNo.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.TB_CardNo.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.TB_CardNo.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TB_CardNo.Location = New System.Drawing.Point(12, 108)
+        Me.TB_CardNo.Location = New System.Drawing.Point(16, 133)
+        Me.TB_CardNo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TB_CardNo.Name = "TB_CardNo"
         Me.TB_CardNo.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TB_CardNo.Radius = 4
         Me.TB_CardNo.SelectedText = ""
-        Me.TB_CardNo.Size = New System.Drawing.Size(79, 34)
+        Me.TB_CardNo.Size = New System.Drawing.Size(105, 42)
         Me.TB_CardNo.TabIndex = 152
         Me.TB_CardNo.Text = "NO CARTE"
         Me.TB_CardNo.Visible = False
@@ -1725,7 +1808,8 @@ Partial Class FacturationForm
         Me.GunaAdvenceButtonLectureDeCarte.Image = CType(resources.GetObject("GunaAdvenceButtonLectureDeCarte.Image"), System.Drawing.Image)
         Me.GunaAdvenceButtonLectureDeCarte.ImageSize = New System.Drawing.Size(50, 45)
         Me.GunaAdvenceButtonLectureDeCarte.LineColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.GunaAdvenceButtonLectureDeCarte.Location = New System.Drawing.Point(1192, 600)
+        Me.GunaAdvenceButtonLectureDeCarte.Location = New System.Drawing.Point(1589, 738)
+        Me.GunaAdvenceButtonLectureDeCarte.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaAdvenceButtonLectureDeCarte.Name = "GunaAdvenceButtonLectureDeCarte"
         Me.GunaAdvenceButtonLectureDeCarte.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaAdvenceButtonLectureDeCarte.OnHoverBorderColor = System.Drawing.Color.Black
@@ -1733,7 +1817,7 @@ Partial Class FacturationForm
         Me.GunaAdvenceButtonLectureDeCarte.OnHoverImage = Nothing
         Me.GunaAdvenceButtonLectureDeCarte.OnHoverLineColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.GunaAdvenceButtonLectureDeCarte.OnPressedColor = System.Drawing.Color.Black
-        Me.GunaAdvenceButtonLectureDeCarte.Size = New System.Drawing.Size(150, 44)
+        Me.GunaAdvenceButtonLectureDeCarte.Size = New System.Drawing.Size(200, 54)
         Me.GunaAdvenceButtonLectureDeCarte.TabIndex = 289
         Me.GunaAdvenceButtonLectureDeCarte.Text = "LIRE CARTE"
         Me.GunaAdvenceButtonLectureDeCarte.Visible = False
@@ -1750,12 +1834,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxLecteurRFID.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxLecteurRFID.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxLecteurRFID.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxLecteurRFID.Location = New System.Drawing.Point(155, 224)
+        Me.GunaTextBoxLecteurRFID.Location = New System.Drawing.Point(207, 276)
+        Me.GunaTextBoxLecteurRFID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxLecteurRFID.Name = "GunaTextBoxLecteurRFID"
         Me.GunaTextBoxLecteurRFID.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxLecteurRFID.Radius = 5
         Me.GunaTextBoxLecteurRFID.SelectedText = ""
-        Me.GunaTextBoxLecteurRFID.Size = New System.Drawing.Size(198, 34)
+        Me.GunaTextBoxLecteurRFID.Size = New System.Drawing.Size(264, 42)
         Me.GunaTextBoxLecteurRFID.TabIndex = 293
         Me.GunaTextBoxLecteurRFID.Visible = False
         '
@@ -1763,9 +1848,10 @@ Partial Class FacturationForm
         '
         Me.GunaPictureBox1.BaseColor = System.Drawing.Color.White
         Me.GunaPictureBox1.Image = CType(resources.GetObject("GunaPictureBox1.Image"), System.Drawing.Image)
-        Me.GunaPictureBox1.Location = New System.Drawing.Point(98, 262)
+        Me.GunaPictureBox1.Location = New System.Drawing.Point(131, 322)
+        Me.GunaPictureBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaPictureBox1.Name = "GunaPictureBox1"
-        Me.GunaPictureBox1.Size = New System.Drawing.Size(41, 38)
+        Me.GunaPictureBox1.Size = New System.Drawing.Size(55, 47)
         Me.GunaPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.GunaPictureBox1.TabIndex = 295
         Me.GunaPictureBox1.TabStop = False
@@ -1776,9 +1862,10 @@ Partial Class FacturationForm
         Me.GunaCheckBoxLecteurRFID.CheckedOffColor = System.Drawing.Color.Gray
         Me.GunaCheckBoxLecteurRFID.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxLecteurRFID.FillColor = System.Drawing.Color.White
-        Me.GunaCheckBoxLecteurRFID.Location = New System.Drawing.Point(145, 282)
+        Me.GunaCheckBoxLecteurRFID.Location = New System.Drawing.Point(193, 347)
+        Me.GunaCheckBoxLecteurRFID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaCheckBoxLecteurRFID.Name = "GunaCheckBoxLecteurRFID"
-        Me.GunaCheckBoxLecteurRFID.Size = New System.Drawing.Size(97, 20)
+        Me.GunaCheckBoxLecteurRFID.Size = New System.Drawing.Size(110, 20)
         Me.GunaCheckBoxLecteurRFID.TabIndex = 294
         Me.GunaCheckBoxLecteurRFID.Text = "Lecteur RFID"
         '
@@ -1792,11 +1879,12 @@ Partial Class FacturationForm
         Me.GunaTextBoxQuantiteConso.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxQuantiteConso.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxQuantiteConso.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.GunaTextBoxQuantiteConso.Location = New System.Drawing.Point(1081, 354)
+        Me.GunaTextBoxQuantiteConso.Location = New System.Drawing.Point(1441, 436)
+        Me.GunaTextBoxQuantiteConso.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxQuantiteConso.Name = "GunaTextBoxQuantiteConso"
         Me.GunaTextBoxQuantiteConso.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxQuantiteConso.SelectedText = ""
-        Me.GunaTextBoxQuantiteConso.Size = New System.Drawing.Size(160, 30)
+        Me.GunaTextBoxQuantiteConso.Size = New System.Drawing.Size(213, 37)
         Me.GunaTextBoxQuantiteConso.TabIndex = 297
         Me.GunaTextBoxQuantiteConso.Visible = False
         '
@@ -1814,12 +1902,13 @@ Partial Class FacturationForm
         Me.GunaComboBoxUniteOuConso.FormattingEnabled = True
         Me.GunaComboBoxUniteOuConso.ItemHeight = 25
         Me.GunaComboBoxUniteOuConso.Items.AddRange(New Object() {"CONSOMMATION", "UNITE"})
-        Me.GunaComboBoxUniteOuConso.Location = New System.Drawing.Point(367, 268)
+        Me.GunaComboBoxUniteOuConso.Location = New System.Drawing.Point(489, 330)
+        Me.GunaComboBoxUniteOuConso.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaComboBoxUniteOuConso.Name = "GunaComboBoxUniteOuConso"
         Me.GunaComboBoxUniteOuConso.OnHoverItemBaseColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaComboBoxUniteOuConso.OnHoverItemForeColor = System.Drawing.Color.White
         Me.GunaComboBoxUniteOuConso.Radius = 10
-        Me.GunaComboBoxUniteOuConso.Size = New System.Drawing.Size(184, 31)
+        Me.GunaComboBoxUniteOuConso.Size = New System.Drawing.Size(244, 31)
         Me.GunaComboBoxUniteOuConso.TabIndex = 296
         Me.GunaComboBoxUniteOuConso.Visible = False
         '
@@ -1836,12 +1925,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxMontantReduction.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxMontantReduction.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxMontantReduction.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxMontantReduction.Location = New System.Drawing.Point(882, 266)
+        Me.GunaTextBoxMontantReduction.Location = New System.Drawing.Point(1176, 327)
+        Me.GunaTextBoxMontantReduction.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxMontantReduction.Name = "GunaTextBoxMontantReduction"
         Me.GunaTextBoxMontantReduction.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxMontantReduction.Radius = 5
         Me.GunaTextBoxMontantReduction.SelectedText = ""
-        Me.GunaTextBoxMontantReduction.Size = New System.Drawing.Size(115, 34)
+        Me.GunaTextBoxMontantReduction.Size = New System.Drawing.Size(153, 42)
         Me.GunaTextBoxMontantReduction.TabIndex = 303
         Me.GunaTextBoxMontantReduction.Text = "0"
         Me.GunaTextBoxMontantReduction.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -1850,9 +1940,10 @@ Partial Class FacturationForm
         '
         Me.Label25.AutoSize = True
         Me.Label25.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label25.Location = New System.Drawing.Point(794, 275)
+        Me.Label25.Location = New System.Drawing.Point(1059, 338)
+        Me.Label25.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(78, 16)
+        Me.Label25.Size = New System.Drawing.Size(93, 20)
         Me.Label25.TabIndex = 304
         Me.Label25.Text = "Réduction"
         '
@@ -1868,12 +1959,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxRemise.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxRemise.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxRemise.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxRemise.Location = New System.Drawing.Point(721, 266)
+        Me.GunaTextBoxRemise.Location = New System.Drawing.Point(961, 327)
+        Me.GunaTextBoxRemise.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxRemise.Name = "GunaTextBoxRemise"
         Me.GunaTextBoxRemise.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxRemise.Radius = 5
         Me.GunaTextBoxRemise.SelectedText = ""
-        Me.GunaTextBoxRemise.Size = New System.Drawing.Size(52, 34)
+        Me.GunaTextBoxRemise.Size = New System.Drawing.Size(69, 42)
         Me.GunaTextBoxRemise.TabIndex = 302
         Me.GunaTextBoxRemise.Text = "0"
         Me.GunaTextBoxRemise.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1882,9 +1974,10 @@ Partial Class FacturationForm
         '
         Me.Label21.AutoSize = True
         Me.Label21.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label21.Location = New System.Drawing.Point(618, 275)
+        Me.Label21.Location = New System.Drawing.Point(824, 338)
+        Me.Label21.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(88, 16)
+        Me.Label21.Size = New System.Drawing.Size(108, 20)
         Me.Label21.TabIndex = 301
         Me.Label21.Text = "Remise (%)"
         '
@@ -1923,14 +2016,15 @@ Partial Class FacturationForm
         Me.GunaDataGridViewChambreReservation.DefaultCellStyle = DataGridViewCellStyle9
         Me.GunaDataGridViewChambreReservation.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewChambreReservation.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewChambreReservation.Location = New System.Drawing.Point(920, 198)
+        Me.GunaDataGridViewChambreReservation.Location = New System.Drawing.Point(1227, 244)
+        Me.GunaDataGridViewChambreReservation.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaDataGridViewChambreReservation.MultiSelect = False
         Me.GunaDataGridViewChambreReservation.Name = "GunaDataGridViewChambreReservation"
         Me.GunaDataGridViewChambreReservation.ReadOnly = True
         Me.GunaDataGridViewChambreReservation.RowHeadersVisible = False
         Me.GunaDataGridViewChambreReservation.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.GunaDataGridViewChambreReservation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewChambreReservation.Size = New System.Drawing.Size(151, 147)
+        Me.GunaDataGridViewChambreReservation.Size = New System.Drawing.Size(201, 181)
         Me.GunaDataGridViewChambreReservation.TabIndex = 170
         Me.GunaDataGridViewChambreReservation.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
         Me.GunaDataGridViewChambreReservation.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
@@ -1967,7 +2061,8 @@ Partial Class FacturationForm
         Me.GunaCheckBoxTypeRemise.CheckedOffColor = System.Drawing.Color.Gray
         Me.GunaCheckBoxTypeRemise.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxTypeRemise.FillColor = System.Drawing.Color.White
-        Me.GunaCheckBoxTypeRemise.Location = New System.Drawing.Point(591, 274)
+        Me.GunaCheckBoxTypeRemise.Location = New System.Drawing.Point(788, 337)
+        Me.GunaCheckBoxTypeRemise.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaCheckBoxTypeRemise.Name = "GunaCheckBoxTypeRemise"
         Me.GunaCheckBoxTypeRemise.Size = New System.Drawing.Size(20, 20)
         Me.GunaCheckBoxTypeRemise.TabIndex = 307
@@ -1976,9 +2071,10 @@ Partial Class FacturationForm
         '
         Me.GunaLabel4.AutoSize = True
         Me.GunaLabel4.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.GunaLabel4.Location = New System.Drawing.Point(214, 348)
+        Me.GunaLabel4.Location = New System.Drawing.Point(285, 428)
+        Me.GunaLabel4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.GunaLabel4.Name = "GunaLabel4"
-        Me.GunaLabel4.Size = New System.Drawing.Size(39, 15)
+        Me.GunaLabel4.Size = New System.Drawing.Size(50, 20)
         Me.GunaLabel4.TabIndex = 342
         Me.GunaLabel4.Text = "UNITE"
         Me.GunaLabel4.Visible = False
@@ -1987,9 +2083,10 @@ Partial Class FacturationForm
         '
         Me.GunaLabel6.AutoSize = True
         Me.GunaLabel6.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.GunaLabel6.Location = New System.Drawing.Point(507, 348)
+        Me.GunaLabel6.Location = New System.Drawing.Point(676, 428)
+        Me.GunaLabel6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.GunaLabel6.Name = "GunaLabel6"
-        Me.GunaLabel6.Size = New System.Drawing.Size(39, 15)
+        Me.GunaLabel6.Size = New System.Drawing.Size(50, 20)
         Me.GunaLabel6.TabIndex = 343
         Me.GunaLabel6.Text = "UNITE"
         Me.GunaLabel6.Visible = False
@@ -1998,9 +2095,10 @@ Partial Class FacturationForm
         '
         Me.GunaLabel5.AutoSize = True
         Me.GunaLabel5.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.GunaLabel5.Location = New System.Drawing.Point(593, 348)
+        Me.GunaLabel5.Location = New System.Drawing.Point(791, 428)
+        Me.GunaLabel5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.GunaLabel5.Name = "GunaLabel5"
-        Me.GunaLabel5.Size = New System.Drawing.Size(48, 15)
+        Me.GunaLabel5.Size = New System.Drawing.Size(59, 20)
         Me.GunaLabel5.TabIndex = 344
         Me.GunaLabel5.Text = "CONSO"
         Me.GunaLabel5.Visible = False
@@ -2009,9 +2107,10 @@ Partial Class FacturationForm
         '
         Me.GunaLabel2.AutoSize = True
         Me.GunaLabel2.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.GunaLabel2.Location = New System.Drawing.Point(291, 348)
+        Me.GunaLabel2.Location = New System.Drawing.Point(388, 428)
+        Me.GunaLabel2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.GunaLabel2.Name = "GunaLabel2"
-        Me.GunaLabel2.Size = New System.Drawing.Size(48, 15)
+        Me.GunaLabel2.Size = New System.Drawing.Size(59, 20)
         Me.GunaLabel2.TabIndex = 345
         Me.GunaLabel2.Text = "CONSO"
         Me.GunaLabel2.Visible = False
@@ -2020,9 +2119,10 @@ Partial Class FacturationForm
         '
         Me.Label23.AutoSize = True
         Me.Label23.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label23.Location = New System.Drawing.Point(375, 325)
+        Me.Label23.Location = New System.Drawing.Point(500, 400)
+        Me.Label23.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(120, 16)
+        Me.Label23.Size = New System.Drawing.Size(145, 20)
         Me.Label23.TabIndex = 341
         Me.Label23.Text = "Stock Economat"
         '
@@ -2039,12 +2139,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxStockEconomat.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxStockEconomat.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxStockEconomat.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxStockEconomat.Location = New System.Drawing.Point(501, 317)
+        Me.GunaTextBoxStockEconomat.Location = New System.Drawing.Point(668, 390)
+        Me.GunaTextBoxStockEconomat.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxStockEconomat.Name = "GunaTextBoxStockEconomat"
         Me.GunaTextBoxStockEconomat.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxStockEconomat.Radius = 5
         Me.GunaTextBoxStockEconomat.SelectedText = ""
-        Me.GunaTextBoxStockEconomat.Size = New System.Drawing.Size(66, 28)
+        Me.GunaTextBoxStockEconomat.Size = New System.Drawing.Size(88, 39)
         Me.GunaTextBoxStockEconomat.TabIndex = 340
         Me.GunaTextBoxStockEconomat.Text = "0"
         Me.GunaTextBoxStockEconomat.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2053,9 +2154,10 @@ Partial Class FacturationForm
         '
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label20.Location = New System.Drawing.Point(93, 325)
+        Me.Label20.Location = New System.Drawing.Point(124, 400)
+        Me.Label20.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(110, 16)
+        Me.Label20.Size = New System.Drawing.Size(132, 20)
         Me.Label20.TabIndex = 339
         Me.Label20.Text = "Stock Magasin"
         Me.Label20.Visible = False
@@ -2073,12 +2175,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxConsoOnly.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxConsoOnly.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxConsoOnly.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxConsoOnly.Location = New System.Drawing.Point(585, 317)
+        Me.GunaTextBoxConsoOnly.Location = New System.Drawing.Point(780, 390)
+        Me.GunaTextBoxConsoOnly.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxConsoOnly.Name = "GunaTextBoxConsoOnly"
         Me.GunaTextBoxConsoOnly.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxConsoOnly.Radius = 5
         Me.GunaTextBoxConsoOnly.SelectedText = ""
-        Me.GunaTextBoxConsoOnly.Size = New System.Drawing.Size(63, 28)
+        Me.GunaTextBoxConsoOnly.Size = New System.Drawing.Size(84, 39)
         Me.GunaTextBoxConsoOnly.TabIndex = 336
         Me.GunaTextBoxConsoOnly.Text = "0"
         Me.GunaTextBoxConsoOnly.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2097,12 +2200,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxConso.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxConso.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxConso.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxConso.Location = New System.Drawing.Point(288, 317)
+        Me.GunaTextBoxConso.Location = New System.Drawing.Point(384, 390)
+        Me.GunaTextBoxConso.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxConso.Name = "GunaTextBoxConso"
         Me.GunaTextBoxConso.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxConso.Radius = 5
         Me.GunaTextBoxConso.SelectedText = ""
-        Me.GunaTextBoxConso.Size = New System.Drawing.Size(56, 28)
+        Me.GunaTextBoxConso.Size = New System.Drawing.Size(75, 39)
         Me.GunaTextBoxConso.TabIndex = 337
         Me.GunaTextBoxConso.Text = "0"
         Me.GunaTextBoxConso.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2121,12 +2225,13 @@ Partial Class FacturationForm
         Me.GunaTextBoxStockMagasin.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxStockMagasin.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxStockMagasin.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxStockMagasin.Location = New System.Drawing.Point(209, 317)
+        Me.GunaTextBoxStockMagasin.Location = New System.Drawing.Point(279, 390)
+        Me.GunaTextBoxStockMagasin.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxStockMagasin.Name = "GunaTextBoxStockMagasin"
         Me.GunaTextBoxStockMagasin.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxStockMagasin.Radius = 5
         Me.GunaTextBoxStockMagasin.SelectedText = ""
-        Me.GunaTextBoxStockMagasin.Size = New System.Drawing.Size(56, 28)
+        Me.GunaTextBoxStockMagasin.Size = New System.Drawing.Size(75, 39)
         Me.GunaTextBoxStockMagasin.TabIndex = 338
         Me.GunaTextBoxStockMagasin.Text = "0"
         Me.GunaTextBoxStockMagasin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2144,20 +2249,21 @@ Partial Class FacturationForm
         Me.GunaTextBoxCodeElite.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxCodeElite.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxCodeElite.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxCodeElite.Location = New System.Drawing.Point(12, 63)
+        Me.GunaTextBoxCodeElite.Location = New System.Drawing.Point(16, 78)
+        Me.GunaTextBoxCodeElite.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GunaTextBoxCodeElite.Name = "GunaTextBoxCodeElite"
         Me.GunaTextBoxCodeElite.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxCodeElite.Radius = 5
         Me.GunaTextBoxCodeElite.SelectedText = ""
-        Me.GunaTextBoxCodeElite.Size = New System.Drawing.Size(79, 25)
+        Me.GunaTextBoxCodeElite.Size = New System.Drawing.Size(105, 34)
         Me.GunaTextBoxCodeElite.TabIndex = 346
         Me.GunaTextBoxCodeElite.Visible = False
         '
         'FacturationForm
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1350, 665)
+        Me.ClientSize = New System.Drawing.Size(1730, 818)
         Me.Controls.Add(Me.GunaTextBoxCodeElite)
         Me.Controls.Add(Me.GunaDataGridViewArticle)
         Me.Controls.Add(Me.GunaLabel4)
@@ -2208,6 +2314,7 @@ Partial Class FacturationForm
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.Label10)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "FacturationForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "ClientForm"

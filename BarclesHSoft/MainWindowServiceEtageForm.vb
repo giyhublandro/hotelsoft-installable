@@ -95,6 +95,15 @@ Public Class MainWindowServiceEtageForm
         StatistiquesDeNettoyage()
         StatusDesChambres()
 
+        GunaComboBoxEtatChambre.Items.Clear()
+
+        GunaComboBoxEtatChambre.Items.Add(GlobalVariable.occupee_sale)
+        GunaComboBoxEtatChambre.Items.Add(GlobalVariable.occupee_propre)
+        GunaComboBoxEtatChambre.Items.Add(GlobalVariable.libre_sale)
+        GunaComboBoxEtatChambre.Items.Add(GlobalVariable.libre_propre)
+        GunaComboBoxEtatChambre.Items.Add(GlobalVariable.reserver)
+        GunaComboBoxEtatChambre.Items.Add(GlobalVariable.hors_service)
+
     End Sub
 
     Private Sub GunaAdvenceButton9_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButtonStatutsChambre.Click
@@ -167,14 +176,17 @@ Public Class MainWindowServiceEtageForm
 
         GlobalVariable.chambreOuSalleFromFrontDesk = ""
         GlobalVariable.typeDeClientAFacturer = "comptoir"
-        'FacturationForm.GunaLabelHeader.Text = "AU COMPTANT"
-        'FacturationForm.TopMost = True
-        'FacturationForm.Location = New System.Drawing.Point(10, 110)
-        'FacturationForm.Show()
-        'RoomForm.Close()
-        BarRestaurantForm.Show()
 
-        Me.Hide()
+        If Trim(GlobalVariable.AgenceActuelle.Rows(0)("CAISSE_ENREGISTREUSE_1")).Equals("") Then
+            BarRestaurantForm.Show()
+            BarRestaurantForm.GunaLabelHeader.Text = "COMPTOIR"
+        Else
+            BarRestaurantCaisseEnregistreuseForm.Show()
+            BarRestaurantCaisseEnregistreuseForm.GunaLabelHeader.Text = "COMPTOIR"
+        End If
+
+
+        Me.Close()
 
     End Sub
 

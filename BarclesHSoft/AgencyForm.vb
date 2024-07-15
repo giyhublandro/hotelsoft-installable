@@ -329,6 +329,10 @@ Public Class AgencyForm
 
         Dim DIRECTION As String = GunaTextBoxDirection.Text
 
+
+        Dim CAISSE_ENREGISTREUSE_1 As String = GunaTextBoxMac1.Text
+        Dim CAISSE_ENREGISTREUSE_2 As String = GunaTextBoxMac2.Text
+
         Dim clearChecKBox As Boolean = False
 
         Dim agency As New Agency()
@@ -340,7 +344,7 @@ Public Class AgencyForm
 
             If GunaButtonEnregistrer.Text = "Sauvegarder" Or GunaButtonEnregistrer.Text = "Save" Then
 
-                If agency.UpdateCompany(NOM_AGENCE, CODE_AGENCE, FAX, EMAIL, TELEPHONE, VILLE, BOITE_POSTALE, PAYS, RUE, CATEGORIE_HOTEL, WHATSAPP_1, WHATSAPP_2, WHATSAPP_3, WHATSAPP_4, WHATSAPP_5, WHATSAPP_6, WHATSAPP_7, EMAIL_1, EMAIL_2, EMAIL_3, EMAIL_4, EMAIL_5, EMAIL_6, EMAIL_7, GERER_STOCK, CLOTURE_MULTIPLE, CHEMIN_SAUVEGARDE_AUTO, TARIFICATION_DYNAMIQUE, SESSION_UNIQUE, SERRURES, MESSAGE_WHATSAPP, CLOTURE_FACTURE, LANGUE, PRIX_BAR_RESTAU_MODIFIABLE, PAYER_AVANT_ENCODAGE, BLOQUER_PRIX_HEBERGEMENT, CLUB_ELITE, PRINT_B7, MENSUALITE, HEBDOMADAIRE, MONTANT_NAVETTE, NUMERO_RECEPTION, NUMERO_RECEPTION_CHAMBRE, DIRECTION) Then
+                If agency.UpdateCompany(NOM_AGENCE, CODE_AGENCE, FAX, EMAIL, TELEPHONE, VILLE, BOITE_POSTALE, PAYS, RUE, CATEGORIE_HOTEL, WHATSAPP_1, WHATSAPP_2, WHATSAPP_3, WHATSAPP_4, WHATSAPP_5, WHATSAPP_6, WHATSAPP_7, EMAIL_1, EMAIL_2, EMAIL_3, EMAIL_4, EMAIL_5, EMAIL_6, EMAIL_7, GERER_STOCK, CLOTURE_MULTIPLE, CHEMIN_SAUVEGARDE_AUTO, TARIFICATION_DYNAMIQUE, SESSION_UNIQUE, SERRURES, MESSAGE_WHATSAPP, CLOTURE_FACTURE, LANGUE, PRIX_BAR_RESTAU_MODIFIABLE, PAYER_AVANT_ENCODAGE, BLOQUER_PRIX_HEBERGEMENT, CLUB_ELITE, PRINT_B7, MENSUALITE, HEBDOMADAIRE, MONTANT_NAVETTE, NUMERO_RECEPTION, NUMERO_RECEPTION_CHAMBRE, DIRECTION, CAISSE_ENREGISTREUSE_1, CAISSE_ENREGISTREUSE_2) Then
 
                     '--------------- UPDATE CACHET----------------------------------------------------------------------------------
                     Dim ms As New MemoryStream()
@@ -482,6 +486,9 @@ Public Class AgencyForm
 
                         Functions.ClearTextBox(Me)
 
+                        GunaTextBoxMac1.Text = ""
+                        GunaTextBoxMac2.Text = ""
+
                     Else
 
                         If GlobalVariable.actualLanguageValue = 0 Then
@@ -543,6 +550,8 @@ Public Class AgencyForm
             GunaCheckBoxClubElite.Checked = False
             GunaCheckBoxfacturationMensuelle.Checked = False
             GunaCheckBoxHebdomadaire.Checked = False
+            GunaCheckBoxMac1.Checked = False
+            GunaCheckBoxMac2.Checked = False
 
             GunaDataGridViewAgence.Columns.Clear()
 
@@ -591,6 +600,8 @@ Public Class AgencyForm
 
             GunaTextBoxMontantNavette.Text = Format(agencyToUpdate.Rows(0)("MONTANT_NAVETTE"), "#,##0")
             GunaTextBoxDirection.Text = agencyToUpdate.Rows(0)("DIRECTION")
+            GunaTextBoxMac1.Text = agencyToUpdate.Rows(0)("CAISSE_ENREGISTREUSE_1")
+            GunaTextBoxMac2.Text = agencyToUpdate.Rows(0)("CAISSE_ENREGISTREUSE_2")
 
             Dim LIBELLE As String = agencyToUpdate.Rows(0)("CATEGORIE_HOTEL")
 
@@ -1032,6 +1043,26 @@ Public Class AgencyForm
             GunaPictureBoxLogo.Image = Image.FromFile(opf.FileName)
             'GunaPictureBoxLogo.ImageLocation = ImagePath
 
+        End If
+
+    End Sub
+
+    Private Sub GunaCheckBoxMac1_Click(sender As Object, e As EventArgs) Handles GunaCheckBoxMac1.Click
+
+        If GunaCheckBoxMac1.Checked Then
+            GunaTextBoxMac1.Text = Functions.getMacAddresse()
+        Else
+            GunaTextBoxMac1.Text = ""
+        End If
+
+    End Sub
+
+    Private Sub GunaCheckBoxMac2_Click(sender As Object, e As EventArgs) Handles GunaCheckBoxMac2.Click
+
+        If GunaCheckBoxMac2.Checked Then
+            GunaTextBoxMac2.Text = Functions.getMacAddresse()
+        Else
+            GunaTextBoxMac2.Text = ""
         End If
 
     End Sub

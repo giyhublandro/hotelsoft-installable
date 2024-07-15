@@ -932,14 +932,18 @@ Partial Class CloturerForm
 
                                     '3- Clôture des réservations journalieres des en chambres
 
-                                    Dim MENSUEL As Integer
+                                    Dim MENSUEL As Integer = -1
+                                    Dim HEBDOMADAIRE As Integer = -1
 
                                     For i = 0 To tableReservation.Rows.Count - 1
 
                                         Dim DATE_SORTIE As Date = tableReservation.Rows(i)("DATE_SORTIE")
+                                        Dim DATE_ARRIVEE As Date = tableReservation.Rows(i)("DATE_ENTTRE")
+                                        Dim MONTANT_ACCORDE As Double = tableReservation.Rows(i)("MONTANT_ACCORDE")
                                         Dim DATE_FACTURE As Date
 
                                         MENSUEL = tableReservation.Rows(i)("MENSUEL")
+                                        HEBDOMADAIRE = tableReservation.Rows(i)("HEBDOMADAIRE")
 
                                         numberOfElementsToTreat = i
 
@@ -961,14 +965,96 @@ Partial Class CloturerForm
                                         Dim TITRE As String = ""
                                         Dim TITRE_TYPE As String = ""
 
-                                        If tableReservation.Rows(i)("TYPE") = "chambre" Then
+                                        Dim monthNumber As Integer = Month(GlobalVariable.DateDeTravail.AddDays(1))
+                                        Dim annee = Year(GlobalVariable.DateDeTravail.AddDays(1))
+                                        Dim mois As String = ""
 
-                                            If GlobalVariable.actualLanguageValue = 1 Then
-                                                TITRE = "HEBERGEMENT"
-                                            Else
-                                                TITRE = "ACCOMMODATION"
+                                        If GlobalVariable.actualLanguageValue = 1 Then
+
+                                            If monthNumber = 1 Then
+                                                mois = "Janvier"
+                                            ElseIf monthNumber = 2 Then
+                                                mois = "Fervrier"
+                                            ElseIf monthNumber = 3 Then
+                                                mois = "Mars"
+                                            ElseIf monthNumber = 4 Then
+                                                mois = "Avril"
+                                            ElseIf monthNumber = 5 Then
+                                                mois = "Mai"
+                                            ElseIf monthNumber = 6 Then
+                                                mois = "Juin"
+                                            ElseIf monthNumber = 7 Then
+                                                mois = "Juillet"
+                                            ElseIf monthNumber = 8 Then
+                                                mois = "Août"
+                                            ElseIf monthNumber = 9 Then
+                                                mois = "Septembre"
+                                            ElseIf monthNumber = 10 Then
+                                                mois = "Decembre"
+                                            ElseIf monthNumber = 11 Then
+                                                mois = "Novembre"
+                                            ElseIf monthNumber = 12 Then
+                                                mois = "Decembre"
                                             End If
 
+
+                                        Else
+
+                                            If monthNumber = 1 Then
+                                                mois = "January"
+                                            ElseIf monthNumber = 2 Then
+                                                mois = "February"
+                                            ElseIf monthNumber = 3 Then
+                                                mois = "March"
+                                            ElseIf monthNumber = 4 Then
+                                                mois = "April"
+                                            ElseIf monthNumber = 5 Then
+                                                mois = "May"
+                                            ElseIf monthNumber = 6 Then
+                                                mois = "June"
+                                            ElseIf monthNumber = 7 Then
+                                                mois = "Jully"
+                                            ElseIf monthNumber = 8 Then
+                                                mois = "August"
+                                            ElseIf monthNumber = 9 Then
+                                                mois = "September"
+                                            ElseIf monthNumber = 10 Then
+                                                mois = "October"
+                                            ElseIf monthNumber = 11 Then
+                                                mois = "November"
+                                            ElseIf monthNumber = 12 Then
+                                                mois = "December"
+                                            End If
+
+                                        End If
+
+                                        If tableReservation.Rows(i)("TYPE") = "chambre" Then
+
+                                            If MENSUEL = 1 Then
+
+                                                If GlobalVariable.actualLanguageValue = 1 Then
+                                                    TITRE = "LOYER MENSUEL DE " & mois.ToString.ToUpper & " " & annee
+                                                Else
+                                                    TITRE = "MONTHLY RENT OF " & mois.ToString.ToUpper & " " & annee
+                                                End If
+
+                                            ElseIf HEBDOMADAIRE = 1 Then
+
+                                                If GlobalVariable.actualLanguageValue = 1 Then
+                                                    TITRE = "LOYER HEBDOMADAIRE DE " & mois.ToString.ToUpper & " " & annee
+                                                Else
+                                                    TITRE = "WEEKLY RENT OF " & mois.ToString.ToUpper & " " & annee
+                                                End If
+
+                                            Else
+
+                                                If GlobalVariable.actualLanguageValue = 1 Then
+                                                    TITRE = "HEBERGEMENT"
+                                                Else
+                                                    TITRE = "ACCOMMODATION"
+                                                End If
+
+                                            End If
 
                                             TITRE_TYPE = "chambre"
 
@@ -1175,42 +1261,88 @@ Partial Class CloturerForm
                                             'GESTION DES TAXES DE SEJOURS
 
                                             Dim factureHebergement As Boolean = True
+                                            Dim dateFacturable As detailFacturation
+                                            Dim HEBDO_MENSUEL As Integer = -1
+
                                             If facturationAnticipe Then
 
-                                                If MENSUEL = 0 Then
+                                                If HEBDOMADAIRE = 1 Then
+
+                                                    HEBDO_MENSUEL = 0
+
+                                                    dateFacturable = jourFacturableMensuelHebdo(HEBDO_MENSUEL, DATE_ARRIVEE, DATE_SORTIE, MONTANT_ACCORDE, GlobalVariable.DateDeTravail.AddDays(1))
+
+                                                    factureHebergement = dateFacturable.facturable
+
+                                                    'Dim dayNumberSortie As Integer = DATE_SORTIE.Day()
+                                                    'Dim dayNumberActuel As Integer = GlobalVariable.DateDeTravail.AddDays(1).Day()
+                                                    'Dim monthNumberSortie As Integer = Month(DATE_SORTIE)
+                                                    'Dim monthNumberActuel As Integer = Month(GlobalVariable.DateDeTravail.AddDays(1))
+
+                                                    'Dim numberOfDays As Integer = CType((DATE_ARRIVEE - GlobalVariable.DateDeTravail.AddDays(1)).TotalDays, Int32)
+
+                                                    'If Not (numberOfDays Mod 7) = 0 Then
+                                                    'factureHebergement = False
+                                                    'End If
+
+
+                                                ElseIf MENSUEL = 1 Then
+
+                                                    HEBDO_MENSUEL = 1
+
+                                                    dateFacturable = jourFacturableMensuelHebdo(HEBDO_MENSUEL, DATE_ARRIVEE, DATE_SORTIE, MONTANT_ACCORDE, GlobalVariable.DateDeTravail.AddDays(1))
+
+                                                    factureHebergement = dateFacturable.facturable
+                                                    'ON DOIT DETERMINER SI LE JOUR ACTUEL CORRESPOND AU JOUR DE SON DEPART
+                                                    'Dim dayNumberSortie As Integer = DATE_SORTIE.Day()
+                                                    'Dim dayNumberActuel As Integer = GlobalVariable.DateDeTravail.AddDays(1).Day()
+                                                    'Dim monthNumberSortie As Integer = Month(DATE_SORTIE)
+                                                    'Dim monthNumberActuel As Integer = Month(GlobalVariable.DateDeTravail.AddDays(1))
+
+                                                    'If monthNumberSortie = monthNumberActuel Then
+                                                    'SI C'EST LE MEME MOIS ON NE FACTURE PAS
+                                                    'factureHebergement = False
+                                                    'ElseIf monthNumberSortie > monthNumberActuel Then
+
+                                                    'SI LA DATE DE DEPART EST ARRIVE ON NE FACTURE PAS
+                                                    'If DATE_SORTIE.ToShortDateString = GlobalVariable.DateDeTravail.AddDays(1) Then
+                                                    'factureHebergement = False
+                                                    'Else
+                                                    'CAS DE FIGURE OU ON A N'A PAS ENCORE ATTENDS SON MOIS DE SORTIE DONC ON DOIT FACTURER LE MOIS EN COURS
+                                                    'CAR ON A ATTENDS LE JOURS DE SON ENTREE PAR CONSEQUENT ELIGIBLE A UNE FACTURATION
+                                                    'If Not dayNumberSortie = dayNumberActuel Then
+                                                    'If dayNumberSortie < dayNumberActuel Then
+                                                    'SI LE JOURS DE SORTIE EST < AU JOUR ACTUEL
+                                                    'factureHebergement = False
+                                                    'Else
+
+                                                    'If (dayNumberSortie - dayNumberActuel) > 1 Then
+                                                    'FACTURATION AU TARIF JOURNALIER DE LA MENSUALITE
+                                                    '---
+                                                    'End If
+
+                                                    'End If
+                                                    'End If
+
+                                                    'End If
+
+                                                    'Else
+                                                    'factureHebergement = False
+                                                    'End If
+
+                                                Else
+
+                                                    'SEJOUR NORMAL OU DAY USE
                                                     'ON NE DOIT PAS FACTURER EN ANTICIPATION LES RESERVATIONS QUI SERONT EN DEPART LE JOUR SUIVANT
                                                     If DATE_SORTIE.ToShortDateString = GlobalVariable.DateDeTravail.AddDays(1) Then
                                                         factureHebergement = False
                                                     End If
 
-                                                Else
-
-                                                    'ON DOIT DETERMINER SI LE JOUR ACTUEL CORRESPOND AU JOUR DE SON DEPART
-                                                    Dim dayNumberSortie As Integer = DATE_SORTIE.Day()
-                                                    Dim dayNumberActuel As Integer = GlobalVariable.DateDeTravail.AddDays(1).Day()
-                                                    Dim monthNumberSortie As Integer = Month(DATE_SORTIE)
-                                                    Dim monthNumberAcuel As Integer = Month(GlobalVariable.DateDeTravail.AddDays(1))
-
-                                                    If monthNumberSortie = monthNumberAcuel Then
-                                                        'SI C'EST LE MEME MOIS ON NE FACTURE PAS
-                                                        factureHebergement = False
-                                                    ElseIf monthNumberSortie > monthNumberAcuel Then
-
-                                                        'SI C'EST CA DATE DE DEPART EST ARRIVE ON NE FACTURE PAS
-                                                        If DATE_SORTIE.ToShortDateString = GlobalVariable.DateDeTravail.AddDays(1) Then
-                                                            factureHebergement = False
-                                                        Else
-
-                                                            If Not dayNumberSortie = dayNumberActuel Then
-                                                                factureHebergement = False
-                                                            End If
-                                                        End If
-
-                                                    Else
-                                                        factureHebergement = False
-                                                    End If
-
                                                 End If
+
+                                            Else
+
+
 
                                             End If
 
@@ -1260,8 +1392,12 @@ Partial Class CloturerForm
 
                                             Dim ETAT_MAIN_COURANTE_TO_COPIE As Integer = 0
 
-
                                             If factureHebergement Then
+
+                                                If HEBDO_MENSUEL = 0 Or HEBDO_MENSUEL = 1 Then
+                                                    PRIX_UNITAIRE_TTC = dateFacturable.montant
+                                                    MONTANT_TTC = dateFacturable.montant
+                                                End If
 
                                                 If ligneFacture.insertLigneFacture(CODE_FACTURE, CODE_RESERVATION, CODE_MOUVEMENT, CODE_CHAMBRE, CODE_MODE_PAIEMENT, NUMERO_PIECE, CODE_ARTICLE, CODE_LOT, MONTANT_HT, TAXE, QUANTITE, PRIX_UNITAIRE_TTC, MONTANT_TTC, DATE_FACTURE, HEURE_FACTURE, ETAT_FACTURE, DATE_OCCUPATION, HEURE_OCCUPATION, LIBELLE_FACTURE, TYPE_LIGNE_FACTURE, NUMERO_SERIE, NUMERO_ORDRE, DESCRIPTION, CODE_UTILISATEUR_CREA, CODE_AGENCE, MONTANT_REMISE, MONTANT_TAXE, NUMERO_SERIE_DEBUT, NUMERO_SERIE_FIN, CODE_MAGASIN, FUSIONNEE, TITRE_TYPE) Then
 
@@ -2797,5 +2933,189 @@ Partial Class CloturerForm
     Private Sub BackgroundWorker14_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BackgroundWorker14.RunWorkerCompleted
         fermetureApresCLoture()
     End Sub
+
+    Structure detailFacturation
+        Public facturable As Boolean
+        Public montant As Integer
+    End Structure
+
+    Public Function jourFacturableMensuelHebdo(ByVal HEBDO_MENSUEL As Integer, ByVal DATE_ARRIVEE As Date, ByVal DATE_DEPART As Date,
+                                               ByVal MONTANT_ACCORDE As Double, ByVal DATE_DE_TRAVAIL As Date)
+
+        Dim totalSejour As Double = 0
+
+        Dim dateFacturable As detailFacturation
+
+        Dim numberOfWeeks As Integer = 0
+        Dim numberOfDays As Integer = 0
+        Dim numberOfMonths As Integer = 0
+
+        Dim monthNumberArrivee As Integer = 0
+        Dim monthNumberDepart As Integer = 0
+        Dim dayNumberSortie As Integer = 0
+        Dim dayNumberEntree As Integer = 0
+
+        Dim tempsAFaire As Integer = CType((DATE_DEPART - DATE_ARRIVEE).TotalDays, Int32)
+
+        Dim prix As Double = 0
+        Dim prixJournalier As Double = 0
+
+        If MONTANT_ACCORDE > 0 Then
+
+            prix = MONTANT_ACCORDE
+
+            If HEBDO_MENSUEL = 0 Then
+
+                '2- ON DETERMINE LE NOMBRE DE JOUR APRES EXTRACTION DES SEMAINES POUR ATTEINDRE LA DATE DE DEPART 
+                numberOfDays = tempsAFaire Mod 7
+
+                '1- ON DETERMINE LE NOMBRE DE SEMAINE A FAIRE PAR APPORT AU NOMBRE DE JOUR EXISTANT ENTRE L'ARRIVEE ET DEPART
+                numberOfWeeks = ((tempsAFaire - numberOfDays) / 7)
+
+                prixJournalier = Functions.calculJournalierHebdoMensuel(HEBDO_MENSUEL, prix)
+
+                totalSejour = (numberOfWeeks * prix) + (numberOfDays * prixJournalier)
+
+                For i = 0 To numberOfWeeks - 1
+
+                    DATE_ARRIVEE = DATE_ARRIVEE.AddDays(i * 7).ToShortDateString
+                    If i = (numberOfWeeks - 1) Then
+                        DATE_ARRIVEE = DATE_ARRIVEE.AddDays((i + 1) * 7)
+                    End If
+
+                    If CType((DATE_DE_TRAVAIL - DATE_ARRIVEE).TotalDays, Int32) = 0 Then
+
+                        dateFacturable.montant = prix
+                        dateFacturable.facturable = True
+
+                        Return dateFacturable
+
+                    Else
+
+                        dateFacturable.montant = 0
+                        dateFacturable.facturable = False
+
+                        Return dateFacturable
+
+                    End If
+
+                Next
+
+                For i = 0 To numberOfDays - 1
+
+                    DATE_ARRIVEE = DATE_ARRIVEE.AddDays(i).ToShortDateString
+
+                    If CType((DATE_DE_TRAVAIL - DATE_ARRIVEE).TotalDays, Int32) = 0 Then
+
+                        dateFacturable.montant = prixJournalier
+                        dateFacturable.facturable = True
+
+                        Return dateFacturable
+
+                    Else
+
+                        dateFacturable.montant = 0
+                        dateFacturable.facturable = False
+
+                        Return dateFacturable
+
+                    End If
+
+                Next
+
+            ElseIf HEBDO_MENSUEL = 1 Then
+
+                HEBDO_MENSUEL = 1
+                '1- ON DETERMINE LE NOMBRE DE MOIS A FAIRE PAR APPORT A L'ARRIVEE ET DEPART
+                '1.1- ON DETERMINE LES ECARTS DE MOIS ENTRE L'ARRIVEE ET DEPART
+                monthNumberArrivee = Month(DATE_ARRIVEE)
+                monthNumberDepart = Month(DATE_DEPART)
+
+                dayNumberSortie = DATE_DEPART.Day()
+                dayNumberEntree = DATE_ARRIVEE.Day()
+
+                numberOfMonths = monthNumberDepart - monthNumberArrivee
+                If dayNumberSortie < dayNumberEntree Then
+                    numberOfMonths -= 1
+                End If
+
+                prixJournalier = Functions.calculJournalierHebdoMensuel(HEBDO_MENSUEL, prix)
+
+                If numberOfMonths = 0 Then
+
+                    numberOfDays = tempsAFaire
+                    totalSejour = (numberOfDays * prixJournalier)
+
+                Else
+
+                    For i = 0 To numberOfMonths
+
+                        If i = numberOfMonths Then
+
+                            numberOfDays = dayNumberSortie - dayNumberEntree
+
+                            If dayNumberSortie >= dayNumberEntree Then
+                                numberOfDays = dayNumberSortie - dayNumberEntree
+                            ElseIf dayNumberSortie < dayNumberEntree Then
+                                numberOfDays = Math.Abs(CType((DATE_DEPART - DATE_ARRIVEE.AddMonths(numberOfMonths - 1)).TotalDays, Int32))
+                            End If
+
+                        End If
+                    Next
+
+                End If
+
+                For i = 0 To numberOfMonths - 1
+
+                    DATE_ARRIVEE = DATE_ARRIVEE.AddMonths(i).ToShortDateString
+
+                    If CType((DATE_DE_TRAVAIL - DATE_ARRIVEE).TotalDays, Int32) = 0 Then
+
+                        dateFacturable.montant = prix
+                        dateFacturable.facturable = True
+
+                        Return dateFacturable
+
+                    Else
+
+                        dateFacturable.montant = 0
+                        dateFacturable.facturable = False
+
+                        Return dateFacturable
+
+                    End If
+
+                    If i = (numberOfMonths - 1) Then
+                        DATE_ARRIVEE = DATE_ARRIVEE.AddMonths(i + 1)
+                    End If
+
+                Next
+
+                For i = 0 To numberOfDays - 1
+
+                    DATE_ARRIVEE = DATE_ARRIVEE.AddDays(i).ToShortDateString
+
+                    If CType((DATE_DE_TRAVAIL - DATE_ARRIVEE).TotalDays, Int32) = 0 Then
+
+                        dateFacturable.montant = prixJournalier
+                        dateFacturable.facturable = True
+
+                        Return dateFacturable
+
+                    Else
+
+                        dateFacturable.montant = 0
+                        dateFacturable.facturable = False
+
+                        Return dateFacturable
+
+                    End If
+                Next
+
+            End If
+
+        End If
+
+    End Function
 
 End Class
