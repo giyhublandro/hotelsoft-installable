@@ -1,6 +1,22 @@
 ﻿
 Imports System.Security.Cryptography
 Imports System.Text
+Imports System.Data.Odbc
+Imports System.IO
+Imports System.Runtime.InteropServices
+
+'--------------------------------
+Imports System
+Imports System.Web
+
+Imports System.Configuration
+'Imports System.Windows.Forms.DataVisualization.Charting
+Imports System.Net
+
+Imports System.ComponentModel
+
+Imports System.Net.NetworkInformation
+
 
 Public Class Form1
 
@@ -475,6 +491,69 @@ Public Class Form1
         Else
             GunaDateTimePicker1.Enabled = False
         End If
+
+    End Sub
+
+    Private Sub CheckBoxCredentials_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBoxCredentials.CheckedChanged
+
+        If CheckBoxCredentials.Checked Then
+            GunaShadowPanel2.Visible = True
+        Else
+            GunaShadowPanel2.Visible = False
+        End If
+
+    End Sub
+
+    Private Sub GunaButton5_Click(sender As Object, e As EventArgs) Handles GunaButton5.Click
+        inventaireJournalierTextFile()
+    End Sub
+
+
+    Public Sub inventaireJournalierTextFile()
+
+        Dim nomDuFichier As String = "credential.txt"
+        Dim filePathAndDirectory As String = "C://"
+        Dim filepathPlusFile As String = filePathAndDirectory & "\" & nomDuFichier
+
+        If Not Directory.Exists(filePathAndDirectory) Then
+
+            My.Computer.FileSystem.CreateDirectory(filePathAndDirectory)
+
+            If Not System.IO.File.Exists(filepathPlusFile) Then
+                System.IO.File.Create(filepathPlusFile).Dispose()
+            End If
+
+        End If
+
+        Dim swriter As StreamWriter
+        swriter = File.AppendText(filepathPlusFile)
+
+        Dim liste_adresse_ip As String = ""
+        Dim adresse_ip As String = ""
+
+        Dim startoctet As Integer = Trim(GunaTextBox13.Text)
+        Dim endoctet As Integer = 255
+
+        For octet = startoctet To endoctet
+
+            adresse_ip = GunaTextBox10.Text & "." & GunaTextBox11.Text & "." & GunaTextBox12.Text & "." & octet
+
+            If octet = startoctet Then
+                liste_adresse_ip = adresse_ip
+            Else
+                liste_adresse_ip = liste_adresse_ip & "," & adresse_ip
+            End If
+
+        Next
+
+        swriter.WriteLine(liste_adresse_ip)
+
+        Dim mo_de_passe As String = Trim(GunaTextBoxPassword.Text)
+
+        swriter.WriteLine(mo_de_passe)
+
+        swriter.Flush()
+        swriter.Close()
 
     End Sub
 
