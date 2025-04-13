@@ -21,6 +21,10 @@ Public Class UserForm
 
         profilList()
 
+        profilListProfilMultiple()
+
+        userListProfilMultiple()
+
         LoadingAgenceAndUserTypeFromDataBase()
 
     End Sub
@@ -157,6 +161,7 @@ Public Class UserForm
             GunaComboBoxProfilUtilisateur.SelectedIndex = -1
         End If
 
+        GunaTextBoxTel.Clear()
         GunaTextBoxMotDePasseUtilisateur.Text = ""
         DateTimePickerDebutAccesUtilisateur.Value = Now()
         DateTimePickerFinAccesUtilisateur.Value = Now()
@@ -286,6 +291,21 @@ Public Class UserForm
         GunaCheckBox13.Checked = False
         GunaCheckBox14.Checked = False
 
+        GunaCheckBoxCaisseEnregistreuse.Checked = False
+        GunaCheckBoxFastFood.Checked = False
+        GunaCheckBoxServeur.Checked = False
+
+        GunaCheckBoxBarFastFood.Checked = False
+        GunaCheckBoxRestaurantFastFood.Checked = False
+
+        GunaCheckBoxMarketing.Checked = False
+        GunaCheckBoxMarkCardex.Checked = False
+        GunaCheckBoxMarkRapports.Checked = False
+        GunaCheckBoxMarkMessage.Checked = False
+        GunaCheckBoxMarkElite.Checked = False
+        GunaCheckBoxMarkDash.Checked = False
+        GunaCheckBoxMarkPlannification.Checked = False
+
         DASHBOARD = 0
         PLANNING = 0
         ARRIVEES = 0
@@ -372,6 +392,19 @@ Public Class UserForm
         MENU_CUISINE = 0
         IMPRIMER_FB = 0
         GRATUITEE_HEBERGEMENT = 0
+        CAISSE_ENREGISTREUSE = 0
+        FAST_FOOD = 0
+        BAR_FAST_FOOD = 0
+        RESTAURANT_FAST_FOOD = 0
+        SERVEUR = 0
+
+        MENU_MARKETING = 0
+        MARK_CARDEX = 0
+        MARK_RAPPORT = 0
+        MARK_DASH = 0
+        MARK_MESSAGERIE = 0
+        MARK_PLANNIFICATION = 0
+        MARK_CLUB_ELITE = 0
 
     End Sub
 
@@ -419,6 +452,7 @@ Public Class UserForm
         Dim PEUT_MODIFIER_TAXE_SEJOUR As String = " "
         Dim LANGUE_PAR_DEFAUT As String = " "
         Dim NUM_AGENCE As String = GunaComboBoxAgenceTravailUtilisateur.SelectedValue.ToString
+        Dim TELEPHONE As String = Trim(GunaTextBoxTel.Text)
 
         Dim user As New User()
         Dim access As New AccessRight()
@@ -435,7 +469,7 @@ Public Class UserForm
 
                 If (System.String.Compare(GunaTextBoxMotDePasseUtilisateur.Text, GunaTextBoxConfimerMotDePasseUtilisateur.Text) = 0) Then
 
-                    If user.updateUser(CODE_UTILISATEUR, NOM_UTILISATEUR, GRIFFE_UTILISATEUR, CATEG_UTILISATEUR, AGENCE_TRAV_NUMBER, AGENCE_CREATE_NUMBER, PASSWORD_UTILISATEUR, DEBUT_ACCES, FIN_ACCES, NOM_CONNEXION, DATE_CHANGE_PWD, DATE_CREATION, DATE_EXPIRATION, DATE_DERNIERE_MAJ, POSTE_UTILISATEUR, CODE_UTILISATEUR_MAJ, ETAT_UTILISATEUR, CODE_UTILISATEUR_CREA, PEUT_FAIRE_REMISE, PRIX_VENTE_MODIFIABLE, PEUT_FAIRE_DEDUCTION_CLIENT, PEUT_ANNULER_COMMANDE, PEUT_CLOTURER_MAIN_COURANTE, CONNEXION_DISTANTE, PEUT_ATTRIBUER_GRATUITE, PEUT_MODIFIER_TAXE_SEJOUR, LANGUE_PAR_DEFAUT, NUM_AGENCE, OLD_CODE_UTILISATEUR) Then
+                    If user.updateUser(CODE_UTILISATEUR, NOM_UTILISATEUR, GRIFFE_UTILISATEUR, CATEG_UTILISATEUR, AGENCE_TRAV_NUMBER, AGENCE_CREATE_NUMBER, PASSWORD_UTILISATEUR, DEBUT_ACCES, FIN_ACCES, NOM_CONNEXION, DATE_CHANGE_PWD, DATE_CREATION, DATE_EXPIRATION, DATE_DERNIERE_MAJ, POSTE_UTILISATEUR, CODE_UTILISATEUR_MAJ, ETAT_UTILISATEUR, CODE_UTILISATEUR_CREA, PEUT_FAIRE_REMISE, PRIX_VENTE_MODIFIABLE, PEUT_FAIRE_DEDUCTION_CLIENT, PEUT_ANNULER_COMMANDE, PEUT_CLOTURER_MAIN_COURANTE, CONNEXION_DISTANTE, PEUT_ATTRIBUER_GRATUITE, PEUT_MODIFIER_TAXE_SEJOUR, LANGUE_PAR_DEFAUT, NUM_AGENCE, OLD_CODE_UTILISATEUR, TELEPHONE) Then
 
                         Dim CODE_PROFIL As String = CATEG_UTILISATEUR
 
@@ -490,7 +524,7 @@ Public Class UserForm
                     If (System.String.Compare(GunaTextBoxMotDePasseUtilisateur.Text, GunaTextBoxConfimerMotDePasseUtilisateur.Text) = 0) Then
                         'add the new user
 
-                        If user.insertUser(CODE_UTILISATEUR, NOM_UTILISATEUR, GRIFFE_UTILISATEUR, CATEG_UTILISATEUR, AGENCE_TRAV_NUMBER, AGENCE_CREATE_NUMBER, PASSWORD_UTILISATEUR, DEBUT_ACCES, FIN_ACCES, NOM_CONNEXION, DATE_CHANGE_PWD, DATE_CREATION, DATE_EXPIRATION, DATE_DERNIERE_MAJ, POSTE_UTILISATEUR, CODE_UTILISATEUR_MAJ, ETAT_UTILISATEUR, CODE_UTILISATEUR_CREA, PEUT_FAIRE_REMISE, PRIX_VENTE_MODIFIABLE, PEUT_FAIRE_DEDUCTION_CLIENT, PEUT_ANNULER_COMMANDE, PEUT_CLOTURER_MAIN_COURANTE, CONNEXION_DISTANTE, PEUT_ATTRIBUER_GRATUITE, PEUT_MODIFIER_TAXE_SEJOUR, LANGUE_PAR_DEFAUT, NUM_AGENCE) Then
+                        If user.insertUser(CODE_UTILISATEUR, NOM_UTILISATEUR, GRIFFE_UTILISATEUR, CATEG_UTILISATEUR, AGENCE_TRAV_NUMBER, AGENCE_CREATE_NUMBER, PASSWORD_UTILISATEUR, DEBUT_ACCES, FIN_ACCES, NOM_CONNEXION, DATE_CHANGE_PWD, DATE_CREATION, DATE_EXPIRATION, DATE_DERNIERE_MAJ, POSTE_UTILISATEUR, CODE_UTILISATEUR_MAJ, ETAT_UTILISATEUR, CODE_UTILISATEUR_CREA, PEUT_FAIRE_REMISE, PRIX_VENTE_MODIFIABLE, PEUT_FAIRE_DEDUCTION_CLIENT, PEUT_ANNULER_COMMANDE, PEUT_CLOTURER_MAIN_COURANTE, CONNEXION_DISTANTE, PEUT_ATTRIBUER_GRATUITE, PEUT_MODIFIER_TAXE_SEJOUR, LANGUE_PAR_DEFAUT, NUM_AGENCE, TELEPHONE) Then
 
                             Dim CODE_PROFIL As String = CATEG_UTILISATEUR
 
@@ -518,6 +552,10 @@ Public Class UserForm
                             userList()
 
                             profilList()
+
+                            profilListProfilMultiple()
+
+                            userListProfilMultiple()
 
                             emtyFieldsAfterSaving()
 
@@ -610,6 +648,7 @@ Public Class UserForm
         DateTimePickerDebutAccesUtilisateur.Value = userToUpdate.Rows(0)("DEBUT_ACCES")
         DateTimePickerFinAccesUtilisateur.Value = userToUpdate.Rows(0)("FIN_ACCES")
         GunaComboBoxAgenceTravailUtilisateur.SelectedValue = userToUpdate.Rows(0)("NUM_AGENCE")
+        GunaTextBoxTel.Text = userToUpdate.Rows(0)("TELEPHONE")
         GunaTextBoxConfimerMotDePasseUtilisateur.Text = GunaTextBoxMotDePasseUtilisateur.Text
 
         'We can't change the column below uppon editing
@@ -759,6 +798,23 @@ Public Class UserForm
     Dim LISTE_FT_CUI As Integer = 0
     Dim RAPPORTS_CUI As Integer = 0
     Dim MENU_CUISINE As Integer = 0
+
+    '----------------------AUTRES FONCTIONALITES
+
+    Dim SERVEUR As Integer = 0
+    Dim FAST_FOOD As Integer = 0
+    Dim CAISSE_ENREGISTREUSE As Integer = 0
+    Dim BAR_FAST_FOOD As Integer = 0
+    Dim RESTAURANT_FAST_FOOD As Integer = 0
+
+    '-------------------MARKETING----------------
+    Dim MENU_MARKETING As Integer = 0
+    Dim MARK_CARDEX As Integer = 0
+    Dim MARK_RAPPORT As Integer = 0
+    Dim MARK_DASH As Integer = 0
+    Dim MARK_MESSAGERIE As Integer = 0
+    Dim MARK_PLANNIFICATION As Integer = 0
+    Dim MARK_CLUB_ELITE As Integer = 0
 
     'RECEPTION ACCESS
     Private Sub GunaCheckBoxReception_Click(sender As Object, e As EventArgs) Handles GunaCheckBoxReception.Click
@@ -1243,11 +1299,19 @@ Public Class UserForm
         Dim OLD_CODE_PROFIL As String = GunaTextBoxOldCodeProfil.Text
         Dim NOM_PROFIL As String = GunaTextBoxNomProfil.Text
 
-        '2KLG
-
         If GunaButtonEnregistrerProfil.Text = "Sauvegarder" Or GunaButtonEnregistrerProfil.Text = "Update" Then
 
-            If access.UpdateAccessRight(CODE_PROFIL, NOM_PROFIL, DASHBOARD, PLANNING, ARRIVEES, EN_CHAMBRES, DEPARTS, ATTRIBUER_CHAMBRE, MESSAGES, FACTURATION, CLOTURE, RAPPORT_RECEPTION, CARDEX, NOUVELLE_RESERVATION, MODIFIER_RESERVATION, FICHE_DE_POLICE, DISPONIBILITE_ET_TARIFS, PLAN_DE_CHAMBRE, RAPPORT_RESERVATION, STATUTS_DES_CHAMBRES, HISTORIQUES_DES_CHAMBRES, HORS_SERVICES, OBJETS_TROUVES_PERDUS, RAPPORT_SERVICE_ETAGE, CLIENT_EN_CHAMBRE_FACTURATION, PAYMASTER_FACTURATION, AU_COMPTANT_FACTURATION, RAPPORT_BAR_RESTAURANT, GESTION_DES_COMPTES, LISTE_DES_COMPTES, RECHARGE, CAUTIONS, RAPPORT_COMPTABILITE, MOUVEMENT, INVENTAIRE, FICHE_DE_PRODUIT, FOURNISSEURS, RAPPORT_ECONOMAT, PETITE_CAISSE, GRANDE_CAISSE, PETIT_MAGAZIN, GRAND_MAGAZIN, SESSION_ADMIN, CONFIGURATION, SERVICE_TECHNIQUE, SECURITE, MENU_RECEPTION, MENU_RESERVATION, MENU_ADMINISTRATEUR, MENU_SERVICE_ETAGE, MENU_BAR_RESTAURANT, MENU_COMPTABILITE, MENU_ECONOMAT, CODE_UTILISATEUR, MENU_TECHNIQUE, Panne, SOUS_PANNE, DEMANDE_INTERVENTION, INTERVENTION, RAPPORT_TECHNIQUE, RAPPORT_PROMOTEUR, RECHERCHER_RESA, NETTOYAGE, DEBUT_NETTOYAGE, FIN_NETTOYAGE, CONTROLLER_NETTOYAGE, ETAT_CHAMBRE, BON_COMMANDE, FICHE_TECHNIQUE, LISTE_DES_BONS, BON_RECEPTION, VALIDER, CONTROLER, COMMANDER, MAGASINS, VERIFICATION, CAISSE_PRINCIPALE_LECTURE, CAISSE_PRINCIPALE_ECRITURE, FACTURES_AGEES, FACTURES_COMPTABILITE, CAISSE_PRINCIPALE, LETTRE_RELANCE, GESTION_BLOC_NOTES, APPROVISIONNEMENT, CORRECTIONS, FISCALITE, MENU_CUISINE, IMPRIMER_FB, GRATUITEE_HEBERGEMENT, OLD_CODE_PROFIL) Then
+            If access.UpdateAccessRight(CODE_PROFIL, NOM_PROFIL, DASHBOARD, PLANNING, ARRIVEES, EN_CHAMBRES, DEPARTS, ATTRIBUER_CHAMBRE, MESSAGES, FACTURATION, CLOTURE, RAPPORT_RECEPTION, CARDEX,
+                                        NOUVELLE_RESERVATION, MODIFIER_RESERVATION, FICHE_DE_POLICE, DISPONIBILITE_ET_TARIFS, PLAN_DE_CHAMBRE, RAPPORT_RESERVATION, STATUTS_DES_CHAMBRES,
+                                        HISTORIQUES_DES_CHAMBRES, HORS_SERVICES, OBJETS_TROUVES_PERDUS, RAPPORT_SERVICE_ETAGE, CLIENT_EN_CHAMBRE_FACTURATION, PAYMASTER_FACTURATION, AU_COMPTANT_FACTURATION,
+                                        RAPPORT_BAR_RESTAURANT, GESTION_DES_COMPTES, LISTE_DES_COMPTES, RECHARGE, CAUTIONS, RAPPORT_COMPTABILITE, MOUVEMENT, INVENTAIRE, FICHE_DE_PRODUIT, FOURNISSEURS,
+                                        RAPPORT_ECONOMAT, PETITE_CAISSE, GRANDE_CAISSE, PETIT_MAGAZIN, GRAND_MAGAZIN, SESSION_ADMIN, CONFIGURATION, SERVICE_TECHNIQUE, SECURITE, MENU_RECEPTION,
+                                        MENU_RESERVATION, MENU_ADMINISTRATEUR, MENU_SERVICE_ETAGE, MENU_BAR_RESTAURANT, MENU_COMPTABILITE, MENU_ECONOMAT, CODE_UTILISATEUR, MENU_TECHNIQUE, Panne,
+                                        SOUS_PANNE, DEMANDE_INTERVENTION, INTERVENTION, RAPPORT_TECHNIQUE, RAPPORT_PROMOTEUR, RECHERCHER_RESA, NETTOYAGE, DEBUT_NETTOYAGE, FIN_NETTOYAGE, CONTROLLER_NETTOYAGE,
+                                        ETAT_CHAMBRE, BON_COMMANDE, FICHE_TECHNIQUE, LISTE_DES_BONS, BON_RECEPTION, VALIDER, CONTROLER, COMMANDER, MAGASINS, VERIFICATION, CAISSE_PRINCIPALE_LECTURE,
+                                        CAISSE_PRINCIPALE_ECRITURE, FACTURES_AGEES, FACTURES_COMPTABILITE, CAISSE_PRINCIPALE, LETTRE_RELANCE, GESTION_BLOC_NOTES, APPROVISIONNEMENT, CORRECTIONS, FISCALITE,
+                                        MENU_CUISINE, IMPRIMER_FB, GRATUITEE_HEBERGEMENT, CAISSE_ENREGISTREUSE, FAST_FOOD, SERVEUR, BAR_FAST_FOOD, RESTAURANT_FAST_FOOD, OLD_CODE_PROFIL,
+                                        MENU_MARKETING, MARK_CARDEX, MARK_RAPPORT, MARK_DASH, MARK_MESSAGERIE, MARK_PLANNIFICATION, MARK_CLUB_ELITE) Then
 
                 'ON APPLIQUE LE CHANGEMENT DU CODE DE PROFIL DANSN UTILISATEUR ACCES
                 access.updateUserAccessProfil_2(CODE_PROFIL, OLD_CODE_PROFIL)
@@ -1276,6 +1340,8 @@ Public Class UserForm
 
                 profilList()
 
+                profilListProfilMultiple()
+
                 emtyFieldsAfterSaving()
 
                 GunaTextBoxOldCodeProfil.Clear()
@@ -1293,7 +1359,18 @@ Public Class UserForm
 
         Else
 
-            If access.InsertAccessRight(CODE_PROFIL, NOM_PROFIL, DASHBOARD, PLANNING, ARRIVEES, EN_CHAMBRES, DEPARTS, ATTRIBUER_CHAMBRE, MESSAGES, FACTURATION, CLOTURE, RAPPORT_RECEPTION, CARDEX, NOUVELLE_RESERVATION, MODIFIER_RESERVATION, FICHE_DE_POLICE, DISPONIBILITE_ET_TARIFS, PLAN_DE_CHAMBRE, RAPPORT_RESERVATION, STATUTS_DES_CHAMBRES, HISTORIQUES_DES_CHAMBRES, HORS_SERVICES, OBJETS_TROUVES_PERDUS, RAPPORT_SERVICE_ETAGE, CLIENT_EN_CHAMBRE_FACTURATION, PAYMASTER_FACTURATION, AU_COMPTANT_FACTURATION, RAPPORT_BAR_RESTAURANT, GESTION_DES_COMPTES, LISTE_DES_COMPTES, RECHARGE, CAUTIONS, RAPPORT_COMPTABILITE, MOUVEMENT, INVENTAIRE, FICHE_DE_PRODUIT, FOURNISSEURS, RAPPORT_ECONOMAT, PETITE_CAISSE, GRANDE_CAISSE, PETIT_MAGAZIN, GRAND_MAGAZIN, SESSION_ADMIN, CONFIGURATION, SERVICE_TECHNIQUE, SECURITE, MENU_RECEPTION, MENU_RESERVATION, MENU_ADMINISTRATEUR, MENU_SERVICE_ETAGE, MENU_BAR_RESTAURANT, MENU_COMPTABILITE, MENU_ECONOMAT, CODE_UTILISATEUR, MENU_TECHNIQUE, Panne, SOUS_PANNE, DEMANDE_INTERVENTION, INTERVENTION, RAPPORT_TECHNIQUE, RAPPORT_PROMOTEUR, RECHERCHER_RESA, NETTOYAGE, DEBUT_NETTOYAGE, FIN_NETTOYAGE, CONTROLLER_NETTOYAGE, ETAT_CHAMBRE, BON_COMMANDE, FICHE_TECHNIQUE, LISTE_DES_BONS, BON_RECEPTION, VALIDER, CONTROLER, COMMANDER, MAGASINS, VERIFICATION, CAISSE_PRINCIPALE_LECTURE, CAISSE_PRINCIPALE_ECRITURE, FACTURES_AGEES, FACTURES_COMPTABILITE, CAISSE_PRINCIPALE, LETTRE_RELANCE, GESTION_BLOC_NOTES, APPROVISIONNEMENT, CORRECTIONS, FISCALITE, MENU_CUISINE, IMPRIMER_FB, GRATUITEE_HEBERGEMENT) Then
+            If access.InsertAccessRight(CODE_PROFIL, NOM_PROFIL, DASHBOARD, PLANNING, ARRIVEES, EN_CHAMBRES, DEPARTS, ATTRIBUER_CHAMBRE, MESSAGES, FACTURATION, CLOTURE, RAPPORT_RECEPTION, CARDEX,
+                                        NOUVELLE_RESERVATION, MODIFIER_RESERVATION, FICHE_DE_POLICE, DISPONIBILITE_ET_TARIFS, PLAN_DE_CHAMBRE, RAPPORT_RESERVATION, STATUTS_DES_CHAMBRES,
+                                        HISTORIQUES_DES_CHAMBRES, HORS_SERVICES, OBJETS_TROUVES_PERDUS, RAPPORT_SERVICE_ETAGE, CLIENT_EN_CHAMBRE_FACTURATION, PAYMASTER_FACTURATION, AU_COMPTANT_FACTURATION,
+                                        RAPPORT_BAR_RESTAURANT, GESTION_DES_COMPTES, LISTE_DES_COMPTES, RECHARGE, CAUTIONS, RAPPORT_COMPTABILITE, MOUVEMENT, INVENTAIRE, FICHE_DE_PRODUIT, FOURNISSEURS,
+                                        RAPPORT_ECONOMAT, PETITE_CAISSE, GRANDE_CAISSE, PETIT_MAGAZIN, GRAND_MAGAZIN, SESSION_ADMIN, CONFIGURATION, SERVICE_TECHNIQUE, SECURITE, MENU_RECEPTION,
+                                        MENU_RESERVATION, MENU_ADMINISTRATEUR, MENU_SERVICE_ETAGE, MENU_BAR_RESTAURANT, MENU_COMPTABILITE, MENU_ECONOMAT, CODE_UTILISATEUR, MENU_TECHNIQUE, Panne, SOUS_PANNE,
+                                        DEMANDE_INTERVENTION, INTERVENTION, RAPPORT_TECHNIQUE, RAPPORT_PROMOTEUR, RECHERCHER_RESA, NETTOYAGE, DEBUT_NETTOYAGE, FIN_NETTOYAGE, CONTROLLER_NETTOYAGE,
+                                        ETAT_CHAMBRE, BON_COMMANDE, FICHE_TECHNIQUE, LISTE_DES_BONS, BON_RECEPTION, VALIDER, CONTROLER, COMMANDER, MAGASINS, VERIFICATION, CAISSE_PRINCIPALE_LECTURE,
+                                        CAISSE_PRINCIPALE_ECRITURE, FACTURES_AGEES, FACTURES_COMPTABILITE, CAISSE_PRINCIPALE, LETTRE_RELANCE, GESTION_BLOC_NOTES, APPROVISIONNEMENT, CORRECTIONS, FISCALITE,
+                                        MENU_CUISINE, IMPRIMER_FB, GRATUITEE_HEBERGEMENT, CAISSE_ENREGISTREUSE, FAST_FOOD, SERVEUR, BAR_FAST_FOOD, RESTAURANT_FAST_FOOD,
+                                        MENU_MARKETING, MARK_CARDEX, MARK_RAPPORT, MARK_DASH, MARK_MESSAGERIE, MARK_PLANNIFICATION, MARK_CLUB_ELITE) Then
+
                 If GlobalVariable.actualLanguageValue = 0 Then
                     languageMessage = "New profile successfully created"
                     languageTitle = "Profile creation"
@@ -1311,6 +1388,8 @@ Public Class UserForm
                 userList()
 
                 profilList()
+
+                profilListProfilMultiple()
 
                 emtyFieldsAfterSaving()
 
@@ -1393,6 +1472,8 @@ Public Class UserForm
     Private Sub GunaDataGridViewProfil_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GunaDataGridViewProfil.CellDoubleClick
 
         If e.RowIndex >= 0 Then
+
+            unCheckAccessRight()
 
             Dim row As DataGridViewRow
 
@@ -1890,6 +1971,43 @@ Public Class UserForm
                     'MENU_TECHNIQUE = 1
                 End If
 
+
+                '9- MARKETING
+                If Integer.Parse(profil.Rows(0)("MARK_CARDEX")) = 1 Then
+                    GunaCheckBoxMarketing.Checked = True
+                    GunaCheckBoxMarkCardex.Checked = True
+                    MARK_CARDEX = 1
+                End If
+
+                If Integer.Parse(profil.Rows(0)("MARK_RAPPORT")) = 1 Then
+                    GunaCheckBoxMarketing.Checked = True
+                    GunaCheckBoxMarkRapports.Checked = True
+                    MARK_RAPPORT = 1
+                End If
+
+                If Integer.Parse(profil.Rows(0)("MARK_DASH")) = 1 Then
+                    GunaCheckBoxMarketing.Checked = True
+                    GunaCheckBoxMarkDash.Checked = True
+                    MARK_DASH = 1
+                End If
+
+                If Integer.Parse(profil.Rows(0)("MARK_MESSAGERIE")) = 1 Then
+                    GunaCheckBoxMarketing.Checked = True
+                    GunaCheckBoxMarkMessage.Checked = True
+                    MARK_MESSAGERIE = 1
+                End If
+
+                If Integer.Parse(profil.Rows(0)("MARK_PLANNIFICATION")) = 1 Then
+                    GunaCheckBoxMarketing.Checked = True
+                    GunaCheckBoxMarkPlannification.Checked = True
+                    MARK_PLANNIFICATION = 1
+                End If
+
+                If Integer.Parse(profil.Rows(0)("MARK_CLUB_ELITE")) = 1 Then
+                    GunaCheckBoxMarketing.Checked = True
+                    GunaCheckBoxMarkElite.Checked = True
+                    MARK_CLUB_ELITE = 1
+                End If
                 'ADMINISTRATION
 
 
@@ -1934,6 +2052,11 @@ Public Class UserForm
                     MENU_CUISINE = 1
                 End If
 
+                If Integer.Parse(profil.Rows(0)("MENU_MARKETING")) = 1 Then
+                    GunaCheckBoxMarketing.Checked = True
+                    MENU_MARKETING = 1
+                End If
+
                 'ADMINISTRATION
 
                 If Integer.Parse(profil.Rows(0)("SESSION_ADMIN")) = 1 Then
@@ -1974,6 +2097,34 @@ Public Class UserForm
                     CORRECTIONS = 1
                 End If
 
+                'MULTI POS FONCTIONNALITES
+
+                If Integer.Parse(profil.Rows(0)("CAISSE_ENREGISTREUSE")) = 1 Then
+                    GunaCheckBoxCaisseEnregistreuse.Checked = True
+                    CAISSE_ENREGISTREUSE = 1
+                End If
+
+                If Integer.Parse(profil.Rows(0)("FAST_FOOD")) = 1 Then
+                    GunaCheckBoxFastFood.Checked = True
+                    FAST_FOOD = 1
+                End If
+
+                If Integer.Parse(profil.Rows(0)("SERVEUR")) = 1 Then
+                    GunaCheckBoxServeur.Checked = True
+                    SERVEUR = 1
+                End If
+
+
+                If Integer.Parse(profil.Rows(0)("BAR_FAST_FOOD")) = 1 Then
+                    GunaCheckBoxBarFastFood.Checked = True
+                    BAR_FAST_FOOD = 1
+                End If
+
+                If Integer.Parse(profil.Rows(0)("RESTAURANT_FAST_FOOD")) = 1 Then
+                    GunaCheckBoxRestaurantFastFood.Checked = True
+                    RESTAURANT_FAST_FOOD = 1
+                End If
+
                 TabControlUtilisateurProfil.SelectedIndex = 1
 
             End If
@@ -1986,13 +2137,11 @@ Public Class UserForm
 
         If Not TabControlUtilisateurProfil.SelectedIndex = 1 Then
 
-            GunaTextBoxCodeProfil.Clear()
-            GunaTextBoxNomProfil.Clear()
-            emtyFieldsAfterSaving()
+            'GunaTextBoxCodeProfil.Clear()
+            'GunaTextBoxNomProfil.Clear()
+            'emtyFieldsAfterSaving()
 
-            unCheckAccessRight()
-
-        Else
+            'unCheckAccessRight()
 
         End If
 
@@ -2018,9 +2167,7 @@ Public Class UserForm
             End If
             dialog = MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
-            If dialog = DialogResult.No Then
-                'e.Cancel = True
-            Else
+            If dialog = DialogResult.Yes Then
 
                 If GlobalVariable.actualLanguageValue = 0 Then
                     Functions.DeleteRowFromDataGridGeneral(GunaDataGridViewProfil, GunaDataGridViewProfil.CurrentRow.Cells("PROFILE CODE").Value.ToString, "utilisateur_acces", "CODE_PROFIL")
@@ -2035,6 +2182,9 @@ Public Class UserForm
                 userList()
 
                 profilList()
+
+                profilListProfilMultiple()
+
                 If GlobalVariable.actualLanguageValue = 0 Then
                     languageMessage = "Profile successfully deleted"
                     languageTitle = "Delete"
@@ -2868,7 +3018,7 @@ Public Class UserForm
         End If
     End Sub
 
-    Private Sub GunaCheckBox36_Click(sender As Object, e As EventArgs) Handles GunaCheckBox36.Click, GunaCheckBoxFiscalite.Click
+    Private Sub GunaCheckBox36_Click(sender As Object, e As EventArgs) Handles GunaCheckBoxFiscalite.Click, GunaCheckBox36.Click
         If GunaCheckBox36.Checked Then
             RAPPORT_COMPTABILITE = 1
             GunaCheckBoxCompatbilite.Checked = True
@@ -3036,4 +3186,321 @@ Public Class UserForm
             RAPPORTS_CUI = 0
         End If
     End Sub
+
+    Private Sub GunaCheckBoxCaisseEnregistreuse_Click(sender As Object, e As EventArgs) Handles GunaCheckBoxCaisseEnregistreuse.Click
+        If GunaCheckBoxCaisseEnregistreuse.Checked Then
+            CAISSE_ENREGISTREUSE = 1
+        Else
+            CAISSE_ENREGISTREUSE = 0
+        End If
+    End Sub
+
+    Private Sub GunaCheckBoxFastFood_Click(sender As Object, e As EventArgs) Handles GunaCheckBoxFastFood.Click
+        If GunaCheckBoxFastFood.Checked Then
+            FAST_FOOD = 1
+        Else
+            FAST_FOOD = 0
+        End If
+    End Sub
+
+    Private Sub GunaCheckBoxServeur_Click(sender As Object, e As EventArgs) Handles GunaCheckBoxServeur.Click
+        If GunaCheckBoxServeur.Checked Then
+            SERVEUR = 1
+        Else
+            SERVEUR = 0
+        End If
+    End Sub
+
+    Private Sub GunaCheckBoxBarFastFood_Click(sender As Object, e As EventArgs) Handles GunaCheckBoxBarFastFood.Click
+        If GunaCheckBoxBarFastFood.Checked Then
+            BAR_FAST_FOOD = 1
+        Else
+            BAR_FAST_FOOD = 0
+        End If
+    End Sub
+
+    Private Sub GunaCheckBoxRestaurantFastFood_Click(sender As Object, e As EventArgs) Handles GunaCheckBoxRestaurantFastFood.Click
+        If GunaCheckBoxRestaurantFastFood.Checked Then
+            RESTAURANT_FAST_FOOD = 1
+        Else
+            RESTAURANT_FAST_FOOD = 0
+        End If
+    End Sub
+
+    Public Sub profilListProfilMultiple()
+
+        Dim profils As String = "SELECT CODE_PROFIL, NOM_PROFIL FROM utilisateur_acces ORDER BY NOM_PROFIL ASC"
+        Dim commandprofilsList As New MySqlCommand(profils, GlobalVariable.connect)
+
+        Dim adapterprofilsList As New MySqlDataAdapter(commandprofilsList)
+        Dim tableprofilsList As New DataTable()
+        adapterprofilsList.Fill(tableprofilsList)
+
+        GunaComboBoxProfilsUtilisateurMultiple.DataSource = Nothing
+
+        If tableprofilsList.Rows.Count > 0 Then
+
+            GunaComboBoxProfilsUtilisateurMultiple.DataSource = tableprofilsList
+            GunaComboBoxProfilsUtilisateurMultiple.ValueMember = "CODE_PROFIL"
+            GunaComboBoxProfilsUtilisateurMultiple.DisplayMember = "NOM_PROFIL"
+
+        End If
+
+    End Sub
+
+    Private Sub userListProfilMultiple()
+
+        Dim users As String = "SELECT CODE_UTILISATEUR, NOM_UTILISATEUR FROM utilisateurs ORDER BY NOM_UTILISATEUR ASC"
+        Dim commanduserList As New MySqlCommand(users, GlobalVariable.connect)
+
+        Dim adapteruserList As New MySqlDataAdapter(commanduserList)
+        Dim tableuserList As New DataTable()
+        adapteruserList.Fill(tableuserList)
+
+        GunaComboBoxUtilisateurMultiple.DataSource = Nothing
+
+        If (tableuserList.Rows.Count > 0) Then
+
+            GunaComboBoxUtilisateurMultiple.DataSource = tableuserList
+            GunaComboBoxUtilisateurMultiple.ValueMember = "CODE_UTILISATEUR"
+            GunaComboBoxUtilisateurMultiple.DisplayMember = "NOM_UTILISATEUR"
+
+        End If
+
+    End Sub
+
+    Private Sub GunaButtonAjouter_Click(sender As Object, e As EventArgs) Handles GunaButtonAjouter.Click
+
+        Dim CODE_UTILISATEUR As String = GunaComboBoxUtilisateurMultiple.SelectedValue.ToString
+        Dim CODE_PROFIL As String = GunaComboBoxProfilsUtilisateurMultiple.SelectedValue.ToString
+
+        'Dim infoSup As DataTable = Functions.GetAllElementsOnTwoConditions(CODE_UTILISATEUR, "utilisateurs", "CODE_UTILISATEUR", CODE_PROFIL, "CATEG_UTILISATEUR")
+        Dim infoSup As DataTable = Functions.GetAllElementsOnTwoConditions(CODE_UTILISATEUR, "utilisateur_acces_profil", "CODE_UTILISATEUR", CODE_PROFIL, "CODE_PROFIL")
+
+        If infoSup.Rows.Count >= 1 Then
+
+            If GlobalVariable.actualLanguageValue = 0 Then
+                languageMessage = "Impossible to add, profil already assigned"
+                languageTitle = "Multiple Profil"
+            ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                languageMessage = "Impossible d'ajouter; profil déjà assigné"
+                languageTitle = "Proifl Multiple"
+            End If
+
+            MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+
+        Else
+
+            Dim infoUser As DataTable = Functions.getElementByCode(CODE_UTILISATEUR, "utilisateurs", "CODE_UTILISATEUR")
+
+            If infoUser.Rows.Count > 0 Then
+
+                Dim user As New User()
+                Dim access As New AccessRight()
+
+                access.InsertUserAccessProfil(CODE_PROFIL, CODE_UTILISATEUR)
+
+                '1-Insertion du nouveau profil
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    languageMessage = "New profil successfully added "
+                    languageTitle = "Users Management"
+                ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                    languageMessage = "Nouveau Profil ajouté avec succès"
+                    languageTitle = "Gestion des utilisateurs " & CODE_PROFIL & "  " & CODE_UTILISATEUR
+                End If
+
+                MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                listeDesProfils(CODE_UTILISATEUR)
+
+            End If
+
+        End If
+
+    End Sub
+
+    Public Sub listeDesProfils(ByVal CODE_UTILISATEUR As String)
+
+        Dim user As New User()
+        Dim users As DataTable = user.userProfils(CODE_UTILISATEUR)
+
+        GunaDataGridViewProfilList.DataSource = Nothing
+
+        If users.Rows.Count > 0 Then
+
+            GunaDataGridViewProfilList.DataSource = users
+            GunaDataGridViewProfilList.Rows(0).Selected = True
+            GunaDataGridViewProfilList.Columns(0).Visible = False
+
+        End If
+
+    End Sub
+
+    Private Sub GunaComboBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GunaComboBoxUtilisateurMultiple.SelectedIndexChanged
+
+        If GunaComboBoxUtilisateurMultiple.SelectedIndex >= 0 Then
+
+            Dim CODE_UTILISATEUR As String = GunaComboBoxUtilisateurMultiple.SelectedValue.ToString
+            listeDesProfils(CODE_UTILISATEUR)
+
+        End If
+
+    End Sub
+
+    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
+
+        If GunaDataGridViewProfilList.CurrentRow.Selected Then
+
+            Dim ID_UTILISATEUR_ACCESS_PROFIL
+            Dim NOM_PROFIL As String = ""
+            ID_UTILISATEUR_ACCESS_PROFIL = GunaDataGridViewProfilList.CurrentRow.Cells(0).Value
+            NOM_PROFIL = GunaDataGridViewProfilList.CurrentRow.Cells(1).Value.ToString
+
+            Dim dialog As DialogResult
+
+            If GlobalVariable.actualLanguageValue = 0 Then
+                languageMessage = "Do you really want to delete the profil " & NOM_PROFIL
+                languageTitle = "Item delete"
+            ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                languageMessage = "Voulez-vous vraiment Supprimer le profile " & NOM_PROFIL
+                languageTitle = "Suppression d'article"
+            End If
+
+            dialog = MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+            If dialog = DialogResult.Yes Then
+
+                If GunaDataGridViewProfilList.Rows.Count > 1 Then
+
+                    Functions.DeleteElementByCode(ID_UTILISATEUR_ACCESS_PROFIL, "utilisateur_acces_profil", "ID_UTILISATEUR_ACCESS_PROFIL")
+
+                    If GlobalVariable.actualLanguageValue = 0 Then
+                        languageTitle = "You successfully deleted"
+                        languageMessage = "Delete"
+                    ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                        languageTitle = "Vous avez supprimé avec succès"
+                        languageMessage = "Supression"
+                    End If
+
+                    MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    Dim CODE_UTILISATEUR As String = GunaComboBoxUtilisateurMultiple.SelectedValue.ToString
+                    listeDesProfils(CODE_UTILISATEUR)
+
+                End If
+
+            End If
+
+        End If
+
+    End Sub
+
+    Private Sub GunaCheckBoxMarketing_Click(sender As Object, e As EventArgs) Handles GunaCheckBoxMarketing.Click
+
+        If GunaCheckBoxMarketing.Checked Then
+
+            MENU_MARKETING = 1
+            MARK_CARDEX = 1
+            MARK_RAPPORT = 1
+            MARK_DASH = 1
+            MARK_MESSAGERIE = 1
+            MARK_PLANNIFICATION = 1
+            MARK_CLUB_ELITE = 1
+
+            GunaCheckBoxMarketing.Checked = True
+            GunaCheckBoxMarkCardex.Checked = True
+            GunaCheckBoxMarkRapports.Checked = True
+            GunaCheckBoxMarkMessage.Checked = True
+            GunaCheckBoxMarkElite.Checked = True
+            GunaCheckBoxMarkDash.Checked = True
+            GunaCheckBoxMarkPlannification.Checked = True
+
+        Else
+
+            MENU_MARKETING = 0
+            MARK_CARDEX = 0
+            MARK_RAPPORT = 0
+            MARK_DASH = 0
+            MARK_MESSAGERIE = 0
+            MARK_PLANNIFICATION = 0
+            MARK_CLUB_ELITE = 0
+
+            GunaCheckBoxMarketing.Checked = False
+            GunaCheckBoxMarkCardex.Checked = False
+            GunaCheckBoxMarkRapports.Checked = False
+            GunaCheckBoxMarkMessage.Checked = False
+            GunaCheckBoxMarkElite.Checked = False
+            GunaCheckBoxMarkDash.Checked = False
+            GunaCheckBoxMarkPlannification.Checked = False
+
+        End If
+
+    End Sub
+
+    Private Sub GunaCheckBoxMultiPOS_Click(sender As Object, e As EventArgs) Handles GunaCheckBoxMultiPOS.Click
+
+        If GunaCheckBoxMultiPOS.Checked Then
+
+        End If
+
+    End Sub
+
+    Private Sub GunaCheckBoxMarkCardex_Click(sender As Object, e As EventArgs) Handles GunaCheckBoxMarkCardex.Click
+        If GunaCheckBoxMarkCardex.Checked Then
+            MARK_CARDEX = 1
+            MENU_MARKETING = 1
+            GunaCheckBoxMarketing.Checked = True
+        Else
+            MARK_CARDEX = 0
+        End If
+    End Sub
+
+    Private Sub GunaCheckBoxMarkMessage_Click(sender As Object, e As EventArgs) Handles GunaCheckBoxMarkMessage.Click
+
+        If GunaCheckBoxMarkMessage.Checked Then
+            MARK_MESSAGERIE = 1
+            MENU_MARKETING = 1
+            GunaCheckBoxMarketing.Checked = True
+        Else
+            MARK_MESSAGERIE = 0
+        End If
+
+    End Sub
+
+    Private Sub GunaCheckBoxMarkElite_Click(sender As Object, e As EventArgs) Handles GunaCheckBoxMarkElite.Click
+        If GunaCheckBoxMarkElite.Checked Then
+            MARK_CLUB_ELITE = 1
+            MENU_MARKETING = 1
+            GunaCheckBoxMarketing.Checked = True
+        Else
+            MARK_CLUB_ELITE = 0
+        End If
+    End Sub
+
+    Private Sub GunaCheckBoxMarkDash_Click(sender As Object, e As EventArgs) Handles GunaCheckBoxMarkDash.Click
+        If GunaCheckBoxMarkDash.Checked Then
+            MARK_DASH = 1
+            MENU_MARKETING = 1
+            GunaCheckBoxMarketing.Checked = True
+        Else
+            MARK_DASH = 0
+        End If
+    End Sub
+
+    Private Sub GunaCheckBoxMarkPlannification_Click(sender As Object, e As EventArgs) Handles GunaCheckBoxMarkPlannification.Click
+
+        If GunaCheckBoxMarkPlannification.Checked Then
+            MARK_PLANNIFICATION = 1
+            MENU_MARKETING = 1
+            GunaCheckBoxMarketing.Checked = True
+        Else
+            MARK_PLANNIFICATION = 0
+        End If
+
+    End Sub
+
+    Private Sub GunaCheckBoxMarkRapports_Click(sender As Object, e As EventArgs) Handles GunaCheckBoxMarkRapports.Click
+
+    End Sub
+
 End Class

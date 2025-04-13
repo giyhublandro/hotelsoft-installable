@@ -3524,7 +3524,7 @@ Partial Class GrandeCaisseForm
         Me.GunaDataGridViewPlanComptable.DefaultCellStyle = DataGridViewCellStyle3
         Me.GunaDataGridViewPlanComptable.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewPlanComptable.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewPlanComptable.Location = New System.Drawing.Point(866, 624)
+        Me.GunaDataGridViewPlanComptable.Location = New System.Drawing.Point(815, 624)
         Me.GunaDataGridViewPlanComptable.MultiSelect = False
         Me.GunaDataGridViewPlanComptable.Name = "GunaDataGridViewPlanComptable"
         Me.GunaDataGridViewPlanComptable.ReadOnly = True

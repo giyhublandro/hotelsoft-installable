@@ -17,6 +17,8 @@ Public Class MainWindowTechnique
         GunaDateTimePickerIntervention.Value = GlobalVariable.DateDeTravail
 
         Dim menuAccess As New AccessRight()
+        Dim language As New Languages
+        language.side_menu_technique(GlobalVariable.actualLanguageValue)
 
         menuAccess.accesAuxModules(GlobalVariable.DroitAccesDeUtilisateurConnect, ReceptionToolStripMenuItem, RESERVATIONToolStripMenuItem, SERVICEDETAGEToolStripMenuItem, BarRestaurationToolStripMenuItem, ComptabilitéToolStripMenuItem, ECONOMATToolStripMenuItem, TECHNIQUEToolStripMenuItem, ToolStripMenuItem1)
 

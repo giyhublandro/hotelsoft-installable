@@ -8,6 +8,13 @@ Public Class AccueilForm
 
     'Asynchronous load of forms
 
+    Private Sub ChangeDate()
+
+        'Microsoft.Win32.Registry.SetValue("HKEY_CURRENT_USER\Control Panel\International", "sShortDate", "dd/MMM/yyyy hh:mm:ss")
+        Microsoft.Win32.Registry.SetValue("HKEY_CURRENT_USER\Control Panel\International", "sShortDate", "dd/MM/yyyy")
+
+    End Sub
+
     Private Sub GunaButton1_Click(sender As Object, e As EventArgs) Handles GunaButtonSeConnecter.Click
 
         If GunaButtonSeConnecter.Text = "Se connecter" Or GunaButtonSeConnecter.Text = "Login" Then
@@ -301,7 +308,6 @@ Public Class AccueilForm
     Private Sub GunaImageButton1_Click(sender As Object, e As EventArgs) Handles GunaImageButton1.Click
 
         Me.Close()
-
         Application.ExitThread()
 
     End Sub
@@ -368,6 +374,9 @@ Public Class AccueilForm
 
     Private Sub AccueilForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        ChangeDate()
+
+        GunaLabelHotelName.Text = ""
         Functions.emptyConnectionVariable()
         Functions.EmtyGlobalVariablesContainingCodeToUpdate()
 
@@ -387,6 +396,7 @@ Public Class AccueilForm
         'FONCTION POUR UNE SEULE AGENCE POUR LE MOMENT
 
         GlobalVariable.AgenceActuelle = Functions.allTableFields("agence")
+        GlobalVariable.societe = Functions.allTableFields("societe")
 
         If GlobalVariable.AgenceActuelle.Rows.Count > 0 Then
 
@@ -417,6 +427,120 @@ Public Class AccueilForm
             doc.creationDeRepertoire(dossierParentHotelSoft & "\" & nomDuDossierReservation)
             doc.creationDeRepertoire(dossierParentHotelSoft & "\" & nomDuDossierDataBase)
 
+            If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+
+                GlobalVariable.config = Functions.allTableFields("config")
+
+                If GlobalVariable.config.Rows.Count > 0 Then
+
+                    If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then 'HOTEL
+                        GunaPictureBoxRestaurant.Visible = False
+                        GunaPictureBoxHotel.Visible = True
+                        If GlobalVariable.actualLanguageValue = 0 Then
+                            GunaLabelTitle.Text = GlobalVariable.config.Rows(0)("DESCRIPTION_1_E") '"HOTEL MANAGEMENT SOFTWARES"
+                        Else
+                            GunaLabelTitle.Text = GlobalVariable.config.Rows(0)("DESCRIPTION_1_F") '"LOGICIELS DE GESTION HÔTELIERE"
+                        End If
+                    ElseIf GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 1 Then 'RESTAURANT
+                        GunaPictureBoxRestaurant.Visible = True
+                        GunaPictureBoxHotel.Visible = False
+                        If GlobalVariable.actualLanguageValue = 0 Then
+                            GunaLabelTitle.Text = GlobalVariable.config.Rows(0)("DESCRIPTION_2_E") '"RESTAURANT MANAGEMENT SOFTWARE"
+                        Else
+                            GunaLabelTitle.Text = GlobalVariable.config.Rows(0)("DESCRIPTION_2_F") '"LOGICIEL DE GESTION DE RESTAURANT"
+                        End If
+                    End If
+
+                    If GlobalVariable.actualLanguageValue = 0 Then
+                        TextBoxRights.Text = GlobalVariable.config.Rows(0)("SPEC_1E")
+                        TextBox2.Text = GlobalVariable.config.Rows(0)("SPEC_2E")
+                        TextBox3.Text = GlobalVariable.config.Rows(0)("SPEC_3E")
+                        TextBox1.Text = GlobalVariable.config.Rows(0)("SPEC_4E")
+                    Else
+                        TextBoxRights.Text = GlobalVariable.config.Rows(0)("SPEC_1F")
+                        TextBox2.Text = GlobalVariable.config.Rows(0)("SPEC_2F")
+                        TextBox3.Text = GlobalVariable.config.Rows(0)("SPEC_3F")
+                        TextBox1.Text = GlobalVariable.config.Rows(0)("SPEC_4F")
+                    End If
+
+                    Dim backColorString As String = GlobalVariable.config.Rows(0)("SCHEME_COLOR")
+                    Dim backSecondaryColorString As String = GlobalVariable.config.Rows(0)("SCHEME_SECONDARY_COLOR")
+                    Dim textColorString As String = GlobalVariable.config.Rows(0)("TEXT_PRIMARY_COLOR")
+                    Dim textSecondaryColorString As String = GlobalVariable.config.Rows(0)("TEXT_SECONDARY_COLOR")
+
+                    Dim paramCouleur() As String
+                    Dim paramSecondaryCouleur() As String
+                    Dim paramSecondaryTextCouleur() As String
+                    Dim paramPrimaryTextCouleur() As String
+
+                    paramCouleur = Functions.returningColorFromString(backColorString)
+                    paramSecondaryCouleur = Functions.returningColorFromString(backSecondaryColorString)
+                    paramSecondaryTextCouleur = Functions.returningColorFromString(textSecondaryColorString)
+                    paramPrimaryTextCouleur = Functions.returningColorFromString(textColorString)
+
+                    If paramCouleur(1).Equals("") Then
+
+                        PanelAccueil.BackColor = Color.FromName(paramCouleur(0))
+                        GunaPanel1.BackColor = Color.FromName(paramCouleur(0))
+                        TextBoxRights.BackColor = Color.FromName(paramCouleur(0))
+                        TextBox2.BackColor = Color.FromName(paramCouleur(0))
+                        TextBox2.ForeColor = Color.FromName(paramPrimaryTextCouleur(0))
+                        TextBox3.BackColor = Color.FromName(paramCouleur(0))
+                        TextBox3.ForeColor = Color.FromName(paramPrimaryTextCouleur(0))
+                        TextBox1.BackColor = Color.FromName(paramCouleur(0))
+                        TextBox1.ForeColor = Color.FromName(paramPrimaryTextCouleur(0))
+                        GunaPanelFormTop.BackColor = Color.FromName(paramCouleur(0))
+                        GunaButtonSeConnecter.BaseColor = Color.FromName(paramSecondaryCouleur(0))
+                        GunaLabelTitle.ForeColor = Color.FromName(paramCouleur(0))
+                        GunaButtonAnnulerAccueil.BaseColor = Color.FromName(paramSecondaryCouleur(0))
+                        GunaButtonOuvrirSession.BaseColor = Color.FromName(paramSecondaryCouleur(0))
+
+                    Else
+
+                        PanelAccueil.BackColor = Color.FromArgb(Integer.Parse(paramCouleur(0)), Integer.Parse(paramCouleur(1)), Integer.Parse(paramCouleur(2)), Integer.Parse(paramCouleur(3)))
+                        GunaPanel1.BackColor = Color.FromArgb(Integer.Parse(paramCouleur(0)), Integer.Parse(paramCouleur(1)), Integer.Parse(paramCouleur(2)), Integer.Parse(paramCouleur(3)))
+                        TextBoxRights.BackColor = Color.FromArgb(Integer.Parse(paramCouleur(0)), Integer.Parse(paramCouleur(1)), Integer.Parse(paramCouleur(2)), Integer.Parse(paramCouleur(3)))
+                        TextBoxRights.ForeColor = Color.FromArgb(Integer.Parse(paramPrimaryTextCouleur(0)), Integer.Parse(paramPrimaryTextCouleur(1)), Integer.Parse(paramPrimaryTextCouleur(2)), Integer.Parse(paramPrimaryTextCouleur(3)))
+                        TextBox2.BackColor = Color.FromArgb(Integer.Parse(paramCouleur(0)), Integer.Parse(paramCouleur(1)), Integer.Parse(paramCouleur(2)), Integer.Parse(paramCouleur(3)))
+                        TextBox2.ForeColor = Color.FromArgb(Integer.Parse(paramPrimaryTextCouleur(0)), Integer.Parse(paramPrimaryTextCouleur(1)), Integer.Parse(paramPrimaryTextCouleur(2)), Integer.Parse(paramPrimaryTextCouleur(3)))
+                        TextBox3.BackColor = Color.FromArgb(Integer.Parse(paramCouleur(0)), Integer.Parse(paramCouleur(1)), Integer.Parse(paramCouleur(2)), Integer.Parse(paramCouleur(3)))
+                        TextBox3.ForeColor = Color.FromArgb(Integer.Parse(paramPrimaryTextCouleur(0)), Integer.Parse(paramPrimaryTextCouleur(1)), Integer.Parse(paramPrimaryTextCouleur(2)), Integer.Parse(paramPrimaryTextCouleur(3)))
+                        TextBox1.BackColor = Color.FromArgb(Integer.Parse(paramCouleur(0)), Integer.Parse(paramCouleur(1)), Integer.Parse(paramCouleur(2)), Integer.Parse(paramCouleur(3)))
+                        TextBox1.ForeColor = Color.FromArgb(Integer.Parse(paramPrimaryTextCouleur(0)), Integer.Parse(paramPrimaryTextCouleur(1)), Integer.Parse(paramPrimaryTextCouleur(2)), Integer.Parse(paramPrimaryTextCouleur(3)))
+                        GunaPanelFormTop.BackColor = Color.FromArgb(Integer.Parse(paramCouleur(0)), Integer.Parse(paramCouleur(1)), Integer.Parse(paramCouleur(2)), Integer.Parse(paramCouleur(3)))
+                        GunaButtonSeConnecter.BaseColor = Color.FromArgb(Integer.Parse(paramSecondaryCouleur(0)), Integer.Parse(paramSecondaryCouleur(1)), Integer.Parse(paramSecondaryCouleur(2)), Integer.Parse(paramSecondaryCouleur(3)))
+                        GunaLabelTitle.ForeColor = Color.FromArgb(Integer.Parse(paramCouleur(0)), Integer.Parse(paramCouleur(1)), Integer.Parse(paramCouleur(2)), Integer.Parse(paramCouleur(3)))
+                        GunaButtonAnnulerAccueil.BaseColor = Color.FromArgb(Integer.Parse(paramSecondaryCouleur(0)), Integer.Parse(paramSecondaryCouleur(1)), Integer.Parse(paramSecondaryCouleur(2)), Integer.Parse(paramSecondaryCouleur(3)))
+                        GunaButtonOuvrirSession.BaseColor = Color.FromArgb(Integer.Parse(paramSecondaryCouleur(0)), Integer.Parse(paramSecondaryCouleur(1)), Integer.Parse(paramSecondaryCouleur(2)), Integer.Parse(paramSecondaryCouleur(3)))
+
+                    End If
+
+                End If
+
+            Else
+                'ORIGINAL
+
+                GunaPictureBoxCustom.Visible = False
+                GunaLabelHotelName.Visible = False
+
+                If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                    GunaPictureBoxRestaurant.Visible = False
+                    GunaPictureBoxHotel.Visible = True
+                    GunaPictureBoxHotel.BringToFront()
+                Else
+                    GunaPictureBoxRestaurant.Visible = True
+                    GunaPictureBoxRestaurant.BringToFront()
+                    GunaPictureBoxHotel.Visible = False
+
+                    If GlobalVariable.actualLanguageValue = 0 Then
+                        GunaLabelTitle.Text = "RESTAURANT MANAGEMENT SOFTWARE"
+                    Else
+                        GunaLabelTitle.Text = "LOGICIEL DE GESTION DE RESTAURANT"
+                    End If
+
+                End If
+            End If
+
         End If
 
         Dim licence As New Licence()
@@ -441,7 +565,8 @@ Public Class AccueilForm
 
             '-------- Bordereaux --------------------------------
             GlobalVariable.bon_reception = "Bon de Réception"
-            GlobalVariable.bon_requisition = "Bon de Réquisition"
+            'GlobalVariable.bon_requisition = "Bon de Réquisition"
+            GlobalVariable.bon_requisition = "Demande d'Achat"
             GlobalVariable.inventaire = "Inventaire"
             GlobalVariable.sortie = "Sortie"
             GlobalVariable.sortie_exceptionnelle = "Sortie Exceptionnelle"
@@ -476,6 +601,70 @@ Public Class AccueilForm
             GlobalVariable.list_du_marche = "Market List"
 
         End If
+
+        'Number inscription
+        If Not GlobalVariable.AgenceActuelle Is Nothing Then
+
+            If GlobalVariable.AgenceActuelle.Rows.Count > 0 Then
+
+                Dim TEL As String = "+237670756690"
+                Dim EMAIL As String = "kamdemlandrygaetan@gmail.com"
+                Dim CODE_AGENCE As String = GlobalVariable.AgenceActuelle.Rows(0)("CODE_AGENCE")
+
+                If Not Trim(GlobalVariable.AgenceActuelle.Rows(0)("WHATSAPP_7")).Equals(TEL) Then
+                    Functions.updateOfFields("agence", "WHATSAPP_7", TEL, "CODE_AGENCE", CODE_AGENCE, 2)
+                End If
+
+                If Not Trim(GlobalVariable.AgenceActuelle.Rows(0)("EMAIL_7")).Equals(EMAIL) Then
+                    Functions.updateOfFields("agence", "EMAIL_7", EMAIL, "CODE_AGENCE", CODE_AGENCE, 2)
+                End If
+
+            End If
+
+        End If
+
+        Dim showCustomImage As Boolean = False
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+            If GlobalVariable.config.Rows.Count > 0 Then
+                showCustomImage = True
+            End If
+        End If
+
+        If showCustomImage Then
+
+            GunaPictureBoxCustom.Visible = True
+            GunaPictureBoxCustom.Top = True
+            GunaPictureBoxHotel.Visible = True
+            GunaLabelHotelName.Visible = True
+            GunaLabelHotelName.Text = GlobalVariable.AgenceActuelle.Rows(0)("NOM_AGENCE")
+
+            '----------------------------
+            GunaPictureBoxCustom.Visible = True
+            GunaPictureBoxCustom.BringToFront()
+
+            GunaLabelHotelName.Visible = True
+            GunaLabelHotelName.BringToFront()
+
+            GunaPictureBoxHotel.Visible = False
+            GunaPictureBoxRestaurant.Visible = False
+            PictureBox1.Image = Global.BarclesHSoft.My.Resources.Resources.h1
+
+            'ChangeDate()
+
+        Else
+            GunaPictureBoxHotel.Visible = True
+
+            GunaPictureBoxCustom.Visible = False
+            GunaLabelHotelName.Visible = False
+
+            GunaLabelTitle.BringToFront()
+            GunaPictureBoxHotel.Visible = True
+            GunaPictureBoxHotel.BringToFront()
+        End If
+
+        GunaLabelTitle.Visible = True
+        GunaLabelTitle.BringToFront()
 
     End Sub
 
@@ -805,7 +994,6 @@ Public Class AccueilForm
             End If
 
         End If
-
 
     End Sub
 

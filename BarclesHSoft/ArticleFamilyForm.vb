@@ -58,6 +58,26 @@ Public Class ArticleFamilyForm
 
         TabControl1.SelectedIndex = 1
 
+        Dim showCustomImage As Boolean = False
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+            If GlobalVariable.config.Rows.Count > 0 Then
+                showCustomImage = True
+            End If
+        End If
+
+        If showCustomImage Then
+
+            Dim buttonPanel As Integer = 1
+            GunaPanel1.BackColor = Functions.colorationWindow(buttonPanel)
+            GunaPanel2.BackColor = Functions.colorationWindow(buttonPanel)
+
+            buttonPanel = 0 'Button Background
+            GunaButton1.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonEnregistrer.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonAfficher.BaseColor = Functions.colorationWindow(buttonPanel)
+
+        End If
 
     End Sub
 
@@ -65,7 +85,7 @@ Public Class ArticleFamilyForm
 
         Dim categorieArticle As DataTable = Functions.allTableFieldsOrganised("categorie_article", "LIBELLE_FAMILLE")
 
-        If (categorieArticle.Rows.Count > 0) Then
+        If categorieArticle.Rows.Count > 0 Then
 
             GunaComboBoxCategArticle.DataSource = categorieArticle
             'GunaComboBoxCategArticle.ValueMember = "CODE_FAMILLE"
@@ -547,6 +567,8 @@ Public Class ArticleFamilyForm
 
             Dim FamilleArticle As DataTable
 
+            GunaTextBoxCode.Text = Trim(row.Cells("CODE").Value.ToString)
+
             If GlobalVariable.typeFamilleOuSousFamille = "famille" Then ' point de vente
                 FamilleArticle = Functions.getElementByCode(Trim(row.Cells("CODE").Value.ToString), "famille", "CODE_FAMILLE")
             ElseIf GlobalVariable.typeFamilleOuSousFamille = "sous famille" Then
@@ -635,9 +657,7 @@ Public Class ArticleFamilyForm
 
             dialog = MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
-            If dialog = DialogResult.No Then
-                'e.Cancel = True
-            Else
+            If dialog = DialogResult.Yes Then
 
                 If GlobalVariable.typeFamilleOuSousFamille = "famille" Then
                     Functions.DeleteRowFromDataGridGeneral(GunaDataGridViewFamilleArticle, GunaDataGridViewFamilleArticle.CurrentRow.Cells("CODE").Value.ToString, "famille", "CODE_FAMILLE")
@@ -707,14 +727,19 @@ Public Class ArticleFamilyForm
 
             Dim CATEGORIE_DE_LA_FAMILLE As String = ""
 
-            Dim FAMILLE As String = GunaComboBoxFamilleArticle.SelectedValue.ToString
+            If GunaComboBoxFamilleArticle.SelectedIndex >= 0 Then
 
-            'ON RECEUPERE LA SOUS FAMILLE ACTUELLEMENT SELECTIONNEE PUIS ON DETERMINE SA CATEGORIE
+                Dim FAMILLE As String = GunaComboBoxFamilleArticle.SelectedValue.ToString
 
-            Dim infoFamille As DataTable = Functions.getElementByCode(FAMILLE, "sous_famille", "LIBELLE_SOUS_FAMILLE")
+                'ON RECEUPERE LA SOUS FAMILLE ACTUELLEMENT SELECTIONNEE PUIS ON DETERMINE SA CATEGORIE
 
-            If infoFamille.Rows.Count > 0 Then
-                GunaComboBoxCategArticle.SelectedValue = infoFamille.Rows(0)("CODE_FAMILLE_PARENT")
+                Dim infoFamille As DataTable = Functions.getElementByCode(FAMILLE, "sous_famille", "LIBELLE_SOUS_FAMILLE")
+
+                If infoFamille.Rows.Count > 0 Then
+                    GunaComboBoxCategArticle.SelectedValue = infoFamille.Rows(0)("CODE_FAMILLE_PARENT")
+                End If
+
+
             End If
 
         End If
@@ -723,7 +748,7 @@ Public Class ArticleFamilyForm
 
     Private Sub GunaComboBoxCategArticle_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GunaComboBoxCategArticle.SelectedIndexChanged
 
-        If GunaButtonEnregistrer.Text = "Enregistrer" Or GunaButtonEnregistrer.Text = "Add" Then
+        If GunaButtonEnregistrer.Text = "Enregistrer" Or GunaButtonEnregistrer.Text = "Add" Or GunaButtonEnregistrer.Text = "Update" Or GunaButtonEnregistrer.Text = "Save" Then
 
             If GunaComboBoxFamilleArticle.Visible Then
 
@@ -745,12 +770,27 @@ Public Class ArticleFamilyForm
                         GunaComboBoxFamilleArticle.DataSource = Nothing
                     End If
 
+                    If GlobalVariable.typeFamilleOuSousFamille = "sous sous famille" Then
+
+                        Dim CODE As String = GunaTextBoxCode.Text
+
+                        Dim FamilleArticle As DataTable = Functions.getElementByCode(CODE, "sous_sous_famille", "CODE_FAMILLE")
+
+                        If FamilleArticle.Rows.Count > 0 Then
+
+                            loadFamilleArticle()
+
+                            GunaComboBoxFamilleArticle.SelectedValue = FamilleArticle.Rows(0)("CODE_FAMILLE_PARENT")
+
+                        End If
+
+                    End If
+
+                Else
+                    GunaComboBoxFamilleArticle.SelectedIndex = -1
                 End If
 
-            Else
-                GunaComboBoxFamilleArticle.SelectedIndex = -1
             End If
-
 
         End If
 

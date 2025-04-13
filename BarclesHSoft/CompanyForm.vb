@@ -181,4 +181,12 @@ Public Class CompanyForm
 
     End Sub
 
+    Private Sub GunaCheckBoxConfig_CheckedChanged(sender As Object, e As EventArgs) Handles GunaCheckBoxConfig.CheckedChanged
+        If GunaCheckBoxConfig.Checked Then
+            ConfigForm.Show()
+            ConfigForm.TopMost = True
+        Else
+            ConfigForm.Close()
+        End If
+    End Sub
 End Class

@@ -12,6 +12,24 @@ Public Class BankForm
         TabControl1.SelectedIndex = 1
         'GunaLabelGestCompteGeneraux.Text = "LISTES DES BANQUES"
 
+        Dim showCustomImage As Boolean = False
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+            If GlobalVariable.config.Rows.Count > 0 Then
+                showCustomImage = True
+            End If
+        End If
+
+        If showCustomImage Then
+
+            Dim buttonPanel As Integer = 1
+            GunaPanel1.BackColor = Functions.colorationWindow(buttonPanel)
+
+            buttonPanel = 0 'Button Background
+            GunaButtonEnregistrerBanque.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton1.BaseColor = Functions.colorationWindow(buttonPanel)
+
+        End If
     End Sub
 
     Private Sub GunaImageButton3_Click(sender As Object, e As EventArgs) Handles GunaImageButton3.Click

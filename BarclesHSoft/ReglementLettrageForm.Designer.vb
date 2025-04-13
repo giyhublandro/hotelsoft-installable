@@ -99,10 +99,20 @@ Partial Class ReglementLettrageForm
         Me.GunaTextBoxPlafonds = New Guna.UI.WinForms.GunaTextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.GunaDataGridViewListeFacture = New Guna.UI.WinForms.GunaDataGridView()
+        Me.REFERENCE = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DATE_FACTURE = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.NATURE = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.LIBELLE = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.LETTRAGE = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MONTANT = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MONTANT_SOLDE = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SOLDE = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CODE_CLIENT = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GunaContextMenuStripFactureARegler = New Guna.UI.WinForms.GunaContextMenuStrip()
         Me.ImprimerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ImprimerFactureSynthèseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TransférerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RéductionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GunaComboBoxNatureOperation = New Guna.UI.WinForms.GunaComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GunaTextBoxCodeEntreprise = New Guna.UI.WinForms.GunaTextBox()
@@ -156,15 +166,6 @@ Partial Class ReglementLettrageForm
         Me.Label23 = New System.Windows.Forms.Label()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.GunaDateTimePickerDebut = New Guna.UI.WinForms.GunaDateTimePicker()
-        Me.REFERENCE = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DATE_FACTURE = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.NATURE = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.LIBELLE = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.LETTRAGE = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.MONTANT = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.MONTANT_SOLDE = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SOLDE = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CODE_CLIENT = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GunaPanel1.SuspendLayout()
         CType(Me.GunaDataGridViewDetailsFactures, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GunaDataGridViewClient, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -464,7 +465,7 @@ Partial Class ReglementLettrageForm
         Me.GunaTextBoxNom.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxNom.Radius = 5
         Me.GunaTextBoxNom.SelectedText = ""
-        Me.GunaTextBoxNom.Size = New System.Drawing.Size(222, 34)
+        Me.GunaTextBoxNom.Size = New System.Drawing.Size(222, 33)
         Me.GunaTextBoxNom.TabIndex = 74
         '
         'GunaTextBoxClientAFacturer
@@ -1234,9 +1235,65 @@ Partial Class ReglementLettrageForm
         Me.GunaDataGridViewListeFacture.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewListeFacture.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
         '
+        'REFERENCE
+        '
+        Me.REFERENCE.HeaderText = "REFERENCE"
+        Me.REFERENCE.Name = "REFERENCE"
+        Me.REFERENCE.ReadOnly = True
+        Me.REFERENCE.Visible = False
+        '
+        'DATE_FACTURE
+        '
+        Me.DATE_FACTURE.HeaderText = "DATE"
+        Me.DATE_FACTURE.Name = "DATE_FACTURE"
+        Me.DATE_FACTURE.ReadOnly = True
+        '
+        'NATURE
+        '
+        Me.NATURE.HeaderText = "NATURE"
+        Me.NATURE.Name = "NATURE"
+        Me.NATURE.ReadOnly = True
+        '
+        'LIBELLE
+        '
+        Me.LIBELLE.HeaderText = "LIBELLE"
+        Me.LIBELLE.Name = "LIBELLE"
+        Me.LIBELLE.ReadOnly = True
+        '
+        'LETTRAGE
+        '
+        Me.LETTRAGE.HeaderText = "LETTRAGE"
+        Me.LETTRAGE.Name = "LETTRAGE"
+        Me.LETTRAGE.ReadOnly = True
+        '
+        'MONTANT
+        '
+        Me.MONTANT.HeaderText = "DEBIT"
+        Me.MONTANT.Name = "MONTANT"
+        Me.MONTANT.ReadOnly = True
+        '
+        'MONTANT_SOLDE
+        '
+        Me.MONTANT_SOLDE.HeaderText = "CREDIT"
+        Me.MONTANT_SOLDE.Name = "MONTANT_SOLDE"
+        Me.MONTANT_SOLDE.ReadOnly = True
+        '
+        'SOLDE
+        '
+        Me.SOLDE.HeaderText = "SOLDE"
+        Me.SOLDE.Name = "SOLDE"
+        Me.SOLDE.ReadOnly = True
+        '
+        'CODE_CLIENT
+        '
+        Me.CODE_CLIENT.HeaderText = "CODE_CLIENT"
+        Me.CODE_CLIENT.Name = "CODE_CLIENT"
+        Me.CODE_CLIENT.ReadOnly = True
+        Me.CODE_CLIENT.Visible = False
+        '
         'GunaContextMenuStripFactureARegler
         '
-        Me.GunaContextMenuStripFactureARegler.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ImprimerToolStripMenuItem, Me.ImprimerFactureSynthèseToolStripMenuItem, Me.TransférerToolStripMenuItem})
+        Me.GunaContextMenuStripFactureARegler.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ImprimerToolStripMenuItem, Me.ImprimerFactureSynthèseToolStripMenuItem, Me.TransférerToolStripMenuItem, Me.RéductionToolStripMenuItem})
         Me.GunaContextMenuStripFactureARegler.Name = "GunaContextMenuStripTransfertDeBlocNote"
         Me.GunaContextMenuStripFactureARegler.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaContextMenuStripFactureARegler.RenderStyle.BorderColor = System.Drawing.Color.Gainsboro
@@ -1247,7 +1304,7 @@ Partial Class ReglementLettrageForm
         Me.GunaContextMenuStripFactureARegler.RenderStyle.SelectionForeColor = System.Drawing.Color.White
         Me.GunaContextMenuStripFactureARegler.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
         Me.GunaContextMenuStripFactureARegler.RenderStyle.TextRenderingHint = Guna.UI.WinForms.DrawingTextRenderingHint.SystemDefault
-        Me.GunaContextMenuStripFactureARegler.Size = New System.Drawing.Size(216, 70)
+        Me.GunaContextMenuStripFactureARegler.Size = New System.Drawing.Size(216, 92)
         '
         'ImprimerToolStripMenuItem
         '
@@ -1266,6 +1323,12 @@ Partial Class ReglementLettrageForm
         Me.TransférerToolStripMenuItem.Name = "TransférerToolStripMenuItem"
         Me.TransférerToolStripMenuItem.Size = New System.Drawing.Size(215, 22)
         Me.TransférerToolStripMenuItem.Text = "Régler"
+        '
+        'RéductionToolStripMenuItem
+        '
+        Me.RéductionToolStripMenuItem.Name = "RéductionToolStripMenuItem"
+        Me.RéductionToolStripMenuItem.Size = New System.Drawing.Size(215, 22)
+        Me.RéductionToolStripMenuItem.Text = "Réduction"
         '
         'GunaComboBoxNatureOperation
         '
@@ -2142,61 +2205,6 @@ Partial Class ReglementLettrageForm
         Me.GunaDateTimePickerDebut.Text = "25/04/2022"
         Me.GunaDateTimePickerDebut.Value = New Date(2022, 4, 25, 18, 3, 24, 728)
         '
-        'REFERENCE
-        '
-        Me.REFERENCE.HeaderText = "REFERENCE"
-        Me.REFERENCE.Name = "REFERENCE"
-        Me.REFERENCE.ReadOnly = True
-        Me.REFERENCE.Visible = False
-        '
-        'DATE_FACTURE
-        '
-        Me.DATE_FACTURE.HeaderText = "DATE"
-        Me.DATE_FACTURE.Name = "DATE_FACTURE"
-        Me.DATE_FACTURE.ReadOnly = True
-        '
-        'NATURE
-        '
-        Me.NATURE.HeaderText = "NATURE"
-        Me.NATURE.Name = "NATURE"
-        Me.NATURE.ReadOnly = True
-        '
-        'LIBELLE
-        '
-        Me.LIBELLE.HeaderText = "LIBELLE"
-        Me.LIBELLE.Name = "LIBELLE"
-        Me.LIBELLE.ReadOnly = True
-        '
-        'LETTRAGE
-        '
-        Me.LETTRAGE.HeaderText = "LETTRAGE"
-        Me.LETTRAGE.Name = "LETTRAGE"
-        Me.LETTRAGE.ReadOnly = True
-        '
-        'MONTANT
-        '
-        Me.MONTANT.HeaderText = "DEBIT"
-        Me.MONTANT.Name = "MONTANT"
-        Me.MONTANT.ReadOnly = True
-        '
-        'MONTANT_SOLDE
-        '
-        Me.MONTANT_SOLDE.HeaderText = "CREDIT"
-        Me.MONTANT_SOLDE.Name = "MONTANT_SOLDE"
-        Me.MONTANT_SOLDE.ReadOnly = True
-        '
-        'SOLDE
-        '
-        Me.SOLDE.HeaderText = "SOLDE"
-        Me.SOLDE.Name = "SOLDE"
-        Me.SOLDE.ReadOnly = True
-        '
-        'CODE_CLIENT
-        '
-        Me.CODE_CLIENT.HeaderText = "CODE_CLIENT"
-        Me.CODE_CLIENT.Name = "CODE_CLIENT"
-        Me.CODE_CLIENT.ReadOnly = True
-        '
         'ReglementLettrageForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2434,4 +2442,5 @@ Partial Class ReglementLettrageForm
     Friend WithEvents MONTANT_SOLDE As DataGridViewTextBoxColumn
     Friend WithEvents SOLDE As DataGridViewTextBoxColumn
     Friend WithEvents CODE_CLIENT As DataGridViewTextBoxColumn
+    Friend WithEvents RéductionToolStripMenuItem As ToolStripMenuItem
 End Class

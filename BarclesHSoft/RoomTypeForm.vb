@@ -303,14 +303,20 @@ Public Class RoomTypeForm
             Else
                 If GlobalVariable.actualLanguageValue = 1 Then
                     MessageBox.Show("Bien vouloir remplir tous les champs!!", "Création de Type", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
                 Else
                     MessageBox.Show("Please fill all the fields !!", "Type creation", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
                 End If
             End If
 
         End If
+
+        If GunaRadioButtonChambre.Checked Then
+            GlobalVariable.typeChambreOuSalle = "chambre"
+        ElseIf GunaRadioButtonSalle.Checked Then
+            GlobalVariable.typeChambreOuSalle = "salle"
+        End If
+
+        roomTypeList()
 
     End Sub
 
@@ -329,27 +335,48 @@ Public Class RoomTypeForm
 
             If GlobalVariable.addCategorieFromFrontOffice Then
 
-                'We come from the front desk to fill the room form part of the front desk
-                GlobalVariable.CategorieAddedFromFrontOffice = Functions.getElementByCode(row.Cells(0).Value.ToString, "type_Chambre", "CODE_TYPE_CHAMBRE")
+                If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
 
-                'We make sure it is possible to Choose a room if a room type is choosen first
-                'We set back the diasbled values after checkin or save
 
-                MainWindow.MainWindowManualActivation()
+                    'We come from the front desk to fill the room form part of the front desk
+                    GlobalVariable.CategorieAddedFromFrontOffice = Functions.getElementByCode(row.Cells(0).Value.ToString, "type_Chambre", "CODE_TYPE_CHAMBRE")
 
-                MainWindow.reservationButtonToDisplay()
+                    'We make sure it is possible to Choose a room if a room type is choosen first
+                    'We set back the diasbled values after checkin or save
 
-                If MainWindow.GunaRadioButtonSalleFete.Checked Then
+                    MainWindow.MainWindowManualActivation()
+
+                    MainWindow.reservationButtonToDisplay()
+
+                    If MainWindow.GunaRadioButtonSalleFete.Checked Then
+                        GlobalVariable.typeChambreOuSalle = "salle"
+                    ElseIf MainWindow.GunaRadioButtonChambre.Checked Then
+                        GlobalVariable.typeChambreOuSalle = "chambre"
+                    End If
+
+                    If GlobalVariable.typeChambreOuSalle = "salle" Then
+
+                        MainWindow.GunaTextBoxMontantAfficherSalle.Text = Format(row.Cells(3).Value, "#,##0")
+                        MainWindow.GunaTextBoxMontantReelSalle.Text = Format(row.Cells(3).Value, "#,##0")
+
+                    End If
+
+                Else
+
+                    'We come from the front desk to fill the room form part of the front desk
+                    GlobalVariable.CategorieAddedFromFrontOffice = Functions.getElementByCode(row.Cells(0).Value.ToString, "type_Chambre", "CODE_TYPE_CHAMBRE")
+
+                    RestaurantBookingForm.MainWindowManualActivation()
+
+                    RestaurantBookingForm.reservationButtonToDisplay()
+
                     GlobalVariable.typeChambreOuSalle = "salle"
-                ElseIf MainWindow.GunaRadioButtonChambre.Checked Then
-                    GlobalVariable.typeChambreOuSalle = "chambre"
-                End If
 
-                If GlobalVariable.typeChambreOuSalle = "salle" Then
+                    If GlobalVariable.typeChambreOuSalle = "salle" Then
 
-                    If Trim(MainWindow.GunaTextBoxMontantAfficherSalle.Text).Equals("") Then
-                        MainWindow.GunaTextBoxMontantAfficherSalle.Text = Format(row.Cells(2).Value, "#,##0")
-                        MainWindow.GunaTextBoxMontantReelSalle.Text = Format(row.Cells(2).Value, "#,##0")
+                        RestaurantBookingForm.GunaTextBoxMontantAfficherSalle.Text = Format(row.Cells(3).Value, "#,##0")
+                        RestaurantBookingForm.GunaTextBoxMontantReelSalle.Text = Format(row.Cells(3).Value, "#,##0")
+
                     End If
 
                 End If

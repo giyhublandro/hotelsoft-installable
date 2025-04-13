@@ -356,8 +356,7 @@ Public Class MainCouranteReceptionForm
                     End If
 
                     Dim TYPE_CLIENT As String = "CLIENT COMPTOIR"
-
-                    If GlobalVariable.actualLanguageValue = 1 Then
+                    If GlobalVariable.actualLanguageValue = 0 Then
                         TYPE_CLIENT = "WALK IN"
                     End If
 

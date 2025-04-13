@@ -16,11 +16,28 @@ Public Class PlanningHebdomadaireDuPersonnelForm
         If infoPlanning.Rows.Count > 0 Then
 
             GunaDataGridViewPlanning.Columns.Clear()
-            GunaDataGridViewPlanning.DataSource = infoPlanning
+
+            GunaDataGridViewPlanning.Columns.Add("ID_PLANNING_HEBDOMADAIRE", "ID_PLANNING_HEBDOMADAIRE")
+            GunaDataGridViewPlanning.Columns.Add("PLANNING", "PLANNING")
+            GunaDataGridViewPlanning.Columns.Add("CODE_PLANNING", "CODE_PLANNING")
+            GunaDataGridViewPlanning.Columns.Add("DATE_DEBUT", "DATE_DEBUT")
+            GunaDataGridViewPlanning.Columns.Add("DATE_FIN", "DATE_FIN")
+            GunaDataGridViewPlanning.Columns.Add("CODE_TYPE_PERSONNEL", "CODE_TYPE_PERSONNEL")
+
+            If GlobalVariable.actualLanguageValue = 0 Then
+                GunaDataGridViewPlanning.Columns.Add("DATE", "CREATION DATE")
+            Else
+                GunaDataGridViewPlanning.Columns.Add("DATE", "DATE CREATION")
+            End If
+            GunaDataGridViewPlanning.Columns.Add("CODE_AGENCE", "CODE_AGENCE")
+
+            For k = 0 To infoPlanning.Rows.Count - 1
+                GunaDataGridViewPlanning.Rows.Add(infoPlanning.Rows(k)(0), infoPlanning.Rows(k)(1), infoPlanning.Rows(k)(2), infoPlanning.Rows(k)(3), infoPlanning.Rows(k)(4), infoPlanning.Rows(k)(5), infoPlanning.Rows(k)(6), infoPlanning.Rows(k)(7))
+            Next
 
             For i = 0 To GunaDataGridViewPlanning.Columns.Count - 1
 
-                If i = 0 Or i = 2 Or i = 5 Or i = 7 Then
+                If Not i = 1 Then
                     GunaDataGridViewPlanning.Columns(i).Visible = False
                 End If
 
@@ -34,11 +51,6 @@ Public Class PlanningHebdomadaireDuPersonnelForm
     Private Sub planningContenantHoraire()
 
         Dim CODE_TYPE_PERSONNEL As String = GunaComboBoxTypePersonnel.SelectedValue.ToString
-
-        'Dim query04 As String = "SELECT INTITULE_PLANNING,ID_PLANNING_HORAIRE, planning_hebdomadaire_horaire.CODE_PLANNING 
-        'FROM `planning_horaire`, `planning_hebdomadaire_horaire`, `planning_hebdomadaire`  
-        'WHERE planning_hebdomadaire_horaire.ID_HORAIRE =planning_horaire.ID_HORAIRE AND planning_hebdomadaire.CODE_PLANNING = planning_horaire.CODE_PLANNING
-        'And CODE_TYPE_PERSONNEL =@CODE_TYPE_PERSONNEL ORDER BY INTITULE_PLANNING ASC"
 
         Dim query04 As String = "SELECT DISTINCT planning_hebdomadaire.CODE_PLANNING, INTITULE_PLANNING, CODE_TYPE_PERSONNEL FROM `planning_hebdomadaire` INNER JOIN `planning_horaire`  
                         WHERE planning_hebdomadaire.CODE_PLANNING = planning_horaire.CODE_PLANNING
@@ -68,11 +80,27 @@ Public Class PlanningHebdomadaireDuPersonnelForm
         If infoPlanning.Rows.Count > 0 Then
 
             GunaDataGridViewHoraire.Columns.Clear()
-            GunaDataGridViewHoraire.DataSource = infoPlanning
+            GunaDataGridViewHoraire.Columns.Add("ID_HORAIRE", "ID_HORAIRE")
+            If GlobalVariable.actualLanguageValue = 1 Then
+                GunaDataGridViewHoraire.Columns.Add("HEURE_DEBUT", "HEURE DEBUT")
+                GunaDataGridViewHoraire.Columns.Add("HEURE_FIN", "HEURE FIN")
+                GunaDataGridViewHoraire.Columns.Add("HEURE_DEBUT_FIN", "DEBUT - FIN")
+            Else
+                GunaDataGridViewHoraire.Columns.Add("HEURE_DEBUT", "START TIME")
+                GunaDataGridViewHoraire.Columns.Add("HEURE_FIN", "END TIME")
+                GunaDataGridViewHoraire.Columns.Add("HEURE_DEBUT_FIN", "START - END")
+            End If
+            GunaDataGridViewHoraire.Columns.Add("DATE_DE_CONTROLE", "DATE_DE_CONTROLE")
+            GunaDataGridViewHoraire.Columns.Add("CODE_PLANNING", "CODE_PLANNING")
+            'GunaDataGridViewHoraire.DataSource = infoPlanning
+
+            For k = 0 To infoPlanning.Rows.Count - 1
+                GunaDataGridViewHoraire.Rows.Add(infoPlanning.Rows(k)(0), infoPlanning.Rows(k)(1), infoPlanning.Rows(k)(2), infoPlanning.Rows(k)(3), infoPlanning.Rows(k)(4), infoPlanning.Rows(k)(5))
+            Next
 
             For i = 0 To GunaDataGridViewHoraire.Columns.Count - 1
 
-                If i = 0 Or i > 4 Then
+                If i = 0 Or i > 3 Then
                     GunaDataGridViewHoraire.Columns(i).Visible = False
                 End If
 
@@ -85,9 +113,14 @@ Public Class PlanningHebdomadaireDuPersonnelForm
 
     Private Sub PlanningHebdomadaireDuPersonnelForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        Dim language As New Languages()
+        language.PlanningHebdomadaireDuPersonnel(GlobalVariable.actualLanguageValue)
+
         setPlanningDateAndTime()
 
-        GunaDateTimePickerDispoDebut.Value = GlobalVariable.DateDeTravail.ToShortDateString
+        'GunaDateTimePickerDispoDebut.Value = GlobalVariable.DateDeTravail.ToShortDateString
+
+        GunaDateTimePickerDispoFin.Value = GunaDateTimePickerDispoDebut.Value.AddDays(7)
 
         Dim departement As String = ""
 
@@ -118,7 +151,95 @@ Public Class PlanningHebdomadaireDuPersonnelForm
 
         listeDesPlanningComplet()
 
-        GunaDateTimePickerDispoFin.Value = GunaDateTimePickerDispoDebut.Value.AddDays(12)
+        'GunaDateTimePickerDispoFin.Value = GunaDateTimePickerDispoDebut.Value.AddDays(12)
+
+        GunaDataGridViewFolio1.Columns.Clear()
+        GunaDataGridViewFolio2.Columns.Clear()
+
+        If GlobalVariable.actualLanguageValue = 1 Then
+            GunaDataGridViewFolio1.Columns.Add("CODE_PRESONNEL", "CODE PRESONNEL")
+            GunaDataGridViewFolio1.Columns.Add("MATRICULE", "MATRICULE")
+            GunaDataGridViewFolio1.Columns.Add("NOM", "NOM")
+            GunaDataGridViewFolio1.Columns.Add("PRENOM", "PRENOM")
+            GunaDataGridViewFolio1.Columns.Add("POST", "POSTE")
+            GunaDataGridViewFolio1.Columns.Add("SHIFT", "SHIFT")
+            GunaDataGridViewFolio1.Columns.Add("OFF_DAY", "OFF")
+            GunaDataGridViewFolio1.Columns.Add("SHIFT_CODE", "SHIFT CODE")
+
+            GunaDataGridViewFolio2.Columns.Add("CODE_PRESONNEL", "CODE PRESONNEL")
+            GunaDataGridViewFolio2.Columns.Add("MATRICULE", "MATRICULE")
+            GunaDataGridViewFolio2.Columns.Add("NOM", "NOM")
+            GunaDataGridViewFolio2.Columns.Add("PRENOM", "PRENOM")
+            GunaDataGridViewFolio2.Columns.Add("POST", "POSTE")
+            GunaDataGridViewFolio2.Columns.Add("SHIFT", "SHIFT")
+            GunaDataGridViewFolio2.Columns.Add("OFF_DAY", "OFF")
+            GunaDataGridViewFolio2.Columns.Add("SHIFT_CODE", "SHIFT CODE")
+        Else
+            GunaDataGridViewFolio1.Columns.Add("CODE_PRESONNEL", "CODE PRESONNEL")
+            GunaDataGridViewFolio1.Columns.Add("MATRICULE", "MATRICULE")
+            GunaDataGridViewFolio1.Columns.Add("FIRST_NAME", "FIRST NAME")
+            GunaDataGridViewFolio1.Columns.Add("LAST_NAME", "LAST NAME")
+            GunaDataGridViewFolio1.Columns.Add("POST", "POST")
+            GunaDataGridViewFolio1.Columns.Add("SHIFT", "SHIFT")
+            GunaDataGridViewFolio1.Columns.Add("OFF_DAY", "OFF")
+            GunaDataGridViewFolio1.Columns.Add("SHIFT_CODE", "SHIFT CODE")
+
+            GunaDataGridViewFolio2.Columns.Add("CODE_PRESONNEL", "CODE PRESONNEL")
+            GunaDataGridViewFolio2.Columns.Add("MATRICULE", "MATRICULE")
+            GunaDataGridViewFolio2.Columns.Add("FIRST_NAME", "FIRST NAME")
+            GunaDataGridViewFolio2.Columns.Add("LAST_NAME", "LAST NAME")
+            GunaDataGridViewFolio2.Columns.Add("POST", "POST")
+            GunaDataGridViewFolio2.Columns.Add("SHIFT", "SHIFT")
+            GunaDataGridViewFolio2.Columns.Add("OFF_DAY", "OFF")
+            GunaDataGridViewFolio2.Columns.Add("SHIFT_CODE", "SHIFT CODE")
+        End If
+
+        GunaDataGridViewFolio1.Columns(0).Visible = False
+        GunaDataGridViewFolio2.Columns(0).Visible = False
+
+        GunaDataGridViewFolio1.Columns(1).Visible = False
+        GunaDataGridViewFolio2.Columns(1).Visible = False
+
+        GunaDataGridViewFolio1.Columns(6).Visible = False
+        GunaDataGridViewFolio1.Columns(5).Visible = False
+        GunaDataGridViewFolio2.Columns(4).Visible = False
+
+        GunaDataGridViewFolio1.Columns(4).Visible = False
+
+        GunaDataGridViewFolio1.Columns(7).Visible = False
+        GunaDataGridViewFolio2.Columns(7).Visible = False
+
+        Dim showCustomImage As Boolean = False
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+            If GlobalVariable.config.Rows.Count > 0 Then
+                showCustomImage = True
+            End If
+        End If
+
+        If showCustomImage Then
+
+            Dim buttonPanel As Integer = 1
+            GunaPanel1.BackColor = Functions.colorationWindow(buttonPanel)
+            GunaPanel3.BackColor = Functions.colorationWindow(buttonPanel)
+
+            buttonPanel = 0
+            GunaButtonMoveLeftToRight.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonAllToRight.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonMoveRightToLeft.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonAllToLeft.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton3.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonEnregistrerPlanning.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton1.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton2.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton16.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonEditionDeMasse.BaseColor = Functions.colorationWindow(buttonPanel)
+
+            buttonPanel = 2
+            GunaButtonMoveLeftToRight.ForeColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonAllToRight.ForeColor = Functions.colorationWindow(buttonPanel)
+
+        End If
 
     End Sub
 
@@ -157,8 +278,8 @@ Public Class PlanningHebdomadaireDuPersonnelForm
 
                 Next
 
-                GunaDataGridViewFolio1.Columns("CODE").Visible = False
-                GunaDataGridViewFolio2.Columns("CODE_PERSONNEL").Visible = False
+                'GunaDataGridViewFolio1.Columns("CODE").Visible = False
+                'GunaDataGridViewFolio2.Columns("CODE_PERSONNEL").Visible = False
 
             End If
 
@@ -181,14 +302,14 @@ Public Class PlanningHebdomadaireDuPersonnelForm
 
             GunaDateTimePicker1.Value = Functions.getElementByCode(lastPlanningElementCode, "planning_hebdomadaire", "CODE_PLANNING").Rows(0)("DATE_DEBUT").AddDays(1)
 
-            GunaLabelDateTravaille.Text = GunaDateTimePicker1.Value.ToLongDateString()
+            'GunaLabelDbutProg.Text = GunaDateTimePicker1.Value.ToLongDateString()
 
         Else
 
             'Initialisation du temps du planning 
             GunaDateTimePicker1.Value = Date.Now().ToLongDateString
 
-            GunaLabelDateTravaille.Text = GunaDateTimePicker1.Value.ToLongDateString()
+            'GunaLabelDbutProg.Text = GunaDateTimePicker1.Value.ToLongDateString()
 
         End If
 
@@ -225,15 +346,34 @@ Public Class PlanningHebdomadaireDuPersonnelForm
             GunaComboBoxListeDesDepartements.ValueMember = "CODE_TYPE_PERSONNEL"
             GunaComboBoxListeDesDepartements.DisplayMember = "LIBELLE_TYPE_PERSONNEL"
 
+            GunaComboBoxProfilPlanning.DataSource = tableprofilsList
+            GunaComboBoxProfilPlanning.ValueMember = "CODE_TYPE_PERSONNEL"
+            GunaComboBoxProfilPlanning.DisplayMember = "LIBELLE_TYPE_PERSONNEL"
+
+        End If
+
+    End Sub
+
+    Private Sub autoLoadProfilPlanning()
+
+        Dim profils As String = "SELECT CODE_TYPE_PERSONNEL, LIBELLE_TYPE_PERSONNEL FROM type_personnel ORDER BY LIBELLE_TYPE_PERSONNEL ASC"
+        Dim commandprofilsList As New MySqlCommand(profils, GlobalVariable.connect)
+
+        Dim adapterprofilsList As New MySqlDataAdapter(commandprofilsList)
+        Dim tableprofilsList As New DataTable()
+        adapterprofilsList.Fill(tableprofilsList)
+
+        If tableprofilsList.Rows.Count > 0 Then
+
+            GunaComboBoxProfilPlanning.DataSource = tableprofilsList
+            GunaComboBoxProfilPlanning.ValueMember = "CODE_TYPE_PERSONNEL"
+            GunaComboBoxProfilPlanning.DisplayMember = "LIBELLE_TYPE_PERSONNEL"
+
         End If
 
     End Sub
 
     Private Sub GunaImageButton5_Click(sender As Object, e As EventArgs) Handles GunaImageButton5.Click
-        Me.Close()
-    End Sub
-
-    Private Sub GunaButtonFermer_Click(sender As Object, e As EventArgs) Handles GunaButtonFermer.Click
         Me.Close()
     End Sub
 
@@ -250,23 +390,54 @@ Public Class PlanningHebdomadaireDuPersonnelForm
         Dim planning As New ServicesEtage()
 
         Dim CODE_PLANNING_HORAIRE_PERSONNEL As String = Functions.GeneratingRandomCodeWithSpecifications("planning_horaire_personnel", "")
-        Dim CODE_PLANNING As String = GunaComboBoxPlannintContenantHoraire.SelectedValue.ToString
+        Dim CODE_PROGRAMME As String = Functions.GeneratingRandomCodeWithSpecifications("planning", "")
+
+        Dim CODE_PLANNING As String = ""
+        If GunaComboBoxPlannintContenantHoraire.SelectedIndex >= 0 Then
+            CODE_PLANNING = GunaComboBoxPlannintContenantHoraire.SelectedValue.ToString()
+        End If
+
         Dim CODE_TYPE_PERSONNEL As String = GunaComboBoxTypePersonnel.SelectedValue.ToString
         Dim DATE_DEBUT As Date = GunaDateTimePicker1.Value.ToShortDateString()
         Dim HEURE_DEBUT As DateTime = GunaDateTimePickerAu.Value.ToShortTimeString()
 
+        Dim DEBUT_PROG As Date = GunaDateTimePickerProgStartDate.Value.ToShortDateString
         Dim CODE_PERSONNEL As String = ""
 
+        Dim DAY_OFF As Date
         Dim service As New ServicesEtage
 
         For i = 0 To GunaDataGridViewFolio2.Rows.Count - 1
 
-            CODE_PERSONNEL = GunaDataGridViewFolio2.Rows(i).Cells("CODE_PERSONNEL").Value.ToString
-            service.insertPlanningHorairePersonnel(CODE_PLANNING_HORAIRE_PERSONNEL, CODE_PERSONNEL, CODE_TYPE_PERSONNEL, CODE_PLANNING)
+            DAY_OFF = CDate(GunaDataGridViewFolio2.Rows(i).Cells(6).Value.ToString).ToShortDateString
+            CODE_PERSONNEL = GunaDataGridViewFolio2.Rows(i).Cells(0).Value.ToString
+            CODE_PLANNING = GunaDataGridViewFolio2.Rows(i).Cells(7).Value.ToString
+            service.insertPlanningHorairePersonnel(CODE_PLANNING_HORAIRE_PERSONNEL, CODE_PERSONNEL, CODE_TYPE_PERSONNEL, CODE_PLANNING, DEBUT_PROG, CODE_PROGRAMME, DAY_OFF)
 
         Next
 
-        MessageBox.Show("Personnel affecté au " & GunaLabelDateTravaille.Text & " avec succès", "PLanning Personnel", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Dim DATE_DEBUT_PROG = GunaDateTimePickerProgStartDate.Value.ToShortDateString
+        Dim DATE_FIN_PROG = GunaDateTimePickerProgStartDate.Value.AddDays(6).ToShortDateString
+        Dim INTITULE_DEPARTMENT = ""
+
+        Dim infoSup As DataTable = Functions.getElementByCode(CODE_TYPE_PERSONNEL, "type_personnel", "CODE_TYPE_PERSONNEL")
+        If infoSup.Rows.Count > 0 Then
+            INTITULE_DEPARTMENT = infoSup.Rows(0)("LIBELLE_TYPE_PERSONNEL")
+        End If
+
+        service.insertPlanning(DATE_DEBUT_PROG, DATE_FIN_PROG, CODE_TYPE_PERSONNEL, INTITULE_DEPARTMENT, CODE_PROGRAMME)
+
+        '-----------------------------------------------------------------------------------------------------------------------
+
+        service.planning_programme(CODE_TYPE_PERSONNEL, CODE_PROGRAMME, DATE_DEBUT_PROG, DATE_FIN_PROG)
+
+        '-----------------------------------------------------------------------------------------------------------------------
+
+        If GlobalVariable.actualLanguageValue = 1 Then
+            MessageBox.Show("Personnel affecté au " & GunaLabelDbutProg.Text & " avec succès", "PLanning Personnel", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Else
+            MessageBox.Show("Personnel successfully affected on " & GunaLabelDbutProg.Text, "Personnel PLanning", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
 
         'We clean the right datargid and refresh the left one
         GunaDataGridViewFolio1.Rows.Clear()
@@ -285,13 +456,35 @@ Public Class PlanningHebdomadaireDuPersonnelForm
     'Basculement du folio1 pour le folio2
     Private Sub GunaButtonAJouterUn_Click(sender As Object, e As EventArgs) Handles GunaButtonMoveLeftToRight.Click
 
+        Dim SHIFT As String = GunaComboBoxPlannintContenantHoraire.SelectedValue.ToString
+        Dim DAY_OFF As Date
+
+        If GunaCheckBoxOff.Checked Then
+            DAY_OFF = GunaDateTimePickerOffDay.Value.ToShortDateString
+        End If
+
         If GunaDataGridViewFolio1.SelectedRows.Count > 0 Then
+
             Dim selectedgrid As DataGridViewRow = GunaDataGridViewFolio1.SelectedRows(0)
             GunaDataGridViewFolio1.Rows.Remove(selectedgrid)
             GunaDataGridViewFolio2.Rows.Add(selectedgrid)
+
+            Dim index As Integer = GunaDataGridViewFolio2.Rows.Count - 1
+            GunaDataGridViewFolio2.Rows(index).Cells(5).Value = SHIFT
+
+            Dim infoShift As DataTable = Functions.getElementByCode(SHIFT, "planning_hebdomadaire", "CODE_PLANNING")
+            If infoShift.Rows.Count > 0 Then
+                GunaDataGridViewFolio2.Rows(index).Cells(5).Value = infoShift.Rows(0)("INTITULE_PLANNING")
+            End If
+
+            GunaDataGridViewFolio2.Rows(index).Cells(6).Value = DAY_OFF.ToShortDateString
+            GunaDataGridViewFolio2.Rows(index).Cells(7).Value = SHIFT
+
         End If
 
         activateSave()
+
+        GunaCheckBoxOff.Checked = False
 
     End Sub
 
@@ -311,12 +504,31 @@ Public Class PlanningHebdomadaireDuPersonnelForm
     'Move everything found in the left to the right
     Private Sub GunaButton5_Click(sender As Object, e As EventArgs) Handles GunaButtonAllToRight.Click
 
+        Dim SHIFT As String = GunaComboBoxPlannintContenantHoraire.SelectedValue.ToString
+        Dim DAY_OFF As Date
+
+        If GunaCheckBoxOff.Checked Then
+            DAY_OFF = GunaDateTimePickerOffDay.Value.ToShortDateString
+        End If
+
         If GunaDataGridViewFolio1.SelectedRows.Count > 0 Then
 
             Do While GunaDataGridViewFolio1.SelectedRows.Count > 0
+
                 Dim selectedgrid As DataGridViewRow = GunaDataGridViewFolio1.SelectedRows(0)
                 GunaDataGridViewFolio1.Rows.Remove(selectedgrid)
                 GunaDataGridViewFolio2.Rows.Add(selectedgrid)
+
+                Dim index As Integer = GunaDataGridViewFolio2.Rows.Count - 1
+                GunaDataGridViewFolio2.Rows(index).Cells(5).Value = SHIFT
+
+                GunaDataGridViewFolio2.Rows(index).Cells(6).Value = DAY_OFF.ToShortDateString
+
+                Dim infoShift As DataTable = Functions.getElementByCode(SHIFT, "planning_hebdomadaire", "CODE_PLANNING")
+                If infoShift.Rows.Count > 0 Then
+                    GunaDataGridViewFolio2.Rows(index).Cells(5).Value = infoShift.Rows(0)("INTITULE_PLANNING")
+                End If
+
             Loop
 
         End If
@@ -343,9 +555,6 @@ Public Class PlanningHebdomadaireDuPersonnelForm
     End Sub
 
     Private Sub GunaDateTimePicker1_ValueChanged(sender As Object, e As EventArgs) Handles GunaDateTimePicker1.ValueChanged
-
-        GunaLabelDateTravaille.Text = GunaDateTimePicker1.Value.ToShortDateString
-        GunaLabel7.Text = GunaDateTimePickerAu.Value.ToShortDateString
 
         GunaDateTimePickerAu.Value = GunaDateTimePicker1.Value.AddDays(7)
 
@@ -390,13 +599,15 @@ Public Class PlanningHebdomadaireDuPersonnelForm
 
             planningContenantHoraire()
 
+            listeDesPlanningComplet()
+
         End If
 
     End Sub
 
     Private Sub GunaDateTimePickerAu_ValueChanged(sender As Object, e As EventArgs) Handles GunaDateTimePickerAu.ValueChanged
 
-        GunaLabel7.Text = GunaDateTimePickerAu.Value.ToShortDateString
+        GunaLabelFinProg.Text = GunaDateTimePickerAu.Value.ToLongDateString
 
         activateSave()
 
@@ -404,11 +615,15 @@ Public Class PlanningHebdomadaireDuPersonnelForm
 
     Private Sub GunaButton1_Click(sender As Object, e As EventArgs) Handles GunaButton1.Click
 
-        If GunaComboBoxListeDesDepartements.SelectedIndex >= 0 Then
+        If GunaComboBoxListeDesDepartements.SelectedIndex > 0 Then
 
             If Trim(GunaTextBoxIntitulePlanning.Text).Equals("") Then
 
-                MessageBox.Show("Bien vouloir donner un intitulé au planning ", "PLanning Personnel", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                If GlobalVariable.actualLanguageValue = 1 Then
+                    MessageBox.Show("Bien vouloir donner un intitulé au planning ", "Planning Personnel", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Else
+                    MessageBox.Show("Please give a Title to your planning ", "Personnel Planning", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
 
             Else
 
@@ -451,6 +666,12 @@ Public Class PlanningHebdomadaireDuPersonnelForm
             End If
 
         Else
+
+            If GlobalVariable.actualLanguageValue = 1 Then
+                MessageBox.Show("Bien vouloir choisir un département ", "Planning Personnel", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                MessageBox.Show("Please choose a department ", "Personnel Planning", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
 
         End If
 
@@ -524,10 +745,15 @@ Public Class PlanningHebdomadaireDuPersonnelForm
 
         '0- ON SELECTIONNE CHAQUE TYPE DE CHAMBRE
 
-        Dim existQuery As String = "SELECT * From planning_hebdomadaire ORDER BY INTITULE_PLANNING ASC"
+        Dim CODE_TYPE_PERSONNEL As String = ""
+        If GunaComboBoxProfilPlanning.SelectedIndex > 0 Then
+            CODE_TYPE_PERSONNEL = GunaComboBoxProfilPlanning.SelectedValue.ToString
+        End If
+
+        Dim existQuery As String = "SELECT * From planning_hebdomadaire WHERE CODE_TYPE_PERSONNEL=@CODE_TYPE_PERSONNEL ORDER BY INTITULE_PLANNING ASC"
 
         Dim command As New MySqlCommand(existQuery, GlobalVariable.connect)
-
+        command.Parameters.Add("@CODE_TYPE_PERSONNEL", MySqlDbType.VarChar).Value = CODE_TYPE_PERSONNEL
         Dim adapter As New MySqlDataAdapter(command)
         Dim planning As New DataTable()
         adapter.Fill(planning)
@@ -554,7 +780,8 @@ Public Class PlanningHebdomadaireDuPersonnelForm
 
             For k = 0 To nombreDeJour - 1
                 '1- ON AFFICHE LES DATES DU JOURS
-                GunaDataGridViewPlanningHoraire.Columns.Add(DateDebut.AddDays(k).ToString("ddd d MMM"), DateDebut.AddDays(k).ToString("ddd d MMM"))
+                'GunaDataGridViewPlanningHoraire.Columns.Add(DateDebut.AddDays(k).ToString("ddd d MMM"), DateDebut.AddDays(k).ToString("ddd d MMM"))
+                GunaDataGridViewPlanningHoraire.Columns.Add(DateDebut.AddDays(k).ToString("dddd"), DateDebut.AddDays(k).ToString("dddd"))
             Next
 
             'VARIABLE UTILISEE POUR DETERMINER LES LIGNES DE DONNEES A AFFICHER
@@ -674,6 +901,10 @@ Public Class PlanningHebdomadaireDuPersonnelForm
 
             Next
 
+            If GunaDataGridViewPlanningHoraire.Rows.Count > 0 Then
+                GunaDataGridViewPlanningHoraire.Columns(0).AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            End If
+
         End If
 
     End Sub
@@ -687,8 +918,10 @@ Public Class PlanningHebdomadaireDuPersonnelForm
 
     Private Sub GunaButtonEditionDeMasse_Click(sender As Object, e As EventArgs) Handles GunaButtonEditionDeMasse.Click
 
+        AffectationHoraireAuPlanningForm.GunaTextBoxCodeDepart.Text = GunaComboBoxProfilPlanning.SelectedValue.ToString
         AffectationHoraireAuPlanningForm.Show()
         AffectationHoraireAuPlanningForm.TopMost = True
+
 
     End Sub
 
@@ -708,8 +941,8 @@ Public Class PlanningHebdomadaireDuPersonnelForm
 
             row = Me.GunaDataGridViewPlanning.Rows(e.RowIndex)
 
-            GunaTextBoxCodePlanning.Text = row.Cells("CODE_PLANNING").Value
-            GunaTextBoxIntitulePlanning.Text = row.Cells("INTITULE_PLANNING").Value
+            GunaTextBoxCodePlanning.Text = row.Cells(2).Value
+            GunaTextBoxIntitulePlanning.Text = row.Cells(1).Value
             GunaComboBoxListeDesDepartements.SelectedValue = row.Cells("CODE_TYPE_PERSONNEL").Value.ToString
 
             GunaDateTimePicker1.Value = CDate(row.Cells("DATE_DEBUT").Value).ToShortDateString
@@ -795,9 +1028,10 @@ Public Class PlanningHebdomadaireDuPersonnelForm
 
     Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
 
-        If GunaDataGridViewPlanning.Rows.Count > 0 Then
+        If GunaDataGridViewHoraire.Rows.Count > 0 Then
 
             Dim dialog As DialogResult
+
             If GlobalVariable.actualLanguageValue = 0 Then
                 languageTitle = "Delete"
                 languageMessage = "Do you really want to delete : " & GunaDataGridViewHoraire.CurrentRow.Cells(3).Value.ToString
@@ -808,14 +1042,11 @@ Public Class PlanningHebdomadaireDuPersonnelForm
             End If
             dialog = MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
-            If dialog = DialogResult.No Then
-                'e.Cancel = True
-            Else
-
+            If dialog = DialogResult.Yes Then
 
                 If GlobalVariable.actualLanguageValue = 0 Then
                     languageTitle = "Delete"
-                    languageMessage = "Assignation successfully deleted"
+                    languageMessage = "Hours successfully deleted"
 
                 ElseIf GlobalVariable.actualLanguageValue = 1 Then
                     languageTitle = "Supression"
@@ -834,12 +1065,13 @@ Public Class PlanningHebdomadaireDuPersonnelForm
             End If
 
         Else
+
             If GlobalVariable.actualLanguageValue = 0 Then
                 languageTitle = "Delete"
-                languageMessage = "No user to be deleted!"
+                languageMessage = "No hours to be deleted!"
             ElseIf GlobalVariable.actualLanguageValue = 1 Then
                 languageTitle = "Supression"
-                languageMessage = "Aucune utilisateur à suprimer!"
+                languageMessage = "Aucune Horaire à supprimer!"
             End If
             MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
@@ -853,6 +1085,10 @@ Public Class PlanningHebdomadaireDuPersonnelForm
             planningContenantHoraire()
         End If
 
+        If TabControl1.SelectedIndex = 2 Then
+
+        End If
+
     End Sub
 
     Private Sub GunaComboBoxPlannintContenantHoraire_SelectedValueChanged(sender As Object, e As EventArgs) Handles GunaComboBoxPlannintContenantHoraire.SelectedValueChanged
@@ -864,8 +1100,8 @@ Public Class PlanningHebdomadaireDuPersonnelForm
             Dim infoSupPlanning As DataTable = Functions.getElementByCode(CODE_PLANNING, "planning_hebdomadaire", "CODE_PLANNING")
 
             If infoSupPlanning.Rows.Count > 0 Then
-                GunaLabelDateTravaille.Text = infoSupPlanning.Rows(0)("DATE_DEBUT")
-                GunaLabel7.Text = infoSupPlanning.Rows(0)("DATE_FIN")
+                'GunaLabelDbutProg.Text = infoSupPlanning.Rows(0)("DATE_DEBUT")
+                'GunaLabelFinProg.Text = infoSupPlanning.Rows(0)("DATE_FIN")
             End If
 
         End If
@@ -876,61 +1112,51 @@ Public Class PlanningHebdomadaireDuPersonnelForm
     Private Sub listeDesPlanningComplet()
 
         'ON SELECTIONNE UNIQUEMENT LES PLANNING ASSOCIE AU PERSONNEL POUR NE PAS VOIR L'ENSEMBLE DES PLANNINGS MEME CEUX NON AFFECTES AUX PERSONNELS
+        Dim CODE_TYPE_PERSONNEL As String = GunaComboBoxTypePersonnel.SelectedValue.ToString
+        Dim query As String = ""
+        If GlobalVariable.actualLanguageValue = 1 Then
+            query = "SELECT `CODE_PROGRAMME`,`CODE_TYPE_PERSONNEL`,`INTITULE_DEPARTMENT` AS 'DEPARTEMENT', `DATE_DEBUT_PROG` AS DU ,`DATE_FIN_PROG` AS AU FROM `planning` WHERE CODE_TYPE_PERSONNEL=@CODE_TYPE_PERSONNEL ORDER BY DATE_DEBUT_PROG DESC"
+        Else
+            query = "SELECT `CODE_PROGRAMME`,`CODE_TYPE_PERSONNEL`, `INTITULE_DEPARTMENT` AS DEPARTMENT, `DATE_DEBUT_PROG` AS 'FROM', `DATE_FIN_PROG` AS 'TO' FROM `planning` WHERE CODE_TYPE_PERSONNEL=@CODE_TYPE_PERSONNEL ORDER BY DATE_DEBUT_PROG DESC"
+        End If
+        Dim command As New MySqlCommand(query, GlobalVariable.connect)
+        command.Parameters.Add("@CODE_TYPE_PERSONNEL", MySqlDbType.VarChar).Value = CODE_TYPE_PERSONNEL
 
-        Dim query04 As String = "SELECT DISTINCT planning_horaire_personnel.CODE_TYPE_PERSONNEL, LIBELLE_TYPE_PERSONNEL FROM `planning_horaire_personnel`, type_personnel 
-            WHERE planning_horaire_personnel.CODE_TYPE_PERSONNEL = type_personnel.CODE_TYPE_PERSONNEL ORDER BY CODE_TYPE_PERSONNEL ASC"
 
-        Dim command04 As New MySqlCommand(query04, GlobalVariable.connect)
-        'command04.Parameters.Add("@CODE_TYPE_PERSONNEL", MySqlDbType.VarChar).Value = CODE_TYPE_PERSONNEL
+        Dim adapter As New MySqlDataAdapter(command)
+        Dim dt As New DataTable()
+        adapter.Fill(dt)
 
-        Dim adapter04 As New MySqlDataAdapter(command04)
-        Dim planningHebdomadaire As New DataTable()
-        adapter04.Fill(planningHebdomadaire)
+        GunaDataGridViewPlanningHebdomadaire.DataSource = Nothing
 
-        If planningHebdomadaire.Rows.Count > 0 Then
-
-            GunaDataGridViewPlanningHebdomadaire.DataSource = Nothing
-            GunaDataGridViewPlanningHebdomadaire.DataSource = planningHebdomadaire
-
-            If GunaDataGridViewPlanningHebdomadaire.Columns.Count - 1 Then
-
-                For i = 0 To GunaDataGridViewPlanningHebdomadaire.Columns.Count - 1
-
-                    If i = 0 Then
-                        GunaDataGridViewPlanningHebdomadaire.Columns(i).Visible = False
-                    End If
-
-                Next
-
-            End If
-
+        If dt.Rows.Count > 0 Then
+            GunaDataGridViewPlanningHebdomadaire.DataSource = dt
+            GunaDataGridViewPlanningHebdomadaire.Columns(0).Visible = False
+            GunaDataGridViewPlanningHebdomadaire.Columns(1).Visible = False
         End If
 
     End Sub
 
     Private Sub GunaDataGridViewPlanningHebdomadaire_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GunaDataGridViewPlanningHebdomadaire.CellDoubleClick
 
-        If e.RowIndex >= 0 Then
+        If GunaDataGridViewPlanningHebdomadaire.CurrentRow.Selected Then
 
             Dim row As DataGridViewRow
-
             row = Me.GunaDataGridViewPlanningHebdomadaire.Rows(e.RowIndex)
 
             Dim CODE_TYPE_PERSONNEL = row.Cells("CODE_TYPE_PERSONNEL").Value
+            Dim CODE_PROGRAMME = row.Cells("CODE_PROGRAMME").Value
 
-            'SELECTION L'ENSEMEBLE DES ELEMENETS DE PLANNINGS ASSOCIES AUX PERSONNEL (SUR L'ENSEMEBLE DES SHIFTS)
-            Dim infoSupPlanningHorairePersonnel As DataTable = Functions.getElementByCode(CODE_TYPE_PERSONNEL, "planning_horaire_personnel", "CODE_TYPE_PERSONNEL")
+            'SELECTION DE L'ENSEMEBLE DES ELEMENETS DE PLANNINGS ASSOCIES AUX PERSONNEL (SUR L'ENSEMEBLE DES SHIFTS)
+            Dim infoSupPlanningHorairePersonnel As DataTable = Functions.getElementByCode(CODE_PROGRAMME, "planning_horaire_personnel", "CODE_PROGRAMME")
 
             If infoSupPlanningHorairePersonnel.Rows.Count > 0 Then
 
-                Dim infoSupPlanning As DataTable = Functions.getElementByCode(infoSupPlanningHorairePersonnel.Rows(0)("CODE_PLANNING"), "planning_hebdomadaire", "CODE_PLANNING")
+                Dim infoSupPlanning As DataTable = Functions.getElementByCode(infoSupPlanningHorairePersonnel.Rows(0)("CODE_TYPE_PERSONNEL"), "planning_hebdomadaire", "CODE_TYPE_PERSONNEL")
 
                 If infoSupPlanning.Rows.Count > 0 Then
                     Impression.planningPersonnel(infoSupPlanningHorairePersonnel, infoSupPlanning)
-                Else
-
                 End If
-            Else
 
             End If
 
@@ -953,9 +1179,7 @@ Public Class PlanningHebdomadaireDuPersonnelForm
             End If
             dialog = MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
-            If dialog = DialogResult.No Then
-                'e.Cancel = True
-            Else
+            If dialog = DialogResult.Yes Then
 
                 If GlobalVariable.actualLanguageValue = 0 Then
                     languageTitle = "Delete"
@@ -989,4 +1213,188 @@ Public Class PlanningHebdomadaireDuPersonnelForm
 
         End If
     End Sub
+
+    Private Sub GunaDateTimePickerDispoDebut_ValueChanged(sender As Object, e As EventArgs) Handles GunaDateTimePickerDispoDebut.ValueChanged
+        GunaDateTimePickerDispoFin.Value = GunaDateTimePickerDispoDebut.Value.AddDays(7)
+    End Sub
+
+    Private Sub GunaComboBoxProfilPlanning_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GunaComboBoxProfilPlanning.SelectedIndexChanged
+
+        GunaDataGridViewPlanningHoraire.Columns.Clear()
+
+        If GunaComboBoxProfilPlanning.SelectedIndex > 0 Then
+            GunaButtonEditionDeMasse.Visible = True
+        Else
+            GunaButtonEditionDeMasse.Visible = False
+        End If
+
+    End Sub
+
+    Private Sub GunaDateTimePickerProgStartDate_ValueChanged(sender As Object, e As EventArgs) Handles GunaDateTimePickerProgStartDate.ValueChanged
+
+        GunaLabelDbutProg.Text = GunaDateTimePickerProgStartDate.Value.ToLongDateString
+        GunaLabelFinProg.Text = GunaDateTimePickerProgStartDate.Value.AddDays(6).ToLongDateString
+
+        Dim ActualDate As Date = GunaDateTimePickerProgStartDate.Value
+        Dim dateDeTravail As Date = GlobalVariable.DateDeTravail
+
+        GunaDateTimePickerOffDay.MaxDate = GunaDateTimePickerProgStartDate.Value.AddDays(6).ToShortDateString
+        GunaDateTimePickerOffDay.MinDate = ActualDate
+
+    End Sub
+
+    Private Sub GunaDataGridViewPlanningHebdomadaire_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles GunaDataGridViewPlanningHebdomadaire.CellClick
+
+        If GunaDataGridViewPlanningHebdomadaire.CurrentRow.Selected Then
+
+            Dim row As DataGridViewRow
+
+            row = Me.GunaDataGridViewPlanningHebdomadaire.Rows(e.RowIndex)
+
+            Dim CODE_PROGRAMME = row.Cells("CODE_PROGRAMME").Value
+
+            AffichageDetailProgramme(CODE_PROGRAMME)
+
+        End If
+
+
+
+    End Sub
+
+    Private Sub AffichageDetailProgramme(ByVal CODE_PROGRAMME As String)
+
+        Dim dt As DataTable = Functions.getElementByCode(CODE_PROGRAMME, "planning_horaire_personnel", "CODE_PROGRAMME")
+        Dim CODE_PERSONNEL As String = ""
+        Dim NOM_PERSONNEL As String = ""
+        Dim PRENOM_PERSONNEL As String = ""
+        Dim CODE_PLANNING As String = ""
+        Dim SHIFT As String = ""
+        Dim ID As Integer = 0
+        Dim DAY_OFF As Date
+
+        GunaDataGridViewDetailPlanning.Columns.Clear()
+
+        If GlobalVariable.actualLanguageValue = 1 Then
+
+            GunaDataGridViewDetailPlanning.Columns.Add("ID", "ID")
+            GunaDataGridViewDetailPlanning.Columns.Add("CODE_PLANNING_HORAIRE_PERSONNEL", "CODE PRESONNEL")
+            GunaDataGridViewDetailPlanning.Columns.Add("NOM", "NOM")
+            GunaDataGridViewDetailPlanning.Columns.Add("PRENOM", "PRENOM")
+            GunaDataGridViewDetailPlanning.Columns.Add("SHIFT", "SHIFT")
+            GunaDataGridViewDetailPlanning.Columns.Add("CODE_PROGRAMME", "CODE_PROGRAMME")
+            GunaDataGridViewDetailPlanning.Columns.Add("OFF", "OFF")
+
+        Else
+
+            GunaDataGridViewDetailPlanning.Columns.Add("ID", "ID")
+            GunaDataGridViewDetailPlanning.Columns.Add("CODE_PLANNING_HORAIRE_PERSONNEL", "CODE PRESONNEL")
+            GunaDataGridViewDetailPlanning.Columns.Add("FIRST_NAME", "FIRST NAME")
+            GunaDataGridViewDetailPlanning.Columns.Add("LAST_NAME", "LAST NAME")
+            GunaDataGridViewDetailPlanning.Columns.Add("SHIFT", "SHIFT")
+            GunaDataGridViewDetailPlanning.Columns.Add("CODE_PROGRAMME", "CODE_PROGRAMME")
+            GunaDataGridViewDetailPlanning.Columns.Add("OFF", "OFF")
+
+        End If
+
+        If dt.Rows.Count > 0 Then
+
+            For i = 0 To dt.Rows.Count - 1
+                ID = dt.Rows(i)("ID_PLANNING_HORAIRE_PERSONNEL")
+                CODE_PERSONNEL = dt.Rows(i)("CODE_PERSONNEL")
+                CODE_PLANNING = dt.Rows(i)("CODE_PLANNING")
+                CODE_PROGRAMME = dt.Rows(i)("CODE_PROGRAMME")
+                DAY_OFF = dt.Rows(i)("DAY_OFF")
+                Dim infoPerso As DataTable = Functions.getElementByCode(CODE_PERSONNEL, "personnel", "CODE_PERSONNEL")
+                If infoPerso.Rows.Count > 0 Then
+                    NOM_PERSONNEL = infoPerso.Rows(0)("NOM_PERSONNEL")
+                    PRENOM_PERSONNEL = infoPerso.Rows(0)("PRENOM_PERSONNEL")
+                End If
+
+                Dim infoPlan As DataTable = Functions.getElementByCode(CODE_PLANNING, "planning_hebdomadaire", "CODE_PLANNING")
+                If infoPlan.Rows.Count > 0 Then
+                    SHIFT = infoPlan.Rows(0)("INTITULE_PLANNING")
+                End If
+                GunaDataGridViewDetailPlanning.Rows.Add(ID, dt.Rows(i)("CODE_PLANNING_HORAIRE_PERSONNEL"), NOM_PERSONNEL, PRENOM_PERSONNEL, SHIFT, CODE_PROGRAMME, CDate(DAY_OFF).ToShortDateString)
+            Next
+
+            GunaDataGridViewDetailPlanning.Rows(0).Selected = True
+
+        End If
+
+        GunaDataGridViewDetailPlanning.Columns(0).Visible = False
+        GunaDataGridViewDetailPlanning.Columns(1).Visible = False
+        GunaDataGridViewDetailPlanning.Columns(5).Visible = False
+
+    End Sub
+
+    Private Sub ToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem3.Click
+
+        If GunaDataGridViewDetailPlanning.CurrentRow.Selected Then
+
+            Dim CODE_PROGRAMME As String = GunaDataGridViewDetailPlanning.CurrentRow.Cells(5).Value.ToString
+
+            Dim dialog As DialogResult
+            If GlobalVariable.actualLanguageValue = 0 Then
+                languageTitle = "Delete"
+                languageMessage = "Do you really want to delete : " & GunaDataGridViewDetailPlanning.CurrentRow.Cells(1).Value.ToString
+
+            ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                languageTitle = "Suppression"
+                languageMessage = "Voulez-vous vraiment Supprimer : " & GunaDataGridViewDetailPlanning.CurrentRow.Cells(1).Value.ToString
+            End If
+            dialog = MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+            If dialog = DialogResult.Yes Then
+
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    languageTitle = "Delete"
+                    languageMessage = "Shift successfully deleted"
+
+                ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                    languageTitle = "Supression"
+                    languageMessage = "Shift supprimé avec succès"
+                End If
+
+                Functions.DeleteRowFromDataGridGeneral(GunaDataGridViewDetailPlanning, GunaDataGridViewDetailPlanning.CurrentRow.Cells("ID").Value.ToString, "planning_horaire_personnel", "ID_PLANNING_HORAIRE_PERSONNEL")
+
+                MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                AffichageDetailProgramme(CODE_PROGRAMME)
+
+            End If
+
+        End If
+    End Sub
+
+    Private Sub GunaCheckBoxOff_CheckedChanged(sender As Object, e As EventArgs) Handles GunaCheckBoxOff.CheckedChanged
+        If GunaCheckBoxOff.Checked Then
+            GunaDateTimePickerOffDay.Enabled = True
+        Else
+            GunaDateTimePickerOffDay.Enabled = False
+        End If
+    End Sub
+
+    Private Sub GunaButton3_Click(sender As Object, e As EventArgs) Handles GunaButton3.Click
+
+        Dim row As DataGridViewRow
+        'row = Me.GunaDataGridViewPlanningHebdomadaire.Rows(e.RowIndex)
+
+        'Dim CODE_TYPE_PERSONNEL = row.Cells("CODE_TYPE_PERSONNEL").Value
+        'Dim CODE_PROGRAMME = row.Cells("CODE_PROGRAMME").Value
+
+        Dim DateDeSituation As Date = GunaDateTimePicker2.Value.ToShortDateString
+        Dim getUserQuery = "SELECT DISTINCT CODE_PROGRAMME FROM planning_horaire_personnel WHERE DEBUT_PROG >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DEBUT_PROG <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "'"
+
+        Dim command As New MySqlCommand(getUserQuery, GlobalVariable.connect)
+        Dim adapter As New MySqlDataAdapter
+        Dim infoSupPlanningHorairePersonnel As New DataTable()
+        adapter.SelectCommand = command
+        adapter.Fill(infoSupPlanningHorairePersonnel)
+
+        If infoSupPlanningHorairePersonnel.Rows.Count > 0 Then
+            Impression.planningPersonnelGlobal(infoSupPlanningHorairePersonnel, GunaDateTimePicker2.Value.ToShortDateString)
+        End If
+
+    End Sub
+
 End Class

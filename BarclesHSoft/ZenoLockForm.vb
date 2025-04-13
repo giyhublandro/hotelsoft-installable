@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Text
 Imports MySql.Data.MySqlClient
 
 Public Class ZenoLockForm
@@ -41,6 +42,15 @@ Public Class ZenoLockForm
     End Class
     Dim cheminLockSystem As String = ""
 
+    Dim st As Integer
+    Dim DoorType As Integer
+    Dim strInTime As String
+    Dim strOutTime As String
+    Dim strRoomNo As String
+    Dim strCardNo As String
+    Dim strMsg As String
+    Dim la As Language = New Language
+
     Private Sub ZenoLockForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Dim DATE_DE_TRAVAIL As Date = GlobalVariable.DateDeTravail.ToShortDateString
@@ -66,45 +76,76 @@ Public Class ZenoLockForm
         'TB_Time.Text = DateTime.Now.ToString("yyyyMMdd1200") + DateTime.Now.AddDays(1).ToString("yyyyMMdd1200")
         TB_Time.Text = ""
 
-        If (CB_DB.SelectedIndex = 0) Then
-            If (CB_Software.SelectedIndex = 0) Then
-                tb_server.Text = cheminLockSystem
-            Else
-                tb_server.Text = cheminLockSystem
+        Dim showCustomImage As Boolean = False
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+            If GlobalVariable.config.Rows.Count > 0 Then
+                showCustomImage = True
             End If
+        End If
+
+        If showCustomImage Then
+
+            'ÅäÖÃ¶¯Ì¬¿â, ²¢Á¬½Ó·¢¿¨Æ÷
+            'ÔÚ¶¯Ì¬¿âÀïintÀàÐÍ ÔÚÕâÀïÓÃIntegerÀàÐÍ
+            If (IDD102_1000.Checked) Then
+                DoorType = 4
+            ElseIf (IDD102_1001.Checked) Then
+                DoorType = 5
+            End If
+            st = TP_Configuration(DoorType)
+            If (st <> 1) Then
+                MsgBox(CheckErr(st), vbInformation, la.g_LoadString_Ex("IDS_STRING_MSG"))
+                Return
+            End If
+
+            MsgBox(CheckErr(st), vbInformation, la.g_LoadString_Ex("IDS_STRING_MSG"))
+
         Else
-            tb_server.Text = cheminLockSystem
-        End If
 
-        If (CB_DB.SelectedIndex = 0) Then
-            If (CB_Software.SelectedIndex = 0) Then
-                tb_server.Text = cheminLockSystem
+            If (CB_DB.SelectedIndex = 0) Then
+                If (CB_Software.SelectedIndex = 0) Then
+                    tb_server.Text = cheminLockSystem
+                Else
+                    tb_server.Text = cheminLockSystem
+                End If
             Else
                 tb_server.Text = cheminLockSystem
             End If
+
+            If (CB_DB.SelectedIndex = 0) Then
+                If (CB_Software.SelectedIndex = 0) Then
+                    tb_server.Text = cheminLockSystem
+                Else
+                    tb_server.Text = cheminLockSystem
+                End If
+            End If
+
+            Dim server As String
+            Dim user As String
+            Dim LockSoftware As Integer
+            Dim lStatus As Integer
+            Dim db_flag As Long
+
+            server = tb_server.Text
+            user = "DllUser"
+            LockSoftware = CB_Software.SelectedIndex + 1
+
+            TB_Result.Text = "Executing..."
+            db_flag = CB_DB.SelectedIndex
+            TB_Result.Refresh()
+
+            lStatus = StartSession(LockSoftware, server, user, CB_DB.SelectedIndex)
+            'lStatus = StartSession(LockSoftware, server, user, db_flag)
+
+            TB_Result.Text = lStatus.ToString("X")
+
+            Dim DateDebut As Date = GlobalVariable.DateDeTravail
+            Dim DateFin As Date = GlobalVariable.DateDeTravail
+
+
         End If
 
-        Dim server As String
-        Dim user As String
-        Dim LockSoftware As Integer
-        Dim lStatus As Integer
-        Dim db_flag As Long
-
-        server = tb_server.Text
-        user = "DllUser"
-        LockSoftware = CB_Software.SelectedIndex + 1
-
-        TB_Result.Text = "Executing..."
-        db_flag = CB_DB.SelectedIndex
-        TB_Result.Refresh()
-
-        lStatus = StartSession(LockSoftware, server, user, CB_DB.SelectedIndex)
-        'lStatus = StartSession(LockSoftware, server, user, db_flag)
-
-        TB_Result.Text = lStatus.ToString("X")
-
-        Dim DateDebut As Date = GlobalVariable.DateDeTravail
-        Dim DateFin As Date = GlobalVariable.DateDeTravail
 
         If GlobalVariable.zenlockForm = "frontdesk" Then
 
@@ -154,6 +195,14 @@ Public Class ZenoLockForm
                     Dim dateDepart As Date = CDate(GlobalVariable.infoReservationPourEncodage.Rows(0)("DATE_SORTIE")).ToShortDateString
                     Dim HeureEntree As DateTime = CDate(GlobalVariable.infoReservationPourEncodage.Rows(0)("HEURE_ENTREE")).ToShortTimeString
                     Dim heureDepart As DateTime = CDate(GlobalVariable.infoReservationPourEncodage.Rows(0)("HEURE_SORTIE")).ToShortTimeString
+
+                    'Difference de date entre le jour réel et la date du système
+                    Dim ACTUAL_DATE As Date = Now().ToShortDateString
+
+                    If Not ACTUAL_DATE.ToString("yyyyMMdd").Equals(GlobalVariable.DateDeTravail.ToString("yyyyMMdd")) Then
+                        dateArrive = Now().ToShortDateString
+                        dateDepart = Now().ToShortDateString
+                    End If
 
                     TB_Time.Text = dateArrive.ToString("yyyyMMdd") + HeureEntree.ToString("HHmm") + dateDepart.ToString("yyyyMMdd") + heureDepart.ToString("HHmm")
 
@@ -230,6 +279,14 @@ Public Class ZenoLockForm
                 Dim HeureEntree As DateTime = CDate(GlobalVariable.infoReservationPourEncodage.Rows(0)("HEURE_ENTREE")).ToShortTimeString
                 Dim heureDepart As DateTime = CDate(GlobalVariable.infoReservationPourEncodage.Rows(0)("HEURE_SORTIE")).ToShortTimeString
 
+                'Difference de date entre le jour réel et la date du système
+                Dim ACTUAL_DATE As Date = Now().ToShortDateString
+
+                If Not ACTUAL_DATE.ToString("yyyyMMdd").Equals(GlobalVariable.DateDeTravail.ToString("yyyyMMdd")) Then
+                    dateArrive = Now().ToShortDateString
+                    dateDepart = Now().ToShortDateString
+                End If
+
                 TB_Time.Text = dateArrive.ToString("yyyyMMdd") + HeureEntree.ToString("HHmm") + dateDepart.ToString("yyyyMMdd") + heureDepart.ToString("HHmm")
 
                 If GlobalVariable.infoReservationPourEncodage.Rows(0)("DATE_ENTTRE") = GlobalVariable.infoReservationPourEncodage.Rows(0)("DATE_SORTIE") Then
@@ -274,6 +331,29 @@ Public Class ZenoLockForm
 
         TB_Holder.MaxLength = 24
 
+        If showCustomImage Then
+
+            GunaCheckBoxConfiguration.Visible = False
+
+            Dim buttonPanel As Integer = 1
+            GunaPanel1.BackColor = Functions.colorationWindow(buttonPanel)
+
+            buttonPanel = 0 'Button Background
+            GunaButtonChemin.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton2.BaseColor = Functions.colorationWindow(buttonPanel)
+            B_Start.BaseColor = Functions.colorationWindow(buttonPanel)
+            B_End.BaseColor = Functions.colorationWindow(buttonPanel)
+            B_NewKey.BaseColor = Functions.colorationWindow(buttonPanel)
+            B_DupKey.BaseColor = Functions.colorationWindow(buttonPanel)
+            B_ReadKey.BaseColor = Functions.colorationWindow(buttonPanel)
+            B_EraseKey.BaseColor = Functions.colorationWindow(buttonPanel)
+            B_CheckOut.BaseColor = Functions.colorationWindow(buttonPanel)
+
+            buttonPanel = 2 'Button Text : white
+            'GunaButtonMoveLeftToRight.ForeColor = Functions.colorationWindow(buttonPanel)
+            'GunaButtonAllToRight.ForeColor = Functions.colorationWindow(buttonPanel)
+
+        End If
     End Sub
 
     Private Sub GunaImageButton7_Click(sender As Object, e As EventArgs) Handles GunaImageButton7.Click
@@ -317,8 +397,17 @@ Public Class ZenoLockForm
         Me.Close()
     End Sub
 
+    '----------------------------------------------PERSONNAL---------------------------------------------------------------------------
 
+    Declare Function TP_Configuration Lib "LockSDK.dll" (ByVal DoorType As Integer) As Integer 'ÅäÖÃSDK
 
+    Declare Function TP_MakeGuestCardEx Lib "LockSDK.dll" (ByVal sCardNo As StringBuilder, ByVal sRoomNo As String, ByVal strInTime As String, ByVal strOutTime As String, ByVal iFlags As Integer) As Integer 'Èë×¡
+
+    Declare Function TP_ReadGuestCard Lib "LockSDK.dll" (ByVal sCardNo As StringBuilder, ByVal sRoomNo As StringBuilder, ByVal strInTime As StringBuilder, ByVal strOutTime As StringBuilder) As Integer '¶Á¿¨
+
+    Declare Function TP_ReadGuestCardEx Lib "LockSDK.dll" (ByVal sCardNo As StringBuilder, ByVal sRoomNo As StringBuilder, ByVal strInTime As StringBuilder, ByVal strOutTime As StringBuilder, ByRef iflags As Integer) As Integer '¶Á¿¨
+
+    Declare Function TP_CancelCard Lib "LockSDK.dll" (ByVal sCardNo As StringBuilder) As Integer 'Ïú¿
 
     ' ---------------------------------- GESTION DES ENCODAGES -----------------------------------------
 
@@ -417,6 +506,7 @@ Public Class ZenoLockForm
         User.mouchard(ACTION)
         '----------------------------------------------------------------------------------------------------
 
+        '----------------------------------------
         Dim lStatus As Integer
         Dim Port As Integer
         Dim CardNo As Integer
@@ -427,38 +517,83 @@ Public Class ZenoLockForm
         Dim IDNo As String
         Dim TimeStr As String
 
-        Port = CB_Port.SelectedIndex
+        '----------------------------------TOOL-------------------
+        Dim sCardNo As StringBuilder
+        Dim flags As Integer
 
-        If (CK_Over.Checked) Then
-            OverFlag = 1
+        Dim showCustomImage As Boolean = False
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+            If GlobalVariable.config.Rows.Count > 0 Then
+                showCustomImage = True
+            End If
+        End If
+
+        If showCustomImage Then
+
+            'Dim sCardNo As StringBuilder = New StringBuilder(100)
+            'Dim flags As Integer
+
+            sCardNo = New StringBuilder(100)
+
+            strRoomNo = TB_RoomNo.Text
+            strInTime = GunaTextBoxDateArrivee.Text + " " + GunaTextBoxHeureArrivee.Text
+            strOutTime = GunaTextBoxDateDepart.Text + " " + GunaTextBoxHeureDepart.Text
+
+            If IDD102_1018.Checked = True Then
+                flags += 1
+            End If
+
+            If IDD102_1016.Checked = False Then
+                flags += 8
+            End If
+
+            If IDD102_1017.Checked = True Then
+                flags += 128
+            End If
+
+            st = TP_MakeGuestCardEx(sCardNo, strRoomNo, strInTime, strOutTime, flags)
+            'If (st = 1) Then
+            '    lblMsg.Text = la.g_LoadString_Ex("IDS_STRING_CARDNO") + sCardNo.ToString()
+            'End If
+            MsgBox(CheckErr(st), vbInformation, la.g_LoadString_Ex("IDS_STRING_MSG"))
+
         Else
-            OverFlag = 0
-        End If
 
-        Breakfast = CB_Breakfast.SelectedIndex
-        Dim nomClient As String = TB_Holder.Text
-        RoomNo = TB_RoomNo.Text
-        'Holder = TB_Holder.Text.Substring(0, 20)
+            Port = CB_Port.SelectedIndex
 
-        If nomClient.Length > 20 Then
-            nomClient = nomClient.Substring(0, 20)
-        End If
+            If (CK_Over.Checked) Then
+                OverFlag = 1
+            Else
+                OverFlag = 0
+            End If
 
-        Holder = nomClient
-        IDNo = TB_IDNo.Text
-        TimeStr = TB_Time.Text
-        CardNo = 0
+            Breakfast = CB_Breakfast.SelectedIndex
+            Dim nomClient As String = TB_Holder.Text
+            RoomNo = TB_RoomNo.Text
+            'Holder = TB_Holder.Text.Substring(0, 20)
 
-        TB_Result.Text = "Executing..."
+            If nomClient.Length > 20 Then
+                nomClient = nomClient.Substring(0, 20)
+            End If
 
-        TB_Result.Refresh()
+            Holder = nomClient
+            IDNo = TB_IDNo.Text
+            TimeStr = TB_Time.Text
+            CardNo = 0
 
-        lStatus = NewKey(Port, RoomNo, "", "", TimeStr, Holder, IDNo, Breakfast, OverFlag, CardNo)
+            TB_Result.Text = "Executing..."
 
-        TB_Result.Text = lStatus.ToString("X")
+            TB_Result.Refresh()
 
-        If (Integer.Parse(lStatus) = 0) Then
-            TB_CardNo.Text = CardNo.ToString()
+            lStatus = NewKey(Port, RoomNo, "", "", TimeStr, Holder, IDNo, Breakfast, OverFlag, CardNo)
+
+            TB_Result.Text = lStatus.ToString("X")
+
+            If (Integer.Parse(lStatus) = 0) Then
+                TB_CardNo.Text = CardNo.ToString()
+            End If
+
         End If
 
         'ENVOIE DE MESSAGE WHATSAPP
@@ -649,43 +784,103 @@ Public Class ZenoLockForm
         Dim Door As String
         Dim lift As String
 
-        RoomNo = New String("", 64)
-        Holder = New String("", 64)
-        IDNo = New String("", 64)
-        TimeStr = New String("", 64)
-        Door = New String("", 128)
-        lift = New String("", 128)
+        Dim showCustomImage As Boolean = False
 
-        Port = CB_Port.SelectedIndex
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+            If GlobalVariable.config.Rows.Count > 0 Then
+                showCustomImage = True
+            End If
+        End If
 
-        CardNo = 0
-        CardStatus = 0
-        Breakfast = 0
+        If showCustomImage Then
 
-        TB_Result.Text = "Executing..."
-        TB_Result.Refresh()
+            lStatus = 0
 
-        lStatus = ReadKeyCard(Port, RoomNo, Door, lift, TimeStr, Holder, IDNo, CardNo, CardStatus, Breakfast)
+            Dim sInTime As StringBuilder = New StringBuilder(100)
+            Dim sOutTime As StringBuilder = New StringBuilder(100)
+            Dim sRoomNo As StringBuilder = New StringBuilder(100)
+            Dim sCardNo As StringBuilder = New StringBuilder(100)
+            Dim iflags As Integer
+            st = TP_ReadGuestCardEx(sCardNo, sRoomNo, sInTime, sOutTime, iflags)
 
-        'TB_Result.Text = Hex(lStatus)
-        TB_Result.Text = lStatus.ToString("X")
+            strMsg = la.g_LoadString_Ex("IDS_STRING_CARDNO") + sCardNo.ToString() + Chr(10)
+            strMsg += la.g_LoadString_Ex("IDS_STRING_LOCKNO") + sRoomNo.ToString() + Chr(10)
+            strMsg += la.g_LoadString_Ex("IDS_STRING_INTIME") + sInTime.ToString() + Chr(10)
+            strMsg += la.g_LoadString_Ex("IDS_STRING_OUTTIME") + sOutTime.ToString() + Chr(10)
+            strMsg += la.g_LoadString_Ex("IDS_STRING_FLAGS") + "0x" + iflags.ToString("X1") + Chr(10)
 
-        'lStatus = ReadKeyCard(Port, RoomNo, Door, lift, TimeStr, Holder, IDNo, CardNo, CardStatus, Breakfast)
+            If (iflags And 1) <> 0 Then
+                strMsg += la.g_LoadString_Ex("IDS_STRING_OPEN_BLOCK") + Chr(10)
+                IDD102_1018.Checked = True
+            Else
+                IDD102_1018.Checked = False
+            End If
+            If (iflags And 8) <> 0 Then
+                strMsg += la.g_LoadString_Ex("IDS_STRING_RELACE_OLDCARD") + Chr(10)
+                IDD102_1016.Checked = True
+            Else
+                IDD102_1016.Checked = False
+            End If
+            If (iflags And 128) <> 0 Then
+                strMsg += la.g_LoadString_Ex("IDS_STRING_CHECKIN_TIME") + Chr(10)
+                IDD102_1017.Checked = True
+            Else
+                IDD102_1017.Checked = False
+            End If
+            If st = 1 Then
+                MsgBox(strMsg, vbInformation, la.g_LoadString_Ex("IDS_STRING_MSG"))
+                Return
+            Else
+                MsgBox(CheckErr(st), vbInformation, la.g_LoadString_Ex("IDS_STRING_MSG"))
+            End If
 
-        'TB_Result.Text = lStatus.ToString("X")
+        Else
+
+            RoomNo = New String("", 64)
+            Holder = New String("", 64)
+            IDNo = New String("", 64)
+            TimeStr = New String("", 64)
+            Door = New String("", 128)
+            lift = New String("", 128)
+
+            Port = CB_Port.SelectedIndex
+
+            CardNo = 0
+            CardStatus = 0
+            Breakfast = 0
+
+            TB_Result.Text = "Executing..."
+            TB_Result.Refresh()
+
+            lStatus = ReadKeyCard(Port, RoomNo, Door, lift, TimeStr, Holder, IDNo, CardNo, CardStatus, Breakfast)
+
+            'TB_Result.Text = Hex(lStatus)
+            TB_Result.Text = lStatus.ToString("X")
+
+            'lStatus = ReadKeyCard(Port, RoomNo, Door, lift, TimeStr, Holder, IDNo, CardNo, CardStatus, Breakfast)
+
+            'TB_Result.Text = lStatus.ToString("X")
+
+        End If
 
         Dim CODE_RESERVATION As String = GunaTextBoxNumResa.Text
 
         If (lStatus = 0) Then
 
-            TB_CardNo.Text = CardNo.ToString()
-            TB_Status.Text = CardStatus.ToString()
-            CB_Breakfast.SelectedIndex = Breakfast
+            If showCustomImage Then
 
-            TB_RoomNo.Text = RoomNo.ToString()
-            TB_Holder.Text = Holder.ToString()
-            TB_IDNo.Text = IDNo.ToString()
-            TB_Time.Text = TimeStr.ToString()
+            Else
+
+                TB_CardNo.Text = CardNo.ToString()
+                TB_Status.Text = CardStatus.ToString()
+                CB_Breakfast.SelectedIndex = Breakfast
+
+                TB_RoomNo.Text = RoomNo.ToString()
+                TB_Holder.Text = Holder.ToString()
+                TB_IDNo.Text = IDNo.ToString()
+                TB_Time.Text = TimeStr.ToString()
+
+            End If
 
             If Trim(CODE_RESERVATION).Equals("") Then
                 CODE_RESERVATION = TB_IDNo.Text
@@ -845,8 +1040,8 @@ Public Class ZenoLockForm
             args.action = 0
             args.whatsAppMessage = whatsAppMessage
             args.mobile_number = mobile_number
-
-            backGroundWorkerToCall(args)
+            'Not to send Cancellation Reading
+            'backGroundWorkerToCall(args)
 
         End If
 
@@ -862,21 +1057,44 @@ Public Class ZenoLockForm
         Dim Port As Integer
         Dim CardNo As Integer
 
-        Port = CB_Port.SelectedIndex
+        Dim showCustomImage As Boolean = False
 
-        If IsNumeric(TB_CardNo.Text) Then
-            CardNo = Val(TB_CardNo.Text)
-        Else
-            CardNo = 0
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+            If GlobalVariable.config.Rows.Count > 0 Then
+                showCustomImage = True
+            End If
         End If
 
-        TB_Result.Text = "Executing..."
+        If showCustomImage Then
 
-        TB_Result.Refresh()
+            'Ïú¿¨
+            'ÔÚ¶¯Ì¬¿âÀïÊä³öchar*ÐÍ £¬ÔÚÕâÀïÓÃStringBUilder
+            Dim sCardNo As StringBuilder = New StringBuilder(100)
+            st = TP_CancelCard(sCardNo)
+            If (st = 1) Then
+                'lblMsg.Text = la.g_LoadString_Ex("IDS_STRING_CARDNO") + sCardNo.ToString()
+            End If
+            MsgBox(CheckErr(st), vbInformation, la.g_LoadString_Ex("IDS_STRING_MSG"))
 
-        lStatus = EraseKeyCard(Port, CardNo)
+        Else
 
-        TB_Result.Text = lStatus.ToString("X")
+            Port = CB_Port.SelectedIndex
+
+            If IsNumeric(TB_CardNo.Text) Then
+                CardNo = Val(TB_CardNo.Text)
+            Else
+                CardNo = 0
+            End If
+
+            TB_Result.Text = "Executing..."
+
+            TB_Result.Refresh()
+
+            lStatus = EraseKeyCard(Port, CardNo)
+
+            TB_Result.Text = lStatus.ToString("X")
+
+        End If
 
         '----------------------------------------------------------------------------------------------------
 
@@ -949,7 +1167,8 @@ Public Class ZenoLockForm
             args.whatsAppMessage = whatsAppMessage
             args.mobile_number = mobile_number
 
-            backGroundWorkerToCall(args)
+            'Not to send Cancellation card
+            'backGroundWorkerToCall(args) 
 
         End If
 
@@ -1274,10 +1493,16 @@ Public Class ZenoLockForm
             Dim HeureEntree As DateTime = CDate(Now()).ToShortTimeString
             Dim heureDepart As DateTime = CDate(Now()).ToShortTimeString
 
+            'Difference de date entre le jour réel et la date du système
+            Dim ACTUAL_DATE As Date = Now().ToShortDateString
+
+            If Not ACTUAL_DATE.ToString("yyyyMMdd").Equals(GlobalVariable.DateDeTravail.ToString("yyyyMMdd")) Then
+                dateArrive = Now().ToShortDateString
+                dateDepart = Now().ToShortDateString
+            End If
+
             TB_Time.Text = dateArrive.ToString("yyyyMMdd") + HeureEntree.ToString("HHmm") + dateDepart.ToString("yyyyMMdd") + heureDepart.ToString("HHmm")
-
             GunaElipsePanelVisite.Visible = True
-
             B_NewKey.Enabled = True
 
         Else
@@ -1339,6 +1564,12 @@ Public Class ZenoLockForm
             Dim dateDepart As Date = CDate(GlobalVariable.DateDeTravail).ToShortDateString
             Dim HeureEntree As DateTime = CDate(Now()).ToShortTimeString
             Dim heureDepart As DateTime = Now().AddMinutes(tempsAFaire).ToShortTimeString
+
+            Dim ACTUAL_DATE As Date = Now().ToShortDateString
+            If Not ACTUAL_DATE.ToString("yyyyMMdd").Equals(GlobalVariable.DateDeTravail.ToString("yyyyMMdd")) Then
+                dateArrive = Now().ToShortDateString
+                dateDepart = Now().ToShortDateString
+            End If
 
             TB_Time.Text = dateArrive.ToString("yyyyMMdd") + HeureEntree.ToString("HHmm") + dateDepart.ToString("yyyyMMdd") + heureDepart.ToString("HHmm")
 
@@ -1635,5 +1866,32 @@ Public Class ZenoLockForm
         End If
 
     End Sub
+
+    '------------------------------------------- PERSONNAL TOOL ------------------------------------------------
+    Private Function CheckErr(ByVal intErr As Integer) As String
+        Dim strMsg As String = ""
+        Select Case intErr
+            Case 1
+                strMsg = la.g_LoadString_Ex("IDS_STRING_SUCCESS")
+            Case -1
+                strMsg = la.g_LoadString_Ex("IDS_STRING_ERROR_NOCARD")
+            Case -2
+                strMsg = la.g_LoadString_Ex("IDS_STRING_ERROR_NOREADE")
+            Case -3
+                strMsg = la.g_LoadString_Ex("IDS_STRING_ERROR_INVALIDCARD")
+            Case -4
+                strMsg = la.g_LoadString_Ex("IDS_STRING_ERROR_CARDTYPE")
+            Case -5
+                strMsg = la.g_LoadString_Ex("IDS_STRING_ERROR_READCARD")
+            Case -8
+                strMsg = la.g_LoadString_Ex("IDS_STRING_ERROR_INPUT")
+            Case -29
+                strMsg = la.g_LoadString_Ex("IDS_STRING_ERROR_REG")
+            Case Else
+                strMsg = la.g_LoadString_Ex("IDS_STRING_ERROR")
+        End Select
+        Return strMsg
+    End Function
+
 
 End Class

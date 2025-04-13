@@ -41,6 +41,7 @@ Partial Class FournisseurForm
         Me.GunaButtonEnregistrer = New Guna.UI.WinForms.GunaButton()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPageDescription = New System.Windows.Forms.TabPage()
+        Me.GunaCheckBoxBlanchisseur = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaTextBoxRaisonSociale = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaLabel4 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaTextBox6 = New Guna.UI.WinForms.GunaTextBox()
@@ -65,11 +66,14 @@ Partial Class FournisseurForm
         Me.TabPageListe = New System.Windows.Forms.TabPage()
         Me.GunaDataGridViewFournisseurs = New Guna.UI.WinForms.GunaDataGridView()
         Me.GunaButtonAfficher = New Guna.UI.WinForms.GunaButton()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.SupprimerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GunaPanel1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPageDescription.SuspendLayout()
         Me.TabPageListe.SuspendLayout()
         CType(Me.GunaDataGridViewFournisseurs, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'GunaPanel1
@@ -241,6 +245,7 @@ Partial Class FournisseurForm
         'TabPageDescription
         '
         Me.TabPageDescription.BackColor = System.Drawing.Color.Wheat
+        Me.TabPageDescription.Controls.Add(Me.GunaCheckBoxBlanchisseur)
         Me.TabPageDescription.Controls.Add(Me.GunaTextBoxRaisonSociale)
         Me.TabPageDescription.Controls.Add(Me.GunaButtonEnregistrer)
         Me.TabPageDescription.Controls.Add(Me.GunaLabel4)
@@ -270,12 +275,25 @@ Partial Class FournisseurForm
         Me.TabPageDescription.TabIndex = 0
         Me.TabPageDescription.Text = "Description"
         '
+        'GunaCheckBoxBlanchisseur
+        '
+        Me.GunaCheckBoxBlanchisseur.BaseColor = System.Drawing.Color.White
+        Me.GunaCheckBoxBlanchisseur.CheckedOffColor = System.Drawing.Color.Gray
+        Me.GunaCheckBoxBlanchisseur.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaCheckBoxBlanchisseur.FillColor = System.Drawing.Color.White
+        Me.GunaCheckBoxBlanchisseur.Location = New System.Drawing.Point(710, 115)
+        Me.GunaCheckBoxBlanchisseur.Name = "GunaCheckBoxBlanchisseur"
+        Me.GunaCheckBoxBlanchisseur.Size = New System.Drawing.Size(118, 20)
+        Me.GunaCheckBoxBlanchisseur.TabIndex = 18
+        Me.GunaCheckBoxBlanchisseur.Text = "BLANCHISSEUR"
+        '
         'GunaTextBoxRaisonSociale
         '
         Me.GunaTextBoxRaisonSociale.BackColor = System.Drawing.Color.Transparent
         Me.GunaTextBoxRaisonSociale.BaseColor = System.Drawing.Color.White
         Me.GunaTextBoxRaisonSociale.BorderColor = System.Drawing.Color.Gainsboro
         Me.GunaTextBoxRaisonSociale.BorderSize = 1
+        Me.GunaTextBoxRaisonSociale.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.GunaTextBoxRaisonSociale.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.GunaTextBoxRaisonSociale.FocusedBaseColor = System.Drawing.Color.White
         Me.GunaTextBoxRaisonSociale.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -286,7 +304,7 @@ Partial Class FournisseurForm
         Me.GunaTextBoxRaisonSociale.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxRaisonSociale.Radius = 4
         Me.GunaTextBoxRaisonSociale.SelectedText = ""
-        Me.GunaTextBoxRaisonSociale.Size = New System.Drawing.Size(795, 34)
+        Me.GunaTextBoxRaisonSociale.Size = New System.Drawing.Size(630, 34)
         Me.GunaTextBoxRaisonSociale.TabIndex = 8
         '
         'GunaLabel4
@@ -501,6 +519,7 @@ Partial Class FournisseurForm
         Me.GunaTextBoxAdresse.BaseColor = System.Drawing.Color.White
         Me.GunaTextBoxAdresse.BorderColor = System.Drawing.Color.Gainsboro
         Me.GunaTextBoxAdresse.BorderSize = 1
+        Me.GunaTextBoxAdresse.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.GunaTextBoxAdresse.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.GunaTextBoxAdresse.FocusedBaseColor = System.Drawing.Color.White
         Me.GunaTextBoxAdresse.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -535,23 +554,25 @@ Partial Class FournisseurForm
         Me.GunaTextBoxPourcentageRemise.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxPourcentageRemise.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxPourcentageRemise.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.GunaTextBoxPourcentageRemise.Location = New System.Drawing.Point(369, 55)
+        Me.GunaTextBoxPourcentageRemise.Location = New System.Drawing.Point(217, 55)
         Me.GunaTextBoxPourcentageRemise.Name = "GunaTextBoxPourcentageRemise"
         Me.GunaTextBoxPourcentageRemise.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxPourcentageRemise.Radius = 4
         Me.GunaTextBoxPourcentageRemise.SelectedText = ""
         Me.GunaTextBoxPourcentageRemise.Size = New System.Drawing.Size(288, 34)
         Me.GunaTextBoxPourcentageRemise.TabIndex = 17
+        Me.GunaTextBoxPourcentageRemise.Visible = False
         '
         'GunaLabel2
         '
         Me.GunaLabel2.AutoSize = True
         Me.GunaLabel2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel2.Location = New System.Drawing.Point(366, 35)
+        Me.GunaLabel2.Location = New System.Drawing.Point(214, 35)
         Me.GunaLabel2.Name = "GunaLabel2"
         Me.GunaLabel2.Size = New System.Drawing.Size(62, 17)
         Me.GunaLabel2.TabIndex = 7
         Me.GunaLabel2.Text = "% remise"
+        Me.GunaLabel2.Visible = False
         '
         'GunaTextBoxCodeFournisseur
         '
@@ -569,8 +590,9 @@ Partial Class FournisseurForm
         Me.GunaTextBoxCodeFournisseur.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxCodeFournisseur.Radius = 4
         Me.GunaTextBoxCodeFournisseur.SelectedText = ""
-        Me.GunaTextBoxCodeFournisseur.Size = New System.Drawing.Size(288, 34)
+        Me.GunaTextBoxCodeFournisseur.Size = New System.Drawing.Size(142, 34)
         Me.GunaTextBoxCodeFournisseur.TabIndex = 17
+        Me.GunaTextBoxCodeFournisseur.Visible = False
         '
         'GunaLabel11
         '
@@ -581,6 +603,7 @@ Partial Class FournisseurForm
         Me.GunaLabel11.Size = New System.Drawing.Size(39, 17)
         Me.GunaLabel11.TabIndex = 7
         Me.GunaLabel11.Text = "Code"
+        Me.GunaLabel11.Visible = False
         '
         'TabPageListe
         '
@@ -617,6 +640,7 @@ Partial Class FournisseurForm
         Me.GunaDataGridViewFournisseurs.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.GunaDataGridViewFournisseurs.ColumnHeadersHeight = 25
         Me.GunaDataGridViewFournisseurs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.GunaDataGridViewFournisseurs.ContextMenuStrip = Me.ContextMenuStrip1
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
         DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -627,12 +651,12 @@ Partial Class FournisseurForm
         Me.GunaDataGridViewFournisseurs.DefaultCellStyle = DataGridViewCellStyle3
         Me.GunaDataGridViewFournisseurs.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewFournisseurs.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewFournisseurs.Location = New System.Drawing.Point(18, 111)
+        Me.GunaDataGridViewFournisseurs.Location = New System.Drawing.Point(18, 74)
         Me.GunaDataGridViewFournisseurs.Name = "GunaDataGridViewFournisseurs"
         Me.GunaDataGridViewFournisseurs.ReadOnly = True
         Me.GunaDataGridViewFournisseurs.RowHeadersVisible = False
         Me.GunaDataGridViewFournisseurs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewFournisseurs.Size = New System.Drawing.Size(868, 406)
+        Me.GunaDataGridViewFournisseurs.Size = New System.Drawing.Size(868, 443)
         Me.GunaDataGridViewFournisseurs.TabIndex = 4
         Me.GunaDataGridViewFournisseurs.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
         Me.GunaDataGridViewFournisseurs.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
@@ -670,7 +694,7 @@ Partial Class FournisseurForm
         Me.GunaButtonAfficher.ForeColor = System.Drawing.Color.White
         Me.GunaButtonAfficher.Image = Nothing
         Me.GunaButtonAfficher.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonAfficher.Location = New System.Drawing.Point(776, 31)
+        Me.GunaButtonAfficher.Location = New System.Drawing.Point(776, 22)
         Me.GunaButtonAfficher.Name = "GunaButtonAfficher"
         Me.GunaButtonAfficher.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonAfficher.OnHoverBorderColor = System.Drawing.Color.Black
@@ -682,6 +706,18 @@ Partial Class FournisseurForm
         Me.GunaButtonAfficher.TabIndex = 3
         Me.GunaButtonAfficher.Text = "Afficher"
         Me.GunaButtonAfficher.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SupprimerToolStripMenuItem})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(130, 26)
+        '
+        'SupprimerToolStripMenuItem
+        '
+        Me.SupprimerToolStripMenuItem.Name = "SupprimerToolStripMenuItem"
+        Me.SupprimerToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.SupprimerToolStripMenuItem.Text = "Supprimer"
         '
         'FournisseurForm
         '
@@ -702,6 +738,7 @@ Partial Class FournisseurForm
         Me.TabPageDescription.PerformLayout()
         Me.TabPageListe.ResumeLayout(False)
         CType(Me.GunaDataGridViewFournisseurs, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -744,4 +781,7 @@ Partial Class FournisseurForm
     Friend WithEvents GunaButtonAfficher As Guna.UI.WinForms.GunaButton
     Friend WithEvents GunaDataGridViewFournisseurs As Guna.UI.WinForms.GunaDataGridView
     Friend WithEvents GunaLabel8 As Guna.UI.WinForms.GunaLabel
+    Friend WithEvents GunaCheckBoxBlanchisseur As Guna.UI.WinForms.GunaCheckBox
+    Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
+    Friend WithEvents SupprimerToolStripMenuItem As ToolStripMenuItem
 End Class

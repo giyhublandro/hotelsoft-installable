@@ -218,9 +218,16 @@ Public Class CashierForm
 
         If GunaComboBoxUtilisateurDeCaisse.SelectedIndex >= 0 Then
 
+            Dim Caisse As String = "CAISSIER"
+
+            If GlobalVariable.actualLanguageValue = 0 Then
+                Caisse = "CASHIER"
+            End If
+
             Dim caissier As DataTable = Functions.getElementByCode(GunaComboBoxUtilisateurDeCaisse.SelectedValue.ToString, "utilisateurs", "CODE_UTILISATEUR")
             If caissier.Rows.Count > 0 Then
-                GunaTextBoxNomComplet.Text = caissier.Rows(0)("CATEG_UTILISATEUR") & " - " & caissier.Rows(0)("NOM_UTILISATEUR")
+                GunaTextBoxNomComplet.Text = caissier.Rows(0)("CATEG_UTILISATEUR") & " - " & caissier.Rows(0)("NOM_UTILISATEUR").ToString.ToUpper
+                GunaTextBoxIntitule.Text = Caisse & " " & caissier.Rows(0)("NOM_UTILISATEUR").ToString.ToUpper
             End If
 
         Else

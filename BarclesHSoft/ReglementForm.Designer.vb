@@ -916,14 +916,14 @@ Partial Class ReglementForm
         Me.GunaDataGridViewCompany.DefaultCellStyle = DataGridViewCellStyle7
         Me.GunaDataGridViewCompany.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewCompany.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewCompany.Location = New System.Drawing.Point(8, 56)
+        Me.GunaDataGridViewCompany.Location = New System.Drawing.Point(10, 56)
         Me.GunaDataGridViewCompany.MultiSelect = False
         Me.GunaDataGridViewCompany.Name = "GunaDataGridViewCompany"
         Me.GunaDataGridViewCompany.ReadOnly = True
         Me.GunaDataGridViewCompany.RowHeadersVisible = False
         Me.GunaDataGridViewCompany.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.GunaDataGridViewCompany.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewCompany.Size = New System.Drawing.Size(284, 155)
+        Me.GunaDataGridViewCompany.Size = New System.Drawing.Size(282, 155)
         Me.GunaDataGridViewCompany.TabIndex = 79
         Me.GunaDataGridViewCompany.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
         Me.GunaDataGridViewCompany.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
@@ -1930,7 +1930,7 @@ Partial Class ReglementForm
         Me.GunaPanelClubElite.Controls.Add(Me.Label14)
         Me.GunaPanelClubElite.Controls.Add(Me.Label13)
         Me.GunaPanelClubElite.Controls.Add(Me.Label12)
-        Me.GunaPanelClubElite.Location = New System.Drawing.Point(15, 527)
+        Me.GunaPanelClubElite.Location = New System.Drawing.Point(15, 528)
         Me.GunaPanelClubElite.Name = "GunaPanelClubElite"
         Me.GunaPanelClubElite.Size = New System.Drawing.Size(443, 205)
         Me.GunaPanelClubElite.TabIndex = 191
@@ -2196,11 +2196,11 @@ Partial Class ReglementForm
         Me.BackColor = System.Drawing.Color.PeachPuff
         Me.ClientSize = New System.Drawing.Size(834, 754)
         Me.Controls.Add(Me.GunaDataGridViewDepot)
+        Me.Controls.Add(Me.PanelTransfertVersCompte)
         Me.Controls.Add(Me.GunaTextBoxRefDepot)
         Me.Controls.Add(Me.GunaButtonDepotDeGarantie)
         Me.Controls.Add(Me.GunaPanelClubElite)
         Me.Controls.Add(Me.GunaPanelGratuite)
-        Me.Controls.Add(Me.PanelTransfertVersCompte)
         Me.Controls.Add(Me.GunaPanelGestCaisse)
         Me.Controls.Add(Me.GunaPanel1)
         Me.Controls.Add(Me.GunaLabelBlocNoteARegler)

@@ -25,27 +25,29 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PlanningHebdomadaireDuPersonnelForm))
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.GunaLabelGestCompteGeneraux = New Guna.UI.WinForms.GunaLabel()
+        Dim DataGridViewCellStyle34 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle35 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle36 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle37 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle38 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle39 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.GunaLabelTitle = New Guna.UI.WinForms.GunaLabel()
         Me.GunaPanel1 = New Guna.UI.WinForms.GunaPanel()
-        Me.GunaTextBoxCodePlanning = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaImageButton5 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaImageButton4 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaImageButton7 = New Guna.UI.WinForms.GunaImageButton()
@@ -53,6 +55,7 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaImageButton2 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaImageButton1 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaLabel1 = New Guna.UI.WinForms.GunaLabel()
+        Me.GunaTextBoxCodePlanning = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaElipse1 = New Guna.UI.WinForms.GunaElipse(Me.components)
         Me.GunaDragControl1 = New Guna.UI.WinForms.GunaDragControl(Me.components)
         Me.GunaDragControl2 = New Guna.UI.WinForms.GunaDragControl(Me.components)
@@ -70,9 +73,8 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaButtonAllToRight = New Guna.UI.WinForms.GunaButton()
         Me.GunaButtonMoveRightToLeft = New Guna.UI.WinForms.GunaButton()
         Me.GunaButtonAllToLeft = New Guna.UI.WinForms.GunaButton()
-        Me.GunaButtonFermer = New Guna.UI.WinForms.GunaButton()
         Me.GunaButtonEnregistrerPlanning = New Guna.UI.WinForms.GunaButton()
-        Me.GunaLabelDateTravaille = New Guna.UI.WinForms.GunaLabel()
+        Me.GunaLabelDbutProg = New Guna.UI.WinForms.GunaLabel()
         Me.GunaDataGridViewFolio2 = New Guna.UI.WinForms.GunaDataGridView()
         Me.CODE_PERSONNEL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -80,15 +82,31 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GunaLabel6 = New Guna.UI.WinForms.GunaLabel()
-        Me.GunaLabel7 = New Guna.UI.WinForms.GunaLabel()
+        Me.GunaLabelFinProg = New Guna.UI.WinForms.GunaLabel()
         Me.GunaShadowPanel1 = New Guna.UI.WinForms.GunaShadowPanel()
+        Me.GunaDateTimePickerProgStartDate = New Guna.UI.WinForms.GunaDateTimePicker()
         Me.GunaComboBoxTypePersonnel = New Guna.UI.WinForms.GunaComboBox()
         Me.GunaCheckBoxTous = New Guna.UI.WinForms.GunaCheckBox()
+        Me.GunaComboBoxPlannintContenantHoraire = New Guna.UI.WinForms.GunaComboBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.GunaDateTimePicker2 = New Guna.UI.WinForms.GunaDateTimePicker()
+        Me.GunaDateTimePickerOffDay = New Guna.UI.WinForms.GunaDateTimePicker()
+        Me.GunaCheckBoxOff = New Guna.UI.WinForms.GunaCheckBox()
+        Me.GunaButton3 = New Guna.UI.WinForms.GunaButton()
+        Me.GunaDataGridViewDetailPlanning = New Guna.UI.WinForms.GunaDataGridView()
+        Me.GunaContextMenuStripDetailPlanning = New Guna.UI.WinForms.GunaContextMenuStrip()
+        Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GunaDataGridViewPlanningHebdomadaire = New Guna.UI.WinForms.GunaDataGridView()
+        Me.GunaContextMenuStripPlanningComplet = New Guna.UI.WinForms.GunaContextMenuStrip()
+        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GunaDataGridViewHoraire = New Guna.UI.WinForms.GunaDataGridView()
+        Me.GunaContextMenuStripHoraire = New Guna.UI.WinForms.GunaContextMenuStrip()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GunaDataGridViewPlanning = New Guna.UI.WinForms.GunaDataGridView()
+        Me.GunaContextMenuStripPlanning = New Guna.UI.WinForms.GunaContextMenuStrip()
+        Me.SupprimerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GunaShadowPanel3 = New Guna.UI.WinForms.GunaShadowPanel()
         Me.GunaTextBoxCodeHoraire = New Guna.UI.WinForms.GunaTextBox()
         Me.MaskedTextBoxHureFin = New System.Windows.Forms.MaskedTextBox()
@@ -109,50 +127,45 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaCheckBox1 = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaComboBoxListeDesDepartements = New Guna.UI.WinForms.GunaComboBox()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.GunaComboBoxProfilPlanning = New Guna.UI.WinForms.GunaComboBox()
         Me.GunaButtonEditionDeMasse = New Guna.UI.WinForms.GunaButton()
         Me.GunaButton16 = New Guna.UI.WinForms.GunaButton()
         Me.GunaDateTimePickerDispoFin = New Guna.UI.WinForms.GunaDateTimePicker()
         Me.GunaDateTimePickerDispoDebut = New Guna.UI.WinForms.GunaDateTimePicker()
         Me.GunaDataGridViewPlanningHoraire = New Guna.UI.WinForms.GunaDataGridView()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.GunaContextMenuStripPlanning = New Guna.UI.WinForms.GunaContextMenuStrip()
-        Me.SupprimerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GunaContextMenuStripHoraire = New Guna.UI.WinForms.GunaContextMenuStrip()
-        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GunaContextMenuStripPlanningComplet = New Guna.UI.WinForms.GunaContextMenuStrip()
-        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GunaComboBoxPlannintContenantHoraire = New Guna.UI.WinForms.GunaComboBox()
-        Me.GunaDataGridViewPlanningHebdomadaire = New Guna.UI.WinForms.GunaDataGridView()
         Me.GunaPanel1.SuspendLayout()
         CType(Me.GunaDataGridViewFolio1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GunaDataGridViewFolio2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GunaShadowPanel1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
+        CType(Me.GunaDataGridViewDetailPlanning, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GunaContextMenuStripDetailPlanning.SuspendLayout()
+        CType(Me.GunaDataGridViewPlanningHebdomadaire, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GunaContextMenuStripPlanningComplet.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         CType(Me.GunaDataGridViewHoraire, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GunaContextMenuStripHoraire.SuspendLayout()
         CType(Me.GunaDataGridViewPlanning, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GunaContextMenuStripPlanning.SuspendLayout()
         Me.GunaShadowPanel3.SuspendLayout()
         Me.GunaShadowPanel2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         CType(Me.GunaDataGridViewPlanningHoraire, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GunaContextMenuStripPlanning.SuspendLayout()
-        Me.GunaContextMenuStripHoraire.SuspendLayout()
-        Me.GunaContextMenuStripPlanningComplet.SuspendLayout()
-        CType(Me.GunaDataGridViewPlanningHebdomadaire, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'GunaLabelGestCompteGeneraux
+        'GunaLabelTitle
         '
-        Me.GunaLabelGestCompteGeneraux.AutoSize = True
-        Me.GunaLabelGestCompteGeneraux.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabelGestCompteGeneraux.ForeColor = System.Drawing.Color.White
-        Me.GunaLabelGestCompteGeneraux.Location = New System.Drawing.Point(443, 1)
-        Me.GunaLabelGestCompteGeneraux.Name = "GunaLabelGestCompteGeneraux"
-        Me.GunaLabelGestCompteGeneraux.Size = New System.Drawing.Size(284, 21)
-        Me.GunaLabelGestCompteGeneraux.TabIndex = 4
-        Me.GunaLabelGestCompteGeneraux.Text = "Planning Hebdomadaire du Personnel"
-        Me.GunaLabelGestCompteGeneraux.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.GunaLabelTitle.AutoSize = True
+        Me.GunaLabelTitle.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaLabelTitle.ForeColor = System.Drawing.Color.White
+        Me.GunaLabelTitle.Location = New System.Drawing.Point(443, 1)
+        Me.GunaLabelTitle.Name = "GunaLabelTitle"
+        Me.GunaLabelTitle.Size = New System.Drawing.Size(284, 21)
+        Me.GunaLabelTitle.TabIndex = 4
+        Me.GunaLabelTitle.Text = "Planning Hebdomadaire du Personnel"
+        Me.GunaLabelTitle.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'GunaPanel1
         '
@@ -162,7 +175,7 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaPanel1.Controls.Add(Me.GunaImageButton7)
         Me.GunaPanel1.Controls.Add(Me.GunaImageButton3)
         Me.GunaPanel1.Controls.Add(Me.GunaImageButton2)
-        Me.GunaPanel1.Controls.Add(Me.GunaLabelGestCompteGeneraux)
+        Me.GunaPanel1.Controls.Add(Me.GunaLabelTitle)
         Me.GunaPanel1.Controls.Add(Me.GunaImageButton1)
         Me.GunaPanel1.Controls.Add(Me.GunaLabel1)
         Me.GunaPanel1.Dock = System.Windows.Forms.DockStyle.Top
@@ -170,28 +183,6 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaPanel1.Name = "GunaPanel1"
         Me.GunaPanel1.Size = New System.Drawing.Size(1200, 25)
         Me.GunaPanel1.TabIndex = 2
-        '
-        'GunaTextBoxCodePlanning
-        '
-        Me.GunaTextBoxCodePlanning.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.GunaTextBoxCodePlanning.BackColor = System.Drawing.Color.Transparent
-        Me.GunaTextBoxCodePlanning.BaseColor = System.Drawing.Color.DimGray
-        Me.GunaTextBoxCodePlanning.BorderColor = System.Drawing.Color.Gainsboro
-        Me.GunaTextBoxCodePlanning.BorderSize = 1
-        Me.GunaTextBoxCodePlanning.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.GunaTextBoxCodePlanning.FocusedBaseColor = System.Drawing.Color.White
-        Me.GunaTextBoxCodePlanning.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaTextBoxCodePlanning.FocusedForeColor = System.Drawing.SystemColors.ControlText
-        Me.GunaTextBoxCodePlanning.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxCodePlanning.Location = New System.Drawing.Point(703, 36)
-        Me.GunaTextBoxCodePlanning.Name = "GunaTextBoxCodePlanning"
-        Me.GunaTextBoxCodePlanning.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.GunaTextBoxCodePlanning.Radius = 3
-        Me.GunaTextBoxCodePlanning.SelectedText = ""
-        Me.GunaTextBoxCodePlanning.Size = New System.Drawing.Size(103, 25)
-        Me.GunaTextBoxCodePlanning.TabIndex = 90
-        Me.GunaTextBoxCodePlanning.Visible = False
         '
         'GunaImageButton5
         '
@@ -283,13 +274,35 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaLabel1.TabIndex = 1
         Me.GunaLabel1.Text = "X"
         '
+        'GunaTextBoxCodePlanning
+        '
+        Me.GunaTextBoxCodePlanning.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.GunaTextBoxCodePlanning.BackColor = System.Drawing.Color.Transparent
+        Me.GunaTextBoxCodePlanning.BaseColor = System.Drawing.Color.DimGray
+        Me.GunaTextBoxCodePlanning.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaTextBoxCodePlanning.BorderSize = 1
+        Me.GunaTextBoxCodePlanning.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBoxCodePlanning.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxCodePlanning.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBoxCodePlanning.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBoxCodePlanning.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaTextBoxCodePlanning.Location = New System.Drawing.Point(935, 35)
+        Me.GunaTextBoxCodePlanning.Name = "GunaTextBoxCodePlanning"
+        Me.GunaTextBoxCodePlanning.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBoxCodePlanning.Radius = 3
+        Me.GunaTextBoxCodePlanning.SelectedText = ""
+        Me.GunaTextBoxCodePlanning.Size = New System.Drawing.Size(103, 25)
+        Me.GunaTextBoxCodePlanning.TabIndex = 90
+        Me.GunaTextBoxCodePlanning.Visible = False
+        '
         'GunaElipse1
         '
         Me.GunaElipse1.TargetControl = Me
         '
         'GunaDragControl1
         '
-        Me.GunaDragControl1.TargetControl = Me.GunaLabelGestCompteGeneraux
+        Me.GunaDragControl1.TargetControl = Me.GunaLabelTitle
         '
         'GunaDragControl2
         '
@@ -308,42 +321,42 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaDataGridViewFolio1.AllowUserToAddRows = False
         Me.GunaDataGridViewFolio1.AllowUserToDeleteRows = False
         Me.GunaDataGridViewFolio1.AllowUserToOrderColumns = True
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewFolio1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewFolio1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.GunaDataGridViewFolio1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.GunaDataGridViewFolio1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.GunaDataGridViewFolio1.BackgroundColor = System.Drawing.Color.Silver
         Me.GunaDataGridViewFolio1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewFolio1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewFolio1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewFolio1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewFolio1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.GunaDataGridViewFolio1.ColumnHeadersHeight = 35
         Me.GunaDataGridViewFolio1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridViewFolio1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CODE, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.Quantite, Me.DataGridViewTextBoxColumn4})
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewFolio1.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewFolio1.DefaultCellStyle = DataGridViewCellStyle3
         Me.GunaDataGridViewFolio1.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewFolio1.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewFolio1.Location = New System.Drawing.Point(11, 96)
+        Me.GunaDataGridViewFolio1.Location = New System.Drawing.Point(6, 103)
         Me.GunaDataGridViewFolio1.MultiSelect = False
         Me.GunaDataGridViewFolio1.Name = "GunaDataGridViewFolio1"
         Me.GunaDataGridViewFolio1.ReadOnly = True
         Me.GunaDataGridViewFolio1.RowHeadersVisible = False
         Me.GunaDataGridViewFolio1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewFolio1.Size = New System.Drawing.Size(533, 261)
+        Me.GunaDataGridViewFolio1.Size = New System.Drawing.Size(540, 261)
         Me.GunaDataGridViewFolio1.TabIndex = 20
         Me.GunaDataGridViewFolio1.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
         Me.GunaDataGridViewFolio1.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
@@ -412,18 +425,18 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaLabel2.AutoSize = True
         Me.GunaLabel2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaLabel2.ForeColor = System.Drawing.Color.Black
-        Me.GunaLabel2.Location = New System.Drawing.Point(185, 74)
+        Me.GunaLabel2.Location = New System.Drawing.Point(10, 75)
         Me.GunaLabel2.Name = "GunaLabel2"
-        Me.GunaLabel2.Size = New System.Drawing.Size(142, 17)
+        Me.GunaLabel2.Size = New System.Drawing.Size(89, 17)
         Me.GunaLabel2.TabIndex = 14
-        Me.GunaLabel2.Text = "LISTE DU PERSONNEL"
+        Me.GunaLabel2.Text = "PERSONNELS"
         '
         'GunaLabel3
         '
         Me.GunaLabel3.AutoSize = True
         Me.GunaLabel3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaLabel3.ForeColor = System.Drawing.Color.Black
-        Me.GunaLabel3.Location = New System.Drawing.Point(651, 74)
+        Me.GunaLabel3.Location = New System.Drawing.Point(596, 73)
         Me.GunaLabel3.Name = "GunaLabel3"
         Me.GunaLabel3.Size = New System.Drawing.Size(203, 17)
         Me.GunaLabel3.TabIndex = 14
@@ -442,7 +455,7 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaButtonMoveLeftToRight.ForeColor = System.Drawing.Color.Lime
         Me.GunaButtonMoveLeftToRight.Image = Nothing
         Me.GunaButtonMoveLeftToRight.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonMoveLeftToRight.Location = New System.Drawing.Point(550, 131)
+        Me.GunaButtonMoveLeftToRight.Location = New System.Drawing.Point(552, 138)
         Me.GunaButtonMoveLeftToRight.Name = "GunaButtonMoveLeftToRight"
         Me.GunaButtonMoveLeftToRight.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonMoveLeftToRight.OnHoverBorderColor = System.Drawing.Color.Black
@@ -469,7 +482,7 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaButtonAllToRight.ForeColor = System.Drawing.Color.Lime
         Me.GunaButtonAllToRight.Image = Nothing
         Me.GunaButtonAllToRight.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonAllToRight.Location = New System.Drawing.Point(550, 174)
+        Me.GunaButtonAllToRight.Location = New System.Drawing.Point(552, 181)
         Me.GunaButtonAllToRight.Name = "GunaButtonAllToRight"
         Me.GunaButtonAllToRight.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonAllToRight.OnHoverBorderColor = System.Drawing.Color.Black
@@ -495,7 +508,7 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaButtonMoveRightToLeft.ForeColor = System.Drawing.Color.Red
         Me.GunaButtonMoveRightToLeft.Image = Nothing
         Me.GunaButtonMoveRightToLeft.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonMoveRightToLeft.Location = New System.Drawing.Point(550, 249)
+        Me.GunaButtonMoveRightToLeft.Location = New System.Drawing.Point(552, 256)
         Me.GunaButtonMoveRightToLeft.Name = "GunaButtonMoveRightToLeft"
         Me.GunaButtonMoveRightToLeft.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonMoveRightToLeft.OnHoverBorderColor = System.Drawing.Color.Black
@@ -521,7 +534,7 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaButtonAllToLeft.ForeColor = System.Drawing.Color.Red
         Me.GunaButtonAllToLeft.Image = Nothing
         Me.GunaButtonAllToLeft.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonAllToLeft.Location = New System.Drawing.Point(550, 292)
+        Me.GunaButtonAllToLeft.Location = New System.Drawing.Point(552, 299)
         Me.GunaButtonAllToLeft.Name = "GunaButtonAllToLeft"
         Me.GunaButtonAllToLeft.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonAllToLeft.OnHoverBorderColor = System.Drawing.Color.Black
@@ -533,32 +546,6 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaButtonAllToLeft.TabIndex = 32
         Me.GunaButtonAllToLeft.Text = "!<"
         Me.GunaButtonAllToLeft.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'GunaButtonFermer
-        '
-        Me.GunaButtonFermer.AnimationHoverSpeed = 0.07!
-        Me.GunaButtonFermer.AnimationSpeed = 0.03!
-        Me.GunaButtonFermer.BackColor = System.Drawing.Color.Transparent
-        Me.GunaButtonFermer.BaseColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
-        Me.GunaButtonFermer.BorderColor = System.Drawing.Color.Black
-        Me.GunaButtonFermer.DialogResult = System.Windows.Forms.DialogResult.None
-        Me.GunaButtonFermer.FocusedColor = System.Drawing.Color.Empty
-        Me.GunaButtonFermer.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaButtonFermer.ForeColor = System.Drawing.Color.White
-        Me.GunaButtonFermer.Image = Nothing
-        Me.GunaButtonFermer.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonFermer.Location = New System.Drawing.Point(11, 520)
-        Me.GunaButtonFermer.Name = "GunaButtonFermer"
-        Me.GunaButtonFermer.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaButtonFermer.OnHoverBorderColor = System.Drawing.Color.Black
-        Me.GunaButtonFermer.OnHoverForeColor = System.Drawing.Color.White
-        Me.GunaButtonFermer.OnHoverImage = Nothing
-        Me.GunaButtonFermer.OnPressedColor = System.Drawing.Color.Black
-        Me.GunaButtonFermer.Radius = 4
-        Me.GunaButtonFermer.Size = New System.Drawing.Size(74, 28)
-        Me.GunaButtonFermer.TabIndex = 39
-        Me.GunaButtonFermer.Text = "Fermer"
-        Me.GunaButtonFermer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'GunaButtonEnregistrerPlanning
         '
@@ -573,7 +560,7 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaButtonEnregistrerPlanning.ForeColor = System.Drawing.Color.White
         Me.GunaButtonEnregistrerPlanning.Image = Nothing
         Me.GunaButtonEnregistrerPlanning.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonEnregistrerPlanning.Location = New System.Drawing.Point(1063, 335)
+        Me.GunaButtonEnregistrerPlanning.Location = New System.Drawing.Point(1063, 339)
         Me.GunaButtonEnregistrerPlanning.Name = "GunaButtonEnregistrerPlanning"
         Me.GunaButtonEnregistrerPlanning.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonEnregistrerPlanning.OnHoverBorderColor = System.Drawing.Color.Black
@@ -586,52 +573,52 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaButtonEnregistrerPlanning.Text = "Enregistrer"
         Me.GunaButtonEnregistrerPlanning.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'GunaLabelDateTravaille
+        'GunaLabelDbutProg
         '
-        Me.GunaLabelDateTravaille.AutoSize = True
-        Me.GunaLabelDateTravaille.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabelDateTravaille.ForeColor = System.Drawing.Color.Black
-        Me.GunaLabelDateTravaille.Location = New System.Drawing.Point(863, 74)
-        Me.GunaLabelDateTravaille.Name = "GunaLabelDateTravaille"
-        Me.GunaLabelDateTravaille.Size = New System.Drawing.Size(77, 17)
-        Me.GunaLabelDateTravaille.TabIndex = 14
-        Me.GunaLabelDateTravaille.Text = "Date début"
+        Me.GunaLabelDbutProg.AutoSize = True
+        Me.GunaLabelDbutProg.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaLabelDbutProg.ForeColor = System.Drawing.Color.Black
+        Me.GunaLabelDbutProg.Location = New System.Drawing.Point(801, 74)
+        Me.GunaLabelDbutProg.Name = "GunaLabelDbutProg"
+        Me.GunaLabelDbutProg.Size = New System.Drawing.Size(70, 15)
+        Me.GunaLabelDbutProg.TabIndex = 14
+        Me.GunaLabelDbutProg.Text = "Date début"
         '
         'GunaDataGridViewFolio2
         '
         Me.GunaDataGridViewFolio2.AllowUserToAddRows = False
         Me.GunaDataGridViewFolio2.AllowUserToDeleteRows = False
         Me.GunaDataGridViewFolio2.AllowUserToOrderColumns = True
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewFolio2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle34.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewFolio2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle34
         Me.GunaDataGridViewFolio2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.GunaDataGridViewFolio2.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.GunaDataGridViewFolio2.BackgroundColor = System.Drawing.Color.Silver
         Me.GunaDataGridViewFolio2.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewFolio2.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewFolio2.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewFolio2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle35.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle35.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle35.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle35.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle35.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle35.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewFolio2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle35
         Me.GunaDataGridViewFolio2.ColumnHeadersHeight = 35
         Me.GunaDataGridViewFolio2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridViewFolio2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CODE_PERSONNEL, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6, Me.DataGridViewTextBoxColumn7, Me.DataGridViewTextBoxColumn8})
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewFolio2.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle36.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle36.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle36.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle36.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle36.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle36.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewFolio2.DefaultCellStyle = DataGridViewCellStyle36
         Me.GunaDataGridViewFolio2.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewFolio2.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewFolio2.Location = New System.Drawing.Point(614, 96)
+        Me.GunaDataGridViewFolio2.Location = New System.Drawing.Point(614, 103)
         Me.GunaDataGridViewFolio2.MultiSelect = False
         Me.GunaDataGridViewFolio2.Name = "GunaDataGridViewFolio2"
         Me.GunaDataGridViewFolio2.ReadOnly = True
@@ -698,35 +685,60 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaLabel6.AutoSize = True
         Me.GunaLabel6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaLabel6.ForeColor = System.Drawing.Color.Black
-        Me.GunaLabel6.Location = New System.Drawing.Point(962, 74)
+        Me.GunaLabel6.Location = New System.Drawing.Point(967, 73)
         Me.GunaLabel6.Name = "GunaLabel6"
         Me.GunaLabel6.Size = New System.Drawing.Size(21, 17)
         Me.GunaLabel6.TabIndex = 14
         Me.GunaLabel6.Text = " - "
         '
-        'GunaLabel7
+        'GunaLabelFinProg
         '
-        Me.GunaLabel7.AutoSize = True
-        Me.GunaLabel7.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel7.ForeColor = System.Drawing.Color.Black
-        Me.GunaLabel7.Location = New System.Drawing.Point(1006, 74)
-        Me.GunaLabel7.Name = "GunaLabel7"
-        Me.GunaLabel7.Size = New System.Drawing.Size(77, 17)
-        Me.GunaLabel7.TabIndex = 14
-        Me.GunaLabel7.Text = "Date début"
+        Me.GunaLabelFinProg.AutoSize = True
+        Me.GunaLabelFinProg.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaLabelFinProg.ForeColor = System.Drawing.Color.Black
+        Me.GunaLabelFinProg.Location = New System.Drawing.Point(992, 74)
+        Me.GunaLabelFinProg.Name = "GunaLabelFinProg"
+        Me.GunaLabelFinProg.Size = New System.Drawing.Size(70, 15)
+        Me.GunaLabelFinProg.TabIndex = 14
+        Me.GunaLabelFinProg.Text = "Date début"
         '
         'GunaShadowPanel1
         '
         Me.GunaShadowPanel1.BackColor = System.Drawing.Color.Transparent
         Me.GunaShadowPanel1.BaseColor = System.Drawing.Color.White
-        Me.GunaShadowPanel1.Controls.Add(Me.GunaComboBoxPlannintContenantHoraire)
+        Me.GunaShadowPanel1.Controls.Add(Me.GunaDateTimePickerProgStartDate)
         Me.GunaShadowPanel1.Controls.Add(Me.GunaComboBoxTypePersonnel)
         Me.GunaShadowPanel1.Controls.Add(Me.GunaCheckBoxTous)
         Me.GunaShadowPanel1.Location = New System.Drawing.Point(8, 6)
         Me.GunaShadowPanel1.Name = "GunaShadowPanel1"
         Me.GunaShadowPanel1.ShadowColor = System.Drawing.Color.Black
-        Me.GunaShadowPanel1.Size = New System.Drawing.Size(1162, 59)
+        Me.GunaShadowPanel1.Size = New System.Drawing.Size(1162, 57)
         Me.GunaShadowPanel1.TabIndex = 41
+        '
+        'GunaDateTimePickerProgStartDate
+        '
+        Me.GunaDateTimePickerProgStartDate.BackColor = System.Drawing.Color.Transparent
+        Me.GunaDateTimePickerProgStartDate.BaseColor = System.Drawing.Color.Transparent
+        Me.GunaDateTimePickerProgStartDate.BorderColor = System.Drawing.Color.LightGray
+        Me.GunaDateTimePickerProgStartDate.CustomFormat = Nothing
+        Me.GunaDateTimePickerProgStartDate.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right
+        Me.GunaDateTimePickerProgStartDate.FocusedColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDateTimePickerProgStartDate.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaDateTimePickerProgStartDate.ForeColor = System.Drawing.Color.Black
+        Me.GunaDateTimePickerProgStartDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.GunaDateTimePickerProgStartDate.Location = New System.Drawing.Point(386, 12)
+        Me.GunaDateTimePickerProgStartDate.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.GunaDateTimePickerProgStartDate.MinDate = New Date(2021, 8, 3, 0, 0, 0, 0)
+        Me.GunaDateTimePickerProgStartDate.Name = "GunaDateTimePickerProgStartDate"
+        Me.GunaDateTimePickerProgStartDate.OnHoverBaseColor = System.Drawing.Color.White
+        Me.GunaDateTimePickerProgStartDate.OnHoverBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDateTimePickerProgStartDate.OnHoverForeColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDateTimePickerProgStartDate.OnPressedColor = System.Drawing.Color.Black
+        Me.GunaDateTimePickerProgStartDate.Radius = 5
+        Me.GunaDateTimePickerProgStartDate.Size = New System.Drawing.Size(134, 30)
+        Me.GunaDateTimePickerProgStartDate.TabIndex = 50
+        Me.GunaDateTimePickerProgStartDate.Text = "04/11/2025"
+        Me.GunaDateTimePickerProgStartDate.Value = New Date(2025, 11, 4, 23, 50, 0, 0)
         '
         'GunaComboBoxTypePersonnel
         '
@@ -741,7 +753,7 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaComboBoxTypePersonnel.ForeColor = System.Drawing.Color.Black
         Me.GunaComboBoxTypePersonnel.FormattingEnabled = True
         Me.GunaComboBoxTypePersonnel.ItemHeight = 23
-        Me.GunaComboBoxTypePersonnel.Location = New System.Drawing.Point(781, 16)
+        Me.GunaComboBoxTypePersonnel.Location = New System.Drawing.Point(781, 13)
         Me.GunaComboBoxTypePersonnel.Name = "GunaComboBoxTypePersonnel"
         Me.GunaComboBoxTypePersonnel.OnHoverItemBaseColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaComboBoxTypePersonnel.OnHoverItemForeColor = System.Drawing.Color.White
@@ -756,12 +768,33 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaCheckBoxTous.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxTous.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxTous.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxTous.Location = New System.Drawing.Point(600, 20)
+        Me.GunaCheckBoxTous.Location = New System.Drawing.Point(600, 17)
         Me.GunaCheckBoxTous.Name = "GunaCheckBoxTous"
         Me.GunaCheckBoxTous.Size = New System.Drawing.Size(175, 20)
         Me.GunaCheckBoxTous.TabIndex = 42
         Me.GunaCheckBoxTous.Text = "Tous les départements"
         Me.GunaCheckBoxTous.Visible = False
+        '
+        'GunaComboBoxPlannintContenantHoraire
+        '
+        Me.GunaComboBoxPlannintContenantHoraire.BackColor = System.Drawing.Color.Transparent
+        Me.GunaComboBoxPlannintContenantHoraire.BaseColor = System.Drawing.Color.White
+        Me.GunaComboBoxPlannintContenantHoraire.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaComboBoxPlannintContenantHoraire.BorderSize = 1
+        Me.GunaComboBoxPlannintContenantHoraire.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.GunaComboBoxPlannintContenantHoraire.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.GunaComboBoxPlannintContenantHoraire.FocusedColor = System.Drawing.Color.Empty
+        Me.GunaComboBoxPlannintContenantHoraire.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaComboBoxPlannintContenantHoraire.ForeColor = System.Drawing.Color.Black
+        Me.GunaComboBoxPlannintContenantHoraire.FormattingEnabled = True
+        Me.GunaComboBoxPlannintContenantHoraire.ItemHeight = 23
+        Me.GunaComboBoxPlannintContenantHoraire.Location = New System.Drawing.Point(111, 69)
+        Me.GunaComboBoxPlannintContenantHoraire.Name = "GunaComboBoxPlannintContenantHoraire"
+        Me.GunaComboBoxPlannintContenantHoraire.OnHoverItemBaseColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaComboBoxPlannintContenantHoraire.OnHoverItemForeColor = System.Drawing.Color.White
+        Me.GunaComboBoxPlannintContenantHoraire.Radius = 4
+        Me.GunaComboBoxPlannintContenantHoraire.Size = New System.Drawing.Size(291, 29)
+        Me.GunaComboBoxPlannintContenantHoraire.TabIndex = 43
         '
         'TabControl1
         '
@@ -777,10 +810,15 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.GunaDateTimePicker2)
+        Me.TabPage1.Controls.Add(Me.GunaDateTimePickerOffDay)
         Me.TabPage1.Controls.Add(Me.GunaShadowPanel1)
+        Me.TabPage1.Controls.Add(Me.GunaCheckBoxOff)
+        Me.TabPage1.Controls.Add(Me.GunaComboBoxPlannintContenantHoraire)
+        Me.TabPage1.Controls.Add(Me.GunaButton3)
         Me.TabPage1.Controls.Add(Me.GunaButtonEnregistrerPlanning)
         Me.TabPage1.Controls.Add(Me.GunaLabel3)
-        Me.TabPage1.Controls.Add(Me.GunaButtonFermer)
+        Me.TabPage1.Controls.Add(Me.GunaDataGridViewDetailPlanning)
         Me.TabPage1.Controls.Add(Me.GunaDataGridViewPlanningHebdomadaire)
         Me.TabPage1.Controls.Add(Me.GunaDataGridViewFolio1)
         Me.TabPage1.Controls.Add(Me.GunaButtonAllToRight)
@@ -789,9 +827,9 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.TabPage1.Controls.Add(Me.GunaLabel6)
         Me.TabPage1.Controls.Add(Me.GunaButtonMoveRightToLeft)
         Me.TabPage1.Controls.Add(Me.GunaDataGridViewFolio2)
-        Me.TabPage1.Controls.Add(Me.GunaLabel7)
+        Me.TabPage1.Controls.Add(Me.GunaLabelFinProg)
         Me.TabPage1.Controls.Add(Me.GunaLabel2)
-        Me.TabPage1.Controls.Add(Me.GunaLabelDateTravaille)
+        Me.TabPage1.Controls.Add(Me.GunaLabelDbutProg)
         Me.TabPage1.Location = New System.Drawing.Point(4, 24)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
@@ -799,6 +837,267 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Affectation de Planning aux Personnels"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'GunaDateTimePicker2
+        '
+        Me.GunaDateTimePicker2.BackColor = System.Drawing.Color.Transparent
+        Me.GunaDateTimePicker2.BaseColor = System.Drawing.Color.Transparent
+        Me.GunaDateTimePicker2.BorderColor = System.Drawing.Color.LightGray
+        Me.GunaDateTimePicker2.CustomFormat = Nothing
+        Me.GunaDateTimePicker2.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right
+        Me.GunaDateTimePicker2.FocusedColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDateTimePicker2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaDateTimePicker2.ForeColor = System.Drawing.Color.Black
+        Me.GunaDateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.GunaDateTimePicker2.Location = New System.Drawing.Point(624, 338)
+        Me.GunaDateTimePicker2.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.GunaDateTimePicker2.MinDate = New Date(2021, 8, 3, 0, 0, 0, 0)
+        Me.GunaDateTimePicker2.Name = "GunaDateTimePicker2"
+        Me.GunaDateTimePicker2.OnHoverBaseColor = System.Drawing.Color.White
+        Me.GunaDateTimePicker2.OnHoverBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDateTimePicker2.OnHoverForeColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDateTimePicker2.OnPressedColor = System.Drawing.Color.Black
+        Me.GunaDateTimePicker2.Radius = 5
+        Me.GunaDateTimePicker2.Size = New System.Drawing.Size(134, 30)
+        Me.GunaDateTimePicker2.TabIndex = 50
+        Me.GunaDateTimePicker2.Text = "04/11/2025"
+        Me.GunaDateTimePicker2.Value = New Date(2025, 11, 4, 23, 50, 0, 0)
+        '
+        'GunaDateTimePickerOffDay
+        '
+        Me.GunaDateTimePickerOffDay.BackColor = System.Drawing.Color.Transparent
+        Me.GunaDateTimePickerOffDay.BaseColor = System.Drawing.Color.Transparent
+        Me.GunaDateTimePickerOffDay.BorderColor = System.Drawing.Color.LightGray
+        Me.GunaDateTimePickerOffDay.CustomFormat = Nothing
+        Me.GunaDateTimePickerOffDay.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right
+        Me.GunaDateTimePickerOffDay.Enabled = False
+        Me.GunaDateTimePickerOffDay.FocusedColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDateTimePickerOffDay.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaDateTimePickerOffDay.ForeColor = System.Drawing.Color.Black
+        Me.GunaDateTimePickerOffDay.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.GunaDateTimePickerOffDay.Location = New System.Drawing.Point(433, 68)
+        Me.GunaDateTimePickerOffDay.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.GunaDateTimePickerOffDay.MinDate = New Date(2021, 8, 3, 0, 0, 0, 0)
+        Me.GunaDateTimePickerOffDay.Name = "GunaDateTimePickerOffDay"
+        Me.GunaDateTimePickerOffDay.OnHoverBaseColor = System.Drawing.Color.White
+        Me.GunaDateTimePickerOffDay.OnHoverBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDateTimePickerOffDay.OnHoverForeColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDateTimePickerOffDay.OnPressedColor = System.Drawing.Color.Black
+        Me.GunaDateTimePickerOffDay.Radius = 5
+        Me.GunaDateTimePickerOffDay.Size = New System.Drawing.Size(134, 30)
+        Me.GunaDateTimePickerOffDay.TabIndex = 50
+        Me.GunaDateTimePickerOffDay.Text = "04/11/2025"
+        Me.GunaDateTimePickerOffDay.Value = New Date(2025, 11, 4, 23, 50, 0, 0)
+        '
+        'GunaCheckBoxOff
+        '
+        Me.GunaCheckBoxOff.BaseColor = System.Drawing.Color.White
+        Me.GunaCheckBoxOff.CheckedOffColor = System.Drawing.Color.Gray
+        Me.GunaCheckBoxOff.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaCheckBoxOff.FillColor = System.Drawing.Color.White
+        Me.GunaCheckBoxOff.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaCheckBoxOff.Location = New System.Drawing.Point(409, 73)
+        Me.GunaCheckBoxOff.Name = "GunaCheckBoxOff"
+        Me.GunaCheckBoxOff.Size = New System.Drawing.Size(20, 20)
+        Me.GunaCheckBoxOff.TabIndex = 42
+        '
+        'GunaButton3
+        '
+        Me.GunaButton3.AnimationHoverSpeed = 0.07!
+        Me.GunaButton3.AnimationSpeed = 0.03!
+        Me.GunaButton3.BackColor = System.Drawing.Color.Transparent
+        Me.GunaButton3.BaseColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
+        Me.GunaButton3.BorderColor = System.Drawing.Color.Black
+        Me.GunaButton3.DialogResult = System.Windows.Forms.DialogResult.None
+        Me.GunaButton3.FocusedColor = System.Drawing.Color.Empty
+        Me.GunaButton3.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaButton3.ForeColor = System.Drawing.Color.White
+        Me.GunaButton3.Image = Nothing
+        Me.GunaButton3.ImageSize = New System.Drawing.Size(20, 20)
+        Me.GunaButton3.Location = New System.Drawing.Point(765, 339)
+        Me.GunaButton3.Name = "GunaButton3"
+        Me.GunaButton3.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaButton3.OnHoverBorderColor = System.Drawing.Color.Black
+        Me.GunaButton3.OnHoverForeColor = System.Drawing.Color.White
+        Me.GunaButton3.OnHoverImage = Nothing
+        Me.GunaButton3.OnPressedColor = System.Drawing.Color.Black
+        Me.GunaButton3.Radius = 4
+        Me.GunaButton3.Size = New System.Drawing.Size(135, 28)
+        Me.GunaButton3.TabIndex = 39
+        Me.GunaButton3.Text = "Programme Global"
+        Me.GunaButton3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'GunaDataGridViewDetailPlanning
+        '
+        Me.GunaDataGridViewDetailPlanning.AllowUserToAddRows = False
+        Me.GunaDataGridViewDetailPlanning.AllowUserToDeleteRows = False
+        Me.GunaDataGridViewDetailPlanning.AllowUserToOrderColumns = True
+        DataGridViewCellStyle31.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewDetailPlanning.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle31
+        Me.GunaDataGridViewDetailPlanning.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.GunaDataGridViewDetailPlanning.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
+        Me.GunaDataGridViewDetailPlanning.BackgroundColor = System.Drawing.Color.Silver
+        Me.GunaDataGridViewDetailPlanning.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.GunaDataGridViewDetailPlanning.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.GunaDataGridViewDetailPlanning.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+        DataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle32.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle32.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle32.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle32.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle32.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewDetailPlanning.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle32
+        Me.GunaDataGridViewDetailPlanning.ColumnHeadersHeight = 35
+        Me.GunaDataGridViewDetailPlanning.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.GunaDataGridViewDetailPlanning.ContextMenuStrip = Me.GunaContextMenuStripDetailPlanning
+        DataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle33.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle33.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle33.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle33.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle33.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle33.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewDetailPlanning.DefaultCellStyle = DataGridViewCellStyle33
+        Me.GunaDataGridViewDetailPlanning.EnableHeadersVisualStyles = False
+        Me.GunaDataGridViewDetailPlanning.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDataGridViewDetailPlanning.Location = New System.Drawing.Point(614, 370)
+        Me.GunaDataGridViewDetailPlanning.MultiSelect = False
+        Me.GunaDataGridViewDetailPlanning.Name = "GunaDataGridViewDetailPlanning"
+        Me.GunaDataGridViewDetailPlanning.ReadOnly = True
+        Me.GunaDataGridViewDetailPlanning.RowHeadersVisible = False
+        Me.GunaDataGridViewDetailPlanning.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.GunaDataGridViewDetailPlanning.Size = New System.Drawing.Size(556, 173)
+        Me.GunaDataGridViewDetailPlanning.TabIndex = 20
+        Me.GunaDataGridViewDetailPlanning.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.AlternatingRowsStyle.Font = Nothing
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.BackColor = System.Drawing.Color.Silver
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.HeaderStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.HeaderStyle.Height = 35
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.ReadOnly = True
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.RowsStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.RowsStyle.Height = 22
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDataGridViewDetailPlanning.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        '
+        'GunaContextMenuStripDetailPlanning
+        '
+        Me.GunaContextMenuStripDetailPlanning.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem3})
+        Me.GunaContextMenuStripDetailPlanning.Name = "GunaContextMenuStrip1"
+        Me.GunaContextMenuStripDetailPlanning.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaContextMenuStripDetailPlanning.RenderStyle.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaContextMenuStripDetailPlanning.RenderStyle.ColorTable = Nothing
+        Me.GunaContextMenuStripDetailPlanning.RenderStyle.RoundedEdges = True
+        Me.GunaContextMenuStripDetailPlanning.RenderStyle.SelectionArrowColor = System.Drawing.Color.White
+        Me.GunaContextMenuStripDetailPlanning.RenderStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaContextMenuStripDetailPlanning.RenderStyle.SelectionForeColor = System.Drawing.Color.White
+        Me.GunaContextMenuStripDetailPlanning.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
+        Me.GunaContextMenuStripDetailPlanning.RenderStyle.TextRenderingHint = Guna.UI.WinForms.DrawingTextRenderingHint.SystemDefault
+        Me.GunaContextMenuStripDetailPlanning.Size = New System.Drawing.Size(130, 26)
+        '
+        'ToolStripMenuItem3
+        '
+        Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(129, 22)
+        Me.ToolStripMenuItem3.Text = "Supprimer"
+        '
+        'GunaDataGridViewPlanningHebdomadaire
+        '
+        Me.GunaDataGridViewPlanningHebdomadaire.AllowUserToAddRows = False
+        Me.GunaDataGridViewPlanningHebdomadaire.AllowUserToDeleteRows = False
+        Me.GunaDataGridViewPlanningHebdomadaire.AllowUserToOrderColumns = True
+        DataGridViewCellStyle22.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewPlanningHebdomadaire.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle22
+        Me.GunaDataGridViewPlanningHebdomadaire.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.GunaDataGridViewPlanningHebdomadaire.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
+        Me.GunaDataGridViewPlanningHebdomadaire.BackgroundColor = System.Drawing.Color.Silver
+        Me.GunaDataGridViewPlanningHebdomadaire.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.GunaDataGridViewPlanningHebdomadaire.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.GunaDataGridViewPlanningHebdomadaire.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle23.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle23.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewPlanningHebdomadaire.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle23
+        Me.GunaDataGridViewPlanningHebdomadaire.ColumnHeadersHeight = 35
+        Me.GunaDataGridViewPlanningHebdomadaire.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.GunaDataGridViewPlanningHebdomadaire.ContextMenuStrip = Me.GunaContextMenuStripPlanningComplet
+        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle24.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle24.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewPlanningHebdomadaire.DefaultCellStyle = DataGridViewCellStyle24
+        Me.GunaDataGridViewPlanningHebdomadaire.EnableHeadersVisualStyles = False
+        Me.GunaDataGridViewPlanningHebdomadaire.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDataGridViewPlanningHebdomadaire.Location = New System.Drawing.Point(6, 370)
+        Me.GunaDataGridViewPlanningHebdomadaire.MultiSelect = False
+        Me.GunaDataGridViewPlanningHebdomadaire.Name = "GunaDataGridViewPlanningHebdomadaire"
+        Me.GunaDataGridViewPlanningHebdomadaire.ReadOnly = True
+        Me.GunaDataGridViewPlanningHebdomadaire.RowHeadersVisible = False
+        Me.GunaDataGridViewPlanningHebdomadaire.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.GunaDataGridViewPlanningHebdomadaire.Size = New System.Drawing.Size(597, 173)
+        Me.GunaDataGridViewPlanningHebdomadaire.TabIndex = 20
+        Me.GunaDataGridViewPlanningHebdomadaire.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.AlternatingRowsStyle.Font = Nothing
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.BackColor = System.Drawing.Color.Silver
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.HeaderStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.HeaderStyle.Height = 35
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.ReadOnly = True
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.RowsStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.RowsStyle.Height = 22
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        '
+        'GunaContextMenuStripPlanningComplet
+        '
+        Me.GunaContextMenuStripPlanningComplet.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem2})
+        Me.GunaContextMenuStripPlanningComplet.Name = "GunaContextMenuStrip1"
+        Me.GunaContextMenuStripPlanningComplet.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaContextMenuStripPlanningComplet.RenderStyle.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaContextMenuStripPlanningComplet.RenderStyle.ColorTable = Nothing
+        Me.GunaContextMenuStripPlanningComplet.RenderStyle.RoundedEdges = True
+        Me.GunaContextMenuStripPlanningComplet.RenderStyle.SelectionArrowColor = System.Drawing.Color.White
+        Me.GunaContextMenuStripPlanningComplet.RenderStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaContextMenuStripPlanningComplet.RenderStyle.SelectionForeColor = System.Drawing.Color.White
+        Me.GunaContextMenuStripPlanningComplet.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
+        Me.GunaContextMenuStripPlanningComplet.RenderStyle.TextRenderingHint = Guna.UI.WinForms.DrawingTextRenderingHint.SystemDefault
+        Me.GunaContextMenuStripPlanningComplet.Size = New System.Drawing.Size(130, 26)
+        '
+        'ToolStripMenuItem2
+        '
+        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(129, 22)
+        Me.ToolStripMenuItem2.Text = "Supprimer"
         '
         'TabPage2
         '
@@ -820,33 +1119,33 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaDataGridViewHoraire.AllowUserToAddRows = False
         Me.GunaDataGridViewHoraire.AllowUserToDeleteRows = False
         Me.GunaDataGridViewHoraire.AllowUserToOrderColumns = True
-        DataGridViewCellStyle10.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewHoraire.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle37.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewHoraire.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle37
         Me.GunaDataGridViewHoraire.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.GunaDataGridViewHoraire.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.GunaDataGridViewHoraire.BackgroundColor = System.Drawing.Color.Silver
         Me.GunaDataGridViewHoraire.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewHoraire.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewHoraire.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle11.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewHoraire.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle38.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle38.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle38.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle38.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle38.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle38.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewHoraire.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle38
         Me.GunaDataGridViewHoraire.ColumnHeadersHeight = 35
         Me.GunaDataGridViewHoraire.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridViewHoraire.ContextMenuStrip = Me.GunaContextMenuStripHoraire
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewHoraire.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle39.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle39.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle39.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle39.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle39.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle39.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewHoraire.DefaultCellStyle = DataGridViewCellStyle39
         Me.GunaDataGridViewHoraire.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewHoraire.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewHoraire.Location = New System.Drawing.Point(12, 365)
@@ -880,41 +1179,62 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaDataGridViewHoraire.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewHoraire.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
         '
+        'GunaContextMenuStripHoraire
+        '
+        Me.GunaContextMenuStripHoraire.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
+        Me.GunaContextMenuStripHoraire.Name = "GunaContextMenuStrip1"
+        Me.GunaContextMenuStripHoraire.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaContextMenuStripHoraire.RenderStyle.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaContextMenuStripHoraire.RenderStyle.ColorTable = Nothing
+        Me.GunaContextMenuStripHoraire.RenderStyle.RoundedEdges = True
+        Me.GunaContextMenuStripHoraire.RenderStyle.SelectionArrowColor = System.Drawing.Color.White
+        Me.GunaContextMenuStripHoraire.RenderStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaContextMenuStripHoraire.RenderStyle.SelectionForeColor = System.Drawing.Color.White
+        Me.GunaContextMenuStripHoraire.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
+        Me.GunaContextMenuStripHoraire.RenderStyle.TextRenderingHint = Guna.UI.WinForms.DrawingTextRenderingHint.SystemDefault
+        Me.GunaContextMenuStripHoraire.Size = New System.Drawing.Size(130, 26)
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(129, 22)
+        Me.ToolStripMenuItem1.Text = "Supprimer"
+        '
         'GunaDataGridViewPlanning
         '
         Me.GunaDataGridViewPlanning.AllowUserToAddRows = False
         Me.GunaDataGridViewPlanning.AllowUserToDeleteRows = False
         Me.GunaDataGridViewPlanning.AllowUserToOrderColumns = True
-        DataGridViewCellStyle13.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewPlanning.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle28.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewPlanning.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle28
         Me.GunaDataGridViewPlanning.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.GunaDataGridViewPlanning.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.GunaDataGridViewPlanning.BackgroundColor = System.Drawing.Color.Silver
         Me.GunaDataGridViewPlanning.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewPlanning.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewPlanning.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle14.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewPlanning.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle29.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle29.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle29.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle29.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle29.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle29.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewPlanning.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle29
         Me.GunaDataGridViewPlanning.ColumnHeadersHeight = 35
         Me.GunaDataGridViewPlanning.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridViewPlanning.ContextMenuStrip = Me.GunaContextMenuStripPlanning
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle15.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewPlanning.DefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle30.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle30.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle30.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle30.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle30.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewPlanning.DefaultCellStyle = DataGridViewCellStyle30
         Me.GunaDataGridViewPlanning.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewPlanning.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewPlanning.Location = New System.Drawing.Point(10, 125)
+        Me.GunaDataGridViewPlanning.Location = New System.Drawing.Point(7, 124)
         Me.GunaDataGridViewPlanning.MultiSelect = False
         Me.GunaDataGridViewPlanning.Name = "GunaDataGridViewPlanning"
         Me.GunaDataGridViewPlanning.ReadOnly = True
@@ -944,6 +1264,27 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaDataGridViewPlanning.ThemeStyle.RowsStyle.Height = 22
         Me.GunaDataGridViewPlanning.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewPlanning.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        '
+        'GunaContextMenuStripPlanning
+        '
+        Me.GunaContextMenuStripPlanning.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SupprimerToolStripMenuItem})
+        Me.GunaContextMenuStripPlanning.Name = "GunaContextMenuStrip1"
+        Me.GunaContextMenuStripPlanning.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaContextMenuStripPlanning.RenderStyle.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaContextMenuStripPlanning.RenderStyle.ColorTable = Nothing
+        Me.GunaContextMenuStripPlanning.RenderStyle.RoundedEdges = True
+        Me.GunaContextMenuStripPlanning.RenderStyle.SelectionArrowColor = System.Drawing.Color.White
+        Me.GunaContextMenuStripPlanning.RenderStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaContextMenuStripPlanning.RenderStyle.SelectionForeColor = System.Drawing.Color.White
+        Me.GunaContextMenuStripPlanning.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
+        Me.GunaContextMenuStripPlanning.RenderStyle.TextRenderingHint = Guna.UI.WinForms.DrawingTextRenderingHint.SystemDefault
+        Me.GunaContextMenuStripPlanning.Size = New System.Drawing.Size(130, 26)
+        '
+        'SupprimerToolStripMenuItem
+        '
+        Me.SupprimerToolStripMenuItem.Name = "SupprimerToolStripMenuItem"
+        Me.SupprimerToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.SupprimerToolStripMenuItem.Text = "Supprimer"
         '
         'GunaShadowPanel3
         '
@@ -1124,7 +1465,7 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaButton1.ForeColor = System.Drawing.Color.White
         Me.GunaButton1.Image = Nothing
         Me.GunaButton1.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButton1.Location = New System.Drawing.Point(823, 33)
+        Me.GunaButton1.Location = New System.Drawing.Point(755, 33)
         Me.GunaButton1.Name = "GunaButton1"
         Me.GunaButton1.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButton1.OnHoverBorderColor = System.Drawing.Color.Black
@@ -1148,7 +1489,7 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaDateTimePickerAu.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaDateTimePickerAu.ForeColor = System.Drawing.Color.Black
         Me.GunaDateTimePickerAu.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.GunaDateTimePickerAu.Location = New System.Drawing.Point(552, 32)
+        Me.GunaDateTimePickerAu.Location = New System.Drawing.Point(602, 32)
         Me.GunaDateTimePickerAu.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.GunaDateTimePickerAu.MinDate = New Date(2021, 8, 3, 0, 0, 0, 0)
         Me.GunaDateTimePickerAu.Name = "GunaDateTimePickerAu"
@@ -1161,6 +1502,7 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaDateTimePickerAu.TabIndex = 47
         Me.GunaDateTimePickerAu.Text = "03/08/2021"
         Me.GunaDateTimePickerAu.Value = New Date(2021, 8, 3, 23, 50, 59, 762)
+        Me.GunaDateTimePickerAu.Visible = False
         '
         'GunaLabel5
         '
@@ -1178,22 +1520,24 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaLabel4.AutoSize = True
         Me.GunaLabel4.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaLabel4.ForeColor = System.Drawing.Color.Black
-        Me.GunaLabel4.Location = New System.Drawing.Point(337, 39)
+        Me.GunaLabel4.Location = New System.Drawing.Point(344, 39)
         Me.GunaLabel4.Name = "GunaLabel4"
         Me.GunaLabel4.Size = New System.Drawing.Size(34, 17)
         Me.GunaLabel4.TabIndex = 44
         Me.GunaLabel4.Text = "Du :"
+        Me.GunaLabel4.Visible = False
         '
         'GunaLabel8
         '
         Me.GunaLabel8.AutoSize = True
         Me.GunaLabel8.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaLabel8.ForeColor = System.Drawing.Color.Black
-        Me.GunaLabel8.Location = New System.Drawing.Point(517, 39)
+        Me.GunaLabel8.Location = New System.Drawing.Point(539, 39)
         Me.GunaLabel8.Name = "GunaLabel8"
         Me.GunaLabel8.Size = New System.Drawing.Size(33, 17)
         Me.GunaLabel8.TabIndex = 45
         Me.GunaLabel8.Text = "Au :"
+        Me.GunaLabel8.Visible = False
         '
         'GunaDateTimePicker1
         '
@@ -1206,7 +1550,7 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaDateTimePicker1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaDateTimePicker1.ForeColor = System.Drawing.Color.Black
         Me.GunaDateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.GunaDateTimePicker1.Location = New System.Drawing.Point(375, 32)
+        Me.GunaDateTimePicker1.Location = New System.Drawing.Point(391, 32)
         Me.GunaDateTimePicker1.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.GunaDateTimePicker1.MinDate = New Date(2021, 8, 3, 0, 0, 0, 0)
         Me.GunaDateTimePicker1.Name = "GunaDateTimePicker1"
@@ -1219,6 +1563,7 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaDateTimePicker1.TabIndex = 49
         Me.GunaDateTimePicker1.Text = "03/08/2021"
         Me.GunaDateTimePicker1.Value = New Date(2021, 8, 3, 23, 50, 59, 762)
+        Me.GunaDateTimePicker1.Visible = False
         '
         'GunaCheckBox1
         '
@@ -1255,6 +1600,7 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         '
         'TabPage3
         '
+        Me.TabPage3.Controls.Add(Me.GunaComboBoxProfilPlanning)
         Me.TabPage3.Controls.Add(Me.GunaButtonEditionDeMasse)
         Me.TabPage3.Controls.Add(Me.GunaButton16)
         Me.TabPage3.Controls.Add(Me.GunaDateTimePickerDispoFin)
@@ -1267,6 +1613,27 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Association Horaire & Planning"
         Me.TabPage3.UseVisualStyleBackColor = True
+        '
+        'GunaComboBoxProfilPlanning
+        '
+        Me.GunaComboBoxProfilPlanning.BackColor = System.Drawing.Color.Transparent
+        Me.GunaComboBoxProfilPlanning.BaseColor = System.Drawing.Color.White
+        Me.GunaComboBoxProfilPlanning.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaComboBoxProfilPlanning.BorderSize = 1
+        Me.GunaComboBoxProfilPlanning.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.GunaComboBoxProfilPlanning.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.GunaComboBoxProfilPlanning.FocusedColor = System.Drawing.Color.Empty
+        Me.GunaComboBoxProfilPlanning.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaComboBoxProfilPlanning.ForeColor = System.Drawing.Color.Black
+        Me.GunaComboBoxProfilPlanning.FormattingEnabled = True
+        Me.GunaComboBoxProfilPlanning.ItemHeight = 23
+        Me.GunaComboBoxProfilPlanning.Location = New System.Drawing.Point(4, 39)
+        Me.GunaComboBoxProfilPlanning.Name = "GunaComboBoxProfilPlanning"
+        Me.GunaComboBoxProfilPlanning.OnHoverItemBaseColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaComboBoxProfilPlanning.OnHoverItemForeColor = System.Drawing.Color.White
+        Me.GunaComboBoxProfilPlanning.Radius = 4
+        Me.GunaComboBoxProfilPlanning.Size = New System.Drawing.Size(288, 29)
+        Me.GunaComboBoxProfilPlanning.TabIndex = 44
         '
         'GunaButtonEditionDeMasse
         '
@@ -1281,7 +1648,7 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaButtonEditionDeMasse.ForeColor = System.Drawing.Color.White
         Me.GunaButtonEditionDeMasse.Image = Nothing
         Me.GunaButtonEditionDeMasse.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonEditionDeMasse.Location = New System.Drawing.Point(1012, 43)
+        Me.GunaButtonEditionDeMasse.Location = New System.Drawing.Point(1012, 41)
         Me.GunaButtonEditionDeMasse.Name = "GunaButtonEditionDeMasse"
         Me.GunaButtonEditionDeMasse.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonEditionDeMasse.OnHoverBorderColor = System.Drawing.Color.Black
@@ -1307,7 +1674,7 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaButton16.ForeColor = System.Drawing.Color.White
         Me.GunaButton16.Image = Nothing
         Me.GunaButton16.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButton16.Location = New System.Drawing.Point(723, 43)
+        Me.GunaButton16.Location = New System.Drawing.Point(723, 41)
         Me.GunaButton16.Name = "GunaButton16"
         Me.GunaButton16.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButton16.OnHoverBorderColor = System.Drawing.Color.Black
@@ -1331,7 +1698,7 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaDateTimePickerDispoFin.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.GunaDateTimePickerDispoFin.ForeColor = System.Drawing.Color.Black
         Me.GunaDateTimePickerDispoFin.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.GunaDateTimePickerDispoFin.Location = New System.Drawing.Point(540, 40)
+        Me.GunaDateTimePickerDispoFin.Location = New System.Drawing.Point(540, 38)
         Me.GunaDateTimePickerDispoFin.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.GunaDateTimePickerDispoFin.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.GunaDateTimePickerDispoFin.Name = "GunaDateTimePickerDispoFin"
@@ -1355,7 +1722,7 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaDateTimePickerDispoDebut.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.GunaDateTimePickerDispoDebut.ForeColor = System.Drawing.Color.Black
         Me.GunaDateTimePickerDispoDebut.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.GunaDateTimePickerDispoDebut.Location = New System.Drawing.Point(357, 40)
+        Me.GunaDateTimePickerDispoDebut.Location = New System.Drawing.Point(357, 38)
         Me.GunaDateTimePickerDispoDebut.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.GunaDateTimePickerDispoDebut.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.GunaDateTimePickerDispoDebut.Name = "GunaDateTimePickerDispoDebut"
@@ -1365,8 +1732,8 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaDateTimePickerDispoDebut.OnPressedColor = System.Drawing.Color.Black
         Me.GunaDateTimePickerDispoDebut.Size = New System.Drawing.Size(147, 30)
         Me.GunaDateTimePickerDispoDebut.TabIndex = 9
-        Me.GunaDateTimePickerDispoDebut.Text = "19/08/2022"
-        Me.GunaDateTimePickerDispoDebut.Value = New Date(2022, 8, 19, 14, 47, 25, 641)
+        Me.GunaDateTimePickerDispoDebut.Text = "04/11/2024"
+        Me.GunaDateTimePickerDispoDebut.Value = New Date(2024, 11, 4, 14, 47, 0, 0)
         '
         'GunaDataGridViewPlanningHoraire
         '
@@ -1374,34 +1741,34 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.GunaDataGridViewPlanningHoraire.AllowUserToDeleteRows = False
         Me.GunaDataGridViewPlanningHoraire.AllowUserToResizeColumns = False
         Me.GunaDataGridViewPlanningHoraire.AllowUserToResizeRows = False
-        DataGridViewCellStyle16.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewPlanningHoraire.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle16
+        DataGridViewCellStyle13.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewPlanningHoraire.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
         Me.GunaDataGridViewPlanningHoraire.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GunaDataGridViewPlanningHoraire.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.GunaDataGridViewPlanningHoraire.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.GunaDataGridViewPlanningHoraire.BackgroundColor = System.Drawing.Color.LightBlue
         Me.GunaDataGridViewPlanningHoraire.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewPlanningHoraire.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewPlanningHoraire.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable
         Me.GunaDataGridViewPlanningHoraire.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle17.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle17.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewPlanningHoraire.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle17
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle14.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewPlanningHoraire.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle14
         Me.GunaDataGridViewPlanningHoraire.ColumnHeadersHeight = 25
         Me.GunaDataGridViewPlanningHoraire.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle18.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle18.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewPlanningHoraire.DefaultCellStyle = DataGridViewCellStyle18
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle15.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewPlanningHoraire.DefaultCellStyle = DataGridViewCellStyle15
         Me.GunaDataGridViewPlanningHoraire.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewPlanningHoraire.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewPlanningHoraire.Location = New System.Drawing.Point(4, 76)
@@ -1448,155 +1815,6 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.Label2.TabIndex = 6
         Me.Label2.Text = "ASSOCIER DES HORAIRES AUX PLANNINGS"
         '
-        'GunaContextMenuStripPlanning
-        '
-        Me.GunaContextMenuStripPlanning.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SupprimerToolStripMenuItem})
-        Me.GunaContextMenuStripPlanning.Name = "GunaContextMenuStrip1"
-        Me.GunaContextMenuStripPlanning.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaContextMenuStripPlanning.RenderStyle.BorderColor = System.Drawing.Color.Gainsboro
-        Me.GunaContextMenuStripPlanning.RenderStyle.ColorTable = Nothing
-        Me.GunaContextMenuStripPlanning.RenderStyle.RoundedEdges = True
-        Me.GunaContextMenuStripPlanning.RenderStyle.SelectionArrowColor = System.Drawing.Color.White
-        Me.GunaContextMenuStripPlanning.RenderStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaContextMenuStripPlanning.RenderStyle.SelectionForeColor = System.Drawing.Color.White
-        Me.GunaContextMenuStripPlanning.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
-        Me.GunaContextMenuStripPlanning.RenderStyle.TextRenderingHint = Guna.UI.WinForms.DrawingTextRenderingHint.SystemDefault
-        Me.GunaContextMenuStripPlanning.Size = New System.Drawing.Size(130, 26)
-        '
-        'SupprimerToolStripMenuItem
-        '
-        Me.SupprimerToolStripMenuItem.Name = "SupprimerToolStripMenuItem"
-        Me.SupprimerToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
-        Me.SupprimerToolStripMenuItem.Text = "Supprimer"
-        '
-        'GunaContextMenuStripHoraire
-        '
-        Me.GunaContextMenuStripHoraire.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
-        Me.GunaContextMenuStripHoraire.Name = "GunaContextMenuStrip1"
-        Me.GunaContextMenuStripHoraire.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaContextMenuStripHoraire.RenderStyle.BorderColor = System.Drawing.Color.Gainsboro
-        Me.GunaContextMenuStripHoraire.RenderStyle.ColorTable = Nothing
-        Me.GunaContextMenuStripHoraire.RenderStyle.RoundedEdges = True
-        Me.GunaContextMenuStripHoraire.RenderStyle.SelectionArrowColor = System.Drawing.Color.White
-        Me.GunaContextMenuStripHoraire.RenderStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaContextMenuStripHoraire.RenderStyle.SelectionForeColor = System.Drawing.Color.White
-        Me.GunaContextMenuStripHoraire.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
-        Me.GunaContextMenuStripHoraire.RenderStyle.TextRenderingHint = Guna.UI.WinForms.DrawingTextRenderingHint.SystemDefault
-        Me.GunaContextMenuStripHoraire.Size = New System.Drawing.Size(130, 26)
-        '
-        'ToolStripMenuItem1
-        '
-        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(129, 22)
-        Me.ToolStripMenuItem1.Text = "Supprimer"
-        '
-        'GunaContextMenuStripPlanningComplet
-        '
-        Me.GunaContextMenuStripPlanningComplet.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem2})
-        Me.GunaContextMenuStripPlanningComplet.Name = "GunaContextMenuStrip1"
-        Me.GunaContextMenuStripPlanningComplet.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaContextMenuStripPlanningComplet.RenderStyle.BorderColor = System.Drawing.Color.Gainsboro
-        Me.GunaContextMenuStripPlanningComplet.RenderStyle.ColorTable = Nothing
-        Me.GunaContextMenuStripPlanningComplet.RenderStyle.RoundedEdges = True
-        Me.GunaContextMenuStripPlanningComplet.RenderStyle.SelectionArrowColor = System.Drawing.Color.White
-        Me.GunaContextMenuStripPlanningComplet.RenderStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaContextMenuStripPlanningComplet.RenderStyle.SelectionForeColor = System.Drawing.Color.White
-        Me.GunaContextMenuStripPlanningComplet.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
-        Me.GunaContextMenuStripPlanningComplet.RenderStyle.TextRenderingHint = Guna.UI.WinForms.DrawingTextRenderingHint.SystemDefault
-        Me.GunaContextMenuStripPlanningComplet.Size = New System.Drawing.Size(181, 48)
-        '
-        'ToolStripMenuItem2
-        '
-        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(180, 22)
-        Me.ToolStripMenuItem2.Text = "Supprimer"
-        '
-        'GunaComboBoxPlannintContenantHoraire
-        '
-        Me.GunaComboBoxPlannintContenantHoraire.BackColor = System.Drawing.Color.Transparent
-        Me.GunaComboBoxPlannintContenantHoraire.BaseColor = System.Drawing.Color.White
-        Me.GunaComboBoxPlannintContenantHoraire.BorderColor = System.Drawing.Color.Gainsboro
-        Me.GunaComboBoxPlannintContenantHoraire.BorderSize = 1
-        Me.GunaComboBoxPlannintContenantHoraire.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.GunaComboBoxPlannintContenantHoraire.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.GunaComboBoxPlannintContenantHoraire.FocusedColor = System.Drawing.Color.Empty
-        Me.GunaComboBoxPlannintContenantHoraire.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaComboBoxPlannintContenantHoraire.ForeColor = System.Drawing.Color.Black
-        Me.GunaComboBoxPlannintContenantHoraire.FormattingEnabled = True
-        Me.GunaComboBoxPlannintContenantHoraire.ItemHeight = 23
-        Me.GunaComboBoxPlannintContenantHoraire.Location = New System.Drawing.Point(20, 16)
-        Me.GunaComboBoxPlannintContenantHoraire.Name = "GunaComboBoxPlannintContenantHoraire"
-        Me.GunaComboBoxPlannintContenantHoraire.OnHoverItemBaseColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaComboBoxPlannintContenantHoraire.OnHoverItemForeColor = System.Drawing.Color.White
-        Me.GunaComboBoxPlannintContenantHoraire.Radius = 4
-        Me.GunaComboBoxPlannintContenantHoraire.Size = New System.Drawing.Size(310, 29)
-        Me.GunaComboBoxPlannintContenantHoraire.TabIndex = 43
-        '
-        'GunaDataGridViewPlanningHebdomadaire
-        '
-        Me.GunaDataGridViewPlanningHebdomadaire.AllowUserToAddRows = False
-        Me.GunaDataGridViewPlanningHebdomadaire.AllowUserToDeleteRows = False
-        Me.GunaDataGridViewPlanningHebdomadaire.AllowUserToOrderColumns = True
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewPlanningHebdomadaire.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
-        Me.GunaDataGridViewPlanningHebdomadaire.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.GunaDataGridViewPlanningHebdomadaire.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        Me.GunaDataGridViewPlanningHebdomadaire.BackgroundColor = System.Drawing.Color.Silver
-        Me.GunaDataGridViewPlanningHebdomadaire.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.GunaDataGridViewPlanningHebdomadaire.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        Me.GunaDataGridViewPlanningHebdomadaire.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewPlanningHebdomadaire.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
-        Me.GunaDataGridViewPlanningHebdomadaire.ColumnHeadersHeight = 35
-        Me.GunaDataGridViewPlanningHebdomadaire.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        Me.GunaDataGridViewPlanningHebdomadaire.ContextMenuStrip = Me.GunaContextMenuStripPlanningComplet
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewPlanningHebdomadaire.DefaultCellStyle = DataGridViewCellStyle3
-        Me.GunaDataGridViewPlanningHebdomadaire.EnableHeadersVisualStyles = False
-        Me.GunaDataGridViewPlanningHebdomadaire.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewPlanningHebdomadaire.Location = New System.Drawing.Point(197, 371)
-        Me.GunaDataGridViewPlanningHebdomadaire.MultiSelect = False
-        Me.GunaDataGridViewPlanningHebdomadaire.Name = "GunaDataGridViewPlanningHebdomadaire"
-        Me.GunaDataGridViewPlanningHebdomadaire.ReadOnly = True
-        Me.GunaDataGridViewPlanningHebdomadaire.RowHeadersVisible = False
-        Me.GunaDataGridViewPlanningHebdomadaire.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewPlanningHebdomadaire.Size = New System.Drawing.Size(759, 173)
-        Me.GunaDataGridViewPlanningHebdomadaire.TabIndex = 20
-        Me.GunaDataGridViewPlanningHebdomadaire.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.AlternatingRowsStyle.Font = Nothing
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.BackColor = System.Drawing.Color.Silver
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.HeaderStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.HeaderStyle.Height = 35
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.ReadOnly = True
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.RowsStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.RowsStyle.Height = 22
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewPlanningHebdomadaire.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        '
         'PlanningHebdomadaireDuPersonnelForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1619,9 +1837,15 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
+        CType(Me.GunaDataGridViewDetailPlanning, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GunaContextMenuStripDetailPlanning.ResumeLayout(False)
+        CType(Me.GunaDataGridViewPlanningHebdomadaire, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GunaContextMenuStripPlanningComplet.ResumeLayout(False)
         Me.TabPage2.ResumeLayout(False)
         CType(Me.GunaDataGridViewHoraire, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GunaContextMenuStripHoraire.ResumeLayout(False)
         CType(Me.GunaDataGridViewPlanning, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GunaContextMenuStripPlanning.ResumeLayout(False)
         Me.GunaShadowPanel3.ResumeLayout(False)
         Me.GunaShadowPanel3.PerformLayout()
         Me.GunaShadowPanel2.ResumeLayout(False)
@@ -1629,16 +1853,12 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage3.PerformLayout()
         CType(Me.GunaDataGridViewPlanningHoraire, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GunaContextMenuStripPlanning.ResumeLayout(False)
-        Me.GunaContextMenuStripHoraire.ResumeLayout(False)
-        Me.GunaContextMenuStripPlanningComplet.ResumeLayout(False)
-        CType(Me.GunaDataGridViewPlanningHebdomadaire, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
     Friend WithEvents GunaImageButton3 As Guna.UI.WinForms.GunaImageButton
-    Friend WithEvents GunaLabelGestCompteGeneraux As Guna.UI.WinForms.GunaLabel
+    Friend WithEvents GunaLabelTitle As Guna.UI.WinForms.GunaLabel
     Friend WithEvents GunaPanel1 As Guna.UI.WinForms.GunaPanel
     Friend WithEvents GunaImageButton2 As Guna.UI.WinForms.GunaImageButton
     Friend WithEvents GunaImageButton1 As Guna.UI.WinForms.GunaImageButton
@@ -1658,9 +1878,8 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
     Friend WithEvents GunaButtonAllToRight As Guna.UI.WinForms.GunaButton
     Friend WithEvents GunaButtonMoveLeftToRight As Guna.UI.WinForms.GunaButton
     Friend WithEvents GunaImageButton5 As Guna.UI.WinForms.GunaImageButton
-    Friend WithEvents GunaButtonFermer As Guna.UI.WinForms.GunaButton
     Friend WithEvents GunaButtonEnregistrerPlanning As Guna.UI.WinForms.GunaButton
-    Friend WithEvents GunaLabelDateTravaille As Guna.UI.WinForms.GunaLabel
+    Friend WithEvents GunaLabelDbutProg As Guna.UI.WinForms.GunaLabel
     Friend WithEvents GunaDataGridViewFolio2 As Guna.UI.WinForms.GunaDataGridView
     Friend WithEvents CODE_PERSONNEL As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn5 As DataGridViewTextBoxColumn
@@ -1674,7 +1893,7 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
     Friend WithEvents DataGridViewTextBoxColumn4 As DataGridViewTextBoxColumn
     Friend WithEvents GunaShadowPanel1 As Guna.UI.WinForms.GunaShadowPanel
     Friend WithEvents GunaLabel6 As Guna.UI.WinForms.GunaLabel
-    Friend WithEvents GunaLabel7 As Guna.UI.WinForms.GunaLabel
+    Friend WithEvents GunaLabelFinProg As Guna.UI.WinForms.GunaLabel
     Friend WithEvents GunaCheckBoxTous As Guna.UI.WinForms.GunaCheckBox
     Friend WithEvents GunaComboBoxTypePersonnel As Guna.UI.WinForms.GunaComboBox
     Friend WithEvents TabControl1 As TabControl
@@ -1717,4 +1936,13 @@ Partial Class PlanningHebdomadaireDuPersonnelForm
     Friend WithEvents ToolStripMenuItem2 As ToolStripMenuItem
     Friend WithEvents GunaComboBoxPlannintContenantHoraire As Guna.UI.WinForms.GunaComboBox
     Friend WithEvents GunaDataGridViewPlanningHebdomadaire As Guna.UI.WinForms.GunaDataGridView
+    Friend WithEvents GunaComboBoxProfilPlanning As Guna.UI.WinForms.GunaComboBox
+    Friend WithEvents GunaDateTimePickerProgStartDate As Guna.UI.WinForms.GunaDateTimePicker
+    Friend WithEvents GunaDataGridViewDetailPlanning As Guna.UI.WinForms.GunaDataGridView
+    Friend WithEvents GunaContextMenuStripDetailPlanning As Guna.UI.WinForms.GunaContextMenuStrip
+    Friend WithEvents ToolStripMenuItem3 As ToolStripMenuItem
+    Friend WithEvents GunaDateTimePickerOffDay As Guna.UI.WinForms.GunaDateTimePicker
+    Friend WithEvents GunaCheckBoxOff As Guna.UI.WinForms.GunaCheckBox
+    Friend WithEvents GunaButton3 As Guna.UI.WinForms.GunaButton
+    Friend WithEvents GunaDateTimePicker2 As Guna.UI.WinForms.GunaDateTimePicker
 End Class

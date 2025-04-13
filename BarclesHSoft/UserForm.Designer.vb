@@ -30,6 +30,9 @@ Partial Class UserForm
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GunaLinePanelTop = New Guna.UI.WinForms.GunaLinePanel()
         Me.GunaImageButton1 = New Guna.UI.WinForms.GunaImageButton()
         Me.Panel5 = New System.Windows.Forms.Panel()
@@ -39,6 +42,15 @@ Partial Class UserForm
         Me.GunaDragControl2 = New Guna.UI.WinForms.GunaDragControl(Me.components)
         Me.TabControlUtilisateurProfil = New System.Windows.Forms.TabControl()
         Me.TabPageFiche = New System.Windows.Forms.TabPage()
+        Me.GunaGroupBox2 = New Guna.UI.WinForms.GunaGroupBox()
+        Me.GunaDataGridViewProfilList = New Guna.UI.WinForms.GunaDataGridView()
+        Me.GunaContextMenuStripDeleteMultipleProfil = New Guna.UI.WinForms.GunaContextMenuStrip()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GunaLabel12 = New Guna.UI.WinForms.GunaLabel()
+        Me.GunaLabel11 = New Guna.UI.WinForms.GunaLabel()
+        Me.GunaButtonAjouter = New Guna.UI.WinForms.GunaButton()
+        Me.GunaComboBoxUtilisateurMultiple = New Guna.UI.WinForms.GunaComboBox()
+        Me.GunaComboBoxProfilsUtilisateurMultiple = New Guna.UI.WinForms.GunaComboBox()
         Me.GunaDataGridViewUser = New Guna.UI.WinForms.GunaDataGridView()
         Me.GunaContextMenuStrip1 = New Guna.UI.WinForms.GunaContextMenuStrip()
         Me.SupprimerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -52,9 +64,11 @@ Partial Class UserForm
         Me.GunaLabel1 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaTextBoxConfimerMotDePasseUtilisateur = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaTextBoxMotDePasseUtilisateur = New Guna.UI.WinForms.GunaTextBox()
+        Me.GunaTextBoxTel = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaTextBoxGriffeUtilisateur = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaLabel3 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaTextBoxCodeUtilisateur = New Guna.UI.WinForms.GunaTextBox()
+        Me.GunaLabel10 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel8 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel6 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel7 = New Guna.UI.WinForms.GunaLabel()
@@ -62,13 +76,18 @@ Partial Class UserForm
         Me.GunaLabel4 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel2 = New Guna.UI.WinForms.GunaLabel()
         Me.TabPageDroitacces = New System.Windows.Forms.TabPage()
+        Me.GunaCheckBoxMultiPOS = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaButtonEnregistrerProfil = New Guna.UI.WinForms.GunaButton()
         Me.GunaTextBoxNomProfil = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaLabel9 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaTextBoxOldCodeProfil = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaTextBoxCodeProfil = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaLabel16 = New Guna.UI.WinForms.GunaLabel()
+        Me.GunaCheckBoxRestaurantFastFood = New Guna.UI.WinForms.GunaCheckBox()
+        Me.GunaCheckBoxBarFastFood = New Guna.UI.WinForms.GunaCheckBox()
+        Me.GunaCheckBoxServeur = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaCheckBoxControllerNettoyage = New Guna.UI.WinForms.GunaCheckBox()
+        Me.GunaCheckBoxFastFood = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaCheckBoxFinNettoyage = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaCheckBoxDebutNettoyage = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaCheckBoxImprimerFB = New Guna.UI.WinForms.GunaCheckBox()
@@ -79,6 +98,7 @@ Partial Class UserForm
         Me.GunaCheckBoxRapports = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaCheckBoxCloture = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaCheckBoxFacuration = New Guna.UI.WinForms.GunaCheckBox()
+        Me.GunaCheckBoxCaisseEnregistreuse = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaCheckBoxBarRapports = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaCheckBoxMagasins = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaCheckBoxFicheTechnique = New Guna.UI.WinForms.GunaCheckBox()
@@ -162,6 +182,14 @@ Partial Class UserForm
         Me.GunaCheckBoxServiceEtage = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaCheckBoxReservation = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaCheckBoxReception = New Guna.UI.WinForms.GunaCheckBox()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.GunaCheckBoxMarketing = New Guna.UI.WinForms.GunaCheckBox()
+        Me.GunaCheckBoxMarkRapports = New Guna.UI.WinForms.GunaCheckBox()
+        Me.GunaCheckBoxMarkPlannification = New Guna.UI.WinForms.GunaCheckBox()
+        Me.GunaCheckBoxMarkDash = New Guna.UI.WinForms.GunaCheckBox()
+        Me.GunaCheckBoxMarkElite = New Guna.UI.WinForms.GunaCheckBox()
+        Me.GunaCheckBoxMarkMessage = New Guna.UI.WinForms.GunaCheckBox()
+        Me.GunaCheckBoxMarkCardex = New Guna.UI.WinForms.GunaCheckBox()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.GunaDataGridViewProfil = New Guna.UI.WinForms.GunaDataGridView()
         Me.ContextMenuStripProfil = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -170,16 +198,18 @@ Partial Class UserForm
         Me.GunaButton1 = New Guna.UI.WinForms.GunaButton()
         Me.GunaElipse1 = New Guna.UI.WinForms.GunaElipse(Me.components)
         Me.GunaPanel1 = New Guna.UI.WinForms.GunaPanel()
-        Me.GunaCheckBox17 = New Guna.UI.WinForms.GunaCheckBox()
-        Me.GunaCheckBox18 = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaLinePanelTop.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.TabControlUtilisateurProfil.SuspendLayout()
         Me.TabPageFiche.SuspendLayout()
+        Me.GunaGroupBox2.SuspendLayout()
+        CType(Me.GunaDataGridViewProfilList, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GunaContextMenuStripDeleteMultipleProfil.SuspendLayout()
         CType(Me.GunaDataGridViewUser, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GunaContextMenuStrip1.SuspendLayout()
         Me.GunaGroupBox1.SuspendLayout()
         Me.TabPageDroitacces.SuspendLayout()
+        Me.TabPage2.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         CType(Me.GunaDataGridViewProfil, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStripProfil.SuspendLayout()
@@ -252,6 +282,7 @@ Partial Class UserForm
         '
         Me.TabControlUtilisateurProfil.Controls.Add(Me.TabPageFiche)
         Me.TabControlUtilisateurProfil.Controls.Add(Me.TabPageDroitacces)
+        Me.TabControlUtilisateurProfil.Controls.Add(Me.TabPage2)
         Me.TabControlUtilisateurProfil.Controls.Add(Me.TabPage1)
         Me.TabControlUtilisateurProfil.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlUtilisateurProfil.Location = New System.Drawing.Point(12, 42)
@@ -263,6 +294,7 @@ Partial Class UserForm
         'TabPageFiche
         '
         Me.TabPageFiche.BackColor = System.Drawing.Color.Wheat
+        Me.TabPageFiche.Controls.Add(Me.GunaGroupBox2)
         Me.TabPageFiche.Controls.Add(Me.GunaDataGridViewUser)
         Me.TabPageFiche.Controls.Add(Me.GunaGroupBox1)
         Me.TabPageFiche.Location = New System.Drawing.Point(4, 25)
@@ -272,21 +304,43 @@ Partial Class UserForm
         Me.TabPageFiche.TabIndex = 0
         Me.TabPageFiche.Text = "Fiche"
         '
-        'GunaDataGridViewUser
+        'GunaGroupBox2
         '
-        Me.GunaDataGridViewUser.AllowUserToAddRows = False
-        Me.GunaDataGridViewUser.AllowUserToDeleteRows = False
-        Me.GunaDataGridViewUser.AllowUserToResizeColumns = False
-        Me.GunaDataGridViewUser.AllowUserToResizeRows = False
+        Me.GunaGroupBox2.BackColor = System.Drawing.Color.Transparent
+        Me.GunaGroupBox2.BaseColor = System.Drawing.Color.White
+        Me.GunaGroupBox2.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaGroupBox2.Controls.Add(Me.GunaDataGridViewProfilList)
+        Me.GunaGroupBox2.Controls.Add(Me.GunaLabel12)
+        Me.GunaGroupBox2.Controls.Add(Me.GunaLabel11)
+        Me.GunaGroupBox2.Controls.Add(Me.GunaButtonAjouter)
+        Me.GunaGroupBox2.Controls.Add(Me.GunaComboBoxUtilisateurMultiple)
+        Me.GunaGroupBox2.Controls.Add(Me.GunaComboBoxProfilsUtilisateurMultiple)
+        Me.GunaGroupBox2.LineBottom = 2
+        Me.GunaGroupBox2.LineColor = System.Drawing.Color.Gainsboro
+        Me.GunaGroupBox2.LineLeft = 2
+        Me.GunaGroupBox2.LineRight = 2
+        Me.GunaGroupBox2.Location = New System.Drawing.Point(869, 9)
+        Me.GunaGroupBox2.Name = "GunaGroupBox2"
+        Me.GunaGroupBox2.Size = New System.Drawing.Size(340, 218)
+        Me.GunaGroupBox2.TabIndex = 101
+        Me.GunaGroupBox2.Text = "Profil Multiple"
+        Me.GunaGroupBox2.TextLocation = New System.Drawing.Point(10, 8)
+        '
+        'GunaDataGridViewProfilList
+        '
+        Me.GunaDataGridViewProfilList.AllowUserToAddRows = False
+        Me.GunaDataGridViewProfilList.AllowUserToDeleteRows = False
+        Me.GunaDataGridViewProfilList.AllowUserToResizeColumns = False
+        Me.GunaDataGridViewProfilList.AllowUserToResizeRows = False
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(247, Byte), Integer), CType(CType(201, Byte), Integer), CType(CType(197, Byte), Integer))
-        Me.GunaDataGridViewUser.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
-        Me.GunaDataGridViewUser.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.GunaDataGridViewProfilList.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.GunaDataGridViewProfilList.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GunaDataGridViewUser.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.GunaDataGridViewUser.BackgroundColor = System.Drawing.Color.LightBlue
-        Me.GunaDataGridViewUser.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.GunaDataGridViewUser.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        Me.GunaDataGridViewUser.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+        Me.GunaDataGridViewProfilList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.GunaDataGridViewProfilList.BackgroundColor = System.Drawing.Color.LightBlue
+        Me.GunaDataGridViewProfilList.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.GunaDataGridViewProfilList.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.GunaDataGridViewProfilList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(76, Byte), Integer), CType(CType(60, Byte), Integer))
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -294,10 +348,11 @@ Partial Class UserForm
         DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewUser.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
-        Me.GunaDataGridViewUser.ColumnHeadersHeight = 28
-        Me.GunaDataGridViewUser.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        Me.GunaDataGridViewUser.ContextMenuStrip = Me.GunaContextMenuStrip1
+        Me.GunaDataGridViewProfilList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        Me.GunaDataGridViewProfilList.ColumnHeadersHeight = 28
+        Me.GunaDataGridViewProfilList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.GunaDataGridViewProfilList.ColumnHeadersVisible = False
+        Me.GunaDataGridViewProfilList.ContextMenuStrip = Me.GunaContextMenuStripDeleteMultipleProfil
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(219, Byte), Integer), CType(CType(216, Byte), Integer))
         DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -305,16 +360,201 @@ Partial Class UserForm
         DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(135, Byte), Integer), CType(CType(125, Byte), Integer))
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewUser.DefaultCellStyle = DataGridViewCellStyle3
+        Me.GunaDataGridViewProfilList.DefaultCellStyle = DataGridViewCellStyle3
+        Me.GunaDataGridViewProfilList.EnableHeadersVisualStyles = False
+        Me.GunaDataGridViewProfilList.GridColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(188, Byte), Integer))
+        Me.GunaDataGridViewProfilList.Location = New System.Drawing.Point(9, 146)
+        Me.GunaDataGridViewProfilList.Name = "GunaDataGridViewProfilList"
+        Me.GunaDataGridViewProfilList.ReadOnly = True
+        Me.GunaDataGridViewProfilList.RowHeadersVisible = False
+        Me.GunaDataGridViewProfilList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        Me.GunaDataGridViewProfilList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.GunaDataGridViewProfilList.Size = New System.Drawing.Size(322, 65)
+        Me.GunaDataGridViewProfilList.TabIndex = 102
+        Me.GunaDataGridViewProfilList.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Alizarin
+        Me.GunaDataGridViewProfilList.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(247, Byte), Integer), CType(CType(201, Byte), Integer), CType(CType(197, Byte), Integer))
+        Me.GunaDataGridViewProfilList.ThemeStyle.AlternatingRowsStyle.Font = Nothing
+        Me.GunaDataGridViewProfilList.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty
+        Me.GunaDataGridViewProfilList.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty
+        Me.GunaDataGridViewProfilList.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty
+        Me.GunaDataGridViewProfilList.ThemeStyle.BackColor = System.Drawing.Color.LightBlue
+        Me.GunaDataGridViewProfilList.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(188, Byte), Integer))
+        Me.GunaDataGridViewProfilList.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(76, Byte), Integer), CType(CType(60, Byte), Integer))
+        Me.GunaDataGridViewProfilList.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+        Me.GunaDataGridViewProfilList.ThemeStyle.HeaderStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaDataGridViewProfilList.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White
+        Me.GunaDataGridViewProfilList.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.GunaDataGridViewProfilList.ThemeStyle.HeaderStyle.Height = 28
+        Me.GunaDataGridViewProfilList.ThemeStyle.ReadOnly = True
+        Me.GunaDataGridViewProfilList.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(219, Byte), Integer), CType(CType(216, Byte), Integer))
+        Me.GunaDataGridViewProfilList.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.GunaDataGridViewProfilList.ThemeStyle.RowsStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaDataGridViewProfilList.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.Black
+        Me.GunaDataGridViewProfilList.ThemeStyle.RowsStyle.Height = 22
+        Me.GunaDataGridViewProfilList.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(135, Byte), Integer), CType(CType(125, Byte), Integer))
+        Me.GunaDataGridViewProfilList.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.Black
+        '
+        'GunaContextMenuStripDeleteMultipleProfil
+        '
+        Me.GunaContextMenuStripDeleteMultipleProfil.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.GunaContextMenuStripDeleteMultipleProfil.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
+        Me.GunaContextMenuStripDeleteMultipleProfil.Name = "GunaContextMenuStripDelete"
+        Me.GunaContextMenuStripDeleteMultipleProfil.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaContextMenuStripDeleteMultipleProfil.RenderStyle.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaContextMenuStripDeleteMultipleProfil.RenderStyle.ColorTable = Nothing
+        Me.GunaContextMenuStripDeleteMultipleProfil.RenderStyle.RoundedEdges = True
+        Me.GunaContextMenuStripDeleteMultipleProfil.RenderStyle.SelectionArrowColor = System.Drawing.Color.White
+        Me.GunaContextMenuStripDeleteMultipleProfil.RenderStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaContextMenuStripDeleteMultipleProfil.RenderStyle.SelectionForeColor = System.Drawing.Color.White
+        Me.GunaContextMenuStripDeleteMultipleProfil.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
+        Me.GunaContextMenuStripDeleteMultipleProfil.RenderStyle.TextRenderingHint = Guna.UI.WinForms.DrawingTextRenderingHint.SystemDefault
+        Me.GunaContextMenuStripDeleteMultipleProfil.Size = New System.Drawing.Size(130, 26)
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(129, 22)
+        Me.ToolStripMenuItem1.Text = "Supprimer"
+        '
+        'GunaLabel12
+        '
+        Me.GunaLabel12.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GunaLabel12.AutoSize = True
+        Me.GunaLabel12.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaLabel12.ForeColor = System.Drawing.SystemColors.Highlight
+        Me.GunaLabel12.Location = New System.Drawing.Point(9, 35)
+        Me.GunaLabel12.Name = "GunaLabel12"
+        Me.GunaLabel12.Size = New System.Drawing.Size(76, 20)
+        Me.GunaLabel12.TabIndex = 83
+        Me.GunaLabel12.Text = "Utilisateur"
+        '
+        'GunaLabel11
+        '
+        Me.GunaLabel11.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GunaLabel11.AutoSize = True
+        Me.GunaLabel11.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaLabel11.ForeColor = System.Drawing.SystemColors.Highlight
+        Me.GunaLabel11.Location = New System.Drawing.Point(9, 90)
+        Me.GunaLabel11.Name = "GunaLabel11"
+        Me.GunaLabel11.Size = New System.Drawing.Size(115, 20)
+        Me.GunaLabel11.TabIndex = 83
+        Me.GunaLabel11.Text = "Profil Utilisateur"
+        '
+        'GunaButtonAjouter
+        '
+        Me.GunaButtonAjouter.AnimationHoverSpeed = 0.07!
+        Me.GunaButtonAjouter.AnimationSpeed = 0.03!
+        Me.GunaButtonAjouter.BackColor = System.Drawing.Color.Transparent
+        Me.GunaButtonAjouter.BaseColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
+        Me.GunaButtonAjouter.BorderColor = System.Drawing.Color.Black
+        Me.GunaButtonAjouter.DialogResult = System.Windows.Forms.DialogResult.None
+        Me.GunaButtonAjouter.FocusedColor = System.Drawing.Color.Empty
+        Me.GunaButtonAjouter.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaButtonAjouter.ForeColor = System.Drawing.Color.White
+        Me.GunaButtonAjouter.Image = Nothing
+        Me.GunaButtonAjouter.ImageSize = New System.Drawing.Size(20, 20)
+        Me.GunaButtonAjouter.Location = New System.Drawing.Point(251, 111)
+        Me.GunaButtonAjouter.Name = "GunaButtonAjouter"
+        Me.GunaButtonAjouter.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaButtonAjouter.OnHoverBorderColor = System.Drawing.Color.Black
+        Me.GunaButtonAjouter.OnHoverForeColor = System.Drawing.Color.White
+        Me.GunaButtonAjouter.OnHoverImage = Nothing
+        Me.GunaButtonAjouter.OnPressedColor = System.Drawing.Color.Black
+        Me.GunaButtonAjouter.Radius = 4
+        Me.GunaButtonAjouter.Size = New System.Drawing.Size(81, 28)
+        Me.GunaButtonAjouter.TabIndex = 101
+        Me.GunaButtonAjouter.Text = "Ajouter"
+        Me.GunaButtonAjouter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'GunaComboBoxUtilisateurMultiple
+        '
+        Me.GunaComboBoxUtilisateurMultiple.BackColor = System.Drawing.Color.Transparent
+        Me.GunaComboBoxUtilisateurMultiple.BaseColor = System.Drawing.Color.White
+        Me.GunaComboBoxUtilisateurMultiple.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaComboBoxUtilisateurMultiple.BorderSize = 1
+        Me.GunaComboBoxUtilisateurMultiple.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.GunaComboBoxUtilisateurMultiple.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.GunaComboBoxUtilisateurMultiple.FocusedColor = System.Drawing.Color.Empty
+        Me.GunaComboBoxUtilisateurMultiple.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaComboBoxUtilisateurMultiple.ForeColor = System.Drawing.Color.Black
+        Me.GunaComboBoxUtilisateurMultiple.FormattingEnabled = True
+        Me.GunaComboBoxUtilisateurMultiple.ItemHeight = 23
+        Me.GunaComboBoxUtilisateurMultiple.Location = New System.Drawing.Point(9, 56)
+        Me.GunaComboBoxUtilisateurMultiple.Name = "GunaComboBoxUtilisateurMultiple"
+        Me.GunaComboBoxUtilisateurMultiple.OnHoverItemBaseColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaComboBoxUtilisateurMultiple.OnHoverItemForeColor = System.Drawing.Color.White
+        Me.GunaComboBoxUtilisateurMultiple.Radius = 4
+        Me.GunaComboBoxUtilisateurMultiple.Size = New System.Drawing.Size(322, 29)
+        Me.GunaComboBoxUtilisateurMultiple.TabIndex = 6
+        '
+        'GunaComboBoxProfilsUtilisateurMultiple
+        '
+        Me.GunaComboBoxProfilsUtilisateurMultiple.BackColor = System.Drawing.Color.Transparent
+        Me.GunaComboBoxProfilsUtilisateurMultiple.BaseColor = System.Drawing.Color.White
+        Me.GunaComboBoxProfilsUtilisateurMultiple.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaComboBoxProfilsUtilisateurMultiple.BorderSize = 1
+        Me.GunaComboBoxProfilsUtilisateurMultiple.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.GunaComboBoxProfilsUtilisateurMultiple.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.GunaComboBoxProfilsUtilisateurMultiple.FocusedColor = System.Drawing.Color.Empty
+        Me.GunaComboBoxProfilsUtilisateurMultiple.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaComboBoxProfilsUtilisateurMultiple.ForeColor = System.Drawing.Color.Black
+        Me.GunaComboBoxProfilsUtilisateurMultiple.FormattingEnabled = True
+        Me.GunaComboBoxProfilsUtilisateurMultiple.ItemHeight = 23
+        Me.GunaComboBoxProfilsUtilisateurMultiple.Location = New System.Drawing.Point(9, 111)
+        Me.GunaComboBoxProfilsUtilisateurMultiple.Name = "GunaComboBoxProfilsUtilisateurMultiple"
+        Me.GunaComboBoxProfilsUtilisateurMultiple.OnHoverItemBaseColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaComboBoxProfilsUtilisateurMultiple.OnHoverItemForeColor = System.Drawing.Color.White
+        Me.GunaComboBoxProfilsUtilisateurMultiple.Radius = 4
+        Me.GunaComboBoxProfilsUtilisateurMultiple.Size = New System.Drawing.Size(235, 29)
+        Me.GunaComboBoxProfilsUtilisateurMultiple.TabIndex = 6
+        '
+        'GunaDataGridViewUser
+        '
+        Me.GunaDataGridViewUser.AllowUserToAddRows = False
+        Me.GunaDataGridViewUser.AllowUserToDeleteRows = False
+        Me.GunaDataGridViewUser.AllowUserToResizeColumns = False
+        Me.GunaDataGridViewUser.AllowUserToResizeRows = False
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(247, Byte), Integer), CType(CType(201, Byte), Integer), CType(CType(197, Byte), Integer))
+        Me.GunaDataGridViewUser.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        Me.GunaDataGridViewUser.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GunaDataGridViewUser.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.GunaDataGridViewUser.BackgroundColor = System.Drawing.Color.LightBlue
+        Me.GunaDataGridViewUser.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.GunaDataGridViewUser.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.GunaDataGridViewUser.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(76, Byte), Integer), CType(CType(60, Byte), Integer))
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewUser.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        Me.GunaDataGridViewUser.ColumnHeadersHeight = 28
+        Me.GunaDataGridViewUser.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.GunaDataGridViewUser.ContextMenuStrip = Me.GunaContextMenuStrip1
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(219, Byte), Integer), CType(CType(216, Byte), Integer))
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(135, Byte), Integer), CType(CType(125, Byte), Integer))
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewUser.DefaultCellStyle = DataGridViewCellStyle6
         Me.GunaDataGridViewUser.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewUser.GridColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(188, Byte), Integer))
-        Me.GunaDataGridViewUser.Location = New System.Drawing.Point(9, 245)
+        Me.GunaDataGridViewUser.Location = New System.Drawing.Point(9, 233)
         Me.GunaDataGridViewUser.Name = "GunaDataGridViewUser"
         Me.GunaDataGridViewUser.ReadOnly = True
         Me.GunaDataGridViewUser.RowHeadersVisible = False
         Me.GunaDataGridViewUser.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.GunaDataGridViewUser.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewUser.Size = New System.Drawing.Size(1200, 329)
+        Me.GunaDataGridViewUser.Size = New System.Drawing.Size(1200, 341)
         Me.GunaDataGridViewUser.TabIndex = 100
         Me.GunaDataGridViewUser.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Alizarin
         Me.GunaDataGridViewUser.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(247, Byte), Integer), CType(CType(201, Byte), Integer), CType(CType(197, Byte), Integer))
@@ -352,12 +592,12 @@ Partial Class UserForm
         Me.GunaContextMenuStrip1.RenderStyle.SelectionForeColor = System.Drawing.Color.White
         Me.GunaContextMenuStrip1.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
         Me.GunaContextMenuStrip1.RenderStyle.TextRenderingHint = Guna.UI.WinForms.DrawingTextRenderingHint.SystemDefault
-        Me.GunaContextMenuStrip1.Size = New System.Drawing.Size(181, 48)
+        Me.GunaContextMenuStrip1.Size = New System.Drawing.Size(130, 26)
         '
         'SupprimerToolStripMenuItem
         '
         Me.SupprimerToolStripMenuItem.Name = "SupprimerToolStripMenuItem"
-        Me.SupprimerToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SupprimerToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
         Me.SupprimerToolStripMenuItem.Text = "Supprimer"
         '
         'GunaGroupBox1
@@ -375,9 +615,11 @@ Partial Class UserForm
         Me.GunaGroupBox1.Controls.Add(Me.GunaLabel1)
         Me.GunaGroupBox1.Controls.Add(Me.GunaTextBoxConfimerMotDePasseUtilisateur)
         Me.GunaGroupBox1.Controls.Add(Me.GunaTextBoxMotDePasseUtilisateur)
+        Me.GunaGroupBox1.Controls.Add(Me.GunaTextBoxTel)
         Me.GunaGroupBox1.Controls.Add(Me.GunaTextBoxGriffeUtilisateur)
         Me.GunaGroupBox1.Controls.Add(Me.GunaLabel3)
         Me.GunaGroupBox1.Controls.Add(Me.GunaTextBoxCodeUtilisateur)
+        Me.GunaGroupBox1.Controls.Add(Me.GunaLabel10)
         Me.GunaGroupBox1.Controls.Add(Me.GunaLabel8)
         Me.GunaGroupBox1.Controls.Add(Me.GunaLabel6)
         Me.GunaGroupBox1.Controls.Add(Me.GunaLabel7)
@@ -385,7 +627,7 @@ Partial Class UserForm
         Me.GunaGroupBox1.Controls.Add(Me.GunaLabel4)
         Me.GunaGroupBox1.Controls.Add(Me.GunaLabel2)
         Me.GunaGroupBox1.LineColor = System.Drawing.Color.Gainsboro
-        Me.GunaGroupBox1.Location = New System.Drawing.Point(186, 11)
+        Me.GunaGroupBox1.Location = New System.Drawing.Point(10, 7)
         Me.GunaGroupBox1.Name = "GunaGroupBox1"
         Me.GunaGroupBox1.Size = New System.Drawing.Size(853, 220)
         Me.GunaGroupBox1.TabIndex = 99
@@ -426,7 +668,7 @@ Partial Class UserForm
         Me.DateTimePickerFinAccesUtilisateur.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.DateTimePickerFinAccesUtilisateur.ForeColor = System.Drawing.Color.Black
         Me.DateTimePickerFinAccesUtilisateur.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DateTimePickerFinAccesUtilisateur.Location = New System.Drawing.Point(583, 168)
+        Me.DateTimePickerFinAccesUtilisateur.Location = New System.Drawing.Point(506, 168)
         Me.DateTimePickerFinAccesUtilisateur.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.DateTimePickerFinAccesUtilisateur.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.DateTimePickerFinAccesUtilisateur.Name = "DateTimePickerFinAccesUtilisateur"
@@ -435,7 +677,7 @@ Partial Class UserForm
         Me.DateTimePickerFinAccesUtilisateur.OnHoverForeColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.DateTimePickerFinAccesUtilisateur.OnPressedColor = System.Drawing.Color.Black
         Me.DateTimePickerFinAccesUtilisateur.Radius = 5
-        Me.DateTimePickerFinAccesUtilisateur.Size = New System.Drawing.Size(198, 33)
+        Me.DateTimePickerFinAccesUtilisateur.Size = New System.Drawing.Size(140, 33)
         Me.DateTimePickerFinAccesUtilisateur.TabIndex = 8
         Me.DateTimePickerFinAccesUtilisateur.Text = "26/07/2021"
         Me.DateTimePickerFinAccesUtilisateur.Value = New Date(2021, 7, 26, 8, 12, 10, 390)
@@ -452,7 +694,7 @@ Partial Class UserForm
         Me.DateTimePickerDebutAccesUtilisateur.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.DateTimePickerDebutAccesUtilisateur.ForeColor = System.Drawing.Color.Black
         Me.DateTimePickerDebutAccesUtilisateur.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DateTimePickerDebutAccesUtilisateur.Location = New System.Drawing.Point(368, 168)
+        Me.DateTimePickerDebutAccesUtilisateur.Location = New System.Drawing.Point(358, 168)
         Me.DateTimePickerDebutAccesUtilisateur.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.DateTimePickerDebutAccesUtilisateur.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.DateTimePickerDebutAccesUtilisateur.Name = "DateTimePickerDebutAccesUtilisateur"
@@ -461,7 +703,7 @@ Partial Class UserForm
         Me.DateTimePickerDebutAccesUtilisateur.OnHoverForeColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.DateTimePickerDebutAccesUtilisateur.OnPressedColor = System.Drawing.Color.Black
         Me.DateTimePickerDebutAccesUtilisateur.Radius = 5
-        Me.DateTimePickerDebutAccesUtilisateur.Size = New System.Drawing.Size(198, 33)
+        Me.DateTimePickerDebutAccesUtilisateur.Size = New System.Drawing.Size(140, 33)
         Me.DateTimePickerDebutAccesUtilisateur.TabIndex = 7
         Me.DateTimePickerDebutAccesUtilisateur.Text = "26/07/2021"
         Me.DateTimePickerDebutAccesUtilisateur.Value = New Date(2021, 7, 26, 8, 13, 4, 241)
@@ -555,7 +797,7 @@ Partial Class UserForm
         Me.GunaTextBoxConfimerMotDePasseUtilisateur.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxConfimerMotDePasseUtilisateur.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxConfimerMotDePasseUtilisateur.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxConfimerMotDePasseUtilisateur.Location = New System.Drawing.Point(583, 109)
+        Me.GunaTextBoxConfimerMotDePasseUtilisateur.Location = New System.Drawing.Point(595, 109)
         Me.GunaTextBoxConfimerMotDePasseUtilisateur.Name = "GunaTextBoxConfimerMotDePasseUtilisateur"
         Me.GunaTextBoxConfimerMotDePasseUtilisateur.PasswordChar = Global.Microsoft.VisualBasic.ChrW(9679)
         Me.GunaTextBoxConfimerMotDePasseUtilisateur.Radius = 3
@@ -577,7 +819,7 @@ Partial Class UserForm
         Me.GunaTextBoxMotDePasseUtilisateur.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxMotDePasseUtilisateur.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxMotDePasseUtilisateur.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxMotDePasseUtilisateur.Location = New System.Drawing.Point(368, 109)
+        Me.GunaTextBoxMotDePasseUtilisateur.Location = New System.Drawing.Point(380, 109)
         Me.GunaTextBoxMotDePasseUtilisateur.Name = "GunaTextBoxMotDePasseUtilisateur"
         Me.GunaTextBoxMotDePasseUtilisateur.PasswordChar = Global.Microsoft.VisualBasic.ChrW(9679)
         Me.GunaTextBoxMotDePasseUtilisateur.Radius = 3
@@ -585,6 +827,27 @@ Partial Class UserForm
         Me.GunaTextBoxMotDePasseUtilisateur.Size = New System.Drawing.Size(198, 28)
         Me.GunaTextBoxMotDePasseUtilisateur.TabIndex = 4
         Me.GunaTextBoxMotDePasseUtilisateur.UseSystemPasswordChar = True
+        '
+        'GunaTextBoxTel
+        '
+        Me.GunaTextBoxTel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.GunaTextBoxTel.BackColor = System.Drawing.Color.Transparent
+        Me.GunaTextBoxTel.BaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxTel.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaTextBoxTel.BorderSize = 1
+        Me.GunaTextBoxTel.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBoxTel.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxTel.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBoxTel.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBoxTel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaTextBoxTel.Location = New System.Drawing.Point(654, 169)
+        Me.GunaTextBoxTel.Name = "GunaTextBoxTel"
+        Me.GunaTextBoxTel.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBoxTel.Radius = 3
+        Me.GunaTextBoxTel.SelectedText = ""
+        Me.GunaTextBoxTel.Size = New System.Drawing.Size(142, 28)
+        Me.GunaTextBoxTel.TabIndex = 2
         '
         'GunaTextBoxGriffeUtilisateur
         '
@@ -604,7 +867,7 @@ Partial Class UserForm
         Me.GunaTextBoxGriffeUtilisateur.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxGriffeUtilisateur.Radius = 3
         Me.GunaTextBoxGriffeUtilisateur.SelectedText = ""
-        Me.GunaTextBoxGriffeUtilisateur.Size = New System.Drawing.Size(112, 28)
+        Me.GunaTextBoxGriffeUtilisateur.Size = New System.Drawing.Size(124, 28)
         Me.GunaTextBoxGriffeUtilisateur.TabIndex = 2
         '
         'GunaLabel3
@@ -641,6 +904,19 @@ Partial Class UserForm
         Me.GunaTextBoxCodeUtilisateur.Size = New System.Drawing.Size(160, 28)
         Me.GunaTextBoxCodeUtilisateur.TabIndex = 0
         '
+        'GunaLabel10
+        '
+        Me.GunaLabel10.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GunaLabel10.AutoSize = True
+        Me.GunaLabel10.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaLabel10.Location = New System.Drawing.Point(656, 146)
+        Me.GunaLabel10.Name = "GunaLabel10"
+        Me.GunaLabel10.Size = New System.Drawing.Size(68, 17)
+        Me.GunaLabel10.TabIndex = 85
+        Me.GunaLabel10.Text = "Téléphone"
+        '
         'GunaLabel8
         '
         Me.GunaLabel8.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -648,7 +924,7 @@ Partial Class UserForm
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaLabel8.AutoSize = True
         Me.GunaLabel8.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel8.Location = New System.Drawing.Point(491, 144)
+        Me.GunaLabel8.Location = New System.Drawing.Point(454, 146)
         Me.GunaLabel8.Name = "GunaLabel8"
         Me.GunaLabel8.Size = New System.Drawing.Size(100, 17)
         Me.GunaLabel8.TabIndex = 85
@@ -661,7 +937,7 @@ Partial Class UserForm
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaLabel6.AutoSize = True
         Me.GunaLabel6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel6.Location = New System.Drawing.Point(580, 89)
+        Me.GunaLabel6.Location = New System.Drawing.Point(592, 89)
         Me.GunaLabel6.Name = "GunaLabel6"
         Me.GunaLabel6.Size = New System.Drawing.Size(150, 17)
         Me.GunaLabel6.TabIndex = 84
@@ -675,7 +951,7 @@ Partial Class UserForm
         Me.GunaLabel7.AutoSize = True
         Me.GunaLabel7.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaLabel7.ForeColor = System.Drawing.SystemColors.Highlight
-        Me.GunaLabel7.Location = New System.Drawing.Point(57, 141)
+        Me.GunaLabel7.Location = New System.Drawing.Point(57, 143)
         Me.GunaLabel7.Name = "GunaLabel7"
         Me.GunaLabel7.Size = New System.Drawing.Size(115, 20)
         Me.GunaLabel7.TabIndex = 83
@@ -688,7 +964,7 @@ Partial Class UserForm
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaLabel5.AutoSize = True
         Me.GunaLabel5.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel5.Location = New System.Drawing.Point(365, 89)
+        Me.GunaLabel5.Location = New System.Drawing.Point(377, 89)
         Me.GunaLabel5.Name = "GunaLabel5"
         Me.GunaLabel5.Size = New System.Drawing.Size(88, 17)
         Me.GunaLabel5.TabIndex = 82
@@ -722,13 +998,18 @@ Partial Class UserForm
         '
         'TabPageDroitacces
         '
+        Me.TabPageDroitacces.Controls.Add(Me.GunaCheckBoxMultiPOS)
         Me.TabPageDroitacces.Controls.Add(Me.GunaButtonEnregistrerProfil)
         Me.TabPageDroitacces.Controls.Add(Me.GunaTextBoxNomProfil)
         Me.TabPageDroitacces.Controls.Add(Me.GunaLabel9)
         Me.TabPageDroitacces.Controls.Add(Me.GunaTextBoxOldCodeProfil)
         Me.TabPageDroitacces.Controls.Add(Me.GunaTextBoxCodeProfil)
         Me.TabPageDroitacces.Controls.Add(Me.GunaLabel16)
+        Me.TabPageDroitacces.Controls.Add(Me.GunaCheckBoxRestaurantFastFood)
+        Me.TabPageDroitacces.Controls.Add(Me.GunaCheckBoxBarFastFood)
+        Me.TabPageDroitacces.Controls.Add(Me.GunaCheckBoxServeur)
         Me.TabPageDroitacces.Controls.Add(Me.GunaCheckBoxControllerNettoyage)
+        Me.TabPageDroitacces.Controls.Add(Me.GunaCheckBoxFastFood)
         Me.TabPageDroitacces.Controls.Add(Me.GunaCheckBoxFinNettoyage)
         Me.TabPageDroitacces.Controls.Add(Me.GunaCheckBoxDebutNettoyage)
         Me.TabPageDroitacces.Controls.Add(Me.GunaCheckBoxImprimerFB)
@@ -739,6 +1020,7 @@ Partial Class UserForm
         Me.TabPageDroitacces.Controls.Add(Me.GunaCheckBoxRapports)
         Me.TabPageDroitacces.Controls.Add(Me.GunaCheckBoxCloture)
         Me.TabPageDroitacces.Controls.Add(Me.GunaCheckBoxFacuration)
+        Me.TabPageDroitacces.Controls.Add(Me.GunaCheckBoxCaisseEnregistreuse)
         Me.TabPageDroitacces.Controls.Add(Me.GunaCheckBoxBarRapports)
         Me.TabPageDroitacces.Controls.Add(Me.GunaCheckBoxMagasins)
         Me.TabPageDroitacces.Controls.Add(Me.GunaCheckBoxFicheTechnique)
@@ -829,6 +1111,21 @@ Partial Class UserForm
         Me.TabPageDroitacces.TabIndex = 1
         Me.TabPageDroitacces.Text = "Droits d'accès"
         Me.TabPageDroitacces.UseVisualStyleBackColor = True
+        '
+        'GunaCheckBoxMultiPOS
+        '
+        Me.GunaCheckBoxMultiPOS.BackColor = System.Drawing.Color.DarkSlateGray
+        Me.GunaCheckBoxMultiPOS.BaseColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMultiPOS.CheckedOffColor = System.Drawing.Color.Gray
+        Me.GunaCheckBoxMultiPOS.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaCheckBoxMultiPOS.FillColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMultiPOS.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaCheckBoxMultiPOS.ForeColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMultiPOS.Location = New System.Drawing.Point(884, 59)
+        Me.GunaCheckBoxMultiPOS.Name = "GunaCheckBoxMultiPOS"
+        Me.GunaCheckBoxMultiPOS.Size = New System.Drawing.Size(96, 20)
+        Me.GunaCheckBoxMultiPOS.TabIndex = 103
+        Me.GunaCheckBoxMultiPOS.Text = "MULTI POS"
         '
         'GunaButtonEnregistrerProfil
         '
@@ -949,6 +1246,45 @@ Partial Class UserForm
         Me.GunaLabel16.TabIndex = 89
         Me.GunaLabel16.Text = "Code du profil"
         '
+        'GunaCheckBoxRestaurantFastFood
+        '
+        Me.GunaCheckBoxRestaurantFastFood.BaseColor = System.Drawing.Color.White
+        Me.GunaCheckBoxRestaurantFastFood.CheckedOffColor = System.Drawing.Color.Gray
+        Me.GunaCheckBoxRestaurantFastFood.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaCheckBoxRestaurantFastFood.FillColor = System.Drawing.Color.White
+        Me.GunaCheckBoxRestaurantFastFood.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaCheckBoxRestaurantFastFood.Location = New System.Drawing.Point(918, 132)
+        Me.GunaCheckBoxRestaurantFastFood.Name = "GunaCheckBoxRestaurantFastFood"
+        Me.GunaCheckBoxRestaurantFastFood.Size = New System.Drawing.Size(114, 20)
+        Me.GunaCheckBoxRestaurantFastFood.TabIndex = 0
+        Me.GunaCheckBoxRestaurantFastFood.Text = "RESTAURANT"
+        '
+        'GunaCheckBoxBarFastFood
+        '
+        Me.GunaCheckBoxBarFastFood.BaseColor = System.Drawing.Color.White
+        Me.GunaCheckBoxBarFastFood.CheckedOffColor = System.Drawing.Color.Gray
+        Me.GunaCheckBoxBarFastFood.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaCheckBoxBarFastFood.FillColor = System.Drawing.Color.White
+        Me.GunaCheckBoxBarFastFood.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaCheckBoxBarFastFood.Location = New System.Drawing.Point(918, 109)
+        Me.GunaCheckBoxBarFastFood.Name = "GunaCheckBoxBarFastFood"
+        Me.GunaCheckBoxBarFastFood.Size = New System.Drawing.Size(55, 20)
+        Me.GunaCheckBoxBarFastFood.TabIndex = 0
+        Me.GunaCheckBoxBarFastFood.Text = "BAR"
+        '
+        'GunaCheckBoxServeur
+        '
+        Me.GunaCheckBoxServeur.BaseColor = System.Drawing.Color.White
+        Me.GunaCheckBoxServeur.CheckedOffColor = System.Drawing.Color.Gray
+        Me.GunaCheckBoxServeur.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaCheckBoxServeur.FillColor = System.Drawing.Color.White
+        Me.GunaCheckBoxServeur.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaCheckBoxServeur.Location = New System.Drawing.Point(896, 155)
+        Me.GunaCheckBoxServeur.Name = "GunaCheckBoxServeur"
+        Me.GunaCheckBoxServeur.Size = New System.Drawing.Size(90, 20)
+        Me.GunaCheckBoxServeur.TabIndex = 0
+        Me.GunaCheckBoxServeur.Text = "SERVEUR"
+        '
         'GunaCheckBoxControllerNettoyage
         '
         Me.GunaCheckBoxControllerNettoyage.BaseColor = System.Drawing.Color.White
@@ -956,11 +1292,24 @@ Partial Class UserForm
         Me.GunaCheckBoxControllerNettoyage.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxControllerNettoyage.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxControllerNettoyage.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxControllerNettoyage.Location = New System.Drawing.Point(522, 201)
+        Me.GunaCheckBoxControllerNettoyage.Location = New System.Drawing.Point(466, 201)
         Me.GunaCheckBoxControllerNettoyage.Name = "GunaCheckBoxControllerNettoyage"
         Me.GunaCheckBoxControllerNettoyage.Size = New System.Drawing.Size(187, 20)
         Me.GunaCheckBoxControllerNettoyage.TabIndex = 0
         Me.GunaCheckBoxControllerNettoyage.Text = "CONTROLER NETTOYAGE"
+        '
+        'GunaCheckBoxFastFood
+        '
+        Me.GunaCheckBoxFastFood.BaseColor = System.Drawing.Color.White
+        Me.GunaCheckBoxFastFood.CheckedOffColor = System.Drawing.Color.Gray
+        Me.GunaCheckBoxFastFood.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaCheckBoxFastFood.FillColor = System.Drawing.Color.White
+        Me.GunaCheckBoxFastFood.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaCheckBoxFastFood.Location = New System.Drawing.Point(896, 86)
+        Me.GunaCheckBoxFastFood.Name = "GunaCheckBoxFastFood"
+        Me.GunaCheckBoxFastFood.Size = New System.Drawing.Size(101, 20)
+        Me.GunaCheckBoxFastFood.TabIndex = 0
+        Me.GunaCheckBoxFastFood.Text = "FAST FOOD"
         '
         'GunaCheckBoxFinNettoyage
         '
@@ -969,7 +1318,7 @@ Partial Class UserForm
         Me.GunaCheckBoxFinNettoyage.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxFinNettoyage.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxFinNettoyage.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxFinNettoyage.Location = New System.Drawing.Point(522, 179)
+        Me.GunaCheckBoxFinNettoyage.Location = New System.Drawing.Point(466, 179)
         Me.GunaCheckBoxFinNettoyage.Name = "GunaCheckBoxFinNettoyage"
         Me.GunaCheckBoxFinNettoyage.Size = New System.Drawing.Size(129, 20)
         Me.GunaCheckBoxFinNettoyage.TabIndex = 0
@@ -982,7 +1331,7 @@ Partial Class UserForm
         Me.GunaCheckBoxDebutNettoyage.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxDebutNettoyage.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxDebutNettoyage.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxDebutNettoyage.Location = New System.Drawing.Point(522, 158)
+        Me.GunaCheckBoxDebutNettoyage.Location = New System.Drawing.Point(466, 158)
         Me.GunaCheckBoxDebutNettoyage.Name = "GunaCheckBoxDebutNettoyage"
         Me.GunaCheckBoxDebutNettoyage.Size = New System.Drawing.Size(151, 20)
         Me.GunaCheckBoxDebutNettoyage.TabIndex = 0
@@ -995,7 +1344,7 @@ Partial Class UserForm
         Me.GunaCheckBoxImprimerFB.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxImprimerFB.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxImprimerFB.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxImprimerFB.Location = New System.Drawing.Point(47, 503)
+        Me.GunaCheckBoxImprimerFB.Location = New System.Drawing.Point(27, 503)
         Me.GunaCheckBoxImprimerFB.Name = "GunaCheckBoxImprimerFB"
         Me.GunaCheckBoxImprimerFB.Size = New System.Drawing.Size(199, 20)
         Me.GunaCheckBoxImprimerFB.TabIndex = 0
@@ -1008,7 +1357,7 @@ Partial Class UserForm
         Me.GunaCheckBoxRapportServiceEtage.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxRapportServiceEtage.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxRapportServiceEtage.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxRapportServiceEtage.Location = New System.Drawing.Point(492, 299)
+        Me.GunaCheckBoxRapportServiceEtage.Location = New System.Drawing.Point(443, 299)
         Me.GunaCheckBoxRapportServiceEtage.Name = "GunaCheckBoxRapportServiceEtage"
         Me.GunaCheckBoxRapportServiceEtage.Size = New System.Drawing.Size(98, 20)
         Me.GunaCheckBoxRapportServiceEtage.TabIndex = 0
@@ -1021,7 +1370,7 @@ Partial Class UserForm
         Me.GunaCheckBoxGratuiteeHebergement.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxGratuiteeHebergement.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxGratuiteeHebergement.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxGratuiteeHebergement.Location = New System.Drawing.Point(47, 270)
+        Me.GunaCheckBoxGratuiteeHebergement.Location = New System.Drawing.Point(27, 270)
         Me.GunaCheckBoxGratuiteeHebergement.Name = "GunaCheckBoxGratuiteeHebergement"
         Me.GunaCheckBoxGratuiteeHebergement.Size = New System.Drawing.Size(101, 20)
         Me.GunaCheckBoxGratuiteeHebergement.TabIndex = 0
@@ -1034,7 +1383,7 @@ Partial Class UserForm
         Me.GunaCheckBoxRapportResa.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxRapportResa.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxRapportResa.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxRapportResa.Location = New System.Drawing.Point(256, 259)
+        Me.GunaCheckBoxRapportResa.Location = New System.Drawing.Point(218, 259)
         Me.GunaCheckBoxRapportResa.Name = "GunaCheckBoxRapportResa"
         Me.GunaCheckBoxRapportResa.Size = New System.Drawing.Size(98, 20)
         Me.GunaCheckBoxRapportResa.TabIndex = 0
@@ -1047,7 +1396,7 @@ Partial Class UserForm
         Me.GunaCheckBoxPromoteur.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxPromoteur.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxPromoteur.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxPromoteur.Location = New System.Drawing.Point(78, 311)
+        Me.GunaCheckBoxPromoteur.Location = New System.Drawing.Point(58, 311)
         Me.GunaCheckBoxPromoteur.Name = "GunaCheckBoxPromoteur"
         Me.GunaCheckBoxPromoteur.Size = New System.Drawing.Size(110, 20)
         Me.GunaCheckBoxPromoteur.TabIndex = 0
@@ -1060,7 +1409,7 @@ Partial Class UserForm
         Me.GunaCheckBoxRapports.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxRapports.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxRapports.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxRapports.Location = New System.Drawing.Point(47, 291)
+        Me.GunaCheckBoxRapports.Location = New System.Drawing.Point(27, 291)
         Me.GunaCheckBoxRapports.Name = "GunaCheckBoxRapports"
         Me.GunaCheckBoxRapports.Size = New System.Drawing.Size(98, 20)
         Me.GunaCheckBoxRapports.TabIndex = 0
@@ -1073,7 +1422,7 @@ Partial Class UserForm
         Me.GunaCheckBoxCloture.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxCloture.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxCloture.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxCloture.Location = New System.Drawing.Point(47, 249)
+        Me.GunaCheckBoxCloture.Location = New System.Drawing.Point(27, 249)
         Me.GunaCheckBoxCloture.Name = "GunaCheckBoxCloture"
         Me.GunaCheckBoxCloture.Size = New System.Drawing.Size(89, 20)
         Me.GunaCheckBoxCloture.TabIndex = 0
@@ -1086,11 +1435,24 @@ Partial Class UserForm
         Me.GunaCheckBoxFacuration.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxFacuration.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxFacuration.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxFacuration.Location = New System.Drawing.Point(47, 229)
+        Me.GunaCheckBoxFacuration.Location = New System.Drawing.Point(27, 229)
         Me.GunaCheckBoxFacuration.Name = "GunaCheckBoxFacuration"
         Me.GunaCheckBoxFacuration.Size = New System.Drawing.Size(122, 20)
         Me.GunaCheckBoxFacuration.TabIndex = 0
         Me.GunaCheckBoxFacuration.Text = "PETITE CAISSE"
+        '
+        'GunaCheckBoxCaisseEnregistreuse
+        '
+        Me.GunaCheckBoxCaisseEnregistreuse.BaseColor = System.Drawing.Color.White
+        Me.GunaCheckBoxCaisseEnregistreuse.CheckedOffColor = System.Drawing.Color.Gray
+        Me.GunaCheckBoxCaisseEnregistreuse.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaCheckBoxCaisseEnregistreuse.FillColor = System.Drawing.Color.White
+        Me.GunaCheckBoxCaisseEnregistreuse.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaCheckBoxCaisseEnregistreuse.Location = New System.Drawing.Point(896, 178)
+        Me.GunaCheckBoxCaisseEnregistreuse.Name = "GunaCheckBoxCaisseEnregistreuse"
+        Me.GunaCheckBoxCaisseEnregistreuse.Size = New System.Drawing.Size(136, 20)
+        Me.GunaCheckBoxCaisseEnregistreuse.TabIndex = 0
+        Me.GunaCheckBoxCaisseEnregistreuse.Text = "ENREGISTREUSE"
         '
         'GunaCheckBoxBarRapports
         '
@@ -1099,7 +1461,7 @@ Partial Class UserForm
         Me.GunaCheckBoxBarRapports.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxBarRapports.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxBarRapports.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxBarRapports.Location = New System.Drawing.Point(47, 524)
+        Me.GunaCheckBoxBarRapports.Location = New System.Drawing.Point(27, 524)
         Me.GunaCheckBoxBarRapports.Name = "GunaCheckBoxBarRapports"
         Me.GunaCheckBoxBarRapports.Size = New System.Drawing.Size(98, 20)
         Me.GunaCheckBoxBarRapports.TabIndex = 0
@@ -1112,7 +1474,7 @@ Partial Class UserForm
         Me.GunaCheckBoxMagasins.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxMagasins.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxMagasins.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxMagasins.Location = New System.Drawing.Point(1025, 246)
+        Me.GunaCheckBoxMagasins.Location = New System.Drawing.Point(1040, 247)
         Me.GunaCheckBoxMagasins.Name = "GunaCheckBoxMagasins"
         Me.GunaCheckBoxMagasins.Size = New System.Drawing.Size(95, 20)
         Me.GunaCheckBoxMagasins.TabIndex = 0
@@ -1125,7 +1487,7 @@ Partial Class UserForm
         Me.GunaCheckBoxFicheTechnique.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxFicheTechnique.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxFicheTechnique.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxFicheTechnique.Location = New System.Drawing.Point(1025, 269)
+        Me.GunaCheckBoxFicheTechnique.Location = New System.Drawing.Point(1040, 270)
         Me.GunaCheckBoxFicheTechnique.Name = "GunaCheckBoxFicheTechnique"
         Me.GunaCheckBoxFicheTechnique.Size = New System.Drawing.Size(143, 20)
         Me.GunaCheckBoxFicheTechnique.TabIndex = 0
@@ -1138,7 +1500,7 @@ Partial Class UserForm
         Me.GunaCheckBoxlisteDesBons.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxlisteDesBons.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxlisteDesBons.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxlisteDesBons.Location = New System.Drawing.Point(1025, 292)
+        Me.GunaCheckBoxlisteDesBons.Location = New System.Drawing.Point(1040, 293)
         Me.GunaCheckBoxlisteDesBons.Name = "GunaCheckBoxlisteDesBons"
         Me.GunaCheckBoxlisteDesBons.Size = New System.Drawing.Size(131, 20)
         Me.GunaCheckBoxlisteDesBons.TabIndex = 0
@@ -1151,7 +1513,7 @@ Partial Class UserForm
         Me.GunaCheckBoxFicheProduit.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxFicheProduit.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxFicheProduit.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxFicheProduit.Location = New System.Drawing.Point(1065, 384)
+        Me.GunaCheckBoxFicheProduit.Location = New System.Drawing.Point(1064, 385)
         Me.GunaCheckBoxFicheProduit.Name = "GunaCheckBoxFicheProduit"
         Me.GunaCheckBoxFicheProduit.Size = New System.Drawing.Size(146, 20)
         Me.GunaCheckBoxFicheProduit.TabIndex = 0
@@ -1164,7 +1526,7 @@ Partial Class UserForm
         Me.GunaCheckBoxReglementEtLettrage.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxReglementEtLettrage.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxReglementEtLettrage.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxReglementEtLettrage.Location = New System.Drawing.Point(753, 137)
+        Me.GunaCheckBoxReglementEtLettrage.Location = New System.Drawing.Point(671, 137)
         Me.GunaCheckBoxReglementEtLettrage.Name = "GunaCheckBoxReglementEtLettrage"
         Me.GunaCheckBoxReglementEtLettrage.Size = New System.Drawing.Size(195, 20)
         Me.GunaCheckBoxReglementEtLettrage.TabIndex = 0
@@ -1177,7 +1539,7 @@ Partial Class UserForm
         Me.GunaCheckBox7.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBox7.FillColor = System.Drawing.Color.White
         Me.GunaCheckBox7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBox7.Location = New System.Drawing.Point(47, 482)
+        Me.GunaCheckBox7.Location = New System.Drawing.Point(27, 482)
         Me.GunaCheckBox7.Name = "GunaCheckBox7"
         Me.GunaCheckBox7.Size = New System.Drawing.Size(167, 20)
         Me.GunaCheckBox7.TabIndex = 0
@@ -1190,7 +1552,7 @@ Partial Class UserForm
         Me.GunaCheckBox6.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBox6.FillColor = System.Drawing.Color.White
         Me.GunaCheckBox6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBox6.Location = New System.Drawing.Point(47, 462)
+        Me.GunaCheckBox6.Location = New System.Drawing.Point(27, 462)
         Me.GunaCheckBox6.Name = "GunaCheckBox6"
         Me.GunaCheckBox6.Size = New System.Drawing.Size(197, 20)
         Me.GunaCheckBox6.TabIndex = 0
@@ -1203,7 +1565,7 @@ Partial Class UserForm
         Me.GunaCheckBoxComptoire.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxComptoire.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxComptoire.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxComptoire.Location = New System.Drawing.Point(47, 442)
+        Me.GunaCheckBoxComptoire.Location = New System.Drawing.Point(27, 442)
         Me.GunaCheckBoxComptoire.Name = "GunaCheckBoxComptoire"
         Me.GunaCheckBoxComptoire.Size = New System.Drawing.Size(120, 20)
         Me.GunaCheckBoxComptoire.TabIndex = 0
@@ -1216,7 +1578,7 @@ Partial Class UserForm
         Me.GunaCheckBoxMessage.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxMessage.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxMessage.Location = New System.Drawing.Point(47, 208)
+        Me.GunaCheckBoxMessage.Location = New System.Drawing.Point(27, 208)
         Me.GunaCheckBoxMessage.Name = "GunaCheckBoxMessage"
         Me.GunaCheckBoxMessage.Size = New System.Drawing.Size(183, 20)
         Me.GunaCheckBoxMessage.TabIndex = 0
@@ -1229,7 +1591,7 @@ Partial Class UserForm
         Me.GunaCheckBoxPlanChambre.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxPlanChambre.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxPlanChambre.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxPlanChambre.Location = New System.Drawing.Point(256, 233)
+        Me.GunaCheckBoxPlanChambre.Location = New System.Drawing.Point(218, 233)
         Me.GunaCheckBoxPlanChambre.Name = "GunaCheckBoxPlanChambre"
         Me.GunaCheckBoxPlanChambre.Size = New System.Drawing.Size(148, 20)
         Me.GunaCheckBoxPlanChambre.TabIndex = 0
@@ -1242,7 +1604,7 @@ Partial Class UserForm
         Me.GunaCheckBoxAttribuerChambre.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxAttribuerChambre.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxAttribuerChambre.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxAttribuerChambre.Location = New System.Drawing.Point(47, 187)
+        Me.GunaCheckBoxAttribuerChambre.Location = New System.Drawing.Point(27, 187)
         Me.GunaCheckBoxAttribuerChambre.Name = "GunaCheckBoxAttribuerChambre"
         Me.GunaCheckBoxAttribuerChambre.Size = New System.Drawing.Size(165, 20)
         Me.GunaCheckBoxAttribuerChambre.TabIndex = 0
@@ -1255,7 +1617,7 @@ Partial Class UserForm
         Me.GunaCheckBoxDisponibilite.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxDisponibilite.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxDisponibilite.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxDisponibilite.Location = New System.Drawing.Point(256, 207)
+        Me.GunaCheckBoxDisponibilite.Location = New System.Drawing.Point(218, 207)
         Me.GunaCheckBoxDisponibilite.Name = "GunaCheckBoxDisponibilite"
         Me.GunaCheckBoxDisponibilite.Size = New System.Drawing.Size(193, 20)
         Me.GunaCheckBoxDisponibilite.TabIndex = 0
@@ -1268,7 +1630,7 @@ Partial Class UserForm
         Me.GunaCheckBoxDeparts.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxDeparts.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxDeparts.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxDeparts.Location = New System.Drawing.Point(47, 166)
+        Me.GunaCheckBoxDeparts.Location = New System.Drawing.Point(27, 166)
         Me.GunaCheckBoxDeparts.Name = "GunaCheckBoxDeparts"
         Me.GunaCheckBoxDeparts.Size = New System.Drawing.Size(88, 20)
         Me.GunaCheckBoxDeparts.TabIndex = 0
@@ -1281,11 +1643,11 @@ Partial Class UserForm
         Me.GunaCheckBoxBC.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxBC.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxBC.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxBC.Location = New System.Drawing.Point(1025, 108)
+        Me.GunaCheckBoxBC.Location = New System.Drawing.Point(1040, 109)
         Me.GunaCheckBoxBC.Name = "GunaCheckBoxBC"
-        Me.GunaCheckBoxBC.Size = New System.Drawing.Size(154, 20)
+        Me.GunaCheckBoxBC.Size = New System.Drawing.Size(134, 20)
         Me.GunaCheckBoxBC.TabIndex = 0
-        Me.GunaCheckBoxBC.Text = GlobalVariable.bon_cmd
+        Me.GunaCheckBoxBC.Text = "BON COMMANDE"
         '
         'GunaCheckBoxBR
         '
@@ -1294,7 +1656,7 @@ Partial Class UserForm
         Me.GunaCheckBoxBR.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxBR.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxBR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxBR.Location = New System.Drawing.Point(1025, 131)
+        Me.GunaCheckBoxBR.Location = New System.Drawing.Point(1040, 132)
         Me.GunaCheckBoxBR.Name = "GunaCheckBoxBR"
         Me.GunaCheckBoxBR.Size = New System.Drawing.Size(153, 20)
         Me.GunaCheckBoxBR.TabIndex = 0
@@ -1307,7 +1669,7 @@ Partial Class UserForm
         Me.GunaCheckBoxEconomatRapports.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxEconomatRapports.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxEconomatRapports.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxEconomatRapports.Location = New System.Drawing.Point(1025, 338)
+        Me.GunaCheckBoxEconomatRapports.Location = New System.Drawing.Point(1040, 339)
         Me.GunaCheckBoxEconomatRapports.Name = "GunaCheckBoxEconomatRapports"
         Me.GunaCheckBoxEconomatRapports.Size = New System.Drawing.Size(98, 20)
         Me.GunaCheckBoxEconomatRapports.TabIndex = 0
@@ -1320,7 +1682,7 @@ Partial Class UserForm
         Me.GunaCheckBox4.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBox4.FillColor = System.Drawing.Color.White
         Me.GunaCheckBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBox4.Location = New System.Drawing.Point(753, 215)
+        Me.GunaCheckBox4.Location = New System.Drawing.Point(671, 215)
         Me.GunaCheckBox4.Name = "GunaCheckBox4"
         Me.GunaCheckBox4.Size = New System.Drawing.Size(97, 20)
         Me.GunaCheckBox4.TabIndex = 0
@@ -1333,7 +1695,7 @@ Partial Class UserForm
         Me.GunaCheckBox5.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBox5.FillColor = System.Drawing.Color.White
         Me.GunaCheckBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBox5.Location = New System.Drawing.Point(753, 267)
+        Me.GunaCheckBox5.Location = New System.Drawing.Point(671, 267)
         Me.GunaCheckBox5.Name = "GunaCheckBox5"
         Me.GunaCheckBox5.Size = New System.Drawing.Size(88, 20)
         Me.GunaCheckBox5.TabIndex = 0
@@ -1346,7 +1708,7 @@ Partial Class UserForm
         Me.GunaCheckBox3.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBox3.FillColor = System.Drawing.Color.White
         Me.GunaCheckBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBox3.Location = New System.Drawing.Point(753, 241)
+        Me.GunaCheckBox3.Location = New System.Drawing.Point(671, 241)
         Me.GunaCheckBox3.Name = "GunaCheckBox3"
         Me.GunaCheckBox3.Size = New System.Drawing.Size(75, 20)
         Me.GunaCheckBox3.TabIndex = 0
@@ -1359,7 +1721,7 @@ Partial Class UserForm
         Me.GunaCheckBox2.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBox2.FillColor = System.Drawing.Color.White
         Me.GunaCheckBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBox2.Location = New System.Drawing.Point(753, 189)
+        Me.GunaCheckBox2.Location = New System.Drawing.Point(671, 189)
         Me.GunaCheckBox2.Name = "GunaCheckBox2"
         Me.GunaCheckBox2.Size = New System.Drawing.Size(142, 20)
         Me.GunaCheckBox2.TabIndex = 0
@@ -1372,7 +1734,7 @@ Partial Class UserForm
         Me.GunaCheckBoxFiscalite.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxFiscalite.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxFiscalite.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxFiscalite.Location = New System.Drawing.Point(753, 319)
+        Me.GunaCheckBoxFiscalite.Location = New System.Drawing.Point(671, 319)
         Me.GunaCheckBoxFiscalite.Name = "GunaCheckBoxFiscalite"
         Me.GunaCheckBoxFiscalite.Size = New System.Drawing.Size(20, 20)
         Me.GunaCheckBoxFiscalite.TabIndex = 0
@@ -1384,7 +1746,7 @@ Partial Class UserForm
         Me.GunaCheckBox36.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBox36.FillColor = System.Drawing.Color.White
         Me.GunaCheckBox36.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBox36.Location = New System.Drawing.Point(753, 293)
+        Me.GunaCheckBox36.Location = New System.Drawing.Point(671, 293)
         Me.GunaCheckBox36.Name = "GunaCheckBox36"
         Me.GunaCheckBox36.Size = New System.Drawing.Size(98, 20)
         Me.GunaCheckBox36.TabIndex = 0
@@ -1397,7 +1759,7 @@ Partial Class UserForm
         Me.GunaCheckBoxFournisseur.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxFournisseur.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxFournisseur.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxFournisseur.Location = New System.Drawing.Point(1025, 315)
+        Me.GunaCheckBoxFournisseur.Location = New System.Drawing.Point(1040, 316)
         Me.GunaCheckBoxFournisseur.Name = "GunaCheckBoxFournisseur"
         Me.GunaCheckBoxFournisseur.Size = New System.Drawing.Size(128, 20)
         Me.GunaCheckBoxFournisseur.TabIndex = 0
@@ -1410,7 +1772,7 @@ Partial Class UserForm
         Me.GunaCheckBox34.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBox34.FillColor = System.Drawing.Color.White
         Me.GunaCheckBox34.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBox34.Location = New System.Drawing.Point(753, 163)
+        Me.GunaCheckBox34.Location = New System.Drawing.Point(671, 163)
         Me.GunaCheckBox34.Name = "GunaCheckBox34"
         Me.GunaCheckBox34.Size = New System.Drawing.Size(94, 20)
         Me.GunaCheckBox34.TabIndex = 0
@@ -1423,7 +1785,7 @@ Partial Class UserForm
         Me.GunaCheckBoxTechniqueRapports.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxTechniqueRapports.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxTechniqueRapports.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxTechniqueRapports.Location = New System.Drawing.Point(260, 506)
+        Me.GunaCheckBoxTechniqueRapports.Location = New System.Drawing.Point(245, 506)
         Me.GunaCheckBoxTechniqueRapports.Name = "GunaCheckBoxTechniqueRapports"
         Me.GunaCheckBoxTechniqueRapports.Size = New System.Drawing.Size(98, 20)
         Me.GunaCheckBoxTechniqueRapports.TabIndex = 0
@@ -1436,7 +1798,7 @@ Partial Class UserForm
         Me.GunaCheckBoxIntervention.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxIntervention.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxIntervention.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxIntervention.Location = New System.Drawing.Point(260, 480)
+        Me.GunaCheckBoxIntervention.Location = New System.Drawing.Point(245, 480)
         Me.GunaCheckBoxIntervention.Name = "GunaCheckBoxIntervention"
         Me.GunaCheckBoxIntervention.Size = New System.Drawing.Size(122, 20)
         Me.GunaCheckBoxIntervention.TabIndex = 0
@@ -1449,7 +1811,7 @@ Partial Class UserForm
         Me.GunaCheckBox1.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBox1.FillColor = System.Drawing.Color.White
         Me.GunaCheckBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBox1.Location = New System.Drawing.Point(924, 505)
+        Me.GunaCheckBox1.Location = New System.Drawing.Point(899, 505)
         Me.GunaCheckBox1.Name = "GunaCheckBox1"
         Me.GunaCheckBox1.Size = New System.Drawing.Size(221, 20)
         Me.GunaCheckBox1.TabIndex = 0
@@ -1462,7 +1824,7 @@ Partial Class UserForm
         Me.GunaCheckBoxSecurite.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxSecurite.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxSecurite.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxSecurite.Location = New System.Drawing.Point(924, 479)
+        Me.GunaCheckBoxSecurite.Location = New System.Drawing.Point(899, 479)
         Me.GunaCheckBoxSecurite.Name = "GunaCheckBoxSecurite"
         Me.GunaCheckBoxSecurite.Size = New System.Drawing.Size(92, 20)
         Me.GunaCheckBoxSecurite.TabIndex = 0
@@ -1475,7 +1837,7 @@ Partial Class UserForm
         Me.GunaCheckBoxSousFamillePanne.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxSousFamillePanne.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxSousFamillePanne.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxSousFamillePanne.Location = New System.Drawing.Point(260, 428)
+        Me.GunaCheckBoxSousFamillePanne.Location = New System.Drawing.Point(245, 428)
         Me.GunaCheckBoxSousFamillePanne.Name = "GunaCheckBoxSousFamillePanne"
         Me.GunaCheckBoxSousFamillePanne.Size = New System.Drawing.Size(166, 20)
         Me.GunaCheckBoxSousFamillePanne.TabIndex = 0
@@ -1488,7 +1850,7 @@ Partial Class UserForm
         Me.GunaCheckBoxConfiguration.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxConfiguration.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxConfiguration.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxConfiguration.Location = New System.Drawing.Point(924, 427)
+        Me.GunaCheckBoxConfiguration.Location = New System.Drawing.Point(899, 427)
         Me.GunaCheckBoxConfiguration.Name = "GunaCheckBoxConfiguration"
         Me.GunaCheckBoxConfiguration.Size = New System.Drawing.Size(134, 20)
         Me.GunaCheckBoxConfiguration.TabIndex = 0
@@ -1501,7 +1863,7 @@ Partial Class UserForm
         Me.GunaCheckBoxCaissePrincipaleEcriture.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxCaissePrincipaleEcriture.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxCaissePrincipaleEcriture.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxCaissePrincipaleEcriture.Location = New System.Drawing.Point(465, 443)
+        Me.GunaCheckBoxCaissePrincipaleEcriture.Location = New System.Drawing.Point(440, 443)
         Me.GunaCheckBoxCaissePrincipaleEcriture.Name = "GunaCheckBoxCaissePrincipaleEcriture"
         Me.GunaCheckBoxCaissePrincipaleEcriture.Size = New System.Drawing.Size(219, 20)
         Me.GunaCheckBoxCaissePrincipaleEcriture.TabIndex = 0
@@ -1514,7 +1876,7 @@ Partial Class UserForm
         Me.GunaCheckBoxCaissePrincipaleLecture.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxCaissePrincipaleLecture.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxCaissePrincipaleLecture.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxCaissePrincipaleLecture.Location = New System.Drawing.Point(465, 465)
+        Me.GunaCheckBoxCaissePrincipaleLecture.Location = New System.Drawing.Point(440, 465)
         Me.GunaCheckBoxCaissePrincipaleLecture.Name = "GunaCheckBoxCaissePrincipaleLecture"
         Me.GunaCheckBoxCaissePrincipaleLecture.Size = New System.Drawing.Size(213, 20)
         Me.GunaCheckBoxCaissePrincipaleLecture.TabIndex = 0
@@ -1527,7 +1889,7 @@ Partial Class UserForm
         Me.GunaCheckBoxGrandMagasin.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxGrandMagasin.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxGrandMagasin.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxGrandMagasin.Location = New System.Drawing.Point(465, 507)
+        Me.GunaCheckBoxGrandMagasin.Location = New System.Drawing.Point(440, 507)
         Me.GunaCheckBoxGrandMagasin.Name = "GunaCheckBoxGrandMagasin"
         Me.GunaCheckBoxGrandMagasin.Size = New System.Drawing.Size(134, 20)
         Me.GunaCheckBoxGrandMagasin.TabIndex = 0
@@ -1540,7 +1902,7 @@ Partial Class UserForm
         Me.GunaCheckBoxPetitMagasin.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxPetitMagasin.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxPetitMagasin.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxPetitMagasin.Location = New System.Drawing.Point(465, 486)
+        Me.GunaCheckBoxPetitMagasin.Location = New System.Drawing.Point(440, 486)
         Me.GunaCheckBoxPetitMagasin.Name = "GunaCheckBoxPetitMagasin"
         Me.GunaCheckBoxPetitMagasin.Size = New System.Drawing.Size(125, 20)
         Me.GunaCheckBoxPetitMagasin.TabIndex = 0
@@ -1553,7 +1915,7 @@ Partial Class UserForm
         Me.GunaCheckBoxGrandeCaisse.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxGrandeCaisse.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxGrandeCaisse.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxGrandeCaisse.Location = New System.Drawing.Point(465, 422)
+        Me.GunaCheckBoxGrandeCaisse.Location = New System.Drawing.Point(440, 422)
         Me.GunaCheckBoxGrandeCaisse.Name = "GunaCheckBoxGrandeCaisse"
         Me.GunaCheckBoxGrandeCaisse.Size = New System.Drawing.Size(131, 20)
         Me.GunaCheckBoxGrandeCaisse.TabIndex = 0
@@ -1566,7 +1928,7 @@ Partial Class UserForm
         Me.GunaCheckBoxControler.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxControler.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxControler.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxControler.Location = New System.Drawing.Point(1025, 154)
+        Me.GunaCheckBoxControler.Location = New System.Drawing.Point(1040, 155)
         Me.GunaCheckBoxControler.Name = "GunaCheckBoxControler"
         Me.GunaCheckBoxControler.Size = New System.Drawing.Size(108, 20)
         Me.GunaCheckBoxControler.TabIndex = 0
@@ -1579,7 +1941,7 @@ Partial Class UserForm
         Me.GunaCheckBoxVerification.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxVerification.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxVerification.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxVerification.Location = New System.Drawing.Point(1025, 177)
+        Me.GunaCheckBoxVerification.Location = New System.Drawing.Point(1040, 178)
         Me.GunaCheckBoxVerification.Name = "GunaCheckBoxVerification"
         Me.GunaCheckBoxVerification.Size = New System.Drawing.Size(117, 20)
         Me.GunaCheckBoxVerification.TabIndex = 0
@@ -1592,7 +1954,7 @@ Partial Class UserForm
         Me.GunaCheckBoxCommander.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxCommander.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxCommander.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxCommander.Location = New System.Drawing.Point(1025, 222)
+        Me.GunaCheckBoxCommander.Location = New System.Drawing.Point(1040, 223)
         Me.GunaCheckBoxCommander.Name = "GunaCheckBoxCommander"
         Me.GunaCheckBoxCommander.Size = New System.Drawing.Size(112, 20)
         Me.GunaCheckBoxCommander.TabIndex = 0
@@ -1605,7 +1967,7 @@ Partial Class UserForm
         Me.GunaCheckBoxValider.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxValider.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxValider.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxValider.Location = New System.Drawing.Point(1025, 200)
+        Me.GunaCheckBoxValider.Location = New System.Drawing.Point(1040, 201)
         Me.GunaCheckBoxValider.Name = "GunaCheckBoxValider"
         Me.GunaCheckBoxValider.Size = New System.Drawing.Size(83, 20)
         Me.GunaCheckBoxValider.TabIndex = 0
@@ -1618,11 +1980,11 @@ Partial Class UserForm
         Me.GunaCheckBoxInventaire.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxInventaire.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxInventaire.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxInventaire.Location = New System.Drawing.Point(1065, 361)
+        Me.GunaCheckBoxInventaire.Location = New System.Drawing.Point(1064, 362)
         Me.GunaCheckBoxInventaire.Name = "GunaCheckBoxInventaire"
-        Me.GunaCheckBoxInventaire.Size = New System.Drawing.Size(104, 20)
+        Me.GunaCheckBoxInventaire.Size = New System.Drawing.Size(137, 20)
         Me.GunaCheckBoxInventaire.TabIndex = 0
-        Me.GunaCheckBoxInventaire.Text = GlobalVariable.bon_requisition
+        Me.GunaCheckBoxInventaire.Text = "DEMANDE ACHAT"
         '
         'GunaCheckBox30
         '
@@ -1631,7 +1993,7 @@ Partial Class UserForm
         Me.GunaCheckBox30.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBox30.FillColor = System.Drawing.Color.White
         Me.GunaCheckBox30.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBox30.Location = New System.Drawing.Point(753, 111)
+        Me.GunaCheckBox30.Location = New System.Drawing.Point(671, 111)
         Me.GunaCheckBox30.Name = "GunaCheckBox30"
         Me.GunaCheckBox30.Size = New System.Drawing.Size(157, 20)
         Me.GunaCheckBox30.TabIndex = 0
@@ -1644,7 +2006,7 @@ Partial Class UserForm
         Me.GunaCheckBoxEvents.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxEvents.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxEvents.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxEvents.Location = New System.Drawing.Point(47, 422)
+        Me.GunaCheckBoxEvents.Location = New System.Drawing.Point(27, 422)
         Me.GunaCheckBoxEvents.Name = "GunaCheckBoxEvents"
         Me.GunaCheckBoxEvents.Size = New System.Drawing.Size(115, 20)
         Me.GunaCheckBoxEvents.TabIndex = 0
@@ -1657,7 +2019,7 @@ Partial Class UserForm
         Me.GunaCheckBoxObjets.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxObjets.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxObjets.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxObjets.Location = New System.Drawing.Point(492, 273)
+        Me.GunaCheckBoxObjets.Location = New System.Drawing.Point(443, 273)
         Me.GunaCheckBoxObjets.Name = "GunaCheckBoxObjets"
         Me.GunaCheckBoxObjets.Size = New System.Drawing.Size(194, 20)
         Me.GunaCheckBoxObjets.TabIndex = 0
@@ -1670,7 +2032,7 @@ Partial Class UserForm
         Me.GunaCheckBoxFichePolice.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxFichePolice.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxFichePolice.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxFichePolice.Location = New System.Drawing.Point(256, 181)
+        Me.GunaCheckBoxFichePolice.Location = New System.Drawing.Point(218, 181)
         Me.GunaCheckBoxFichePolice.Name = "GunaCheckBoxFichePolice"
         Me.GunaCheckBoxFichePolice.Size = New System.Drawing.Size(136, 20)
         Me.GunaCheckBoxFichePolice.TabIndex = 0
@@ -1683,7 +2045,7 @@ Partial Class UserForm
         Me.GunaCheckBoxEnChambre.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxEnChambre.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxEnChambre.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxEnChambre.Location = New System.Drawing.Point(47, 146)
+        Me.GunaCheckBoxEnChambre.Location = New System.Drawing.Point(27, 146)
         Me.GunaCheckBoxEnChambre.Name = "GunaCheckBoxEnChambre"
         Me.GunaCheckBoxEnChambre.Size = New System.Drawing.Size(120, 20)
         Me.GunaCheckBoxEnChambre.TabIndex = 0
@@ -1696,7 +2058,7 @@ Partial Class UserForm
         Me.GunaCheckBoxNettoyage.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxNettoyage.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxNettoyage.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxNettoyage.Location = New System.Drawing.Point(492, 137)
+        Me.GunaCheckBoxNettoyage.Location = New System.Drawing.Point(443, 137)
         Me.GunaCheckBoxNettoyage.Name = "GunaCheckBoxNettoyage"
         Me.GunaCheckBoxNettoyage.Size = New System.Drawing.Size(106, 20)
         Me.GunaCheckBoxNettoyage.TabIndex = 0
@@ -1709,7 +2071,7 @@ Partial Class UserForm
         Me.GunaCheckBoxEtatChambres.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxEtatChambres.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxEtatChambres.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxEtatChambres.Location = New System.Drawing.Point(492, 225)
+        Me.GunaCheckBoxEtatChambres.Location = New System.Drawing.Point(443, 225)
         Me.GunaCheckBoxEtatChambres.Name = "GunaCheckBoxEtatChambres"
         Me.GunaCheckBoxEtatChambres.Size = New System.Drawing.Size(172, 20)
         Me.GunaCheckBoxEtatChambres.TabIndex = 0
@@ -1722,7 +2084,7 @@ Partial Class UserForm
         Me.GunaCheckBoxHS.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxHS.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxHS.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxHS.Location = New System.Drawing.Point(492, 247)
+        Me.GunaCheckBoxHS.Location = New System.Drawing.Point(443, 247)
         Me.GunaCheckBoxHS.Name = "GunaCheckBoxHS"
         Me.GunaCheckBoxHS.Size = New System.Drawing.Size(131, 20)
         Me.GunaCheckBoxHS.TabIndex = 0
@@ -1735,7 +2097,7 @@ Partial Class UserForm
         Me.GunaCheckBoxModifierResa.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxModifierResa.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxModifierResa.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxModifierResa.Location = New System.Drawing.Point(256, 155)
+        Me.GunaCheckBoxModifierResa.Location = New System.Drawing.Point(218, 155)
         Me.GunaCheckBoxModifierResa.Name = "GunaCheckBoxModifierResa"
         Me.GunaCheckBoxModifierResa.Size = New System.Drawing.Size(182, 20)
         Me.GunaCheckBoxModifierResa.TabIndex = 0
@@ -1748,7 +2110,7 @@ Partial Class UserForm
         Me.GunaCheckBoxArrivee.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxArrivee.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxArrivee.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxArrivee.Location = New System.Drawing.Point(47, 126)
+        Me.GunaCheckBoxArrivee.Location = New System.Drawing.Point(27, 126)
         Me.GunaCheckBoxArrivee.Name = "GunaCheckBoxArrivee"
         Me.GunaCheckBoxArrivee.Size = New System.Drawing.Size(93, 20)
         Me.GunaCheckBoxArrivee.TabIndex = 0
@@ -1761,7 +2123,7 @@ Partial Class UserForm
         Me.GunaCheckBoxHistoriques.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxHistoriques.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxHistoriques.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxHistoriques.Location = New System.Drawing.Point(492, 111)
+        Me.GunaCheckBoxHistoriques.Location = New System.Drawing.Point(443, 111)
         Me.GunaCheckBoxHistoriques.Name = "GunaCheckBoxHistoriques"
         Me.GunaCheckBoxHistoriques.Size = New System.Drawing.Size(217, 20)
         Me.GunaCheckBoxHistoriques.TabIndex = 0
@@ -1774,7 +2136,7 @@ Partial Class UserForm
         Me.GunaCheckBoxNouvelleResa.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxNouvelleResa.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxNouvelleResa.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxNouvelleResa.Location = New System.Drawing.Point(256, 129)
+        Me.GunaCheckBoxNouvelleResa.Location = New System.Drawing.Point(218, 129)
         Me.GunaCheckBoxNouvelleResa.Name = "GunaCheckBoxNouvelleResa"
         Me.GunaCheckBoxNouvelleResa.Size = New System.Drawing.Size(188, 20)
         Me.GunaCheckBoxNouvelleResa.TabIndex = 0
@@ -1787,7 +2149,7 @@ Partial Class UserForm
         Me.GunaCheckBoxPlanning.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxPlanning.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxPlanning.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxPlanning.Location = New System.Drawing.Point(47, 105)
+        Me.GunaCheckBoxPlanning.Location = New System.Drawing.Point(27, 105)
         Me.GunaCheckBoxPlanning.Name = "GunaCheckBoxPlanning"
         Me.GunaCheckBoxPlanning.Size = New System.Drawing.Size(93, 20)
         Me.GunaCheckBoxPlanning.TabIndex = 0
@@ -1800,7 +2162,7 @@ Partial Class UserForm
         Me.GunaCheckBoxDemandeIntervention.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxDemandeIntervention.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxDemandeIntervention.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxDemandeIntervention.Location = New System.Drawing.Point(260, 454)
+        Me.GunaCheckBoxDemandeIntervention.Location = New System.Drawing.Point(245, 454)
         Me.GunaCheckBoxDemandeIntervention.Name = "GunaCheckBoxDemandeIntervention"
         Me.GunaCheckBoxDemandeIntervention.Size = New System.Drawing.Size(187, 20)
         Me.GunaCheckBoxDemandeIntervention.TabIndex = 0
@@ -1813,7 +2175,7 @@ Partial Class UserForm
         Me.GunaCheckBoxAdminServiceTechnique.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxAdminServiceTechnique.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxAdminServiceTechnique.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxAdminServiceTechnique.Location = New System.Drawing.Point(924, 453)
+        Me.GunaCheckBoxAdminServiceTechnique.Location = New System.Drawing.Point(899, 453)
         Me.GunaCheckBoxAdminServiceTechnique.Name = "GunaCheckBoxAdminServiceTechnique"
         Me.GunaCheckBoxAdminServiceTechnique.Size = New System.Drawing.Size(160, 20)
         Me.GunaCheckBoxAdminServiceTechnique.TabIndex = 0
@@ -1826,7 +2188,7 @@ Partial Class UserForm
         Me.GunaCheckBoxFamillePanne.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxFamillePanne.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxFamillePanne.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxFamillePanne.Location = New System.Drawing.Point(260, 402)
+        Me.GunaCheckBoxFamillePanne.Location = New System.Drawing.Point(245, 402)
         Me.GunaCheckBoxFamillePanne.Name = "GunaCheckBoxFamillePanne"
         Me.GunaCheckBoxFamillePanne.Size = New System.Drawing.Size(127, 20)
         Me.GunaCheckBoxFamillePanne.TabIndex = 0
@@ -1839,7 +2201,7 @@ Partial Class UserForm
         Me.GunaCheckBoxSession.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxSession.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxSession.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxSession.Location = New System.Drawing.Point(924, 401)
+        Me.GunaCheckBoxSession.Location = New System.Drawing.Point(899, 401)
         Me.GunaCheckBoxSession.Name = "GunaCheckBoxSession"
         Me.GunaCheckBoxSession.Size = New System.Drawing.Size(85, 20)
         Me.GunaCheckBoxSession.TabIndex = 0
@@ -1852,7 +2214,7 @@ Partial Class UserForm
         Me.GunaCheckBox14.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBox14.FillColor = System.Drawing.Color.White
         Me.GunaCheckBox14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBox14.Location = New System.Drawing.Point(700, 522)
+        Me.GunaCheckBox14.Location = New System.Drawing.Point(675, 522)
         Me.GunaCheckBox14.Name = "GunaCheckBox14"
         Me.GunaCheckBox14.Size = New System.Drawing.Size(98, 20)
         Me.GunaCheckBox14.TabIndex = 0
@@ -1865,7 +2227,7 @@ Partial Class UserForm
         Me.GunaCheckBox13.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBox13.FillColor = System.Drawing.Color.White
         Me.GunaCheckBox13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBox13.Location = New System.Drawing.Point(700, 502)
+        Me.GunaCheckBox13.Location = New System.Drawing.Point(675, 502)
         Me.GunaCheckBox13.Name = "GunaCheckBox13"
         Me.GunaCheckBox13.Size = New System.Drawing.Size(189, 20)
         Me.GunaCheckBox13.TabIndex = 0
@@ -1878,7 +2240,7 @@ Partial Class UserForm
         Me.GunaCheckBox12.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBox12.FillColor = System.Drawing.Color.White
         Me.GunaCheckBox12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBox12.Location = New System.Drawing.Point(700, 482)
+        Me.GunaCheckBox12.Location = New System.Drawing.Point(675, 482)
         Me.GunaCheckBox12.Name = "GunaCheckBox12"
         Me.GunaCheckBox12.Size = New System.Drawing.Size(230, 20)
         Me.GunaCheckBox12.TabIndex = 0
@@ -1891,7 +2253,7 @@ Partial Class UserForm
         Me.GunaCheckBox11.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBox11.FillColor = System.Drawing.Color.White
         Me.GunaCheckBox11.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBox11.Location = New System.Drawing.Point(700, 462)
+        Me.GunaCheckBox11.Location = New System.Drawing.Point(675, 462)
         Me.GunaCheckBox11.Name = "GunaCheckBox11"
         Me.GunaCheckBox11.Size = New System.Drawing.Size(142, 20)
         Me.GunaCheckBox11.TabIndex = 0
@@ -1904,7 +2266,7 @@ Partial Class UserForm
         Me.GunaCheckBox10.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBox10.FillColor = System.Drawing.Color.White
         Me.GunaCheckBox10.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBox10.Location = New System.Drawing.Point(700, 444)
+        Me.GunaCheckBox10.Location = New System.Drawing.Point(675, 444)
         Me.GunaCheckBox10.Name = "GunaCheckBox10"
         Me.GunaCheckBox10.Size = New System.Drawing.Size(143, 20)
         Me.GunaCheckBox10.TabIndex = 0
@@ -1917,7 +2279,7 @@ Partial Class UserForm
         Me.GunaCheckBox8.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBox8.FillColor = System.Drawing.Color.White
         Me.GunaCheckBox8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBox8.Location = New System.Drawing.Point(700, 423)
+        Me.GunaCheckBox8.Location = New System.Drawing.Point(675, 423)
         Me.GunaCheckBox8.Name = "GunaCheckBox8"
         Me.GunaCheckBox8.Size = New System.Drawing.Size(164, 20)
         Me.GunaCheckBox8.TabIndex = 0
@@ -1930,7 +2292,7 @@ Partial Class UserForm
         Me.GunaCheckBox9.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBox9.FillColor = System.Drawing.Color.White
         Me.GunaCheckBox9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBox9.Location = New System.Drawing.Point(700, 402)
+        Me.GunaCheckBox9.Location = New System.Drawing.Point(675, 402)
         Me.GunaCheckBox9.Name = "GunaCheckBox9"
         Me.GunaCheckBox9.Size = New System.Drawing.Size(112, 20)
         Me.GunaCheckBox9.TabIndex = 0
@@ -1943,7 +2305,7 @@ Partial Class UserForm
         Me.GunaCheckBoxPetiteCaisse.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxPetiteCaisse.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxPetiteCaisse.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxPetiteCaisse.Location = New System.Drawing.Point(465, 402)
+        Me.GunaCheckBoxPetiteCaisse.Location = New System.Drawing.Point(440, 402)
         Me.GunaCheckBoxPetiteCaisse.Name = "GunaCheckBoxPetiteCaisse"
         Me.GunaCheckBoxPetiteCaisse.Size = New System.Drawing.Size(125, 20)
         Me.GunaCheckBoxPetiteCaisse.TabIndex = 0
@@ -1956,7 +2318,7 @@ Partial Class UserForm
         Me.GunaCheckBoxMovt.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxMovt.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxMovt.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxMovt.Location = New System.Drawing.Point(1025, 85)
+        Me.GunaCheckBoxMovt.Location = New System.Drawing.Point(1040, 86)
         Me.GunaCheckBoxMovt.Name = "GunaCheckBoxMovt"
         Me.GunaCheckBoxMovt.Size = New System.Drawing.Size(110, 20)
         Me.GunaCheckBoxMovt.TabIndex = 0
@@ -1969,7 +2331,7 @@ Partial Class UserForm
         Me.GunaCheckBox28.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBox28.FillColor = System.Drawing.Color.White
         Me.GunaCheckBox28.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBox28.Location = New System.Drawing.Point(753, 85)
+        Me.GunaCheckBox28.Location = New System.Drawing.Point(671, 85)
         Me.GunaCheckBox28.Name = "GunaCheckBox28"
         Me.GunaCheckBox28.Size = New System.Drawing.Size(179, 20)
         Me.GunaCheckBox28.TabIndex = 0
@@ -1982,7 +2344,7 @@ Partial Class UserForm
         Me.GunaCheckBoxClientEnchambre.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxClientEnchambre.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxClientEnchambre.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxClientEnchambre.Location = New System.Drawing.Point(47, 402)
+        Me.GunaCheckBoxClientEnchambre.Location = New System.Drawing.Point(27, 402)
         Me.GunaCheckBoxClientEnchambre.Name = "GunaCheckBoxClientEnchambre"
         Me.GunaCheckBoxClientEnchambre.Size = New System.Drawing.Size(120, 20)
         Me.GunaCheckBoxClientEnchambre.TabIndex = 0
@@ -1995,7 +2357,7 @@ Partial Class UserForm
         Me.GunaCheckBoxStatutsChambre.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxStatutsChambre.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxStatutsChambre.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxStatutsChambre.Location = New System.Drawing.Point(492, 85)
+        Me.GunaCheckBoxStatutsChambre.Location = New System.Drawing.Point(443, 85)
         Me.GunaCheckBoxStatutsChambre.Name = "GunaCheckBoxStatutsChambre"
         Me.GunaCheckBoxStatutsChambre.Size = New System.Drawing.Size(188, 20)
         Me.GunaCheckBoxStatutsChambre.TabIndex = 0
@@ -2008,7 +2370,7 @@ Partial Class UserForm
         Me.GunaCheckBoxRechercheResa.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxRechercheResa.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxRechercheResa.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxRechercheResa.Location = New System.Drawing.Point(256, 105)
+        Me.GunaCheckBoxRechercheResa.Location = New System.Drawing.Point(218, 105)
         Me.GunaCheckBoxRechercheResa.Name = "GunaCheckBoxRechercheResa"
         Me.GunaCheckBoxRechercheResa.Size = New System.Drawing.Size(209, 20)
         Me.GunaCheckBoxRechercheResa.TabIndex = 0
@@ -2021,7 +2383,7 @@ Partial Class UserForm
         Me.GunaCheckBoxCardex.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxCardex.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxCardex.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxCardex.Location = New System.Drawing.Point(256, 85)
+        Me.GunaCheckBoxCardex.Location = New System.Drawing.Point(218, 85)
         Me.GunaCheckBoxCardex.Name = "GunaCheckBoxCardex"
         Me.GunaCheckBoxCardex.Size = New System.Drawing.Size(82, 20)
         Me.GunaCheckBoxCardex.TabIndex = 0
@@ -2034,7 +2396,7 @@ Partial Class UserForm
         Me.GunaCheckBoxDashboard.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaCheckBoxDashboard.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxDashboard.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBoxDashboard.Location = New System.Drawing.Point(47, 85)
+        Me.GunaCheckBoxDashboard.Location = New System.Drawing.Point(27, 85)
         Me.GunaCheckBoxDashboard.Name = "GunaCheckBoxDashboard"
         Me.GunaCheckBoxDashboard.Size = New System.Drawing.Size(108, 20)
         Me.GunaCheckBoxDashboard.TabIndex = 0
@@ -2049,7 +2411,7 @@ Partial Class UserForm
         Me.GunaCheckBoxMenuTechnique.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxMenuTechnique.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaCheckBoxMenuTechnique.ForeColor = System.Drawing.Color.White
-        Me.GunaCheckBoxMenuTechnique.Location = New System.Drawing.Point(231, 376)
+        Me.GunaCheckBoxMenuTechnique.Location = New System.Drawing.Point(216, 376)
         Me.GunaCheckBoxMenuTechnique.Name = "GunaCheckBoxMenuTechnique"
         Me.GunaCheckBoxMenuTechnique.Size = New System.Drawing.Size(103, 20)
         Me.GunaCheckBoxMenuTechnique.TabIndex = 0
@@ -2064,7 +2426,7 @@ Partial Class UserForm
         Me.GunaCheckBoxMenuCuisine.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxMenuCuisine.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaCheckBoxMenuCuisine.ForeColor = System.Drawing.Color.White
-        Me.GunaCheckBoxMenuCuisine.Location = New System.Drawing.Point(676, 376)
+        Me.GunaCheckBoxMenuCuisine.Location = New System.Drawing.Point(651, 376)
         Me.GunaCheckBoxMenuCuisine.Name = "GunaCheckBoxMenuCuisine"
         Me.GunaCheckBoxMenuCuisine.Size = New System.Drawing.Size(80, 20)
         Me.GunaCheckBoxMenuCuisine.TabIndex = 0
@@ -2079,7 +2441,7 @@ Partial Class UserForm
         Me.GunaCheckBoxAdministration.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxAdministration.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaCheckBoxAdministration.ForeColor = System.Drawing.Color.White
-        Me.GunaCheckBoxAdministration.Location = New System.Drawing.Point(894, 375)
+        Me.GunaCheckBoxAdministration.Location = New System.Drawing.Point(869, 375)
         Me.GunaCheckBoxAdministration.Name = "GunaCheckBoxAdministration"
         Me.GunaCheckBoxAdministration.Size = New System.Drawing.Size(136, 20)
         Me.GunaCheckBoxAdministration.TabIndex = 0
@@ -2094,7 +2456,7 @@ Partial Class UserForm
         Me.GunaCheckBoxCaissesMagasins.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxCaissesMagasins.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaCheckBoxCaissesMagasins.ForeColor = System.Drawing.Color.White
-        Me.GunaCheckBoxCaissesMagasins.Location = New System.Drawing.Point(445, 376)
+        Me.GunaCheckBoxCaissesMagasins.Location = New System.Drawing.Point(420, 376)
         Me.GunaCheckBoxCaissesMagasins.Name = "GunaCheckBoxCaissesMagasins"
         Me.GunaCheckBoxCaissesMagasins.Size = New System.Drawing.Size(162, 20)
         Me.GunaCheckBoxCaissesMagasins.TabIndex = 0
@@ -2109,7 +2471,7 @@ Partial Class UserForm
         Me.GunaCheckBoxEconomat.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxEconomat.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaCheckBoxEconomat.ForeColor = System.Drawing.Color.White
-        Me.GunaCheckBoxEconomat.Location = New System.Drawing.Point(1011, 59)
+        Me.GunaCheckBoxEconomat.Location = New System.Drawing.Point(1026, 60)
         Me.GunaCheckBoxEconomat.Name = "GunaCheckBoxEconomat"
         Me.GunaCheckBoxEconomat.Size = New System.Drawing.Size(101, 20)
         Me.GunaCheckBoxEconomat.TabIndex = 0
@@ -2124,7 +2486,7 @@ Partial Class UserForm
         Me.GunaCheckBoxCompatbilite.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxCompatbilite.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaCheckBoxCompatbilite.ForeColor = System.Drawing.Color.White
-        Me.GunaCheckBoxCompatbilite.Location = New System.Drawing.Point(734, 59)
+        Me.GunaCheckBoxCompatbilite.Location = New System.Drawing.Point(652, 59)
         Me.GunaCheckBoxCompatbilite.Name = "GunaCheckBoxCompatbilite"
         Me.GunaCheckBoxCompatbilite.Size = New System.Drawing.Size(214, 20)
         Me.GunaCheckBoxCompatbilite.TabIndex = 0
@@ -2139,7 +2501,7 @@ Partial Class UserForm
         Me.GunaCheckBoxBarRestaurant.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxBarRestaurant.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaCheckBoxBarRestaurant.ForeColor = System.Drawing.Color.White
-        Me.GunaCheckBoxBarRestaurant.Location = New System.Drawing.Point(28, 376)
+        Me.GunaCheckBoxBarRestaurant.Location = New System.Drawing.Point(8, 376)
         Me.GunaCheckBoxBarRestaurant.Name = "GunaCheckBoxBarRestaurant"
         Me.GunaCheckBoxBarRestaurant.Size = New System.Drawing.Size(149, 20)
         Me.GunaCheckBoxBarRestaurant.TabIndex = 0
@@ -2154,7 +2516,7 @@ Partial Class UserForm
         Me.GunaCheckBoxServiceEtage.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxServiceEtage.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaCheckBoxServiceEtage.ForeColor = System.Drawing.Color.White
-        Me.GunaCheckBoxServiceEtage.Location = New System.Drawing.Point(473, 59)
+        Me.GunaCheckBoxServiceEtage.Location = New System.Drawing.Point(424, 59)
         Me.GunaCheckBoxServiceEtage.Name = "GunaCheckBoxServiceEtage"
         Me.GunaCheckBoxServiceEtage.Size = New System.Drawing.Size(141, 20)
         Me.GunaCheckBoxServiceEtage.TabIndex = 0
@@ -2169,7 +2531,7 @@ Partial Class UserForm
         Me.GunaCheckBoxReservation.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxReservation.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaCheckBoxReservation.ForeColor = System.Drawing.Color.White
-        Me.GunaCheckBoxReservation.Location = New System.Drawing.Point(237, 59)
+        Me.GunaCheckBoxReservation.Location = New System.Drawing.Point(199, 59)
         Me.GunaCheckBoxReservation.Name = "GunaCheckBoxReservation"
         Me.GunaCheckBoxReservation.Size = New System.Drawing.Size(119, 20)
         Me.GunaCheckBoxReservation.TabIndex = 0
@@ -2184,11 +2546,120 @@ Partial Class UserForm
         Me.GunaCheckBoxReception.FillColor = System.Drawing.Color.White
         Me.GunaCheckBoxReception.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaCheckBoxReception.ForeColor = System.Drawing.Color.White
-        Me.GunaCheckBoxReception.Location = New System.Drawing.Point(28, 59)
+        Me.GunaCheckBoxReception.Location = New System.Drawing.Point(8, 59)
         Me.GunaCheckBoxReception.Name = "GunaCheckBoxReception"
         Me.GunaCheckBoxReception.Size = New System.Drawing.Size(102, 20)
         Me.GunaCheckBoxReception.TabIndex = 0
         Me.GunaCheckBoxReception.Text = "RECEPTION"
+        '
+        'TabPage2
+        '
+        Me.TabPage2.Controls.Add(Me.GunaCheckBoxMarketing)
+        Me.TabPage2.Controls.Add(Me.GunaCheckBoxMarkRapports)
+        Me.TabPage2.Controls.Add(Me.GunaCheckBoxMarkPlannification)
+        Me.TabPage2.Controls.Add(Me.GunaCheckBoxMarkDash)
+        Me.TabPage2.Controls.Add(Me.GunaCheckBoxMarkElite)
+        Me.TabPage2.Controls.Add(Me.GunaCheckBoxMarkMessage)
+        Me.TabPage2.Controls.Add(Me.GunaCheckBoxMarkCardex)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Size = New System.Drawing.Size(1218, 582)
+        Me.TabPage2.TabIndex = 3
+        Me.TabPage2.Text = "Droits d'accès Suite"
+        Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'GunaCheckBoxMarketing
+        '
+        Me.GunaCheckBoxMarketing.BackColor = System.Drawing.Color.Gold
+        Me.GunaCheckBoxMarketing.BaseColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMarketing.CheckedOffColor = System.Drawing.Color.Gray
+        Me.GunaCheckBoxMarketing.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaCheckBoxMarketing.FillColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMarketing.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaCheckBoxMarketing.ForeColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMarketing.Location = New System.Drawing.Point(16, 11)
+        Me.GunaCheckBoxMarketing.Name = "GunaCheckBoxMarketing"
+        Me.GunaCheckBoxMarketing.Size = New System.Drawing.Size(103, 20)
+        Me.GunaCheckBoxMarketing.TabIndex = 109
+        Me.GunaCheckBoxMarketing.Text = "MARKETING"
+        '
+        'GunaCheckBoxMarkRapports
+        '
+        Me.GunaCheckBoxMarkRapports.BaseColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMarkRapports.CheckedOffColor = System.Drawing.Color.Gray
+        Me.GunaCheckBoxMarkRapports.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaCheckBoxMarkRapports.FillColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMarkRapports.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaCheckBoxMarkRapports.Location = New System.Drawing.Point(28, 153)
+        Me.GunaCheckBoxMarkRapports.Name = "GunaCheckBoxMarkRapports"
+        Me.GunaCheckBoxMarkRapports.Size = New System.Drawing.Size(98, 20)
+        Me.GunaCheckBoxMarkRapports.TabIndex = 104
+        Me.GunaCheckBoxMarkRapports.Text = "RAPPORTS"
+        '
+        'GunaCheckBoxMarkPlannification
+        '
+        Me.GunaCheckBoxMarkPlannification.BaseColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMarkPlannification.CheckedOffColor = System.Drawing.Color.Gray
+        Me.GunaCheckBoxMarkPlannification.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaCheckBoxMarkPlannification.FillColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMarkPlannification.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaCheckBoxMarkPlannification.Location = New System.Drawing.Point(28, 130)
+        Me.GunaCheckBoxMarkPlannification.Name = "GunaCheckBoxMarkPlannification"
+        Me.GunaCheckBoxMarkPlannification.Size = New System.Drawing.Size(132, 20)
+        Me.GunaCheckBoxMarkPlannification.TabIndex = 104
+        Me.GunaCheckBoxMarkPlannification.Text = "PLANNIFICATION"
+        '
+        'GunaCheckBoxMarkDash
+        '
+        Me.GunaCheckBoxMarkDash.BaseColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMarkDash.CheckedOffColor = System.Drawing.Color.Gray
+        Me.GunaCheckBoxMarkDash.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaCheckBoxMarkDash.FillColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMarkDash.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaCheckBoxMarkDash.Location = New System.Drawing.Point(28, 107)
+        Me.GunaCheckBoxMarkDash.Name = "GunaCheckBoxMarkDash"
+        Me.GunaCheckBoxMarkDash.Size = New System.Drawing.Size(108, 20)
+        Me.GunaCheckBoxMarkDash.TabIndex = 104
+        Me.GunaCheckBoxMarkDash.Text = "DASHBOARD"
+        '
+        'GunaCheckBoxMarkElite
+        '
+        Me.GunaCheckBoxMarkElite.BaseColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMarkElite.CheckedOffColor = System.Drawing.Color.Gray
+        Me.GunaCheckBoxMarkElite.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaCheckBoxMarkElite.FillColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMarkElite.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaCheckBoxMarkElite.Location = New System.Drawing.Point(28, 84)
+        Me.GunaCheckBoxMarkElite.Name = "GunaCheckBoxMarkElite"
+        Me.GunaCheckBoxMarkElite.Size = New System.Drawing.Size(101, 20)
+        Me.GunaCheckBoxMarkElite.TabIndex = 105
+        Me.GunaCheckBoxMarkElite.Text = "CLUB ELITE"
+        '
+        'GunaCheckBoxMarkMessage
+        '
+        Me.GunaCheckBoxMarkMessage.BaseColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMarkMessage.CheckedOffColor = System.Drawing.Color.Gray
+        Me.GunaCheckBoxMarkMessage.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaCheckBoxMarkMessage.FillColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMarkMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaCheckBoxMarkMessage.Location = New System.Drawing.Point(28, 61)
+        Me.GunaCheckBoxMarkMessage.Name = "GunaCheckBoxMarkMessage"
+        Me.GunaCheckBoxMarkMessage.Size = New System.Drawing.Size(120, 20)
+        Me.GunaCheckBoxMarkMessage.TabIndex = 106
+        Me.GunaCheckBoxMarkMessage.Text = "MESSAGERIES"
+        '
+        'GunaCheckBoxMarkCardex
+        '
+        Me.GunaCheckBoxMarkCardex.BaseColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMarkCardex.CheckedOffColor = System.Drawing.Color.Gray
+        Me.GunaCheckBoxMarkCardex.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaCheckBoxMarkCardex.FillColor = System.Drawing.Color.White
+        Me.GunaCheckBoxMarkCardex.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaCheckBoxMarkCardex.Location = New System.Drawing.Point(28, 38)
+        Me.GunaCheckBoxMarkCardex.Name = "GunaCheckBoxMarkCardex"
+        Me.GunaCheckBoxMarkCardex.Size = New System.Drawing.Size(82, 20)
+        Me.GunaCheckBoxMarkCardex.TabIndex = 107
+        Me.GunaCheckBoxMarkCardex.Text = "CARDEX"
         '
         'TabPage1
         '
@@ -2206,8 +2677,8 @@ Partial Class UserForm
         Me.GunaDataGridViewProfil.AllowUserToDeleteRows = False
         Me.GunaDataGridViewProfil.AllowUserToResizeColumns = False
         Me.GunaDataGridViewProfil.AllowUserToResizeRows = False
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(247, Byte), Integer), CType(CType(201, Byte), Integer), CType(CType(197, Byte), Integer))
-        Me.GunaDataGridViewProfil.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(247, Byte), Integer), CType(CType(201, Byte), Integer), CType(CType(197, Byte), Integer))
+        Me.GunaDataGridViewProfil.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
         Me.GunaDataGridViewProfil.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaDataGridViewProfil.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
@@ -2215,25 +2686,25 @@ Partial Class UserForm
         Me.GunaDataGridViewProfil.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewProfil.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewProfil.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(76, Byte), Integer), CType(CType(60, Byte), Integer))
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewProfil.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(76, Byte), Integer), CType(CType(60, Byte), Integer))
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewProfil.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
         Me.GunaDataGridViewProfil.ColumnHeadersHeight = 28
         Me.GunaDataGridViewProfil.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridViewProfil.ContextMenuStrip = Me.ContextMenuStripProfil
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(219, Byte), Integer), CType(CType(216, Byte), Integer))
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(135, Byte), Integer), CType(CType(125, Byte), Integer))
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewProfil.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(219, Byte), Integer), CType(CType(216, Byte), Integer))
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(135, Byte), Integer), CType(CType(125, Byte), Integer))
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewProfil.DefaultCellStyle = DataGridViewCellStyle9
         Me.GunaDataGridViewProfil.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewProfil.GridColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(188, Byte), Integer))
         Me.GunaDataGridViewProfil.Location = New System.Drawing.Point(20, 80)
@@ -2271,12 +2742,12 @@ Partial Class UserForm
         '
         Me.ContextMenuStripProfil.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SupprimerToolStripMenuItem1})
         Me.ContextMenuStripProfil.Name = "ContextMenuStripProfil"
-        Me.ContextMenuStripProfil.Size = New System.Drawing.Size(130, 26)
+        Me.ContextMenuStripProfil.Size = New System.Drawing.Size(181, 48)
         '
         'SupprimerToolStripMenuItem1
         '
         Me.SupprimerToolStripMenuItem1.Name = "SupprimerToolStripMenuItem1"
-        Me.SupprimerToolStripMenuItem1.Size = New System.Drawing.Size(129, 22)
+        Me.SupprimerToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
         Me.SupprimerToolStripMenuItem1.Text = "Supprimer"
         '
         'GunaButtonEnregistrer
@@ -2345,34 +2816,6 @@ Partial Class UserForm
         Me.GunaPanel1.Size = New System.Drawing.Size(1249, 10)
         Me.GunaPanel1.TabIndex = 4
         '
-        'GunaCheckBox17
-        '
-        Me.GunaCheckBox17.BaseColor = System.Drawing.Color.White
-        Me.GunaCheckBox17.CheckedOffColor = System.Drawing.Color.Gray
-        Me.GunaCheckBox17.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaCheckBox17.FillColor = System.Drawing.Color.White
-        Me.GunaCheckBox17.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBox17.Location = New System.Drawing.Point(531, 662)
-        Me.GunaCheckBox17.Name = "GunaCheckBox17"
-        Me.GunaCheckBox17.Size = New System.Drawing.Size(98, 20)
-        Me.GunaCheckBox17.TabIndex = 0
-        Me.GunaCheckBox17.Text = "RAPPORTS"
-        Me.GunaCheckBox17.Visible = False
-        '
-        'GunaCheckBox18
-        '
-        Me.GunaCheckBox18.BaseColor = System.Drawing.Color.White
-        Me.GunaCheckBox18.CheckedOffColor = System.Drawing.Color.Gray
-        Me.GunaCheckBox18.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaCheckBox18.FillColor = System.Drawing.Color.White
-        Me.GunaCheckBox18.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaCheckBox18.Location = New System.Drawing.Point(663, 662)
-        Me.GunaCheckBox18.Name = "GunaCheckBox18"
-        Me.GunaCheckBox18.Size = New System.Drawing.Size(98, 20)
-        Me.GunaCheckBox18.TabIndex = 0
-        Me.GunaCheckBox18.Text = "RAPPORTS"
-        Me.GunaCheckBox18.Visible = False
-        '
         'UserForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2383,8 +2826,6 @@ Partial Class UserForm
         Me.Controls.Add(Me.GunaButton1)
         Me.Controls.Add(Me.TabControlUtilisateurProfil)
         Me.Controls.Add(Me.GunaLinePanelTop)
-        Me.Controls.Add(Me.GunaCheckBox18)
-        Me.Controls.Add(Me.GunaCheckBox17)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "UserForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -2394,17 +2835,22 @@ Partial Class UserForm
         Me.Panel5.ResumeLayout(False)
         Me.TabControlUtilisateurProfil.ResumeLayout(False)
         Me.TabPageFiche.ResumeLayout(False)
+        Me.GunaGroupBox2.ResumeLayout(False)
+        Me.GunaGroupBox2.PerformLayout()
+        CType(Me.GunaDataGridViewProfilList, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GunaContextMenuStripDeleteMultipleProfil.ResumeLayout(False)
         CType(Me.GunaDataGridViewUser, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GunaContextMenuStrip1.ResumeLayout(False)
         Me.GunaGroupBox1.ResumeLayout(False)
         Me.GunaGroupBox1.PerformLayout()
         Me.TabPageDroitacces.ResumeLayout(False)
         Me.TabPageDroitacces.PerformLayout()
+        Me.TabPage2.ResumeLayout(False)
+        Me.TabPage2.PerformLayout()
         Me.TabPage1.ResumeLayout(False)
         CType(Me.GunaDataGridViewProfil, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStripProfil.ResumeLayout(False)
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
 
@@ -2547,7 +2993,30 @@ Partial Class UserForm
     Friend WithEvents GunaCheckBox10 As Guna.UI.WinForms.GunaCheckBox
     Friend WithEvents GunaCheckBox8 As Guna.UI.WinForms.GunaCheckBox
     Friend WithEvents GunaCheckBoxGratuiteeHebergement As Guna.UI.WinForms.GunaCheckBox
-    Friend WithEvents GunaCheckBox18 As Guna.UI.WinForms.GunaCheckBox
-    Friend WithEvents GunaCheckBox17 As Guna.UI.WinForms.GunaCheckBox
+    Friend WithEvents GunaCheckBoxServeur As Guna.UI.WinForms.GunaCheckBox
+    Friend WithEvents GunaCheckBoxFastFood As Guna.UI.WinForms.GunaCheckBox
     Friend WithEvents GunaCheckBoxImprimerFB As Guna.UI.WinForms.GunaCheckBox
+    Friend WithEvents GunaTextBoxTel As Guna.UI.WinForms.GunaTextBox
+    Friend WithEvents GunaLabel10 As Guna.UI.WinForms.GunaLabel
+    Friend WithEvents GunaCheckBoxCaisseEnregistreuse As Guna.UI.WinForms.GunaCheckBox
+    Friend WithEvents GunaCheckBoxMultiPOS As Guna.UI.WinForms.GunaCheckBox
+    Friend WithEvents GunaCheckBoxRestaurantFastFood As Guna.UI.WinForms.GunaCheckBox
+    Friend WithEvents GunaCheckBoxBarFastFood As Guna.UI.WinForms.GunaCheckBox
+    Friend WithEvents GunaGroupBox2 As Guna.UI.WinForms.GunaGroupBox
+    Friend WithEvents GunaLabel12 As Guna.UI.WinForms.GunaLabel
+    Friend WithEvents GunaLabel11 As Guna.UI.WinForms.GunaLabel
+    Friend WithEvents GunaButtonAjouter As Guna.UI.WinForms.GunaButton
+    Friend WithEvents GunaComboBoxUtilisateurMultiple As Guna.UI.WinForms.GunaComboBox
+    Friend WithEvents GunaComboBoxProfilsUtilisateurMultiple As Guna.UI.WinForms.GunaComboBox
+    Friend WithEvents GunaDataGridViewProfilList As Guna.UI.WinForms.GunaDataGridView
+    Friend WithEvents GunaContextMenuStripDeleteMultipleProfil As Guna.UI.WinForms.GunaContextMenuStrip
+    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents GunaCheckBoxMarketing As Guna.UI.WinForms.GunaCheckBox
+    Friend WithEvents GunaCheckBoxMarkDash As Guna.UI.WinForms.GunaCheckBox
+    Friend WithEvents GunaCheckBoxMarkElite As Guna.UI.WinForms.GunaCheckBox
+    Friend WithEvents GunaCheckBoxMarkMessage As Guna.UI.WinForms.GunaCheckBox
+    Friend WithEvents GunaCheckBoxMarkCardex As Guna.UI.WinForms.GunaCheckBox
+    Friend WithEvents GunaCheckBoxMarkPlannification As Guna.UI.WinForms.GunaCheckBox
+    Friend WithEvents GunaCheckBoxMarkRapports As Guna.UI.WinForms.GunaCheckBox
 End Class

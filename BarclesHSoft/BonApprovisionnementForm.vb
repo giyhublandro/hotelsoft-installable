@@ -141,16 +141,12 @@ Public Class BonApprovisionnementForm
         Dim infoSupMagCentrale As DataTable
         Dim TYPE_MAGASIN As String = ""
 
-        If GlobalVariable.actualLanguageValue = 0 Then
+        TYPE_MAGASIN = "Main storage"
 
-            TYPE_MAGASIN = "Main storage"
+        infoSupMagCentrale = Functions.getElementByCode(TYPE_MAGASIN, "magasin", "TYPE_MAGASIN")
 
-            infoSupMagCentrale = Functions.getElementByCode(TYPE_MAGASIN, "magasin", "TYPE_MAGASIN")
-
-            If infoSupMagCentrale.Rows.Count > 0 Then
-                CODE_MAGASIN = infoSupMagCentrale.Rows(0)("CODE_MAGASIN")
-            End If
-
+        If infoSupMagCentrale.Rows.Count > 0 Then
+            CODE_MAGASIN = infoSupMagCentrale.Rows(0)("CODE_MAGASIN")
         Else
 
             TYPE_MAGASIN = "Magasin central"
@@ -161,7 +157,6 @@ Public Class BonApprovisionnementForm
             End If
 
         End If
-        '---------------------------------------
 
         Dim COUT_DU_STOCK As Double = 0
 
@@ -443,7 +438,7 @@ Public Class BonApprovisionnementForm
 
         If GunaButtonEnregistrer.Text = "Emettre" Or GunaButtonEnregistrer.Text = "Emit" Then
 
-            If GunaComboBoxTypeBordereau.SelectedItem = "Store Requisition" Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.bon_approvisi Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.list_du_marche Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = "Market List" Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.sortie_exceptionnelle Then
+            If GunaComboBoxTypeBordereau.SelectedItem = "Store Requisition" Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.transfert_inter Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.list_du_marche Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = "Market List" Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.sortie_exceptionnelle Then
 
                 If GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.list_du_marche Then
 
@@ -1422,7 +1417,7 @@ Public Class BonApprovisionnementForm
         GunaTextBoxTiers.Text = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
         GunaTextBoxNomTiers.Text = GlobalVariable.ConnectedUser.Rows(0)("NOM_UTILISATEUR")
 
-        If Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.bon_approvisi Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = "Store Requisition" Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = "Market List" Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.list_du_marche Then
+        If Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.transfert_inter Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = "Store Requisition" Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = "Market List" Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.list_du_marche Then
 
             If GlobalVariable.actualLanguageValue = 0 Then
 
@@ -1434,8 +1429,8 @@ Public Class BonApprovisionnementForm
 
             ElseIf GlobalVariable.actualLanguageValue = 1 Then
 
-                If Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.bon_approvisi Then
-                    INDICE = "BA"
+                If Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.transfert_inter Then
+                    INDICE = "TIM"
                 ElseIf Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.list_du_marche Then
                     INDICE = "LM"
                 End If

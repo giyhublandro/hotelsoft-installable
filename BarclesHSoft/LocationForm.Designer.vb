@@ -25,6 +25,7 @@ Partial Class LocationForm
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(LocationForm))
         Me.GunaPanel1 = New Guna.UI.WinForms.GunaPanel()
+        Me.GunaImageButton5 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaImageButton4 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaImageButton3 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaImageButton2 = New Guna.UI.WinForms.GunaImageButton()
@@ -43,7 +44,6 @@ Partial Class LocationForm
         Me.GunaLabel3 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaTextBox1 = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaLabel2 = New Guna.UI.WinForms.GunaLabel()
-        Me.GunaImageButton5 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaPanel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -63,6 +63,19 @@ Partial Class LocationForm
         Me.GunaPanel1.Name = "GunaPanel1"
         Me.GunaPanel1.Size = New System.Drawing.Size(934, 25)
         Me.GunaPanel1.TabIndex = 1
+        '
+        'GunaImageButton5
+        '
+        Me.GunaImageButton5.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.GunaImageButton5.DialogResult = System.Windows.Forms.DialogResult.None
+        Me.GunaImageButton5.Image = CType(resources.GetObject("GunaImageButton5.Image"), System.Drawing.Image)
+        Me.GunaImageButton5.ImageSize = New System.Drawing.Size(20, 20)
+        Me.GunaImageButton5.Location = New System.Drawing.Point(899, 2)
+        Me.GunaImageButton5.Name = "GunaImageButton5"
+        Me.GunaImageButton5.OnHoverImage = Nothing
+        Me.GunaImageButton5.OnHoverImageOffset = New System.Drawing.Point(0, 0)
+        Me.GunaImageButton5.Size = New System.Drawing.Size(27, 21)
+        Me.GunaImageButton5.TabIndex = 9
         '
         'GunaImageButton4
         '
@@ -308,19 +321,6 @@ Partial Class LocationForm
         Me.GunaLabel2.Size = New System.Drawing.Size(39, 17)
         Me.GunaLabel2.TabIndex = 25
         Me.GunaLabel2.Text = "Code"
-        '
-        'GunaImageButton5
-        '
-        Me.GunaImageButton5.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.GunaImageButton5.DialogResult = System.Windows.Forms.DialogResult.None
-        Me.GunaImageButton5.Image = CType(resources.GetObject("GunaImageButton5.Image"), System.Drawing.Image)
-        Me.GunaImageButton5.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaImageButton5.Location = New System.Drawing.Point(899, 2)
-        Me.GunaImageButton5.Name = "GunaImageButton5"
-        Me.GunaImageButton5.OnHoverImage = Nothing
-        Me.GunaImageButton5.OnHoverImageOffset = New System.Drawing.Point(0, 0)
-        Me.GunaImageButton5.Size = New System.Drawing.Size(27, 21)
-        Me.GunaImageButton5.TabIndex = 9
         '
         'LocationForm
         '

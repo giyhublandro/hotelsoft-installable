@@ -67,6 +67,7 @@ Public Class MainWindowComptabiliteForm
 
         Dim language As New Languages()
         language.comptabiliteForm(GlobalVariable.actualLanguageValue)
+        language.side_menu_compabilite(GlobalVariable.actualLanguageValue)
 
         GunaComboBoxTypeCaution.SelectedIndex = 0
 
@@ -99,7 +100,6 @@ Public Class MainWindowComptabiliteForm
             GunaLabelTabEncours.Text = "LIST OF ACCOUNTS"
         End If
 
-
         If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("FISCALITE") = 0 Then
             GunaCheckBoxFiscalite.Visible = False
         Else
@@ -108,6 +108,17 @@ Public Class MainWindowComptabiliteForm
         End If
 
         Functions.RetablissementDesResteAPayerNegatifEnPositif()
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 1 Then
+            ReceptionToolStripMenuItem.Visible = False
+            RESERVATIONToolStripMenuItem.Visible = False
+            SERVICEDETAGEToolStripMenuItem.Visible = False
+            TECHNIQUEToolStripMenuItem.Visible = False
+            ToolStripMenuItemServTech.Visible = False
+        End If
+
+        GunaComboBoxTypeCompte.SelectedIndex = 0
+        GunaComboBoxSensSolde.SelectedIndex = 0
 
     End Sub
 
@@ -181,7 +192,7 @@ Public Class MainWindowComptabiliteForm
         TabControlComptabilite.SelectedIndex = 1
     End Sub
 
-    Private Sub GunaAdvenceButton10_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButton2.Click
+    Private Sub GunaAdvenceButton10_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButtonAgedBillsButton.Click
         TabControlComptabilite.SelectedIndex = 2
     End Sub
 
@@ -757,7 +768,7 @@ Public Class MainWindowComptabiliteForm
         NotificationsForm.TopMost = True
         NotificationsForm.Show()
 
-        NotificationsForm.GunaLabelNomDuNettoyeur.Text = "BOITE DE RECEPTION : MESSAGES NON LUS"
+        NotificationsForm.GunaLabelTitle.Text = "BOITE DE RECEPTION : MESSAGES NON LUS"
 
         NotificationsForm.TopMost = True
         NotificationsForm.Show()
@@ -1069,10 +1080,8 @@ Public Class MainWindowComptabiliteForm
     Private Sub GunaAdvenceButtonRelance_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButtonRelance.Click
         If GlobalVariable.actualLanguageValue = 1 Then
             GunaLabelTabEncours.Text = "LETTRES DE RELANCE"
-
         Else
             GunaLabelTabEncours.Text = "REMINDER LETTERS"
-
         End If
 
         TabControlComptabilite.SelectedIndex = 6
@@ -1250,8 +1259,6 @@ Public Class MainWindowComptabiliteForm
 
         If listeDesFactures.Rows.Count > 0 Then
 
-
-
             If GlobalVariable.actualLanguageValue = 1 Then
                 GunaDataGridViewLettreDeRelance.Columns.Add("REFERENCE_LETTRE", "REFERENCE")
                 GunaDataGridViewLettreDeRelance.Columns.Add("DATE_LETTRE", "DATE FACTURE")
@@ -1263,89 +1270,92 @@ Public Class MainWindowComptabiliteForm
                 GunaDataGridViewLettreDeRelance.Columns.Add("LIBELLE_DELAI", "DELAI")
                 GunaDataGridViewLettreDeRelance.Columns.Add("RELANCE", "RELANCE FAITE")
             Else
-                GunaDataGridViewFacturesRegle.Columns.Add("REFERENCE_LETTRE", "REFERENCE")
-                GunaDataGridViewFacturesRegle.Columns.Add("DATE_LETTRE", "BILLING DATE")
-                GunaDataGridViewFacturesRegle.Columns.Add("LIBELLE_LETTRE", "NAME")
-                GunaDataGridViewFacturesRegle.Columns.Add("NOM_CLIENT", "CLIENT")
-                GunaDataGridViewFacturesRegle.Columns.Add("DEBIT_LETTRE", "DEBIT")
-                GunaDataGridViewFacturesRegle.Columns.Add("CREDIT_LETTRE", "CREDIT")
-                GunaDataGridViewFacturesRegle.Columns.Add("SOLDE_LETTRE", "BALANCE")
-                GunaDataGridViewFacturesRegle.Columns.Add("LIBELLE_DELAI", "DEADLINE")
-                GunaDataGridViewFacturesRegle.Columns.Add("RELANCE", "REMINDED")
+                GunaDataGridViewLettreDeRelance.Columns.Add("REFERENCE_LETTRE", "REFERENCE")
+                GunaDataGridViewLettreDeRelance.Columns.Add("DATE_LETTRE", "BILLING DATE")
+                GunaDataGridViewLettreDeRelance.Columns.Add("LIBELLE_LETTRE", "NAME")
+                GunaDataGridViewLettreDeRelance.Columns.Add("NOM_CLIENT", "CLIENT")
+                GunaDataGridViewLettreDeRelance.Columns.Add("DEBIT_LETTRE", "DEBIT")
+                GunaDataGridViewLettreDeRelance.Columns.Add("CREDIT_LETTRE", "CREDIT")
+                GunaDataGridViewLettreDeRelance.Columns.Add("SOLDE_LETTRE", "BALANCE")
+                GunaDataGridViewLettreDeRelance.Columns.Add("LIBELLE_DELAI", "DEADLINE")
+                GunaDataGridViewLettreDeRelance.Columns.Add("RELANCE", "REMINDED")
             End If
 
             Dim DATE_DU_JOUR As Date = CDate(GlobalVariable.DateDeTravail).ToShortDateString
 
-            For i = 0 To listeDesFactures.Rows.Count - 1
+            If listeDesFactures.Rows.Count > 0 Then
 
-                Dim DATE_CREATION_FACTURE As Date = CDate(listeDesFactures.Rows(i)("DATE")).ToShortDateString
+                For i = 0 To listeDesFactures.Rows.Count - 1
 
-                NombreDeJourPasse = DateDiff(DateInterval.Day, DATE_CREATION_FACTURE, DATE_DU_JOUR)
+                    Dim DATE_CREATION_FACTURE As Date = CDate(listeDesFactures.Rows(i)("DATE")).ToShortDateString
 
-                Dim JOUR As String = "jour"
+                    NombreDeJourPasse = DateDiff(DateInterval.Day, DATE_CREATION_FACTURE, DATE_DU_JOUR)
 
-                Dim RELANCE As String = "NON"
+                    Dim JOUR As String = "jour"
 
-                If GlobalVariable.actualLanguageValue = 0 Then
-                    JOUR = "day"
-                    RELANCE = "NO"
-                End If
+                    Dim RELANCE As String = "NON"
 
-                If listeDesFactures.Rows(i)("RELANCE") = 1 Then
-                    RELANCE = "OUI"
-                End If
-
-                If listeDesFactures.Rows(i)("DELAI") > 1 Then
-                    JOUR = "jours"
                     If GlobalVariable.actualLanguageValue = 0 Then
-                        JOUR = "days"
-                    End If
-                End If
-
-                'SI LE NOMBRE DE JOUR PASSE EST SUPERIEUR AU DELAI ALORS IL DOIT ETRE RELANCE
-                If NombreDeJourPasse >= listeDesFactures.Rows(i)("DELAI") Then
-
-                    Dim SOLDE As Double = listeDesFactures.Rows(i)("MONTANT SOLDE") - listeDesFactures.Rows(i)("MONTANT")
-
-                    'ON NE DOIT PAS AFFICHER LES FACTURES REGLES
-                    If SOLDE < 0 Then
-
-                        GunaDataGridViewLettreDeRelance.Rows.Add(listeDesFactures.Rows(i)("REFERENCE"), Date.Parse(listeDesFactures.Rows(i)("DATE")).ToShortDateString, listeDesFactures.Rows(i)("LIBELLE"), listeDesFactures.Rows(i)("ENTREPRISE"), listeDesFactures.Rows(i)("MONTANT"), listeDesFactures.Rows(i)("MONTANT SOLDE"), SOLDE, listeDesFactures.Rows(i)("DELAI") & " " & JOUR, RELANCE)
-
+                        JOUR = "day"
+                        RELANCE = "NO"
                     End If
 
-                End If
+                    If listeDesFactures.Rows(i)("RELANCE") = 1 Then
+                        RELANCE = "OUI"
+                    End If
 
-            Next
+                    If listeDesFactures.Rows(i)("DELAI") > 1 Then
+                        JOUR = "jours"
+                        If GlobalVariable.actualLanguageValue = 0 Then
+                            JOUR = "days"
+                        End If
+                    End If
 
-            GunaDataGridViewLettreDeRelance.DefaultCellStyle.SelectionBackColor = Color.BlueViolet
-            GunaDataGridViewLettreDeRelance.DefaultCellStyle.SelectionForeColor = Color.White
+                    'SI LE NOMBRE DE JOUR PASSE EST SUPERIEUR AU DELAI ALORS IL DOIT ETRE RELANCE
+                    If NombreDeJourPasse >= listeDesFactures.Rows(i)("DELAI") Then
 
-            GunaDataGridViewLettreDeRelance.Columns("LIBELLE_LETTRE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
+                        Dim SOLDE As Double = listeDesFactures.Rows(i)("MONTANT SOLDE") - listeDesFactures.Rows(i)("MONTANT")
 
-            GunaDataGridViewLettreDeRelance.Columns("LIBELLE_DELAI").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                        'ON NE DOIT PAS AFFICHER LES FACTURES REGLES
+                        If SOLDE < 0 Then
 
-            GunaDataGridViewLettreDeRelance.Columns("NOM_CLIENT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                            GunaDataGridViewLettreDeRelance.Rows.Add(listeDesFactures.Rows(i)("REFERENCE"), Date.Parse(listeDesFactures.Rows(i)("DATE")).ToShortDateString, listeDesFactures.Rows(i)("LIBELLE"), listeDesFactures.Rows(i)("ENTREPRISE"), listeDesFactures.Rows(i)("MONTANT"), listeDesFactures.Rows(i)("MONTANT SOLDE"), SOLDE, listeDesFactures.Rows(i)("DELAI") & " " & JOUR, RELANCE)
 
-            GunaDataGridViewLettreDeRelance.Columns("DEBIT_LETTRE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            GunaDataGridViewLettreDeRelance.Columns("DEBIT_LETTRE").DefaultCellStyle.Format = "#,##0"
+                        End If
 
-            GunaDataGridViewLettreDeRelance.Columns("CREDIT_LETTRE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            GunaDataGridViewLettreDeRelance.Columns("CREDIT_LETTRE").DefaultCellStyle.Format = "#,##0"
+                    End If
 
-            GunaDataGridViewLettreDeRelance.Columns("SOLDE_LETTRE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            GunaDataGridViewLettreDeRelance.Columns("SOLDE_LETTRE").DefaultCellStyle.Format = "#,##0"
+                Next
 
-            GunaDataGridViewLettreDeRelance.Columns("RELANCE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                GunaDataGridViewLettreDeRelance.DefaultCellStyle.SelectionBackColor = Color.BlueViolet
+                GunaDataGridViewLettreDeRelance.DefaultCellStyle.SelectionForeColor = Color.White
+
+                GunaDataGridViewLettreDeRelance.Columns("LIBELLE_LETTRE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
+
+                GunaDataGridViewLettreDeRelance.Columns("LIBELLE_DELAI").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+
+                GunaDataGridViewLettreDeRelance.Columns("NOM_CLIENT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+
+                GunaDataGridViewLettreDeRelance.Columns("DEBIT_LETTRE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                GunaDataGridViewLettreDeRelance.Columns("DEBIT_LETTRE").DefaultCellStyle.Format = "#,##0"
+
+                GunaDataGridViewLettreDeRelance.Columns("CREDIT_LETTRE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                GunaDataGridViewLettreDeRelance.Columns("CREDIT_LETTRE").DefaultCellStyle.Format = "#,##0"
+
+                GunaDataGridViewLettreDeRelance.Columns("SOLDE_LETTRE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                GunaDataGridViewLettreDeRelance.Columns("SOLDE_LETTRE").DefaultCellStyle.Format = "#,##0"
+
+                GunaDataGridViewLettreDeRelance.Columns("RELANCE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+
+            End If
+
 
         Else
 
             If GlobalVariable.actualLanguageValue = 1 Then
                 MessageBox.Show("Aucune relance à faire en date du " & GlobalVariable.DateDeTravail, "Gestion des relances", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
             Else
                 MessageBox.Show("No reminder to do done on the " & GlobalVariable.DateDeTravail, "Reminder Management", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
             End If
 
         End If
@@ -1671,6 +1681,8 @@ Public Class MainWindowComptabiliteForm
     End Sub
 
     Private Sub GunaAdvenceButtonCaisse_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButtonCaisse.Click
+
+        GlobalVariable.grandeCaisse = ""
 
         'POUR VISUALISER LA CAISSE PRINCIAPLE IL FAUT AVOIR UN LE DOIT DE LECTURE
 
@@ -2050,7 +2062,7 @@ Public Class MainWindowComptabiliteForm
         End If
 
         If index = 1 Then
-            title = "FONDS SORTIES"
+            title = "JOURNAL DE SORTIE DE CAISSE" '"FONDS SORTIES"
 
             If GlobalVariable.actualLanguageValue = 0 Then
                 title = "CASH OUTFLOW"
@@ -2059,7 +2071,7 @@ Public Class MainWindowComptabiliteForm
             indexForPrint = 2
             Impression.listeDesOperations(GunaDataGridViewFonds, title, indexForPrint, "", dateAfficher & Now().ToString("hhmm"))
         ElseIf index = 2 Then
-            title = "FONDS ENTREES"
+            title = "JOURNAL DES ENTREES DE CAISSE" '"FONDS ENTREES"
             If GlobalVariable.actualLanguageValue = 0 Then
                 title = "CASH INFLOW"
             End If
@@ -2073,7 +2085,7 @@ Public Class MainWindowComptabiliteForm
             indexForPrint = 4
             Impression.listeDesOperations(GunaDataGridViewFonds, title, indexForPrint, "", dateAfficher & Now().ToString("hhmm"))
         ElseIf index = 4 Then
-            title = "TRANSACTIONS TERMINEES"
+            title = "JOURNAL DE CAISSE" '"TRANSACTIONS TERMINEES"
             If GlobalVariable.actualLanguageValue = 0 Then
                 title = "COMPLETETED TRANSACTIONS"
             End If
@@ -2285,6 +2297,8 @@ Public Class MainWindowComptabiliteForm
 
         DataGridViewListeDesComptes.DataSource = account.listeDesComptesActifOuPasParCritere(ETAT_DU_COMPTE, CRITERE, CRITERE_VALUE)
 
+        'rechercherDeCompteParFiltre(CRITERE, CRITERE_VALUE)
+
         If DataGridViewListeDesComptes.Rows.Count > 0 Then
 
             DataGridViewListeDesComptes.Columns(0).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
@@ -2478,4 +2492,98 @@ Public Class MainWindowComptabiliteForm
 
     End Sub
 
+    Private Sub GunaButtonFactureAgees_Click(sender As Object, e As EventArgs) Handles GunaButtonFactureAgees.Click
+
+        Dim getUserQuery As String = "SELECT DISTINCT CODE_CLIENT FROM `facture` WHERE RESTE_A_PAYER > 0"
+
+        Dim Command As New MySqlCommand(getUserQuery, GlobalVariable.connect)
+
+        Dim adapter As New MySqlDataAdapter(Command)
+        Dim table As New DataTable()
+
+        adapter.Fill(table)
+
+        Dim compte As New Compte()
+
+        Dim tailleDuTableau As Integer = table.Rows.Count
+
+        Dim agedBill(tailleDuTableau) As Compte.FactureAgees
+        agedBill = compte.facturesAgees()
+
+        GunaDataGridViewFactureAgee.Columns.Clear()
+
+        If GlobalVariable.actualLanguageValue = 0 Then
+            GunaDataGridViewFactureAgee.Columns.Add("DEBTOR", "DEBTOR")
+            GunaDataGridViewFactureAgee.Columns.Add("TOTAL", "TOTAL")
+            GunaDataGridViewFactureAgee.Columns.Add("ON GOING", "ON GOING")
+            GunaDataGridViewFactureAgee.Columns.Add("V1", "D <= 31")
+            GunaDataGridViewFactureAgee.Columns.Add("V2", "D <= 60")
+            GunaDataGridViewFactureAgee.Columns.Add("V3", "D <= 90")
+            GunaDataGridViewFactureAgee.Columns.Add("V4", "D <= 121")
+            GunaDataGridViewFactureAgee.Columns.Add("V5", "D > 121")
+        Else
+            GunaDataGridViewFactureAgee.Columns.Add("DEBITEUR", "DEBITEUR")
+            GunaDataGridViewFactureAgee.Columns.Add("TOTAL", "TOTAL")
+            GunaDataGridViewFactureAgee.Columns.Add("EN COURS", "EN COURS")
+            GunaDataGridViewFactureAgee.Columns.Add("V1", "J <= 31")
+            GunaDataGridViewFactureAgee.Columns.Add("V2", "J <= 60")
+            GunaDataGridViewFactureAgee.Columns.Add("V3", "J <= 90")
+            GunaDataGridViewFactureAgee.Columns.Add("V4", "J <= 121")
+            GunaDataGridViewFactureAgee.Columns.Add("V5", "J > 121")
+        End If
+
+        If GunaDataGridViewFactureAgee.Rows.Count > 0 Then
+
+            For i = 0 To agedBill.Length - 1
+                GunaDataGridViewFactureAgee.Rows.Add(agedBill(i).debiteur, Format(agedBill(i).total, "#,##0"), Format(agedBill(i).v0, "#,##0"), Format(agedBill(i).v1, "#,##0"), Format(agedBill(i).v2, "#,##0"), Format(agedBill(i).v3, "#,##0"), Format(agedBill(i).v4, "#,##0"), Format(agedBill(i).v5, "#,##0"))
+            Next
+
+            GunaButton15.Visible = True
+
+            GunaDataGridViewFactureAgee.Columns(0).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
+            GunaDataGridViewFactureAgee.Columns(1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            GunaDataGridViewFactureAgee.Columns(2).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            GunaDataGridViewFactureAgee.Columns(3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            GunaDataGridViewFactureAgee.Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            GunaDataGridViewFactureAgee.Columns(5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            GunaDataGridViewFactureAgee.Columns(6).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            GunaDataGridViewFactureAgee.Columns(7).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+            'GunaDataGridViewFactureAgee.Columns("SOLDE").DefaultCellStyle.Format = "#,##0"
+        Else
+            GunaButton15.Visible = False
+        End If
+
+    End Sub
+
+    Private Sub GunaButton15_Click(sender As Object, e As EventArgs) Handles GunaButton15.Click
+
+        If True Then
+
+        End If
+
+        Impression.printAgedBills(GunaDataGridViewFactureAgee, GunaLabelTabEncours.Text)
+
+    End Sub
+
+    Dim add As Integer = 1
+
+    Private Sub GunaTextBox8_TextChanged(sender As Object, e As EventArgs) Handles GunaTextBox8.TextChanged
+
+        Dim Facture As New Facture()
+
+        If True Then
+            Dim DateDeTravail As Date = GlobalVariable.DateDeTravail
+            Dim CRITERE As String = "LIBELLE_FACTURE"
+            Dim CRITERE_VALUE As String = GunaTextBox8.Text
+
+            'Dim listeDesFactures As DataTable =
+            'GunaDataGridView1.DataSource = Facture.lettreDeRelanceLike(DateDeTravail, CRITERE, CRITERE_VALUE)
+        End If
+
+        If Not Trim(GunaTextBox8.Text).Equals("") Then
+
+        End If
+
+    End Sub
 End Class

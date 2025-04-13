@@ -194,7 +194,6 @@ Public Class SourceReservation
             Dim paramCouleur() As String
 
             If Trim(colorString.ToString).Equals("") Then
-                'GunaTextBoxColoration.BaseColor = Color.Red
                 GunaTextBoxBgColoration.BaseColor = Color.FromArgb(255, 64, 0, 128)
             Else
                 paramCouleur = Functions.returningColorFromString(colorString)
@@ -204,11 +203,9 @@ Public Class SourceReservation
                 Else
                     GunaTextBoxBgColoration.BaseColor = Color.FromArgb(Integer.Parse(paramCouleur(0)), Integer.Parse(paramCouleur(1)), Integer.Parse(paramCouleur(2)), Integer.Parse(paramCouleur(3)))
                 End If
-
             End If
 
             If Trim(colorForeString.ToString).Equals("") Then
-                'GunaTextBoxColoration.BaseColor = Color.Red
                 GunaTextBoxBgColoration.BaseColor = Color.FromArgb(255, 64, 0, 128)
             Else
                 paramCouleur = Functions.returningColorFromString(colorForeString)

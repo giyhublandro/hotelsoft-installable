@@ -78,28 +78,6 @@ Public Class RoomForm
 
         GunaComboBoxEtatChambre.Items.Clear()
 
-        If GlobalVariable.actualLanguageValue = 0 Then
-
-            'GunaComboBoxEtatChambre.Items.Add("Occupied dirty")
-            'GunaComboBoxEtatChambre.Items.Add("Occupied clean")
-            'GunaComboBoxEtatChambre.Items.Add("Free dirty")
-            'GunaComboBoxEtatChambre.Items.Add("Free clean")
-            'GunaComboBoxEtatChambre.Items.Add("Reserved")
-            'GunaComboBoxEtatChambre.Items.Add("Out of service")
-
-            'GunaComboBoxEtatChambre.Items.Add(GlobalVariable.occupee_sale)
-            'GunaComboBoxEtatChambre.Items.Add(GlobalVariable.occupee_propre)
-            'GunaComboBoxEtatChambre.Items.Add(GlobalVariable.libre_sale)
-            'GunaComboBoxEtatChambre.Items.Add(GlobalVariable.libre_propre)
-            'GunaComboBoxEtatChambre.Items.Add(GlobalVariable.reserver)
-            'GunaComboBoxEtatChambre.Items.Add(GlobalVariable.hors_service)
-
-        Else
-
-
-
-        End If
-
         GunaComboBoxEtatChambre.Items.Add(GlobalVariable.occupee_sale)
         GunaComboBoxEtatChambre.Items.Add(GlobalVariable.occupee_propre)
         GunaComboBoxEtatChambre.Items.Add(GlobalVariable.libre_sale)
@@ -152,7 +130,11 @@ Public Class RoomForm
             'Si code de chambre n'existe pas alors on efface toute les informations le concernant
             If Trim(MainWindow.GunaTextBoxNumeroChambre.Text).Equals("") Then
 
-                MainWindow.GunaTextBoxLibelleChambre.Clear()
+                If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                    MainWindow.GunaTextBoxLibelleChambre.Clear()
+                Else
+                    RestaurantBookingForm.GunaTextBoxLibelleChambre.Clear()
+                End If
 
                 DataGridViewRoomListe.Visible = True
 
@@ -162,6 +144,10 @@ Public Class RoomForm
 
             'Dim query As String = "SELECT CODE_CHAMBRE AS 'CODE CHAMBRE', ETAT_CHAMBRE_NOTE As 'ETAT CHAMBRE',LIBELLE_CHAMBRE AS 'LIBELLE', PRIX, CODE_TYPE_CHAMBRE As 'CODE TYPE CHAMBRE',LOCALISATION, DATE_CREATION AS 'DATE CREATION',GUEST_DAI As'COMMENTAIRE' From chambre WHERE ETAT_CHAMBRE = 0 AND CODE_TYPE_CHAMBRE=@CODE_TYPE_CHAMBRE AND CODE_AGENCE= @CODE_AGENCE AND TYPE=@TYPE AND ETAT_CHAMBRE_NOTE=@ETAT_CHAMBRE_NOTE OR ETAT_CHAMBRE = 0 AND CODE_TYPE_CHAMBRE=@CODE_TYPE_CHAMBRE AND CODE_AGENCE= @CODE_AGENCE AND TYPE=@TYPE AND ETAT_CHAMBRE_NOTE=@ETAT_CHAMBRE_NOTE2 ORDER BY CODE_CHAMBRE ASC"
             Dim query As String = "SELECT CODE_CHAMBRE AS 'CODE CHAMBRE', ETAT_CHAMBRE_NOTE As 'ETAT CHAMBRE',LIBELLE_CHAMBRE AS 'LIBELLE', PRIX, CODE_TYPE_CHAMBRE As 'CODE TYPE CHAMBRE',LOCALISATION, DATE_CREATION AS 'DATE CREATION', GUEST_DAI AS 'COMMENTAIRE' FROM chambre WHERE ETAT_CHAMBRE = 0 AND CODE_TYPE_CHAMBRE=@CODE_TYPE_CHAMBRE AND CODE_AGENCE= @CODE_AGENCE AND TYPE=@TYPE_ AND ETAT_CHAMBRE_NOTE=@ETAT_CHAMBRE_NOTE ORDER BY CODE_CHAMBRE ASC"
+
+            If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 1 Then
+                query = "SELECT CODE_CHAMBRE AS 'CODE CHAMBRE', ETAT_CHAMBRE_NOTE As 'ETAT CHAMBRE',LIBELLE_CHAMBRE AS 'LIBELLE', PRIX, CODE_TYPE_CHAMBRE As 'CODE TYPE CHAMBRE',LOCALISATION, DATE_CREATION AS 'DATE CREATION', GUEST_DAI AS 'COMMENTAIRE' FROM chambre WHERE ETAT_CHAMBRE = 0 AND CODE_TYPE_CHAMBRE=@CODE_TYPE_CHAMBRE AND CODE_AGENCE= @CODE_AGENCE AND TYPE=@TYPE_  ORDER BY CODE_CHAMBRE ASC"
+            End If
 
             Dim command1 As New MySqlCommand(query, GlobalVariable.connect)
             'command.Parameters.Add("@ETAT_CHAMBRE_NOTE", MySqlDbType.VarChar).Value = GlobalVariable.libre_propre
@@ -189,27 +175,6 @@ Public Class RoomForm
                 DataGridViewRoomListe.DefaultCellStyle.SelectionForeColor = Color.White
                 DataGridViewRoomListe.Columns("PRIX").DefaultCellStyle.Format = "#,##0"
                 DataGridViewRoomListe.Columns("PRIX").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
-                'For i = 0 To DataGridViewRoomListe.Rows.Count - 1
-
-                'If DataGridViewRoomListe.Rows(i).Cells("ETAT CHAMBRE").Value = GlobalVariable.libre_propre Then
-                'DataGridViewRoomListe.Rows(i).DefaultCellStyle.BackColor = Color.Green
-                'DataGridViewRoomListe.Rows(i).DefaultCellStyle.ForeColor = Color.White
-                'ElseIf DataGridViewRoomListe.Rows(i).Cells("ETAT CHAMBRE").Value = GlobalVariable.libre_sale Then
-                'DataGridViewRoomListe.Rows(i).DefaultCellStyle.BackColor = Color.Red
-                'DataGridViewRoomListe.Rows(i).DefaultCellStyle.ForeColor = Color.White
-                'ElseIf DataGridViewRoomListe.Rows(i).Cells("ETAT CHAMBRE").Value = GlobalVariable.occupee_propre Then
-                'DataGridViewRoomListe.Rows(i).DefaultCellStyle.BackColor = Color.Green
-                'DataGridViewRoomListe.Rows(i).DefaultCellStyle.ForeColor = Color.White
-                'ElseIf DataGridViewRoomListe.Rows(i).Cells("ETAT CHAMBRE").Value = GlobalVariable.occupee_sale Then
-                'DataGridViewRoomListe.Rows(i).DefaultCellStyle.BackColor = Color.Red
-                'DataGridViewRoomListe.Rows(i).DefaultCellStyle.ForeColor = Color.White
-                'ElseIf DataGridViewRoomListe.Rows(i).Cells("ETAT CHAMBRE").Value = GlobalVariable.hors_service Then
-                'DataGridViewRoomListe.Rows(i).DefaultCellStyle.BackColor = Color.Black
-                'DataGridViewRoomListe.Rows(i).DefaultCellStyle.ForeColor = Color.White
-                'End If
-
-                'Next
 
             Else
 
@@ -258,23 +223,6 @@ Public Class RoomForm
                     Else
                         DataGridViewRoomListe.Rows(i).DefaultCellStyle.BackColor = Color.White
                     End If
-
-                    'If DataGridViewRoomListe.Rows(i).Cells("ETAT CHAMBRE").Value = GlobalVariable.libre_propre Then
-                    'DataGridViewRoomListe.Rows(i).DefaultCellStyle.BackColor = Color.Green
-                    'DataGridViewRoomListe.Rows(i).DefaultCellStyle.ForeColor = Color.White
-                    'ElseIf DataGridViewRoomListe.Rows(i).Cells("ETAT CHAMBRE").Value = GlobalVariable.libre_sale Then
-                    'DataGridViewRoomListe.Rows(i).DefaultCellStyle.BackColor = Color.Red
-                    'DataGridViewRoomListe.Rows(i).DefaultCellStyle.ForeColor = Color.White
-                    'ElseIf DataGridViewRoomListe.Rows(i).Cells("ETAT CHAMBRE").Value = GlobalVariable.occupee_propre Then
-                    'DataGridViewRoomListe.Rows(i).DefaultCellStyle.BackColor = Color.Green
-                    'DataGridViewRoomListe.Rows(i).DefaultCellStyle.ForeColor = Color.White
-                    'ElseIf DataGridViewRoomListe.Rows(i).Cells("ETAT CHAMBRE").Value = GlobalVariable.occupee_sale Then
-                    'DataGridViewRoomListe.Rows(i).DefaultCellStyle.BackColor = Color.Red
-                    'DataGridViewRoomListe.Rows(i).DefaultCellStyle.ForeColor = Color.White
-                    'ElseIf DataGridViewRoomListe.Rows(i).Cells("ETAT CHAMBRE").Value = GlobalVariable.hors_service Then
-                    'DataGridViewRoomListe.Rows(i).DefaultCellStyle.BackColor = Color.Black
-                    'DataGridViewRoomListe.Rows(i).DefaultCellStyle.ForeColor = Color.White
-                    'End If
 
                 Next
 
@@ -343,16 +291,15 @@ Public Class RoomForm
         Dim CODE_MOTIF As String = ""
         Dim MOTIF As String = ""
 
-        If Not ETAT_CHAMBRE_NOTE = GlobalVariable.hors_service Then
-            ETAT_CHAMBRE = 0
-        Else
-
+        If ETAT_CHAMBRE_NOTE = GlobalVariable.hors_service Then
             CODE_MOTIF = Functions.GeneratingRandomCode("motif_hors_service", "")
 
             If GunaComboBoxMotifHS.SelectedIndex >= 0 Then
                 MOTIF = GunaComboBoxMotifHS.SelectedItem
             End If
 
+        Else
+            ETAT_CHAMBRE = 0
         End If
 
         Dim LOCALISATION = GunaTextBoxLocalisation.Text
@@ -555,7 +502,11 @@ Public Class RoomForm
                 'We set back the diasbled values after checkin or save
                 GlobalVariable.chambreOuSalleFromFrontDesk = row.Cells("CODE CHAMBRE").Value.ToString
 
-                MainWindow.MainWindowManualActivation()
+                If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                    MainWindow.MainWindowManualActivation()
+                Else
+                    RestaurantBookingForm.MainWindowManualActivation()
+                End If
 
                 DataGridViewRoomListe.Columns.Clear()
 

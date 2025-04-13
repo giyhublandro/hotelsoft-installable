@@ -42,16 +42,17 @@ Partial Class AffectationHoraireAuPlanningForm
         Me.GunaButtonAppliquerTarifSpecifique = New Guna.UI.WinForms.GunaButton()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.GunaLinePanelTop = New Guna.UI.WinForms.GunaLinePanel()
+        Me.GunaTextBoxCodeDepart = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaImageButton3 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaImageButton2 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaLabel3 = New Guna.UI.WinForms.GunaLabel()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.GunaButtonTerminer = New Guna.UI.WinForms.GunaButton()
         Me.GunaDataGridViewPlanning = New Guna.UI.WinForms.GunaDataGridView()
-        Me.GunaLabel4 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaContextMenuStrip1 = New Guna.UI.WinForms.GunaContextMenuStrip()
         Me.SupprimerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GunaButtonTerminer = New Guna.UI.WinForms.GunaButton()
+        Me.GunaLabel4 = New Guna.UI.WinForms.GunaLabel()
         Me.Panel5.SuspendLayout()
         Me.GunaLinePanelTop.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -73,7 +74,7 @@ Partial Class AffectationHoraireAuPlanningForm
         Me.GunaButtonEditionDeMasse.ForeColor = System.Drawing.Color.White
         Me.GunaButtonEditionDeMasse.Image = Nothing
         Me.GunaButtonEditionDeMasse.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonEditionDeMasse.Location = New System.Drawing.Point(856, 91)
+        Me.GunaButtonEditionDeMasse.Location = New System.Drawing.Point(867, 91)
         Me.GunaButtonEditionDeMasse.Name = "GunaButtonEditionDeMasse"
         Me.GunaButtonEditionDeMasse.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonEditionDeMasse.OnHoverBorderColor = System.Drawing.Color.Black
@@ -164,6 +165,7 @@ Partial Class AffectationHoraireAuPlanningForm
         Me.GunaLabel2.Size = New System.Drawing.Size(27, 19)
         Me.GunaLabel2.TabIndex = 33
         Me.GunaLabel2.Text = "Au"
+        Me.GunaLabel2.Visible = False
         '
         'GunaLabel1
         '
@@ -174,9 +176,11 @@ Partial Class AffectationHoraireAuPlanningForm
         Me.GunaLabel1.Size = New System.Drawing.Size(27, 19)
         Me.GunaLabel1.TabIndex = 31
         Me.GunaLabel1.Text = "Du"
+        Me.GunaLabel1.Visible = False
         '
         'GunaDateTimePickerDispoFin
         '
+        Me.GunaDateTimePickerDispoFin.BackColor = System.Drawing.Color.Transparent
         Me.GunaDateTimePickerDispoFin.BaseColor = System.Drawing.Color.White
         Me.GunaDateTimePickerDispoFin.BorderColor = System.Drawing.Color.LightGray
         Me.GunaDateTimePickerDispoFin.CustomFormat = Nothing
@@ -185,7 +189,7 @@ Partial Class AffectationHoraireAuPlanningForm
         Me.GunaDateTimePickerDispoFin.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.GunaDateTimePickerDispoFin.ForeColor = System.Drawing.Color.Black
         Me.GunaDateTimePickerDispoFin.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.GunaDateTimePickerDispoFin.Location = New System.Drawing.Point(760, 46)
+        Me.GunaDateTimePickerDispoFin.Location = New System.Drawing.Point(761, 43)
         Me.GunaDateTimePickerDispoFin.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.GunaDateTimePickerDispoFin.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.GunaDateTimePickerDispoFin.Name = "GunaDateTimePickerDispoFin"
@@ -198,9 +202,11 @@ Partial Class AffectationHoraireAuPlanningForm
         Me.GunaDateTimePickerDispoFin.TabIndex = 27
         Me.GunaDateTimePickerDispoFin.Text = "19/08/2022"
         Me.GunaDateTimePickerDispoFin.Value = New Date(2022, 8, 19, 14, 47, 25, 641)
+        Me.GunaDateTimePickerDispoFin.Visible = False
         '
         'GunaDateTimePickerDispoDebut
         '
+        Me.GunaDateTimePickerDispoDebut.BackColor = System.Drawing.Color.Transparent
         Me.GunaDateTimePickerDispoDebut.BaseColor = System.Drawing.Color.White
         Me.GunaDateTimePickerDispoDebut.BorderColor = System.Drawing.Color.LightGray
         Me.GunaDateTimePickerDispoDebut.CustomFormat = Nothing
@@ -209,7 +215,7 @@ Partial Class AffectationHoraireAuPlanningForm
         Me.GunaDateTimePickerDispoDebut.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.GunaDateTimePickerDispoDebut.ForeColor = System.Drawing.Color.Black
         Me.GunaDateTimePickerDispoDebut.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.GunaDateTimePickerDispoDebut.Location = New System.Drawing.Point(582, 46)
+        Me.GunaDateTimePickerDispoDebut.Location = New System.Drawing.Point(583, 43)
         Me.GunaDateTimePickerDispoDebut.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.GunaDateTimePickerDispoDebut.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.GunaDateTimePickerDispoDebut.Name = "GunaDateTimePickerDispoDebut"
@@ -220,8 +226,9 @@ Partial Class AffectationHoraireAuPlanningForm
         Me.GunaDateTimePickerDispoDebut.Radius = 5
         Me.GunaDateTimePickerDispoDebut.Size = New System.Drawing.Size(141, 30)
         Me.GunaDateTimePickerDispoDebut.TabIndex = 29
-        Me.GunaDateTimePickerDispoDebut.Text = "19/08/2022"
-        Me.GunaDateTimePickerDispoDebut.Value = New Date(2022, 8, 19, 14, 47, 25, 641)
+        Me.GunaDateTimePickerDispoDebut.Text = "04/11/2024"
+        Me.GunaDateTimePickerDispoDebut.Value = New Date(2024, 11, 4, 14, 47, 0, 0)
+        Me.GunaDateTimePickerDispoDebut.Visible = False
         '
         'GunaImageButton1
         '
@@ -299,6 +306,7 @@ Partial Class AffectationHoraireAuPlanningForm
         'GunaLinePanelTop
         '
         Me.GunaLinePanelTop.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
+        Me.GunaLinePanelTop.Controls.Add(Me.GunaTextBoxCodeDepart)
         Me.GunaLinePanelTop.Controls.Add(Me.GunaImageButton3)
         Me.GunaLinePanelTop.Controls.Add(Me.GunaTextBoxID_HORAIRE_PLANNING)
         Me.GunaLinePanelTop.Controls.Add(Me.GunaImageButton2)
@@ -314,6 +322,24 @@ Partial Class AffectationHoraireAuPlanningForm
         Me.GunaLinePanelTop.Name = "GunaLinePanelTop"
         Me.GunaLinePanelTop.Size = New System.Drawing.Size(1091, 33)
         Me.GunaLinePanelTop.TabIndex = 23
+        '
+        'GunaTextBoxCodeDepart
+        '
+        Me.GunaTextBoxCodeDepart.BaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxCodeDepart.BorderColor = System.Drawing.Color.Silver
+        Me.GunaTextBoxCodeDepart.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBoxCodeDepart.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxCodeDepart.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBoxCodeDepart.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBoxCodeDepart.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.GunaTextBoxCodeDepart.ForeColor = System.Drawing.Color.Black
+        Me.GunaTextBoxCodeDepart.Location = New System.Drawing.Point(829, 7)
+        Me.GunaTextBoxCodeDepart.Name = "GunaTextBoxCodeDepart"
+        Me.GunaTextBoxCodeDepart.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBoxCodeDepart.SelectedText = ""
+        Me.GunaTextBoxCodeDepart.Size = New System.Drawing.Size(141, 26)
+        Me.GunaTextBoxCodeDepart.TabIndex = 52
+        Me.GunaTextBoxCodeDepart.Visible = False
         '
         'GunaImageButton3
         '
@@ -382,34 +408,8 @@ Partial Class AffectationHoraireAuPlanningForm
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage1.Size = New System.Drawing.Size(1059, 422)
         Me.TabPage1.TabIndex = 0
-        Me.TabPage1.Text = "Affectation de d'Horaires"
+        Me.TabPage1.Text = "Affectation d'Horaires"
         Me.TabPage1.UseVisualStyleBackColor = True
-        '
-        'GunaButtonTerminer
-        '
-        Me.GunaButtonTerminer.AnimationHoverSpeed = 0.07!
-        Me.GunaButtonTerminer.AnimationSpeed = 0.03!
-        Me.GunaButtonTerminer.BackColor = System.Drawing.Color.Transparent
-        Me.GunaButtonTerminer.BaseColor = System.Drawing.Color.Indigo
-        Me.GunaButtonTerminer.BorderColor = System.Drawing.Color.Black
-        Me.GunaButtonTerminer.DialogResult = System.Windows.Forms.DialogResult.None
-        Me.GunaButtonTerminer.FocusedColor = System.Drawing.Color.Empty
-        Me.GunaButtonTerminer.Font = New System.Drawing.Font("Segoe UI", 12.0!)
-        Me.GunaButtonTerminer.ForeColor = System.Drawing.Color.White
-        Me.GunaButtonTerminer.Image = Nothing
-        Me.GunaButtonTerminer.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonTerminer.Location = New System.Drawing.Point(10, 96)
-        Me.GunaButtonTerminer.Name = "GunaButtonTerminer"
-        Me.GunaButtonTerminer.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaButtonTerminer.OnHoverBorderColor = System.Drawing.Color.Black
-        Me.GunaButtonTerminer.OnHoverForeColor = System.Drawing.Color.White
-        Me.GunaButtonTerminer.OnHoverImage = Nothing
-        Me.GunaButtonTerminer.OnPressedColor = System.Drawing.Color.Black
-        Me.GunaButtonTerminer.Radius = 5
-        Me.GunaButtonTerminer.Size = New System.Drawing.Size(103, 25)
-        Me.GunaButtonTerminer.TabIndex = 25
-        Me.GunaButtonTerminer.Text = "Terminer"
-        Me.GunaButtonTerminer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'GunaDataGridViewPlanning
         '
@@ -476,17 +476,6 @@ Partial Class AffectationHoraireAuPlanningForm
         Me.GunaDataGridViewPlanning.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewPlanning.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
         '
-        'GunaLabel4
-        '
-        Me.GunaLabel4.AutoSize = True
-        Me.GunaLabel4.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel4.Location = New System.Drawing.Point(409, 100)
-        Me.GunaLabel4.Name = "GunaLabel4"
-        Me.GunaLabel4.Size = New System.Drawing.Size(195, 21)
-        Me.GunaLabel4.TabIndex = 1
-        Me.GunaLabel4.Text = "LISTE DES AFFECTATIONS"
-        Me.GunaLabel4.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
         'GunaContextMenuStrip1
         '
         Me.GunaContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SupprimerToolStripMenuItem})
@@ -507,6 +496,43 @@ Partial Class AffectationHoraireAuPlanningForm
         Me.SupprimerToolStripMenuItem.Name = "SupprimerToolStripMenuItem"
         Me.SupprimerToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
         Me.SupprimerToolStripMenuItem.Text = "Supprimer"
+        '
+        'GunaButtonTerminer
+        '
+        Me.GunaButtonTerminer.AnimationHoverSpeed = 0.07!
+        Me.GunaButtonTerminer.AnimationSpeed = 0.03!
+        Me.GunaButtonTerminer.BackColor = System.Drawing.Color.Transparent
+        Me.GunaButtonTerminer.BaseColor = System.Drawing.Color.Indigo
+        Me.GunaButtonTerminer.BorderColor = System.Drawing.Color.Black
+        Me.GunaButtonTerminer.DialogResult = System.Windows.Forms.DialogResult.None
+        Me.GunaButtonTerminer.FocusedColor = System.Drawing.Color.Empty
+        Me.GunaButtonTerminer.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.GunaButtonTerminer.ForeColor = System.Drawing.Color.White
+        Me.GunaButtonTerminer.Image = Nothing
+        Me.GunaButtonTerminer.ImageSize = New System.Drawing.Size(20, 20)
+        Me.GunaButtonTerminer.Location = New System.Drawing.Point(10, 96)
+        Me.GunaButtonTerminer.Name = "GunaButtonTerminer"
+        Me.GunaButtonTerminer.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaButtonTerminer.OnHoverBorderColor = System.Drawing.Color.Black
+        Me.GunaButtonTerminer.OnHoverForeColor = System.Drawing.Color.White
+        Me.GunaButtonTerminer.OnHoverImage = Nothing
+        Me.GunaButtonTerminer.OnPressedColor = System.Drawing.Color.Black
+        Me.GunaButtonTerminer.Radius = 5
+        Me.GunaButtonTerminer.Size = New System.Drawing.Size(103, 25)
+        Me.GunaButtonTerminer.TabIndex = 25
+        Me.GunaButtonTerminer.Text = "Terminer"
+        Me.GunaButtonTerminer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'GunaLabel4
+        '
+        Me.GunaLabel4.AutoSize = True
+        Me.GunaLabel4.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaLabel4.Location = New System.Drawing.Point(409, 100)
+        Me.GunaLabel4.Name = "GunaLabel4"
+        Me.GunaLabel4.Size = New System.Drawing.Size(195, 21)
+        Me.GunaLabel4.TabIndex = 1
+        Me.GunaLabel4.Text = "LISTE DES AFFECTATIONS"
+        Me.GunaLabel4.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'AffectationHoraireAuPlanningForm
         '
@@ -558,4 +584,5 @@ Partial Class AffectationHoraireAuPlanningForm
     Friend WithEvents GunaLabel4 As Guna.UI.WinForms.GunaLabel
     Friend WithEvents GunaContextMenuStrip1 As Guna.UI.WinForms.GunaContextMenuStrip
     Friend WithEvents SupprimerToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents GunaTextBoxCodeDepart As Guna.UI.WinForms.GunaTextBox
 End Class

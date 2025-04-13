@@ -31,6 +31,7 @@ Partial Class TransfertDeClientEntreCaissierForm
         Me.GunaLinePanelTop = New Guna.UI.WinForms.GunaLinePanel()
         Me.GunaImageButton2 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaComboBoxUtilisateurDeCaisse = New Guna.UI.WinForms.GunaComboBox()
+        Me.GunaButton1 = New Guna.UI.WinForms.GunaButton()
         Me.GunaLinePanelTop.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -47,7 +48,7 @@ Partial Class TransfertDeClientEntreCaissierForm
         Me.GunaButtonEnregistrer.ForeColor = System.Drawing.Color.White
         Me.GunaButtonEnregistrer.Image = Nothing
         Me.GunaButtonEnregistrer.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonEnregistrer.Location = New System.Drawing.Point(290, 128)
+        Me.GunaButtonEnregistrer.Location = New System.Drawing.Point(250, 128)
         Me.GunaButtonEnregistrer.Name = "GunaButtonEnregistrer"
         Me.GunaButtonEnregistrer.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
         Me.GunaButtonEnregistrer.OnHoverBorderColor = System.Drawing.Color.Black
@@ -55,7 +56,7 @@ Partial Class TransfertDeClientEntreCaissierForm
         Me.GunaButtonEnregistrer.OnHoverImage = Nothing
         Me.GunaButtonEnregistrer.OnPressedColor = System.Drawing.Color.Black
         Me.GunaButtonEnregistrer.Radius = 4
-        Me.GunaButtonEnregistrer.Size = New System.Drawing.Size(98, 34)
+        Me.GunaButtonEnregistrer.Size = New System.Drawing.Size(138, 34)
         Me.GunaButtonEnregistrer.TabIndex = 18
         Me.GunaButtonEnregistrer.TabStop = False
         Me.GunaButtonEnregistrer.Text = "Transférer"
@@ -153,6 +154,33 @@ Partial Class TransfertDeClientEntreCaissierForm
         Me.GunaComboBoxUtilisateurDeCaisse.Size = New System.Drawing.Size(372, 32)
         Me.GunaComboBoxUtilisateurDeCaisse.TabIndex = 23
         '
+        'GunaButton1
+        '
+        Me.GunaButton1.AnimationHoverSpeed = 0.07!
+        Me.GunaButton1.AnimationSpeed = 0.03!
+        Me.GunaButton1.BackColor = System.Drawing.Color.Transparent
+        Me.GunaButton1.BaseColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
+        Me.GunaButton1.BorderColor = System.Drawing.Color.Black
+        Me.GunaButton1.DialogResult = System.Windows.Forms.DialogResult.None
+        Me.GunaButton1.FocusedColor = System.Drawing.Color.Empty
+        Me.GunaButton1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaButton1.ForeColor = System.Drawing.Color.White
+        Me.GunaButton1.Image = Nothing
+        Me.GunaButton1.ImageSize = New System.Drawing.Size(20, 20)
+        Me.GunaButton1.Location = New System.Drawing.Point(16, 128)
+        Me.GunaButton1.Name = "GunaButton1"
+        Me.GunaButton1.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
+        Me.GunaButton1.OnHoverBorderColor = System.Drawing.Color.Black
+        Me.GunaButton1.OnHoverForeColor = System.Drawing.Color.White
+        Me.GunaButton1.OnHoverImage = Nothing
+        Me.GunaButton1.OnPressedColor = System.Drawing.Color.Black
+        Me.GunaButton1.Radius = 4
+        Me.GunaButton1.Size = New System.Drawing.Size(143, 34)
+        Me.GunaButton1.TabIndex = 18
+        Me.GunaButton1.TabStop = False
+        Me.GunaButton1.Text = "Code Authentification"
+        Me.GunaButton1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'TransfertDeClientEntreCaissierForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -161,6 +189,7 @@ Partial Class TransfertDeClientEntreCaissierForm
         Me.Controls.Add(Me.GunaComboBoxUtilisateurDeCaisse)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.GunaLinePanelTop)
+        Me.Controls.Add(Me.GunaButton1)
         Me.Controls.Add(Me.GunaButtonEnregistrer)
         Me.Controls.Add(Me.GunaLabel4)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -182,4 +211,5 @@ Partial Class TransfertDeClientEntreCaissierForm
     Friend WithEvents GunaLinePanelTop As Guna.UI.WinForms.GunaLinePanel
     Friend WithEvents GunaImageButton2 As Guna.UI.WinForms.GunaImageButton
     Friend WithEvents GunaComboBoxUtilisateurDeCaisse As Guna.UI.WinForms.GunaComboBox
+    Friend WithEvents GunaButton1 As Guna.UI.WinForms.GunaButton
 End Class

@@ -166,7 +166,12 @@ Public Class Agency
                                   ByVal Optional BLOQUER_PRIX_HEBERGEMENT As Integer = 0, ByVal Optional CLUB_ELITE As Integer = 0,
                                   ByVal Optional PRINT_B7 As Integer = 0, ByVal Optional MENSUALITE As Integer = 0, ByVal Optional HEBDOMADAIRE As Integer = 0, ByVal Optional MONTANT_NAVETTE As Double = 0,
                                   ByVal Optional NUMERO_RECEPTION As String = "", ByVal Optional NUMERO_RECEPTION_CHAMBRE As String = "", ByVal Optional DIRECTION As String = "",
-                                  ByVal Optional CAISSE_ENREGISTREUSE_1 As String = "", ByVal Optional CAISSE_ENREGISTREUSE_2 As String = "") As Boolean
+                                  ByVal Optional CAISSE_ENREGISTREUSE_1 As String = "", ByVal Optional CAISSE_ENREGISTREUSE_2 As String = "", ByVal Optional PROMO_CLUB_ELITE As String = "",
+                                  ByVal Optional PROMO_CLUB_ELITE_IN As String = "", ByVal Optional HOTEL As Integer = 0, ByVal Optional LIEN_EXTERNE As String = "",
+                                  ByVal Optional NUM_BLOC_NOTE_AUTOMATIQUE As Integer = 0, ByVal Optional NOMBRE_DE_TABLE As Integer = 0,
+                                  ByVal Optional REDUCTION_GLOBAL_FACTURE As Integer = 0, ByVal Optional INVERSER_SIGNE_FACTURE As Integer = 0, ByVal Optional CONFIG As Integer = 0,
+                                  ByVal Optional TOKEN As String = "", ByVal Optional ID As String = "", ByVal Optional MAIL_USER_NAME As String = "", ByVal Optional MAIL_PASSWORD As String = "",
+                                  ByVal Optional MAX_VISITE As Integer = 10) As Boolean
 
         Dim updateQuery As String = "UPDATE `agence` SET NOM_AGENCE=@NOM_AGENCE, CODE_AGENCE=@CODE_AGENCE, FAX=@FAX, EMAIL=@EMAIL, TELEPHONE=@TELEPHONE,
             VILLE=@VILLE, BOITE_POSTALE=@BOITE_POSTALE, PAYS=@PAYS, RUE=@RUE, CATEGORIE_HOTEL=@CATEGORIE_HOTEL, RUE=@RUE, CATEGORIE_HOTEL=@CATEGORIE_HOTEL,
@@ -177,12 +182,18 @@ Public Class Agency
             MESSAGE_WHATSAPP =@MESSAGE_WHATSAPP, CLOTURE_FACTURE=@CLOTURE_FACTURE, LANGUE=@LANGUE, PRIX_BAR_RESTAU_MODIFIABLE=@PRIX_BAR_RESTAU_MODIFIABLE,
             PAYER_AVANT_ENCODAGE = @PAYER_AVANT_ENCODAGE, BLOQUER_PRIX_HEBERGEMENT=@BLOQUER_PRIX_HEBERGEMENT , CLUB_ELITE=@CLUB_ELITE
             ,PRINT_B7=@PRINT_B7, MENSUALITE=@MENSUALITE, HEBDOMADAIRE=@HEBDOMADAIRE , NUMERO_RECEPTION =@NUMERO_RECEPTION, NUMERO_RECEPTION_CHAMBRE=@NUMERO_RECEPTION_CHAMBRE, 
-            MONTANT_NAVETTE=@MONTANT_NAVETTE, DIRECTION=@DIRECTION, CAISSE_ENREGISTREUSE_1=@CAISSE_ENREGISTREUSE_1, CAISSE_ENREGISTREUSE_2=@CAISSE_ENREGISTREUSE_2
+            MONTANT_NAVETTE=@MONTANT_NAVETTE, DIRECTION=@DIRECTION, CAISSE_ENREGISTREUSE_1=@CAISSE_ENREGISTREUSE_1, CAISSE_ENREGISTREUSE_2=@CAISSE_ENREGISTREUSE_2,  
+            PROMO_CLUB_ELITE = @PROMO_CLUB_ELITE,  PROMO_CLUB_ELITE_IN =@PROMO_CLUB_ELITE_IN, HOTEL=@HOTEL, LIEN_EXTERNE =@LIEN_EXTERNE, NUM_BLOC_NOTE_AUTOMATIQUE =@NUM_BLOC_NOTE_AUTOMATIQUE
+            , NOMBRE_DE_TABLE =@NOMBRE_DE_TABLE, REDUCTION_GLOBAL_FACTURE=@REDUCTION_GLOBAL_FACTURE, INVERSER_SIGNE_FACTURE=@INVERSER_SIGNE_FACTURE, CONFIG=@CONFIG,
+            TOKEN =@TOKEN, ID=@ID, MAIL_USER_NAME=@MAIL_USER_NAME, MAIL_PASSWORD=@MAIL_PASSWORD, MAX_VISITE=@MAX_VISITE
             WHERE CODE_AGENCE = @NUM_AGENCE"
 
         Dim command As New MySqlCommand(updateQuery, GlobalVariable.connect)
 
         command.Parameters.Add("@NUM_AGENCE", MySqlDbType.VarChar).Value = CODE_AGENCE
+        command.Parameters.Add("@MAIL_USER_NAME", MySqlDbType.VarChar).Value = MAIL_USER_NAME
+        command.Parameters.Add("@MAIL_PASSWORD", MySqlDbType.VarChar).Value = MAIL_PASSWORD
+
         command.Parameters.Add("@NOM_AGENCE", MySqlDbType.VarChar).Value = NOM_AGENCE
         command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = CODE_AGENCE
         command.Parameters.Add("@FAX", MySqlDbType.VarChar).Value = FAX
@@ -235,7 +246,21 @@ Public Class Agency
         command.Parameters.Add("@DIRECTION", MySqlDbType.VarChar).Value = DIRECTION
         command.Parameters.Add("@CAISSE_ENREGISTREUSE_1", MySqlDbType.VarChar).Value = CAISSE_ENREGISTREUSE_1
         command.Parameters.Add("@CAISSE_ENREGISTREUSE_2", MySqlDbType.VarChar).Value = CAISSE_ENREGISTREUSE_2
+        command.Parameters.Add("@PROMO_CLUB_ELITE", MySqlDbType.Text).Value = PROMO_CLUB_ELITE
+        command.Parameters.Add("@PROMO_CLUB_ELITE_IN", MySqlDbType.Text).Value = PROMO_CLUB_ELITE_IN
+        command.Parameters.Add("@HOTEL", MySqlDbType.Int64).Value = HOTEL
         command.Parameters.Add("@MONTANT_NAVETTE", MySqlDbType.Double).Value = MONTANT_NAVETTE
+        command.Parameters.Add("@LIEN_EXTERNE", MySqlDbType.String).Value = LIEN_EXTERNE
+
+        command.Parameters.Add("@NUM_BLOC_NOTE_AUTOMATIQUE", MySqlDbType.Int64).Value = NUM_BLOC_NOTE_AUTOMATIQUE
+        command.Parameters.Add("@NOMBRE_DE_TABLE", MySqlDbType.Int64).Value = NOMBRE_DE_TABLE
+        command.Parameters.Add("@INVERSER_SIGNE_FACTURE", MySqlDbType.Int64).Value = INVERSER_SIGNE_FACTURE
+        command.Parameters.Add("@REDUCTION_GLOBAL_FACTURE", MySqlDbType.Int64).Value = REDUCTION_GLOBAL_FACTURE
+        command.Parameters.Add("@CONFIG", MySqlDbType.Int64).Value = CONFIG
+
+        command.Parameters.Add("@TOKEN", MySqlDbType.VarChar).Value = TOKEN
+        command.Parameters.Add("@ID", MySqlDbType.VarChar).Value = ID
+        command.Parameters.Add("@MAX_VISITE", MySqlDbType.Int16).Value = MAX_VISITE
 
         If command.ExecuteNonQuery() = 1 Then
             Return True

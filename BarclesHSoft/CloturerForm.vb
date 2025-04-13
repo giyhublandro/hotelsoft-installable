@@ -108,6 +108,7 @@ Partial Class CloturerForm
         Me.GunaLabel4 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel2 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaCircleProgressBar1 = New Guna.UI.WinForms.GunaCircleProgressBar()
+        Me.dt = New Guna.UI.WinForms.GunaDataGridView()
         Me.GunaCheckBox4 = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaCheckBoxClotureDeCaisse = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaCheckBoxReservationNonArrivee = New Guna.UI.WinForms.GunaCheckBox()
@@ -129,7 +130,6 @@ Partial Class CloturerForm
         Me.BackgroundWorker13 = New System.ComponentModel.BackgroundWorker()
         Me.BackgroundWorker14 = New System.ComponentModel.BackgroundWorker()
         Me.BackgroundWorker15 = New System.ComponentModel.BackgroundWorker()
-        Me.dt = New Guna.UI.WinForms.GunaDataGridView()
         Me.GunaPanel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GunaCircleProgressBar1.SuspendLayout()
@@ -420,6 +420,70 @@ Partial Class CloturerForm
         Me.GunaCircleProgressBar1.UseProgressPercentText = True
         Me.GunaCircleProgressBar1.Visible = False
         '
+        'dt
+        '
+        Me.dt.AllowUserToAddRows = False
+        Me.dt.AllowUserToDeleteRows = False
+        Me.dt.AllowUserToOrderColumns = True
+        Me.dt.AllowUserToResizeRows = False
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
+        Me.dt.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dt.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dt.BackgroundColor = System.Drawing.Color.LightBlue
+        Me.dt.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dt.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.dt.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI Semilight", 35.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dt.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        Me.dt.ColumnHeadersHeight = 25
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI Semilight", 35.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dt.DefaultCellStyle = DataGridViewCellStyle3
+        Me.dt.EnableHeadersVisualStyles = False
+        Me.dt.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dt.Location = New System.Drawing.Point(3, 3)
+        Me.dt.MultiSelect = False
+        Me.dt.Name = "dt"
+        Me.dt.ReadOnly = True
+        Me.dt.RowHeadersVisible = False
+        Me.dt.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dt.Size = New System.Drawing.Size(188, 38)
+        Me.dt.TabIndex = 35
+        Me.dt.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
+        Me.dt.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
+        Me.dt.ThemeStyle.AlternatingRowsStyle.Font = Nothing
+        Me.dt.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty
+        Me.dt.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty
+        Me.dt.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty
+        Me.dt.ThemeStyle.BackColor = System.Drawing.Color.LightBlue
+        Me.dt.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dt.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dt.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        Me.dt.ThemeStyle.HeaderStyle.Font = New System.Drawing.Font("Segoe UI Semilight", 35.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dt.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White
+        Me.dt.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing
+        Me.dt.ThemeStyle.HeaderStyle.Height = 25
+        Me.dt.ThemeStyle.ReadOnly = True
+        Me.dt.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White
+        Me.dt.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.dt.ThemeStyle.RowsStyle.Font = New System.Drawing.Font("Segoe UI Semilight", 35.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dt.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.Black
+        Me.dt.ThemeStyle.RowsStyle.Height = 22
+        Me.dt.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dt.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.dt.Visible = False
+        '
         'GunaCheckBox4
         '
         Me.GunaCheckBox4.BaseColor = System.Drawing.Color.White
@@ -571,70 +635,6 @@ Partial Class CloturerForm
         'BackgroundWorker15
         '
         Me.BackgroundWorker15.WorkerSupportsCancellation = True
-        '
-        'dt
-        '
-        Me.dt.AllowUserToAddRows = False
-        Me.dt.AllowUserToDeleteRows = False
-        Me.dt.AllowUserToOrderColumns = True
-        Me.dt.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
-        Me.dt.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
-        Me.dt.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
-        Me.dt.BackgroundColor = System.Drawing.Color.LightBlue
-        Me.dt.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dt.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        Me.dt.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI Semilight", 35.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dt.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
-        Me.dt.ColumnHeadersHeight = 25
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI Semilight", 35.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dt.DefaultCellStyle = DataGridViewCellStyle3
-        Me.dt.EnableHeadersVisualStyles = False
-        Me.dt.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dt.Location = New System.Drawing.Point(3, 3)
-        Me.dt.MultiSelect = False
-        Me.dt.Name = "dt"
-        Me.dt.ReadOnly = True
-        Me.dt.RowHeadersVisible = False
-        Me.dt.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dt.Size = New System.Drawing.Size(188, 38)
-        Me.dt.TabIndex = 35
-        Me.dt.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
-        Me.dt.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
-        Me.dt.ThemeStyle.AlternatingRowsStyle.Font = Nothing
-        Me.dt.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty
-        Me.dt.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty
-        Me.dt.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty
-        Me.dt.ThemeStyle.BackColor = System.Drawing.Color.LightBlue
-        Me.dt.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dt.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dt.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        Me.dt.ThemeStyle.HeaderStyle.Font = New System.Drawing.Font("Segoe UI Semilight", 35.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dt.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White
-        Me.dt.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing
-        Me.dt.ThemeStyle.HeaderStyle.Height = 25
-        Me.dt.ThemeStyle.ReadOnly = True
-        Me.dt.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White
-        Me.dt.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        Me.dt.ThemeStyle.RowsStyle.Font = New System.Drawing.Font("Segoe UI Semilight", 35.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dt.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.Black
-        Me.dt.ThemeStyle.RowsStyle.Height = 22
-        Me.dt.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dt.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.dt.Visible = False
         '
         'CloturerForm
         '
@@ -1675,7 +1675,9 @@ Partial Class CloturerForm
                             'Puis on rafraishi la date de travail
                             GlobalVariable.DateDeTravail = Functions.ObtenirDateDeTravail()
 
-                            MainWindow.GunaLabel38.Text = GlobalVariable.DateDeTravail.ToShortDateString()
+                            If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                                MainWindow.GunaLabel38.Text = GlobalVariable.DateDeTravail.ToShortDateString()
+                            End If
 
                             changementEtatDesAnciennesMainCourantes(dateDeTravailAvantCloture)
 
@@ -2513,8 +2515,12 @@ Partial Class CloturerForm
                     Else
                         TOTAL_RECETTE = AUTRES_VENTE + RESTAURANT + BAR + table0.Rows(i)("BLANCHISSERIE")
                     End If
+                    Dim CLIENT_TYPE As String = "CLIENT COMPTOIR"
+                    If GlobalVariable.actualLanguageValue = 0 Then
+                        CLIENT_TYPE = "WALK IN"
+                    End If
 
-                    dt.Rows.Add("-", "CLIENT COMPTOIR", CDate(dateDebut).ToShortDateString, CDate(DateFin).ToShortDateString, 0, 0, 0, 0, table0.Rows(i)("PDJ"), table0.Rows(i)("DEJEUNER"), table0.Rows(i)("DINER"), table0.Rows(i)("BAR"), table0.Rows(i)("BLANCHISSERIE"), AUTRES_VENTE, table0.Rows(i)("RECETTE DU JOUR"), table0.Rows(i)("REPORT VEILLE") * changerSigne, table0.Rows(i)("TOTAL GENERAL") * changerSigne, table0.Rows(i)("ESPECES"), table0.Rows(i)("CARTE CREDIT") + table0.Rows(i)("CHEQUE"), table0.Rows(i)("MOBILE MONEY"), table0.Rows(i)("A REPORTER") * changerSigne, "-")
+                    dt.Rows.Add("-", CLIENT_TYPE, CDate(dateDebut).ToShortDateString, CDate(DateFin).ToShortDateString, 0, 0, 0, 0, table0.Rows(i)("PDJ"), table0.Rows(i)("DEJEUNER"), table0.Rows(i)("DINER"), table0.Rows(i)("BAR"), table0.Rows(i)("BLANCHISSERIE"), AUTRES_VENTE, table0.Rows(i)("RECETTE DU JOUR"), table0.Rows(i)("REPORT VEILLE") * changerSigne, table0.Rows(i)("TOTAL GENERAL") * changerSigne, table0.Rows(i)("ESPECES"), table0.Rows(i)("CARTE CREDIT") + table0.Rows(i)("CHEQUE"), table0.Rows(i)("MOBILE MONEY"), table0.Rows(i)("A REPORTER") * changerSigne, "-")
 
                 Next
 
@@ -2592,69 +2598,73 @@ Partial Class CloturerForm
 
         ListeDesMainCourantesDujours(DateDebut, DateFin, chambre_salle)
 
+        '1. GENERATION DE LA LIGNE DESTINEE A CONTENIR LES CHEMINS DES RAPPORTS DU JOURS
+        Dim DATE_TRAVAIL As Date = GlobalVariable.DateDeTravail.AddDays(-1)
+        Dim dtRapport As DataTable = Functions.verificationExistenceCheminDesRapportsDuJours(DATE_TRAVAIL)
+
+        If Not dtRapport.Rows.Count > 0 Then
+
+            Dim insertQuery As String = "INSERT INTO `rapport_auto`(`DATE_TRAVAIL`) VALUES (@DATE_TRAVAIL)"
+            Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
+            command.Parameters.Add("@DATE_TRAVAIL", MySqlDbType.Date).Value = DATE_TRAVAIL
+            command.ExecuteNonQuery()
+
+        End If
+
+        fermerLogiciel = True
+
+        Dim args As ArgumentType = New ArgumentType()
+        args.action = 1
+
         If dt.Rows.Count > 0 Then
 
-            Dim args As ArgumentType = New ArgumentType()
-            args.action = 1
             'args.dt = dt
             args.DateDebut = DateDebut
             args.DateFin = DateFin
 
-            If GlobalVariable.AgenceActuelle.Rows(0)("MESSAGE_WHATSAPP") = 1 Then
+            '2. GENERATION DES RAPPORTS POUR ENVOI AUTOMATIQUE PAR WHATSAPP ET PAR MAIL
 
-                fermerLogiciel = True
-
-                '1. GENERATION DE LA LIGNE DESTINEE A CONTENIR LES CHEMINS DES RAPPORTS DU JOURS
-                Dim DATE_TRAVAIL As Date = GlobalVariable.DateDeTravail.AddDays(-1)
-                Dim dtRapport As DataTable = Functions.verificationExistenceCheminDesRapportsDuJours(DATE_TRAVAIL)
-
-                If Not dtRapport.Rows.Count > 0 Then
-
-                    Dim insertQuery As String = "INSERT INTO `rapport_auto`(`DATE_TRAVAIL`) VALUES (@DATE_TRAVAIL)"
-                    Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
-                    command.Parameters.Add("@DATE_TRAVAIL", MySqlDbType.Date).Value = DATE_TRAVAIL
-                    command.ExecuteNonQuery()
-
-                End If
-
-                '2. GENERATION DES RAPPORTS POUR ENVOI AUTOMATIQUE PAR WHATSAPP ET PAR MAIL
-
-                '2.1- MAINCOURANTE JOURNALIERE
-                Dim document As Integer = 1
-                Functions.docMainCourante(dt, DateDebut, DateFin, document) 'CHEMIN_MAINCOURANTE
-
-                '2.2- ENCAISSEMENTS
-                Functions.docRapportDesCaissesPeriodique(DateDebut, DateFin) 'CHEMIN_REGLEMENT
-                '2.3- INVENTAIRES DES VENTES
-                ' Functions.docInventaireDesVentesParMagasin(DateDebut, DateFin)
-                Functions.docInventaireDesVentes(DateDebut, DateFin) 'CHEMIN_INVENTAIRES_DES_VENTES
-
-                If GlobalVariable.AgenceActuelle.Rows(0)("GERER_STOCK") = 1 Then
-                    '2.4- INVENTAIRE PAR MAGASIN
-                    Functions.docInventaireDesDiversMagasin(DateDebut, DateFin) 'CHEMIN_INVENTAIRES
-                End If
-
-                '2.5- JOURNAL DES VENTES
-                Functions.docJournalDesVentesPeriodique(DateDebut, DateFin) 'CHEMIN_VENTES
-
-                '2.6- MAINCOURANTE_CUMULE
-                DateDebut = Functions.firstDayOfMonth(GlobalVariable.DateDeTravail)
-                Functions.ListeDesMainCourantesCumul(DateDebut, DateFin)
-                Functions.docRapportMainCouranteMensuel(RapportFacturesForm.DataGridViewRapports, DateDebut, DateFin) 'CHEMIN_MAINCOURANTE_CUMUL
-
-                backGroundWorkerToCall(args)
-
-            End If
+            '2.1- MAINCOURANTE JOURNALIERE
+            Dim document As Integer = 1
+            Functions.docMainCourante(dt, DateDebut, DateFin, document) 'CHEMIN_MAINCOURANTE
 
         End If
 
         'Functions.retablissementDesPictogrammeCorrecteDuDashBoard(GlobalVariable.DateDeTravail)
 
-        Me.Close()
+        '2. GENERATION DES RAPPORTS POUR ENVOI AUTOMATIQUE PAR WHATSAPP ET PAR MAIL
 
-        gestionDeLicenceDeHotelSoft()
+        '2.2- ENCAISSEMENTS
+        Functions.docRapportDesCaissesPeriodique(DateDebut, DateFin) 'CHEMIN_REGLEMENT
+        '2.3- INVENTAIRES DES VENTES
+        ' Functions.docInventaireDesVentesParMagasin(DateDebut, DateFin)
+        Functions.docInventaireDesVentes(DateDebut, DateFin) 'CHEMIN_INVENTAIRES_DES_VENTES
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("GERER_STOCK") = 1 Then
+            '2.4- INVENTAIRE PAR MAGASIN
+            Functions.docInventaireDesDiversMagasin(DateDebut, DateFin) 'CHEMIN_INVENTAIRES
+        End If
+
+        '2.5- JOURNAL DES VENTES
+        Functions.docJournalDesVentesPeriodique(DateDebut, DateFin) 'CHEMIN_VENTES
+
+        '2.6- MAINCOURANTE_CUMULE
+        DateDebut = Functions.firstDayOfMonth(GlobalVariable.DateDeTravail)
+        Functions.ListeDesMainCourantesCumul(DateDebut, DateFin)
+        Functions.docRapportMainCouranteMensuel(RapportFacturesForm.DataGridViewRapports, DateDebut, DateFin) 'CHEMIN_MAINCOURANTE_CUMUL
+
+        '2.7- DEPENSES
+        Functions.docDpenses(DateFin, DateFin) 'CHEMIN_DEPENSE
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("MESSAGE_WHATSAPP") = 1 Then
+            backGroundWorkerToCall(args)
+        End If
+
+        'gestionDeLicenceDeHotelSoft()
 
         Me.Cursor = Cursors.Default
+
+        Me.Close()
 
         Functions.updateOfFields("agence", "rapport_auto", 0, "CODE_AGENCE", GlobalVariable.AgenceActuelle.Rows(0)("CODE_AGENCE"), 0)
 
@@ -2684,9 +2694,19 @@ Partial Class CloturerForm
 
             End If
 
-            Me.Close()
+            AccueilForm.Close()
+
             AccueilForm.Show()
-            MainWindow.Close()
+
+            If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 1 Then
+                If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CAISSE_ENREGISTREUSE") = 1 Then
+                    BarRestaurantCaisseEnregistreuseForm.Close()
+                Else
+                    BarRestaurantForm.Close()
+                End If
+            Else
+                MainWindow.Close()
+            End If
 
             fermerLogiciel = False
 

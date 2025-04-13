@@ -3,16 +3,40 @@ Imports MySql.Data.MySqlClient
 
 Public Class ServicesEtage
 
-    Public Function insertPlanningHorairePersonnel(ByVal CODE_PLANNING_HORAIRE_PERSONNEL As String, ByVal CODE_PERSONNEL As String, ByVal CODE_TYPE_PERSONNEL As String, ByVal CODE_PLANNING As String) As Boolean
+    Public Function insertPlanningHorairePersonnel(ByVal CODE_PLANNING_HORAIRE_PERSONNEL As String, ByVal CODE_PERSONNEL As String, ByVal CODE_TYPE_PERSONNEL As String,
+                                                   ByVal CODE_PLANNING As String, ByVal DEBUT_PROG As Date, ByVal CODE_PROGRAMME As String, ByVal DAY_OFF As Date) As Boolean
 
-        Dim insertQuery As String = "INSERT INTO `planning_horaire_personnel` (`CODE_PLANNING_HORAIRE_PERSONNEL`, `CODE_PERSONNEL`, `CODE_TYPE_PERSONNEL`, `CODE_PLANNING`) 
-            VALUES (@CODE_PLANNING_HORAIRE_PERSONNEL, @CODE_PERSONNEL, @CODE_TYPE_PERSONNEL, @CODE_PLANNING)"
+        Dim insertQuery As String = "INSERT INTO `planning_horaire_personnel` (`CODE_PLANNING_HORAIRE_PERSONNEL`, `CODE_PERSONNEL`, `CODE_TYPE_PERSONNEL`, `CODE_PLANNING`, `DEBUT_PROG`, `CODE_PROGRAMME`, `DAY_OFF`) 
+            VALUES (@CODE_PLANNING_HORAIRE_PERSONNEL, @CODE_PERSONNEL, @CODE_TYPE_PERSONNEL, @CODE_PLANNING, @DEBUT_PROG, @CODE_PROGRAMME, @DAY_OFF)"
         Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
 
         command.Parameters.Add("@CODE_PLANNING_HORAIRE_PERSONNEL", MySqlDbType.VarChar).Value = CODE_PLANNING_HORAIRE_PERSONNEL
         command.Parameters.Add("@CODE_PERSONNEL", MySqlDbType.VarChar).Value = CODE_PERSONNEL
         command.Parameters.Add("@CODE_TYPE_PERSONNEL", MySqlDbType.VarChar).Value = CODE_TYPE_PERSONNEL
         command.Parameters.Add("@CODE_PLANNING", MySqlDbType.VarChar).Value = CODE_PLANNING
+        command.Parameters.Add("@CODE_PROGRAMME", MySqlDbType.VarChar).Value = CODE_PROGRAMME
+        command.Parameters.Add("@DEBUT_PROG", MySqlDbType.Date).Value = DEBUT_PROG
+        command.Parameters.Add("@DAY_OFF", MySqlDbType.Date).Value = DAY_OFF
+
+        If (command.ExecuteNonQuery() = 1) Then
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function
+
+    Public Function insertPlanning(ByVal DATE_DEBUT_PROG As Date, ByVal DATE_FIN_PROG As Date, ByVal CODE_TYPE_PERSONNEL As String, ByVal INTITULE_DEPARTMENT As String, ByVal CODE_PROGRAMME As String) As Boolean
+
+        Dim insertQuery As String = "INSERT INTO `planning` (`DATE_DEBUT_PROG`, `DATE_FIN_PROG`, `CODE_TYPE_PERSONNEL`, `INTITULE_DEPARTMENT`,`CODE_PROGRAMME`) 
+            VALUES (@DATE_DEBUT_PROG,@DATE_FIN_PROG,@CODE_TYPE_PERSONNEL,@INTITULE_DEPARTMENT, @CODE_PROGRAMME)"
+        Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
+
+        command.Parameters.Add("@DATE_DEBUT_PROG", MySqlDbType.Date).Value = DATE_DEBUT_PROG
+        command.Parameters.Add("@DATE_FIN_PROG", MySqlDbType.Date).Value = DATE_FIN_PROG
+        command.Parameters.Add("@CODE_TYPE_PERSONNEL", MySqlDbType.VarChar).Value = CODE_TYPE_PERSONNEL
+        command.Parameters.Add("@INTITULE_DEPARTMENT", MySqlDbType.VarChar).Value = INTITULE_DEPARTMENT
+        command.Parameters.Add("@CODE_PROGRAMME", MySqlDbType.VarChar).Value = CODE_PROGRAMME
 
         If (command.ExecuteNonQuery() = 1) Then
             Return True
@@ -493,6 +517,241 @@ Public Class ServicesEtage
         Else
             'connect.closeConnection()
             Return False
+        End If
+
+    End Function
+
+
+    Public Function insert_lavage(ByVal INTITULE As String, ByVal MONTANT As Double, ByVal CODE_LAVAGE As String, ByVal DATE_CREATION As Date, OBSERVATION As String,
+                                  ByVal CODE_FOURNISSEUR As String, ByVal ENVOI As Integer, ByVal Optional REFERENCE As String = "") As Boolean
+
+        Dim insertQuery As String = "INSERT INTO `envoie_lavage_linge` (`INTITULE`, `MONTANT`, `CODE_LAVAGE`, `DATE_CREATION`, `OBSERVATION`, `CODE_FOURNISSEUR`, `ENVOI`)
+            VALUES (@INTITULE, @MONTANT, @CODE_LAVAGE, @DATE_CREATION, @OBSERVATION, @CODE_FOURNISSEUR, @ENVOI)"
+        Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
+
+        command.Parameters.Add("@INTITULE", MySqlDbType.VarChar).Value = INTITULE
+        command.Parameters.Add("@MONTANT", MySqlDbType.Double).Value = MONTANT
+        command.Parameters.Add("@CODE_LAVAGE", MySqlDbType.VarChar).Value = CODE_LAVAGE
+        command.Parameters.Add("@OBSERVATION", MySqlDbType.VarChar).Value = OBSERVATION
+        command.Parameters.Add("@CODE_FOURNISSEUR", MySqlDbType.VarChar).Value = CODE_FOURNISSEUR
+        command.Parameters.Add("@DATE_CREATION", MySqlDbType.Date).Value = DATE_CREATION
+        command.Parameters.Add("@ENVOI", MySqlDbType.Int32).Value = ENVOI
+
+        If (command.ExecuteNonQuery() = 1) Then
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function
+
+    Public Function envoie_lavage_linge_ligne(ByVal CODE_ARTICLE As String, ByVal PRIX_UNITAIRE As Double, ByVal QUANTITE As Integer, ByVal MONTANT_TOTAL As Double,
+                                              ByVal CODE_LAVAGE As String, ByVal LINGE As String) As Boolean
+
+        Dim insertQuery As String = "INSERT INTO `envoie_lavage_linge_ligne` (`CODE_ARTICLE`, `PRIX_UNITAIRE`, `QUANTITE`, `MONTANT_TOTAL`, `CODE_LAVAGE`, `LINGE`)
+            VALUES (@CODE_ARTICLE, @PRIX_UNITAIRE, @QUANTITE, @MONTANT_TOTAL, @CODE_LAVAGE, @LINGE)"
+        Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
+
+        command.Parameters.Add("@CODE_ARTICLE", MySqlDbType.VarChar).Value = CODE_ARTICLE
+        command.Parameters.Add("@PRIX_UNITAIRE", MySqlDbType.Double).Value = PRIX_UNITAIRE
+        command.Parameters.Add("@MONTANT_TOTAL", MySqlDbType.Double).Value = MONTANT_TOTAL
+        command.Parameters.Add("@QUANTITE", MySqlDbType.Int32).Value = QUANTITE
+        command.Parameters.Add("@CODE_LAVAGE", MySqlDbType.VarChar).Value = CODE_LAVAGE
+        command.Parameters.Add("@LINGE", MySqlDbType.VarChar).Value = LINGE
+
+        If (command.ExecuteNonQuery() = 1) Then
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function
+
+
+    Public Function envoie_reception_linge_ligne(ByVal CODE_ARTICLE As String, ByVal PRIX_UNITAIRE As Double, ByVal QUANTITE As Integer, ByVal MONTANT_TOTAL As Double,
+                                              ByVal CODE_LAVAGE As String, ByVal LINGE As String, ByVal DIFFERENCE As Integer, ByVal QTE_DECHIRE As Integer, ByVal QTE_DECOLORE As Integer,
+                                                 ByVal QTE_MAL_REPASSE As Integer, ByVal QTE_RECU As Integer) As Boolean
+
+        Dim insertQuery As String = "INSERT INTO `envoie_reception_linge_ligne` (`CODE_ARTICLE`, `PRIX_UNITAIRE`, `QUANTITE`, `MONTANT_TOTAL`, `CODE_LAVAGE`, `LINGE`, `QTE_RECU`, `DIFFERENCE`, `QTE_DECHIRE`, `QTE_DECOLORE`, `QTE_MAL_REPASSE`)
+            VALUES (@CODE_ARTICLE, @PRIX_UNITAIRE, @QUANTITE, @MONTANT_TOTAL, @CODE_LAVAGE, @LINGE, @QTE_RECU, @DIFFERENCE, @QTE_DECHIRE, @QTE_DECOLORE, @QTE_MAL_REPASSE)"
+        Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
+
+        command.Parameters.Add("@CODE_ARTICLE", MySqlDbType.VarChar).Value = CODE_ARTICLE
+        command.Parameters.Add("@PRIX_UNITAIRE", MySqlDbType.Double).Value = PRIX_UNITAIRE
+        command.Parameters.Add("@MONTANT_TOTAL", MySqlDbType.Double).Value = MONTANT_TOTAL
+        command.Parameters.Add("@QUANTITE", MySqlDbType.Int32).Value = QUANTITE
+        command.Parameters.Add("@CODE_LAVAGE", MySqlDbType.VarChar).Value = CODE_LAVAGE
+        command.Parameters.Add("@LINGE", MySqlDbType.VarChar).Value = LINGE
+        command.Parameters.Add("@DIFFERENCE", MySqlDbType.Int64).Value = DIFFERENCE
+        command.Parameters.Add("@QTE_DECHIRE", MySqlDbType.Int64).Value = QTE_DECHIRE
+        command.Parameters.Add("@QTE_DECOLORE", MySqlDbType.Int64).Value = QTE_DECOLORE
+        command.Parameters.Add("@QTE_MAL_REPASSE", MySqlDbType.Int64).Value = QTE_MAL_REPASSE
+        command.Parameters.Add("@QTE_RECU", MySqlDbType.Int64).Value = QTE_RECU
+
+        If (command.ExecuteNonQuery() = 1) Then
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function
+
+    Public Function copy_planning_hebdomadaire(ByVal CODE_TYPE_PERSONNEL As String, ByVal CODE_PROGRAMME As String, ByVal DATE_DEBUT_PROG As Date, ByVal DATE_FIN_PROG As Date) As Boolean
+
+        Dim dt As DataTable = Functions.getElementByCode(CODE_TYPE_PERSONNEL, "planning_hebdomadaire", "CODE_TYPE_PERSONNEL")
+
+        If dt.Rows.Count > 0 Then
+
+            For i = 0 To dt.Rows.Count - 1
+
+                Dim INTITULE_PLANNING As String = dt.Rows(i)("INTITULE_PLANNING")
+                Dim CODE_PLANNING As String = dt.Rows(i)("CODE_PLANNING")
+                Dim DATE_DEBUT As Date = DATE_DEBUT_PROG
+                Dim DATE_FIN As Date = DATE_FIN_PROG
+                Dim DATE_CREATION As Date = dt.Rows(i)("DATE_CREATION")
+                Dim CODE_AGENCE As String = dt.Rows(i)("CODE_AGENCE")
+
+                Dim insertQuery As String = "INSERT INTO `planning_hebdomadaire_copy`(`INTITULE_PLANNING`, `CODE_PLANNING`, `DATE_DEBUT`, `DATE_FIN`, `CODE_TYPE_PERSONNEL`, `DATE_CREATION`, `CODE_AGENCE`,`CODE_PROGRAMME`)
+                VALUES (@INTITULE_PLANNING, @CODE_PLANNING, @DATE_DEBUT, @DATE_FIN, @CODE_TYPE_PERSONNEL, @DATE_CREATION, @CODE_AGENCE, @CODE_PROGRAMME)"
+
+                Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
+
+                command.Parameters.Add("@INTITULE_PLANNING", MySqlDbType.VarChar).Value = INTITULE_PLANNING
+                command.Parameters.Add("@CODE_PLANNING", MySqlDbType.VarChar).Value = CODE_PLANNING
+                command.Parameters.Add("@DATE_DEBUT", MySqlDbType.Date).Value = DATE_DEBUT
+                command.Parameters.Add("@DATE_FIN", MySqlDbType.Date).Value = DATE_FIN
+                command.Parameters.Add("@CODE_TYPE_PERSONNEL", MySqlDbType.VarChar).Value = CODE_TYPE_PERSONNEL
+                command.Parameters.Add("@DATE_CREATION", MySqlDbType.Date).Value = DATE_CREATION
+                command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = CODE_AGENCE
+                command.Parameters.Add("@CODE_PROGRAMME", MySqlDbType.VarChar).Value = CODE_PROGRAMME
+
+                command.ExecuteNonQuery()
+
+            Next
+
+        End If
+
+    End Function
+
+    Public Function planning_programme(ByVal CODE_TYPE_PERSONNEL As String, ByVal CODE_PROGRAMME As String, ByVal DATE_DEBUT_PROG As Date, ByVal DATE_FIN_PROG As Date) As Boolean
+
+        Dim dt As DataTable = Functions.getElementByCode(CODE_PROGRAMME, "planning_horaire_personnel", "CODE_PROGRAMME")
+        Dim insertQuery As String = ""
+
+        If dt.Rows.Count > 0 Then
+
+            For i = 0 To dt.Rows.Count - 1
+
+                Dim CODE_PLANNING As String = dt.Rows(i)("CODE_PLANNING")
+
+                Dim CODE_PERSONNEL As String = dt.Rows(i)("CODE_PERSONNEL")
+                Dim DAY_OFF As Date = CDate(dt.Rows(i)("DAY_OFF")).ToShortDateString
+
+                Dim query04 As String = "SELECT `HEURE_DEBUT`, `HEURE_FIN`, DATE_DEBUT, DATE_FIN, HEURE_DEBUT_FIN, planning_hebdomadaire_horaire.CODE_PLANNING 
+                FROM `planning_horaire`, `planning_hebdomadaire_horaire` 
+                WHERE planning_horaire.CODE_PLANNING=@CODE_PLANNING AND planning_hebdomadaire_horaire.ID_HORAIRE =planning_horaire.ID_HORAIRE"
+
+                Dim command04 As New MySqlCommand(query04, GlobalVariable.connect)
+                command04.Parameters.Add("@CODE_PLANNING", MySqlDbType.VarChar).Value = CODE_PLANNING
+
+                Dim adapter04 As New MySqlDataAdapter(command04)
+                Dim dt_1 As New DataTable()
+                adapter04.Fill(dt_1)
+
+                If dt_1.Rows.Count > 0 Then
+
+
+
+                    For j = 0 To dt_1.Rows.Count - 1
+
+                        Dim DATE_DEBUT As Date = DATE_DEBUT_PROG
+                        Dim DATE_FIN As Date = DATE_FIN_PROG
+                        Dim HEURE_DEBUT_FIN As String = dt_1.Rows(j)("HEURE_DEBUT_FIN")
+                        Dim HEURE_DEBUT As String = dt_1.Rows(j)("HEURE_DEBUT")
+                        Dim HEURE_FIN As String = dt_1.Rows(j)("HEURE_FIN")
+
+                        insertQuery = "INSERT INTO `planning_programme`(`HEURE_DEBUT`, `HEURE_FIN`, `DATE_DEBUT`, `DATE_FIN`, `HEURE_DEBUT_FIN`, `CODE_PLANNING`, `CODE_PROGRAMME`, `CODE_PERSONNEL`,`DAY_OFF`) 
+                    VALUES (@HEURE_DEBUT,@HEURE_FIN, @DATE_DEBUT, @DATE_FIN, @HEURE_DEBUT_FIN, @CODE_PLANNING, @CODE_PROGRAMME, @CODE_PERSONNEL,@DAY_OFF)"
+
+                        Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
+
+                        command.Parameters.Add("@CODE_PLANNING", MySqlDbType.VarChar).Value = CODE_PLANNING
+                        command.Parameters.Add("@DATE_DEBUT", MySqlDbType.Date).Value = DATE_DEBUT
+                        command.Parameters.Add("@DATE_FIN", MySqlDbType.Date).Value = DATE_FIN
+                        command.Parameters.Add("@DAY_OFF", MySqlDbType.Date).Value = DAY_OFF
+                        command.Parameters.Add("@CODE_TYPE_PERSONNEL", MySqlDbType.VarChar).Value = CODE_TYPE_PERSONNEL
+                        command.Parameters.Add("@HEURE_DEBUT_FIN", MySqlDbType.VarChar).Value = HEURE_DEBUT_FIN
+                        command.Parameters.Add("@HEURE_DEBUT", MySqlDbType.VarChar).Value = HEURE_DEBUT
+                        command.Parameters.Add("@HEURE_FIN", MySqlDbType.VarChar).Value = HEURE_FIN
+                        command.Parameters.Add("@CODE_PROGRAMME", MySqlDbType.VarChar).Value = CODE_PROGRAMME
+                        command.Parameters.Add("@CODE_PERSONNEL", MySqlDbType.VarChar).Value = CODE_PERSONNEL
+
+                        command.ExecuteNonQuery()
+
+                    Next
+
+                End If
+
+            Next
+
+        End If
+
+    End Function
+
+    Public Function progNotUsed(ByVal CODE_TYPE_PERSONNEL As String, ByVal CODE_PROGRAMME As String, ByVal DATE_DEBUT_PROG As Date, ByVal DATE_FIN_PROG As Date) As Boolean
+
+        Dim dt As DataTable = Functions.getElementByCode(CODE_PROGRAMME, "planning_horaire_personnel", "CODE_PROGRAMME")
+        Dim insertQuery As String = ""
+
+        If dt.Rows.Count > 0 Then
+
+            For i = 0 To dt.Rows.Count - 1
+
+                Dim DAY_OFF As Date = dt.Rows(i)("DAY_OFF")
+                Dim CODE_PLANNING As String = dt.Rows(i)("CODE_PLANNING")
+                Dim CODE_PERSONNEL As String = dt.Rows(i)("CODE_PERSONNEL")
+
+                Dim query04 As String = "SELECT `HEURE_DEBUT`, `HEURE_FIN`, DATE_DEBUT, DATE_FIN, HEURE_DEBUT_FIN, planning_hebdomadaire_horaire.CODE_PLANNING 
+                FROM `planning_horaire`, `planning_hebdomadaire_horaire` 
+                WHERE planning_horaire.CODE_PLANNING=@CODE_PLANNING AND planning_hebdomadaire_horaire.ID_HORAIRE =planning_horaire.ID_HORAIRE"
+
+                Dim command04 As New MySqlCommand(query04, GlobalVariable.connect)
+                command04.Parameters.Add("@CODE_PLANNING", MySqlDbType.VarChar).Value = CODE_PLANNING
+
+                Dim adapter04 As New MySqlDataAdapter(command04)
+                Dim dt_1 As New DataTable()
+                adapter04.Fill(dt_1)
+
+                For j = 0 To dt_1.Rows.Count - 1
+
+                    Dim DATE_DEBUT As Date = DATE_DEBUT_PROG
+                    Dim DATE_FIN As Date = DATE_FIN_PROG
+                    Dim HEURE_DEBUT_FIN As String = dt_1.Rows(j)("HEURE_DEBUT_FIN")
+                    Dim HEURE_DEBUT As String = dt_1.Rows(j)("HEURE_DEBUT")
+                    Dim HEURE_FIN As String = dt_1.Rows(j)("HEURE_FIN")
+
+                    insertQuery = "INSERT INTO `planning_programme`(`HEURE_DEBUT`, `HEURE_FIN`, `DATE_DEBUT`, `DATE_FIN`, `HEURE_DEBUT_FIN`, `CODE_PLANNING`, `CODE_PROGRAMME`, `CODE_PERSONNEL`, `DAY_OFF`) 
+                    VALUES (@HEURE_DEBUT,@HEURE_FIN, @DATE_DEBUT, @DATE_FIN, @HEURE_DEBUT_FIN, @CODE_PLANNING, @CODE_PROGRAMME, @CODE_PERSONNEL, @DAY_OFF)"
+
+                    Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
+
+                    command.Parameters.Add("@CODE_PLANNING", MySqlDbType.VarChar).Value = CODE_PLANNING
+                    command.Parameters.Add("@DATE_DEBUT", MySqlDbType.Date).Value = DATE_DEBUT
+                    command.Parameters.Add("@DATE_FIN", MySqlDbType.Date).Value = DATE_FIN
+                    command.Parameters.Add("@DAY_OFF", MySqlDbType.Date).Value = DAY_OFF
+                    command.Parameters.Add("@CODE_TYPE_PERSONNEL", MySqlDbType.VarChar).Value = CODE_TYPE_PERSONNEL
+                    command.Parameters.Add("@HEURE_DEBUT_FIN", MySqlDbType.VarChar).Value = HEURE_DEBUT_FIN
+                    command.Parameters.Add("@HEURE_DEBUT", MySqlDbType.VarChar).Value = HEURE_DEBUT
+                    command.Parameters.Add("@HEURE_FIN", MySqlDbType.VarChar).Value = HEURE_FIN
+                    command.Parameters.Add("@CODE_PROGRAMME", MySqlDbType.VarChar).Value = CODE_PROGRAMME
+                    command.Parameters.Add("@CODE_PERSONNEL", MySqlDbType.VarChar).Value = CODE_PERSONNEL
+
+                    command.ExecuteNonQuery()
+
+                Next
+
+            Next
+
         End If
 
     End Function

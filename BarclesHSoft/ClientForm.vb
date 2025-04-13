@@ -23,98 +23,26 @@ Public Class ClientForm
 
         Dim query As String = ""
 
-        If GunaCheckBoxTous.Checked Then
-            'ON AFFICHE L'ENSEMBLE DES CLIENTS
-            query = "SELECT CODE_CLIENT AS 'CODE CLIENT', NOM_PRENOM AS 'NOM & PRENOM', EMAIL AS 'E-MAIL', TELEPHONE , NUM_COMPTE AS 'NUMERO DE COMPTE',  NATIONALITE, PROFESSION FROM client WHERE CODE_AGENCE=@CODE_AGENCE ORDER BY NOM_PRENOM ASC"
-
-            Dim command As New MySqlCommand(query, GlobalVariable.connect)
-
-            Dim adapter As New MySqlDataAdapter(command)
-            command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = GlobalVariable.codeAgence
-            Dim table As New DataTable()
-            adapter.Fill(table)
-
-            If (table.Rows.Count > 0) Then
-                GunaDataGridViewClient.DataSource = table
-            Else
-                GunaDataGridViewClient.Columns.Clear()
-            End If
-
-        Else
-
-            'FILTRER LES CLIENTS
-
-            Dim CRITERE_DE_RECHERCHE As String = ""
-            Dim CRITERE_DE_RECHERCHE_VALUE As String = ""
-
-            If Not Trim(GunaTextBoxRefClient.Text) = "" Then
-                CRITERE_DE_RECHERCHE_VALUE = GunaTextBoxRefClient.Text
-                CRITERE_DE_RECHERCHE = "CODE_CLIENT"
-
-            ElseIf Not Trim(GunaTextBoxNomClient.Text) = "" Then
-                CRITERE_DE_RECHERCHE_VALUE = GunaTextBoxNomClient.Text
-                CRITERE_DE_RECHERCHE = "NOM_PRENOM"
-
-            ElseIf Not Trim(GunaTextBoxTelephone.Text) = "" Then
-                CRITERE_DE_RECHERCHE_VALUE = GunaTextBoxTelephone.Text
-                CRITERE_DE_RECHERCHE = "TELEPHONE"
-
-            ElseIf Not Trim(GunaTextBoxCodeEntreprise.Text) = "" Then
-                CRITERE_DE_RECHERCHE_VALUE = GunaTextBoxCodeEntreprise.Text
-                CRITERE_DE_RECHERCHE = "NOM_PRENOM"
-
-            Else
-
-                CRITERE_DE_RECHERCHE_VALUE = GunaDateTimePickerCreation.Value.ToShortDateString
-                CRITERE_DE_RECHERCHE = "DATE_CREATION"
-
-            End If
-
-            'MessageBox.Show(CRITERE_DE_RECHERCHE & " - " & CRITERE_DE_RECHERCHE_VALUE)
-
-            If CRITERE_DE_RECHERCHE = "DATE_CREATION" Then
-
-                'ON AFFICHE L'ENSEMBLE DES CLIENTS
-                query = "SELECT CODE_CLIENT AS 'CODE CLIENT', NOM_PRENOM AS 'NOM & PRENOM', EMAIL AS 'E-MAIL', TELEPHONE , NUM_COMPTE AS 'NUMERO DE COMPTE',  NATIONALITE, PROFESSION FROM client WHERE CODE_AGENCE=@CODE_AGENCE AND " & CRITERE_DE_RECHERCHE & ">='" & CRITERE_DE_RECHERCHE_VALUE & "' AND " & CRITERE_DE_RECHERCHE & "<='" & CRITERE_DE_RECHERCHE_VALUE & "' ORDER BY NOM_PRENOM ASC"
-
-                Dim command As New MySqlCommand(query, GlobalVariable.connect)
-
-                Dim adapter As New MySqlDataAdapter(command)
-                command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = GlobalVariable.codeAgence
-                'command.Parameters.Add("@CRITERE_DE_RECHERCHE_VALUE", MySqlDbType.VarChar).Value = CRITERE_DE_RECHERCHE_VALUE
-                Dim table As New DataTable()
-                adapter.Fill(table)
-
-                If (table.Rows.Count > 0) Then
-                    GunaDataGridViewClient.DataSource = table
-                Else
-                    GunaDataGridViewClient.Columns.Clear()
-                End If
-
-            Else
-
-                'ON AFFICHE L'ENSEMBLE DES CLIENTS
-                query = "SELECT CODE_CLIENT AS 'CODE CLIENT', NOM_PRENOM AS 'NOM & PRENOM', EMAIL AS 'E-MAIL', TELEPHONE , NUM_COMPTE AS 'NUMERO DE COMPTE',  NATIONALITE, PROFESSION FROM client WHERE CODE_AGENCE=@CODE_AGENCE AND " & CRITERE_DE_RECHERCHE & "=@CRITERE_DE_RECHERCHE_VALUE ORDER BY NOM_PRENOM ASC"
-
-                Dim command As New MySqlCommand(query, GlobalVariable.connect)
-
-                Dim adapter As New MySqlDataAdapter(command)
-                command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = GlobalVariable.codeAgence
-                command.Parameters.Add("@CRITERE_DE_RECHERCHE_VALUE", MySqlDbType.VarChar).Value = CRITERE_DE_RECHERCHE_VALUE
-                Dim table As New DataTable()
-                adapter.Fill(table)
-
-                If (table.Rows.Count > 0) Then
-                    GunaDataGridViewClient.DataSource = table
-
-                Else
-                    GunaDataGridViewClient.Columns.Clear()
-                End If
-
-            End If
-
+        If GlobalVariable.actualLanguageValue = 1 Then
+            query = "SELECT CODE_CLIENT AS 'CODE CLIENT', NOM_PRENOM AS 'NOM & PRENOM', EMAIL AS 'E-MAIL', TELEPHONE , NUM_COMPTE AS 'NUMERO DE COMPTE',  NATIONALITE, PROFESSION , CODE_ELITE AS 'CODE ELITE' FROM client WHERE CODE_AGENCE=@CODE_AGENCE ORDER BY NOM_PRENOM ASC"
+        ElseIf GlobalVariable.actualLanguageValue = 0 Then
+            query = "SELECT CODE_CLIENT AS 'CODE CLIENT', NOM_PRENOM AS 'NAME', EMAIL AS 'E-MAIL', TELEPHONE , NUM_COMPTE AS 'ACCOUNT',  NATIONALITE AS 'NATIONALITY', PROFESSION, CODE_ELITE AS 'ELITE CODE' FROM client WHERE CODE_AGENCE=@CODE_AGENCE ORDER BY NOM_PRENOM ASC"
         End If
 
+        Dim command As New MySqlCommand(query, GlobalVariable.connect)
+
+        Dim adapter As New MySqlDataAdapter(command)
+        command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = GlobalVariable.codeAgence
+        Dim table As New DataTable()
+        adapter.Fill(table)
+
+        If (table.Rows.Count > 0) Then
+            GunaDataGridViewClient.DataSource = table
+            GunaLabelNombreClient.Text = "( " & table.Rows.Count & " )"
+        Else
+            GunaDataGridViewClient.Columns.Clear()
+            GunaLabelNombreClient.Text = "( 0 )"
+        End If
         GunaTextBoxRefClient.Clear()
         GunaTextBoxNomClient.Clear()
         GunaTextBoxTelephone.Clear()
@@ -127,26 +55,6 @@ Public Class ClientForm
         'connect.closeConnection()
 
     End Sub
-
-    Private Function nombreDeClientEnregistre()
-
-        Dim query As String = "SELECT CODE_CLIENT AS 'CODE CLIENT', NOM_PRENOM AS 'NOM & PRENOM', EMAIL AS 'E-MAIL', TELEPHONE , NUM_COMPTE AS 'NUMERO DE COMPTE',  NATIONALITE, PROFESSION FROM client WHERE CODE_AGENCE=@CODE_AGENCE ORDER BY NOM_PRENOM ASC"
-        Dim command As New MySqlCommand(query, GlobalVariable.connect)
-
-        Dim adapter As New MySqlDataAdapter(command)
-        command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = GlobalVariable.codeAgence
-        Dim table As New DataTable()
-        adapter.Fill(table)
-
-        Dim nombreDeClient As Integer = 0
-
-        If (table.Rows.Count > 0) Then
-            nombreDeClient = table.Rows.Count
-        End If
-
-        Return nombreDeClient
-
-    End Function
 
     Private Sub ClientForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -487,7 +395,7 @@ Public Class ClientForm
                 'GESTION DES TARIFS APPLIQUES AUX CLIENTS
 
                 Dim tarifClient As New Tarifs
-
+                Dim continuer As Boolean = True
                 'POUR LA TRADUCTION MODIER LE TYPE DANS LA CLASSE CLIENT
 
                 'company verifyfields function
@@ -527,6 +435,8 @@ Public Class ClientForm
                                     MessageBox.Show("Customer successfully updated", "Customer updating", MessageBoxButtons.OK, MessageBoxIcon.Information)
                                 End If
 
+                                clientList()
+
                             End If
 
                             If GlobalVariable.actualLanguageValue = 1 Then
@@ -563,15 +473,29 @@ Public Class ClientForm
                         'SI OUI ON LUI DONNE ON TARIF OBTENU EN UTILISANT LA FONCTION DE CALCUL DU MONTANT DE LA RESERVATION
                     Else
 
-                        'CREATION DE COMPTE FINANCE POUR L'UTILISATEUR ACTUEL
-                        CreationDeCompteUtilisateur(CODE_CLIENT)
+                        Dim NOM_PRENOM As String = NOM_CLIENT & " " & PRENOMS
 
-                        NUM_COMPTE = Trim(numeroDeCompte) 'OBTAIN AFTER DE CREATION OF ACCOUNT NUMBER AS GLOBAL VARIABLE
+                        Dim infoSup As DataTable = Functions.getElementByCodeLike(Trim(NOM_PRENOM), "client", "NOM_PRENOM")
 
-                        'check if the client alreday exist as it is a new client
-                        If Not client.typeClientExists(CODE_CLIENT) Then
+                        If infoSup.Rows.Count > 0 Then
 
-                            If client.Insert(CODE_CLIENT, NOM_CLIENT, NOM_JEUNE_FILLE, PRENOMS, ADRESSE, TELEPHONE, FAX, EMAIL, NUM_COMPTE, NATIONALITE, DATE_DE_NAISSANCE, LIEU_DE_NAISSANCE, PAYS_RESIDENCE, VILLE_DE_RESIDENCE, PROFESSION, CNI, CODE_MODE_PAIEMENT, NUM_COMPTE_COLLECTIF, TYPE_CLIENT, SITE_INTERNET, CODE_AGENCE, CODE_UTILISATEUR_MODIF, CODE_ENTREPRISE, MODE_TRANSPORT, NUM_VEHICULE, MARQUE_VEHICULE, TVA, CIVILITE, CODE_ELITE) Then
+                            For i = 0 To infoSup.Rows.Count - 1
+                                If Trim(infoSup.Rows(i)("NOM_PRENOM")).Equals(Trim(NOM_PRENOM)) Then
+                                    continuer = False
+                                    Exit For
+                                End If
+                            Next
+
+                        End If
+
+                        If continuer Then
+
+                            'CREATION DE COMPTE FINANCE POUR L'UTILISATEUR ACTUEL
+                            CreationDeCompteUtilisateur(CODE_CLIENT)
+
+                            NUM_COMPTE = Trim(numeroDeCompte) 'OBTAIN AFTER DE CREATION OF ACCOUNT NUMBER AS GLOBAL VARIABLE
+
+                            If client.Insert(CODE_CLIENT, Trim(NOM_CLIENT), NOM_JEUNE_FILLE, Trim(PRENOMS), ADRESSE, TELEPHONE, FAX, EMAIL, NUM_COMPTE, NATIONALITE, DATE_DE_NAISSANCE, LIEU_DE_NAISSANCE, PAYS_RESIDENCE, VILLE_DE_RESIDENCE, PROFESSION, CNI, CODE_MODE_PAIEMENT, NUM_COMPTE_COLLECTIF, TYPE_CLIENT, SITE_INTERNET, CODE_AGENCE, CODE_UTILISATEUR_MODIF, CODE_ENTREPRISE, MODE_TRANSPORT, NUM_VEHICULE, MARQUE_VEHICULE, TVA, CIVILITE, CODE_ELITE) Then
 
                                 If Not Trim(GunaTextBoxCompanyName.Text) = "" And Not GunaComboBoxTypeClient.SelectedValue.ToString = "ENTREPRISE" Then
 
@@ -607,7 +531,7 @@ Public Class ClientForm
                                     MessageBox.Show("New customer successfully added", "Customer creation", MessageBoxButtons.OK, MessageBoxIcon.Information)
                                 End If
 
-                                GunaLabelNombreClient.Text = "(" & nombreDeClientEnregistre() & ")"
+                                'GunaLabelNombreClient.Text = "(" & nombreDeClientEnregistre() & ")"
 
                                 'We instert the tarifs affected to the client
 
@@ -701,52 +625,62 @@ Public Class ClientForm
                     GunaDataGridViewTarifsAuquelOnAEffecteDesPrix.Rows.Clear()
                 End If
 
-                GunaTextBoxMontantPlafondsDuCompte.Text = 0
+                If continuer Then
 
-                TabControl1.SelectedIndex = 4
+                    GunaTextBoxMontantPlafondsDuCompte.Text = 0
 
-                If GlobalVariable.editUserFromFrontOffice Then
+                    TabControl1.SelectedIndex = 4
 
-                    GlobalVariable.editUserFromFrontOffice = False
+                    If GlobalVariable.editUserFromFrontOffice Then
 
-                    GlobalVariable.addUserFromFrontOffice = True
+                        GlobalVariable.editUserFromFrontOffice = False
 
-                    Dim query As String = "SELECT * FROM client WHERE CODE_CLIENT=@CODE_CLIENT"
-                    Dim adapter As New MySqlDataAdapter
+                        GlobalVariable.addUserFromFrontOffice = True
 
-                    Dim table As New DataTable()
-                    Dim command As New MySqlCommand(query, GlobalVariable.connect)
-                    command.Parameters.Add("@CODE_CLIENT", MySqlDbType.VarChar).Value = GunaTextBoxCodeClient.Text
+                        Dim query As String = "SELECT * FROM client WHERE CODE_CLIENT=@CODE_CLIENT"
+                        Dim adapter As New MySqlDataAdapter
 
-                    adapter.SelectCommand = command
-                    adapter.Fill(table)
+                        Dim table As New DataTable()
+                        Dim command As New MySqlCommand(query, GlobalVariable.connect)
+                        command.Parameters.Add("@CODE_CLIENT", MySqlDbType.VarChar).Value = GunaTextBoxCodeClient.Text
 
-                    If (table.Rows.Count > 0) Then
+                        adapter.SelectCommand = command
+                        adapter.Fill(table)
 
-                        'We get the id of the client ine=serted by callin gthe client form from the font office
-                        GlobalVariable.userAddedFromFrontOffice = table
+                        If (table.Rows.Count > 0) Then
 
-                        'We activate the main window so as to be able to field the information of thenewly resgitered client
-                        MainWindow.MainWindowManualActivation()
+                            'We get the id of the client ine=serted by callin gthe client form from the font office
+                            GlobalVariable.userAddedFromFrontOffice = table
+
+                            'We activate the main window so as to be able to field the information of thenewly resgitered client
+
+                            If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                                MainWindow.MainWindowManualActivation()
+                            Else
+                                RestaurantBookingForm.MainWindowManualActivation()
+                            End If
+
+                        End If
+
+                        Me.Close()
+
                     End If
 
-                    Me.Close()
+                    Functions.ClearTextBox(Me)
 
-                End If
+                    If Not GunaCheckBoxTVA.Checked Then
+                        GunaCheckBoxTVA.Checked = True
+                    End If
 
-                Functions.ClearTextBox(Me)
+                    If GunaComboBoxTypeClient.Items.Count > 0 Then
+                        creationDuCompteDebiteur()
+                        GUnaTextBoxNumCompteReal.Text = Trim(Functions.GeneratingRandomCodeAccountNumber("compte", INDICE_DE_COMPTE))
+                    End If
 
-                If Not GunaCheckBoxTVA.Checked Then
-                    GunaCheckBoxTVA.Checked = True
-                End If
+                    If GunaComboBoxPays.Items.Count > 0 Then
+                        GunaTextBoxNationalite.Text = NATIONALITE
+                    End If
 
-                If GunaComboBoxTypeClient.Items.Count > 0 Then
-                    creationDuCompteDebiteur()
-                    GUnaTextBoxNumCompteReal.Text = Trim(Functions.GeneratingRandomCodeAccountNumber("compte", INDICE_DE_COMPTE))
-                End If
-
-                If GunaComboBoxPays.Items.Count > 0 Then
-                    GunaTextBoxNationalite.Text = NATIONALITE
                 End If
 
             Else
@@ -956,6 +890,11 @@ Public Class ClientForm
                 GunaButtonEnregistrerTarifs.Enabled = True
             Else
                 GunaButtonEnregistrerTarifs.Enabled = False
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    MessageBox.Show("Bien vouloir double cliquer sur le nom d'un client ", "Tarif", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Else
+                    MessageBox.Show("Please double on the name of a client ", "Rate", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
             End If
 
             GunaDataGridViewTarifsAppliquable.Visible = False
@@ -986,10 +925,8 @@ Public Class ClientForm
 
                 If GlobalVariable.actualLanguageValue = 1 Then
                     GunaButtonEnregistrerTarifs.Text = "Enregistrer"
-
                 Else
                     GunaButtonEnregistrerTarifs.Text = "Add"
-
                 End If
 
             End If
@@ -1256,7 +1193,7 @@ Public Class ClientForm
                 If GlobalVariable.actualLanguageValue = 0 Then
 
                     GunaLabelCivilite.Text = "Civility"
-                    GunaLabel4.Text = "Fisrt Name"
+                    GunaLabel4.Text = "First Name * "
                     GunaLabel5.Text = "Maiden name"
                     GunaLabel6.Text = "Surname"
                     GunaLabel7.Text = "Profession"
@@ -1268,7 +1205,7 @@ Public Class ClientForm
                 ElseIf GlobalVariable.actualLanguageValue = 1 Then
 
                     GunaLabelCivilite.Text = "Civilité"
-                    GunaLabel4.Text = "Nom"
+                    GunaLabel4.Text = "Nom *"
                     GunaLabel5.Text = "Nom de jeune fille"
                     GunaLabel6.Text = "Prénom"
                     GunaLabel7.Text = "Profession"
@@ -1357,25 +1294,29 @@ Public Class ClientForm
 
     Private Sub creationDuCompteDebiteur()
 
-        If GunaComboBoxTypeClient.SelectedIndex >= 0 Then
+        If Not GunaComboBoxTypeClient.SelectedValue Is Nothing Then
 
-            If GunaComboBoxTypeClient.SelectedValue.ToString = "INDIVIDUEL" Or GunaComboBoxTypeClient.SelectedValue.ToString = "INDIVIDUAL" Then
-                INTITULE = Trim(GunaTextBoxNomRaisonSociale.Text) & " " & Trim(GunaTextBoxPrenom.Text)
-                INDICE_DE_COMPTE = "415"
-            ElseIf GunaComboBoxTypeClient.SelectedValue.ToString = "ENTREPRISE" Or GunaComboBoxTypeClient.SelectedValue.ToString = "COMPANY" Then
-                INDICE_DE_COMPTE = "412"
-            ElseIf GunaComboBoxTypeClient.SelectedValue.ToString = "COMPTOIR" Or GunaComboBoxTypeClient.SelectedValue.ToString = "WALK IN" Then
-                INTITULE = Trim(GunaTextBoxNomRaisonSociale.Text) & " " & Trim(GunaTextBoxPrenom.Text)
-                INDICE_DE_COMPTE = "411"
-            ElseIf GunaComboBoxTypeClient.SelectedValue.ToString = "GROUPE" Or GunaComboBoxTypeClient.SelectedValue.ToString = "GROUP" Then
-                INTITULE = Trim(GunaTextBoxNomRaisonSociale.Text) & " " & Trim(GunaTextBoxPrenom.Text)
-                INDICE_DE_COMPTE = "414"
-            ElseIf GunaComboBoxTypeClient.SelectedValue.ToString = "PAYMASTER" Then
-                INTITULE = Trim(GunaTextBoxNomRaisonSociale.Text) & " " & Trim(GunaTextBoxPrenom.Text)
-                INDICE_DE_COMPTE = "416"
-            ElseIf GunaComboBoxTypeClient.SelectedValue.ToString = "EVENEMENTIEL" Or GunaComboBoxTypeClient.SelectedValue.ToString = "EVENT" Then
-                INTITULE = Trim(GunaTextBoxNomRaisonSociale.Text) & " " & Trim(GunaTextBoxPrenom.Text)
-                INDICE_DE_COMPTE = "413"
+            If GunaComboBoxTypeClient.SelectedIndex >= 0 Then
+
+                If GunaComboBoxTypeClient.SelectedValue.ToString = "INDIVIDUEL" Or GunaComboBoxTypeClient.SelectedValue.ToString = "INDIVIDUAL" Then
+                    INTITULE = Trim(GunaTextBoxNomRaisonSociale.Text) & " " & Trim(GunaTextBoxPrenom.Text)
+                    INDICE_DE_COMPTE = "415"
+                ElseIf GunaComboBoxTypeClient.SelectedValue.ToString = "ENTREPRISE" Or GunaComboBoxTypeClient.SelectedValue.ToString = "COMPANY" Then
+                    INDICE_DE_COMPTE = "412"
+                ElseIf GunaComboBoxTypeClient.SelectedValue.ToString = "COMPTOIR" Or GunaComboBoxTypeClient.SelectedValue.ToString = "WALK IN" Then
+                    INTITULE = Trim(GunaTextBoxNomRaisonSociale.Text) & " " & Trim(GunaTextBoxPrenom.Text)
+                    INDICE_DE_COMPTE = "411"
+                ElseIf GunaComboBoxTypeClient.SelectedValue.ToString = "GROUPE" Or GunaComboBoxTypeClient.SelectedValue.ToString = "GROUP" Then
+                    INTITULE = Trim(GunaTextBoxNomRaisonSociale.Text) & " " & Trim(GunaTextBoxPrenom.Text)
+                    INDICE_DE_COMPTE = "414"
+                ElseIf GunaComboBoxTypeClient.SelectedValue.ToString = "PAYMASTER" Then
+                    INTITULE = Trim(GunaTextBoxNomRaisonSociale.Text) & " " & Trim(GunaTextBoxPrenom.Text)
+                    INDICE_DE_COMPTE = "416"
+                ElseIf GunaComboBoxTypeClient.SelectedValue.ToString = "EVENEMENTIEL" Or GunaComboBoxTypeClient.SelectedValue.ToString = "EVENT" Then
+                    INTITULE = Trim(GunaTextBoxNomRaisonSociale.Text) & " " & Trim(GunaTextBoxPrenom.Text)
+                    INDICE_DE_COMPTE = "413"
+                End If
+
             End If
 
         End If
@@ -1385,7 +1326,6 @@ Public Class ClientForm
     'Affichage des clients après clique sur le bouton d'affichage
     Private Sub GunaButtonAfficherClient_Click(sender As Object, e As EventArgs) Handles GunaButtonAfficherClient.Click
 
-        GunaLabelNombreClient.Text = "( " & nombreDeClientEnregistre() & " )"
         clientList()
 
     End Sub
@@ -1396,10 +1336,12 @@ Public Class ClientForm
             GunaButtonAnnuler.Visible = True
             GunaButtonEnregistrerClient.Visible = True
             GunaLabelNote.Visible = True
+            GunaButtonListClientsTab.Visible = True
         Else
             GunaButtonAnnuler.Visible = False
             GunaButtonEnregistrerClient.Visible = False
             GunaLabelNote.Visible = False
+            GunaButtonListClientsTab.Visible = False
         End If
 
         GunaDataGridViewClient.Columns.Clear()
@@ -1416,10 +1358,6 @@ Public Class ClientForm
         'GunaDataGridViewTarifsAuquelOnAEffecteDesPrix.Columns.Add("PRIX_TARIF3", "PRIX 3")
         'GunaDataGridViewTarifsAuquelOnAEffecteDesPrix.Columns.Add("PRIX_TARIF4", "PRIX 4")
         'GunaDataGridViewTarifsAuquelOnAEffecteDesPrix.Columns.Add("PRIX_TARIF5", "PRIX 5")
-
-    End Sub
-
-    Private Sub GunaButton2_Click_1(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -1516,12 +1454,14 @@ Public Class ClientForm
             End If
 
             If compteur = 6 Then
-                GunaButtonEnregistrerClient.Visible = True
+
+                If Trim(GunaTextBoxNomRaisonSociale.Text).Equals("") Then
+                    GunaButtonEnregistrerClient.Visible = False
+                Else
+                    GunaButtonEnregistrerClient.Visible = True
+                End If
+
             End If
-
-            'MessageBox.Show(compteur)
-
-        Else
 
         End If
 
@@ -1667,27 +1607,12 @@ Public Class ClientForm
     'CODE CLIENT
     Private Sub GunaTextBoxRefClient_TextChanged(sender As Object, e As EventArgs) Handles GunaTextBoxRefClient.TextChanged
 
-        If Trim(GunaTextBoxRefClient.Text) = "" Then
-            GunaDataGridViewRefClient.Columns.Clear()
-            GunaDataGridViewRefClient.Visible = False
-        Else
-            Recherche.RechercheGenerale(GunaDataGridViewRefClient, "client", "CODE_CLIENT", Trim(GunaTextBoxRefClient.Text), "CODE_CLIENT")
-        End If
-
-    End Sub
-
-    Private Sub GunaDataGridViewRefClient_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles GunaDataGridViewRefClient.CellClick
-
-        If (e.RowIndex >= 0) Then
-
-            Dim row As DataGridViewRow
-
-            row = Me.GunaDataGridViewRefClient.Rows(e.RowIndex)
-
-            GunaTextBoxRefClient.Text = Trim(row.Cells("CODE_CLIENT").Value.ToString())
-
-            GunaDataGridViewRefClient.Visible = False
-
+        If Not Trim(GunaTextBoxRefClient.Text).Equals("") Then
+            Dim search As New Recherche()
+            Dim Grid As DataGridView = GunaDataGridViewClient
+            Dim champDeRecherche As String = "CODE_CLIENT"
+            Dim valeurARechercher As String = Trim(GunaTextBoxRefClient.Text)
+            Recherche.RechercheGenerale(Grid, champDeRecherche, valeurARechercher)
         End If
 
     End Sub
@@ -1696,87 +1621,38 @@ Public Class ClientForm
 
     Private Sub GunaTextBoxNomClient_TextChanged(sender As Object, e As EventArgs) Handles GunaTextBoxNomClient.TextChanged
 
-        If Trim(GunaTextBoxNomClient.Text) = "" Then
-            GunaDataGridViewNomClient.Columns.Clear()
-            GunaDataGridViewNomClient.Visible = False
-        Else
-            Recherche.RechercheGenerale(GunaDataGridViewNomClient, "client", "NOM_PRENOM", Trim(GunaTextBoxNomClient.Text), "NOM_PRENOM")
-        End If
-
-    End Sub
-
-    Private Sub GunaDataGridViewNomClient_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles GunaDataGridViewNomClient.CellClick
-
-        If (e.RowIndex >= 0) Then
-
-            Dim row As DataGridViewRow
-
-            row = Me.GunaDataGridViewNomClient.Rows(e.RowIndex)
-
-            GunaTextBoxNomClient.Text = Trim(row.Cells("NOM_PRENOM").Value.ToString())
-
-            GunaDataGridViewNomClient.Visible = False
-
+        If Not Trim(GunaTextBoxNomClient.Text).Equals("") Then
+            Dim search As New Recherche()
+            Dim Grid As DataGridView = GunaDataGridViewClient
+            Dim champDeRecherche As String = "NOM_PRENOM"
+            Dim valeurARechercher As String = Trim(GunaTextBoxNomClient.Text)
+            Recherche.RechercheGenerale(Grid, champDeRecherche, valeurARechercher)
         End If
 
     End Sub
 
     'TELEPHONE
     Private Sub GunaTextBoxTelephone_TextChanged(sender As Object, e As EventArgs) Handles GunaTextBoxTelephone.TextChanged
-
-        If Trim(GunaTextBoxTelephone.Text) = "" Then
-            GunaDataGridViewTelephone.Columns.Clear()
-            GunaDataGridViewTelephone.Visible = False
-
-        Else
-            Recherche.RechercheGenerale(GunaDataGridViewTelephone, "client", "TELEPHONE", Trim(GunaTextBoxTelephone.Text), "TELEPHONE")
+        If Not Trim(GunaTextBoxTelephone.Text).Equals("") Then
+            Dim search As New Recherche()
+            Dim Grid As DataGridView = GunaDataGridViewClient
+            Dim champDeRecherche As String = "TELEPHONE"
+            Dim valeurARechercher As String = Trim(GunaTextBoxTelephone.Text)
+            Recherche.RechercheGenerale(Grid, champDeRecherche, valeurARechercher)
         End If
-
-    End Sub
-
-    Private Sub GunaDataGridViewTelephone_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles GunaDataGridViewTelephone.CellClick
-
-        If (e.RowIndex >= 0) Then
-
-            Dim row As DataGridViewRow
-
-            row = Me.GunaDataGridViewTelephone.Rows(e.RowIndex)
-
-            GunaTextBoxTelephone.Text = Trim(row.Cells("TELEPHONE").Value.ToString())
-
-            GunaDataGridViewTelephone.Visible = False
-
-        End If
-
     End Sub
 
     'ENTREPRISE
     Private Sub GunaTextBoxCodeEntreprise_TextChanged(sender As Object, e As EventArgs) Handles GunaTextBoxCodeEntreprise.TextChanged
-
-        If Trim(GunaTextBoxCodeEntreprise.Text) = "" Then
-            GunaDataGridViewEntreprise.Columns.Clear()
-            GunaDataGridViewEntreprise.Visible = False
-        Else
-            Recherche.RechercheGenerale(GunaDataGridViewEntreprise, "client", "NOM_PRENOM", Trim(GunaTextBoxCodeEntreprise.Text), "NOM_PRENOM")
+        If Not Trim(GunaTextBoxCodeEntreprise.Text).Equals("") Then
+            Dim search As New Recherche()
+            Dim Grid As DataGridView = GunaDataGridViewClient
+            Dim champDeRecherche As String = "CODE_ELITE"
+            Dim valeurARechercher As String = Trim(GunaTextBoxCodeEntreprise.Text)
+            Recherche.RechercheGenerale(Grid, champDeRecherche, valeurARechercher)
         End If
-
     End Sub
 
-    Private Sub GunaDataGridViewEntreprise_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles GunaDataGridViewEntreprise.CellClick
-
-        If (e.RowIndex >= 0) Then
-
-            Dim row As DataGridViewRow
-
-            row = Me.GunaDataGridViewEntreprise.Rows(e.RowIndex)
-
-            GunaTextBoxCodeEntreprise.Text = Trim(row.Cells("NOM_PRENOM").Value.ToString())
-
-            GunaDataGridViewEntreprise.Visible = False
-
-        End If
-
-    End Sub
 
     Private Sub GunaTextBoxAdresseDeFacturation_TextChanged(sender As Object, e As EventArgs) Handles GunaTextBoxAdresseDeFacturation.TextChanged
         champDeCompteObligatoire()
@@ -2299,7 +2175,10 @@ Public Class ClientForm
             Dim CODE_CLIENT_COMPTE As String = ""
 
             If GunaComboBoxTypeDeFiltre.SelectedItem = "Entreprise" Or GunaComboBoxTypeDeFiltre.SelectedItem = "Individuel" Or GunaComboBoxTypeDeFiltre.SelectedItem = "Company" Or GunaComboBoxTypeDeFiltre.SelectedItem = "Individual" Then
-                CODE_CLIENT_COMPTE = GunaTextBoxCodeEntreprise.Text
+                'CODE_CLIENT_COMPTE = GunaTextBoxCodeEntreprise.Text
+                CODE_CLIENT_COMPTE = GunaTextBoxCodeClient.Text
+            Else
+                CODE_CLIENT_COMPTE = GunaTextBoxCompteDebiteur.Text
             End If
 
             If Trim(NATURE_OPERATION) = "FACTURE" Then
@@ -3542,6 +3421,9 @@ Public Class ClientForm
             GunaTextBoxIDTarifPrix.Text = ID_TARIF_PRIX
 
             GunaButtonEnregistrerTarifs.Text = "Sauvegarder"
+            If GlobalVariable.actualLanguageValue = 0 Then
+                GunaButtonEnregistrerTarifs.Text = "Update"
+            End If
 
             Dim tarif As DataTable = Functions.getElementByCode(ID_TARIF_PRIX, "tarif_prix", "ID_TARIF")
 
@@ -3820,18 +3702,27 @@ Public Class ClientForm
 
         Dim elite As New ClubElite()
         elite.list(dt, UPGRADE)
-        If GunaDataGridViewCodeEliteMembre.Rows.Count > 0 Then
 
-            If UPGRADE = 0 Then
+        If UPGRADE = 0 Then
+
+            If GunaDataGridViewCodeEliteMembre.Rows.Count > 0 Then
                 GunaDataGridViewCodeEliteMembre.Columns(6).Visible = False
                 GunaLabel46.Text = "(" & dt.Rows.Count & ")"
-            ElseIf UPGRADE = 1 Then
-                GunaDataGridViewToUpgrade.Columns(6).Visible = False
-                GunaLabel48.Text = "(" & dt.Rows.Count & ")"
+            Else
+                GunaLabel46.Text = "(" & 0 & ")"
             End If
 
-        Else
-            GunaLabel46.Text = "(" & 0 & ")"
+        ElseIf UPGRADE = 1 Then
+
+            If GunaDataGridViewToUpgrade.Rows.Count > 0 Then
+
+                GunaDataGridViewToUpgrade.Columns(6).Visible = False
+                GunaLabel48.Text = "(" & dt.Rows.Count & ")"
+
+            Else
+                GunaLabel48.Text = "(" & 0 & ")"
+            End If
+
         End If
 
     End Sub
@@ -3897,17 +3788,21 @@ Public Class ClientForm
 
     Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
 
-        Dim CODE_ELITE As String = GunaDataGridViewCodeEliteMembre.CurrentRow.Cells(2).Value.ToString()
-        Dim CODE_CLIENT As String = GunaDataGridViewCodeEliteMembre.CurrentRow.Cells(6).Value.ToString()
+        If GunaDataGridViewCodeEliteMembre.CurrentRow.Selected Then
 
-        Dim elite As New ClubElite()
+            Dim CODE_ELITE As String = GunaDataGridViewCodeEliteMembre.CurrentRow.Cells(2).Value.ToString()
+            Dim CODE_CLIENT As String = GunaDataGridViewCodeEliteMembre.CurrentRow.Cells(6).Value.ToString()
 
-        Dim dt As DataTable = elite.historiquesAccummulationDesPoints(CODE_ELITE, CODE_CLIENT)
+            Dim elite As New ClubElite()
 
-        If dt.Rows.Count > 0 Then
-            GunaDataGridViewHistoriquesDesPoints.DataSource = Nothing
-            GunaDataGridViewHistoriquesDesPoints.DataSource = dt
-            TabControl1.SelectedIndex = 6
+            Dim dt As DataTable = elite.historiquesAccummulationDesPoints(CODE_ELITE, CODE_CLIENT)
+
+            If dt.Rows.Count > 0 Then
+                GunaDataGridViewHistoriquesDesPoints.DataSource = Nothing
+                GunaDataGridViewHistoriquesDesPoints.DataSource = dt
+                TabControl1.SelectedIndex = 6
+            End If
+
         End If
 
     End Sub
@@ -4105,4 +4000,7 @@ Public Class ClientForm
 
     End Sub
 
+    Private Sub GunaButton5_Click(sender As Object, e As EventArgs) Handles GunaButtonListClientsTab.Click
+        TabControl1.SelectedIndex = 4
+    End Sub
 End Class

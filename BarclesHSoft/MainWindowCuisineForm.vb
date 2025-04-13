@@ -6,6 +6,9 @@ Public Class MainWindowCuisineForm
 
         Dim langue As New Languages
         langue.article(GlobalVariable.actualLanguageValue)
+        langue.side_menu_kitchen_form(GlobalVariable.actualLanguageValue)
+
+        langue.mainwindowCuisine(GlobalVariable.actualLanguageValue)
 
         If GlobalVariable.softwareVersion = "barcleshsoftdbdemo" Then
             GunaLabelTitreDeLaFenetre.Text = GlobalVariable.ConnectedUser.Rows(0)("NOM_UTILISATEUR") + " (DEMO) "
@@ -38,12 +41,20 @@ Public Class MainWindowCuisineForm
 
         'Functions.magasinActuelEtShiftDunUtilisateur()
 
+        If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 1 Then
+            ReceptionToolStripMenuItem.Visible = False
+            RESERVATIONToolStripMenuItem.Visible = False
+            SERVICEDETAGEToolStripMenuItem.Visible = False
+            TECHNIQUEToolStripMenuItem.Visible = False
+            ToolStripMenuItemServTech.Visible = False
+        End If
+
     End Sub
 
     Private Sub affichageDeArticleForm()
 
         BonApprovisionnementForm.Close()
-
+        ArticleForm.Close()
         ArticleForm.Show()
         ArticleForm.Location = New Point(50, 110)
         ArticleForm.TopMost = True
@@ -331,58 +342,56 @@ Public Class MainWindowCuisineForm
 
     Private Sub ToolStripMenuItem119_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem119.Click
 
-        Dim dialog As DialogResult
+        'Dim dialog As DialogResult
+
+        'If GlobalVariable.actualLanguageValue = 1 Then
+        'dialog = MessageBox.Show("Voulez-vous vraiment fermer ", "Fermer BarclesHSoft", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        'Else
+        'dialog = MessageBox.Show("Do you really want to close your session ", "Close BarclesHSoft", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        'End If
+
+        'If dialog = DialogResult.No Then
+        'e.Cancel = True
+        'Else
+
+        'Dim CODE_UTILISATEUR = GlobalVariable.ConnectedUser(0)("CODE_UTILISATEUR")
+
+        'Dim CODE_CAISSE As String = ""
+
+        'Dim CAISSE_UTILISATEUR As DataTable = Functions.getElementByCode(CODE_UTILISATEUR, "caisse", "CODE_UTILISATEUR")
+
+        'If CAISSE_UTILISATEUR.Rows.Count > 0 Then
+
+        'CODE_CAISSE = CAISSE_UTILISATEUR.Rows(0)("CODE_CAISSE")
+
+        'End If
+
+        ''Dim ETAT_CAISSE As Integer = 0
+        'Dim caissier As New Caisse()
+
+        'caissier.ouvertureFermetureDeCaisse(CODE_CAISSE, ETAT_CAISSE)
+
+
+        'End If
+
+        Dim Action As String = ""
 
         If GlobalVariable.actualLanguageValue = 1 Then
-            dialog = MessageBox.Show("Voulez-vous vraiment fermer ", "Fermer BarclesHSoft", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-
+            Action = "DECONNEXION DE " & GlobalVariable.ConnectedUser(0)("NOM_UTILISATEUR")
         Else
-            dialog = MessageBox.Show("Do you really want to close your session ", "Close BarclesHSoft", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-
+            Action = "LOG OUT OF " & GlobalVariable.ConnectedUser(0)("NOM_UTILISATEUR")
         End If
 
-        If dialog = DialogResult.No Then
-            'e.Cancel = True
-        Else
+        User.mouchard(Action)
 
-            Dim CODE_UTILISATEUR = GlobalVariable.ConnectedUser(0)("CODE_UTILISATEUR")
+        HomeForm.Close()
 
-            Dim CODE_CAISSE As String = ""
+        AccueilForm.Close()
 
-            Dim CAISSE_UTILISATEUR As DataTable = Functions.getElementByCode(CODE_UTILISATEUR, "caisse", "CODE_UTILISATEUR")
+        AccueilForm.Show()
 
-            If CAISSE_UTILISATEUR.Rows.Count > 0 Then
+        Me.Close()
 
-                CODE_CAISSE = CAISSE_UTILISATEUR.Rows(0)("CODE_CAISSE")
-
-            End If
-
-            Dim ETAT_CAISSE As Integer = 0
-            Dim caissier As New Caisse()
-
-            'caissier.ouvertureFermetureDeCaisse(CODE_CAISSE, ETAT_CAISSE)
-
-            Dim Action As String = ""
-
-            If GlobalVariable.actualLanguageValue = 1 Then
-                Action = "DECONNEXION DE " & GlobalVariable.ConnectedUser(0)("NOM_UTILISATEUR")
-
-            Else
-                Action = "LOG OUT OF " & GlobalVariable.ConnectedUser(0)("NOM_UTILISATEUR")
-
-            End If
-
-            User.mouchard(Action)
-
-            HomeForm.Close()
-
-            AccueilForm.Close()
-
-            AccueilForm.Show()
-
-            Me.Close()
-
-        End If
     End Sub
 
     Private Sub ToolStripMenuItem117_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem117.Click
@@ -394,7 +403,7 @@ Public Class MainWindowCuisineForm
 
     Private Sub GunaLabelNotification_Click(sender As Object, e As EventArgs) Handles GunaLabelNotification.Click
         NotificationsForm.GunaTextBoxFromWhichWindow.Text = "cuisine"
-        NotificationsForm.GunaLabelNomDuNettoyeur.Text = "BOITE DE RECEPTION : MESSAGES NON LUS"
+        NotificationsForm.GunaLabelTitle.Text = "BOITE DE RECEPTION : MESSAGES NON LUS"
 
         NotificationsForm.TopMost = True
         NotificationsForm.Show()
@@ -451,10 +460,19 @@ Public Class MainWindowCuisineForm
         Dim CODE_MAGASIN As String = choixDuMagasin()
 
         If Not Trim(CODE_MAGASIN).Equals("") Then
+            Me.Cursor = Cursors.WaitCursor
             inventaireDesArticles(CODE_MAGASIN)
+            Me.Cursor = Cursors.Default
+        End If
+
+        If GunaDataGridViewInventaire.Rows.Count > 0 Then
+            GunaButtonImpressionDirecte.Visible = True
+        Else
+            GunaButtonImpressionDirecte.Visible = False
         End If
 
     End Sub
+
 
     Public Sub inventaireDesArticles(ByVal CODE_MAGASIN As String)
 
@@ -468,16 +486,28 @@ Public Class MainWindowCuisineForm
 
         GunaDataGridViewInventaire.Columns.Clear()
 
-        GunaDataGridViewInventaire.Columns.Add("CODE_ARTICLE", "CODE ARTICLE")
-        GunaDataGridViewInventaire.Columns.Add("LIBELLE", "DESIGNATION")
-        GunaDataGridViewInventaire.Columns.Add("QUANTITE_EN_STOCK", "QUANTITE EN STOCK")
-        GunaDataGridViewInventaire.Columns.Add("QUANTITE_PHYSIQUE", "QUANTITE PHYSIQUE")
-        GunaDataGridViewInventaire.Columns.Add("COUT_DU_STOCK", "COUT DU STOCK")
+        If GlobalVariable.actualLanguageValue = 0 Then
+
+            GunaDataGridViewInventaire.Columns.Add("CODE_ARTICLE", "CODE ARTICLE")
+            GunaDataGridViewInventaire.Columns.Add("LIBELLE", "ITEM")
+            GunaDataGridViewInventaire.Columns.Add("QUANTITE_EN_STOCK", "STOCK")
+            GunaDataGridViewInventaire.Columns.Add("QUANTITE_PHYSIQUE", "PHYSICAL QTY")
+            GunaDataGridViewInventaire.Columns.Add("COUT_DU_STOCK", "STOCK COST")
+
+        Else
+
+            GunaDataGridViewInventaire.Columns.Add("CODE_ARTICLE", "CODE ARTICLE")
+            GunaDataGridViewInventaire.Columns.Add("LIBELLE", "DESIGNATION")
+            GunaDataGridViewInventaire.Columns.Add("QUANTITE_EN_STOCK", "QUANTITE EN STOCK")
+            GunaDataGridViewInventaire.Columns.Add("QUANTITE_PHYSIQUE", "QUANTITE PHYSIQUE")
+            GunaDataGridViewInventaire.Columns.Add("COUT_DU_STOCK", "COUT DU STOCK")
+
+        End If
 
         If tousLesArticles.Rows.Count > 0 Then
 
             Dim econom As New Economat()
-            GunaButtonImpressionDirecte.Visible = True
+
             Dim CODE_ARTICLE As String = ""
             Dim LIBELLE_ARTICLE As String = ""
             Dim QUANTITE_EN_STOCK As Double = 0
@@ -490,25 +520,28 @@ Public Class MainWindowCuisineForm
                 QUANTITE_EN_STOCK = econom.QuantiteDunArticleQuelconqueDansUnMagasinQuelconque(CODE_MAGASIN, CODE_ARTICLE)
                 COUT_DU_STOCK = QUANTITE_EN_STOCK * tousLesArticles.Rows(i)("PRIX_ACHAT_HT")
 
-                GunaDataGridViewInventaire.Rows.Add(CODE_ARTICLE, LIBELLE_ARTICLE, QUANTITE_EN_STOCK, "", COUT_DU_STOCK)
+                If QUANTITE_EN_STOCK > 0 Then
+                    GunaDataGridViewInventaire.Rows.Add(CODE_ARTICLE, LIBELLE_ARTICLE, QUANTITE_EN_STOCK, "", COUT_DU_STOCK)
+                End If
 
             Next
 
             'GunaDataGridViewInventaire.DataSource = tousLesArticles
-
+            GunaDataGridViewInventaire.Columns(0).Visible = False
             GunaDataGridViewInventaire.Columns("QUANTITE_EN_STOCK").DefaultCellStyle.Format = "#,##0"
             GunaDataGridViewInventaire.Columns("QUANTITE_EN_STOCK").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 
         Else
             'GunaDataGridViewInventaire.Rows.Clear()
-            GunaButtonImpressionDirecte.Visible = False
+            GunaDataGridViewInventaire.Columns(0).Visible = False
         End If
 
     End Sub
 
     Private Sub GunaButtonImpressionDirecte_Click(sender As Object, e As EventArgs) Handles GunaButtonImpressionDirecte.Click
 
-        Dim title As String = GlobalVariable.bon_requisition
+        Dim title As String = GlobalVariable.inventaire.ToString.ToUpper
+
         Dim numeroBon As String = ""
         Dim libelle As String = ""
         Dim reference As String = ""
@@ -531,6 +564,7 @@ Public Class MainWindowCuisineForm
         If GlobalVariable.typeRapportEconmat = "ES" Then
 
             Dim CODE_MAGASIN As String = choixDuMagasin()
+
             Dim econom As New Economat
             If (globalIndividuel >= 0 And globalIndividuel <= 1) And (entreeSortie >= 0 And entreeSortie <= 1) Then
                 'DEMANDE A AFFICHER LES ENTREES OU SORTIES GLOBALES OU INDIVIDUELLE DONC DETAILLEES
@@ -538,24 +572,34 @@ Public Class MainWindowCuisineForm
 
                 If GunaDataGridViewBorderoByTypeEtDate.Rows.Count > 0 Then
 
-                    GunaDataGridViewBorderoByTypeEtDate.Columns("PRIX UNITAIRE").DefaultCellStyle.Format = "#,##0"
-                    GunaDataGridViewBorderoByTypeEtDate.Columns("PRIX UNITAIRE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                    '`DATE_BORDEREAU` AS 'DATE' = 0, 
+                    'DESIGNATION_FR AS ITEM = 1, 
+                    'NUM_SERIE_DEBUT As UNIT = 2, 
+                    'ligne_bordereaux.QUANTITE As 'QTY BEFORE' = 3, 
+                    'QUANTITE_ENTREE_STOCK AS 'MOVING QTY' = 4, 
+                    'PRIX_UNITAIRE_HT AS 'UNIT PRICE' = 5, 
+                    'PRIX_TOTAL_HT AS 'TOTAL' = 6, 
+                    'magasin.LIBELLE_MAGASIN AS 'STORE' = 7 
 
-                    GunaDataGridViewBorderoByTypeEtDate.Columns("TOTAL").DefaultCellStyle.Format = "#,##0"
-                    GunaDataGridViewBorderoByTypeEtDate.Columns("TOTAL").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                    GunaDataGridViewBorderoByTypeEtDate.Columns(5).DefaultCellStyle.Format = "#,##0"
+                    GunaDataGridViewBorderoByTypeEtDate.Columns(5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-                    GunaDataGridViewBorderoByTypeEtDate.Columns("QTE AVANT MOVT").DefaultCellStyle.Format = "#,##0"
-                    GunaDataGridViewBorderoByTypeEtDate.Columns("QTE AVANT MOVT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                    GunaDataGridViewBorderoByTypeEtDate.Columns(6).DefaultCellStyle.Format = "#,##0"
+                    GunaDataGridViewBorderoByTypeEtDate.Columns(6).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-                    GunaDataGridViewBorderoByTypeEtDate.Columns("QTE EN MOVT").DefaultCellStyle.Format = "#,##0"
-                    GunaDataGridViewBorderoByTypeEtDate.Columns("QTE EN MOVT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                    GunaDataGridViewBorderoByTypeEtDate.Columns(3).DefaultCellStyle.Format = "#,##0"
+                    GunaDataGridViewBorderoByTypeEtDate.Columns(3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+
+                    GunaDataGridViewBorderoByTypeEtDate.Columns(4).DefaultCellStyle.Format = "#,##0"
+                    GunaDataGridViewBorderoByTypeEtDate.Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 
                     GunaButtonImpirmerRapportEconomat.Visible = True
 
-                    GunaDataGridViewBorderoByTypeEtDate.Columns("MAGASIN").Visible = False
+                    GunaDataGridViewBorderoByTypeEtDate.Columns(7).Visible = False
 
                 Else
                     GunaButtonImpirmerRapportEconomat.Visible = False
+                    GunaDataGridViewBorderoByTypeEtDate.Columns(7).Visible = False
                 End If
 
             End If
@@ -575,14 +619,24 @@ Public Class MainWindowCuisineForm
             title = "SORTIES DU MAGASIN"
         End If
 
+        If GlobalVariable.actualLanguageValue = 0 Then
+            If entreeSortie = 0 Then
+                title = "STORE ENTRIES"
+            Else
+                title = "STORE OUT GOING"
+            End If
+
+        End If
+
         Dim entreeSortieOuAchatPeriodique As Integer = 0 'ENTREE SORTIE = 0 or ACHAT PERIODIQUE = 1
 
         Dim CODE_MAGASIN As String = choixDuMagasin()
-        Impression.affichageDesEntreesSortiePeriodiqueImpressionSpecifique(GunaDateTimePicker1.Value.ToShortDateString, GunaDateTimePicker2.Value.ToShortDateString, entreeSortie, globalIndividuel, title, entreeSortieOuAchatPeriodique, CODE_MAGASIN)
+
+        Impression.affichageDesEntreesSortiePeriodiqueImpression(GunaDateTimePicker1.Value.ToShortDateString, GunaDateTimePicker2.Value.ToShortDateString, entreeSortie, globalIndividuel, title, entreeSortieOuAchatPeriodique, CODE_MAGASIN)
 
     End Sub
 
-    Private Sub CUISINEToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CUISINEToolStripMenuItem.Click
-
+    Private Sub GunaComboBoxEntreSortie_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GunaComboBoxEntreSortie.SelectedIndexChanged
+        GunaDataGridViewBorderoByTypeEtDate.Columns.Clear()
     End Sub
 End Class

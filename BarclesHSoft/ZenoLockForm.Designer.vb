@@ -122,6 +122,12 @@ Partial Class ZenoLockForm
         Me.BackgroundWorker13 = New System.ComponentModel.BackgroundWorker()
         Me.BackgroundWorker14 = New System.ComponentModel.BackgroundWorker()
         Me.BackgroundWorker15 = New System.ComponentModel.BackgroundWorker()
+        Me.IDD102_1001 = New System.Windows.Forms.RadioButton()
+        Me.IDD102_1000 = New System.Windows.Forms.RadioButton()
+        Me.IDD102_1017 = New System.Windows.Forms.CheckBox()
+        Me.IDD102_1018 = New System.Windows.Forms.CheckBox()
+        Me.IDD102_1016 = New System.Windows.Forms.CheckBox()
+        Me.IDD102_1003 = New System.Windows.Forms.Button()
         Me.GunaPanel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBoxConfig.SuspendLayout()
@@ -1105,6 +1111,7 @@ Partial Class ZenoLockForm
         Me.B_Start.TabIndex = 103
         Me.B_Start.Text = "Démarrer Session"
         Me.B_Start.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.B_Start.Visible = False
         '
         'B_CheckOut
         '
@@ -1135,6 +1142,12 @@ Partial Class ZenoLockForm
         '
         'GroupBoxConfig
         '
+        Me.GroupBoxConfig.Controls.Add(Me.IDD102_1017)
+        Me.GroupBoxConfig.Controls.Add(Me.IDD102_1018)
+        Me.GroupBoxConfig.Controls.Add(Me.IDD102_1016)
+        Me.GroupBoxConfig.Controls.Add(Me.IDD102_1003)
+        Me.GroupBoxConfig.Controls.Add(Me.IDD102_1001)
+        Me.GroupBoxConfig.Controls.Add(Me.IDD102_1000)
         Me.GroupBoxConfig.Controls.Add(Me.CB_Port)
         Me.GroupBoxConfig.Controls.Add(Me.CB_Software)
         Me.GroupBoxConfig.Controls.Add(Me.CB_DB)
@@ -1308,7 +1321,7 @@ Partial Class ZenoLockForm
         Me.GunaButtonChemin.ForeColor = System.Drawing.Color.White
         Me.GunaButtonChemin.Image = Nothing
         Me.GunaButtonChemin.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonChemin.Location = New System.Drawing.Point(329, 98)
+        Me.GunaButtonChemin.Location = New System.Drawing.Point(318, 98)
         Me.GunaButtonChemin.Name = "GunaButtonChemin"
         Me.GunaButtonChemin.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonChemin.OnHoverBorderColor = System.Drawing.Color.Black
@@ -1549,6 +1562,73 @@ Partial Class ZenoLockForm
         '
         Me.BackgroundWorker15.WorkerSupportsCancellation = True
         '
+        'IDD102_1001
+        '
+        Me.IDD102_1001.AutoSize = True
+        Me.IDD102_1001.Checked = True
+        Me.IDD102_1001.Font = New System.Drawing.Font("SimSun", 12.0!)
+        Me.IDD102_1001.Location = New System.Drawing.Point(700, 58)
+        Me.IDD102_1001.Name = "IDD102_1001"
+        Me.IDD102_1001.Size = New System.Drawing.Size(74, 20)
+        Me.IDD102_1001.TabIndex = 152
+        Me.IDD102_1001.TabStop = True
+        Me.IDD102_1001.Text = "5-RF50"
+        Me.IDD102_1001.UseVisualStyleBackColor = True
+        '
+        'IDD102_1000
+        '
+        Me.IDD102_1000.AutoSize = True
+        Me.IDD102_1000.Font = New System.Drawing.Font("SimSun", 12.0!)
+        Me.IDD102_1000.Location = New System.Drawing.Point(522, 58)
+        Me.IDD102_1000.Name = "IDD102_1000"
+        Me.IDD102_1000.Size = New System.Drawing.Size(66, 20)
+        Me.IDD102_1000.TabIndex = 151
+        Me.IDD102_1000.Text = "4-T57"
+        Me.IDD102_1000.UseVisualStyleBackColor = True
+        '
+        'IDD102_1017
+        '
+        Me.IDD102_1017.AutoSize = True
+        Me.IDD102_1017.Location = New System.Drawing.Point(606, 83)
+        Me.IDD102_1017.Name = "IDD102_1017"
+        Me.IDD102_1017.Size = New System.Drawing.Size(177, 21)
+        Me.IDD102_1017.TabIndex = 156
+        Me.IDD102_1017.Text = "检查入住时间(用于预订)"
+        Me.IDD102_1017.UseVisualStyleBackColor = True
+        '
+        'IDD102_1018
+        '
+        Me.IDD102_1018.AutoSize = True
+        Me.IDD102_1018.Checked = True
+        Me.IDD102_1018.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.IDD102_1018.Location = New System.Drawing.Point(478, 83)
+        Me.IDD102_1018.Name = "IDD102_1018"
+        Me.IDD102_1018.Size = New System.Drawing.Size(97, 21)
+        Me.IDD102_1018.TabIndex = 155
+        Me.IDD102_1018.Text = "允许开反锁"
+        Me.IDD102_1018.UseVisualStyleBackColor = True
+        '
+        'IDD102_1016
+        '
+        Me.IDD102_1016.AutoSize = True
+        Me.IDD102_1016.Location = New System.Drawing.Point(606, 111)
+        Me.IDD102_1016.Name = "IDD102_1016"
+        Me.IDD102_1016.Size = New System.Drawing.Size(111, 21)
+        Me.IDD102_1016.TabIndex = 154
+        Me.IDD102_1016.Text = "新卡顶替旧卡"
+        Me.IDD102_1016.UseVisualStyleBackColor = True
+        '
+        'IDD102_1003
+        '
+        Me.IDD102_1003.Enabled = False
+        Me.IDD102_1003.Font = New System.Drawing.Font("SimSun", 12.0!)
+        Me.IDD102_1003.Location = New System.Drawing.Point(337, 424)
+        Me.IDD102_1003.Name = "IDD102_1003"
+        Me.IDD102_1003.Size = New System.Drawing.Size(118, 44)
+        Me.IDD102_1003.TabIndex = 153
+        Me.IDD102_1003.Text = "入  住"
+        Me.IDD102_1003.UseVisualStyleBackColor = True
+        '
         'ZenoLockForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1716,4 +1796,10 @@ Partial Class ZenoLockForm
     Friend WithEvents BackgroundWorker13 As System.ComponentModel.BackgroundWorker
     Friend WithEvents BackgroundWorker14 As System.ComponentModel.BackgroundWorker
     Friend WithEvents BackgroundWorker15 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents IDD102_1001 As RadioButton
+    Friend WithEvents IDD102_1000 As RadioButton
+    Friend WithEvents IDD102_1017 As CheckBox
+    Friend WithEvents IDD102_1018 As CheckBox
+    Friend WithEvents IDD102_1016 As CheckBox
+    Friend WithEvents IDD102_1003 As Button
 End Class

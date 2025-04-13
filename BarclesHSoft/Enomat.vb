@@ -185,9 +185,11 @@ Public Class Economat
 
     '----------------------------------------------- GESTION DES FOURNISSEURS --------------------------------------------------
     'INSERTION DE FOURNISSEUR
-    Public Function insertFournisseur(ByVal NOM_FOURNISSEUR As String, ByVal CODE_FOURNISSEUR As String, ByVal POURCENTAGE_REMISE As String, ByVal ADRESSE As String, ByVal TELEPHONE As String, ByVal FAX As String, ByVal NUMERO_COMPTE As String, ByVal CODE_AGENCE As String) As Boolean
+    Public Function insertFournisseur(ByVal NOM_FOURNISSEUR As String, ByVal CODE_FOURNISSEUR As String, ByVal POURCENTAGE_REMISE As String, ByVal ADRESSE As String, ByVal TELEPHONE As String,
+                                      ByVal FAX As String, ByVal NUMERO_COMPTE As String, ByVal CODE_AGENCE As String, ByVal BLANCHISSEUR As Integer) As Boolean
 
-        Dim insertQuery As String = "INSERT INTO `fournisseur`(`NOM_FOURNISSEUR`, `CODE_FOURNISSEUR`, `POURCENTAGE_REMISE`, `ADRESSE`, `TELEPHONE`, `FAX`, `NUMERO_COMPTE`, `CODE_AGENCE`) VALUES (@value2,@value3,@value4,@value5,@value6,@value7,@value8,@value9)"
+        Dim insertQuery As String = "INSERT INTO `fournisseur`(`NOM_FOURNISSEUR`, `CODE_FOURNISSEUR`, `POURCENTAGE_REMISE`, `ADRESSE`, `TELEPHONE`, `FAX`, `NUMERO_COMPTE`, `CODE_AGENCE`, `BLANCHISSEUR`) 
+        VALUES (@value2,@value3,@value4,@value5,@value6,@value7,@value8,@value9, @BLANCHISSEUR)"
 
         Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
 
@@ -199,6 +201,8 @@ Public Class Economat
         command.Parameters.Add("@value7", MySqlDbType.VarChar).Value = FAX
         command.Parameters.Add("@value8", MySqlDbType.VarChar).Value = NUMERO_COMPTE
         command.Parameters.Add("@value9", MySqlDbType.VarChar).Value = CODE_AGENCE
+        command.Parameters.Add("@BLANCHISSEUR", MySqlDbType.Int64).Value = BLANCHISSEUR
+
 
         'Opening the connection
         'connect.openConnection()
@@ -214,9 +218,11 @@ Public Class Economat
     End Function
 
     'MISE A JOUR DE FOURNISSEUR
-    Public Function updateFournisseur(ByVal NOM_FOURNISSEUR As String, ByVal CODE_FOURNISSEUR As String, ByVal POURCENTAGE_REMISE As String, ByVal ADRESSE As String, ByVal TELEPHONE As String, ByVal FAX As String, ByVal NUMERO_COMPTE As String, ByVal CODE_AGENCE As String) As Boolean
+    Public Function updateFournisseur(ByVal NOM_FOURNISSEUR As String, ByVal CODE_FOURNISSEUR As String, ByVal POURCENTAGE_REMISE As String, ByVal ADRESSE As String, ByVal TELEPHONE As String,
+                                      ByVal FAX As String, ByVal NUMERO_COMPTE As String, ByVal CODE_AGENCE As String, ByVal BLANCHISSEUR As Integer) As Boolean
 
-        Dim upDateQuery As String = "UPDATE `fournisseur` SET `NOM_FOURNISSEUR`=@value2,`POURCENTAGE_REMISE`=@value4,`ADRESSE`=@value5,`TELEPHONE`=@value6,`FAX`=@value7,`NUMERO_COMPTE`=@value8,`CODE_AGENCE`=@value9 WHERE CODE_FOURNISSEUR = @CODE_FOURNISSEUR"
+        Dim upDateQuery As String = "UPDATE `fournisseur` SET `NOM_FOURNISSEUR`=@value2,`POURCENTAGE_REMISE`=@value4,`ADRESSE`=@value5,`TELEPHONE`=@value6,`FAX`=@value7,
+                                        `NUMERO_COMPTE`=@value8, `BLANCHISSEUR`=@BLANCHISSEUR WHERE CODE_FOURNISSEUR = @CODE_FOURNISSEUR"
 
         Dim command As New MySqlCommand(upDateQuery, GlobalVariable.connect)
 
@@ -228,6 +234,7 @@ Public Class Economat
         command.Parameters.Add("@value7", MySqlDbType.VarChar).Value = FAX
         command.Parameters.Add("@value8", MySqlDbType.VarChar).Value = NUMERO_COMPTE
         command.Parameters.Add("@value9", MySqlDbType.VarChar).Value = CODE_AGENCE
+        command.Parameters.Add("@BLANCHISSEUR", MySqlDbType.Int64).Value = BLANCHISSEUR
 
         'Opening the connection
         'connect.openConnection()
@@ -440,8 +447,6 @@ Public Class Economat
         FROM `bordereau_ligne_temp` WHERE CODE_AGENCE=@CODE_AGENCE AND CODE_BORDEREAU=@CODE_BORDEREAUX"
 
         End If
-
-        'Dim FillingListquery As String = "SELECT `CODE_ARTICLE` As 'CODE ARTICLE', `DESIGNATION`, `QUANTITE`, `EN_STOCK` As 'EN STOCK', `PRIX_VENTE` As 'PRIX VENTE', `PRIX_ACHAT` AS 'PRIX ACHAT' , `COUT_DU_STOCK` As 'COUT DU STOCK',`DATE_PEREMPTION` As 'DATE DE PEREMPTION' FROM `bordereau_ligne_temp` WHERE CODE_AGENCE=@CODE_AGENCE AND CODE_USER=@CODE_USER"
 
         Dim commandList As New MySqlCommand(FillingListquery, GlobalVariable.connect)
         commandList.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = CODE_AGENCE
@@ -737,8 +742,59 @@ Public Class Economat
 
         Dim FillingListquery As String = ""
 
-        'FillingListquery = "SELECT `CODE_BORDEREAUX` As `CODE BORDEREAUX`, `TYPE_BORDEREAUX` AS 'TYPE DE BORDEREAU', `REF_BORDEREAUX` AS REFERENCE, `LIBELLE_BORDEREAUX` As 'LIBELLE', `NON_TIERS` AS 'NOM TIERS', `DATE_BORDEREAU` AS 'DATE BORDEREAU',`VALIDE` AS 'ETAT', `OBSERVATIONS`, `MONTANT_HT` as 'MONTANT HT', `MONTANT_TAXE`, `MONTANT_TTC`, `MONTANT_PAYER`, `VALIDE` AS 'ETAT', `CODE_UTILISATEUR_CREA` As 'MAGASINIER', `CODE_MAGASIN` AS 'MAGASIN SOURCE', `CODE_SOUS_MAGASIN` As 'MAGASIN DESTINATION' FROM `bordereaux` WHERE TYPE_BORDEREAUX=@TYPE_BORDEREAUX AND DATE_BORDEREAU >= '" & DATE_DEBUT.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DATE_FIN.ToString("yyyy-MM-dd") & "' ORDER BY LIBELLE_BORDEREAUX ASC"
-        FillingListquery = "SELECT `CODE_BORDEREAUX` As `CODE BORDEREAUX`, `TYPE_BORDEREAUX` AS 'TYPE DE BORDEREAU', `REF_BORDEREAUX` AS REFERENCE, `LIBELLE_BORDEREAUX` As 'LIBELLE', `NON_TIERS` AS 'NOM TIERS', `DATE_BORDEREAU` AS 'DATE BORDEREAU', `VALIDE` AS 'ETAT', `OBSERVATIONS`, `MONTANT_HT` as 'MONTANT', `CODE_UTILISATEUR_CREA` As 'MAGASINIER', `CODE_MAGASIN` AS 'MAGASIN SOURCE', `CODE_SOUS_MAGASIN` As 'MAGASIN DESTINATION' FROM `bordereaux` WHERE TYPE_BORDEREAUX=@TYPE_BORDEREAUX AND DATE_BORDEREAU >= '" & DATE_DEBUT.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DATE_FIN.ToString("yyyy-MM-dd") & "' ORDER BY LIBELLE_BORDEREAUX ASC"
+        If GlobalVariable.actualLanguageValue = 0 Then
+            FillingListquery = "SELECT `CODE_BORDEREAUX` As `SLIP CODE`,  `LIBELLE_BORDEREAUX` As 'NAME', `TYPE_BORDEREAUX` AS 'SLIP', `REF_BORDEREAUX` AS REFERENCE, 
+            `NON_TIERS` AS 'THIRD PARTY', `DATE_BORDEREAU` AS 'DATE', `VALIDE` AS 'STATE', `OBSERVATIONS`, `MONTANT_HT` as 'AMOUNT', `CODE_UTILISATEUR_CREA` As 'ST KEEPER', 
+            `CODE_MAGASIN` AS 'SOURCE', `CODE_SOUS_MAGASIN` As 'DESTINATION' FROM `bordereaux` WHERE TYPE_BORDEREAUX=@TYPE_BORDEREAUX 
+            AND DATE_BORDEREAU >= '" & DATE_DEBUT.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DATE_FIN.ToString("yyyy-MM-dd") & "' ORDER BY LIBELLE_BORDEREAUX ASC"
+        Else
+            FillingListquery = "SELECT `CODE_BORDEREAUX` As `CODE BORDEREAUX`, `LIBELLE_BORDEREAUX` As 'INTITULE',  `TYPE_BORDEREAUX` AS 'BORDEREAU', `REF_BORDEREAUX` AS REFERENCE, 
+            `NON_TIERS` AS 'NOM TIERS', `DATE_BORDEREAU` AS 'DATE', `VALIDE` AS 'ETAT', `OBSERVATIONS`, `MONTANT_HT` as 'MONTANT', `CODE_UTILISATEUR_CREA` As 'MAGASINIER', 
+            `CODE_MAGASIN` AS 'SOURCE', `CODE_SOUS_MAGASIN` As 'DESTINATION' FROM `bordereaux` WHERE TYPE_BORDEREAUX=@TYPE_BORDEREAUX 
+            AND DATE_BORDEREAU >= '" & DATE_DEBUT.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DATE_FIN.ToString("yyyy-MM-dd") & "' ORDER BY LIBELLE_BORDEREAUX ASC"
+        End If
+
+        Dim commandList As New MySqlCommand(FillingListquery, GlobalVariable.connect)
+        commandList.Parameters.Add("@TYPE_BORDEREAUX", MySqlDbType.VarChar).Value = TYPE_BORDEREAUX
+
+        Dim adapterList As New MySqlDataAdapter(commandList)
+        Dim tableList As New DataTable()
+
+        adapterList.Fill(tableList)
+
+        'GlobalVariable.'connect.closeConnection()
+
+        Return tableList
+
+    End Function
+
+    Public Shared Function allTableFieldsOrganisedBetweenDatesLike(ByVal TYPE_BORDEREAUX As String, ByVal ETAT_BORDEREAU As String, ByVal DATE_DEBUT As Date, ByVal DATE_FIN As Date, ByVal SEARCH As String) As DataTable
+
+        Dim FillingListquery As String = ""
+
+        If GlobalVariable.actualLanguageValue = 0 Then
+            FillingListquery = "SELECT `CODE_BORDEREAUX` As `SLIP CODE`,  `LIBELLE_BORDEREAUX` As 'NAME', `TYPE_BORDEREAUX` AS 'SLIP', `REF_BORDEREAUX` AS REFERENCE, 
+            `NON_TIERS` AS 'THIRD PARTY', `DATE_BORDEREAU` AS 'DATE', `VALIDE` AS 'STATE', `OBSERVATIONS`, `MONTANT_HT` as 'AMOUNT', `CODE_UTILISATEUR_CREA` As 'ST KEEPER', 
+            `CODE_MAGASIN` AS 'SOURCE', `CODE_SOUS_MAGASIN` As 'DESTINATION' FROM `bordereaux` 
+            WHERE 
+            TYPE_BORDEREAUX=@TYPE_BORDEREAUX AND DATE_BORDEREAU >= '" & DATE_DEBUT.ToString("yyyy-MM-dd") & "' 
+            AND DATE_BORDEREAU <='" & DATE_FIN.ToString("yyyy-MM-dd") & "' AND CODE_BORDEREAUX LIKE '%" & SEARCH & "%' 
+            OR
+            TYPE_BORDEREAUX=@TYPE_BORDEREAUX AND DATE_BORDEREAU >= '" & DATE_DEBUT.ToString("yyyy-MM-dd") & "' 
+            AND DATE_BORDEREAU <='" & DATE_FIN.ToString("yyyy-MM-dd") & "' AND LIBELLE_BORDEREAUX LIKE '%" & SEARCH & "%'
+            ORDER BY LIBELLE_BORDEREAUX ASC"
+        Else
+            FillingListquery = "SELECT `CODE_BORDEREAUX` As `CODE BORDEREAUX`, `LIBELLE_BORDEREAUX` As 'INTITULE',  `TYPE_BORDEREAUX` AS 'BORDEREAU', `REF_BORDEREAUX` AS REFERENCE, 
+            `NON_TIERS` AS 'NOM TIERS', `DATE_BORDEREAU` AS 'DATE', `VALIDE` AS 'ETAT', `OBSERVATIONS`, `MONTANT_HT` as 'MONTANT', `CODE_UTILISATEUR_CREA` As 'MAGASINIER', 
+            `CODE_MAGASIN` AS 'SOURCE', `CODE_SOUS_MAGASIN` As 'DESTINATION' FROM `bordereaux` 
+            WHERE 
+            TYPE_BORDEREAUX=@TYPE_BORDEREAUX AND DATE_BORDEREAU >= '" & DATE_DEBUT.ToString("yyyy-MM-dd") & "' AND 
+            DATE_BORDEREAU <='" & DATE_FIN.ToString("yyyy-MM-dd") & "' AND CODE_BORDEREAUX LIKE '%" & SEARCH & "%'
+            OR
+            TYPE_BORDEREAUX=@TYPE_BORDEREAUX AND DATE_BORDEREAU >= '" & DATE_DEBUT.ToString("yyyy-MM-dd") & "' 
+            AND DATE_BORDEREAU <='" & DATE_FIN.ToString("yyyy-MM-dd") & "' AND LIBELLE_BORDEREAUX LIKE '%" & SEARCH & "%'
+            ORDER BY LIBELLE_BORDEREAUX ASC"
+        End If
 
         Dim commandList As New MySqlCommand(FillingListquery, GlobalVariable.connect)
         commandList.Parameters.Add("@TYPE_BORDEREAUX", MySqlDbType.VarChar).Value = TYPE_BORDEREAUX
@@ -1136,27 +1192,34 @@ Public Class Economat
 
     'MODIFICATION DIRECTEMENT SUR LE DATAGRID
 
-    Public Function affichageDesEntreesSortiePeriodique(ByVal DateDebut As Date, DateFin As Date, ByVal entreeSortie As Integer, ByVal globalIndividuel As Integer) As DataTable
+    Public Function affichageDesAchatsPeriodique(ByVal DateDebut As Date, DateFin As Date, ByVal entreeSortie As Integer, ByVal globalIndividuel As Integer) As DataTable
 
         Dim TYPE_BORDEREAUX_1 As String = ""
         Dim TYPE_BORDEREAUX_2 As String = ""
+        Dim TYPE_BORDEREAUX_3 As String = ""
 
         Dim FillingListquery As String = ""
 
         If entreeSortie = 0 Then
             TYPE_BORDEREAUX_1 = GlobalVariable.bon_reception
             TYPE_BORDEREAUX_2 = GlobalVariable.entree_exceptionnelle
+            TYPE_BORDEREAUX_3 = GlobalVariable.transfert_inter
         Else
             TYPE_BORDEREAUX_1 = GlobalVariable.sortie
             TYPE_BORDEREAUX_2 = GlobalVariable.sortie_exceptionnelle
         End If
 
-        'FillingListquery = "SELECT `CODE_BORDEREAUX` As `CODE BORDEREAUX`, `TYPE_BORDEREAUX` AS 'TYPE DE BORDEREAU', `REF_BORDEREAUX` AS REFERENCE, `LIBELLE_BORDEREAUX` As 'LIBELLE', `NON_TIERS` AS 'NOM TIERS', `DATE_BORDEREAU` AS 'DATE BORDEREAU', `VALIDE` AS 'ETAT', `OBSERVATIONS`, `MONTANT_HT` as 'MONTANT', `CODE_UTILISATEUR_CREA` As 'MAGASINIER', `CODE_MAGASIN` AS 'MAGASIN SOURCE', `CODE_SOUS_MAGASIN` As 'MAGASIN DESTINATION' FROM `bordereaux`, article, ligne_bordereaux WHERE TYPE_BORDEREAUX=@TYPE_BORDEREAUX_1 AND DATE_BORDEREAU >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DateFin.ToString("yyyy-MM-dd") & "' AND bordereaux.CODE_BORDEREAUX = ligne_bordereaux.CODE_BORDEREAUX AND article.CODE_ARTICLE = ligne_bordereaux.CODE_ARTICLE OR TYPE_BORDEREAUX=@TYPE_BORDEREAUX_2 AND DATE_BORDEREAU >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DateFin.ToString("yyyy-MM-dd") & "' ORDER BY LIBELLE_BORDEREAUX ASC"
+        FillingListquery = "SELECT `DATE_BORDEREAU` AS 'DATE',  DESIGNATION_FR AS DESIGNATION, NUM_SERIE_DEBUT AS UNITE, ligne_bordereaux.QUANTITE As 'QTE AVANT MOVT', QUANTITE_ENTREE_STOCK AS 'QTE EN MOVT',
+        PRIX_UNITAIRE_HT AS 'PRIX UNITAIRE', PRIX_TOTAL_HT AS 'TOTAL', magasin.LIBELLE_MAGASIN AS 'MAGASIN' FROM `bordereaux`, ligne_bordereaux, article, magasin WHERE TYPE_BORDEREAUX=@TYPE_BORDEREAUX_1 AND
+        DATE_BORDEREAU >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DateFin.ToString("yyyy-MM-dd") & "' AND bordereaux.CODE_BORDEREAUX = ligne_bordereaux.CODE_BORDEREAUX 
+        AND article.CODE_ARTICLE = ligne_bordereaux.CODE_ARTICLE AND magasin.CODE_MAGASIN = ligne_bordereaux.CODE_MAGASIN ORDER BY DATE_BORDEREAU DESC"
 
-        FillingListquery = "SELECT `DATE_BORDEREAU` AS 'DATE',  DESIGNATION_FR AS DESIGNATION, NUM_SERIE_DEBUT AS UNITE, ligne_bordereaux.QUANTITE As 'QTE AVANT MOVT', QUANTITE_ENTREE_STOCK AS 'QTE EN MOVT', PRIX_UNITAIRE_HT AS 'PRIX UNITAIRE', PRIX_TOTAL_HT AS 'TOTAL', magasin.LIBELLE_MAGASIN AS 'MAGASIN' FROM `bordereaux`, ligne_bordereaux, article, magasin WHERE TYPE_BORDEREAUX=@TYPE_BORDEREAUX_1 AND DATE_BORDEREAU >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DateFin.ToString("yyyy-MM-dd") & "' AND bordereaux.CODE_BORDEREAUX = ligne_bordereaux.CODE_BORDEREAUX AND article.CODE_ARTICLE = ligne_bordereaux.CODE_ARTICLE AND magasin.CODE_MAGASIN = ligne_bordereaux.CODE_MAGASIN OR TYPE_BORDEREAUX=@TYPE_BORDEREAUX_2 AND DATE_BORDEREAU >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DateFin.ToString("yyyy-MM-dd") & "' AND bordereaux.CODE_BORDEREAUX = ligne_bordereaux.CODE_BORDEREAUX AND article.CODE_ARTICLE = ligne_bordereaux.CODE_ARTICLE AND magasin.CODE_MAGASIN = ligne_bordereaux.CODE_MAGASIN ORDER BY DATE_BORDEREAU DESC"
-
-        'article.CODE_ARTICLE = ligne_bordereaux.CODE_ARTICLE
-        ',  DESIGNATION_FR AS DESIGNATION
+        'FillingListquery = "SELECT `DATE_BORDEREAU` AS 'DATE',  DESIGNATION_FR AS DESIGNATION, NUM_SERIE_DEBUT AS UNITE, ligne_bordereaux.QUANTITE As 'QTE AVANT MOVT', QUANTITE_ENTREE_STOCK AS 'QTE EN MOVT',
+        'PRIX_UNITAIRE_HT AS 'PRIX UNITAIRE', PRIX_TOTAL_HT AS 'TOTAL', magasin.LIBELLE_MAGASIN AS 'MAGASIN' FROM `bordereaux`, ligne_bordereaux, article, magasin WHERE TYPE_BORDEREAUX=@TYPE_BORDEREAUX_1 AND
+        'DATE_BORDEREAU >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DateFin.ToString("yyyy-MM-dd") & "' AND bordereaux.CODE_BORDEREAUX = ligne_bordereaux.CODE_BORDEREAUX 
+        'And article.CODE_ARTICLE = ligne_bordereaux.CODE_ARTICLE AND magasin.CODE_MAGASIN = ligne_bordereaux.CODE_MAGASIN OR TYPE_BORDEREAUX=@TYPE_BORDEREAUX_2 AND 
+        'DATE_BORDEREAU >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DateFin.ToString("yyyy-MM-dd") & "' AND bordereaux.CODE_BORDEREAUX = ligne_bordereaux.CODE_BORDEREAUX 
+        'And article.CODE_ARTICLE = ligne_bordereaux.CODE_ARTICLE AND magasin.CODE_MAGASIN = ligne_bordereaux.CODE_MAGASIN ORDER BY DATE_BORDEREAU DESC"
 
         Dim commandList As New MySqlCommand(FillingListquery, GlobalVariable.connect)
         commandList.Parameters.Add("@TYPE_BORDEREAUX_1", MySqlDbType.VarChar).Value = TYPE_BORDEREAUX_1
@@ -1176,34 +1239,99 @@ Public Class Economat
         Dim TYPE_BORDEREAUX_1 As String = ""
         Dim TYPE_BORDEREAUX_2 As String = ""
         Dim TYPE_BORDEREAUX_3 As String = ""
+        Dim TYPE_BORDEREAUX_4 As String = ""
+        Dim TYPE_BORDEREAUX_5 As String = ""
 
         Dim FillingListquery As String = ""
 
-        If entreeSortie = 0 Then
-            TYPE_BORDEREAUX_1 = GlobalVariable.bon_reception
-            TYPE_BORDEREAUX_2 = GlobalVariable.entree_exceptionnelle
-            TYPE_BORDEREAUX_3 = GlobalVariable.transfert_inter
-        Else
-            TYPE_BORDEREAUX_1 = GlobalVariable.sortie
-            TYPE_BORDEREAUX_2 = GlobalVariable.sortie_exceptionnelle
+        'ENTREE / SORTIES
+        TYPE_BORDEREAUX_1 = GlobalVariable.bon_reception
+        TYPE_BORDEREAUX_2 = GlobalVariable.entree_exceptionnelle
+        TYPE_BORDEREAUX_3 = GlobalVariable.transfert_inter
+        TYPE_BORDEREAUX_4 = GlobalVariable.sortie
+        TYPE_BORDEREAUX_5 = GlobalVariable.sortie_exceptionnelle
+
+        Dim magasin As DataTable = Functions.getElementByCode(CODE_MAGASIN, "magasin", "CODE_MAGASIN")
+        If magasin.Rows.Count > 0 Then
+
+            If entreeSortie = 0 Then 'ENTREES
+
+                If Trim(magasin.Rows(0)("TYPE_MAGASIN")).Equals("Magasin central") Then
+                    'ENTREES PAR APPORTS AUX MAGASINS CENTRAUX
+                    FillingListquery = "SELECT `DATE_BORDEREAU` AS 'DATE',  DESIGNATION_FR AS DESIGNATION, NUM_SERIE_DEBUT AS UNITE, ligne_bordereaux.QUANTITE As 'AVANT MOVT', QUANTITE_ENTREE_STOCK AS 'QTE EN MOVT',
+                    PRIX_UNITAIRE_HT AS 'PRIX UNITAIRE', PRIX_TOTAL_HT AS 'TOTAL', magasin.LIBELLE_MAGASIN AS 'MAGASIN' 
+                    FROM bordereaux, ligne_bordereaux, article, magasin 
+                    WHERE
+                    TYPE_BORDEREAUX=@TYPE_BORDEREAUX_1 AND DATE_BORDEREAU >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DateFin.ToString("yyyy-MM-dd") & "' AND bordereaux.CODE_BORDEREAUX = ligne_bordereaux.CODE_BORDEREAUX AND
+                    article.CODE_ARTICLE = ligne_bordereaux.CODE_ARTICLE AND magasin.CODE_MAGASIN = ligne_bordereaux.CODE_MAGASIN AND magasin.CODE_MAGASIN = @CODE_MAGASIN 
+                    OR 
+                    TYPE_BORDEREAUX=@TYPE_BORDEREAUX_2 AND DATE_BORDEREAU >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DateFin.ToString("yyyy-MM-dd") & "' AND
+                    bordereaux.CODE_BORDEREAUX = ligne_bordereaux.CODE_BORDEREAUX AND article.CODE_ARTICLE = ligne_bordereaux.CODE_ARTICLE AND magasin.CODE_MAGASIN = ligne_bordereaux.CODE_MAGASIN 
+                    AND magasin.CODE_MAGASIN = @CODE_MAGASIN
+                    ORDER BY DATE_BORDEREAU DESC"
+                Else
+                    'ENTREES PAR APPORTS AUX PETITS MAGASINS
+                    FillingListquery = "SELECT `DATE_BORDEREAU` AS 'DATE',  DESIGNATION_FR AS DESIGNATION, NUM_SERIE_DEBUT AS UNITE, ligne_bordereaux.QUANTITE As 'AVANT MOVT', QUANTITE_ENTREE_STOCK AS 'QTE EN MOVT',
+                    PRIX_UNITAIRE_HT AS 'PRIX UNITAIRE', PRIX_TOTAL_HT AS 'TOTAL', magasin.LIBELLE_MAGASIN AS 'MAGASIN' 
+                    FROM bordereaux, ligne_bordereaux, article, magasin 
+                    WHERE
+                    TYPE_BORDEREAUX=@TYPE_BORDEREAUX_4 AND DATE_BORDEREAU >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DateFin.ToString("yyyy-MM-dd") & "' AND
+                    bordereaux.CODE_BORDEREAUX = ligne_bordereaux.CODE_BORDEREAUX AND article.CODE_ARTICLE = ligne_bordereaux.CODE_ARTICLE AND magasin.CODE_MAGASIN = ligne_bordereaux.CODE_SOUS_MAGASIN 
+                    AND magasin.CODE_MAGASIN = @CODE_MAGASIN
+                    OR 
+                    TYPE_BORDEREAUX=@TYPE_BORDEREAUX_3 AND DATE_BORDEREAU >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DateFin.ToString("yyyy-MM-dd") & "' AND
+                    bordereaux.CODE_BORDEREAUX = ligne_bordereaux.CODE_BORDEREAUX AND article.CODE_ARTICLE = ligne_bordereaux.CODE_ARTICLE AND magasin.CODE_MAGASIN = ligne_bordereaux.CODE_SOUS_MAGASIN 
+                    AND magasin.CODE_MAGASIN = @CODE_MAGASIN
+                    OR 
+                    TYPE_BORDEREAUX=@TYPE_BORDEREAUX_2 AND DATE_BORDEREAU >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DateFin.ToString("yyyy-MM-dd") & "' AND
+                    bordereaux.CODE_BORDEREAUX = ligne_bordereaux.CODE_BORDEREAUX AND article.CODE_ARTICLE = ligne_bordereaux.CODE_ARTICLE AND magasin.CODE_MAGASIN = ligne_bordereaux.CODE_MAGASIN 
+                    AND magasin.CODE_MAGASIN = @CODE_MAGASIN
+                    ORDER BY DATE_BORDEREAU DESC"
+                End If
+
+            ElseIf entreeSortie = 1 Then 'SORTIES
+
+                If Trim(magasin.Rows(0)("TYPE_MAGASIN")).Equals("Magasin central") Then
+                    'ENTREES PAR APPORTS AUX MAGASINS CENTRAUX
+                    FillingListquery = "SELECT `DATE_BORDEREAU` AS 'DATE',  DESIGNATION_FR AS DESIGNATION, NUM_SERIE_DEBUT AS UNITE, ligne_bordereaux.QUANTITE As 'AVANT MOVT', QUANTITE_ENTREE_STOCK AS 'QTE EN MOVT',
+                    PRIX_UNITAIRE_HT AS 'PRIX UNITAIRE', PRIX_TOTAL_HT AS 'TOTAL', magasin.LIBELLE_MAGASIN AS 'MAGASIN' 
+                    FROM bordereaux, ligne_bordereaux, article, magasin 
+                    WHERE
+                    TYPE_BORDEREAUX=@TYPE_BORDEREAUX_4 AND DATE_BORDEREAU >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DateFin.ToString("yyyy-MM-dd") & "' AND bordereaux.CODE_BORDEREAUX = ligne_bordereaux.CODE_BORDEREAUX AND
+                    article.CODE_ARTICLE = ligne_bordereaux.CODE_ARTICLE AND magasin.CODE_MAGASIN = ligne_bordereaux.CODE_MAGASIN AND magasin.CODE_MAGASIN = @CODE_MAGASIN 
+                    OR 
+                    TYPE_BORDEREAUX=@TYPE_BORDEREAUX_5 AND DATE_BORDEREAU >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DateFin.ToString("yyyy-MM-dd") & "' AND
+                    bordereaux.CODE_BORDEREAUX = ligne_bordereaux.CODE_BORDEREAUX AND article.CODE_ARTICLE = ligne_bordereaux.CODE_ARTICLE AND magasin.CODE_MAGASIN = ligne_bordereaux.CODE_MAGASIN 
+                    AND magasin.CODE_MAGASIN = @CODE_MAGASIN
+                    OR 
+                    TYPE_BORDEREAUX=@TYPE_BORDEREAUX_3 AND DATE_BORDEREAU >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DateFin.ToString("yyyy-MM-dd") & "' AND
+                    bordereaux.CODE_BORDEREAUX = ligne_bordereaux.CODE_BORDEREAUX AND article.CODE_ARTICLE = ligne_bordereaux.CODE_ARTICLE AND magasin.CODE_MAGASIN = ligne_bordereaux.CODE_MAGASIN 
+                    AND magasin.CODE_MAGASIN = @CODE_MAGASIN
+                    ORDER BY DATE_BORDEREAU DESC"
+                Else
+                    'ENTREES PAR APPORTS AUX PETITS MAGASINS
+                    FillingListquery = "SELECT `DATE_BORDEREAU` AS 'DATE',  DESIGNATION_FR AS DESIGNATION, NUM_SERIE_DEBUT AS UNITE, ligne_bordereaux.QUANTITE As 'AVANT MOVT', QUANTITE_ENTREE_STOCK AS 'QTE EN MOVT',
+                    PRIX_UNITAIRE_HT AS 'PRIX UNITAIRE', PRIX_TOTAL_HT AS 'TOTAL', magasin.LIBELLE_MAGASIN AS 'MAGASIN' 
+                    FROM bordereaux, ligne_bordereaux, article, magasin 
+                    WHERE
+                    TYPE_BORDEREAUX=@TYPE_BORDEREAUX_5 AND DATE_BORDEREAU >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DateFin.ToString("yyyy-MM-dd") & "' AND
+                    bordereaux.CODE_BORDEREAUX = ligne_bordereaux.CODE_BORDEREAUX AND article.CODE_ARTICLE = ligne_bordereaux.CODE_ARTICLE AND magasin.CODE_MAGASIN = ligne_bordereaux.CODE_MAGASIN 
+                    AND magasin.CODE_MAGASIN = @CODE_MAGASIN
+                    ORDER BY DATE_BORDEREAU DESC"
+                End If
+
+            End If
+
         End If
 
-        FillingListquery = "SELECT `DATE_BORDEREAU` AS 'DATE',  DESIGNATION_FR AS DESIGNATION, NUM_SERIE_DEBUT AS UNITE, ligne_bordereaux.QUANTITE As 'QTE AVANT MOVT', QUANTITE_ENTREE_STOCK AS 'QTE EN MOVT', PRIX_UNITAIRE_HT AS 'PRIX UNITAIRE', PRIX_TOTAL_HT AS 'TOTAL', magasin.LIBELLE_MAGASIN AS 'MAGASIN' 
-        FROM `bordereaux`, ligne_bordereaux, article, magasin WHERE TYPE_BORDEREAUX=@TYPE_BORDEREAUX_1 AND DATE_BORDEREAU >= '" & DateDebut.ToString("yyyy-MM-dd") & "'
-        AND DATE_BORDEREAU <='" & DateFin.ToString("yyyy-MM-dd") & "' AND bordereaux.CODE_BORDEREAUX = ligne_bordereaux.CODE_BORDEREAUX AND
-        article.CODE_ARTICLE = ligne_bordereaux.CODE_ARTICLE AND magasin.CODE_MAGASIN = ligne_bordereaux.CODE_MAGASIN AND magasin.CODE_MAGASIN = @CODE_MAGASIN OR TYPE_BORDEREAUX=@TYPE_BORDEREAUX_2 AND
-        DATE_BORDEREAU >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DateFin.ToString("yyyy-MM-dd") & "' AND
-        bordereaux.CODE_BORDEREAUX = ligne_bordereaux.CODE_BORDEREAUX AND article.CODE_ARTICLE = ligne_bordereaux.CODE_ARTICLE AND magasin.CODE_MAGASIN = ligne_bordereaux.CODE_MAGASIN 
-        AND magasin.CODE_MAGASIN = @CODE_MAGASIN
-        OR TYPE_BORDEREAUX=@TYPE_BORDEREAUX_3 AND DATE_BORDEREAU >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_BORDEREAU <='" & DateFin.ToString("yyyy-MM-dd") & "' AND
-        bordereaux.CODE_BORDEREAUX = ligne_bordereaux.CODE_BORDEREAUX AND article.CODE_ARTICLE = ligne_bordereaux.CODE_ARTICLE AND magasin.CODE_MAGASIN = ligne_bordereaux.CODE_SOUS_MAGASIN 
-        AND magasin.CODE_MAGASIN = @CODE_MAGASIN
-        ORDER BY DATE_BORDEREAU DESC"
+        'SELECT `DATE_BORDEREAU` AS 'DATE',  DESIGNATION_FR AS ITEM, NUM_SERIE_DEBUT AS UNIT, ligne_bordereaux.QUANTITE As 'QTY BEFORE', QUANTITE_ENTREE_STOCK AS 'MOVING QTY', PRIX_UNITAIRE_HT AS 'UNIT PRICE', PRIX_TOTAL_HT AS 'TOTAL', magasin.LIBELLE_MAGASIN AS 'STORE' 
 
         Dim commandList As New MySqlCommand(FillingListquery, GlobalVariable.connect)
         commandList.Parameters.Add("@TYPE_BORDEREAUX_1", MySqlDbType.VarChar).Value = TYPE_BORDEREAUX_1
         commandList.Parameters.Add("@TYPE_BORDEREAUX_2", MySqlDbType.VarChar).Value = TYPE_BORDEREAUX_2
         commandList.Parameters.Add("@TYPE_BORDEREAUX_3", MySqlDbType.VarChar).Value = TYPE_BORDEREAUX_3
+        commandList.Parameters.Add("@TYPE_BORDEREAUX_4", MySqlDbType.VarChar).Value = TYPE_BORDEREAUX_4
+        commandList.Parameters.Add("@TYPE_BORDEREAUX_5", MySqlDbType.VarChar).Value = TYPE_BORDEREAUX_5
         commandList.Parameters.Add("@CODE_MAGASIN", MySqlDbType.VarChar).Value = CODE_MAGASIN
 
         Dim adapterList As New MySqlDataAdapter(commandList)

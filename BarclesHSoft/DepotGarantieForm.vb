@@ -129,11 +129,15 @@ Public Class DepotGarantieForm
 
         GunaComboBoxTypeDepot.SelectedIndex = 0
 
-        Dim n As Integer = GunaComboBoxTypeDepot.SelectedIndex
-        listeDesCautionsArrange(0, n)
+        If GunaComboBoxTypeDepot.SelectedIndex >= 0 Then
+            Dim n As Integer = GunaComboBoxTypeDepot.SelectedIndex
+            listeDesCautionsArrange(0, n)
+        End If
 
         If GlobalVariable.actualLanguageValue = 0 Then
             GunaButtonEnregistrer.Text = "Save"
+        Else
+            GunaButtonEnregistrer.Text = "Enregistrer"
         End If
 
         totalDesDepotDeGarantie()

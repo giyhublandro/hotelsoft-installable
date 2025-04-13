@@ -49,25 +49,30 @@ Partial Class AccueilForm
         Me.GunaButtonOuvrirSession = New Guna.UI.WinForms.GunaButton()
         Me.GunaTransitionAnimation = New Guna.UI.WinForms.GunaTransition(Me.components)
         Me.GunaPanelFormTop = New Guna.UI.WinForms.GunaPanel()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.GunaLabelNomUtilisateur = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabelUsername = New Guna.UI.WinForms.GunaLabel()
-        Me.GunaImageButton2 = New Guna.UI.WinForms.GunaImageButton()
-        Me.GunaImageButton1 = New Guna.UI.WinForms.GunaImageButton()
-        Me.GunaGroupBox1 = New Guna.UI.WinForms.GunaGroupBox()
+        Me.GunaGroupBoxHotel = New Guna.UI.WinForms.GunaGroupBox()
         Me.GunaLabelTitle = New Guna.UI.WinForms.GunaLabel()
-        Me.GunaPictureBox1 = New Guna.UI.WinForms.GunaPictureBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.GunaLabel8 = New Guna.UI.WinForms.GunaLabel()
+        Me.GunaLabelHotelName = New Guna.UI.WinForms.GunaLabel()
         Me.GunaPanel1 = New Guna.UI.WinForms.GunaPanel()
         Me.GunaDragControl1 = New Guna.UI.WinForms.GunaDragControl(Me.components)
         Me.GunaElipse1 = New Guna.UI.WinForms.GunaElipse(Me.components)
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.BackgroundWorker2 = New System.ComponentModel.BackgroundWorker()
+        Me.GunaPictureBoxHotel = New Guna.UI.WinForms.GunaPictureBox()
+        Me.GunaPictureBoxCustom = New Guna.UI.WinForms.GunaPictureBox()
+        Me.GunaPictureBoxRestaurant = New Guna.UI.WinForms.GunaPictureBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.GunaImageButton2 = New Guna.UI.WinForms.GunaImageButton()
+        Me.GunaImageButton1 = New Guna.UI.WinForms.GunaImageButton()
         Me.PanelAccueil.SuspendLayout()
         Me.PanelConnexion.SuspendLayout()
         Me.GunaPanelFormTop.SuspendLayout()
+        Me.GunaGroupBoxHotel.SuspendLayout()
+        CType(Me.GunaPictureBoxHotel, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GunaPictureBoxCustom, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GunaPictureBoxRestaurant, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GunaGroupBox1.SuspendLayout()
-        CType(Me.GunaPictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PanelAccueil
@@ -198,7 +203,7 @@ Partial Class AccueilForm
         Me.GunaButtonSeConnecter.ForeColor = System.Drawing.Color.White
         Me.GunaButtonSeConnecter.Image = Nothing
         Me.GunaButtonSeConnecter.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonSeConnecter.Location = New System.Drawing.Point(193, 23)
+        Me.GunaButtonSeConnecter.Location = New System.Drawing.Point(191, 23)
         Me.GunaButtonSeConnecter.Name = "GunaButtonSeConnecter"
         Me.GunaButtonSeConnecter.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonSeConnecter.OnHoverBorderColor = System.Drawing.Color.Black
@@ -206,7 +211,7 @@ Partial Class AccueilForm
         Me.GunaButtonSeConnecter.OnHoverImage = Nothing
         Me.GunaButtonSeConnecter.OnPressedColor = System.Drawing.Color.Black
         Me.GunaButtonSeConnecter.Radius = 3
-        Me.GunaButtonSeConnecter.Size = New System.Drawing.Size(153, 42)
+        Me.GunaButtonSeConnecter.Size = New System.Drawing.Size(178, 42)
         Me.GunaButtonSeConnecter.TabIndex = 2
         Me.GunaButtonSeConnecter.Text = "Se connecter"
         Me.GunaButtonSeConnecter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -476,17 +481,6 @@ Partial Class AccueilForm
         Me.GunaPanelFormTop.Size = New System.Drawing.Size(657, 31)
         Me.GunaPanelFormTop.TabIndex = 5
         '
-        'PictureBox1
-        '
-        Me.GunaTransitionAnimation.SetDecoration(Me.PictureBox1, Guna.UI.Animation.DecorationType.None)
-        Me.PictureBox1.Image = Global.BarclesHSoft.My.Resources.Resources.BARCLES_LOGO_BLQNC
-        Me.PictureBox1.Location = New System.Drawing.Point(12, 5)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(29, 22)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.PictureBox1.TabIndex = 9
-        Me.PictureBox1.TabStop = False
-        '
         'GunaLabelNomUtilisateur
         '
         Me.GunaLabelNomUtilisateur.AutoSize = True
@@ -510,6 +504,128 @@ Partial Class AccueilForm
         Me.GunaLabelUsername.Name = "GunaLabelUsername"
         Me.GunaLabelUsername.Size = New System.Drawing.Size(0, 17)
         Me.GunaLabelUsername.TabIndex = 8
+        '
+        'GunaGroupBoxHotel
+        '
+        Me.GunaGroupBoxHotel.BackColor = System.Drawing.Color.White
+        Me.GunaGroupBoxHotel.BaseColor = System.Drawing.Color.White
+        Me.GunaGroupBoxHotel.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaGroupBoxHotel.BorderSize = 2
+        Me.GunaGroupBoxHotel.Controls.Add(Me.GunaLabelTitle)
+        Me.GunaGroupBoxHotel.Controls.Add(Me.GunaPictureBoxHotel)
+        Me.GunaGroupBoxHotel.Controls.Add(Me.GunaLabelHotelName)
+        Me.GunaGroupBoxHotel.Controls.Add(Me.GunaPictureBoxCustom)
+        Me.GunaGroupBoxHotel.Controls.Add(Me.GunaPictureBoxRestaurant)
+        Me.GunaTransitionAnimation.SetDecoration(Me.GunaGroupBoxHotel, Guna.UI.Animation.DecorationType.None)
+        Me.GunaGroupBoxHotel.LineBottom = 2
+        Me.GunaGroupBoxHotel.LineColor = System.Drawing.Color.Gainsboro
+        Me.GunaGroupBoxHotel.LineLeft = 2
+        Me.GunaGroupBoxHotel.LineRight = 2
+        Me.GunaGroupBoxHotel.LineTop = 2
+        Me.GunaGroupBoxHotel.Location = New System.Drawing.Point(58, 58)
+        Me.GunaGroupBoxHotel.Name = "GunaGroupBoxHotel"
+        Me.GunaGroupBoxHotel.Size = New System.Drawing.Size(542, 234)
+        Me.GunaGroupBoxHotel.TabIndex = 6
+        Me.GunaGroupBoxHotel.TextLocation = New System.Drawing.Point(10, 8)
+        '
+        'GunaLabelTitle
+        '
+        Me.GunaLabelTitle.AutoSize = True
+        Me.GunaLabelTitle.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.GunaTransitionAnimation.SetDecoration(Me.GunaLabelTitle, Guna.UI.Animation.DecorationType.None)
+        Me.GunaLabelTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.GunaLabelTitle.ForeColor = System.Drawing.Color.Purple
+        Me.GunaLabelTitle.Location = New System.Drawing.Point(121, 185)
+        Me.GunaLabelTitle.Name = "GunaLabelTitle"
+        Me.GunaLabelTitle.Size = New System.Drawing.Size(299, 18)
+        Me.GunaLabelTitle.TabIndex = 8
+        Me.GunaLabelTitle.Text = "LOGICIELS DE GESTION HÔTELIERE"
+        '
+        'GunaLabelHotelName
+        '
+        Me.GunaLabelHotelName.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GunaLabelHotelName.AutoSize = True
+        Me.GunaTransitionAnimation.SetDecoration(Me.GunaLabelHotelName, Guna.UI.Animation.DecorationType.None)
+        Me.GunaLabelHotelName.Font = New System.Drawing.Font("Impact", 30.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaLabelHotelName.Location = New System.Drawing.Point(79, -3)
+        Me.GunaLabelHotelName.Name = "GunaLabelHotelName"
+        Me.GunaLabelHotelName.Size = New System.Drawing.Size(119, 48)
+        Me.GunaLabelHotelName.TabIndex = 11
+        Me.GunaLabelHotelName.Text = "HOTEL"
+        Me.GunaLabelHotelName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.GunaLabelHotelName.Visible = False
+        '
+        'GunaPanel1
+        '
+        Me.GunaPanel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
+        Me.GunaTransitionAnimation.SetDecoration(Me.GunaPanel1, Guna.UI.Animation.DecorationType.None)
+        Me.GunaPanel1.Location = New System.Drawing.Point(0, 549)
+        Me.GunaPanel1.Name = "GunaPanel1"
+        Me.GunaPanel1.Size = New System.Drawing.Size(656, 10)
+        Me.GunaPanel1.TabIndex = 7
+        '
+        'GunaDragControl1
+        '
+        Me.GunaDragControl1.TargetControl = Me.GunaPanelFormTop
+        '
+        'GunaElipse1
+        '
+        Me.GunaElipse1.TargetControl = Me
+        '
+        'GunaPictureBoxHotel
+        '
+        Me.GunaPictureBoxHotel.BaseColor = System.Drawing.Color.White
+        Me.GunaTransitionAnimation.SetDecoration(Me.GunaPictureBoxHotel, Guna.UI.Animation.DecorationType.None)
+        Me.GunaPictureBoxHotel.Image = CType(resources.GetObject("GunaPictureBoxHotel.Image"), System.Drawing.Image)
+        Me.GunaPictureBoxHotel.Location = New System.Drawing.Point(6, 3)
+        Me.GunaPictureBoxHotel.Name = "GunaPictureBoxHotel"
+        Me.GunaPictureBoxHotel.Size = New System.Drawing.Size(530, 224)
+        Me.GunaPictureBoxHotel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.GunaPictureBoxHotel.TabIndex = 9
+        Me.GunaPictureBoxHotel.TabStop = False
+        '
+        'GunaPictureBoxCustom
+        '
+        Me.GunaPictureBoxCustom.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GunaPictureBoxCustom.BaseColor = System.Drawing.Color.Transparent
+        Me.GunaPictureBoxCustom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.GunaTransitionAnimation.SetDecoration(Me.GunaPictureBoxCustom, Guna.UI.Animation.DecorationType.None)
+        Me.GunaPictureBoxCustom.Image = CType(resources.GetObject("GunaPictureBoxCustom.Image"), System.Drawing.Image)
+        Me.GunaPictureBoxCustom.Location = New System.Drawing.Point(-1, -25)
+        Me.GunaPictureBoxCustom.Name = "GunaPictureBoxCustom"
+        Me.GunaPictureBoxCustom.Size = New System.Drawing.Size(546, 270)
+        Me.GunaPictureBoxCustom.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.GunaPictureBoxCustom.TabIndex = 10
+        Me.GunaPictureBoxCustom.TabStop = False
+        Me.GunaPictureBoxCustom.Visible = False
+        '
+        'GunaPictureBoxRestaurant
+        '
+        Me.GunaPictureBoxRestaurant.BaseColor = System.Drawing.Color.White
+        Me.GunaTransitionAnimation.SetDecoration(Me.GunaPictureBoxRestaurant, Guna.UI.Animation.DecorationType.None)
+        Me.GunaPictureBoxRestaurant.Image = Global.BarclesHSoft.My.Resources.Resources.Restaurantsoft_header_1_png
+        Me.GunaPictureBoxRestaurant.Location = New System.Drawing.Point(6, 6)
+        Me.GunaPictureBoxRestaurant.Name = "GunaPictureBoxRestaurant"
+        Me.GunaPictureBoxRestaurant.Size = New System.Drawing.Size(530, 224)
+        Me.GunaPictureBoxRestaurant.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.GunaPictureBoxRestaurant.TabIndex = 7
+        Me.GunaPictureBoxRestaurant.TabStop = False
+        Me.GunaPictureBoxRestaurant.Visible = False
+        '
+        'PictureBox1
+        '
+        Me.GunaTransitionAnimation.SetDecoration(Me.PictureBox1, Guna.UI.Animation.DecorationType.None)
+        Me.PictureBox1.Image = Global.BarclesHSoft.My.Resources.Resources.BARCLES_LOGO_BLQNC
+        Me.PictureBox1.Location = New System.Drawing.Point(12, 5)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(29, 22)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PictureBox1.TabIndex = 9
+        Me.PictureBox1.TabStop = False
         '
         'GunaImageButton2
         '
@@ -539,93 +655,6 @@ Partial Class AccueilForm
         Me.GunaImageButton1.Size = New System.Drawing.Size(27, 21)
         Me.GunaImageButton1.TabIndex = 6
         '
-        'GunaGroupBox1
-        '
-        Me.GunaGroupBox1.BackColor = System.Drawing.Color.White
-        Me.GunaGroupBox1.BaseColor = System.Drawing.Color.White
-        Me.GunaGroupBox1.BorderColor = System.Drawing.Color.Gainsboro
-        Me.GunaGroupBox1.BorderSize = 2
-        Me.GunaGroupBox1.Controls.Add(Me.GunaLabelTitle)
-        Me.GunaGroupBox1.Controls.Add(Me.GunaPictureBox1)
-        Me.GunaGroupBox1.Controls.Add(Me.Label1)
-        Me.GunaGroupBox1.Controls.Add(Me.GunaLabel8)
-        Me.GunaTransitionAnimation.SetDecoration(Me.GunaGroupBox1, Guna.UI.Animation.DecorationType.None)
-        Me.GunaGroupBox1.LineBottom = 2
-        Me.GunaGroupBox1.LineColor = System.Drawing.Color.Gainsboro
-        Me.GunaGroupBox1.LineLeft = 2
-        Me.GunaGroupBox1.LineRight = 2
-        Me.GunaGroupBox1.LineTop = 2
-        Me.GunaGroupBox1.Location = New System.Drawing.Point(58, 58)
-        Me.GunaGroupBox1.Name = "GunaGroupBox1"
-        Me.GunaGroupBox1.Size = New System.Drawing.Size(542, 234)
-        Me.GunaGroupBox1.TabIndex = 6
-        Me.GunaGroupBox1.TextLocation = New System.Drawing.Point(10, 8)
-        '
-        'GunaLabelTitle
-        '
-        Me.GunaLabelTitle.AutoSize = True
-        Me.GunaLabelTitle.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.GunaTransitionAnimation.SetDecoration(Me.GunaLabelTitle, Guna.UI.Animation.DecorationType.None)
-        Me.GunaLabelTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.GunaLabelTitle.ForeColor = System.Drawing.Color.Purple
-        Me.GunaLabelTitle.Location = New System.Drawing.Point(121, 185)
-        Me.GunaLabelTitle.Name = "GunaLabelTitle"
-        Me.GunaLabelTitle.Size = New System.Drawing.Size(299, 18)
-        Me.GunaLabelTitle.TabIndex = 8
-        Me.GunaLabelTitle.Text = "LOGICIELS DE GESTION HÔTELIERE"
-        '
-        'GunaPictureBox1
-        '
-        Me.GunaPictureBox1.BaseColor = System.Drawing.Color.White
-        Me.GunaTransitionAnimation.SetDecoration(Me.GunaPictureBox1, Guna.UI.Animation.DecorationType.None)
-        Me.GunaPictureBox1.Image = CType(resources.GetObject("GunaPictureBox1.Image"), System.Drawing.Image)
-        Me.GunaPictureBox1.Location = New System.Drawing.Point(6, 5)
-        Me.GunaPictureBox1.Name = "GunaPictureBox1"
-        Me.GunaPictureBox1.Size = New System.Drawing.Size(530, 224)
-        Me.GunaPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.GunaPictureBox1.TabIndex = 7
-        Me.GunaPictureBox1.TabStop = False
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.GunaTransitionAnimation.SetDecoration(Me.Label1, Guna.UI.Animation.DecorationType.None)
-        Me.Label1.Font = New System.Drawing.Font("Impact", 80.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(6, 19)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(530, 132)
-        Me.Label1.TabIndex = 2
-        Me.Label1.Text = "HOTEL SOFT"
-        '
-        'GunaLabel8
-        '
-        Me.GunaLabel8.AutoSize = True
-        Me.GunaTransitionAnimation.SetDecoration(Me.GunaLabel8, Guna.UI.Animation.DecorationType.None)
-        Me.GunaLabel8.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel8.ForeColor = System.Drawing.Color.Black
-        Me.GunaLabel8.Location = New System.Drawing.Point(147, 151)
-        Me.GunaLabel8.Name = "GunaLabel8"
-        Me.GunaLabel8.Size = New System.Drawing.Size(261, 21)
-        Me.GunaLabel8.TabIndex = 1
-        Me.GunaLabel8.Text = "LOGICIEL DE GESTION HÔTELIERE"
-        '
-        'GunaPanel1
-        '
-        Me.GunaPanel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
-        Me.GunaTransitionAnimation.SetDecoration(Me.GunaPanel1, Guna.UI.Animation.DecorationType.None)
-        Me.GunaPanel1.Location = New System.Drawing.Point(0, 549)
-        Me.GunaPanel1.Name = "GunaPanel1"
-        Me.GunaPanel1.Size = New System.Drawing.Size(656, 10)
-        Me.GunaPanel1.TabIndex = 7
-        '
-        'GunaDragControl1
-        '
-        Me.GunaDragControl1.TargetControl = Me.GunaPanelFormTop
-        '
-        'GunaElipse1
-        '
-        Me.GunaElipse1.TargetControl = Me
-        '
         'AccueilForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -634,7 +663,7 @@ Partial Class AccueilForm
         Me.ClientSize = New System.Drawing.Size(657, 560)
         Me.Controls.Add(Me.GunaPanel1)
         Me.Controls.Add(Me.PanelAccueil)
-        Me.Controls.Add(Me.GunaGroupBox1)
+        Me.Controls.Add(Me.GunaGroupBoxHotel)
         Me.Controls.Add(Me.GunaPanelFormTop)
         Me.Controls.Add(Me.PanelConnexion)
         Me.GunaTransitionAnimation.SetDecoration(Me, Guna.UI.Animation.DecorationType.None)
@@ -650,10 +679,12 @@ Partial Class AccueilForm
         Me.PanelConnexion.PerformLayout()
         Me.GunaPanelFormTop.ResumeLayout(False)
         Me.GunaPanelFormTop.PerformLayout()
+        Me.GunaGroupBoxHotel.ResumeLayout(False)
+        Me.GunaGroupBoxHotel.PerformLayout()
+        CType(Me.GunaPictureBoxHotel, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GunaPictureBoxCustom, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GunaPictureBoxRestaurant, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GunaGroupBox1.ResumeLayout(False)
-        Me.GunaGroupBox1.PerformLayout()
-        CType(Me.GunaPictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -679,19 +710,22 @@ Partial Class AccueilForm
     Friend WithEvents GunaLabelUsername As Guna.UI.WinForms.GunaLabel
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents GunaLabelNomUtilisateur As Guna.UI.WinForms.GunaLabel
-    Friend WithEvents GunaGroupBox1 As Guna.UI.WinForms.GunaGroupBox
-    Friend WithEvents GunaLabel8 As Guna.UI.WinForms.GunaLabel
-    Friend WithEvents Label1 As Label
+    Friend WithEvents GunaGroupBoxHotel As Guna.UI.WinForms.GunaGroupBox
     Friend WithEvents GunaComboBoxVersion As Guna.UI.WinForms.GunaComboBox
     Friend WithEvents GunaLabelVersion As Guna.UI.WinForms.GunaLabel
     Friend WithEvents GunaCheckBoxVersion As Guna.UI.WinForms.GunaCheckBox
-    Friend WithEvents GunaPictureBox1 As Guna.UI.WinForms.GunaPictureBox
+    Friend WithEvents GunaPictureBoxRestaurant As Guna.UI.WinForms.GunaPictureBox
     Friend WithEvents GunaPanel1 As Guna.UI.WinForms.GunaPanel
     Friend WithEvents GunaComboBoxLangue As Guna.UI.WinForms.GunaComboBox
-    Friend WithEvents TextBoxRights As TextBox
     Friend WithEvents GunaLabelLangue As Guna.UI.WinForms.GunaLabel
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents GunaLabelTitle As Guna.UI.WinForms.GunaLabel
     Friend WithEvents TextBox2 As TextBox
     Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents BackgroundWorker2 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents GunaPictureBoxHotel As Guna.UI.WinForms.GunaPictureBox
+    Friend WithEvents TextBoxRights As TextBox
+    Friend WithEvents GunaPictureBoxCustom As Guna.UI.WinForms.GunaPictureBox
+    Friend WithEvents GunaLabelHotelName As Guna.UI.WinForms.GunaLabel
 End Class

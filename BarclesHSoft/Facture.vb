@@ -301,7 +301,6 @@ Public Class Facture
         Dim adapterList1 As New MySqlDataAdapter(command1)
         Dim table1 As New DataTable()
 
-
         adapterList1.Fill(table1)
 
         table.Merge(table1)
@@ -311,6 +310,43 @@ Public Class Facture
     End Function
 
     'MISE AJOURS DE ETAT_FACTURE : POUR NE PLUS AFFICHER LES FACTURES DANS LES RELANCES
+
+
+    Public Function lettreDeRelanceLike(ByVal DateDeTravail As Date, ByVal CRITERE As String, ByVal CRITERE_VALUE As String) As DataTable
+
+        Dim Query As String = "SELECT LIBELLE_FACTURE AS LIBELLE, CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, NOM_CLIENT AS 'ENTREPRISE', RELANCE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT SOLDE', LETTRAGE, NUMERO_COMPTE, DELAI_DE_PAIEMENT AS DELAI, RESTE_A_PAYER FROM facture, client, compte WHERE facture.CODE_CLIENT = client.CODE_CLIENT AND compte.CODE_CLIENT = client.CODE_CLIENT AND client.CODE_AGENCE=@CODE_AGENCE AND " & CRITERE & " Like '%" & CRITERE_VALUE & "%' ORDER BY DATE_FACTURE ASC "
+
+        Dim command As New MySqlCommand(Query, GlobalVariable.connect)
+
+        'Dim TYPE_CLIENT As String = "ENTREPRISE"
+
+        command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = GlobalVariable.codeAgence
+        'command.Parameters.Add("@TYPE_CLIENT", MySqlDbType.VarChar).Value = TYPE_CLIENT
+
+        Dim adapterList As New MySqlDataAdapter(command)
+        Dim table As New DataTable()
+
+        adapterList.Fill(table)
+
+        Dim Query1 As String = "SELECT LIBELLE_FACTURE AS LIBELLE, CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, INTITULE AS 'ENTREPRISE', RELANCE,  MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT SOLDE', LETTRAGE, NUMERO_COMPTE, DELAI_DE_PAIEMENT AS DELAI FROM facture, compte WHERE facture.CODE_CLIENT = compte.NUMERO_COMPTE AND CODE_AGENCE=@CODE_AGENCE AND " & CRITERE & " Like '%" & CRITERE_VALUE & "%' ORDER BY DATE_FACTURE ASC "
+
+        Dim command1 As New MySqlCommand(Query1, GlobalVariable.connect)
+
+        'Dim TYPE_CLIENT As String = "ENTREPRISE"
+
+        command1.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = GlobalVariable.codeAgence
+        'command.Parameters.Add("@TYPE_CLIENT", MySqlDbType.VarChar).Value = TYPE_CLIENT
+
+        Dim adapterList1 As New MySqlDataAdapter(command1)
+        Dim table1 As New DataTable()
+
+        adapterList1.Fill(table1)
+
+        table.Merge(table1)
+
+        Return table
+
+    End Function
 
     Public Sub updateFactureApresRelance(ByVal CODE_FACTURE As String, ByVal RELANCE As Integer)
 

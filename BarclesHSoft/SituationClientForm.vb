@@ -66,7 +66,13 @@ Public Class SituationClientForm
 
         GunaDataGridViewSituation.Rows.Clear()
 
-        Dim CODE_RESERVATION As String = MainWindow.GunaLabelNumReservation.Text
+        Dim CODE_RESERVATION As String = ""
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+            CODE_RESERVATION = MainWindow.GunaLabelNumReservation.Text
+        ElseIf GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 1 Then
+            CODE_RESERVATION = RestaurantBookingForm.GunaLabelNumReservation.Text
+        End If
 
         If Not GlobalVariable.codeReservationToUpdate = "" Then
 
@@ -236,10 +242,18 @@ Public Class SituationClientForm
 
             Dim CodeClient As String = ""
 
-            If Trim(MainWindow.GunaTextBoxCodeEntrepriseDuClient.Text).Equals("") Then
-                CodeClient = MainWindow.GunaTextBoxCodeEntrepriseDuClient.Text
-            Else
-                CodeClient = MainWindow.GunaTextBoxRefClient.Text
+            If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                If Trim(MainWindow.GunaTextBoxCodeEntrepriseDuClient.Text).Equals("") Then
+                    CodeClient = MainWindow.GunaTextBoxCodeEntrepriseDuClient.Text
+                Else
+                    CodeClient = MainWindow.GunaTextBoxRefClient.Text
+                End If
+            ElseIf GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 1 Then
+                If Trim(RestaurantBookingForm.GunaTextBoxCodeEntrepriseDuClient.Text).Equals("") Then
+                    CodeClient = RestaurantBookingForm.GunaTextBoxCodeEntrepriseDuClient.Text
+                Else
+                    CodeClient = RestaurantBookingForm.GunaTextBoxRefClient.Text
+                End If
             End If
 
             'On selectionne l'ensemble des factures du client payés ou pas
@@ -558,14 +572,26 @@ Public Class SituationClientForm
 
             'MISE A JOURS DU SOLDE DE LA RESERVATION EN COURS APRES TRANSFERT DE CHARGE OU REGLEMENT
 
-            MainWindow.GunaLabelSolde.Text = GunaTextBoxSolde.Text
+            If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                MainWindow.GunaLabelSolde.Text = GunaTextBoxSolde.Text
 
-            If 0 > Solde Then
-                MainWindow.GunaLabelSolde.ForeColor = Color.Red
-            ElseIf Solde = 0 Then
-                MainWindow.GunaLabelSolde.ForeColor = Color.Black
-            Else
-                MainWindow.GunaLabelSolde.ForeColor = Color.Green
+                If 0 > Solde Then
+                    MainWindow.GunaLabelSolde.ForeColor = Color.Red
+                ElseIf Solde = 0 Then
+                    MainWindow.GunaLabelSolde.ForeColor = Color.Black
+                Else
+                    MainWindow.GunaLabelSolde.ForeColor = Color.Green
+                End If
+            ElseIf GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 1 Then
+                RestaurantBookingForm.GunaLabelSolde.Text = GunaTextBoxSolde.Text
+
+                If 0 > Solde Then
+                    RestaurantBookingForm.GunaLabelSolde.ForeColor = Color.Red
+                ElseIf Solde = 0 Then
+                    RestaurantBookingForm.GunaLabelSolde.ForeColor = Color.Black
+                Else
+                    RestaurantBookingForm.GunaLabelSolde.ForeColor = Color.Green
+                End If
             End If
 
             'ON DOIT METTRE AJOUR LES MAINCOURANTES DES DEUX RESERVATIONS
@@ -583,181 +609,13 @@ Public Class SituationClientForm
         '---------------------------------------
 
         Me.Hide()
-        Dim CODE_RESERVATION As String = ""
 
         If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CORRECTIONS") = 1 Then
 
-            If GunaDataGridViewSituation.Rows.Count > 0 Then
+            'If GunaDataGridViewSituation.Rows.Count > 0 Then
+            If GunaDataGridViewSituation.CurrentRow.Selected Then
 
-                Dim dialog As DialogResult
-
-                If GlobalVariable.actualLanguageValue = 1 Then
-                    dialog = MessageBox.Show("Voulez-vous vraiment annuler cette charge", "Annulation de charge", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-                Else
-                    dialog = MessageBox.Show("Do you reallly want to cancel the charge", "Charge cancelation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-                End If
-
-                If dialog = DialogResult.Yes Then
-
-                    Dim Motif As String = ""
-
-                    If GlobalVariable.actualLanguageValue = 1 Then
-                        Motif = InputBox("Raison d'annulation", "Annulation de charge", "")
-                    Else
-                        Motif = InputBox("Reason of cancelation", "Cancelation of charge", "")
-                    End If
-
-                    Dim ID_LIGNE_FACTURE As Integer
-
-                    For Each row As DataGridViewRow In GunaDataGridViewSituation.SelectedRows
-
-                        Dim debit As Double = row.Cells("debit").Value
-
-                        '1- INSCRIRE LA CONTRE ECRITURE 
-                        '1-1. TESTER SI CHARGES OU REGLEMENT
-
-                        If debit > 0 Then
-
-                            '-SI OUI
-
-                            ID_LIGNE_FACTURE = row.Cells("Id").Value
-
-                            Dim insert As String = "INSERT INTO ligne_facture (`CODE_FACTURE`, `CODE_RESERVATION`, `CODE_MOUVEMENT`, `CODE_CHAMBRE`, `CODE_MODE_PAIEMENT`, `NUMERO_PIECE`, `CODE_ARTICLE`, `CODE_LOT`, `MONTANT_HT`, `TAXE`, `QUANTITE`, `PRIX_UNITAIRE_TTC`, `MONTANT_TTC`, `DATE_FACTURE`, `HEURE_FACTURE`, `ETAT_FACTURE`, `DATE_OCCUPATION`, `HEURE_OCCUPATION`, `LIBELLE_FACTURE`, `TYPE_LIGNE_FACTURE`, `NUMERO_SERIE`, `NUMERO_ORDRE`, `DESCRIPTION`, `CODE_UTILISATEUR_CREA`, `CODE_AGENCE`, `MONTANT_REMISE`, `MONTANT_TAXE`, `NUMERO_SERIE_DEBUT`, `NUMERO_SERIE_FIN`, `CODE_MAGASIN`, `FUSIONNEE`, `TYPE`, `NUMERO_BLOC_NOTE`, `GRIFFE_UTILISATEUR`, `VALEUR_CONSO`, `ETAT`) 
-                            SELECT `CODE_FACTURE`, `CODE_RESERVATION`, `CODE_MOUVEMENT`, `CODE_CHAMBRE`, `CODE_MODE_PAIEMENT`, `NUMERO_PIECE`, `CODE_ARTICLE`, `CODE_LOT`, `MONTANT_HT`, `TAXE`, `QUANTITE`, `PRIX_UNITAIRE_TTC`, `MONTANT_TTC`, `DATE_FACTURE`, `HEURE_FACTURE`, `ETAT_FACTURE`, `DATE_OCCUPATION`, `HEURE_OCCUPATION`, `LIBELLE_FACTURE`, `TYPE_LIGNE_FACTURE`, `NUMERO_SERIE`, `NUMERO_ORDRE`, `DESCRIPTION`, `CODE_UTILISATEUR_CREA`, `CODE_AGENCE`, `MONTANT_REMISE`, `MONTANT_TAXE`, `NUMERO_SERIE_DEBUT`, `NUMERO_SERIE_FIN`, `CODE_MAGASIN`, `FUSIONNEE`, `TYPE`, `NUMERO_BLOC_NOTE`, `GRIFFE_UTILISATEUR`, `VALEUR_CONSO`, `ETAT` FROM ligne_facture WHERE ID_LIGNE_FACTURE = @ID_LIGNE_FACTURE"
-
-                            Dim command As New MySqlCommand(insert, GlobalVariable.connect)
-
-                            command.Parameters.Add("@ID_LIGNE_FACTURE", MySqlDbType.Int32).Value = ID_LIGNE_FACTURE
-                            command.ExecuteNonQuery()
-
-                            Dim nomDelaTable As String = "ligne_facture"
-
-                            Dim infoSupArticle As DataTable = Functions.getElementByCode(ID_LIGNE_FACTURE, nomDelaTable, "ID_LIGNE_FACTURE")
-
-                            Dim NEW_LIBELLE As String = ""
-                            Dim MONTANT_HT As Double = 0
-                            Dim PRIX_UNITAIRE_TTC As Double = 0
-                            Dim MONTANT_TTC As Double = 0
-                            Dim POINT_DE_VENTE As String = ""
-                            Dim FUSIONNEE As String = ""
-
-                            If infoSupArticle.Rows.Count > 0 Then
-                                NEW_LIBELLE = infoSupArticle.Rows(0)("LIBELLE_FACTURE")
-                                MONTANT_HT = infoSupArticle.Rows(0)("MONTANT_HT")
-                                PRIX_UNITAIRE_TTC = infoSupArticle.Rows(0)("PRIX_UNITAIRE_TTC")
-                                MONTANT_TTC = infoSupArticle.Rows(0)("MONTANT_TTC")
-                                POINT_DE_VENTE = infoSupArticle.Rows(0)("TYPE_LIGNE_FACTURE")
-                                FUSIONNEE = infoSupArticle.Rows(0)("FUSIONNEE")
-                            End If
-
-                            Dim NEW_ID_LIGNE_FACTURE As Integer = Functions.latInsertedElementId(nomDelaTable, "ID_LIGNE_FACTURE")
-
-                            Dim nomDuChamp As String = "LIBELLE_FACTURE"
-                            Dim ValeurDuChamp As String = Motif.ToUpper() & " " & NEW_LIBELLE
-                            Dim nomDuChampDuCode As String = "ID_LIGNE_FACTURE"
-                            Dim valeurDuChampDuCode As Integer = NEW_ID_LIGNE_FACTURE
-                            Dim variableType As Integer = 2
-
-                            Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
-
-                            nomDuChamp = "CODE_UTILISATEUR_CREA"
-                            ValeurDuChamp = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
-                            variableType = 2
-
-                            Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
-
-                            nomDuChamp = "CODE_FACTURE"
-                            ValeurDuChamp = Functions.GeneratingRandomCodeWithSpecifications("ligne_facture", "")
-                            variableType = 2
-
-                            Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
-
-                            nomDuChamp = "MONTANT_HT"
-                            ValeurDuChamp = MONTANT_HT * -1
-                            variableType = 1
-
-                            Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
-
-                            nomDuChamp = "PRIX_UNITAIRE_TTC"
-                            ValeurDuChamp = PRIX_UNITAIRE_TTC * -1
-                            variableType = 1
-
-                            Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
-
-                            nomDuChamp = "MONTANT_TTC"
-                            ValeurDuChamp = MONTANT_TTC * -1
-                            variableType = 1
-
-                            Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
-
-                            '2- METTRE A JOUR LA MAIN COURANTE JOURNALIERE PAR APPORT AU BAR-RESTAURANT
-
-                            Dim mettreAJour As Boolean = True
-
-                            If Trim(FUSIONNEE).Equals("HEBERGEMENT") Then
-                                mettreAJour = False
-                            End If
-
-                            If Trim(FUSIONNEE).Equals("ACCOMMODATION") Then
-                                mettreAJour = False
-                            End If
-
-                            If mettreAJour Then
-
-                                Dim ligne_facture As New LigneFacture()
-                                ligne_facture.miseAjoursApresAnnulationDeChargeDepuisLaSituationDuCLient(NEW_ID_LIGNE_FACTURE)
-
-                            Else
-
-                                Dim CODE_MAIN_COURANTE_JOURNALIERE As String = GlobalVariable.codeMainCouranteJournaliereToUpdate
-                                Functions.updateOfFieldsAddSubtract("main_courante_journaliere", "TOTAL_GENERAL", MONTANT_TTC * -1, "CODE_MAIN_COURANTE_JOURNALIERE", CODE_MAIN_COURANTE_JOURNALIERE, 1)
-                                Functions.updateOfFieldsAddSubtract("main_courante_journaliere", "TOTAL_JOUR", MONTANT_TTC * -1, "CODE_MAIN_COURANTE_JOURNALIERE", CODE_MAIN_COURANTE_JOURNALIERE, 1)
-                                Functions.updateOfFieldsAddSubtract("main_courante_journaliere", "MONTANT_ACCORDE", MONTANT_TTC * -1, "CODE_MAIN_COURANTE_JOURNALIERE", CODE_MAIN_COURANTE_JOURNALIERE, 1)
-
-                            End If
-
-                        Else
-
-                            'GESTION DES REGLEMENTS
-
-                        End If
-
-                    Next
-
-                    GunaDataGridViewSituation.Rows.Clear()
-                    If GlobalVariable.actualLanguageValue = 1 Then
-                        MessageBox.Show("Charge annulée avec succès", "Annulation de Charge", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Else
-                        MessageBox.Show("Charge canceled successfully", "Charge cancelation", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    End If
-
-                    If GlobalVariable.ReservationToUpdate.Rows.Count > 0 Then
-
-                        CODE_RESERVATION = GlobalVariable.ReservationToUpdate(0)("CODE_RESERVATION")
-
-                        Dim solde As Double = Functions.SituationDeReservation(CODE_RESERVATION)
-                        Dim resa As New Reservation()
-                        resa.updateSoldeReservation(CODE_RESERVATION, "reserve_conf", solde)
-
-                        MainWindow.GunaLabelSolde.Text = Format(solde, "#,##0")
-
-                        If 0 > solde Then
-                            MainWindow.GunaLabelSolde.ForeColor = Color.Red
-                        ElseIf solde = 0 Then
-                            MainWindow.GunaLabelSolde.ForeColor = Color.Black
-                        Else
-                            MainWindow.GunaLabelSolde.ForeColor = Color.Green
-                        End If
-
-                        MainWindow.MainWindowManualActivation()
-
-                        MainWindow.Refresh()
-
-                    End If
-
-                End If
-
-                Functions.miseAJourDuMontantAReporter(GlobalVariable.DateDeTravail, CODE_RESERVATION)
+                chargeCancellation()
 
             Else
                 If True Then
@@ -780,204 +638,28 @@ Public Class SituationClientForm
 
             MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
+            GenerationForm.Show()
+            GenerationForm.TopMost = True
+            GenerationForm.GunaComboBoxAction.SelectedIndex = 2
+            GenerationForm.GunaComboBoxAction.Enabled = False
+
         End If
 
         Me.Show()
-
-        SituationDuClient()
+        Me.TopMost = False
 
     End Sub
 
     Private Sub RéductionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RéductionToolStripMenuItem.Click
 
         Me.Hide()
-        Dim CODE_RESERVATION As String = ""
+        'Dim CODE_RESERVATION As String = ""
 
         If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CORRECTIONS") = 1 Then
 
-            If GunaDataGridViewSituation.Rows.Count > 0 Then
+            If GunaDataGridViewSituation.CurrentRow.Selected Then
 
-                Dim dialog As DialogResult
-
-                If GlobalVariable.actualLanguageValue = 1 Then
-                    dialog = MessageBox.Show("Vous êtes sur le point de faire une réduction", "Réduction de charge", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-                Else
-                    dialog = MessageBox.Show("You are about to do a reduction", "Charge reduction", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-
-                End If
-
-                If dialog = DialogResult.Yes Then
-
-                    Dim MONTANT As Double = 0
-
-                    If GlobalVariable.actualLanguageValue = 1 Then
-                        MONTANT = Double.Parse(InputBox("MONTANT DE LA REDUCTION ", "Réduction de charge", ""))
-                    Else
-                        MONTANT = Double.Parse(InputBox("REDUCTION AMOUNT ", "Charge Discount", ""))
-                    End If
-
-                    Dim ID_LIGNE_FACTURE As Integer
-
-                    For Each row As DataGridViewRow In GunaDataGridViewSituation.SelectedRows
-
-                        Dim debit As Double = row.Cells("debit").Value
-
-                        '1- INSCRIRE LA CONTRE ECRITURE 
-                        '1-1. TESTER SI CHARGES OU REGLEMENT
-
-                        If debit > 0 Then
-
-                            '-SI OUI
-
-                            ID_LIGNE_FACTURE = row.Cells("Id").Value
-
-                            Dim insert As String = "INSERT INTO ligne_facture (`CODE_FACTURE`, `CODE_RESERVATION`, `CODE_MOUVEMENT`, `CODE_CHAMBRE`, `CODE_MODE_PAIEMENT`, `NUMERO_PIECE`, `CODE_ARTICLE`, `CODE_LOT`, `MONTANT_HT`, `TAXE`, `QUANTITE`, `PRIX_UNITAIRE_TTC`, `MONTANT_TTC`, `DATE_FACTURE`, `HEURE_FACTURE`, `ETAT_FACTURE`, `DATE_OCCUPATION`, `HEURE_OCCUPATION`, `LIBELLE_FACTURE`, `TYPE_LIGNE_FACTURE`, `NUMERO_SERIE`, `NUMERO_ORDRE`, `DESCRIPTION`, `CODE_UTILISATEUR_CREA`, `CODE_AGENCE`, `MONTANT_REMISE`, `MONTANT_TAXE`, `NUMERO_SERIE_DEBUT`, `NUMERO_SERIE_FIN`, `CODE_MAGASIN`, `FUSIONNEE`, `TYPE`, `NUMERO_BLOC_NOTE`, `GRIFFE_UTILISATEUR`, `VALEUR_CONSO`, `ETAT`) 
-                            SELECT `CODE_FACTURE`, `CODE_RESERVATION`, `CODE_MOUVEMENT`, `CODE_CHAMBRE`, `CODE_MODE_PAIEMENT`, `NUMERO_PIECE`, `CODE_ARTICLE`, `CODE_LOT`, `MONTANT_HT`, `TAXE`, `QUANTITE`, `PRIX_UNITAIRE_TTC`, `MONTANT_TTC`, `DATE_FACTURE`, `HEURE_FACTURE`, `ETAT_FACTURE`, `DATE_OCCUPATION`, `HEURE_OCCUPATION`, `LIBELLE_FACTURE`, `TYPE_LIGNE_FACTURE`, `NUMERO_SERIE`, `NUMERO_ORDRE`, `DESCRIPTION`, `CODE_UTILISATEUR_CREA`, `CODE_AGENCE`, `MONTANT_REMISE`, `MONTANT_TAXE`, `NUMERO_SERIE_DEBUT`, `NUMERO_SERIE_FIN`, `CODE_MAGASIN`, `FUSIONNEE`, `TYPE`, `NUMERO_BLOC_NOTE`, `GRIFFE_UTILISATEUR`, `VALEUR_CONSO`, `ETAT` FROM ligne_facture WHERE ID_LIGNE_FACTURE = @ID_LIGNE_FACTURE"
-
-                            Dim command As New MySqlCommand(insert, GlobalVariable.connect)
-
-                            command.Parameters.Add("@ID_LIGNE_FACTURE", MySqlDbType.Int32).Value = ID_LIGNE_FACTURE
-                            command.ExecuteNonQuery()
-
-                            Dim nomDelaTable As String = "ligne_facture"
-
-                            Dim infoSupArticle As DataTable = Functions.getElementByCode(ID_LIGNE_FACTURE, nomDelaTable, "ID_LIGNE_FACTURE")
-
-                            Dim NEW_LIBELLE As String = ""
-                            Dim MONTANT_HT As Double = 0
-                            Dim PRIX_UNITAIRE_TTC As Double = 0
-                            Dim MONTANT_TTC As Double = 0
-                            Dim POINT_DE_VENTE As String = ""
-                            Dim FUSIONNEE As String = ""
-
-                            If infoSupArticle.Rows.Count > 0 Then
-                                NEW_LIBELLE = infoSupArticle.Rows(0)("LIBELLE_FACTURE")
-                                'MONTANT_HT = infoSupArticle.Rows(0)("MONTANT_HT")
-                                MONTANT_HT = MONTANT
-                                'PRIX_UNITAIRE_TTC = infoSupArticle.Rows(0)("PRIX_UNITAIRE_TTC")
-                                PRIX_UNITAIRE_TTC = MONTANT
-                                'MONTANT_TTC = infoSupArticle.Rows(0)("MONTANT_TTC")
-                                MONTANT_TTC = MONTANT
-                                POINT_DE_VENTE = infoSupArticle.Rows(0)("TYPE_LIGNE_FACTURE")
-                                FUSIONNEE = infoSupArticle.Rows(0)("FUSIONNEE")
-                            End If
-
-                            Dim NEW_ID_LIGNE_FACTURE As Integer = Functions.latInsertedElementId(nomDelaTable, "ID_LIGNE_FACTURE")
-
-                            Dim nomDuChamp As String = "LIBELLE_FACTURE"
-                            Dim ValeurDuChamp As String = "REDUCTION " & NEW_LIBELLE
-
-                            If GlobalVariable.actualLanguageValue = 0 Then
-                                ValeurDuChamp = "DISCOUNT " & NEW_LIBELLE
-                            End If
-
-                            Dim nomDuChampDuCode As String = "ID_LIGNE_FACTURE"
-                            Dim valeurDuChampDuCode As Integer = NEW_ID_LIGNE_FACTURE
-                            Dim variableType As Integer = 2
-
-                            Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
-
-                            nomDuChamp = "CODE_UTILISATEUR_CREA"
-                            ValeurDuChamp = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
-                            variableType = 2
-
-                            Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
-
-                            nomDuChamp = "CODE_FACTURE"
-                            ValeurDuChamp = Functions.GeneratingRandomCodeWithSpecifications("ligne_facture", "")
-                            variableType = 2
-
-                            Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
-
-                            nomDuChamp = "MONTANT_HT"
-                            ValeurDuChamp = MONTANT_HT * -1
-                            variableType = 1
-
-                            Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
-
-                            nomDuChamp = "PRIX_UNITAIRE_TTC"
-                            ValeurDuChamp = PRIX_UNITAIRE_TTC * -1
-                            variableType = 1
-
-                            Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
-
-                            nomDuChamp = "MONTANT_TTC"
-                            ValeurDuChamp = MONTANT_TTC * -1
-                            variableType = 1
-
-                            Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
-
-                            '2- METTRE A JOUR LA MAIN COURANTE JOURNALIERE
-
-                            Dim mettreAJour As Boolean = True
-
-                            If Trim(FUSIONNEE).Equals("HEBERGEMENT") Then
-                                mettreAJour = False
-                            End If
-
-                            If Trim(FUSIONNEE).Equals("ACCOMMODATION") Then
-                                mettreAJour = False
-                            End If
-
-                            If mettreAJour Then
-
-                                Dim ligne_facture As New LigneFacture()
-                                'ligne_facture.miseAjoursApresAnnulationDeChargeDepuisLaSituationDuCLient(NEW_ID_LIGNE_FACTURE)
-
-                            Else
-
-                                Dim CODE_MAIN_COURANTE_JOURNALIERE As String = GlobalVariable.codeMainCouranteJournaliereToUpdate
-                                Functions.updateOfFieldsAddSubtract("main_courante_journaliere", "TOTAL_GENERAL", MONTANT_TTC * -1, "CODE_MAIN_COURANTE_JOURNALIERE", CODE_MAIN_COURANTE_JOURNALIERE, 1)
-                                Functions.updateOfFieldsAddSubtract("main_courante_journaliere", "TOTAL_JOUR", MONTANT_TTC * -1, "CODE_MAIN_COURANTE_JOURNALIERE", CODE_MAIN_COURANTE_JOURNALIERE, 1)
-                                Functions.updateOfFieldsAddSubtract("main_courante_journaliere", "MONTANT_ACCORDE", MONTANT_TTC * -1, "CODE_MAIN_COURANTE_JOURNALIERE", CODE_MAIN_COURANTE_JOURNALIERE, 1)
-
-                            End If
-
-                        Else
-
-                            'GESTION DES REGLEMENTS
-
-                        End If
-
-                    Next
-
-                    GunaDataGridViewSituation.Rows.Clear()
-
-                    If GlobalVariable.actualLanguageValue = 1 Then
-                        MessageBox.Show("Réduction fait avec succès", "Réduction de Charge", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Else
-                        MessageBox.Show("Reduction succesffully donne", "Discount", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    End If
-
-                    If GlobalVariable.ReservationToUpdate.Rows.Count > 0 Then
-
-                        CODE_RESERVATION = GlobalVariable.ReservationToUpdate(0)("CODE_RESERVATION")
-
-                        Dim solde As Double = Functions.SituationDeReservation(CODE_RESERVATION)
-
-                        Dim resa As New Reservation()
-                        resa.updateSoldeReservation(CODE_RESERVATION, "reserve_conf", solde)
-
-
-                        MainWindow.GunaLabelSolde.Text = Format(solde, "#,##0")
-
-                        If 0 > solde Then
-                            MainWindow.GunaLabelSolde.ForeColor = Color.Red
-                        ElseIf solde = 0 Then
-                            MainWindow.GunaLabelSolde.ForeColor = Color.Black
-                        Else
-                            MainWindow.GunaLabelSolde.ForeColor = Color.Green
-                        End If
-
-                        MainWindow.MainWindowManualActivation()
-
-                        MainWindow.Refresh()
-
-                    End If
-
-                End If
-
-                Functions.miseAJourDuMontantAReporter(GlobalVariable.DateDeTravail, CODE_RESERVATION)
+                discountOnCharge()
 
             Else
 
@@ -1001,11 +683,425 @@ Public Class SituationClientForm
 
             MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
+            GenerationForm.Show()
+            GenerationForm.TopMost = True
+            GenerationForm.GunaComboBoxAction.SelectedIndex = 3
+            GenerationForm.GunaComboBoxAction.Enabled = False
+
         End If
 
         Me.Show()
+        Me.TopMost = False
+
+    End Sub
+
+    Public Sub chargeCancellation()
+
+        Dim CODE_RESERVATION As String = ""
+
+        Dim dialog As DialogResult
+
+        If GlobalVariable.actualLanguageValue = 1 Then
+            dialog = MessageBox.Show("Voulez-vous vraiment annuler cette charge", "Annulation de charge", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        Else
+            dialog = MessageBox.Show("Do you reallly want to cancel the charge", "Charge cancelation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        End If
+
+        If dialog = DialogResult.Yes Then
+
+            Dim Motif As String = ""
+
+            If GlobalVariable.actualLanguageValue = 1 Then
+                Motif = InputBox("Raison d'annulation", "Annulation de charge", "")
+            Else
+                Motif = InputBox("Reason of cancelation", "Cancelation of charge", "")
+            End If
+
+            Dim ID_LIGNE_FACTURE As Integer
+
+            For Each row As DataGridViewRow In GunaDataGridViewSituation.SelectedRows
+
+                Dim debit As Double = row.Cells("debit").Value
+
+                '1- INSCRIRE LA CONTRE ECRITURE 
+                '1-1. TESTER SI CHARGES OU REGLEMENT
+
+                If debit > 0 Then
+
+                    '-SI OUI
+
+                    ID_LIGNE_FACTURE = row.Cells("Id").Value
+
+                    Dim insert As String = "INSERT INTO ligne_facture (`CODE_FACTURE`, `CODE_RESERVATION`, `CODE_MOUVEMENT`, `CODE_CHAMBRE`, `CODE_MODE_PAIEMENT`, `NUMERO_PIECE`, `CODE_ARTICLE`, `CODE_LOT`, `MONTANT_HT`, `TAXE`, `QUANTITE`, `PRIX_UNITAIRE_TTC`, `MONTANT_TTC`, `DATE_FACTURE`, `HEURE_FACTURE`, `ETAT_FACTURE`, `DATE_OCCUPATION`, `HEURE_OCCUPATION`, `LIBELLE_FACTURE`, `TYPE_LIGNE_FACTURE`, `NUMERO_SERIE`, `NUMERO_ORDRE`, `DESCRIPTION`, `CODE_UTILISATEUR_CREA`, `CODE_AGENCE`, `MONTANT_REMISE`, `MONTANT_TAXE`, `NUMERO_SERIE_DEBUT`, `NUMERO_SERIE_FIN`, `CODE_MAGASIN`, `FUSIONNEE`, `TYPE`, `NUMERO_BLOC_NOTE`, `GRIFFE_UTILISATEUR`, `VALEUR_CONSO`, `ETAT`) 
+                            SELECT `CODE_FACTURE`, `CODE_RESERVATION`, `CODE_MOUVEMENT`, `CODE_CHAMBRE`, `CODE_MODE_PAIEMENT`, `NUMERO_PIECE`, `CODE_ARTICLE`, `CODE_LOT`, `MONTANT_HT`, `TAXE`, `QUANTITE`, `PRIX_UNITAIRE_TTC`, `MONTANT_TTC`, `DATE_FACTURE`, `HEURE_FACTURE`, `ETAT_FACTURE`, `DATE_OCCUPATION`, `HEURE_OCCUPATION`, `LIBELLE_FACTURE`, `TYPE_LIGNE_FACTURE`, `NUMERO_SERIE`, `NUMERO_ORDRE`, `DESCRIPTION`, `CODE_UTILISATEUR_CREA`, `CODE_AGENCE`, `MONTANT_REMISE`, `MONTANT_TAXE`, `NUMERO_SERIE_DEBUT`, `NUMERO_SERIE_FIN`, `CODE_MAGASIN`, `FUSIONNEE`, `TYPE`, `NUMERO_BLOC_NOTE`, `GRIFFE_UTILISATEUR`, `VALEUR_CONSO`, `ETAT` FROM ligne_facture WHERE ID_LIGNE_FACTURE = @ID_LIGNE_FACTURE"
+
+                    Dim command As New MySqlCommand(insert, GlobalVariable.connect)
+
+                    command.Parameters.Add("@ID_LIGNE_FACTURE", MySqlDbType.Int32).Value = ID_LIGNE_FACTURE
+                    command.ExecuteNonQuery()
+
+                    Dim nomDelaTable As String = "ligne_facture"
+
+                    Dim infoSupArticle As DataTable = Functions.getElementByCode(ID_LIGNE_FACTURE, nomDelaTable, "ID_LIGNE_FACTURE")
+
+                    Dim NEW_LIBELLE As String = ""
+                    Dim MONTANT_HT As Double = 0
+                    Dim PRIX_UNITAIRE_TTC As Double = 0
+                    Dim MONTANT_TTC As Double = 0
+                    Dim POINT_DE_VENTE As String = ""
+                    Dim FUSIONNEE As String = ""
+
+                    If infoSupArticle.Rows.Count > 0 Then
+                        NEW_LIBELLE = infoSupArticle.Rows(0)("LIBELLE_FACTURE")
+                        MONTANT_HT = infoSupArticle.Rows(0)("MONTANT_HT")
+                        PRIX_UNITAIRE_TTC = infoSupArticle.Rows(0)("PRIX_UNITAIRE_TTC")
+                        MONTANT_TTC = infoSupArticle.Rows(0)("MONTANT_TTC")
+                        POINT_DE_VENTE = infoSupArticle.Rows(0)("TYPE_LIGNE_FACTURE")
+                        FUSIONNEE = infoSupArticle.Rows(0)("FUSIONNEE")
+                    End If
+
+                    Dim NEW_ID_LIGNE_FACTURE As Integer = Functions.latInsertedElementId(nomDelaTable, "ID_LIGNE_FACTURE")
+
+                    Dim nomDuChamp As String = "LIBELLE_FACTURE"
+                    Dim ValeurDuChamp As String = Motif.ToUpper() & " " & NEW_LIBELLE
+                    Dim nomDuChampDuCode As String = "ID_LIGNE_FACTURE"
+                    Dim valeurDuChampDuCode As Integer = NEW_ID_LIGNE_FACTURE
+                    Dim variableType As Integer = 2
+
+                    Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
+
+                    nomDuChamp = "CODE_UTILISATEUR_CREA"
+                    ValeurDuChamp = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+                    variableType = 2
+
+                    Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
+
+                    nomDuChamp = "CODE_FACTURE"
+                    ValeurDuChamp = Functions.GeneratingRandomCodeWithSpecifications("ligne_facture", "")
+                    variableType = 2
+
+                    Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
+
+                    nomDuChamp = "MONTANT_HT"
+                    ValeurDuChamp = MONTANT_HT * -1
+                    variableType = 1
+
+                    Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
+
+                    nomDuChamp = "PRIX_UNITAIRE_TTC"
+                    ValeurDuChamp = PRIX_UNITAIRE_TTC * -1
+                    variableType = 1
+
+                    Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
+
+                    nomDuChamp = "MONTANT_TTC"
+                    ValeurDuChamp = MONTANT_TTC * -1
+                    variableType = 1
+
+                    Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
+
+                    '2- METTRE A JOUR LA MAIN COURANTE JOURNALIERE PAR APPORT AU BAR-RESTAURANT
+
+                    Dim mettreAJour As Boolean = True
+
+                    If Trim(FUSIONNEE).Equals("HEBERGEMENT") Then
+                        mettreAJour = False
+                    End If
+
+                    If Trim(FUSIONNEE).Equals("ACCOMMODATION") Then
+                        mettreAJour = False
+                    End If
+
+                    If mettreAJour Then
+
+                        Dim ligne_facture As New LigneFacture()
+                        ligne_facture.miseAjoursApresAnnulationDeChargeDepuisLaSituationDuCLient(NEW_ID_LIGNE_FACTURE)
+
+                    Else
+
+                        Dim CODE_MAIN_COURANTE_JOURNALIERE As String = GlobalVariable.codeMainCouranteJournaliereToUpdate
+                        Functions.updateOfFieldsAddSubtract("main_courante_journaliere", "TOTAL_GENERAL", MONTANT_TTC * -1, "CODE_MAIN_COURANTE_JOURNALIERE", CODE_MAIN_COURANTE_JOURNALIERE, 1)
+                        Functions.updateOfFieldsAddSubtract("main_courante_journaliere", "TOTAL_JOUR", MONTANT_TTC * -1, "CODE_MAIN_COURANTE_JOURNALIERE", CODE_MAIN_COURANTE_JOURNALIERE, 1)
+                        Functions.updateOfFieldsAddSubtract("main_courante_journaliere", "MONTANT_ACCORDE", MONTANT_TTC * -1, "CODE_MAIN_COURANTE_JOURNALIERE", CODE_MAIN_COURANTE_JOURNALIERE, 1)
+
+                    End If
+
+                Else
+
+                    'GESTION DES REGLEMENTS
+
+                End If
+
+            Next
+
+            SituationDuClient()
+
+            GunaDataGridViewSituation.Rows.Clear()
+            If GlobalVariable.actualLanguageValue = 1 Then
+                MessageBox.Show("Charge annulée avec succès", "Annulation de Charge", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                MessageBox.Show("Charge canceled successfully", "Charge cancelation", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+
+            If GlobalVariable.ReservationToUpdate.Rows.Count > 0 Then
+
+                CODE_RESERVATION = GlobalVariable.ReservationToUpdate(0)("CODE_RESERVATION")
+
+                Dim solde As Double = Functions.SituationDeReservation(CODE_RESERVATION)
+                Dim resa As New Reservation()
+                resa.updateSoldeReservation(CODE_RESERVATION, "reserve_conf", solde)
+
+                If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                    MainWindow.GunaLabelSolde.Text = Format(solde, "#,##0")
+
+                    If 0 > solde Then
+                        MainWindow.GunaLabelSolde.ForeColor = Color.Red
+                    ElseIf solde = 0 Then
+                        MainWindow.GunaLabelSolde.ForeColor = Color.Black
+                    Else
+                        MainWindow.GunaLabelSolde.ForeColor = Color.Green
+                    End If
+
+                    MainWindow.MainWindowManualActivation()
+
+                    MainWindow.Refresh()
+                ElseIf GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 1 Then
+                    RestaurantBookingForm.GunaLabelSolde.Text = Format(solde, "#,##0")
+
+                    If 0 > solde Then
+                        RestaurantBookingForm.GunaLabelSolde.ForeColor = Color.Red
+                    ElseIf solde = 0 Then
+                        RestaurantBookingForm.GunaLabelSolde.ForeColor = Color.Black
+                    Else
+                        RestaurantBookingForm.GunaLabelSolde.ForeColor = Color.Green
+                    End If
+
+                    RestaurantBookingForm.MainWindowManualActivation()
+
+                    RestaurantBookingForm.Refresh()
+                End If
+
+            End If
+
+        End If
+
+        Functions.miseAJourDuMontantAReporter(GlobalVariable.DateDeTravail, CODE_RESERVATION)
+
+        If GunaDataGridViewSituation.Rows.Count <= 0 Then
+            SituationDuClient()
+        End If
+
+    End Sub
+
+    Public Sub discountOnCharge()
+
+        Dim CODE_RESERVATION As String = ""
+
+        Dim dialog As DialogResult
+
+        If GlobalVariable.actualLanguageValue = 1 Then
+            dialog = MessageBox.Show("Vous êtes sur le point de faire une réduction", "Réduction de charge", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        Else
+            dialog = MessageBox.Show("You are about to do a reduction", "Charge reduction", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+        End If
+
+        If dialog = DialogResult.Yes Then
+
+            Dim MONTANT As Double = 0
+
+            If GlobalVariable.actualLanguageValue = 1 Then
+                MONTANT = Double.Parse(InputBox("MONTANT DE LA REDUCTION ", "Réduction de charge", ""))
+            Else
+                MONTANT = Double.Parse(InputBox("REDUCTION AMOUNT ", "Charge Discount", ""))
+            End If
+
+            Dim ID_LIGNE_FACTURE As Integer
+
+            For Each row As DataGridViewRow In GunaDataGridViewSituation.SelectedRows
+
+                Dim debit As Double = row.Cells("debit").Value
+
+                '1- INSCRIRE LA CONTRE ECRITURE 
+                '1-1. TESTER SI CHARGES OU REGLEMENT
+
+                If debit > 0 Then
+
+                    '-SI OUI
+
+                    ID_LIGNE_FACTURE = row.Cells("Id").Value
+
+                    Dim insert As String = "INSERT INTO ligne_facture (`CODE_FACTURE`, `CODE_RESERVATION`, `CODE_MOUVEMENT`, `CODE_CHAMBRE`, `CODE_MODE_PAIEMENT`, `NUMERO_PIECE`, `CODE_ARTICLE`, `CODE_LOT`, `MONTANT_HT`, `TAXE`, `QUANTITE`, `PRIX_UNITAIRE_TTC`, `MONTANT_TTC`, `DATE_FACTURE`, `HEURE_FACTURE`, `ETAT_FACTURE`, `DATE_OCCUPATION`, `HEURE_OCCUPATION`, `LIBELLE_FACTURE`, `TYPE_LIGNE_FACTURE`, `NUMERO_SERIE`, `NUMERO_ORDRE`, `DESCRIPTION`, `CODE_UTILISATEUR_CREA`, `CODE_AGENCE`, `MONTANT_REMISE`, `MONTANT_TAXE`, `NUMERO_SERIE_DEBUT`, `NUMERO_SERIE_FIN`, `CODE_MAGASIN`, `FUSIONNEE`, `TYPE`, `NUMERO_BLOC_NOTE`, `GRIFFE_UTILISATEUR`, `VALEUR_CONSO`, `ETAT`) 
+                            SELECT `CODE_FACTURE`, `CODE_RESERVATION`, `CODE_MOUVEMENT`, `CODE_CHAMBRE`, `CODE_MODE_PAIEMENT`, `NUMERO_PIECE`, `CODE_ARTICLE`, `CODE_LOT`, `MONTANT_HT`, `TAXE`, `QUANTITE`, `PRIX_UNITAIRE_TTC`, `MONTANT_TTC`, `DATE_FACTURE`, `HEURE_FACTURE`, `ETAT_FACTURE`, `DATE_OCCUPATION`, `HEURE_OCCUPATION`, `LIBELLE_FACTURE`, `TYPE_LIGNE_FACTURE`, `NUMERO_SERIE`, `NUMERO_ORDRE`, `DESCRIPTION`, `CODE_UTILISATEUR_CREA`, `CODE_AGENCE`, `MONTANT_REMISE`, `MONTANT_TAXE`, `NUMERO_SERIE_DEBUT`, `NUMERO_SERIE_FIN`, `CODE_MAGASIN`, `FUSIONNEE`, `TYPE`, `NUMERO_BLOC_NOTE`, `GRIFFE_UTILISATEUR`, `VALEUR_CONSO`, `ETAT` FROM ligne_facture WHERE ID_LIGNE_FACTURE = @ID_LIGNE_FACTURE"
+
+                    Dim command As New MySqlCommand(insert, GlobalVariable.connect)
+
+                    command.Parameters.Add("@ID_LIGNE_FACTURE", MySqlDbType.Int32).Value = ID_LIGNE_FACTURE
+                    command.ExecuteNonQuery()
+
+                    Dim nomDelaTable As String = "ligne_facture"
+
+                    Dim infoSupArticle As DataTable = Functions.getElementByCode(ID_LIGNE_FACTURE, nomDelaTable, "ID_LIGNE_FACTURE")
+
+                    Dim NEW_LIBELLE As String = ""
+                    Dim MONTANT_HT As Double = 0
+                    Dim PRIX_UNITAIRE_TTC As Double = 0
+                    Dim MONTANT_TTC As Double = 0
+                    Dim POINT_DE_VENTE As String = ""
+                    Dim FUSIONNEE As String = ""
+
+                    If infoSupArticle.Rows.Count > 0 Then
+                        NEW_LIBELLE = infoSupArticle.Rows(0)("LIBELLE_FACTURE")
+                        'MONTANT_HT = infoSupArticle.Rows(0)("MONTANT_HT")
+                        MONTANT_HT = MONTANT
+                        'PRIX_UNITAIRE_TTC = infoSupArticle.Rows(0)("PRIX_UNITAIRE_TTC")
+                        PRIX_UNITAIRE_TTC = MONTANT
+                        'MONTANT_TTC = infoSupArticle.Rows(0)("MONTANT_TTC")
+                        MONTANT_TTC = MONTANT
+                        POINT_DE_VENTE = infoSupArticle.Rows(0)("TYPE_LIGNE_FACTURE")
+                        FUSIONNEE = infoSupArticle.Rows(0)("FUSIONNEE")
+                    End If
+
+                    Dim NEW_ID_LIGNE_FACTURE As Integer = Functions.latInsertedElementId(nomDelaTable, "ID_LIGNE_FACTURE")
+
+                    Dim nomDuChamp As String = "LIBELLE_FACTURE"
+                    Dim ValeurDuChamp As String = "REDUCTION " & NEW_LIBELLE
+
+                    If GlobalVariable.actualLanguageValue = 0 Then
+                        ValeurDuChamp = "DISCOUNT " & NEW_LIBELLE
+                    End If
+
+                    Dim nomDuChampDuCode As String = "ID_LIGNE_FACTURE"
+                    Dim valeurDuChampDuCode As Integer = NEW_ID_LIGNE_FACTURE
+                    Dim variableType As Integer = 2
+
+                    Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
+
+                    nomDuChamp = "CODE_UTILISATEUR_CREA"
+                    ValeurDuChamp = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+                    variableType = 2
+
+                    Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
+
+                    nomDuChamp = "CODE_FACTURE"
+                    ValeurDuChamp = Functions.GeneratingRandomCodeWithSpecifications("ligne_facture", "")
+                    variableType = 2
+
+                    Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
+
+                    nomDuChamp = "MONTANT_HT"
+                    ValeurDuChamp = MONTANT_HT * -1
+                    variableType = 1
+
+                    Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
+
+                    nomDuChamp = "PRIX_UNITAIRE_TTC"
+                    ValeurDuChamp = PRIX_UNITAIRE_TTC * -1
+                    variableType = 1
+
+                    Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
+
+                    nomDuChamp = "MONTANT_TTC"
+                    ValeurDuChamp = MONTANT_TTC * -1
+                    variableType = 1
+
+                    Functions.updateOfFields(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
+
+                    '2- METTRE A JOUR LA MAIN COURANTE JOURNALIERE
+
+                    Dim mettreAJour As Boolean = True
+
+                    If Trim(FUSIONNEE).Equals("HEBERGEMENT") Then
+                        mettreAJour = False
+                    End If
+
+                    If Trim(FUSIONNEE).Equals("ACCOMMODATION") Then
+                        mettreAJour = False
+                    End If
+
+                    If mettreAJour Then
+
+                        Dim ligne_facture As New LigneFacture()
+                        'ligne_facture.miseAjoursApresAnnulationDeChargeDepuisLaSituationDuCLient(NEW_ID_LIGNE_FACTURE)
+
+                    Else
+
+                        Dim CODE_MAIN_COURANTE_JOURNALIERE As String = GlobalVariable.codeMainCouranteJournaliereToUpdate
+                        Functions.updateOfFieldsAddSubtract("main_courante_journaliere", "TOTAL_GENERAL", MONTANT_TTC * -1, "CODE_MAIN_COURANTE_JOURNALIERE", CODE_MAIN_COURANTE_JOURNALIERE, 1)
+                        Functions.updateOfFieldsAddSubtract("main_courante_journaliere", "TOTAL_JOUR", MONTANT_TTC * -1, "CODE_MAIN_COURANTE_JOURNALIERE", CODE_MAIN_COURANTE_JOURNALIERE, 1)
+                        Functions.updateOfFieldsAddSubtract("main_courante_journaliere", "MONTANT_ACCORDE", MONTANT_TTC * -1, "CODE_MAIN_COURANTE_JOURNALIERE", CODE_MAIN_COURANTE_JOURNALIERE, 1)
+
+                    End If
+
+                Else
+
+                    'GESTION DES REGLEMENTS
+
+                End If
+
+            Next
+
+            GunaDataGridViewSituation.Rows.Clear()
+
+            If GlobalVariable.actualLanguageValue = 1 Then
+                MessageBox.Show("Réduction fait avec succès", "Réduction de Charge", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                MessageBox.Show("Reduction succesffully donne", "Discount", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+
+            If GlobalVariable.ReservationToUpdate.Rows.Count > 0 Then
+
+                CODE_RESERVATION = GlobalVariable.ReservationToUpdate(0)("CODE_RESERVATION")
+
+                Dim solde As Double = Functions.SituationDeReservation(CODE_RESERVATION)
+
+                Dim resa As New Reservation()
+                resa.updateSoldeReservation(CODE_RESERVATION, "reserve_conf", solde)
+
+                If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                    MainWindow.GunaLabelSolde.Text = Format(solde, "#,##0")
+
+                    If 0 > solde Then
+                        MainWindow.GunaLabelSolde.ForeColor = Color.Red
+                    ElseIf solde = 0 Then
+                        MainWindow.GunaLabelSolde.ForeColor = Color.Black
+                    Else
+                        MainWindow.GunaLabelSolde.ForeColor = Color.Green
+                    End If
+
+                    MainWindow.MainWindowManualActivation()
+
+                    MainWindow.Refresh()
+                ElseIf GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 1 Then
+                    RestaurantBookingForm.GunaLabelSolde.Text = Format(solde, "#,##0")
+
+                    If 0 > solde Then
+                        RestaurantBookingForm.GunaLabelSolde.ForeColor = Color.Red
+                    ElseIf solde = 0 Then
+                        RestaurantBookingForm.GunaLabelSolde.ForeColor = Color.Black
+                    Else
+                        RestaurantBookingForm.GunaLabelSolde.ForeColor = Color.Green
+                    End If
+
+                    RestaurantBookingForm.MainWindowManualActivation()
+
+                    RestaurantBookingForm.Refresh()
+                End If
+
+                If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+
+                ElseIf GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 1 Then
+
+                End If
+
+            End If
+
+        End If
+
+        Functions.miseAJourDuMontantAReporter(GlobalVariable.DateDeTravail, CODE_RESERVATION)
 
         SituationDuClient()
+
 
     End Sub
 

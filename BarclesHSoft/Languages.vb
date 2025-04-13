@@ -67,7 +67,7 @@
             FacturationForm.GunaButtonNouveauBloc.Text = "Nouveau"
 
             FacturationForm.LabelNumeroChambre.Text = "Chambre N°"
-            FacturationForm.LabelBlocNoteOuTable.Text = "Numéro de table ou Bloc note"
+            FacturationForm.LabelBlocNoteOuTable.Text = "Table / No Bloc Note"
             FacturationForm.GunaLabelHeader.Text = "FACTURATION"
             FacturationForm.GunaButtonFermer.Text = "Fermer"
             FacturationForm.GunaButtonSaveFacturation.Text = "Enregistrer"
@@ -101,7 +101,7 @@
             FacturationForm.GunaButtonNouveauBloc.Text = "Add"
 
             FacturationForm.LabelNumeroChambre.Text = "Room N°"
-            FacturationForm.LabelBlocNoteOuTable.Text = "Table or Notepad Number"
+            FacturationForm.LabelBlocNoteOuTable.Text = "Table / Receipt Number"
             FacturationForm.GunaLabelHeader.Text = "BILLING"
             FacturationForm.GunaButtonFermer.Text = "Close"
             FacturationForm.GunaButtonSaveFacturation.Text = "Save"
@@ -167,6 +167,10 @@
             ReglementForm.GunaComboBoxCritereElite.Items.Add("Stay")
 
             ReglementForm.GunaButtonDepotDeGarantie.Text = "Arrhes Reference"
+
+            ReglementForm.GunaComboBoxCompteIndividuelOuPaymaster.Items.Clear()
+            ReglementForm.GunaComboBoxCompteIndividuelOuPaymaster.Items.Add("INDIVIDUAL")
+            ReglementForm.GunaComboBoxCompteIndividuelOuPaymaster.Items.Add("ACCOUNT")
 
         End If
 
@@ -466,6 +470,7 @@
             HomeForm.GunaButton35.Text = "RELAUNCH"
             HomeForm.GunaButton49.Text = "BAIL"
             HomeForm.GunaButton48.Text = "CAISSE"
+            HomeForm.GunaButtonChoixProfil.Text = "PROFILS"
 
         ElseIf ActualLanguageValue = 1 Then
 
@@ -562,16 +567,39 @@
 
     Public Sub agency(ByVal ActualLanguageValue As Integer)
 
+        AgencyForm.GunaComboBoxHotel.Items.Clear()
+
+        If ActualLanguageValue = 0 Then
+            AgencyForm.GunaComboBoxHotel.Items.Add("HOTEL")
+            AgencyForm.GunaComboBoxHotel.Items.Add("RESTAURANT")
+            'AgencyForm.GunaComboBoxHotel.Items.Add("CAR RENTAL")
+        Else
+            AgencyForm.GunaComboBoxHotel.Items.Add("HOTEL")
+            AgencyForm.GunaComboBoxHotel.Items.Add("RESTAURANT")
+            'AgencyForm.GunaComboBoxHotel.Items.Add("LOCATION VEHICULE")
+        End If
+
         If ActualLanguageValue = 0 Then
 
+            AgencyForm.GunaLabel53.Text = "CheckIn Elite Club Message"
+            AgencyForm.GunaLabel62.Text = "Visit Max Time"
+            AgencyForm.LinkLabel1.Text = "SETTINGS"
+            AgencyForm.GunaLabel54.Text = "External Link"
             AgencyForm.GunaLabelGestCompany.Text = "MANAGEMENT OF COMPANY AGENCIES"
+            AgencyForm.GunaButtonSecondSave.Text = "Update"
+            AgencyForm.GunaCheckBoxBlocNoteAuto.Text = "AUTOMATIC RECEIPT NUMBER"
+            AgencyForm.GunaLabel54.Text = "External Link"
             AgencyForm.GunaCheckBoxClotureFacture.Text = "CLOSE CLIENT BILLS"
+            AgencyForm.GunaCheckBoxInverserSigne.Text = "REMOVE SIGNS ON BILLS"
+            AgencyForm.GunaCheckBoxConfigs.Text = "SETTINGS"
+            AgencyForm.GunaCheckBoxReducFacture.Text = "GLOBAL DISCOUNT ON BILLS"
 
             AgencyForm.TabControl1.TabPages(0).Text = "Agency Address"
             AgencyForm.TabControl1.TabPages(1).Text = "Network Address"
             AgencyForm.TabControl1.TabPages(2).Text = "List of Agencies"
             AgencyForm.TabControl1.TabPages(3).Text = "Header / Footer"
             AgencyForm.TabControl1.TabPages(4).Text = "Contacts"
+            AgencyForm.TabControl1.TabPages(6).Text = "Fonctionalities"
 
             '-------------------------------
             AgencyForm.GunaGroupBox1.Text = "Agency Information"
@@ -959,7 +987,12 @@
             BarRestaurantCaisseEnregistreuseForm.GunaButtonVenteShift.Text = "SALES HISTORY - SHIFT"
             BarRestaurantCaisseEnregistreuseForm.GunaButtonListePetitDejeuner.Text = "ENTITLED TO BREAKFAST"
             BarRestaurantCaisseEnregistreuseForm.GunaButtonInventaire.Text = "INVENTORY FORM"
+            BarRestaurantCaisseEnregistreuseForm.Label29.Text = "Receipt No"
+            BarRestaurantCaisseEnregistreuseForm.ToolStripMenuItem2.Text = "Print"
 
+            BarRestaurantCaisseEnregistreuseForm.GunaButtonCaisseGlobal.Text = "DAILY CASH REGISTER STATE"
+            BarRestaurantCaisseEnregistreuseForm.GunaButton14.Text = "PERIODIC CASH REGISTER HISTORY"
+            BarRestaurantCaisseEnregistreuseForm.GunaButton5.Text = "PETTY CASH FLOW HISTORY"
 
             '---------------------------------------------------------------------
             BarRestaurantCaisseEnregistreuseForm.GunaAdvenceButtonFacturationDesEnChambres.Text = "IN HOUSE"
@@ -982,7 +1015,7 @@
             BarRestaurantCaisseEnregistreuseForm.GunaCheckBoxChangeSecteur.Text = "Sale Points"
             BarRestaurantCaisseEnregistreuseForm.LabelRef.Text = "Account" 'Account
             BarRestaurantCaisseEnregistreuseForm.Label1.Text = "Loyal Client" 'Loyal customer
-            BarRestaurantCaisseEnregistreuseForm.LabelBlocNoteOuTable.Text = "Receipt / Table N°" 'Receipt Number
+            BarRestaurantCaisseEnregistreuseForm.LabelBlocNoteOuTable.Text = "Table" 'Receipt Number
             BarRestaurantCaisseEnregistreuseForm.GunaButtonFactures.Text = "Bills" 'Receipt Number
             BarRestaurantCaisseEnregistreuseForm.GunaButtonNouveauBloc.Text = "Add" 'Receipt Number
             BarRestaurantCaisseEnregistreuseForm.LibelleFacturation.Text = "BAR BILLING" 'Receipt Number
@@ -1077,8 +1110,13 @@
             BarRestaurantCaisseEnregistreuseForm.ImprimerToolStripMenuItem1.Text = "Print"
             BarRestaurantCaisseEnregistreuseForm.ImprimerToolStripMenuItem.Text = "Print"
             BarRestaurantCaisseEnregistreuseForm.ToolStripMenuItem1.Text = "Print"
+            BarRestaurantCaisseEnregistreuseForm.Label3.Text = "Server"
             BarRestaurantCaisseEnregistreuseForm.GunaButtonRapportDesVentes.Text = "DAILY SALES HISTORY"
             BarRestaurantCaisseEnregistreuseForm.GunaButton13.Text = "PERIODIC SALES HISTORY"
+
+            BarRestaurantCaisseEnregistreuseForm.ToolStripMenuItemConfig.Text = "SETTINGS"
+            BarRestaurantCaisseEnregistreuseForm.ToolStripMenuItemServTech.Text = "TECHNICAL"
+            BarRestaurantCaisseEnregistreuseForm.ToolStripMenuItemSecurite.Text = "SECURITY"
 
         ElseIf ActualLanguageValue = 1 Then
 
@@ -1103,7 +1141,7 @@
             BarRestaurantCaisseEnregistreuseForm.GunaCheckBoxChangeSecteur.Text = "Points de Vente"
             BarRestaurantCaisseEnregistreuseForm.LabelRef.Text = "Journal" 'Account
             BarRestaurantCaisseEnregistreuseForm.Label1.Text = "Clients maison" 'Loyal customer
-            BarRestaurantCaisseEnregistreuseForm.LabelBlocNoteOuTable.Text = "N° table / Bloc note" 'Receipt Number
+            BarRestaurantCaisseEnregistreuseForm.LabelBlocNoteOuTable.Text = "Table" 'Receipt Number
             BarRestaurantCaisseEnregistreuseForm.GunaButtonFactures.Text = "Factures" 'Receipt Number
             BarRestaurantCaisseEnregistreuseForm.GunaButtonNouveauBloc.Text = "Ajouter" 'Receipt Number
             BarRestaurantCaisseEnregistreuseForm.LibelleFacturation.Text = "FACTURATION BAR" 'Receipt Number
@@ -1174,7 +1212,7 @@
             BarRestaurantCaisseEnregistreuseForm.RESERVATIONToolStripMenuItem.Text = "RESERVATION"
             BarRestaurantCaisseEnregistreuseForm.SERVICEDETAGEToolStripMenuItem.Text = "SERVICE ETAGE"
             BarRestaurantCaisseEnregistreuseForm.ToolStripMenuItemCusine.Text = "CUISINE"
-            BarRestaurantCaisseEnregistreuseForm.ComptabilitéToolStripMenuItem.Text = "COMPATBILITE ET FICNANCES"
+            BarRestaurantCaisseEnregistreuseForm.ComptabilitéToolStripMenuItem.Text = "COMPATBILITE ET FINANCES"
             BarRestaurantCaisseEnregistreuseForm.ECONOMATToolStripMenuItem.Text = "ECONOMAT"
             BarRestaurantCaisseEnregistreuseForm.TECHNIQUEToolStripMenuItem.Text = "TECHNIQUE"
 
@@ -1197,6 +1235,48 @@
 
     End Sub
 
+    Public Sub autoLoadBIllState(ByVal ActualLanguageValue As Integer)
+
+        If ActualLanguageValue = 0 Then
+            FastFoodForm.GunaComboBoxCommandeStatus.Items.Clear()
+            FastFoodForm.GunaComboBoxCommandeStatus.Items.Add("Pending Payment")
+            FastFoodForm.GunaComboBoxCommandeStatus.Items.Add("Paid")
+        End If
+
+    End Sub
+
+    Public Sub fastFood(ByVal ActualLanguageValue As Integer)
+
+        FastFoodForm.ClôturerToolStripMenuItem.Visible = True
+        FastFoodForm.ToolStripSeparatorCloture.Visible = False
+
+        If ActualLanguageValue = 0 Then '
+
+            FastFoodForm.Label21.Text = "SALES"
+            FastFoodForm.Label2.Text = "CASH BALANCE"
+            FastFoodForm.Label4.Text = "INTO ACCOUNT"
+            FastFoodForm.Label24.Text = "TOTAL SALES"
+
+            FastFoodForm.GunaLabel3.Text = "GIVEN OUT"
+            FastFoodForm.GunaButtonAjouterLigne.Text = "Delivered"
+            FastFoodForm.GunaLabel4.Text = "PENDING ITEMS"
+
+            FastFoodForm.ToolStripMenuItemSession.Text = "SESSION"
+            FastFoodForm.ToolStripMenuItem117.Text = "Change password"
+            FastFoodForm.FermerCaisseToolStripMenuItem.Text = "Close cash Register"
+            FastFoodForm.ClôturerToolStripMenuItem.Text = "Night Audit"
+            FastFoodForm.OuvrirCaisseToolStripMenuItem.Text = "Open Cash Register"
+            FastFoodForm.ToolStripMenuItem119.Text = "Close Session"
+
+            FastFoodForm.GunaButton1.Text = "Refresh"
+            FastFoodForm.ImprimerToolStripMenuItem.Text = "Print"
+            FastFoodForm.ClôturerToolStripMenuItem1.Text = "Close"
+
+        End If
+
+        autoLoadBIllState(GlobalVariable.actualLanguageValue)
+
+    End Sub
 
     Public Sub barRestaurant(ByVal ActualLanguageValue As Integer)
 
@@ -1204,9 +1284,14 @@
         BarRestaurantForm.ToolStripSeparatorCloture.Visible = False
 
         If ActualLanguageValue = 0 Then '
-
             'only up
+            BarRestaurantForm.DépensesToolStripMenuItem.Text = "Expenditures"
+            BarRestaurantForm.ToolStripMenuItemConfig.Text = "SETTINGS"
+            BarRestaurantForm.ToolStripMenuItemServTech.Text = "TECHNICAL"
+            BarRestaurantForm.ToolStripMenuItemSecurite.Text = "SECURITY"
             BarRestaurantForm.GunaButton12.Text = "BAR DAILY INVENTORY FORM"
+            BarRestaurantForm.GunaButton12.Text = "BAR DAILY INVENTORY FORM"
+            BarRestaurantForm.Label29.Text = "Receipt No"
             BarRestaurantForm.GunaButton1.Text = "STORE INVENTORY"
             BarRestaurantForm.GunaButton2.Text = "SALES INVENTORYY"
             BarRestaurantForm.GunaButtonCaisseJournalier.Text = "SHIFT CASH REGISTER STATE"
@@ -1214,7 +1299,10 @@
             BarRestaurantForm.GunaButtonVenteShift.Text = "SALES HISTORY - SHIFT"
             BarRestaurantForm.GunaButtonListePetitDejeuner.Text = "ENTITLED TO BREAKFAST"
             BarRestaurantForm.GunaButtonInventaire.Text = "INVENTORY FORM"
-
+            BarRestaurantForm.GunaButtonCaisseGlobal.Text = "DAILY CASH REGISTER STATE"
+            BarRestaurantForm.GunaButton14.Text = "PERIODIC CASH REGISTER HISTORY"
+            BarRestaurantForm.GunaButton5.Text = "PETTY CASH FLOW HISTORY"
+            BarRestaurantForm.ToolStripMenuItem2.Text = "Print"
 
             '---------------------------------------------------------------------
             BarRestaurantForm.GunaAdvenceButtonFacturationDesEnChambres.Text = "IN HOUSE"
@@ -1231,13 +1319,15 @@
             BarRestaurantForm.Label2.Text = "FREE SALE"
             BarRestaurantForm.Label4.Text = "TRANSFERED ACCOUNT"
             BarRestaurantForm.Label24.Text = "TOTAL SALES"
+            BarRestaurantForm.Label24.Text = "TOTAL SALES"
+            BarRestaurantForm.Label3.Text = "Server"
 
             '--------------------------------------------------------------------
             BarRestaurantForm.GunaLabelHeader.Text = "WALK IN"
             BarRestaurantForm.GunaCheckBoxChangeSecteur.Text = "Sale Points"
             BarRestaurantForm.LabelRef.Text = "Account" 'Account
             BarRestaurantForm.Label1.Text = "Loyal Client" 'Loyal customer
-            BarRestaurantForm.LabelBlocNoteOuTable.Text = "Receipt / Table N°" 'Receipt Number
+            BarRestaurantForm.LabelBlocNoteOuTable.Text = "Table" 'Receipt Number
             BarRestaurantForm.GunaButtonFactures.Text = "Bills" 'Receipt Number
             BarRestaurantForm.GunaButtonNouveauBloc.Text = "Add" 'Receipt Number
             BarRestaurantForm.LibelleFacturation.Text = "BAR BILLING" 'Receipt Number
@@ -1257,7 +1347,7 @@
             BarRestaurantForm.Label6.Text = "Account Balance"
             BarRestaurantForm.GunaButtonRefresh.Text = "Refresh"
             BarRestaurantForm.GunaButtonSaveFacturation.Text = "Save"
-            BarRestaurantForm.GunaButtonImprimer.Text = "Print"
+            BarRestaurantForm.GunaButtonImprimer.Text = "Print Bill"
             BarRestaurantForm.GunaButtonnNouvelleFacture.Text = "New"
             BarRestaurantForm.Label9.Text = "EVENTS"
             BarRestaurantForm.LabelSoldeEvent.Text = "BALANCE"
@@ -1286,7 +1376,7 @@
             BarRestaurantForm.LabelQuantite.Text = "QTY"
             BarRestaurantForm.LabelCout.Text = "UP"
             BarRestaurantForm.Label30.Text = "UNIT"
-            BarRestaurantForm.Label31.Text = "Stock Qty "
+            'BarRestaurantForm.Label31.Text = "Stock Qty "
             BarRestaurantForm.Label32.Text = "Lowest"
             BarRestaurantForm.GunaButtonEnregistrer.Text = "Emit"
             BarRestaurantForm.GunaCheckBox1.Text = "RFID Reader"
@@ -1300,6 +1390,7 @@
             BarRestaurantForm.TransférerToolStripMenuItem.Text = "Transfert"
             BarRestaurantForm.SupprimerToolStripMenuItem.Text = "Delete"
             BarRestaurantForm.SupprimerToolStripMenuItem1.Text = "Delete"
+            BarRestaurantForm.EchangerToolStripMenuItem.Text = "Exchange"
 
             BarRestaurantForm.GunaButtonArricherBlocNotes.Text = "View"
             BarRestaurantForm.Label29Evenement.Text = "EVENT"
@@ -1335,7 +1426,18 @@
             BarRestaurantForm.GunaButtonRapportDesVentes.Text = "DAILY SALES HISTORY"
             BarRestaurantForm.GunaButton13.Text = "PERIODIC SALES HISTORY"
 
+            BarRestaurantForm.GunaButton4.Text = "SALES REVENUES BAR - RESTAURANT"
+            BarRestaurantForm.GunaButton6.Text = "SALES REVENUES PER STAFF (WAITERS - WAITRESSES)"
+            BarRestaurantForm.GunaButton7.Text = "SALES REVENUES GROUPED BY ISSUER"
+            BarRestaurantForm.GunaButtonProductionReceptionnists.Text = "REPORT OF PRODUCTIVITY"
+
+            BarRestaurantForm.GunaButton9.Text = "Consolidate"
+
+            BarRestaurantForm.GunaButtonOnL.Text = "Online Order"
+
         ElseIf ActualLanguageValue = 1 Then
+
+            BarRestaurantForm.GunaButtonOnL.Text = "Commande en Ligne"
 
             '---------------------------------------------------------------------
             BarRestaurantForm.GunaAdvenceButtonFacturationDesEnChambres.Text = "EN CHAMBRE"
@@ -1358,7 +1460,7 @@
             BarRestaurantForm.GunaCheckBoxChangeSecteur.Text = "Points de Vente"
             BarRestaurantForm.LabelRef.Text = "Journal" 'Account
             BarRestaurantForm.Label1.Text = "Clients maison" 'Loyal customer
-            BarRestaurantForm.LabelBlocNoteOuTable.Text = "N° table / Bloc note" 'Receipt Number
+            BarRestaurantForm.LabelBlocNoteOuTable.Text = "Table" 'Receipt Number
             BarRestaurantForm.GunaButtonFactures.Text = "Factures" 'Receipt Number
             BarRestaurantForm.GunaButtonNouveauBloc.Text = "Ajouter" 'Receipt Number
             BarRestaurantForm.LibelleFacturation.Text = "FACTURATION BAR" 'Receipt Number
@@ -1407,7 +1509,7 @@
             BarRestaurantForm.LabelQuantite.Text = "QTE"
             BarRestaurantForm.LabelCout.Text = "PU"
             BarRestaurantForm.Label30.Text = "UNITE"
-            BarRestaurantForm.Label31.Text = "Qté En Stock"
+            'BarRestaurantForm.Label31.Text = "Qté En Stock"
             BarRestaurantForm.Label32.Text = "Seuile"
             BarRestaurantForm.GunaButtonEnregistrer.Text = "Emettre"
             BarRestaurantForm.GunaCheckBox1.Text = "Lecteur RFID"
@@ -1476,7 +1578,18 @@
 
         If ActualLanguageValue = 0 Then ' 
 
+            MainWindow.GunaComboBoxFiltre.Items.Clear()
+            MainWindow.GunaComboBoxFiltre.Items.Add("Company")
+            MainWindow.GunaComboBoxFiltre.Items.Add("Group")
+            MainWindow.GunaComboBoxFiltre.Items.Add("Individuals")
+            MainWindow.GunaComboBoxFiltre.Items.Add("All the reservations")
+
             MainWindow.ClubEliteToolStripMenuItem.Text = "Elite Club"
+            MainWindow.GunaGroupRecherche.Text = "SEARCH CRITERIA"
+            MainWindow.GunaGroupBox3.Text = "SEARCH CRITERIA"
+            MainWindow.GunaGroupBox11.Text = "SEARCH CRITERIA"
+            MainWindow.GunaGroupBox12.Text = "SEARCH CRITERIA"
+
             MainWindow.GunaButton28.Text = "SALES VENTILATION FORM"
 
             MainWindow.GunaButtonSynthese.Text = "Summary Doc"
@@ -1533,7 +1646,7 @@
 
             '-----------------------------------------------------------------------------------
             MainWindow.ToolStripMenuItemSession.Text = "SESSION"
-            MainWindow.BonApprovisionnementToolStripMenuItem.Text = "Supply"
+            MainWindow.BonApprovisionnementToolStripMenuItem.Text = "Request"
             MainWindow.ChangerMagasinToolStripMenuItem.Text = "Choose working store"
             MainWindow.ToolStripMenuItem117.Text = "Change password"
             MainWindow.FermerCaisseToolStripMenuItem.Text = "Close cash Register"
@@ -1728,6 +1841,7 @@
 
             MainWindow.ToolStripMenuItemDupliquer.Text = "Duplicate"
             MainWindow.ToolStripMenuItemSupprimer.Text = "Delete"
+            MainWindow.ToolStripMenuItem3.Text = "Cancel"
 
             MainWindow.GunaAdvenceButton2.Text = "ELITE CLUB"
 
@@ -1884,6 +1998,48 @@
             MainWindow.GunaComboBoxImpressionChambre.Items.Add("Registration Form")
 
             MainWindow.GunaLabel44.Text = "Arrhes"
+            MainWindow.GunaGroupRecherche.Text = "SEARCH"
+            MainWindow.GunaLabel34.Text = "CLIENT NAME"
+            MainWindow.GunaLabel66.Text = "RESERVATION No"
+            MainWindow.GunaLabel83.Text = "COMPANY"
+            MainWindow.GunaLabel85.Text = "RESERVATION SOURCE"
+            MainWindow.GunaLabel84.Text = "GROUP No"
+            MainWindow.GunaLabel86.Text = "ROOM"
+            MainWindow.GunaLabel87.Text = "From"
+            MainWindow.GunaLabel82.Text = "To"
+
+            MainWindow.GunaGroupBox3.Text = "SEARCH"
+            MainWindow.GunaLabel104.Text = "CLIENT NAME"
+            MainWindow.GunaLabel102.Text = "RESERVATION No"
+            MainWindow.GunaLabel99.Text = "COMPANY"
+            MainWindow.GunaLabel90.Text = "RESERVATION SOURCE"
+            MainWindow.GunaLabel98.Text = "GROUP No"
+            MainWindow.GunaLabel96.Text = "ROOM"
+            MainWindow.GunaLabel100.Text = "From"
+            MainWindow.GunaLabel101.Text = "To"
+
+            MainWindow.GunaGroupBox11.Text = "SEARCH"
+            MainWindow.GunaLabel119.Text = "CLIENT NAME"
+            MainWindow.GunaLabel117.Text = "RESERVATION No"
+            MainWindow.GunaLabel112.Text = "COMPANY"
+            MainWindow.GunaLabel6.Text = "RESERVATION SOURCE"
+            MainWindow.GunaLabel106.Text = "GROUP No"
+            MainWindow.GunaLabel9.Text = "ROOM"
+            MainWindow.GunaLabel115.Text = "From"
+
+            MainWindow.GunaGroupBox12.Text = "SEARCH"
+            MainWindow.GunaLabel126.Text = "CLIENT NAME"
+            MainWindow.GunaLabel125.Text = "RESERVATION No"
+            MainWindow.GunaLabel123.Text = "COMPANY"
+            MainWindow.GunaLabel35.Text = "RESERVATION SOURCE"
+            MainWindow.GunaLabel121.Text = "GROUP No"
+            MainWindow.GunaLabel116.Text = "ROOM"
+            MainWindow.GunaLabel124.Text = "From"
+            MainWindow.GunaLabel127.Text = "To"
+
+            MainWindow.GunaButtonHandOverForm.Text = "HAND OVER FORM"
+
+            MainWindow.SauvegardeBaseDeDonnéeToolStripMenuItem.Text = "DataBase"
 
         ElseIf ActualLanguageValue = 1 Then
 
@@ -2172,9 +2328,11 @@
         BarRestaurantForm.GunaComboBoxTypeBordereau.Items.Clear()
 
         If actualLanguage = 0 Then
-            BarRestaurantForm.GunaComboBoxTypeBordereau.Items.Add("Store Requisition")
+            'BarRestaurantForm.GunaComboBoxTypeBordereau.Items.Add("Store Requisition")
+            BarRestaurantForm.GunaComboBoxTypeBordereau.Items.Add(GlobalVariable.transfert_inter)
         ElseIf actualLanguage = 1 Then
-            BarRestaurantForm.GunaComboBoxTypeBordereau.Items.Add(GlobalVariable.bon_approvisi)
+            'BarRestaurantForm.GunaComboBoxTypeBordereau.Items.Add(GlobalVariable.bon_approvisi)
+            BarRestaurantForm.GunaComboBoxTypeBordereau.Items.Add(GlobalVariable.transfert_inter)
         End If
 
         BarRestaurantForm.GunaComboBoxTypeBordereau.SelectedIndex = 0
@@ -2382,7 +2540,8 @@
 
             UserForm.TabControlUtilisateurProfil.TabPages(0).Text = "Form"
             UserForm.TabControlUtilisateurProfil.TabPages(1).Text = "Access Rights"
-            UserForm.TabControlUtilisateurProfil.TabPages(2).Text = "Profiles"
+            UserForm.TabControlUtilisateurProfil.TabPages(2).Text = "Access Rights Continuity"
+            UserForm.TabControlUtilisateurProfil.TabPages(3).Text = "Profiles"
 
             UserForm.GunaGroupBox1.Text = "Creation of users"
             UserForm.GunaLabel2.Text = "user code"
@@ -2500,13 +2659,15 @@
 
             UserForm.SupprimerToolStripMenuItem.Text = "Delete"
             UserForm.SupprimerToolStripMenuItem1.Text = "Delete"
+            UserForm.ToolStripMenuItem1.Text = "Delete"
             UserForm.GunaButton1.Text = "Close"
 
-        ElseIf actualLanguage = 1 Then
+            UserForm.GunaGroupBox2.Text = "Multiple Profil"
+            UserForm.GunaLabel12.Text = "User"
+            UserForm.GunaLabel11.Text = "User Profil"
+            UserForm.GunaButtonAjouter.Text = "Add"
 
-            UserForm.TabControlUtilisateurProfil.TabPages(0).Text = "Fiche"
-            UserForm.TabControlUtilisateurProfil.TabPages(1).Text = "Droits d'accès"
-            UserForm.TabControlUtilisateurProfil.TabPages(2).Text = "Profils"
+        ElseIf actualLanguage = 1 Then
 
             UserForm.GunaGroupBox1.Text = "Création d'Utilisateurs"
             UserForm.GunaLabel2.Text = "Code Utilisateur"
@@ -2607,7 +2768,7 @@
             UserForm.GunaCheckBoxGrandMagasin.Text = "GRAND MAGASIN"
 
             UserForm.GunaCheckBoxSession.Text = "SESSION"
-            UserForm.GunaCheckBoxConfiguration.Text = "CONFIGURATION"
+            UserForm.GunaCheckBoxConfiguration.Text = "CONFIGURATIONS"
             UserForm.GunaCheckBoxAdminServiceTechnique.Text = "SERVICE TECHNIQUE"
             UserForm.GunaCheckBoxSecurite.Text = "SECURITE"
             UserForm.GunaCheckBox1.Text = "CORRECTION / SUPPRESSION"
@@ -2716,8 +2877,6 @@
             PetiteCaisseForm.Label9.Text = "APPROUVE PAR"
             PetiteCaisseForm.LabelCNI.Text = "CNI"
 
-
-
         End If
 
     End Sub
@@ -2808,10 +2967,10 @@
         BonApprovisionnementForm.GunaComboBoxTypeBordereau.Items.Clear()
 
         If actualLanguage = 0 Then
-            BonApprovisionnementForm.GunaComboBoxTypeBordereau.Items.Add("Store Requisition")
-            BonApprovisionnementForm.GunaComboBoxTypeBordereau.Items.Add("Exceptionnal Entery")
+            BonApprovisionnementForm.GunaComboBoxTypeBordereau.Items.Add(GlobalVariable.transfert_inter)
+            BonApprovisionnementForm.GunaComboBoxTypeBordereau.Items.Add(GlobalVariable.sortie_exceptionnelle)
         ElseIf actualLanguage = 1 Then
-            BonApprovisionnementForm.GunaComboBoxTypeBordereau.Items.Add(GlobalVariable.bon_approvisi)
+            BonApprovisionnementForm.GunaComboBoxTypeBordereau.Items.Add(GlobalVariable.transfert_inter)
             BonApprovisionnementForm.GunaComboBoxTypeBordereau.Items.Add(GlobalVariable.sortie_exceptionnelle)
         End If
 
@@ -3028,6 +3187,7 @@
             ClientForm.GunaComboBoxTypeDeFiltre.Items.Add("Account")
 
             ClientForm.GunaLabel40.Text = "Elite Member Code"
+            ClientForm.GunaLabelGestCompteGeneraux.Text = "Client Management"
             ClientForm.GunaLabel2.Text = "Client Code"
             ClientForm.GunaLabel3.Text = "Type of Client"
             ClientForm.GunaLabel4.Text = "First Name *"
@@ -3065,12 +3225,12 @@
             ClientForm.GunaLabel34.Text = "CLIENT INFORMATIONS"
             ClientForm.GunaButton2.Text = "New Client"
             ClientForm.GunaButtonAfficherClient.Text = "View"
-            ClientForm.GunaCheckBoxTous.Text = "View all the clients"
             ClientForm.GunaGroupBox12.Text = "SEARCH CRITERIA"
             ClientForm.GunaLabel116.Text = "CLIENT REFERENCE"
             ClientForm.GunaLabel126.Text = "CLIENT NAME"
             ClientForm.GunaLabel29.Text = "TELEPHONE "
-            ClientForm.GunaLabel123.Text = "COMPANY"
+            ClientForm.GunaLabel123.Text = "ELITE CODE"
+            ClientForm.GunaButtonListClientsTab.Text = "Client List"
             ClientForm.GunaLabel28.Text = "CREATION DATE"
 
             ClientForm.GunaButtonAjoutPreference.Text = "Add"
@@ -3117,6 +3277,12 @@
 
             ClientForm.TabControl2.TabPages(0).Text = "Bills"
             ClientForm.TabControl2.TabPages(1).Text = "Stay"
+
+            ClientForm.GunaButtonEnregistrerTarifs.Text = "Add"
+            ClientForm.GunaLabel27.Text = "Applicable Code"
+            ClientForm.GunaLabelApplique.Text = "Code"
+            ClientForm.GunaLabelTypeCode.Text = "Rate Type"
+            ClientForm.GunaLabel26.Text = "Code Type"
 
         ElseIf actualLanguageValue = 1 Then
 
@@ -3172,7 +3338,7 @@
             ClientForm.GunaLabel34.Text = "INFORMATIONS DU CLIENT"
             ClientForm.GunaButton2.Text = "Nouveau Client"
             ClientForm.GunaButtonAfficherClient.Text = "Afficher"
-            ClientForm.GunaCheckBoxTous.Text = "Afficher tous les clients"
+            'ClientForm.GunaCheckBoxTous.Text = "Afficher tous les clients"
             ClientForm.GunaGroupBox12.Text = "CRITERES DE RECHERCHE"
             ClientForm.GunaLabel116.Text = "REFERENCE CLIENT"
             ClientForm.GunaLabel126.Text = "NOM CLIENT"
@@ -3494,6 +3660,7 @@
             GrandeCaisseForm.GunaComboBoxNatureOperation.Items.Add("CASH OUTFLOW")
 
 
+
         End If
 
         ReglementLettrageForm.GunaComboBoxTypeDeFiltre.SelectedIndex = 0
@@ -3552,7 +3719,7 @@
 
             ReglementLettrageForm.GunaComboBoxModeReglement.Items.Add("Cash")
             ReglementLettrageForm.GunaComboBoxModeReglement.Items.Add("Cheque")
-            ReglementLettrageForm.GunaComboBoxModeReglement.Items.Add("Credit Carte")
+            ReglementLettrageForm.GunaComboBoxModeReglement.Items.Add("Credit Card")
             ReglementLettrageForm.GunaComboBoxModeReglement.Items.Add("Taking charge")
             ReglementLettrageForm.GunaComboBoxModeReglement.Items.Add("MTN Money")
             ReglementLettrageForm.GunaComboBoxModeReglement.Items.Add("ORANGE Money")
@@ -3566,6 +3733,7 @@
             ReglementLettrageForm.ImprimerToolStripMenuItem.Text = "Print Detailed Invoice"
             ReglementLettrageForm.ImprimerFactureSynthèseToolStripMenuItem.Text = "Print Summarised Invoice"
             ReglementLettrageForm.TransférerToolStripMenuItem.Text = "Pay"
+            ReglementLettrageForm.RéductionToolStripMenuItem.Text = "Discount"
 
         ElseIf ActualLanguageValue = 1 Then
 
@@ -3626,8 +3794,8 @@
             GrandeCaisseForm.Label2.Text = "OPERATION NATURE"
             GrandeCaisseForm.GunaAdvenceButton1.Text = "PENDING TRANSACTIONS"
             GrandeCaisseForm.GunaAdvenceButton2.Text = "PENDING DISBURSEMENTS"
-            GrandeCaisseForm.GunaAdvenceButton3.Text = "CASH OUTFLOW"
-            GrandeCaisseForm.GunaAdvenceButton4.Text = "CASH INFLOW"
+            GrandeCaisseForm.GunaAdvenceButton3.Text = "CASH OUTFLOW" 'FONDS SORTIES
+            GrandeCaisseForm.GunaAdvenceButton4.Text = "CASH INFLOW" 'FONDS ENTREES
             GrandeCaisseForm.GunaAdvenceButton5.Text = "COMPLETED TRANSACTIONS"
             GrandeCaisseForm.GunaAdvenceButton6.Text = "BANK LOG"
             GrandeCaisseForm.GunaAdvenceButton7.Text = "REVENUE"
@@ -3656,8 +3824,8 @@
             GrandeCaisseForm.TabControl1.TabPages(0).Text = "PENDING REVENUE TRANSACTIONS"
             GrandeCaisseForm.GunaAdvenceButton1.Text = "PENDING TRANSACTIONS"
             GrandeCaisseForm.TabControl1.TabPages(1).Text = "PENDING DISBURSEMENTS"
-            GrandeCaisseForm.TabControl1.TabPages(2).Text = "CASH INFLOW"
-            GrandeCaisseForm.TabControl1.TabPages(3).Text = "CASH OUTFLOW"
+            GrandeCaisseForm.TabControl1.TabPages(2).Text = "CASH OUTFLOW"
+            GrandeCaisseForm.TabControl1.TabPages(3).Text = "CASH INFLOW"
             GrandeCaisseForm.TabControl1.TabPages(5).Text = "COMPLETED TRANSACTIONS"
             GrandeCaisseForm.TabControl1.TabPages(6).Text = "BANK LOG"
             GrandeCaisseForm.TabControl1.TabPages(4).Text = "REVENUE"
@@ -3704,6 +3872,8 @@
 
         If ActualLanguageValue = 0 Then
 
+            MainWindowComptabiliteForm.GunaGroupBox2.Text = "SEARCH CRITERIA"
+            MainWindowComptabiliteForm.ReceptionToolStripMenuItem.Text = "RECEPTION"
             MainWindowComptabiliteForm.ReceptionToolStripMenuItem.Text = "RECEPTION"
             MainWindowComptabiliteForm.RESERVATIONToolStripMenuItem.Text = "BOOKING"
             MainWindowComptabiliteForm.SERVICEDETAGEToolStripMenuItem.Text = "HOUSE KEEPING"
@@ -3714,7 +3884,7 @@
 
             MainWindowComptabiliteForm.ToolStripMenuItemSession.Text = "SESSION"
             MainWindowComptabiliteForm.ToolStripMenuItem117.Text = "Change password"
-            MainWindowComptabiliteForm.ApprovisionnementToolStripMenuItem.Text = "Supply"
+            MainWindowComptabiliteForm.ApprovisionnementToolStripMenuItem.Text = "Request"
             MainWindowComptabiliteForm.FermerCaisseToolStripMenuItem.Text = "Close cash Register"
             MainWindowComptabiliteForm.PETITEToolStripMenuItem.Text = "Petty Cash Flow"
             MainWindowComptabiliteForm.OuvrirCaisseToolStripMenuItem.Text = "Open Cash Register"
@@ -3727,7 +3897,7 @@
             MainWindowComptabiliteForm.GunaAdvenceButton12.Text = "ACCOUNTS"
             MainWindowComptabiliteForm.GunaAdvenceButton11.Text = "DEBTORS"
             MainWindowComptabiliteForm.GunaAdvenceButton1.Text = "PAYMENT AND LETTERING"
-            MainWindowComptabiliteForm.GunaAdvenceButton2.Text = "OLDER BILLS"
+            MainWindowComptabiliteForm.GunaAdvenceButtonAgedBillsButton.Text = "OLDER BILLS"
             MainWindowComptabiliteForm.GunaAdvenceButton4.Text = "BILLS"
             MainWindowComptabiliteForm.GunaAdvenceButtonRelance.Text = "REMINDER L."
             MainWindowComptabiliteForm.GunaAdvenceButton25.Text = "COVER"
@@ -3779,7 +3949,7 @@
             MainWindowComptabiliteForm.GunaButtonImprimerListeDesComptes.Text = "Print"
 
             MainWindowComptabiliteForm.GunaButton17.Text = "Print"
-            MainWindowComptabiliteForm.GunaButton15.Text = "View"
+            MainWindowComptabiliteForm.GunaButtonFactureAgees.Text = "View"
             MainWindowComptabiliteForm.GunaButtonAfficherCaution.Text = "View"
             MainWindowComptabiliteForm.GunaButtonAfficherJournal.Text = "View"
             MainWindowComptabiliteForm.GunaButton14.Text = "View"
@@ -3839,7 +4009,7 @@
             MainWindowComptabiliteForm.GunaAdvenceButton12.Text = "COMPTES"
             MainWindowComptabiliteForm.GunaAdvenceButton11.Text = "DEBITEURS"
             MainWindowComptabiliteForm.GunaAdvenceButton1.Text = "REGLEMENT ET LETTRAGE"
-            MainWindowComptabiliteForm.GunaAdvenceButton2.Text = "FACTURES AGEES"
+            MainWindowComptabiliteForm.GunaAdvenceButtonAgedBillsButton.Text = "FACTURES AGEES"
             MainWindowComptabiliteForm.GunaAdvenceButton4.Text = "FACTURES"
             MainWindowComptabiliteForm.GunaAdvenceButtonRelance.Text = "RELANCES"
             MainWindowComptabiliteForm.GunaAdvenceButton25.Text = "CAUTIONS"
@@ -3890,7 +4060,7 @@
             MainWindowComptabiliteForm.GunaButtonImprimerListeDesComptes.Text = "Imprimer"
 
             MainWindowComptabiliteForm.GunaButton17.Text = "Imprimer"
-            MainWindowComptabiliteForm.GunaButton15.Text = "Afficher"
+            MainWindowComptabiliteForm.GunaButtonFactureAgees.Text = "Afficher"
             MainWindowComptabiliteForm.GunaButtonAfficherCaution.Text = "Afficher"
             MainWindowComptabiliteForm.GunaButtonAfficherJournal.Text = "Afficher"
             MainWindowComptabiliteForm.GunaButton14.Text = "Afficher"
@@ -3914,10 +4084,10 @@
             MainWindowComptabiliteForm.GunaButton14.Text = "Afficher"
             MainWindowComptabiliteForm.GunaButton17.Text = "Imprimer"
 
-            MainWindowComptabiliteForm.GunaButton18.Text = "FONDS SORTIES"
-            MainWindowComptabiliteForm.GunaButton4.Text = "FONDS ENTREES"
+            MainWindowComptabiliteForm.GunaButton18.Text = "JOURNAL DES SORTIES DE CAISSE"
+            MainWindowComptabiliteForm.GunaButton4.Text = "JOURNAL DES ENTREES DE CAISSE"
             MainWindowComptabiliteForm.GunaButton7.Text = "RECETTES ENTREES"
-            MainWindowComptabiliteForm.GunaButton19.Text = "TRANSACTIONS TERMINEES"
+            MainWindowComptabiliteForm.GunaButton19.Text = "JOURNAL DE CAISSE"
             MainWindowComptabiliteForm.GunaButton2.Text = "FACTURES"
             MainWindowComptabiliteForm.GunaButton9.Text = "JOURNAL BANCAIRE"
             MainWindowComptabiliteForm.GroupBox1.Text = "HISTORIQUES"
@@ -4097,6 +4267,8 @@
             MainWindowServiceEtageForm.GunaButtonPlanningDeNettoyage.Text = "PLANNING DE NETTOYAGE"
             MainWindowServiceEtageForm.GunaButtonRapportNettoyage.Text = "RAPPORT DE PRODUCTIVITE"
             MainWindowServiceEtageForm.GunaButtonEtatsDesChambres.Text = "ETAT DES CHAMBRES"
+            MainWindowServiceEtageForm.GunaButton21.Text = "PROVIDERS"
+            MainWindowServiceEtageForm.GunaButton1.Text = "LINENS CLEANING"
 
         End If
 
@@ -4149,7 +4321,20 @@
 
         If GlobalVariable.actualLanguageValue = 0 Then
 
+            ArticleForm.TabControlArticle.TabPages(0).Text = "Description"
+            ArticleForm.TabControlArticle.TabPages(1).Text = "List"
+            ArticleForm.TabControlArticle.TabPages(2).Text = "Technical Sheet"
+            ArticleForm.TabControlArticle.TabPages(3).Text = "List of Technical Sheet"
+            ArticleForm.TabControlArticle.TabPages(4).Text = "Details of Technical Sheet"
+            ArticleForm.TabControlArticle.TabPages(5).Text = "Order"
+
+            ArticleForm.GunaLabel69.Text = "Unconfirmed Order"
+            ArticleForm.GunaLabel68.Text = "Number of Orders"
+            ArticleForm.GunaGroupBox1.Text = "Search Criteria"
+            ArticleForm.GunaLabel62.Text = "TECHNICAL SHEET"
+
             ArticleForm.GunaButtonPreparer.Text = "Prepare >>"
+            ArticleForm.GunaButton3.Text = "<< Return"
             ArticleForm.GunaLabel35.Text = "Prepared Order"
             ArticleForm.GunaLabel27.Text = "Pending Order"
             ArticleForm.GunaLabel52.Text = "Number of Orders"
@@ -4161,7 +4346,7 @@
             ArticleForm.GunaLabel53.Text = "Grosse profit"
             ArticleForm.GunaButtonImprimerCommandeDuBar.Text = "Print"
             ArticleForm.GunaButtonAfficherLesFacturesEtReglement.Text = "Print"
-            ArticleForm.GunaButtonCloturerFolio2.Text = "Save"
+            'ArticleForm.GunaButtonCloturerFolio2.Text = "Save"
             ArticleForm.GunaCheckBoxPortion.Text = "Produce portions"
             ArticleForm.GunaButtonVisualierArticlePreparee.Text = "View"
             ArticleForm.GunaLabel33.Text = "Technical Sheet"
@@ -4193,7 +4378,52 @@
             ArticleForm.PrixDeVenteFxnDuCoef.Text = "Selling price depends on the profit coefficient"
             ArticleForm.GunaButtonAfficherFiche.Text = "View"
 
-        Else
+            ArticleForm.GunaLabel13.Text = "Points Of Sales"
+            ArticleForm.GunaLabel4.Text = "Item Category"
+            ArticleForm.GunaLabel45.Text = "Item Family"
+            ArticleForm.GunaLabel46.Text = "Item Sub Family"
+            ArticleForm.GunaCheckBoxAlaCarte.Text = "Item on Menu"
+            ArticleForm.GunaCheckBoxBoisson.Text = "Drinks"
+            ArticleForm.GunaCheckBoxVisibiliteAuBar.Text = "Visible for Sale"
+            ArticleForm.GunaLabel19.Text = "Item Code"
+            ArticleForm.GunaLabel2.Text = "Name"
+            ArticleForm.GunaLabel18.Text = "Stock Management"
+            ArticleForm.GunaLabel7.Text = "Storing Unit"
+            ArticleForm.GunaLabel28.Text = "Saling Unit"
+            ArticleForm.GunaLabel28.Text = "Selling Unit"
+            ArticleForm.GunaLabel39.Text = "Volume"
+            ArticleForm.GunaLabel37.Text = "Shot Unit"
+            ArticleForm.GunaLabel36.Text = "Quantity"
+            ArticleForm.GunaLabelNbreDeConso.Text = "Number of Shots"
+            ArticleForm.GunaLabel40.Text = "Centi Litre"
+            ArticleForm.GunaLabel29.Text = "Centi Litre"
+            ArticleForm.GunaLabel38.Text = "Price 1 of Shot"
+            ArticleForm.GunaLabel57.Text = "Price 2 of Shot"
+            ArticleForm.GunaLabel58.Text = "Price 3 of Shot"
+            ArticleForm.GunaLabel59.Text = "Price 4 of Shot"
+            ArticleForm.GunaLabel16.Text = "Selling Price 1"
+            ArticleForm.GunaLabel54.Text = "Selling Price 2"
+            ArticleForm.GunaLabel55.Text = "Selling Price 3"
+            ArticleForm.GunaLabel56.Text = "Selling Price 4"
+            ArticleForm.GunaLabelFicheTechnique.Text = "Technical Sheet"
+            ArticleForm.GunaLabel12.Text = "Stock Quantity"
+            ArticleForm.GunaLabelStockEnConso.Text = "Stock Quantity in Shot"
+            ArticleForm.GunaButtonFicheDeStock.Text = "Stock Form"
+            ArticleForm.GunaButton1.Text = "Cancel"
+            ArticleForm.GunaLabel66.Text = "Recommeded Selling Price"
+            ArticleForm.GunaLabel66.Text = "Recommeded Buying Price"
+            ArticleForm.GunaLabel14.Text = "Minimum Stock of Small Store"
+            ArticleForm.GunaLabel3.Text = "Minimum Stock of Big Store"
+            ArticleForm.GunaLabel15.Text = "Serial N°"
+            ArticleForm.GunaButtonUpload.Text = "Upload Image"
+            ArticleForm.GunaButtonEnregistrer.Text = "Create"
+            ArticleForm.GunaLabelPrixAchat.Text = "Buying Price"
+            ArticleForm.GunaLabel17.Text = "Average Buying Price"
+            ArticleForm.GunaButton2.Text = "View"
+            ArticleForm.GunaButton5.Text = "Add"
+            ArticleForm.GunaGroupBox12.Text = "SEARCH CRITERIA"
+            ArticleForm.GunaLabel61.Text = "CREATION DATE"
+            ArticleForm.GunaLabel116.Text = "ITEM CODE / NAME"
 
         End If
 
@@ -4218,8 +4448,13 @@
 
         MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Clear()
         MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Clear()
+        MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Clear()
 
         If GlobalVariable.actualLanguageValue = 0 Then
+
+            MainWindowEconomat.ToolStripMenuItem1.Text = "Establish Delivery Slip"
+            MainWindowEconomat.AnnulerPrécédentToolStripMenuItem.Text = "Cancel Previous Action"
+            MainWindowEconomat.ImprimerToolStripMenuItem.Text = "Print"
 
             MainWindowEconomat.ReceptionToolStripMenuItem.Text = "RECEPTION"
             MainWindowEconomat.RESERVATIONToolStripMenuItem.Text = "BOOKING"
@@ -4228,7 +4463,7 @@
             MainWindowEconomat.ComptabilitéToolStripMenuItem.Text = "ACCOUNTING AND FINANCES"
             MainWindowEconomat.ECONOMATToolStripMenuItem.Text = "PURCHASE"
             MainWindowEconomat.TECHNIQUEToolStripMenuItem.Text = "TECHNICAL"
-
+            MainWindowEconomat.SupprimerToolStripMenuItem1.Text = "Remove"
             MainWindowEconomat.ToolStripMenuItemSession.Text = "SESSION"
             MainWindowEconomat.ToolStripMenuItem117.Text = "Change password"
             'MainWindowEconomat.ApprovisionnementToolStripMenuItem.Text = "Supply"
@@ -4257,10 +4492,10 @@
             MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Inventory")
             MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Exit slip")
             MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Exceptional Exit")
-            MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Product Return")
+            'MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Product Return")
             MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Inter Store Transfer")
             MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Exceptional Entry")
-            MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Store Requisition")
+            'MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Store Requisition")
             MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Order slip")
             MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Market List")
 
@@ -4269,12 +4504,24 @@
             MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Inventory")
             MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Exit slip")
             MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Exceptional Exit")
-            MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Product Return")
+            'MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Product Return")
             MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Inter Store Transfer")
             MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Exceptional Entry")
             MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Order slip")
-            MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Store Requisition")
+            'MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Store Requisition")
             MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Market List")
+
+            MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Delivery slip")
+            MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Requisition")
+            MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Inventory")
+            MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Exit slip")
+            MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Exceptional Exit")
+            'MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Product Return")
+            MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Inter Store Transfer")
+            MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Exceptional Entry")
+            MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Order slip")
+            'MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Store Requisition")
+            MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Market List")
 
             MainWindowEconomat.TabControlEconomat.TabPages(0).Text = "List of slips"
             MainWindowEconomat.TabControlEconomat.TabPages(1).Text = "Slip"
@@ -4322,11 +4569,7 @@
             MainWindowEconomat.Label6.Text = "COST PRICE"
             MainWindowEconomat.Label8.Text = "SELLING PRICE"
             MainWindowEconomat.Label4.Text = "PROFIT"
-            MainWindowEconomat.GunaButton2.Text = "ORDER SLIP"
-            MainWindowEconomat.GunaButton5.Text = "DELIVERY SLIP"
-            MainWindowEconomat.GunaButtonRequisition.Text = "REQUISITION"
-            MainWindowEconomat.GunaButton7.Text = "INTER STORE TRANSFER"
-            MainWindowEconomat.GunaButtonBonSortie.Text = "EXIT SLIP"
+            MainWindowEconomat.GunaButton2.Text = "LIST OF SLIPS"
             MainWindowEconomat.GunaButton11.Text = "PRODUCT SHEET (ARTICLES / RAW MATERIALS)"
             MainWindowEconomat.GunaButtonProdRetau.Text = "KITCHEN PRODUCTION"
             MainWindowEconomat.GunaButton4.Text = "TECHNICAL SHEET"
@@ -4334,9 +4577,9 @@
             MainWindowEconomat.GunaButton12.Text = "STOCK TRACKING SHEET"
             MainWindowEconomat.GunaButton10.Text = "CUMULATED KITCHEN PRODUCTION / ORDER"
             MainWindowEconomat.GunaButtonInventaire.Text = "STOCK INVENTORY"
-            MainWindowEconomat.GunaButton3.Text = "STOCK MOVEMENTS"
             MainWindowEconomat.GunaButton6.Text = "INCOMING / OUTGOING GROUPED BY STORE"
             MainWindowEconomat.GunaButton9.Text = "PERIODIC PURCHASE"
+            MainWindowEconomat.TransférerToolStripMenuItem.Text = "Print"
 
             MainWindowEconomat.GunaComboBoxTypeTiers.Items.Clear()
             MainWindowEconomat.GunaComboBoxTypeTiers.Items.Add("Client")
@@ -4345,32 +4588,48 @@
             MainWindowEconomat.GunaLabel89.Text = "Type of Slip"
             MainWindowEconomat.GunaLabel6.Text = "From"
             MainWindowEconomat.GunaLabel7.Text = "To"
+            MainWindowEconomat.GunaButtonPopularMeals.Text = "POPULAR DISHES"
 
         Else
 
             MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Bon de Réception")
-            MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Bon de Réquisition")
+            'MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Bon de Réquisition")
+            MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Demande d'Achat")
             MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Inventaire")
             MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Sortie")
             MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Sortie Exceptionnelle")
-            MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Retour Marchandises")
+            'MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Retour Marchandises")
             MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Transfert Inter Magasin")
             MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Entrée Exceptionnelle")
-            MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Bon Approvisionnement")
+            'MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Bon Approvisionnement")
             MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Bon de Commande")
             MainWindowEconomat.GunaComboBoxTypeBordereau.Items.Add("Liste du Marché")
 
             MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Bon de Réception")
-            MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Bon de Réquisition")
+            'MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Bon de Réquisition")
+            MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Demande d'Achat")
             MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Inventaire")
             MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Sortie")
             MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Sortie Exceptionnelle")
-            MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Retour Marchandises")
+            'MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Retour Marchandises")
             MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Transfert Inter Magasin")
             MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Entrée Exceptionnelle")
             MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Bon de Commande")
-            MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Bon Approvisionnement")
+            'MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Bon Approvisionnement")
             MainWindowEconomat.GunaComboBoxTypeDeBordereau.Items.Add("Liste du Marché")
+
+            MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Bon de Réception")
+            'MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Bon de Réquisition")
+            MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Demande d'Achat")
+            MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Inventaire")
+            MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Sortie")
+            MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Sortie Exceptionnelle")
+            'MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Retour Marchandises")
+            MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Transfert Inter Magasin")
+            MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Entrée Exceptionnelle")
+            MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Bon de Commande")
+            'MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Bon Approvisionnement")
+            MainWindowEconomat.GunaComboBoxTypeBorderoRapport.Items.Add("Liste du Marché")
 
         End If
 
@@ -4381,8 +4640,8 @@
         If GlobalVariable.actualLanguageValue = 0 Then
 
             FournisseurForm.GunaLabel2.Text = "% Discount"
-            FournisseurForm.GunaLabel4.Text = "Addresse"
-            FournisseurForm.GunaLabel10.Text = "Name"
+            FournisseurForm.GunaLabel4.Text = "Name"
+            FournisseurForm.GunaLabel10.Text = "Addresse"
             FournisseurForm.GunaLabel5.Text = "Telephone"
             FournisseurForm.GunaLabel6.Text = "Account Number"
             FournisseurForm.GunaLabel8.Text = "Account Name"
@@ -4390,7 +4649,9 @@
             FournisseurForm.GunaButton1.Text = "Cancel"
             FournisseurForm.GunaButtonAfficher.Text = "View"
             FournisseurForm.GunaLabelGestCompteGeneraux.Text = "SUPPLIERS"
+            FournisseurForm.GunaCheckBoxBlanchisseur.Text = "LAUNDRY"
             FournisseurForm.TabControl1.TabPages(1).Text = "List"
+            FournisseurForm.SupprimerToolStripMenuItem.Text = "Delete"
 
         End If
 
@@ -4426,10 +4687,532 @@
             DepotGarantieForm.GunaLabel4.Text = "BALANCE"
             DepotGarantieForm.GunaLabel5.Text = "TOTAL BALANCE"
         Else
+            DepotGarantieForm.GunaComboBoxTypeDepot.Items.Add("Reservations")
+            DepotGarantieForm.GunaComboBoxTypeDepot.Items.Add("Entreprise / Inviduelle")
+            DepotGarantieForm.GunaLabelTitle.Text = "DEPOT DE GARANTIE"
+            DepotGarantieForm.GunaLabel1.Text = "MONTANT"
+            DepotGarantieForm.GunaButtonEnregistrer.Text = "Enregistrer"
+            DepotGarantieForm.GunaLabel41.Text = "DEBIT"
+            DepotGarantieForm.GunaLabel2.Text = "CREDIT"
+            DepotGarantieForm.GunaLabel4.Text = "SOLDE"
+            DepotGarantieForm.GunaLabel5.Text = "TOTAL SOLDE"
+        End If
+
+    End Sub
+
+    Public Sub profilChoix(ByVal actualLanguageValue As Integer)
+
+        If GlobalVariable.actualLanguageValue = 0 Then
+            ProfilChoixForm.GunaButtonAjouter.Text = "Validate"
+            ProfilChoixForm.GunaLabel1.Text = "Profil to be used"
+        End If
+
+    End Sub
+
+    Public Sub notification(ByVal actualLanguageValue As Integer)
+
+        If GlobalVariable.actualLanguageValue = 0 Then
+            NotificationsForm.GunaLabelTitle.Text = "Validate"
+            NotificationsForm.GunaButton3.Text = "WRITE"
+            NotificationsForm.GunaButton4.Text = "RECEIVED MESSAGES"
+            NotificationsForm.GunaButtonMessageLus.Text = "READ MESSAGES"
+            NotificationsForm.GunaButtonMessageNonLus.Text = "UN READ MESSAGES"
+            NotificationsForm.GunaButtonEnvoyer.Text = "Send"
+            NotificationsForm.GunaFermer.Text = "Close"
+            NotificationsForm.GunaLabel3.Text = "Subject : "
+        End If
+
+    End Sub
+
+    Public Sub mainwindowCuisine(ByVal actualLanguageValue As Integer)
+
+        If GlobalVariable.actualLanguageValue = 0 Then
+
+            MainWindowCuisineForm.GunaComboBoxEntreSortie.Items.Clear()
+            MainWindowCuisineForm.GunaComboBoxEntreSortie.Items.Add("In")
+            MainWindowCuisineForm.GunaComboBoxEntreSortie.Items.Add("Out")
+
+            MainWindowCuisineForm.GunaDataGridViewInventaire.Columns.Clear()
+            MainWindowCuisineForm.GunaDataGridViewInventaire.Columns.Add("CODE_ARTICLE", "CODE ARTICLE")
+            MainWindowCuisineForm.GunaDataGridViewInventaire.Columns.Add("ITEM", "ITEM")
+            MainWindowCuisineForm.GunaDataGridViewInventaire.Columns.Add("QUANTITE_ACTUEL", "STOCK")
+            MainWindowCuisineForm.GunaDataGridViewInventaire.Columns.Add("QUANTITE_REEL", "REEL QTY")
+
+            MainWindowCuisineForm.GunaDataGridViewInventaire.Columns(0).Visible = False
+
+            MainWindowCuisineForm.GunaAdvenceButtonCommande.Text = "ORDER"
+            MainWindowCuisineForm.GunaAdvenceButtonMatiere.Text = "MATERIAL"
+            MainWindowCuisineForm.GunaAdvenceButton20.Text = "ARTICLE"
+            MainWindowCuisineForm.GunaAdvenceButton18.Text = "TECHNICAL SHEET"
+            MainWindowCuisineForm.GunaAdvenceButton2.Text = "MARKET LIST"
+            MainWindowCuisineForm.GunaAdvenceButton5.Text = "LIST OF MATERIAL"
+            MainWindowCuisineForm.GunaAdvenceButton26.Text = "LIST OF ARTICLE"
+            MainWindowCuisineForm.GunaAdvenceButton1.Text = "LIST OF TECHNICAL SHEET"
+
+            MainWindowCuisineForm.GunaButtonInventaire.Text = "INVENTORY"
+            MainWindowCuisineForm.GunaButtonImpressionDirecte.Text = "Print"
+            MainWindowCuisineForm.GunaButtonImpirmerRapportEconomat.Text = "Print"
+            MainWindowCuisineForm.GunaButtonAfficher.Text = "View"
+
+            MainWindowCuisineForm.ToolStripMenuItemSession.Text = "SESSION"
+            MainWindowCuisineForm.ToolStripMenuItem117.Text = "Change password"
+            MainWindowCuisineForm.ApprovisionnementToolStripMenuItem.Text = "Request"
+            MainWindowCuisineForm.ToolStripMenuItemConfig.Text = "SETTINGS"
+            MainWindowCuisineForm.ToolStripMenuItemServTech.Text = "TECHNICAL"
+            MainWindowCuisineForm.ToolStripMenuItemSecurite.Text = "SECURITY"
+
+            MainWindowCuisineForm.ReceptionToolStripMenuItem.Text = "RECEPTION"
+            MainWindowCuisineForm.RESERVATIONToolStripMenuItem.Text = "BOOKING"
+            MainWindowCuisineForm.SERVICEDETAGEToolStripMenuItem.Text = "HOUSE KEEPING"
+            MainWindowCuisineForm.CUISINEToolStripMenuItem.Text = "KITCHEN"
+            MainWindowCuisineForm.ComptabilitéToolStripMenuItem.Text = "ACCOUNTING AND FINANCES"
+            MainWindowCuisineForm.ECONOMATToolStripMenuItem.Text = "PURCHASE"
+            MainWindowCuisineForm.TECHNIQUEToolStripMenuItem.Text = "TECHNICAL"
 
         End If
 
     End Sub
 
+    Public Sub config(ByVal actualLanguageValue As Integer)
+
+        If GlobalVariable.actualLanguageValue = 0 Then
+            ConfigForm.GunaButton2.Text = "Save"
+        End If
+
+    End Sub
+
+    Public Sub authetification(ByVal actualLanguageValue As Integer)
+
+        If GlobalVariable.actualLanguageValue = 0 Then
+
+            GenerationForm.GunaComboBoxAction.Items.Clear()
+            GenerationForm.GunaComboBoxAction.Items.Add("Change accommodation price")
+            GenerationForm.GunaComboBoxAction.Items.Add("Cancel Check In")
+            GenerationForm.GunaComboBoxAction.Items.Add("Cancel Charge")
+            GenerationForm.GunaComboBoxAction.Items.Add("Discount")
+
+            GenerationForm.GunaButtonAfficherValidee.Text = "Send"
+            GenerationForm.GunaButton1.Text = "Validate"
+
+        End If
+
+    End Sub
+
+    Public Sub marketing(ByVal actualLanguageValue As Integer)
+
+        If GlobalVariable.actualLanguageValue = 0 Then
+            MainwindoMarketinngForm.GunaLabel131.Text = "WORKNG DATE:"
+        End If
+
+    End Sub
+
+    Public Sub consolidation(ByVal actualLanguageValue As Integer)
+
+        If GlobalVariable.actualLanguageValue = 0 Then
+            ConsolidationForm.GunaLabel2.Text = "ORDERS"
+            ConsolidationForm.GunaButton1.Text = "Cancel"
+            ConsolidationForm.GunaButtonConsolider.Text = "Consolidate"
+            ConsolidationForm.GunaLabel3.Text = "Consolidated Orders"
+            ConsolidationForm.GunaLabel3.Text = "Orders to consolidate"
+        End If
+
+    End Sub
+
+    Public Sub side_menu_mainwindow(ByVal ActualLanguageValue As Integer)
+
+        If ActualLanguageValue = 0 Then
+            MainWindow.ToolStripMenuItem73.Text = "Tresorerie"
+            MainWindow.ToolStripMenuItem96.Text = "Third, Rooms"
+            MainWindow.ToolStripMenuItem113.Text = "Fault Type"
+            MainWindow.TarifsToolStripMenuItem.Text = "Prices"
+            MainWindow.ClubEliteToolStripMenuItem.Text = "Elite Club"
+            MainWindow.ToolStripMenuItem75.Text = "General Account"
+            MainWindow.ToolStripMenuItem76.Text = "Cash Register"
+            MainWindow.BanqueToolStripMenuItem.Text = "Bank"
+            MainWindow.FamilleDepenseToolStripMenuItem.Text = "Charts of Account"
+            MainWindow.CompteDexploitationToolStripMenuItem.Text = "Exploitation Account"
+            MainWindow.ToolStripMenuItem82.Text = "Point of Sales"
+            MainWindow.CatégoriesToolStripMenuItem.Text = "Category"
+            MainWindow.ToolStripMenuItem83.Text = "Artticle Family"
+            MainWindow.FamilleDArToolStripMenuItem.Text = "Article Sub Family"
+            MainWindow.FicheTechniqueToolStripMenuItem.Text = "Technical Sheet"
+            MainWindow.ToolStripMenuItem93.Text = "Counting Unit"
+            MainWindow.MatièresToolStripMenuItem.Text = "Material"
+            MainWindow.ToolStripMenuItem4.Text = "Maintenance tools"
+            MainWindow.ToolStripMenuItem91.Text = "Store"
+            MainWindow.ToolStripMenuItem92.Text = "Store Affectation"
+            MainWindow.ToolStripMenuItem97.Text = "Localisation"
+            MainWindow.ToolStripMenuItem98.Text = "Price per Client Category"
+            MainWindow.ToolStripMenuItem99.Text = "Client Category"
+            MainWindow.ToolStripMenuItem100.Text = "Client"
+            MainWindow.ToolStripMenuItem101.Text = "Price Client/Article"
+            MainWindow.ToolStripMenuItem102.Text = "Client Messages"
+            MainWindow.ToolStripMenuItem103.Text = "Type of Personnel"
+            MainWindow.ToolStripMenuItem105.Text = "Suppliers"
+            MainWindow.ToolStripMenuItem106.Text = "Commercials"
+            MainWindow.ToolStripMenuItem107.Text = "Type of Room/Hall"
+            MainWindow.ToolStripMenuItem108.Text = "Room/Hall"
+            MainWindow.TypeDévènementToolStripMenuItemEvent.Text = "Type of Events"
+            MainWindow.ToolStripMenuItem111.Text = "Reservation Source"
+            MainWindow.ToolStripMenuItem112.Text = "Tourist Tax"
+            MainWindow.ToolStripMenuItem128.Text = "Intervention Slip"
+            MainWindow.ToolStripMenuItem123.Text = "Request for Intervention"
+            MainWindow.ToolStripMenuItem124.Text = "Instruction Book"
+            MainWindow.FamilleDePannesToolStripMenuItem.Text = "Fault Family"
+            MainWindow.SousFamillesDePannesToolStripMenuItem.Text = "Fault Sub Family"
+            MainWindow.ToolStripMenuItem131.Text = "Snitches"
+            MainWindow.ToolStripMenuItem132.Text = "Indicated Faults"
+            MainWindow.ToolStripMenuItem133.Text = "Company"
+            MainWindow.ToolStripMenuItem134.Text = "Agencies"
+            MainWindow.ToolStripMenuItem136.Text = "Users"
+            MainWindow.ToolStripMenuItem137.Text = "Register"
+            MainWindow.UploaderToolStripMenuItem.Text = "Upload"
+            MainWindow.LicenceToolStripMenuItem.Text = "License"
+        End If
+
+    End Sub
+
+    Public Sub side_menu_bar_restaurant_form(ByVal ActualLanguageValue As Integer)
+
+        If ActualLanguageValue = 0 Then
+            BarRestaurantForm.ToolStripMenuItem73.Text = "Tresorerie"
+            BarRestaurantForm.ToolStripMenuItem96.Text = "Third, Rooms"
+            BarRestaurantForm.ToolStripMenuItem113.Text = "Fault Type"
+            BarRestaurantForm.TarifsToolStripMenuItem.Text = "Prices"
+            BarRestaurantForm.ClubEliteToolStripMenuItem.Text = "Elite Club"
+            BarRestaurantForm.ToolStripMenuItem75.Text = "General Account"
+            BarRestaurantForm.ToolStripMenuItem76.Text = "Cash Register"
+            BarRestaurantForm.BanqueToolStripMenuItem.Text = "Bank"
+            BarRestaurantForm.ToolStripMenuItem82.Text = "Point of Sales"
+            BarRestaurantForm.CatégoriesToolStripMenuItem.Text = "Category"
+            BarRestaurantForm.ToolStripMenuItem83.Text = "Artticle Family"
+            BarRestaurantForm.FamilleDArToolStripMenuItem.Text = "Article Sub Family"
+            BarRestaurantForm.ToolStripMenuItem93.Text = "Counting Unit"
+            BarRestaurantForm.MatièresToolStripMenuItem.Text = "Material"
+            BarRestaurantForm.ToolStripMenuItem91.Text = "Store"
+            BarRestaurantForm.ToolStripMenuItem92.Text = "Store Affectation"
+            BarRestaurantForm.ToolStripMenuItem97.Text = "Localisation"
+            BarRestaurantForm.ToolStripMenuItem98.Text = "Price per Client Category"
+            BarRestaurantForm.ToolStripMenuItem99.Text = "Client Category"
+            BarRestaurantForm.ToolStripMenuItem100.Text = "Client"
+            BarRestaurantForm.ToolStripMenuItem101.Text = "Price Client/Article"
+            BarRestaurantForm.ToolStripMenuItem102.Text = "Client Messages"
+            BarRestaurantForm.ToolStripMenuItem103.Text = "Type of Personnel"
+            BarRestaurantForm.ToolStripMenuItem105.Text = "Suppliers"
+            BarRestaurantForm.ToolStripMenuItem106.Text = "Commercials"
+            BarRestaurantForm.ToolStripMenuItem107.Text = "Type of Room/Hall"
+            BarRestaurantForm.ToolStripMenuItem108.Text = "Room/Hall"
+            BarRestaurantForm.TypeDévènementToolStripMenuItemEvent.Text = "Type of Events"
+            BarRestaurantForm.ToolStripMenuItem111.Text = "Reservation Source"
+            BarRestaurantForm.ToolStripMenuItem112.Text = "Tourist Tax"
+            BarRestaurantForm.ToolStripMenuItem128.Text = "Intervention Slip"
+            BarRestaurantForm.ToolStripMenuItem123.Text = "Request for Intervention"
+            BarRestaurantForm.ToolStripMenuItem124.Text = "Instruction Book"
+            BarRestaurantForm.FamilleDePannesToolStripMenuItem.Text = "Fault Family"
+            BarRestaurantForm.SousFamillesDePannesToolStripMenuItem.Text = "Fault Sub Family"
+            BarRestaurantForm.ToolStripMenuItem131.Text = "Snitches"
+            BarRestaurantForm.ToolStripMenuItem132.Text = "Indicated Faults"
+            BarRestaurantForm.ToolStripMenuItem133.Text = "Company"
+            BarRestaurantForm.ToolStripMenuItem134.Text = "Agencies"
+            BarRestaurantForm.ToolStripMenuItem136.Text = "Users"
+            BarRestaurantForm.ToolStripMenuItem137.Text = "Register"
+            BarRestaurantForm.LicenceToolStripMenuItem.Text = "License"
+        End If
+
+    End Sub
+
+    Public Sub side_menu_compabilite(ByVal ActualLanguageValue As Integer)
+
+        If ActualLanguageValue = 0 Then
+            MainWindowComptabiliteForm.ToolStripMenuItem73.Text = "Tresorerie"
+            MainWindowComptabiliteForm.ToolStripMenuItem96.Text = "Third, Rooms"
+            MainWindowComptabiliteForm.ToolStripMenuItem113.Text = "Fault Type"
+            MainWindowComptabiliteForm.TarifsToolStripMenuItem.Text = "Prices"
+            MainWindowComptabiliteForm.ToolStripMenuItem75.Text = "General Account"
+            MainWindowComptabiliteForm.ToolStripMenuItem76.Text = "Cash Register"
+            MainWindowComptabiliteForm.ToolStripMenuItem82.Text = "Point of Sales"
+            MainWindowComptabiliteForm.CatégoriesToolStripMenuItem.Text = "Category"
+            MainWindowComptabiliteForm.ToolStripMenuItem83.Text = "Artticle Family"
+            MainWindowComptabiliteForm.FamilleDArToolStripMenuItem.Text = "Article Sub Family"
+            MainWindowComptabiliteForm.ToolStripMenuItem93.Text = "Counting Unit"
+            MainWindowComptabiliteForm.MatièresToolStripMenuItem.Text = "Material"
+            MainWindowComptabiliteForm.ToolStripMenuItem91.Text = "Store"
+            MainWindowComptabiliteForm.ToolStripMenuItem92.Text = "Store Affectation"
+            MainWindowComptabiliteForm.ToolStripMenuItem97.Text = "Localisation"
+            MainWindowComptabiliteForm.ToolStripMenuItem98.Text = "Price per Client Category"
+            MainWindowComptabiliteForm.ToolStripMenuItem99.Text = "Client Category"
+            MainWindowComptabiliteForm.ToolStripMenuItem100.Text = "Client"
+            MainWindowComptabiliteForm.ToolStripMenuItem101.Text = "Price Client/Article"
+            MainWindowComptabiliteForm.ToolStripMenuItem102.Text = "Client Messages"
+            MainWindowComptabiliteForm.ToolStripMenuItem103.Text = "Type of Personnel"
+            MainWindowComptabiliteForm.ToolStripMenuItem105.Text = "Suppliers"
+            MainWindowComptabiliteForm.ToolStripMenuItem106.Text = "Commercials"
+            MainWindowComptabiliteForm.ToolStripMenuItem107.Text = "Type of Room/Hall"
+            MainWindowComptabiliteForm.ToolStripMenuItem108.Text = "Room/Hall"
+            MainWindowComptabiliteForm.ToolStripMenuItem111.Text = "Reservation Source"
+            MainWindowComptabiliteForm.ToolStripMenuItem112.Text = "Tourist Tax"
+            MainWindowComptabiliteForm.ToolStripMenuItem128.Text = "Intervention Slip"
+            MainWindowComptabiliteForm.ToolStripMenuItem123.Text = "Request for Intervention"
+            MainWindowComptabiliteForm.ToolStripMenuItem124.Text = "Instruction Book"
+            MainWindowComptabiliteForm.FamilleDePannesToolStripMenuItem.Text = "Fault Family"
+            MainWindowComptabiliteForm.SousFamillesDePannesToolStripMenuItem.Text = "Fault Sub Family"
+            MainWindowComptabiliteForm.ToolStripMenuItem131.Text = "Snitches"
+            MainWindowComptabiliteForm.ToolStripMenuItem132.Text = "Indicated Faults"
+            MainWindowComptabiliteForm.ToolStripMenuItem133.Text = "Company"
+            MainWindowComptabiliteForm.ToolStripMenuItem134.Text = "Agencies"
+            MainWindowComptabiliteForm.ToolStripMenuItem136.Text = "Users"
+            MainWindowComptabiliteForm.ToolStripMenuItem137.Text = "Register"
+            MainWindowComptabiliteForm.LicenceToolStripMenuItem.Text = "License"
+            MainWindowComptabiliteForm.SageModelToolStripMenuItem.Text = "Accounting Write-Off"
+            MainWindowComptabiliteForm.PrévisionToolStripMenuItem.Text = "Forecast"
+        End If
+
+    End Sub
+
+    Public Sub side_menu_house_keeping(ByVal ActualLanguageValue As Integer)
+
+        If ActualLanguageValue = 0 Then
+            MainWindowServiceEtageForm.ToolStripMenuItem73.Text = "Tresorerie"
+            MainWindowServiceEtageForm.ToolStripMenuItem96.Text = "Third, Rooms"
+            MainWindowServiceEtageForm.ToolStripMenuItem113.Text = "Fault Type"
+            MainWindowServiceEtageForm.ToolStripMenuItem75.Text = "General Account"
+            MainWindowServiceEtageForm.ToolStripMenuItem76.Text = "Cash Register"
+            MainWindowServiceEtageForm.ToolStripMenuItem83.Text = "Artticle Family"
+            MainWindowServiceEtageForm.ToolStripMenuItem93.Text = "Counting Unit"
+            MainWindowServiceEtageForm.MatièresToolStripMenuItem.Text = "Material"
+            MainWindowServiceEtageForm.ToolStripMenuItem91.Text = "Store"
+            MainWindowServiceEtageForm.ToolStripMenuItem92.Text = "Store Affectation"
+            MainWindowServiceEtageForm.ToolStripMenuItem97.Text = "Localisation"
+            MainWindowServiceEtageForm.ToolStripMenuItem98.Text = "Price per Client Category"
+            MainWindowServiceEtageForm.ToolStripMenuItem99.Text = "Client Category"
+            MainWindowServiceEtageForm.ToolStripMenuItem100.Text = "Client"
+            MainWindowServiceEtageForm.ToolStripMenuItem101.Text = "Price Client/Article"
+            MainWindowServiceEtageForm.ToolStripMenuItem102.Text = "Client Messages"
+            MainWindowServiceEtageForm.ToolStripMenuItem103.Text = "Type of Personnel"
+            MainWindowServiceEtageForm.ToolStripMenuItem105.Text = "Suppliers"
+            MainWindowServiceEtageForm.ToolStripMenuItem106.Text = "Commercials"
+            MainWindowServiceEtageForm.ToolStripMenuItem107.Text = "Type of Room/Hall"
+            MainWindowServiceEtageForm.ToolStripMenuItem108.Text = "Room/Hall"
+            MainWindowServiceEtageForm.ToolStripMenuItem111.Text = "Reservation Source"
+            MainWindowServiceEtageForm.ToolStripMenuItem112.Text = "Tourist Tax"
+            MainWindowServiceEtageForm.ToolStripMenuItem128.Text = "Intervention Slip"
+            MainWindowServiceEtageForm.ToolStripMenuItem123.Text = "Request for Intervention"
+            MainWindowServiceEtageForm.ToolStripMenuItem124.Text = "Instruction Book"
+            MainWindowServiceEtageForm.FamilleDePannesToolStripMenuItem.Text = "Fault Family"
+            MainWindowServiceEtageForm.SousFamillesDePannesToolStripMenuItem.Text = "Fault Sub Family"
+            MainWindowServiceEtageForm.ToolStripMenuItem131.Text = "Snitches"
+            MainWindowServiceEtageForm.ToolStripMenuItem132.Text = "Indicated Faults"
+            MainWindowServiceEtageForm.ToolStripMenuItem133.Text = "Company"
+            MainWindowServiceEtageForm.ToolStripMenuItem134.Text = "Agencies"
+            MainWindowServiceEtageForm.ToolStripMenuItem136.Text = "Users"
+            MainWindowServiceEtageForm.ToolStripMenuItem137.Text = "Register"
+            MainWindowServiceEtageForm.LicenceToolStripMenuItem.Text = "License"
+            MainWindowServiceEtageForm.ToolStripMenuItem81.Text = "Article/Materials"
+        End If
+
+    End Sub
+
+    Public Sub side_menu_kitchen_form(ByVal ActualLanguageValue As Integer)
+
+        If ActualLanguageValue = 0 Then
+            MainWindowCuisineForm.ToolStripMenuItem73.Text = "Tresorerie"
+            MainWindowCuisineForm.ToolStripMenuItem96.Text = "Third, Rooms"
+            MainWindowCuisineForm.ToolStripMenuItem113.Text = "Fault Type"
+            MainWindowCuisineForm.TarifsToolStripMenuItem.Text = "Prices"
+            MainWindowCuisineForm.ToolStripMenuItem75.Text = "General Account"
+            MainWindowCuisineForm.ToolStripMenuItem76.Text = "Cash Register"
+            MainWindowCuisineForm.ToolStripMenuItem82.Text = "Point of Sales"
+            MainWindowCuisineForm.CatégoriesToolStripMenuItem.Text = "Category"
+            MainWindowCuisineForm.ToolStripMenuItem83.Text = "Artticle Family"
+            MainWindowCuisineForm.FamilleDArToolStripMenuItem.Text = "Article Sub Family"
+            MainWindowCuisineForm.ToolStripMenuItem93.Text = "Counting Unit"
+            MainWindowCuisineForm.MatièresToolStripMenuItem.Text = "Material"
+            MainWindowCuisineForm.ToolStripMenuItem91.Text = "Store"
+            MainWindowCuisineForm.ToolStripMenuItem92.Text = "Store Affectation"
+            MainWindowCuisineForm.ToolStripMenuItem97.Text = "Localisation"
+            MainWindowCuisineForm.ToolStripMenuItem98.Text = "Price per Client Category"
+            MainWindowCuisineForm.ToolStripMenuItem99.Text = "Client Category"
+            MainWindowCuisineForm.ToolStripMenuItem100.Text = "Client"
+            MainWindowCuisineForm.ToolStripMenuItem101.Text = "Price Client/Article"
+            MainWindowCuisineForm.ToolStripMenuItem102.Text = "Client Messages"
+            MainWindowCuisineForm.ToolStripMenuItem103.Text = "Type of Personnel"
+            MainWindowCuisineForm.ToolStripMenuItem105.Text = "Suppliers"
+            MainWindowCuisineForm.ToolStripMenuItem106.Text = "Commercials"
+            MainWindowCuisineForm.ToolStripMenuItem107.Text = "Type of Room/Hall"
+            MainWindowCuisineForm.ToolStripMenuItem108.Text = "Room/Hall"
+            MainWindowCuisineForm.ToolStripMenuItem111.Text = "Reservation Source"
+            MainWindowCuisineForm.ToolStripMenuItem112.Text = "Tourist Tax"
+            MainWindowCuisineForm.ToolStripMenuItem128.Text = "Intervention Slip"
+            MainWindowCuisineForm.ToolStripMenuItem123.Text = "Request for Intervention"
+            MainWindowCuisineForm.ToolStripMenuItem124.Text = "Instruction Book"
+            MainWindowCuisineForm.FamilleDePannesToolStripMenuItem.Text = "Fault Family"
+            MainWindowCuisineForm.SousFamillesDePannesToolStripMenuItem.Text = "Fault Sub Family"
+            MainWindowCuisineForm.ToolStripMenuItem131.Text = "Snitches"
+            MainWindowCuisineForm.ToolStripMenuItem132.Text = "Indicated Faults"
+            MainWindowCuisineForm.ToolStripMenuItem133.Text = "Company"
+            MainWindowCuisineForm.ToolStripMenuItem134.Text = "Agencies"
+            MainWindowCuisineForm.ToolStripMenuItem136.Text = "Users"
+            MainWindowCuisineForm.ToolStripMenuItem137.Text = "Register"
+            MainWindowCuisineForm.LicenceToolStripMenuItem.Text = "License"
+        End If
+
+    End Sub
+
+    Public Sub side_menu_technique(ByVal ActualLanguageValue As Integer)
+
+        If ActualLanguageValue = 0 Then
+            MainWindowTechnique.ToolStripMenuItem73.Text = "Tresorerie"
+            MainWindowTechnique.ToolStripMenuItem96.Text = "Third, Rooms"
+            MainWindowTechnique.ToolStripMenuItem113.Text = "Fault Type"
+            MainWindowTechnique.TarifsToolStripMenuItem.Text = "Prices"
+            MainWindowTechnique.ToolStripMenuItem75.Text = "General Account"
+            MainWindowTechnique.ToolStripMenuItem76.Text = "Cash Register"
+            MainWindowTechnique.ToolStripMenuItem82.Text = "Point of Sales"
+            MainWindowTechnique.CatégoriesToolStripMenuItem.Text = "Category"
+            MainWindowTechnique.ToolStripMenuItem83.Text = "Artticle Family"
+            MainWindowTechnique.FamilleDArToolStripMenuItem.Text = "Article Sub Family"
+            MainWindowTechnique.ToolStripMenuItem93.Text = "Counting Unit"
+            MainWindowTechnique.MatièresToolStripMenuItem.Text = "Material"
+            MainWindowTechnique.ToolStripMenuItem91.Text = "Store"
+            MainWindowTechnique.ToolStripMenuItem92.Text = "Store Affectation"
+            MainWindowTechnique.ToolStripMenuItem97.Text = "Localisation"
+            MainWindowTechnique.ToolStripMenuItem98.Text = "Price per Client Category"
+            MainWindowTechnique.ToolStripMenuItem99.Text = "Client Category"
+            MainWindowTechnique.ToolStripMenuItem100.Text = "Client"
+            MainWindowTechnique.ToolStripMenuItem101.Text = "Price Client/Article"
+            MainWindowTechnique.ToolStripMenuItem102.Text = "Client Messages"
+            MainWindowTechnique.ToolStripMenuItem103.Text = "Type of Personnel"
+            MainWindowTechnique.ToolStripMenuItem105.Text = "Suppliers"
+            MainWindowTechnique.ToolStripMenuItem106.Text = "Commercials"
+            MainWindowTechnique.ToolStripMenuItem107.Text = "Type of Room/Hall"
+            MainWindowTechnique.ToolStripMenuItem108.Text = "Room/Hall"
+            MainWindowTechnique.ToolStripMenuItem111.Text = "Reservation Source"
+            MainWindowTechnique.ToolStripMenuItem112.Text = "Tourist Tax"
+            MainWindowTechnique.ToolStripMenuItem128.Text = "Intervention Slip"
+            MainWindowTechnique.ToolStripMenuItem123.Text = "Request for Intervention"
+            MainWindowTechnique.ToolStripMenuItem124.Text = "Instruction Book"
+            MainWindowTechnique.FamilleDePannesToolStripMenuItem.Text = "Fault Family"
+            MainWindowTechnique.SousFamillesDePannesToolStripMenuItem.Text = "Fault Sub Family"
+            MainWindowTechnique.ToolStripMenuItem131.Text = "Snitches"
+            MainWindowTechnique.ToolStripMenuItem132.Text = "Indicated Faults"
+            MainWindowTechnique.ToolStripMenuItem133.Text = "Company"
+            MainWindowTechnique.ToolStripMenuItem134.Text = "Agencies"
+            MainWindowTechnique.ToolStripMenuItem136.Text = "Users"
+            MainWindowTechnique.ToolStripMenuItem137.Text = "Register"
+            MainWindowTechnique.LicenceToolStripMenuItem.Text = "License"
+        End If
+
+    End Sub
+
+    Public Sub side_menu_purchase(ByVal ActualLanguageValue As Integer)
+
+        If ActualLanguageValue = 0 Then
+            MainWindowEconomat.ToolStripMenuItem73.Text = "Tresorerie"
+            MainWindowEconomat.ToolStripMenuItem96.Text = "Third, Rooms"
+            MainWindowEconomat.ToolStripMenuItem113.Text = "Fault Type"
+            MainWindowEconomat.TarifsToolStripMenuItem.Text = "Prices"
+            MainWindowEconomat.ToolStripMenuItem75.Text = "General Account"
+            MainWindowEconomat.ToolStripMenuItem76.Text = "Cash Register"
+            MainWindowEconomat.ToolStripMenuItem82.Text = "Point of Sales"
+            MainWindowEconomat.CatégoriesToolStripMenuItem.Text = "Category"
+            MainWindowEconomat.ToolStripMenuItem83.Text = "Artticle Family"
+            MainWindowEconomat.FamilleDArToolStripMenuItem.Text = "Article Sub Family"
+            MainWindowEconomat.ToolStripMenuItem93.Text = "Counting Unit"
+            MainWindowEconomat.MatièresToolStripMenuItem.Text = "Material"
+            MainWindowEconomat.ToolStripMenuItem91.Text = "Store"
+            MainWindowEconomat.ToolStripMenuItem92.Text = "Store Affectation"
+            MainWindowEconomat.ToolStripMenuItem97.Text = "Localisation"
+            MainWindowEconomat.ToolStripMenuItem98.Text = "Price per Client Category"
+            MainWindowEconomat.ToolStripMenuItem99.Text = "Client Category"
+            MainWindowEconomat.ToolStripMenuItem100.Text = "Client"
+            MainWindowEconomat.ToolStripMenuItem101.Text = "Price Client/Article"
+            MainWindowEconomat.ToolStripMenuItem102.Text = "Client Messages"
+            MainWindowEconomat.ToolStripMenuItem103.Text = "Type of Personnel"
+            MainWindowEconomat.ToolStripMenuItem105.Text = "Suppliers"
+            MainWindowEconomat.ToolStripMenuItem106.Text = "Commercials"
+            MainWindowEconomat.ToolStripMenuItem107.Text = "Type of Room/Hall"
+            MainWindowEconomat.ToolStripMenuItem108.Text = "Room/Hall"
+            MainWindowEconomat.ToolStripMenuItem111.Text = "Reservation Source"
+            MainWindowEconomat.ToolStripMenuItem112.Text = "Tourist Tax"
+            MainWindowEconomat.ToolStripMenuItem128.Text = "Intervention Slip"
+            MainWindowEconomat.ToolStripMenuItem123.Text = "Request for Intervention"
+            MainWindowEconomat.ToolStripMenuItem124.Text = "Instruction Book"
+            MainWindowEconomat.FamilleDePannesToolStripMenuItem.Text = "Fault Family"
+            MainWindowEconomat.SousFamillesDePannesToolStripMenuItem.Text = "Fault Sub Family"
+            MainWindowEconomat.ToolStripMenuItem131.Text = "Snitches"
+            MainWindowEconomat.ToolStripMenuItem132.Text = "Indicated Faults"
+            MainWindowEconomat.ToolStripMenuItem133.Text = "Company"
+            MainWindowEconomat.ToolStripMenuItem134.Text = "Agencies"
+            MainWindowEconomat.ToolStripMenuItem136.Text = "Users"
+            MainWindowEconomat.ToolStripMenuItem137.Text = "Register"
+            MainWindowEconomat.LicenceToolStripMenuItem.Text = "License"
+        End If
+
+    End Sub
+
+    Public Sub exchange(ByVal ActualLanguageValue As Integer)
+
+        If ActualLanguageValue = 0 Then
+            ExchangeForm.GunaLabel3.Text = "EXCHANGE"
+            ExchangeForm.GunaButtonExchange.Text = "Exchange"
+            ExchangeForm.Label11.Text = "Quantity"
+            ExchangeForm.Label1.Text = "Unit Price"
+        End If
+
+    End Sub
+
+    Public Sub PlanningHebdomadaireDuPersonnel(ByVal ActualLanguageValue As Integer)
+
+        If ActualLanguageValue = 0 Then
+            PlanningHebdomadaireDuPersonnelForm.GunaLabelTitle.Text = "Personnel Weekly Program"
+            PlanningHebdomadaireDuPersonnelForm.GunaLabel3.Text = "WORKING PERSONNEL FROM:"
+            PlanningHebdomadaireDuPersonnelForm.GunaButtonEnregistrerPlanning.Text = "Create"
+            PlanningHebdomadaireDuPersonnelForm.GunaLabel5.Text = "Planning Name"
+            PlanningHebdomadaireDuPersonnelForm.GunaLabel4.Text = "From:"
+            PlanningHebdomadaireDuPersonnelForm.GunaLabel8.Text = "To:"
+            PlanningHebdomadaireDuPersonnelForm.GunaLabel12.Text = "Arrival"
+            PlanningHebdomadaireDuPersonnelForm.GunaLabel13.Text = "Depart"
+            PlanningHebdomadaireDuPersonnelForm.GunaButton2.Text = "Hours"
+            PlanningHebdomadaireDuPersonnelForm.GunaButton16.Text = "View"
+            PlanningHebdomadaireDuPersonnelForm.SupprimerToolStripMenuItem.Text = "Delete"
+            PlanningHebdomadaireDuPersonnelForm.ToolStripMenuItem1.Text = "Delete"
+            PlanningHebdomadaireDuPersonnelForm.ToolStripMenuItem2.Text = "Delete"
+            PlanningHebdomadaireDuPersonnelForm.ToolStripMenuItem3.Text = "Delete"
+            PlanningHebdomadaireDuPersonnelForm.GunaButtonEditionDeMasse.Text = "Assign Time"
+            PlanningHebdomadaireDuPersonnelForm.Label2.Text = "Planning and Time Assignation"
+            PlanningHebdomadaireDuPersonnelForm.GunaLabel2.Text = "STAFF"
+            PlanningHebdomadaireDuPersonnelForm.TabControl1.TabPages(0).Text = "Affecting Planning to Staff"
+            PlanningHebdomadaireDuPersonnelForm.TabControl1.TabPages(1).Text = "Creation of Planning & Hours"
+            PlanningHebdomadaireDuPersonnelForm.TabControl1.TabPages(2).Text = "Association of Planning and Hours"
+            PlanningHebdomadaireDuPersonnelForm.GunaButton3.Text = "Global Program"
+
+        End If
+
+    End Sub
+
+    Public Sub AffectationHoraireAuPlanning(ByVal ActualLanguageValue As Integer)
+
+        If ActualLanguageValue = 0 Then
+            AffectationHoraireAuPlanningForm.GunaLabelGestCompany.Text = "Assign Time"
+            AffectationHoraireAuPlanningForm.GunaButtonAppliquerTarifSpecifique.Text = "Assign Time"
+            AffectationHoraireAuPlanningForm.GunaLabel3.Text = "TIME"
+            AffectationHoraireAuPlanningForm.GunaLabel1.Text = "From"
+            AffectationHoraireAuPlanningForm.GunaLabel2.Text = "To"
+            AffectationHoraireAuPlanningForm.GunaButtonTerminer.Text = "Finished"
+            AffectationHoraireAuPlanningForm.SupprimerToolStripMenuItem.Text = "Delete"
+            AffectationHoraireAuPlanningForm.GunaButtonEditionDeMasse.Text = "Assigned List"
+            AffectationHoraireAuPlanningForm.GunaLabel4.Text = "Assigned List"
+            AffectationHoraireAuPlanningForm.TabControl1.TabPages(0).Text = "Assign Time"
+        End If
+
+    End Sub
+
+    Public Sub DatabaseBackup(ByVal ActualLanguageValue As Integer)
+
+        If ActualLanguageValue = 0 Then
+            DataBaseBackUpForm.GunaLabel1.Text = "Server"
+        End If
+
+    End Sub
 
 End Class

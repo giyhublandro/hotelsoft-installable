@@ -873,13 +873,17 @@ ETAT_NOTE_RESERVATION = @value31 , CODE_ENTREPRISE=@value32 , NOM_ENTREPRISE = @
             End If
         End If
 
+        Dim TAXE_DE_SEJOUR As Double = mainCouranteJournaliere.Rows(0)("TAUX_OCCUPATION_PCT") 'TAXE DE SEJOURS
+
+        If MONTANT_ACCORDE = 0 Then
+            TAXE_DE_SEJOUR = 0
+        End If
+
         command.Parameters.Add("@MONTANT_ACCORDE", MySqlDbType.Double).Value = MONTANT_ACCORDE
         command.Parameters.Add("@ETAT_CHAMBRE", MySqlDbType.Int64).Value = mainCouranteJournaliere.Rows(0)("ETAT_CHAMBRE")
         command.Parameters.Add("@NOM_CLIENT", MySqlDbType.VarChar).Value = mainCouranteJournaliere.Rows(0)("NOM_CLIENT")
 
-        command.Parameters.Add("@value39", MySqlDbType.Double).Value = mainCouranteJournaliere.Rows(0)("TAUX_OCCUPATION_PCT") 'TAXE DE SEJOURS
-
-        Dim TAXE_DE_SEJOUR As Double = mainCouranteJournaliere.Rows(0)("TAUX_OCCUPATION_PCT") 'TAXE DE SEJOURS
+        command.Parameters.Add("@value39", MySqlDbType.Double).Value = TAXE_DE_SEJOUR 'TAXE DE SEJOURS
 
         'command.Parameters.Add("@value8", MySqlDbType.Double).Value = mainCouranteJournaliere.Rows(0)("PDJ")
         command.Parameters.Add("@PDJ", MySqlDbType.Double).Value = 0

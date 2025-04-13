@@ -7,6 +7,8 @@ Public Class TransfertDeClientEntreCaissierForm
 
     Public Sub UtilisateurDesCAisses()
 
+        GunaComboBoxUtilisateurDeCaisse.DataSource = Nothing
+
         If GlobalVariable.billetageAPartirDe = "petite caisse" Then
 
             Dim CODE_CAISSE As String = PetiteCaisseForm.GunaTextBoxCodePetiteCaisse.Text
@@ -48,6 +50,25 @@ Public Class TransfertDeClientEntreCaissierForm
                 GunaComboBoxUtilisateurDeCaisse.DisplayMember = "NOM_UTILISATEUR"
 
             End If
+
+        ElseIf GlobalVariable.fenetreDouvervetureDeCaisse = "annulerReservation" Then
+
+            Dim Query As String = "SELECT NOM_UTILISATEUR, utilisateurs.CODE_UTILISATEUR, CORRECTIONS From utilisateurs INNER JOIN utilisateur_acces WHERE utilisateurs.CATEG_UTILISATEUR=utilisateur_acces.CODE_PROFIL AND CORRECTIONS=@CORRECTIONS"
+            Dim command As New MySqlCommand(Query, GlobalVariable.connect)
+            command.Parameters.Add("@CORRECTIONS", MySqlDbType.Int32).Value = 1
+
+            Dim tableCaissier As New DataTable
+            Dim adapter As New MySqlDataAdapter(command)
+            adapter.Fill(tableCaissier)
+
+            If (tableCaissier.Rows.Count > 0) Then
+
+                GunaComboBoxUtilisateurDeCaisse.DataSource = tableCaissier
+                GunaComboBoxUtilisateurDeCaisse.ValueMember = "CODE_UTILISATEUR"
+                GunaComboBoxUtilisateurDeCaisse.DisplayMember = "NOM_UTILISATEUR"
+
+            End If
+
         End If
 
     End Sub
@@ -82,6 +103,17 @@ Public Class TransfertDeClientEntreCaissierForm
     Private Sub GunaComboBoxUtilisateurDeCaisse_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GunaComboBoxUtilisateurDeCaisse.SelectedIndexChanged
         'UTILISATEURS DE CAISSE -> VERIFICATION DES MOTS DE PASSSES
         GlobalVariable.TransfertDeElementDeCaisse = GunaComboBoxUtilisateurDeCaisse.SelectedValue.ToString
+
+    End Sub
+
+    Private Sub GunaButton1_Click(sender As Object, e As EventArgs) Handles GunaButton1.Click
+
+        Me.Close()
+
+        GenerationForm.Show()
+        GenerationForm.TopMost = True
+        GenerationForm.GunaComboBoxAction.SelectedIndex = 1
+        GenerationForm.GunaComboBoxAction.Enabled = False
 
     End Sub
 

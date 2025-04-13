@@ -25,11 +25,7 @@ Partial Class BilletageForm
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BilletageForm))
         Me.GunaPanel1 = New Guna.UI.WinForms.GunaPanel()
         Me.GunaLabelNotification = New Guna.UI.WinForms.GunaLabel()
-        Me.GunaAdvenceButton3 = New Guna.UI.WinForms.GunaAdvenceButton()
         Me.GunaLabelTitreDeLaFenetre = New Guna.UI.WinForms.GunaLabel()
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.GunaImageButton2 = New Guna.UI.WinForms.GunaImageButton()
-        Me.GunaImageButton1 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaLabel1 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel2 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel3 = New Guna.UI.WinForms.GunaLabel()
@@ -95,12 +91,16 @@ Partial Class BilletageForm
         Me.BackgroundWorker3 = New System.ComponentModel.BackgroundWorker()
         Me.BackgroundWorker4 = New System.ComponentModel.BackgroundWorker()
         Me.BackgroundWorker5 = New System.ComponentModel.BackgroundWorker()
+        Me.GunaAdvenceButton3 = New Guna.UI.WinForms.GunaAdvenceButton()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.GunaImageButton2 = New Guna.UI.WinForms.GunaImageButton()
+        Me.GunaImageButton1 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaPanel1.SuspendLayout()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GunaShadowPanel1.SuspendLayout()
         Me.GunaShadowPanel2.SuspendLayout()
         Me.PanelSituationCaisse.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GunaPanel1
@@ -131,35 +131,6 @@ Partial Class BilletageForm
         Me.GunaLabelNotification.TabIndex = 30
         Me.GunaLabelNotification.Text = "(0)"
         '
-        'GunaAdvenceButton3
-        '
-        Me.GunaAdvenceButton3.AnimationHoverSpeed = 0.07!
-        Me.GunaAdvenceButton3.AnimationSpeed = 0.03!
-        Me.GunaAdvenceButton3.BaseColor = System.Drawing.Color.Transparent
-        Me.GunaAdvenceButton3.BorderColor = System.Drawing.Color.Black
-        Me.GunaAdvenceButton3.CheckedBaseColor = System.Drawing.Color.Gray
-        Me.GunaAdvenceButton3.CheckedBorderColor = System.Drawing.Color.Black
-        Me.GunaAdvenceButton3.CheckedForeColor = System.Drawing.Color.White
-        Me.GunaAdvenceButton3.CheckedImage = CType(resources.GetObject("GunaAdvenceButton3.CheckedImage"), System.Drawing.Image)
-        Me.GunaAdvenceButton3.CheckedLineColor = System.Drawing.Color.DimGray
-        Me.GunaAdvenceButton3.DialogResult = System.Windows.Forms.DialogResult.None
-        Me.GunaAdvenceButton3.FocusedColor = System.Drawing.Color.Empty
-        Me.GunaAdvenceButton3.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.GunaAdvenceButton3.ForeColor = System.Drawing.Color.White
-        Me.GunaAdvenceButton3.Image = CType(resources.GetObject("GunaAdvenceButton3.Image"), System.Drawing.Image)
-        Me.GunaAdvenceButton3.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaAdvenceButton3.LineColor = System.Drawing.Color.Transparent
-        Me.GunaAdvenceButton3.Location = New System.Drawing.Point(1072, 5)
-        Me.GunaAdvenceButton3.Name = "GunaAdvenceButton3"
-        Me.GunaAdvenceButton3.OnHoverBaseColor = System.Drawing.Color.Transparent
-        Me.GunaAdvenceButton3.OnHoverBorderColor = System.Drawing.Color.Black
-        Me.GunaAdvenceButton3.OnHoverForeColor = System.Drawing.Color.White
-        Me.GunaAdvenceButton3.OnHoverImage = Nothing
-        Me.GunaAdvenceButton3.OnHoverLineColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.GunaAdvenceButton3.OnPressedColor = System.Drawing.Color.Black
-        Me.GunaAdvenceButton3.Size = New System.Drawing.Size(40, 19)
-        Me.GunaAdvenceButton3.TabIndex = 29
-        '
         'GunaLabelTitreDeLaFenetre
         '
         Me.GunaLabelTitreDeLaFenetre.AutoSize = True
@@ -170,43 +141,6 @@ Partial Class BilletageForm
         Me.GunaLabelTitreDeLaFenetre.Size = New System.Drawing.Size(109, 25)
         Me.GunaLabelTitreDeLaFenetre.TabIndex = 26
         Me.GunaLabelTitreDeLaFenetre.Text = "BILLETERIE"
-        '
-        'PictureBox2
-        '
-        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
-        Me.PictureBox2.Location = New System.Drawing.Point(3, 1)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(29, 22)
-        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.PictureBox2.TabIndex = 25
-        Me.PictureBox2.TabStop = False
-        '
-        'GunaImageButton2
-        '
-        Me.GunaImageButton2.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.GunaImageButton2.DialogResult = System.Windows.Forms.DialogResult.None
-        Me.GunaImageButton2.Image = CType(resources.GetObject("GunaImageButton2.Image"), System.Drawing.Image)
-        Me.GunaImageButton2.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaImageButton2.Location = New System.Drawing.Point(662, 3)
-        Me.GunaImageButton2.Name = "GunaImageButton2"
-        Me.GunaImageButton2.OnHoverImage = Nothing
-        Me.GunaImageButton2.OnHoverImageOffset = New System.Drawing.Point(0, 0)
-        Me.GunaImageButton2.Size = New System.Drawing.Size(27, 21)
-        Me.GunaImageButton2.TabIndex = 3
-        Me.GunaImageButton2.Visible = False
-        '
-        'GunaImageButton1
-        '
-        Me.GunaImageButton1.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.GunaImageButton1.DialogResult = System.Windows.Forms.DialogResult.None
-        Me.GunaImageButton1.Image = CType(resources.GetObject("GunaImageButton1.Image"), System.Drawing.Image)
-        Me.GunaImageButton1.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaImageButton1.Location = New System.Drawing.Point(686, 3)
-        Me.GunaImageButton1.Name = "GunaImageButton1"
-        Me.GunaImageButton1.OnHoverImage = Nothing
-        Me.GunaImageButton1.OnHoverImageOffset = New System.Drawing.Point(0, 0)
-        Me.GunaImageButton1.Size = New System.Drawing.Size(27, 21)
-        Me.GunaImageButton1.TabIndex = 2
         '
         'GunaLabel1
         '
@@ -1361,6 +1295,72 @@ Partial Class BilletageForm
         '
         Me.BackgroundWorker5.WorkerSupportsCancellation = True
         '
+        'GunaAdvenceButton3
+        '
+        Me.GunaAdvenceButton3.AnimationHoverSpeed = 0.07!
+        Me.GunaAdvenceButton3.AnimationSpeed = 0.03!
+        Me.GunaAdvenceButton3.BaseColor = System.Drawing.Color.Transparent
+        Me.GunaAdvenceButton3.BorderColor = System.Drawing.Color.Black
+        Me.GunaAdvenceButton3.CheckedBaseColor = System.Drawing.Color.Gray
+        Me.GunaAdvenceButton3.CheckedBorderColor = System.Drawing.Color.Black
+        Me.GunaAdvenceButton3.CheckedForeColor = System.Drawing.Color.White
+        Me.GunaAdvenceButton3.CheckedImage = CType(resources.GetObject("GunaAdvenceButton3.CheckedImage"), System.Drawing.Image)
+        Me.GunaAdvenceButton3.CheckedLineColor = System.Drawing.Color.DimGray
+        Me.GunaAdvenceButton3.DialogResult = System.Windows.Forms.DialogResult.None
+        Me.GunaAdvenceButton3.FocusedColor = System.Drawing.Color.Empty
+        Me.GunaAdvenceButton3.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.GunaAdvenceButton3.ForeColor = System.Drawing.Color.White
+        Me.GunaAdvenceButton3.Image = CType(resources.GetObject("GunaAdvenceButton3.Image"), System.Drawing.Image)
+        Me.GunaAdvenceButton3.ImageSize = New System.Drawing.Size(20, 20)
+        Me.GunaAdvenceButton3.LineColor = System.Drawing.Color.Transparent
+        Me.GunaAdvenceButton3.Location = New System.Drawing.Point(1072, 5)
+        Me.GunaAdvenceButton3.Name = "GunaAdvenceButton3"
+        Me.GunaAdvenceButton3.OnHoverBaseColor = System.Drawing.Color.Transparent
+        Me.GunaAdvenceButton3.OnHoverBorderColor = System.Drawing.Color.Black
+        Me.GunaAdvenceButton3.OnHoverForeColor = System.Drawing.Color.White
+        Me.GunaAdvenceButton3.OnHoverImage = Nothing
+        Me.GunaAdvenceButton3.OnHoverLineColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.GunaAdvenceButton3.OnPressedColor = System.Drawing.Color.Black
+        Me.GunaAdvenceButton3.Size = New System.Drawing.Size(40, 19)
+        Me.GunaAdvenceButton3.TabIndex = 29
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
+        Me.PictureBox2.Location = New System.Drawing.Point(3, 1)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(29, 22)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PictureBox2.TabIndex = 25
+        Me.PictureBox2.TabStop = False
+        '
+        'GunaImageButton2
+        '
+        Me.GunaImageButton2.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.GunaImageButton2.DialogResult = System.Windows.Forms.DialogResult.None
+        Me.GunaImageButton2.Image = CType(resources.GetObject("GunaImageButton2.Image"), System.Drawing.Image)
+        Me.GunaImageButton2.ImageSize = New System.Drawing.Size(20, 20)
+        Me.GunaImageButton2.Location = New System.Drawing.Point(662, 3)
+        Me.GunaImageButton2.Name = "GunaImageButton2"
+        Me.GunaImageButton2.OnHoverImage = Nothing
+        Me.GunaImageButton2.OnHoverImageOffset = New System.Drawing.Point(0, 0)
+        Me.GunaImageButton2.Size = New System.Drawing.Size(27, 21)
+        Me.GunaImageButton2.TabIndex = 3
+        Me.GunaImageButton2.Visible = False
+        '
+        'GunaImageButton1
+        '
+        Me.GunaImageButton1.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.GunaImageButton1.DialogResult = System.Windows.Forms.DialogResult.None
+        Me.GunaImageButton1.Image = CType(resources.GetObject("GunaImageButton1.Image"), System.Drawing.Image)
+        Me.GunaImageButton1.ImageSize = New System.Drawing.Size(20, 20)
+        Me.GunaImageButton1.Location = New System.Drawing.Point(686, 3)
+        Me.GunaImageButton1.Name = "GunaImageButton1"
+        Me.GunaImageButton1.OnHoverImage = Nothing
+        Me.GunaImageButton1.OnHoverImageOffset = New System.Drawing.Point(0, 0)
+        Me.GunaImageButton1.Size = New System.Drawing.Size(27, 21)
+        Me.GunaImageButton1.TabIndex = 2
+        '
         'BilletageForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1384,7 +1384,6 @@ Partial Class BilletageForm
         Me.Text = "BilletageForm"
         Me.GunaPanel1.ResumeLayout(False)
         Me.GunaPanel1.PerformLayout()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GunaShadowPanel1.ResumeLayout(False)
         Me.GunaShadowPanel1.PerformLayout()
         Me.GunaShadowPanel2.ResumeLayout(False)
@@ -1393,6 +1392,7 @@ Partial Class BilletageForm
         Me.PanelSituationCaisse.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

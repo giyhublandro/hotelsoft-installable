@@ -25,9 +25,13 @@ Public Class HomeForm
 
         MainWindow.Show()
 
-        If GlobalVariable.AgenceActuelle.Rows(0)("RAPPORT_AUTO") = 0 Then
+        If GlobalVariable.AgenceActuelle.Rows(0)("RAPPORT_AUTO") = 0 Then 'SI LE RAPPORT N'A PAS DEJA ETE ENVOYE
+
             backGroundWorkerToCall()
+            BackgroundWorker4.RunWorkerAsync()
+
             Me.Hide()
+
         Else
             Me.Close()
         End If
@@ -116,34 +120,37 @@ Public Class HomeForm
 
         Me.Cursor = Cursors.WaitCursor
 
-        'Dim mac As String = Trim(Functions.getMacAddresse())
-
-        'Dim miniForm As Boolean = False
-
-        'If Trim(GlobalVariable.AgenceActuelle.Rows(0)("CAISSE_ENREGISTREUSE_1")).Equals(mac) And Not Trim(mac).Equals("") Then
-        'miniForm = True
-        'ElseIf Trim(GlobalVariable.AgenceActuelle.Rows(0)("CAISSE_ENREGISTREUSE_2")).Equals(mac) And Not Trim(mac).Equals("") Then
-        'miniForm = True
-        'End If
-
         GlobalVariable.typeDeClientAFacturer = "comptoir"
 
         If Trim(GlobalVariable.AgenceActuelle.Rows(0)("CAISSE_ENREGISTREUSE_1")).Equals("") Then
-            BarRestaurantForm.Show()
-            BarRestaurantForm.GunaLabelHeader.Text = "COMPTOIR"
+
         Else
-            BarRestaurantCaisseEnregistreuseForm.Show()
-            BarRestaurantCaisseEnregistreuseForm.GunaLabelHeader.Text = "COMPTOIR"
+
         End If
 
-        'If miniForm Then
+        If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CAISSE_ENREGISTREUSE") = 1 Then
 
-        'Else
+            If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("FAST_FOOD") = 1 Then
+                FastFoodForm.Show()
+                FastFoodForm.TopMost = True
+            Else
+                BarRestaurantCaisseEnregistreuseForm.Show()
+            End If
 
-        'End If
+        Else
 
-        'BarRestaurantCaisseEnregistreuseForm.Show()
-        'BarRestaurantCaisseEnregistreuseForm.GunaLabelHeader.Text = "COMPTOIR"
+            If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("FAST_FOOD") = 1 Then
+                FastFoodForm.Show()
+                FastFoodForm.TopMost = True
+            Else
+                BarRestaurantForm.Show()
+                FastFoodForm.TopMost = True
+            End If
+
+        End If
+
+        'FastFoodForm.Close()
+        'BarRestaurantForm.Show()
 
         Me.Close()
 
@@ -175,7 +182,6 @@ Public Class HomeForm
     Private Sub HomeForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Dim languages As New Languages()
-
         languages.home(GlobalVariable.actualLanguageValue)
 
         'AccueilForm.Hide()
@@ -223,10 +229,128 @@ Public Class HomeForm
                 GunaButtonCuisine.Enabled = False
             End If
 
+            If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("MENU_MARKETING") = 0 Then
+                GunaButtonMarketing.Enabled = False
+            End If
+
         End If
 
-        AccueilForm.Close()
+        If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+            GunaPictureBoxRestaurant.Visible = False
+            GunaPictureBoxHotel.Visible = True
+        Else
+            GunaPictureBoxRestaurant.Visible = True
+            GunaPictureBoxHotel.Visible = False
 
+            GunaButtonAccueil1.Visible = False
+            GunaButtonAccueil.Visible = False
+            GunaButtonMenuReception.Visible = False
+            GunaButtonMenuReservation.Visible = False
+            GunaButtonMenuTechnique.Visible = False
+            GunaButtonMenuService.Visible = False
+            GunaAdvenceButtonLectureDeCarte.Visible = False
+
+            If GlobalVariable.actualLanguageValue = 0 Then
+                GunaLabel2.Text = "MODULE OF BARCLES RESTAURANT SOFT"
+            Else
+                GunaLabel2.Text = "MODULE DE BARCLES RESTAURANT SOFT"
+            End If
+
+        End If
+
+        'AccueilForm.Close()
+
+        Dim CODE_UTILISATEUR_MAJ As String = ""
+        Dim CODE_UTILISATEUR As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+
+        Dim infoUser As DataTable = Functions.getElementByCode(CODE_UTILISATEUR, "utilisateur_acces_profil", "CODE_UTILISATEUR")
+
+        If infoUser.Rows.Count > 1 Then
+
+            GunaButtonMenuReservation.Enabled = False
+            GunaButtonReservation.Enabled = False
+
+            GunaButtonMenuReception.Enabled = False
+            GunaButtonReception.Enabled = False
+
+            GunaButtonMenuEconomat.Enabled = False
+            GunaButtonEconomat.Enabled = False
+
+            GunaButtonMenuService.Enabled = False
+            GunaButtonServiceEtage.Enabled = False
+
+            GunaButtonMenuBarRestaurant.Enabled = False
+            GunaButtonBarResturant.Enabled = False
+
+            GunaButtonMenuComptabilite.Enabled = False
+            GunaButtonCompatbilite.Enabled = False
+
+            GunaButtonMenuTechnique.Enabled = False
+            GunaButtonCuisine.Enabled = False
+            GunaButtonMarketing.Enabled = False
+
+            GunaButtonChoixProfil.Visible = True
+
+        End If
+
+        Dim showCustomImage As Boolean = False
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+            If GlobalVariable.config.Rows.Count > 0 Then
+                showCustomImage = True
+            End If
+        End If
+
+        If showCustomImage Then
+
+            GunaPictureBoxHotel.Visible = False
+            GunaPictureBoxRestaurant.Visible = False
+            GunaPictureBoxPerso.Visible = True
+
+            If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    GunaLabel2.Text = "MODULES OF LYTECORE HOTEL"
+                Else
+                    GunaLabel2.Text = "MODULES DE LYTECORE HOTEL"
+                End If
+            Else
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    GunaLabel2.Text = "MODULES OF LYTECORE RESTAURANT"
+                Else
+                    GunaLabel2.Text = "MODULES DE LYTECORE RESTAURANT"
+                End If
+            End If
+
+            Dim backColorString As String = GlobalVariable.config.Rows(0)("SCHEME_COLOR")
+            Dim backSecondaryColorString As String = GlobalVariable.config.Rows(0)("SCHEME_SECONDARY_COLOR")
+            Dim textColorString As String = GlobalVariable.config.Rows(0)("TEXT_PRIMARY_COLOR")
+            Dim textSecondaryColorString As String = GlobalVariable.config.Rows(0)("TEXT_SECONDARY_COLOR")
+
+            Dim paramCouleur() As String
+            Dim paramSecondaryCouleur() As String
+            Dim paramSecondaryTextCouleur() As String
+            Dim paramPrimaryTextCouleur() As String
+
+            paramCouleur = Functions.returningColorFromString(backColorString)
+            paramSecondaryCouleur = Functions.returningColorFromString(backSecondaryColorString)
+            paramSecondaryTextCouleur = Functions.returningColorFromString(textSecondaryColorString)
+            paramPrimaryTextCouleur = Functions.returningColorFromString(textColorString)
+
+            If paramCouleur(1).Equals("") Then
+                GunaPanel1.BackColor = Color.FromName(paramCouleur(0))
+                GunaPanel3.BackColor = Color.FromName(paramCouleur(0))
+            Else
+                GunaPanel1.BackColor = Color.FromArgb(Integer.Parse(paramCouleur(0)), Integer.Parse(paramCouleur(1)), Integer.Parse(paramCouleur(2)), Integer.Parse(paramCouleur(3)))
+                GunaPanel3.BackColor = Color.FromArgb(Integer.Parse(paramCouleur(0)), Integer.Parse(paramCouleur(1)), Integer.Parse(paramCouleur(2)), Integer.Parse(paramCouleur(3)))
+            End If
+
+            'GunaPictureBoxPerso.BringToFront()
+            'GunaLabelHotelName.Text = GlobalVariable.AgenceActuelle.Rows(0)("NOM_AGENCE")
+            'GunaLabelHotelName.BringToFront()
+
+            PictureBox2.Image = Global.BarclesHSoft.My.Resources.Resources.h1
+
+        End If
     End Sub
 
     Private Sub GunaButton45_Click(sender As Object, e As EventArgs) Handles GunaButtonAccueil.Click
@@ -396,23 +520,13 @@ Public Class HomeForm
 
         Me.Cursor = Cursors.WaitCursor
 
-        'FacturationForm.GunaLabelHeader.Text = "AU COMPTANT"
-        'FacturationForm.TopMost = True
-        'FacturationForm.Location = New System.Drawing.Point(10, 110)
-        'FacturationForm.Show()
-        'MainWindowBarRestaurantForm.GunaLabelHeader.Text = "COMPTOIRE"
-
         MainWindowCuisineForm.Show()
 
-        'BarRestaurantForm.Show()
-
         Me.Close()
-        'Me.Hide()
 
         Me.Cursor = Cursors.Default
 
     End Sub
-
 
     Public Sub backGroundWorkerToCall()
 
@@ -422,6 +536,14 @@ Public Class HomeForm
             BackgroundWorker3.RunWorkerAsync()
         ElseIf Not BackgroundWorker1.IsBusy Then
             BackgroundWorker1.RunWorkerAsync()
+        ElseIf Not BackgroundWorker5.IsBusy Then
+            BackgroundWorker5.RunWorkerAsync()
+        ElseIf Not BackgroundWorker6.IsBusy Then
+            BackgroundWorker6.RunWorkerAsync()
+        ElseIf Not BackgroundWorker7.IsBusy Then
+            BackgroundWorker7.RunWorkerAsync()
+        ElseIf Not BackgroundWorker8.IsBusy Then
+            BackgroundWorker8.RunWorkerAsync()
         End If
 
     End Sub
@@ -439,6 +561,51 @@ Public Class HomeForm
     Private Sub BackgroundWorker3_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker3.DoWork
         Dim dateDeTravail As Date = GlobalVariable.DateDeTravail.AddDays(-1)
         Functions.ultrMessageFichierAuto(dateDeTravail)
+    End Sub
+
+    Private Sub BackgroundWorker6_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker6.DoWork
+        Dim dateDeTravail As Date = GlobalVariable.DateDeTravail.AddDays(-1)
+        Functions.ultrMessageFichierAuto(dateDeTravail)
+    End Sub
+
+    Private Sub BackgroundWorker5_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker5.DoWork
+        Dim dateDeTravail As Date = GlobalVariable.DateDeTravail.AddDays(-1)
+        Functions.ultrMessageFichierAuto(dateDeTravail)
+    End Sub
+
+    Private Sub BackgroundWorker7_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker7.DoWork
+        Dim dateDeTravail As Date = GlobalVariable.DateDeTravail.AddDays(-1)
+        Functions.ultrMessageFichierAuto(dateDeTravail)
+    End Sub
+
+    Private Sub BackgroundWorker8_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker8.DoWork
+        Dim dateDeTravail As Date = GlobalVariable.DateDeTravail.AddDays(-1)
+        Functions.ultrMessageFichierAuto(dateDeTravail)
+    End Sub
+
+    Private Sub BackgroundWorker4_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker4.DoWork
+        Functions.listeDesDeparts(GlobalVariable.DateDeTravail.AddDays(-2))
+    End Sub
+
+    Private Sub GunaButtonChoixProfil_Click(sender As Object, e As EventArgs) Handles GunaButtonChoixProfil.Click
+
+        '1- Si l'utilisateur a plus d'un profil on doit le faire choisir un profil
+        'ProfilChoixForm.Close()
+        ProfilChoixForm.Show()
+        ProfilChoixForm.TopMost = True
+
+    End Sub
+
+    Private Sub GunaButtonMarketing_Click(sender As Object, e As EventArgs) Handles GunaButtonMarketing.Click
+
+        Me.Cursor = Cursors.WaitCursor
+
+        MainwindoMarketinngForm.Show()
+
+        Me.Close()
+
+        Me.Cursor = Cursors.Default
+
     End Sub
 
 End Class

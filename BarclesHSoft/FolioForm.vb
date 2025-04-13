@@ -712,7 +712,7 @@ Public Class FolioForm
                     If Double.Parse(dt.Rows(i)(3)) > 0 Then
                         MONTANT = Double.Parse(dt.Rows(i)(3)) * -1
                     ElseIf Double.Parse(dt.Rows(i)(3)) < 0 Then
-                        MONTANT = Double.Parse(dt.Rows(i)(3))
+                        MONTANT = Double.Parse(dt.Rows(i)(3)) * -1
                     ElseIf Double.Parse(dt.Rows(i)(4)) > 0 Then
                         MONTANT = Double.Parse(dt.Rows(i)(4))
                     ElseIf Double.Parse(dt.Rows(i)(4)) < 0 Then
@@ -757,6 +757,11 @@ Public Class FolioForm
     Private Async Sub DocumentToPrint(ByVal Optional cloturer As String = "")
 
         Dim TELEPHONE As String = ""
+
+        Dim signe As Integer = -1
+        If GlobalVariable.AgenceActuelle.Rows(0)("INVERSER_SIGNE_FACTURE") = 1 Then
+            signe *= -1
+        End If
 
         Dim sfd As New SaveFileDialog With {.Filter = "PDF Files (*.pdf) | *.pdf"}
 
@@ -821,13 +826,13 @@ Public Class FolioForm
 
             If GlobalVariable.actualLanguageValue = 1 Then
 
-                Dim p1 As Paragraph = New Paragraph(Chr(13) & Chr(13) & Chr(13) & "FACTURE No : " & Functions.GeneratingRandomCodeWithSpecifications("facture", "") & Chr(13) & "DATE : " & GlobalVariable.DateDeTravail & Chr(13) & "Date arrivée : " & dateArrivee.ToShortDateString & Chr(13) & "Date départ : " & dateDepart.ToShortDateString & Chr(13), pColumn)
+                Dim p1 As Paragraph = New Paragraph(Chr(13) & Chr(13) & Chr(13) & "FACTURE No : " & Functions.GeneratingRandomCodeWithSpecifications("facture", "") & Chr(13) & "DATE : " & GlobalVariable.DateDeTravail & Chr(13) & "DATE ARRIVEE : " & dateArrivee.ToShortDateString & Chr(13) & "DATE DEPART : " & dateDepart.ToShortDateString & Chr(13), pColumn)
                 p1.Alignment = Element.ALIGN_LEFT
                 pdfDoc.Add(p1)
 
             Else
 
-                Dim p1 As Paragraph = New Paragraph(Chr(13) & Chr(13) & Chr(13) & "BILL No : " & Functions.GeneratingRandomCodeWithSpecifications("facture", "") & Chr(13) & "DATE : " & GlobalVariable.DateDeTravail & Chr(13) & "Arrivate Date : " & dateArrivee.ToShortDateString & Chr(13) & "Departure Date: " & dateDepart.ToShortDateString & Chr(13), pColumn)
+                Dim p1 As Paragraph = New Paragraph(Chr(13) & Chr(13) & Chr(13) & "INVOICE No : " & Functions.GeneratingRandomCodeWithSpecifications("facture", "") & Chr(13) & "DATE : " & GlobalVariable.DateDeTravail & Chr(13) & "ARRIVAL DATE : " & dateArrivee.ToShortDateString & Chr(13) & "DEPARTURE DATE : " & dateDepart.ToShortDateString & Chr(13), pColumn)
                 p1.Alignment = Element.ALIGN_LEFT
                 pdfDoc.Add(p1)
 
@@ -878,10 +883,8 @@ Public Class FolioForm
 
                                 If GlobalVariable.actualLanguageValue = 1 Then
                                     termes = Chr(13) & "NOM ET PRENOM : " & clientInformation.Rows(0)("NOM_PRENOM") & Chr(13) & "CHAMBRE N° : " & GlobalVariable.ReservationToUpdate(0)("CHAMBRE_ID") & Chr(13) & "RESERVATION NUMERO : " & GlobalVariable.codeReservationToUpdate & Chr(13) & Chr(13) & Chr(13)
-
                                 Else
                                     termes = Chr(13) & "FIRST AND LAST NAME : " & clientInformation.Rows(0)("NOM_PRENOM") & Chr(13) & "ROMM N° : " & GlobalVariable.ReservationToUpdate(0)("CHAMBRE_ID") & Chr(13) & "RESERVATION NUMBER : " & GlobalVariable.codeReservationToUpdate & Chr(13) & Chr(13) & Chr(13)
-
                                 End If
 
                             End If
@@ -996,7 +999,12 @@ Public Class FolioForm
             'pdfCell.BackgroundColor = BaseColor.LIGHT_GRAY
             pdfTable.AddCell(pdfCell)
 
-            pdfCell = New PdfPCell(New Paragraph("QTE", pColumn))
+            If GlobalVariable.actualLanguageValue = 0 Then
+                pdfCell = New PdfPCell(New Paragraph("QTY", pColumn))
+            Else
+                pdfCell = New PdfPCell(New Paragraph("QTE", pColumn))
+            End If
+
             pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
             pdfCell.MinimumHeight = 18
             pdfCell.PaddingLeft = 5.0F
@@ -1022,12 +1030,12 @@ Public Class FolioForm
             ElseIf GlobalVariable.FolioToPrint = "Folio4" Then
                 dtFromFolio = GetDataTableFolioN(GunaDataGridViewFolio4)
             End If
-            'klg
+            'kklg
             dt = chargementTemporaireDesElementsDeFacturePourImpression(dtFromFolio)
 
             Dim exonere As Boolean = Functions.exonereDelaTVAComplet(GlobalVariable.codeReservationToUpdate)
 
-            If dt.Rows.Count > 0 Then
+            If dt.Rows.Count > 0 Then'
 
                 TotalVersement = 0
                 'TotalFacture = 0
@@ -1054,13 +1062,22 @@ Public Class FolioForm
                     pdfCell.HorizontalAlignment = Element.ALIGN_CENTER
                     pdfTable.AddCell(pdfCell)
 
-                    pdfCell = New PdfPCell(New Paragraph(Format(dt.Rows(i)("MONTANT"), "#,##0"), pRow))
+                    Dim MONTANT_INVERSE As Double = dt.Rows(i)("MONTANT")
+                    If MONTANT_INVERSE < 0 Then
+                        MONTANT_INVERSE *= signe * -1
+                    End If
+
+                    If GlobalVariable.AgenceActuelle.Rows(0)("INVERSER_SIGNE_FACTURE") = 1 Then
+                        pdfCell = New PdfPCell(New Paragraph(Format(MONTANT_INVERSE, "#,##0"), pRow))
+                    Else
+                        pdfCell = New PdfPCell(New Paragraph(Format(dt.Rows(i)("MONTANT"), "#,##0"), pRow))
+                    End If
+
                     pdfCell.MinimumHeight = 18
                     pdfCell.PaddingLeft = 5.0F
                     pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT
 
                     pdfTable.AddCell(pdfCell)
-
 
                     'TAXE DE SEJOURS
                     If dt.Rows(i)(3) < 0 Then
@@ -1069,10 +1086,11 @@ Public Class FolioForm
                         If GlobalVariable.actualLanguageValue = 1 Then
                             LIBELLE_TAXE = "TAXE DE SEJOUR"
                         Else
-                            LIBELLE_TAXE = "STAY TAXES"
+                            LIBELLE_TAXE = "TOURIST TAX"
                         End If
 
                         Dim LIBELLE_FACTURE As String = dt.Rows(i)(1).ToString.ToUpper()
+                        totalTVA += Functions.prelevementDeTaxeSurUnMontantPOurCalcul(dt.Rows(i)(3))
 
                         If LIBELLE_FACTURE.Contains(LIBELLE_TAXE) Then
                             taxeSejour += Functions.NonprelevementDeTaxeSurUnMontant(dt.Rows(i)(3))
@@ -1082,17 +1100,10 @@ Public Class FolioForm
                                 'ON NE PRELEVE PAS LA TAXE SUR LES CHARGES 'SI TAXE ACTIVE
                                 'totalTVA += Functions.NonprelevementDeTaxeSurUnMontant(dt.Rows(i)(3))
                                 totalTVA = 0
-                            Else
-                                'ON PRELEVE LA TAXE SUR LES CHARGES SAUF SUR LA TAXE DE SEJOUR'
-                                totalTVA += Functions.prelevementDeTaxeSurUnMontantPOurCalcul(dt.Rows(i)(3))
                             End If
 
                         End If
 
-                        'TotalFacture += Functions.NonprelevementDeTaxeSurUnMontant(dt.Rows(i)(3)) 'calcul de la somme apres prelevement de la taxe
-
-                    Else
-                        'TotalVersement += Functions.NonprelevementDeTaxeSurUnMontant(dt.Rows(i)(3))
                     End If
 
                 Next
@@ -1179,7 +1190,7 @@ Public Class FolioForm
 
                 End If
 
-                If taxeSejour >= 0 Then
+                If taxeSejour > 0 Then
 
                     '-----------------------------------
 
@@ -1198,7 +1209,7 @@ Public Class FolioForm
                     If GlobalVariable.actualLanguageValue = 1 Then
                         pdfCell6 = New PdfPCell(New Paragraph("TAXE DE SEJOURS : ", fontTotal))
                     Else
-                        pdfCell6 = New PdfPCell(New Paragraph("STAY TAXES : ", fontTotal))
+                        pdfCell6 = New PdfPCell(New Paragraph("TOURIST TAX : ", fontTotal))
                     End If
 
                     pdfCell6.HorizontalAlignment = Element.ALIGN_RIGHT
@@ -1406,6 +1417,10 @@ Public Class FolioForm
                 pdfCell7.Colspan = 3
                 pdfTable7.AddCell(pdfCell7)
 
+                If soldeNet < 0 Then
+                    soldeNet *= signe * -1
+                End If
+
                 pdfCell7 = New PdfPCell(New Paragraph(Format(soldeNet, "#,##0"), fontTotal))
                 pdfCell7.HorizontalAlignment = Element.ALIGN_RIGHT
                 pdfCell7.MinimumHeight = 18
@@ -1577,7 +1592,6 @@ Public Class FolioForm
                 If GlobalVariable.actualLanguageValue = 1 Then
 
                     Dim totalLettre = New Paragraph(Chr(13) & Chr(13) & "Arrêter la présente à la somme de : " & Functions.NBLT(TotalFacture) & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE"), fontTotal)
-
                     pdfDoc.Add(totalLettre)
 
                     Dim signature = New Paragraph(Chr(13) & Chr(13) & "                 SIGNATURE DU CLIENT                                                            SIGNATURE DE L'HOTEL", pRow)
@@ -1585,14 +1599,11 @@ Public Class FolioForm
 
                 Else
 
-                    Dim totalLettre = New Paragraph(Chr(13) & Chr(13) & "Hold at an amount of : " & Functions.NumberToTextEnglish(TotalFacture) & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE"), fontTotal)
-
+                    Dim totalLettre = New Paragraph(Chr(13) & Chr(13) & "Hold at an amount of : " & Functions.NBLTENGLISH(TotalFacture) & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE"), fontTotal)
                     pdfDoc.Add(totalLettre)
 
                     Dim signature = New Paragraph(Chr(13) & Chr(13) & "                   CLIENT'S SIGNATURE                                                            HOTEL'S SIGNATURE", pRow)
                     pdfDoc.Add(signature)
-
-
                 End If
 
                 pdfDoc.Close()
@@ -2197,7 +2208,7 @@ Public Class FolioForm
                     pdfCell.Border = 0
                     pFooter.AddCell(pdfCell)
 
-                    pFooter.WriteSelectedRows(0, -1, 0, 55, writer.DirectContent)
+                    pFooter.WriteSelectedRows(0, -1, 0, 60, writer.DirectContent)
 
                 End If
 

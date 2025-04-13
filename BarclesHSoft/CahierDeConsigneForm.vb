@@ -72,7 +72,6 @@ Public Class CahierDeConsigneForm
     Private Sub CahierDeConsigneForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Dim language As New Languages()
-
         language.cahierDeConsigne(GlobalVariable.actualLanguageValue)
 
         Dim DateDebut As Date = GlobalVariable.DateDeTravail
@@ -84,10 +83,27 @@ Public Class CahierDeConsigneForm
         GunaDateTimePickerDebut.Value = GlobalVariable.DateDeTravail.ToShortDateString
         GunaDateTimePickerFin.Value = GlobalVariable.DateDeTravail.ToShortDateString
 
-    End Sub
+        Dim showCustomImage As Boolean = False
 
-    'modification des commentaire d'une consigne
-    Private Sub GunaDataGridViewConsigneComment_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GunaDataGridViewConsigneComment.CellDoubleClick, GunaDataGridViewConsigneMessage.CellDoubleClick
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+            If GlobalVariable.config.Rows.Count > 0 Then
+                showCustomImage = True
+            End If
+        End If
+
+        If showCustomImage Then
+
+            Dim buttonPanel As Integer = 1
+            GunaPanel1.BackColor = Functions.colorationWindow(buttonPanel)
+
+            buttonPanel = 0 'Button Background
+            GunaButtonSupprimerConsigne.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonNouvelle.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonFiltrer.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonValiderConsigne.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonComment.BaseColor = Functions.colorationWindow(buttonPanel)
+
+        End If
 
     End Sub
 

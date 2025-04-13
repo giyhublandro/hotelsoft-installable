@@ -13,10 +13,23 @@
         Dim language As New Languages()
         language.ajouterConsigne(GlobalVariable.actualLanguageValue)
 
-        If GlobalVariable.AjouterConsigneFormRole = "Nouvelle" Then
-            ' GunaLabel1.Text = "SAISIR UNE CONSIGNE :"
-        ElseIf GlobalVariable.AjouterConsigneFormRole = "Commenter" Then
-            'GunaLabel1.Text = "SAISIR UN COMMENTAIRE : "
+        Dim showCustomImage As Boolean = False
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+            If GlobalVariable.config.Rows.Count > 0 Then
+                showCustomImage = True
+            End If
+        End If
+
+        If showCustomImage Then
+
+            Dim buttonPanel As Integer = 1
+            GunaPanel1.BackColor = Functions.colorationWindow(buttonPanel)
+
+            buttonPanel = 0 'Button Background
+            GunaButtonLectureDeCarte.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonAjouterConsigne.BaseColor = Functions.colorationWindow(buttonPanel)
+
         End If
 
     End Sub

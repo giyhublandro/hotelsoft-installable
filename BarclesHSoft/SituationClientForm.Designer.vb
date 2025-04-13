@@ -24,9 +24,9 @@ Partial Class SituationClientForm
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SituationClientForm))
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GunaLabelGestCompteGeneraux = New Guna.UI.WinForms.GunaLabel()
         Me.GunaPanel1 = New Guna.UI.WinForms.GunaPanel()
         Me.GunaImageButton4 = New Guna.UI.WinForms.GunaImageButton()
@@ -44,6 +44,15 @@ Partial Class SituationClientForm
         Me.GunaLabel23 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaTextBoxSolde = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaDataGridViewSituation = New Guna.UI.WinForms.GunaDataGridView()
+        Me.Ordre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.designation = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.debit = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.credit = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Article = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.code = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.GriffeUtilisateur = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GunaButtonFacturer = New Guna.UI.WinForms.GunaButton()
         Me.GunaPanel2 = New Guna.UI.WinForms.GunaPanel()
         Me.GunaButtonRoutageManuel = New Guna.UI.WinForms.GunaButton()
@@ -62,15 +71,6 @@ Partial Class SituationClientForm
         Me.LabelNomClient = New System.Windows.Forms.Label()
         Me.LabelChambre = New System.Windows.Forms.Label()
         Me.GunaButtonTransferer = New Guna.UI.WinForms.GunaButton()
-        Me.Ordre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.designation = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.debit = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.credit = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Article = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.code = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.GriffeUtilisateur = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GunaPanel1.SuspendLayout()
         CType(Me.GunaDataGridViewSituation, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GunaContextMenuStripTransfertDeCharge.SuspendLayout()
@@ -297,32 +297,32 @@ Partial Class SituationClientForm
         Me.GunaDataGridViewSituation.AllowUserToOrderColumns = True
         Me.GunaDataGridViewSituation.AllowUserToResizeColumns = False
         Me.GunaDataGridViewSituation.AllowUserToResizeRows = False
-        DataGridViewCellStyle13.BackColor = System.Drawing.Color.White
-        Me.GunaDataGridViewSituation.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewSituation.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.GunaDataGridViewSituation.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.GunaDataGridViewSituation.BackgroundColor = System.Drawing.Color.LightBlue
         Me.GunaDataGridViewSituation.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewSituation.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewSituation.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle14.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewSituation.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewSituation.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.GunaDataGridViewSituation.ColumnHeadersHeight = 25
         Me.GunaDataGridViewSituation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GunaDataGridViewSituation.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Ordre, Me.DataGridViewTextBoxColumn2, Me.designation, Me.debit, Me.credit, Me.Article, Me.code, Me.Id, Me.GriffeUtilisateur})
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle15.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewSituation.DefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewSituation.DefaultCellStyle = DataGridViewCellStyle6
         Me.GunaDataGridViewSituation.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewSituation.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewSituation.Location = New System.Drawing.Point(14, 41)
@@ -356,6 +356,64 @@ Partial Class SituationClientForm
         Me.GunaDataGridViewSituation.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewSituation.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
         '
+        'Ordre
+        '
+        Me.Ordre.HeaderText = "Ordre"
+        Me.Ordre.Name = "Ordre"
+        Me.Ordre.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.HeaderText = "Date opération"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        '
+        'designation
+        '
+        Me.designation.HeaderText = "Libelle Operation"
+        Me.designation.Name = "designation"
+        Me.designation.ReadOnly = True
+        '
+        'debit
+        '
+        Me.debit.HeaderText = "Débit"
+        Me.debit.Name = "debit"
+        Me.debit.ReadOnly = True
+        '
+        'credit
+        '
+        Me.credit.HeaderText = "Crédit"
+        Me.credit.Name = "credit"
+        Me.credit.ReadOnly = True
+        '
+        'Article
+        '
+        Me.Article.HeaderText = "Article"
+        Me.Article.Name = "Article"
+        Me.Article.ReadOnly = True
+        Me.Article.Visible = False
+        '
+        'code
+        '
+        Me.code.HeaderText = "Code"
+        Me.code.Name = "code"
+        Me.code.ReadOnly = True
+        Me.code.Visible = False
+        '
+        'Id
+        '
+        Me.Id.HeaderText = "Id"
+        Me.Id.Name = "Id"
+        Me.Id.ReadOnly = True
+        Me.Id.Visible = False
+        '
+        'GriffeUtilisateur
+        '
+        Me.GriffeUtilisateur.HeaderText = "Utilisateur"
+        Me.GriffeUtilisateur.Name = "GriffeUtilisateur"
+        Me.GriffeUtilisateur.ReadOnly = True
+        '
         'GunaButtonFacturer
         '
         Me.GunaButtonFacturer.AnimationHoverSpeed = 0.07!
@@ -387,7 +445,7 @@ Partial Class SituationClientForm
         Me.GunaPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
         Me.GunaPanel2.Location = New System.Drawing.Point(-2, 639)
         Me.GunaPanel2.Name = "GunaPanel2"
-        Me.GunaPanel2.Size = New System.Drawing.Size(754, 10)
+        Me.GunaPanel2.Size = New System.Drawing.Size(846, 11)
         Me.GunaPanel2.TabIndex = 12
         '
         'GunaButtonRoutageManuel
@@ -674,64 +732,6 @@ Partial Class SituationClientForm
         Me.GunaButtonTransferer.TabIndex = 8
         Me.GunaButtonTransferer.Text = "Transférer"
         Me.GunaButtonTransferer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Ordre
-        '
-        Me.Ordre.HeaderText = "Ordre"
-        Me.Ordre.Name = "Ordre"
-        Me.Ordre.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        Me.DataGridViewTextBoxColumn2.HeaderText = "Date opération"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.ReadOnly = True
-        Me.DataGridViewTextBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        '
-        'designation
-        '
-        Me.designation.HeaderText = "Libelle Operation"
-        Me.designation.Name = "designation"
-        Me.designation.ReadOnly = True
-        '
-        'debit
-        '
-        Me.debit.HeaderText = "Débit"
-        Me.debit.Name = "debit"
-        Me.debit.ReadOnly = True
-        '
-        'credit
-        '
-        Me.credit.HeaderText = "Crédit"
-        Me.credit.Name = "credit"
-        Me.credit.ReadOnly = True
-        '
-        'Article
-        '
-        Me.Article.HeaderText = "Article"
-        Me.Article.Name = "Article"
-        Me.Article.ReadOnly = True
-        Me.Article.Visible = False
-        '
-        'code
-        '
-        Me.code.HeaderText = "Code"
-        Me.code.Name = "code"
-        Me.code.ReadOnly = True
-        Me.code.Visible = False
-        '
-        'Id
-        '
-        Me.Id.HeaderText = "Id"
-        Me.Id.Name = "Id"
-        Me.Id.ReadOnly = True
-        Me.Id.Visible = False
-        '
-        'GriffeUtilisateur
-        '
-        Me.GriffeUtilisateur.HeaderText = "Utilisateur"
-        Me.GriffeUtilisateur.Name = "GriffeUtilisateur"
-        Me.GriffeUtilisateur.ReadOnly = True
         '
         'SituationClientForm
         '

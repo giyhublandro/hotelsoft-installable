@@ -305,6 +305,7 @@ Public Class Caisse
 
     End Function
 
+
     Public Shared Function ligneDesBlocNoteDunCaissierQuelconque(ByVal DateDeSituation As Date, ByVal CODE_CAISSIER As String) As DataTable
 
         'Dim getUserQuery = "SELECT * FROM ligne_facture_bloc_note WHERE CODE_CAISSIER = @CODE_CAISSIER AND DATE_CREATION >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_CREATION <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND ETAT_FACTURE = @ETAT_FACTURE ORDER BY NUMERO_BLOC_NOTE ASC"
@@ -313,10 +314,8 @@ Public Class Caisse
 
         If GlobalVariable.AgenceActuelle.Rows(0)("SESSION_UNIQUE") = 0 Then
             getUserQuery = "SELECT * FROM ligne_facture WHERE DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND ETAT=@ETAT ORDER BY NUMERO_BLOC_NOTE ASC"
-
         Else
             getUserQuery = "SELECT * FROM ligne_facture WHERE CODE_UTILISATEUR_CREA = @CODE_CAISSIER AND DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND ETAT=@ETAT ORDER BY NUMERO_BLOC_NOTE ASC"
-
         End If
 
 
@@ -333,6 +332,77 @@ Public Class Caisse
 
         adapter.SelectCommand = command
         adapter.Fill(dt)
+
+        Return dt
+
+    End Function
+
+
+    Public Shared Function FastFoodBlocNoteDunCaissierQuelconque(ByVal DateDeSituation As Date) As DataTable
+
+        Dim getUserQuery = ""
+
+        getUserQuery = "SELECT * FROM ligne_facture_bloc_note WHERE DATE_CREATION >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_CREATION <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND ETAT_FACTURE IN (0,1,2,3)"
+
+        Dim command As New MySqlCommand(getUserQuery, GlobalVariable.connect)
+
+        'Dim ETAT_FACTURE As Integer = 0
+
+        'command.Parameters.Add("@CODE_CAISSIER", MySqlDbType.VarChar).Value = CODE_CAISSIER
+        command.Parameters.Add("@ETAT", MySqlDbType.Int32).Value = 0
+        'command.Parameters.Add("@ETAT_FACTURE", MySqlDbType.Int64).Value = ETAT_FACTURE
+
+        Dim adapter As New MySqlDataAdapter
+
+        Dim dt As New DataTable()
+        'Dim command As New MySqlCommand(query, GlobalVariable.connect)
+
+        adapter.SelectCommand = command
+        adapter.Fill(dt)
+
+        Return dt
+
+    End Function
+
+    Public Shared Function FastFoodLigneDunCaissierQuelconque(ByVal DateDeSituation As Date, ByVal NUMERO_BLOC_NOTE As String) As DataTable
+
+        Dim getUserQuery = ""
+
+        getUserQuery = "SELECT MONTANT_TTC, TYPE_LIGNE_FACTURE, SORTIE_PAR FROM ligne_facture
+        WHERE DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' 
+        AND SORTIE=@SORTIE AND NUMERO_BLOC_NOTE = @NUMERO_BLOC_NOTE"
+
+        Dim command As New MySqlCommand(getUserQuery, GlobalVariable.connect)
+        command.Parameters.Add("@SORTIE", MySqlDbType.Int32).Value = 1
+        command.Parameters.Add("@NUMERO_BLOC_NOTE", MySqlDbType.VarChar).Value = NUMERO_BLOC_NOTE
+        'command.Parameters.Add("@SORTIE_PAR", MySqlDbType.VarChar).Value = SORTIE_PAR
+
+        Dim adapter As New MySqlDataAdapter
+
+        Dim dt As New DataTable()
+
+        adapter.SelectCommand = command
+        adapter.Fill(dt)
+
+        Dim getUserQuery_ = ""
+
+        getUserQuery_ = "SELECT MONTANT_TTC, TYPE_LIGNE_FACTURE, SORTIE_PAR FROM ligne_facture_temp
+        WHERE DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' 
+        AND SORTIE=@SORTIE AND NUMERO_BLOC_NOTE = @NUMERO_BLOC_NOTE"
+
+        Dim command_ As New MySqlCommand(getUserQuery_, GlobalVariable.connect)
+        command_.Parameters.Add("@SORTIE", MySqlDbType.Int32).Value = 1
+        command_.Parameters.Add("@NUMERO_BLOC_NOTE", MySqlDbType.VarChar).Value = NUMERO_BLOC_NOTE
+        'command_.Parameters.Add("@SORTIE_PAR", MySqlDbType.VarChar).Value = SORTIE_PAR
+
+        Dim adapter_ As New MySqlDataAdapter
+
+        Dim dt_ As New DataTable()
+
+        adapter_.SelectCommand = command_
+        adapter_.Fill(dt_)
+
+        dt.Merge(dt_)
 
         Return dt
 
@@ -581,6 +651,34 @@ Public Class Caisse
 
     End Function
 
+
+
+    Public Function AutoLoadBlocNoteFastFood(ByVal DateDeSituation As Date, ByVal ETAT_BLOC_NOTE As Integer) As DataTable
+
+        Dim getUserQuery = ""
+        'SESSION UNIQUE VEUT DIRE QUE 
+        getUserQuery = "SELECT * FROM ligne_facture_bloc_note WHERE DATE_CREATION >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_CREATION <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND ETAT_BLOC_NOTE = @ETAT_BLOC_NOTE ORDER BY NUMERO_BLOC_NOTE ASC"
+
+        Dim command As New MySqlCommand(getUserQuery, GlobalVariable.connect)
+
+        Dim ETAT_FACTURE As Integer = 0
+
+        'command.Parameters.Add("@CODE_CAISSIER", MySqlDbType.VarChar).Value = CODE_CAISSIER
+        command.Parameters.Add("@CODE_RESERVATION", MySqlDbType.VarChar).Value = ""
+        command.Parameters.Add("@ETAT_BLOC_NOTE", MySqlDbType.Int64).Value = ETAT_BLOC_NOTE
+
+        Dim adapter As New MySqlDataAdapter
+
+        Dim dt As New DataTable()
+        'Dim command As New MySqlCommand(query, GlobalVariable.connect)
+
+        adapter.SelectCommand = command
+        adapter.Fill(dt)
+
+        Return dt
+
+    End Function
+
     Public Function lesDifferentsServeur(ByVal dateDeTravail As Date)
 
         '----------------------------------------------------------------------------------
@@ -595,6 +693,66 @@ Public Class Caisse
 
         Return dt
         '----------------------------------------------------------------------------------
+
+    End Function
+
+    Public Function AutoLoadBlocNoteVisualisationClasFastFoodsVerif(ByVal DateDeSituation As Date, ByVal ETAT_BLOC_NOTE As Integer) As DataTable
+
+        Dim getUserQuery = ""
+
+        getUserQuery = "SELECT * FROM ligne_facture_bloc_note
+            WHERE DATE_CREATION >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_CREATION <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' 
+            AND ETAT_BLOC_NOTE = @ETAT_BLOC_NOTE ORDER BY NUMERO_BLOC_NOTE ASC"
+
+
+        Dim command As New MySqlCommand(getUserQuery, GlobalVariable.connect)
+
+        'command.Parameters.Add("@CODE_CAISSIER", MySqlDbType.VarChar).Value = CODE_CAISSIER
+        'command.Parameters.Add("@CODE_RESERVATION", MySqlDbType.VarChar).Value = ""
+        command.Parameters.Add("@ETAT_BLOC_NOTE", MySqlDbType.Int64).Value = ETAT_BLOC_NOTE
+
+        Dim adapter As New MySqlDataAdapter
+
+        Dim dt As New DataTable()
+        'Dim command As New MySqlCommand(query, GlobalVariable.connect)
+
+        adapter.SelectCommand = command
+        adapter.Fill(dt)
+
+        Return dt
+
+    End Function
+
+    Public Function AutoLoadBlocNoteVisualisationClasFastFoods(ByVal DateDeSituation As Date, ByVal ETAT_BLOC_NOTE As Integer) As DataTable
+
+        Dim getUserQuery = ""
+
+        If GlobalVariable.actualLanguageValue = 0 Then
+            getUserQuery = "SELECT NUMERO_BLOC_NOTE AS 'RECEIPT NUMBER', MONTANT_BLOC_NOTE As AMOUNT , ETAT_BLOC_NOTE As STATE, ligne_facture_bloc_note.DATE_DE_CONTROLE, SERVEUR AS SERVER FROM ligne_facture_bloc_note, utilisateurs 
+            WHERE ligne_facture_bloc_note.DATE_CREATION >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND ligne_facture_bloc_note.DATE_CREATION <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' 
+            AND ETAT_BLOC_NOTE = @ETAT_BLOC_NOTE AND utilisateurs.CODE_UTILISATEUR = ligne_facture_bloc_note.SERVEUR ORDER BY NUMERO_BLOC_NOTE ASC"
+
+        ElseIf GlobalVariable.actualLanguageValue = 1 Then
+            getUserQuery = "SELECT NUMERO_BLOC_NOTE AS 'NUMERO BLOC NOTE', MONTANT_BLOC_NOTE As MONTANT , ETAT_BLOC_NOTE As ETAT, ligne_facture_bloc_note.DATE_DE_CONTROLE, SERVEUR FROM ligne_facture_bloc_note, utilisateurs 
+            WHERE ligne_facture_bloc_note.DATE_CREATION >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND ligne_facture_bloc_note.DATE_CREATION <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' 
+            AND ETAT_BLOC_NOTE = @ETAT_BLOC_NOTE AND utilisateurs.CODE_UTILISATEUR = ligne_facture_bloc_note.SERVEUR ORDER BY NUMERO_BLOC_NOTE ASC"
+        End If
+
+        Dim command As New MySqlCommand(getUserQuery, GlobalVariable.connect)
+
+        'command.Parameters.Add("@CODE_CAISSIER", MySqlDbType.VarChar).Value = CODE_CAISSIER
+        command.Parameters.Add("@CODE_RESERVATION", MySqlDbType.VarChar).Value = ""
+        command.Parameters.Add("@ETAT_BLOC_NOTE", MySqlDbType.Int64).Value = ETAT_BLOC_NOTE
+
+        Dim adapter As New MySqlDataAdapter
+
+        Dim dt As New DataTable()
+        'Dim command As New MySqlCommand(query, GlobalVariable.connect)
+
+        adapter.SelectCommand = command
+        adapter.Fill(dt)
+
+        Return dt
 
     End Function
 

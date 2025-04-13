@@ -492,6 +492,9 @@ Public Class PetiteCaisseForm
                     PanelSituationCaisse.BackColor = Color.Red
 
                     GunaButtonOuvertureFermeture.Text = "Ouvrir Caisse"
+                    If GlobalVariable.actualLanguageValue = 0 Then
+                        GunaButtonOuvertureFermeture.Text = "Open Cash Register"
+                    End If
 
                     LabelSituationCaisse.Text = 0
                     LabelDepense.Text = 0
@@ -503,6 +506,9 @@ Public Class PetiteCaisseForm
                     PanelSituationCaisse.BackColor = Color.LightGreen
 
                     GunaButtonOuvertureFermeture.Text = "Fermer Caisse"
+                    If GlobalVariable.actualLanguageValue = 0 Then
+                        GunaButtonOuvertureFermeture.Text = "Close Cash Register"
+                    End If
 
                 End If
 
@@ -702,8 +708,11 @@ Public Class PetiteCaisseForm
                                     Dim CODE_CAISSIER As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
                                     Dim MONTANT_VERSE As Double = Double.Parse(LabelSituationCaisse.Text) * -1
                                     Dim DATE_REGLEMENT As String = GlobalVariable.DateDeTravail
-                                    Dim MODE_REGLEMENT As String = "Espèces"
+                                    Dim MODE_REGLEMENT As String = GunaComboBoxModereglement.SelectedItem
                                     Dim REF_REGLEMENT As String = "SOLDE EN CAISSE APRES DEMANDE DE FONDS PAR " & GlobalVariable.ConnectedUser.Rows(0)("NOM_UTILISATEUR")
+                                    If GlobalVariable.actualLanguageValue = 0 Then
+                                        REF_REGLEMENT = "BALANCE LEFT AFTER FUNDS REQUEST BY " & GlobalVariable.ConnectedUser.Rows(0)("NOM_UTILISATEUR")
+                                    End If
                                     Dim SERVICE_DEMANDEUR As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
                                     ETAT = 0
                                     Dim CODE_AGENCE = GlobalVariable.codeAgence
@@ -921,6 +930,11 @@ Public Class PetiteCaisseForm
                                             Dim NOM_UTILISATEUR As String = GlobalVariable.ConnectedUser.Rows(0)("NOM_UTILISATEUR")
 
                                             whatsAppMessage = "SORTIE DE FONDS PETITE CAISSE " & Chr(13) & "-/ MONTANT : " & MONTANT_SORTIE & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE") & " POUR : " & GunaTextBoxMotif.Text & " PAR : " & NOM_UTILISATEUR & " LE : " & GlobalVariable.DateDeTravail & " " & Now().ToShortTimeString & " SERVICE DEMANDEUR :  " & SERVICE_DEMANDEUR & " RECEVEUR : " & NOM_DU_RECEVEUR
+
+                                            If GlobalVariable.actualLanguageValue = 0 Then
+                                                whatsAppMessage = "CASH OUT FLOW FROM PETTY CASH " & Chr(13) & "-/ AMOUNT : " & MONTANT_SORTIE & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE") & " FOR : " & GunaTextBoxMotif.Text & " BY : " & NOM_UTILISATEUR & " ON THE : " & GlobalVariable.DateDeTravail & " " & Now().ToShortTimeString & " REQUESTING SERVICE :  " & SERVICE_DEMANDEUR & " RECEIVER : " & NOM_DU_RECEVEUR
+
+                                            End If
 
                                             Dim mobile_number As String = MainWindow.listeOfTelephoneNumbers()
 

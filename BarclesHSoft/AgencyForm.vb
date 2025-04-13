@@ -13,10 +13,7 @@ Public Class AgencyForm
 
         Dim language As New Languages()
         language.agency(GlobalVariable.actualLanguageValue)
-
-        Dim langue As New Languages()
-
-        langue.autoLoadLanguageAgence(GunaComboBoxLangue, GlobalVariable.actualLanguageValue)
+        language.autoLoadLanguageAgence(GunaComboBoxLangue, GlobalVariable.actualLanguageValue)
 
         GunaComboBoxLangue.SelectedIndex = GlobalVariable.AgenceActuelle.Rows(0)("langue")
         'GunaComboBoxLangue.SelectedIndex = 0
@@ -36,6 +33,33 @@ Public Class AgencyForm
         'Functions.miseAjourReglementBanqueTransaction()
 
         loadLogoTypes()
+
+        Dim showCustomImage As Boolean = False
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+            If GlobalVariable.config.Rows.Count > 0 Then
+                showCustomImage = True
+            End If
+        End If
+
+        If showCustomImage Then
+
+            Dim buttonPanel As Integer = 1
+            GunaPanel1.BackColor = Functions.colorationWindow(buttonPanel)
+            GunaLinePanelTop.BackColor = Functions.colorationWindow(buttonPanel)
+
+            buttonPanel = 0 'Button Background
+            GunaButtonUpload.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonFermer.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonEnregistrer.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton2.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton1.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonEnregistrerEnTete.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonCoinGauche.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonCoinDroit.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonSecondSave.BaseColor = Functions.colorationWindow(buttonPanel)
+
+        End If
 
     End Sub
 
@@ -187,7 +211,7 @@ Public Class AgencyForm
     End Function
 
     'Saving New Agency
-    Private Sub GunaButtonEnregistrer_Click(sender As Object, e As EventArgs) Handles GunaButtonEnregistrer.Click
+    Private Sub GunaButtonEnregistrer_Click(sender As Object, e As EventArgs) Handles GunaButtonEnregistrer.Click, GunaButtonSecondSave.Click
 
         GunaCheckBoxHotelSoftAssistance.Checked = False
 
@@ -231,6 +255,7 @@ Public Class AgencyForm
         Dim EMAIL_7 As String = GunaTextBoxEmail_7.Text
 
         Dim LANGUE As Integer = GunaComboBoxLangue.SelectedIndex
+        Dim HOTEL As Integer = GunaComboBoxHotel.SelectedIndex
 
         Dim TARIFICATION_DYNAMIQUE As Integer = 0
 
@@ -321,6 +346,26 @@ Public Class AgencyForm
             MENSUALITE = 1
         End If
 
+        Dim NUM_BLOC_NOTE_AUTOMATIQUE As Integer = 0
+        If GunaCheckBoxBlocNoteAuto.Checked Then
+            NUM_BLOC_NOTE_AUTOMATIQUE = 1
+        End If
+
+        Dim REDUCTION_GLOBAL_FACTURE As Integer = 0
+        If GunaCheckBoxReducFacture.Checked Then
+            REDUCTION_GLOBAL_FACTURE = 1
+        End If
+
+        Dim INVERSER_SIGNE_FACTURE As Integer = 0
+        If GunaCheckBoxInverserSigne.Checked Then
+            INVERSER_SIGNE_FACTURE = 1
+        End If
+
+        Dim CONFIG As Integer = 0
+        If GunaCheckBoxConfigs.Checked Then
+            CONFIG = 1
+        End If
+
         Dim MONTANT_NAVETTE As Double = 0
 
         If Not Trim(GunaTextBoxMontantNavette.Text).Equals("") Then
@@ -329,10 +374,21 @@ Public Class AgencyForm
 
         Dim DIRECTION As String = GunaTextBoxDirection.Text
 
-
         Dim CAISSE_ENREGISTREUSE_1 As String = GunaTextBoxMac1.Text
         Dim CAISSE_ENREGISTREUSE_2 As String = GunaTextBoxMac2.Text
 
+        Dim PROMO_CLUB_ELITE As String = GunaTextBoxPromoEliteCheckOut.Text
+        Dim PROMO_CLUB_ELITE_IN As String = GunaTextBoxPromoEliteCheckIn.Text
+        Dim LIEN_EXTERNE As String = GunaTextBoxLienExterne.Text
+
+        Dim NOMBRE_DE_TABLE As String = GunaTextBoxTables.Text
+        Dim TOKEN As String = GunaTextBoxToken.Text
+        Dim ID As String = GunaTextBoxId.Text
+
+        Dim MAIL_USER_NAME As String = GunaTextBoxEmailUserName.Text
+        Dim MAIL_PASSWORD As String = GunaTextBoxEpassWord.Text
+
+        Dim MAX_VISITE As Integer = GunaTextBoxVisitMax.Text
         Dim clearChecKBox As Boolean = False
 
         Dim agency As New Agency()
@@ -344,8 +400,10 @@ Public Class AgencyForm
 
             If GunaButtonEnregistrer.Text = "Sauvegarder" Or GunaButtonEnregistrer.Text = "Save" Then
 
-                If agency.UpdateCompany(NOM_AGENCE, CODE_AGENCE, FAX, EMAIL, TELEPHONE, VILLE, BOITE_POSTALE, PAYS, RUE, CATEGORIE_HOTEL, WHATSAPP_1, WHATSAPP_2, WHATSAPP_3, WHATSAPP_4, WHATSAPP_5, WHATSAPP_6, WHATSAPP_7, EMAIL_1, EMAIL_2, EMAIL_3, EMAIL_4, EMAIL_5, EMAIL_6, EMAIL_7, GERER_STOCK, CLOTURE_MULTIPLE, CHEMIN_SAUVEGARDE_AUTO, TARIFICATION_DYNAMIQUE, SESSION_UNIQUE, SERRURES, MESSAGE_WHATSAPP, CLOTURE_FACTURE, LANGUE, PRIX_BAR_RESTAU_MODIFIABLE, PAYER_AVANT_ENCODAGE, BLOQUER_PRIX_HEBERGEMENT, CLUB_ELITE, PRINT_B7, MENSUALITE, HEBDOMADAIRE, MONTANT_NAVETTE, NUMERO_RECEPTION, NUMERO_RECEPTION_CHAMBRE, DIRECTION, CAISSE_ENREGISTREUSE_1, CAISSE_ENREGISTREUSE_2) Then
+                If agency.UpdateCompany(NOM_AGENCE, CODE_AGENCE, FAX, EMAIL, TELEPHONE, VILLE, BOITE_POSTALE, PAYS, RUE, CATEGORIE_HOTEL, WHATSAPP_1, WHATSAPP_2, WHATSAPP_3, WHATSAPP_4, WHATSAPP_5, WHATSAPP_6, WHATSAPP_7, EMAIL_1, EMAIL_2, EMAIL_3, EMAIL_4, EMAIL_5, EMAIL_6, EMAIL_7, GERER_STOCK, CLOTURE_MULTIPLE, CHEMIN_SAUVEGARDE_AUTO, TARIFICATION_DYNAMIQUE, SESSION_UNIQUE, SERRURES, MESSAGE_WHATSAPP, CLOTURE_FACTURE, LANGUE, PRIX_BAR_RESTAU_MODIFIABLE, PAYER_AVANT_ENCODAGE, BLOQUER_PRIX_HEBERGEMENT, CLUB_ELITE, PRINT_B7, MENSUALITE, HEBDOMADAIRE, MONTANT_NAVETTE, NUMERO_RECEPTION, NUMERO_RECEPTION_CHAMBRE, DIRECTION, CAISSE_ENREGISTREUSE_1, CAISSE_ENREGISTREUSE_2, PROMO_CLUB_ELITE, PROMO_CLUB_ELITE_IN, HOTEL, LIEN_EXTERNE, NUM_BLOC_NOTE_AUTOMATIQUE, NOMBRE_DE_TABLE, REDUCTION_GLOBAL_FACTURE, INVERSER_SIGNE_FACTURE, CONFIG, TOKEN, ID, MAIL_USER_NAME, MAIL_PASSWORD, MAX_VISITE) Then
 
+                    GunaCheckBox1.Checked = False
+                    GunaButtonSecondSave.Visible = False
                     '--------------- UPDATE CACHET----------------------------------------------------------------------------------
                     Dim ms As New MemoryStream()
                     GunaPictureBoxLogo.Image.Save(ms, GunaPictureBoxLogo.Image.RawFormat)
@@ -395,6 +453,10 @@ Public Class AgencyForm
                     GunaTextBoxEmail_5.Clear()
                     GunaTextBoxEmail_6.Clear()
                     GunaTextBoxEmail_7.Clear()
+                    GunaTextBoxPromoEliteCheckOut.Clear()
+                    GunaTextBoxPromoEliteCheckIn.Clear()
+                    GunaTextBoxLienExterne.Clear()
+                    GunaTextBoxTables.Text = 0
 
                     If Functions.allTableFields("category_hotel_taxe_sejour_collectee").Rows.Count > 0 Then
                         GunaComboBoxCategorie.SelectedIndex = 0
@@ -473,6 +535,8 @@ Public Class AgencyForm
                         GunaTextBoxWhats3.Clear()
                         GunaTextBoxWhats4.Clear()
                         GunaTextBoxWhats5.Clear()
+                        GunaTextBoxPromoEliteCheckOut.Clear()
+                        GunaTextBoxPromoEliteCheckIn.Clear()
 
                         GunaTextBoxEmail_1.Clear()
                         GunaTextBoxEmail_2.Clear()
@@ -552,6 +616,10 @@ Public Class AgencyForm
             GunaCheckBoxHebdomadaire.Checked = False
             GunaCheckBoxMac1.Checked = False
             GunaCheckBoxMac2.Checked = False
+            GunaCheckBoxBlocNoteAuto.Checked = False
+            GunaCheckBoxInverserSigne.Checked = False
+            GunaCheckBoxReducFacture.Checked = False
+            GunaCheckBoxConfigs.Checked = False
 
             GunaDataGridViewAgence.Columns.Clear()
 
@@ -566,209 +634,248 @@ Public Class AgencyForm
 
         Dim row As DataGridViewRow
 
-        row = Me.GunaDataGridViewAgence.Rows(e.RowIndex)
+        If GunaDataGridViewAgence.Rows(e.RowIndex).Selected Then
 
-        Dim CODE_AGENCE As String = row.Cells("CODE_AGENCE").Value.ToString
+            row = Me.GunaDataGridViewAgence.Rows(e.RowIndex)
 
-        If GlobalVariable.actualLanguageValue = 0 Then
-            GunaButtonEnregistrer.Text = "Save"
-            GunaButtonEnregistrerEnTete.Text = "Save"
+            Dim CODE_AGENCE As String = row.Cells("CODE_AGENCE").Value.ToString
 
-        ElseIf GlobalVariable.actualLanguageValue = 1 Then
-            GunaButtonEnregistrer.Text = "Sauvegarder"
-            GunaButtonEnregistrerEnTete.Text = "Sauvegarder"
+            If GlobalVariable.actualLanguageValue = 0 Then
+                GunaButtonEnregistrer.Text = "Save"
+                GunaButtonEnregistrerEnTete.Text = "Save"
 
-        End If
-
-
-        Dim agencyToUpdate As DataTable = Functions.getElementByCode(CODE_AGENCE, "agence", "CODE_AGENCE")
-
-        If agencyToUpdate.Rows.Count > 0 Then
-
-            GunaTextBoxNumero.Text = agencyToUpdate.Rows(0)("CODE_AGENCE")
-            GunaTextBoxBp.Text = agencyToUpdate.Rows(0)("BOITE_POSTALE")
-            GunaTextBoxNom.Text = agencyToUpdate.Rows(0)("NOM_AGENCE")
-            GunaComboBoxVille.SelectedValue = agencyToUpdate.Rows(0)("VILLE")
-            GunaComboBoxPays.SelectedValue = agencyToUpdate.Rows(0)("PAYS")
-            GunaTextBoxfax.Text = agencyToUpdate.Rows(0)("FAX")
-            GunaTextBoxEmail.Text = agencyToUpdate.Rows(0)("EMAIL")
-            GunaTextBoxRue.Text = agencyToUpdate.Rows(0)("RUE")
-            GunaTextBoxTelephone.Text = agencyToUpdate.Rows(0)("TELEPHONE")
-
-            GunaTextBoxFixeReception.Text = agencyToUpdate.Rows(0)("NUMERO_RECEPTION")
-            GunaTextBoxChambreReception.Text = agencyToUpdate.Rows(0)("NUMERO_RECEPTION_CHAMBRE")
-
-            GunaTextBoxMontantNavette.Text = Format(agencyToUpdate.Rows(0)("MONTANT_NAVETTE"), "#,##0")
-            GunaTextBoxDirection.Text = agencyToUpdate.Rows(0)("DIRECTION")
-            GunaTextBoxMac1.Text = agencyToUpdate.Rows(0)("CAISSE_ENREGISTREUSE_1")
-            GunaTextBoxMac2.Text = agencyToUpdate.Rows(0)("CAISSE_ENREGISTREUSE_2")
-
-            Dim LIBELLE As String = agencyToUpdate.Rows(0)("CATEGORIE_HOTEL")
-
-            Dim infoSupCategHotel As DataTable = Functions.getElementByCode(LIBELLE, "category_hotel_taxe_sejour_collectee", "LIBELLE")
-
-            If infoSupCategHotel.Rows.Count > 0 Then
-                GunaComboBoxCategorie.SelectedValue = infoSupCategHotel.Rows(0)("CODE_CATEGORIE_HOTEL")
-            End If
-
-            GunaTextBoxCheminSauvegardeAuto.Text = agencyToUpdate.Rows(0)("CHEMIN_SAUVEGARDE_AUTO")
-
-            GunaTextBoxWhats1.Text = agencyToUpdate.Rows(0)("WHATSAPP_1")
-            GunaTextBoxWhats2.Text = agencyToUpdate.Rows(0)("WHATSAPP_2")
-            GunaTextBoxWhats3.Text = agencyToUpdate.Rows(0)("WHATSAPP_3")
-            GunaTextBoxWhats4.Text = agencyToUpdate.Rows(0)("WHATSAPP_4")
-            GunaTextBoxWhats5.Text = agencyToUpdate.Rows(0)("WHATSAPP_5")
-            GunaTextBoxWhats6.Text = agencyToUpdate.Rows(0)("WHATSAPP_6")
-            GunaTextBoxWhats7.Text = agencyToUpdate.Rows(0)("WHATSAPP_7")
-
-            GunaTextBoxEmail_1.Text = agencyToUpdate.Rows(0)("EMAIL_1")
-            GunaTextBoxEmail_2.Text = agencyToUpdate.Rows(0)("EMAIL_2")
-            GunaTextBoxEmail_3.Text = agencyToUpdate.Rows(0)("EMAIL_3")
-            GunaTextBoxEmail_4.Text = agencyToUpdate.Rows(0)("EMAIL_4")
-            GunaTextBoxEmail_5.Text = agencyToUpdate.Rows(0)("EMAIL_5")
-            GunaTextBoxEmail_6.Text = agencyToUpdate.Rows(0)("EMAIL_6")
-            GunaTextBoxEmail_7.Text = agencyToUpdate.Rows(0)("EMAIL_7")
-
-            GunaComboBoxLangue.SelectedIndex = GlobalVariable.AgenceActuelle.Rows(0)("LANGUE")
-            'GunaComboBoxLangue.SelectedIndex = 0
-
-            If Not IsDBNull(GlobalVariable.AgenceActuelle.Rows(0)("CACHET")) Then
-                Dim img() As Byte
-                img = GlobalVariable.AgenceActuelle.Rows(0)("CACHET")
-                Dim mStream As New MemoryStream(img)
-                GunaPictureBoxLogo.Image = Image.FromStream(mStream)
-            End If
-
-        End If
-
-        Dim LANGUE As Integer = GunaComboBoxLangue.SelectedIndex
-
-        If agencyToUpdate.Rows(0)("GERER_STOCK") = 0 Then
-            RadioButtonGererStock.Checked = False
-        ElseIf agencyToUpdate.Rows(0)("GERER_STOCK") = 1 Then
-            RadioButtonGererStock.Checked = True
-        End If
-
-        If agencyToUpdate.Rows(0)("CLOTURE_FACTURE") = 0 Then
-            GunaCheckBoxClotureFacture.Checked = False
-        Else
-            GunaCheckBoxClotureFacture.Checked = True
-        End If
-
-        If agencyToUpdate.Rows(0)("SESSION_UNIQUE") = 0 Then
-            GunaCheckBoxSessionUniqueAuBar.Checked = False
-        ElseIf agencyToUpdate.Rows(0)("SESSION_UNIQUE") = 1 Then
-            GunaCheckBoxSessionUniqueAuBar.Checked = True
-        End If
-
-        If agencyToUpdate.Rows(0)("TARIFICATION_DYNAMIQUE") = 0 Then
-            GunaCheckBoxTarificationDynamique.Checked = False
-        ElseIf agencyToUpdate.Rows(0)("TARIFICATION_DYNAMIQUE") = 1 Then
-            GunaCheckBoxTarificationDynamique.Checked = True
-        End If
-
-        If agencyToUpdate.Rows(0)("CLOTURE_MULTIPLE") = 0 Then
-            GunaCheckBoxAthoriserClotureMultiple.Checked = False
-        ElseIf agencyToUpdate.Rows(0)("CLOTURE_MULTIPLE") = 1 Then
-            GunaCheckBoxAthoriserClotureMultiple.Checked = True
-        End If
-
-        If agencyToUpdate.Rows(0)("SERRURES") = 0 Then
-            GunaCheckBoxSerrure.Checked = False
-        ElseIf agencyToUpdate.Rows(0)("SERRURES") = 1 Then
-            GunaCheckBoxSerrure.Checked = True
-        End If
-
-        If agencyToUpdate.Rows(0)("PRIX_BAR_RESTAU_MODIFIABLE") = 0 Then
-            GunaCheckBoxPrixBarFix.Checked = False
-        ElseIf agencyToUpdate.Rows(0)("PRIX_BAR_RESTAU_MODIFIABLE") = 1 Then
-            GunaCheckBoxPrixBarFix.Checked = True
-        End If
-
-        If agencyToUpdate.Rows(0)("MESSAGE_WHATSAPP") = 0 Then
-            GunaCheckBoxMessageWhatsApp.Checked = False
-        ElseIf agencyToUpdate.Rows(0)("MESSAGE_WHATSAPP") = 1 Then
-            GunaCheckBoxMessageWhatsApp.Checked = True
-        End If
-
-        If agencyToUpdate.Rows(0)("PAYER_AVANT_ENCODAGE") = 0 Then
-            GunaCheckBoxPayerAvantEncodage.Checked = False
-        ElseIf agencyToUpdate.Rows(0)("PAYER_AVANT_ENCODAGE") = 1 Then
-            GunaCheckBoxPayerAvantEncodage.Checked = True
-        End If
-
-        If agencyToUpdate.Rows(0)("BLOQUER_PRIX_HEBERGEMENT") = 0 Then
-            GunaCheckBoxBloquerPrixHebergement.Checked = False
-        ElseIf agencyToUpdate.Rows(0)("BLOQUER_PRIX_HEBERGEMENT") = 1 Then
-            GunaCheckBoxBloquerPrixHebergement.Checked = True
-        End If
-
-        If agencyToUpdate.Rows(0)("CLUB_ELITE") = 0 Then
-            GunaCheckBoxClubElite.Checked = False
-        ElseIf agencyToUpdate.Rows(0)("CLUB_ELITE") = 1 Then
-            GunaCheckBoxClubElite.Checked = True
-        End If
-
-        If agencyToUpdate.Rows(0)("PRINT_B7") = 0 Then
-            GunaCheckBoxImprimerB7.Checked = False
-        ElseIf agencyToUpdate.Rows(0)("PRINT_B7") = 1 Then
-            GunaCheckBoxImprimerB7.Checked = True
-        End If
-
-        If agencyToUpdate.Rows(0)("MENSUALITE") = 0 Then
-            GunaCheckBoxfacturationMensuelle.Checked = False
-        ElseIf agencyToUpdate.Rows(0)("MENSUALITE") = 1 Then
-            GunaCheckBoxfacturationMensuelle.Checked = True
-        End If
-
-        If agencyToUpdate.Rows(0)("HEBDOMADAIRE") = 0 Then
-            GunaCheckBoxHebdomadaire.Checked = False
-        ElseIf agencyToUpdate.Rows(0)("HEBDOMADAIRE") = 1 Then
-            GunaCheckBoxHebdomadaire.Checked = True
-        End If
-
-        Dim papierEnTete As DataTable = Functions.getElementByCode(CODE_AGENCE, "papier_entete", "CODE_AGENCE")
-
-        If papierEnTete.Rows.Count > 0 Then
-
-            loadLogoTypes()
-
-            GunaComboBoxHeader.SelectedIndex = papierEnTete.Rows(0)("UTILISE")
-
-            GunaTextBoxCodePapier.Text = papierEnTete.Rows(0)("CODE_PAPIER")
-            GunaTextBoxTeteLigne1.Text = papierEnTete.Rows(0)("EN_TETE_L1")
-            GunaTextBoxTeteLigne2.Text = papierEnTete.Rows(0)("EN_TETE_L2")
-            GunaTextBoxTeteLigne3.Text = papierEnTete.Rows(0)("EN_TETE_L3")
-            GunaTextBoxTeteLigne4.Text = papierEnTete.Rows(0)("EN_TETE_L4")
-            GunaTextBoxPieds1.Text = papierEnTete.Rows(0)("PIEDS_L1")
-            GunaTextBoxPieds2.Text = papierEnTete.Rows(0)("PIEDS_L2")
-            GunaTextBoxPieds3.Text = papierEnTete.Rows(0)("PIEDS_L3")
-
-            If Not IsDBNull(papierEnTete.Rows(0)("IMAGE_1")) Then
-
-                Dim img() As Byte
-                img = papierEnTete.Rows(0)("IMAGE_1")
-
-                Dim mStream As New MemoryStream(img)
-
-                GunaPictureBoxGauche.Image = Image.FromStream(mStream)
+            ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                GunaButtonEnregistrer.Text = "Sauvegarder"
+                GunaButtonEnregistrerEnTete.Text = "Sauvegarder"
 
             End If
 
-            If Not IsDBNull(papierEnTete.Rows(0)("IMAGE_2")) Then
 
-                Dim img() As Byte
-                img = papierEnTete.Rows(0)("IMAGE_2")
+            Dim agencyToUpdate As DataTable = Functions.getElementByCode(CODE_AGENCE, "agence", "CODE_AGENCE")
 
-                Dim mStream As New MemoryStream(img)
+            If agencyToUpdate.Rows.Count > 0 Then
 
-                GunaPictureBoxCoinDroit.Image = Image.FromStream(mStream)
+                GunaButtonSecondSave.Visible = True
+                GunaTextBoxNumero.Text = agencyToUpdate.Rows(0)("CODE_AGENCE")
+                GunaTextBoxBp.Text = agencyToUpdate.Rows(0)("BOITE_POSTALE")
+                GunaTextBoxNom.Text = agencyToUpdate.Rows(0)("NOM_AGENCE")
+                GunaComboBoxVille.SelectedValue = agencyToUpdate.Rows(0)("VILLE")
+                GunaComboBoxPays.SelectedValue = agencyToUpdate.Rows(0)("PAYS")
+                GunaTextBoxfax.Text = agencyToUpdate.Rows(0)("FAX")
+                GunaTextBoxEmail.Text = agencyToUpdate.Rows(0)("EMAIL")
+                GunaTextBoxRue.Text = agencyToUpdate.Rows(0)("RUE")
+                GunaTextBoxTelephone.Text = agencyToUpdate.Rows(0)("TELEPHONE")
+
+                GunaTextBoxFixeReception.Text = agencyToUpdate.Rows(0)("NUMERO_RECEPTION")
+                GunaTextBoxChambreReception.Text = agencyToUpdate.Rows(0)("NUMERO_RECEPTION_CHAMBRE")
+
+                GunaTextBoxMontantNavette.Text = Format(agencyToUpdate.Rows(0)("MONTANT_NAVETTE"), "#,##0")
+                GunaTextBoxDirection.Text = agencyToUpdate.Rows(0)("DIRECTION")
+                GunaTextBoxMac1.Text = agencyToUpdate.Rows(0)("CAISSE_ENREGISTREUSE_1")
+                GunaTextBoxMac2.Text = agencyToUpdate.Rows(0)("CAISSE_ENREGISTREUSE_2")
+                GunaTextBoxPromoEliteCheckOut.Text = agencyToUpdate.Rows(0)("PROMO_CLUB_ELITE")
+                GunaTextBoxPromoEliteCheckIn.Text = agencyToUpdate.Rows(0)("PROMO_CLUB_ELITE_IN")
+                GunaTextBoxLienExterne.Text = agencyToUpdate.Rows(0)("LIEN_EXTERNE")
+                GunaTextBoxTables.Text = agencyToUpdate.Rows(0)("NOMBRE_DE_TABLE")
+                GunaTextBoxToken.Text = agencyToUpdate.Rows(0)("TOKEN")
+                GunaTextBoxId.Text = agencyToUpdate.Rows(0)("ID")
+                GunaTextBoxEmailUserName.Text = agencyToUpdate.Rows(0)("MAIL_USER_NAME")
+                GunaTextBoxEpassWord.Text = agencyToUpdate.Rows(0)("MAIL_PASSWORD")
+                GunaTextBoxVisitMax.Text = agencyToUpdate.Rows(0)("MAX_VISITE")
+
+                Dim LIBELLE As String = agencyToUpdate.Rows(0)("CATEGORIE_HOTEL")
+
+                Dim infoSupCategHotel As DataTable = Functions.getElementByCode(LIBELLE, "category_hotel_taxe_sejour_collectee", "LIBELLE")
+
+                If infoSupCategHotel.Rows.Count > 0 Then
+                    GunaComboBoxCategorie.SelectedValue = infoSupCategHotel.Rows(0)("CODE_CATEGORIE_HOTEL")
+                End If
+
+                GunaTextBoxCheminSauvegardeAuto.Text = agencyToUpdate.Rows(0)("CHEMIN_SAUVEGARDE_AUTO")
+
+                GunaComboBoxHotel.SelectedIndex = agencyToUpdate.Rows(0)("HOTEL")
+
+                GunaTextBoxWhats1.Text = agencyToUpdate.Rows(0)("WHATSAPP_1")
+                GunaTextBoxWhats2.Text = agencyToUpdate.Rows(0)("WHATSAPP_2")
+                GunaTextBoxWhats3.Text = agencyToUpdate.Rows(0)("WHATSAPP_3")
+                GunaTextBoxWhats4.Text = agencyToUpdate.Rows(0)("WHATSAPP_4")
+                GunaTextBoxWhats5.Text = agencyToUpdate.Rows(0)("WHATSAPP_5")
+                GunaTextBoxWhats6.Text = agencyToUpdate.Rows(0)("WHATSAPP_6")
+                GunaTextBoxWhats7.Text = agencyToUpdate.Rows(0)("WHATSAPP_7")
+
+                GunaTextBoxEmail_1.Text = agencyToUpdate.Rows(0)("EMAIL_1")
+                GunaTextBoxEmail_2.Text = agencyToUpdate.Rows(0)("EMAIL_2")
+                GunaTextBoxEmail_3.Text = agencyToUpdate.Rows(0)("EMAIL_3")
+                GunaTextBoxEmail_4.Text = agencyToUpdate.Rows(0)("EMAIL_4")
+                GunaTextBoxEmail_5.Text = agencyToUpdate.Rows(0)("EMAIL_5")
+                GunaTextBoxEmail_6.Text = agencyToUpdate.Rows(0)("EMAIL_6")
+                GunaTextBoxEmail_7.Text = agencyToUpdate.Rows(0)("EMAIL_7")
+
+                GunaComboBoxLangue.SelectedIndex = GlobalVariable.AgenceActuelle.Rows(0)("LANGUE")
+
+                If Not IsDBNull(GlobalVariable.AgenceActuelle.Rows(0)("CACHET")) Then
+                    Dim img() As Byte
+                    img = GlobalVariable.AgenceActuelle.Rows(0)("CACHET")
+                    Dim mStream As New MemoryStream(img)
+                    If Not Image.FromStream(mStream) Is Nothing Then
+                        GunaPictureBoxLogo.Image = Image.FromStream(mStream)
+                    End If
+                End If
 
             End If
 
-        End If
+            If agencyToUpdate.Rows(0)("NUM_BLOC_NOTE_AUTOMATIQUE") = 0 Then
+                GunaCheckBoxBlocNoteAuto.Checked = False
+            ElseIf agencyToUpdate.Rows(0)("NUM_BLOC_NOTE_AUTOMATIQUE") = 1 Then
+                GunaCheckBoxBlocNoteAuto.Checked = True
+            End If
 
-        TabControl1.SelectedIndex = 0
+            If agencyToUpdate.Rows(0)("GERER_STOCK") = 0 Then
+                RadioButtonGererStock.Checked = False
+            ElseIf agencyToUpdate.Rows(0)("GERER_STOCK") = 1 Then
+                RadioButtonGererStock.Checked = True
+            End If
+
+            If agencyToUpdate.Rows(0)("CLOTURE_FACTURE") = 0 Then
+                GunaCheckBoxClotureFacture.Checked = False
+            Else
+                GunaCheckBoxClotureFacture.Checked = True
+            End If
+
+            If agencyToUpdate.Rows(0)("SESSION_UNIQUE") = 0 Then
+                GunaCheckBoxSessionUniqueAuBar.Checked = False
+            ElseIf agencyToUpdate.Rows(0)("SESSION_UNIQUE") = 1 Then
+                GunaCheckBoxSessionUniqueAuBar.Checked = True
+            End If
+
+            If agencyToUpdate.Rows(0)("TARIFICATION_DYNAMIQUE") = 0 Then
+                GunaCheckBoxTarificationDynamique.Checked = False
+            ElseIf agencyToUpdate.Rows(0)("TARIFICATION_DYNAMIQUE") = 1 Then
+                GunaCheckBoxTarificationDynamique.Checked = True
+            End If
+
+            If agencyToUpdate.Rows(0)("CLOTURE_MULTIPLE") = 0 Then
+                GunaCheckBoxAthoriserClotureMultiple.Checked = False
+            ElseIf agencyToUpdate.Rows(0)("CLOTURE_MULTIPLE") = 1 Then
+                GunaCheckBoxAthoriserClotureMultiple.Checked = True
+            End If
+
+            If agencyToUpdate.Rows(0)("SERRURES") = 0 Then
+                GunaCheckBoxSerrure.Checked = False
+            ElseIf agencyToUpdate.Rows(0)("SERRURES") = 1 Then
+                GunaCheckBoxSerrure.Checked = True
+            End If
+
+            If agencyToUpdate.Rows(0)("PRIX_BAR_RESTAU_MODIFIABLE") = 0 Then
+                GunaCheckBoxPrixBarFix.Checked = False
+            ElseIf agencyToUpdate.Rows(0)("PRIX_BAR_RESTAU_MODIFIABLE") = 1 Then
+                GunaCheckBoxPrixBarFix.Checked = True
+            End If
+
+            If agencyToUpdate.Rows(0)("MESSAGE_WHATSAPP") = 0 Then
+                GunaCheckBoxMessageWhatsApp.Checked = False
+            ElseIf agencyToUpdate.Rows(0)("MESSAGE_WHATSAPP") = 1 Then
+                GunaCheckBoxMessageWhatsApp.Checked = True
+            End If
+
+            If agencyToUpdate.Rows(0)("PAYER_AVANT_ENCODAGE") = 0 Then
+                GunaCheckBoxPayerAvantEncodage.Checked = False
+            ElseIf agencyToUpdate.Rows(0)("PAYER_AVANT_ENCODAGE") = 1 Then
+                GunaCheckBoxPayerAvantEncodage.Checked = True
+            End If
+
+            If agencyToUpdate.Rows(0)("BLOQUER_PRIX_HEBERGEMENT") = 0 Then
+                GunaCheckBoxBloquerPrixHebergement.Checked = False
+            ElseIf agencyToUpdate.Rows(0)("BLOQUER_PRIX_HEBERGEMENT") = 1 Then
+                GunaCheckBoxBloquerPrixHebergement.Checked = True
+            End If
+
+            If agencyToUpdate.Rows(0)("CLUB_ELITE") = 0 Then
+                GunaCheckBoxClubElite.Checked = False
+            ElseIf agencyToUpdate.Rows(0)("CLUB_ELITE") = 1 Then
+                GunaCheckBoxClubElite.Checked = True
+            End If
+
+            If agencyToUpdate.Rows(0)("PRINT_B7") = 0 Then
+                GunaCheckBoxImprimerB7.Checked = False
+            ElseIf agencyToUpdate.Rows(0)("PRINT_B7") = 1 Then
+                GunaCheckBoxImprimerB7.Checked = True
+            End If
+
+            If agencyToUpdate.Rows(0)("MENSUALITE") = 0 Then
+                GunaCheckBoxfacturationMensuelle.Checked = False
+            ElseIf agencyToUpdate.Rows(0)("MENSUALITE") = 1 Then
+                GunaCheckBoxfacturationMensuelle.Checked = True
+            End If
+
+            If agencyToUpdate.Rows(0)("HEBDOMADAIRE") = 0 Then
+                GunaCheckBoxHebdomadaire.Checked = False
+            ElseIf agencyToUpdate.Rows(0)("HEBDOMADAIRE") = 1 Then
+                GunaCheckBoxHebdomadaire.Checked = True
+            End If
+
+            If agencyToUpdate.Rows(0)("REDUCTION_GLOBAL_FACTURE") = 0 Then
+                GunaCheckBoxReducFacture.Checked = False
+            ElseIf agencyToUpdate.Rows(0)("REDUCTION_GLOBAL_FACTURE") = 1 Then
+                GunaCheckBoxReducFacture.Checked = True
+            End If
+
+            If agencyToUpdate.Rows(0)("INVERSER_SIGNE_FACTURE") = 0 Then
+                GunaCheckBoxInverserSigne.Checked = False
+            ElseIf agencyToUpdate.Rows(0)("INVERSER_SIGNE_FACTURE") = 1 Then
+                GunaCheckBoxInverserSigne.Checked = True
+            End If
+
+            If agencyToUpdate.Rows(0)("CONFIG") = 0 Then
+                GunaCheckBoxConfigs.Checked = False
+            ElseIf agencyToUpdate.Rows(0)("CONFIG") = 1 Then
+                GunaCheckBoxConfigs.Checked = True
+            End If
+
+            Dim papierEnTete As DataTable = Functions.getElementByCode(CODE_AGENCE, "papier_entete", "CODE_AGENCE")
+
+            If papierEnTete.Rows.Count > 0 Then
+
+                loadLogoTypes()
+
+                GunaComboBoxHeader.SelectedIndex = papierEnTete.Rows(0)("UTILISE")
+
+                GunaTextBoxCodePapier.Text = papierEnTete.Rows(0)("CODE_PAPIER")
+                GunaTextBoxTeteLigne1.Text = papierEnTete.Rows(0)("EN_TETE_L1")
+                GunaTextBoxTeteLigne2.Text = papierEnTete.Rows(0)("EN_TETE_L2")
+                GunaTextBoxTeteLigne3.Text = papierEnTete.Rows(0)("EN_TETE_L3")
+                GunaTextBoxTeteLigne4.Text = papierEnTete.Rows(0)("EN_TETE_L4")
+                GunaTextBoxPieds1.Text = papierEnTete.Rows(0)("PIEDS_L1")
+                GunaTextBoxPieds2.Text = papierEnTete.Rows(0)("PIEDS_L2")
+                GunaTextBoxPieds3.Text = papierEnTete.Rows(0)("PIEDS_L3")
+
+                If Not IsDBNull(papierEnTete.Rows(0)("IMAGE_1")) Then
+
+                    Dim img() As Byte
+                    img = papierEnTete.Rows(0)("IMAGE_1")
+
+                    Dim mStream As New MemoryStream(img)
+
+                    GunaPictureBoxGauche.Image = Image.FromStream(mStream)
+
+                End If
+
+                If Not IsDBNull(papierEnTete.Rows(0)("IMAGE_2")) Then
+
+                    Dim img() As Byte
+                    img = papierEnTete.Rows(0)("IMAGE_2")
+
+                    Dim mStream As New MemoryStream(img)
+
+                    GunaPictureBoxCoinDroit.Image = Image.FromStream(mStream)
+
+                End If
+
+            End If
+
+            TabControl1.SelectedIndex = 0
+
+        End If
 
     End Sub
 
@@ -919,7 +1026,12 @@ Public Class AgencyForm
                     End If
 
                     Functions.SiplifiedClearTextBox(Me)
-                    GunaButtonEnregistrer.Text = "Enregistrer"
+
+                    If GlobalVariable.actualLanguageValue = 0 Then
+                        GunaButtonEnregistrer.Text = "Add"
+                    Else
+                        GunaButtonEnregistrer.Text = "Enregistrer"
+                    End If
 
                 End If
 
@@ -948,46 +1060,50 @@ Public Class AgencyForm
 
     Private Sub SupprimerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SupprimerToolStripMenuItem.Click
 
-        If GunaDataGridViewAgence.Rows.Count > 0 Then
+        If GunaDataGridViewAgence.CurrentRow.Selected Then
 
-            Dim NOM_AGENCE As String = ""
-            Dim CODE_AGENCE As String = GunaDataGridViewAgence.CurrentRow.Cells("CODE_AGENCE").Value.ToString
+            If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CORRECTIONS") Then
 
-            If GlobalVariable.actualLanguageValue = 0 Then
-                NOM_AGENCE = GunaDataGridViewAgence.CurrentRow.Cells("AGENCY NAME").Value.ToString
-            ElseIf GlobalVariable.actualLanguageValue = 1 Then
-                NOM_AGENCE = GunaDataGridViewAgence.CurrentRow.Cells("NOM AGENCE").Value.ToString
-            End If
-
-            Dim dialog As DialogResult
-
-            If GlobalVariable.actualLanguageValue = 0 Then
-                languageMessage = "Dou you really want to delete " & NOM_AGENCE
-                languageTitle = "Delete"
-            ElseIf GlobalVariable.actualLanguageValue = 1 Then
-                languageMessage = "Voulez-vous vraiment Supprimer " & NOM_AGENCE
-                languageTitle = "Suppression"
-            End If
-
-            dialog = MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-
-            If dialog = DialogResult.No Then
-                'e.Cancel = True
-            Else
-
-                Functions.DeleteRowFromDataGridGeneral(GunaDataGridViewAgence, GunaDataGridViewAgence.CurrentRow.Cells("CODE_AGENCE").Value.ToString, "agence", "CODE_AGENCE")
-
-                GunaDataGridViewAgence.Columns.Clear()
-
-                refreshDataGrid()
+                Dim NOM_AGENCE As String = ""
+                Dim CODE_AGENCE As String = GunaDataGridViewAgence.CurrentRow.Cells("CODE_AGENCE").Value.ToString
 
                 If GlobalVariable.actualLanguageValue = 0 Then
-                    languageMessage = "Deleted successfully"
+                    NOM_AGENCE = GunaDataGridViewAgence.CurrentRow.Cells("AGENCY NAME").Value.ToString
                 ElseIf GlobalVariable.actualLanguageValue = 1 Then
-                    languageMessage = "Vous avez supprimé avec succès"
+                    NOM_AGENCE = GunaDataGridViewAgence.CurrentRow.Cells("NOM AGENCE").Value.ToString
                 End If
 
-                MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Dim dialog As DialogResult
+
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    languageMessage = "Dou you really want to delete " & NOM_AGENCE
+                    languageTitle = "Delete"
+                ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                    languageMessage = "Voulez-vous vraiment Supprimer " & NOM_AGENCE
+                    languageTitle = "Suppression"
+                End If
+
+                dialog = MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+                If dialog = DialogResult.No Then
+                    'e.Cancel = True
+                Else
+
+                    Functions.DeleteRowFromDataGridGeneral(GunaDataGridViewAgence, GunaDataGridViewAgence.CurrentRow.Cells("CODE_AGENCE").Value.ToString, "agence", "CODE_AGENCE")
+
+                    GunaDataGridViewAgence.Columns.Clear()
+
+                    refreshDataGrid()
+
+                    If GlobalVariable.actualLanguageValue = 0 Then
+                        languageMessage = "Deleted successfully"
+                    ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                        languageMessage = "Vous avez supprimé avec succès"
+                    End If
+
+                    MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                End If
 
             End If
 
@@ -1001,7 +1117,7 @@ Public Class AgencyForm
                 languageTitle = "Supression"
             End If
 
-            MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            'MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         End If
     End Sub
@@ -1067,4 +1183,60 @@ Public Class AgencyForm
 
     End Sub
 
+    Private Sub LinkLabel1_Click(sender As Object, e As EventArgs) Handles LinkLabel1.Click
+        If GunaCheckBox1.Visible Then
+            GunaCheckBox1.Visible = False
+        Else
+            GunaCheckBox1.Visible = True
+        End If
+    End Sub
+
+    Private Sub GunaCheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles GunaCheckBox2.CheckedChanged
+
+        If GunaCheckBox2.Checked Then
+            ConfigForm.Show()
+            ConfigForm.TopMost = True
+        Else
+            ConfigForm.Close()
+        End If
+
+    End Sub
+
+    Private Sub GunaCheckBox3_Click(sender As Object, e As EventArgs) Handles GunaCheckBox3.Click
+
+        If GunaCheckBox3.Checked Then
+            GunaLabel43.Visible = True
+            GunaTextBoxWhats7.Visible = True
+            GunaTextBoxEmail_7.Visible = True
+        Else
+            GunaLabel43.Visible = False
+            GunaTextBoxWhats7.Visible = False
+            GunaTextBoxEmail_7.Visible = False
+        End If
+
+    End Sub
+
+    Private Sub GunaCheckBox1_Click(sender As Object, e As EventArgs) Handles GunaCheckBox1.Click
+        If GunaCheckBox1.Checked Then
+            GunaCheckBoxConfigs.Visible = True
+            GunaShadowPanel3.Visible = True
+        Else
+            GunaCheckBoxConfigs.Visible = False
+            GunaCheckBox1.Visible = False
+            GunaShadowPanel3.Visible = False
+
+        End If
+    End Sub
+
+    Private Sub GunaCheckBoxConfigs_Click(sender As Object, e As EventArgs) Handles GunaCheckBoxConfigs.Click
+        If GunaCheckBoxConfigs.Checked Then
+            GunaCheckBoxConfigs.Visible = True
+            GunaShadowPanel3.Visible = True
+        Else
+            GunaCheckBoxConfigs.Visible = False
+            GunaShadowPanel3.Visible = False
+            GunaCheckBox1.Visible = False
+            GunaCheckBox1.Checked = False
+        End If
+    End Sub
 End Class

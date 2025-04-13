@@ -198,42 +198,60 @@ Public Class ReglementForm
 
                 '3- OUVERTURE REGLEMENT POUR UN ENCAISSEMENT D'UNE RESERVATION NON ENREGISTREE / ENCAISSEMENT AVANT ENREGISTREMENT DE RESERVATION
 
+                Dim infoClient As DataTable
+                Dim CODE_CAHMBRE As String = ""
+
                 encaissementAvantEnregistrementDeReservation = True
 
-                Dim CODE_CAHMBRE As String = MainWindow.GunaTextBoxNumeroChambre.Text
+                If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                    CODE_CAHMBRE = MainWindow.GunaTextBoxNumeroChambre.Text
 
-                Dim infoClient As DataTable = Functions.getElementByCode(MainWindow.GunaTextBoxCodeEntrepriseDuClient.Text, "client", "CODE_CLIENT")
+                    infoClient = Functions.getElementByCode(MainWindow.GunaTextBoxCodeEntrepriseDuClient.Text, "client", "CODE_CLIENT")
 
-                If Not infoClient.Rows.Count > 0 Then
-                    infoClient = Functions.getElementByCode(MainWindow.GunaTextBoxRefClient.Text, "client", "CODE_CLIENT")
+                    If Not infoClient.Rows.Count > 0 Then
+                        infoClient = Functions.getElementByCode(MainWindow.GunaTextBoxRefClient.Text, "client", "CODE_CLIENT")
+                    End If
+                Else
+                    CODE_CAHMBRE = RestaurantBookingForm.GunaTextBoxNumeroChambre.Text
+
+                    infoClient = Functions.getElementByCode(RestaurantBookingForm.GunaTextBoxCodeEntrepriseDuClient.Text, "client", "CODE_CLIENT")
+
+                    If Not infoClient.Rows.Count > 0 Then
+                        infoClient = Functions.getElementByCode(RestaurantBookingForm.GunaTextBoxRefClient.Text, "client", "CODE_CLIENT")
+                    End If
                 End If
 
                 If infoClient.Rows.Count > 0 Then
 
-                    GunaTextBoxNom.Text = infoClient.Rows(0)("CODE_CLIENT")
-                    GunaTextBoxClientAFacturer.Text = infoClient.Rows(0)("NOM_PRENOM")
-                    GunaTextBoxCodeElite.Text = infoClient.Rows(0)("CODE_ELITE")
-                    Dim solde As Double = 0
-                    solde = Double.Parse(Functions.SituationDeReservation(MainWindow.GunaLabelNumReservation.Text))
+                        GunaTextBoxNom.Text = infoClient.Rows(0)("CODE_CLIENT")
+                        GunaTextBoxClientAFacturer.Text = infoClient.Rows(0)("NOM_PRENOM")
+                        GunaTextBoxCodeElite.Text = infoClient.Rows(0)("CODE_ELITE")
+                        Dim solde As Double = 0
+
+                    If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                        solde = Double.Parse(Functions.SituationDeReservation(MainWindow.GunaLabelNumReservation.Text))
+                    Else
+                        solde = Double.Parse(Functions.SituationDeReservation(RestaurantBookingForm.GunaLabelNumReservation.Text))
+                    End If
 
                     'GunaTextBoxAPayer.Text = Format(solde, "#,##0")
 
                     If solde > 0 Then
-                        GunaCheckBoxRemboursement.Checked = True
+                            GunaCheckBoxRemboursement.Checked = True
+                        Else
+                            GunaCheckBoxRemboursement.Checked = False
+                        End If
+
+                        ComptoireEtEnChambreReglementOuFacturation(GunaTextBoxNom.Text)
+
                     Else
-                        GunaCheckBoxRemboursement.Checked = False
+                        GunaTextBoxClientAFacturer.Clear()
+                        GunaTextBoxReference.Clear()
                     End If
 
-                    ComptoireEtEnChambreReglementOuFacturation(GunaTextBoxNom.Text)
-
-                Else
-                    GunaTextBoxClientAFacturer.Clear()
-                    GunaTextBoxReference.Clear()
                 End If
 
             End If
-
-        End If
 
         '----------------------------------------END  CONTENT OF REGLEMENTFORM COMING FROM THE FRONTDESK ---------------------------------
 
@@ -494,9 +512,6 @@ Public Class ReglementForm
 
                 GunaDataGridViewLigneFactureReglement.ColumnHeadersDefaultCellStyle.ForeColor = Color.White
 
-                'Sorting the elements of situation client
-                'GunaDataGridViewLigneFactureReglement.DataSource.Sort(GunaDataGridViewLigneFactureReglement.DataSource.Columns(0), ListSortDirection.Descending)
-
             End If
 
             Dim montantAPayer As Double = 0
@@ -566,61 +581,9 @@ Public Class ReglementForm
 
         ElseIf GlobalVariable.typeDeClientAFacturer = "comptoir" Then
 
-            'Règlement des factures POUR CLIENT COMPTOIRE ------------------------------------------------
+            Dim NUMERO_BLOC_NOTE As String = Trim(GlobalVariable.blocNoteARegler)
 
-            'On ne règle pas le contenus des commandes simplement mais l'ensemble des commandes en relation avec un client
-            Dim ListeDesFacturesDuBlocNote As DataTable = Functions.GetAllElementsOnCondition(Trim(GlobalVariable.blocNoteARegler), "ligne_facture", "NUMERO_BLOC_NOTE")
-
-            If ListeDesFacturesDuBlocNote.Rows.Count > 0 Then
-
-                Dim tailleDuTableau As Integer = ListeDesFacturesDuBlocNote.Rows.Count
-                'On crée une structure de tableau
-                Dim toutesLesFactures(tailleDuTableau) As SituationClient
-
-                Dim totalFacture As Double = 0
-                Dim totalReglement As Double = 0
-
-                'Puis dans notre structure on ajoute les factures
-                For i = 0 To tailleDuTableau - 1
-
-                    toutesLesFactures(i).dateOperation = ListeDesFacturesDuBlocNote.Rows(i)("DATE_FACTURE")
-                    toutesLesFactures(i).Debit = ListeDesFacturesDuBlocNote.Rows(i)("MONTANT_TTC")
-                    toutesLesFactures(i).Credit = 0
-                    toutesLesFactures(i).libelleOperation = ListeDesFacturesDuBlocNote.Rows(i)("LIBELLE_FACTURE")
-                    toutesLesFactures(i).Article = ListeDesFacturesDuBlocNote.Rows(i)("CODE_ARTICLE")
-                    toutesLesFactures(i).Code = ListeDesFacturesDuBlocNote.Rows(i)("CODE_FACTURE")
-                    toutesLesFactures(i).Id = ListeDesFacturesDuBlocNote.Rows(i)("ID_LIGNE_FACTURE")
-
-                    totalFacture = totalFacture + ListeDesFacturesDuBlocNote.Rows(i)("MONTANT_TTC")
-
-                Next
-
-                GunaTextBoxAPayer.Text = Format(totalFacture, "#,##0")
-                GunaTextBoxSolde.Text = Format(totalFacture, "#,##0")
-
-                'Enfin on insere le tout dans notre datagrid
-                If (toutesLesFactures.Length > 0) Then
-
-                    For i = 0 To toutesLesFactures.Length - 1
-
-                        If Not toutesLesFactures(i).libelleOperation = "" Then
-                            GunaDataGridViewLigneFactureReglement.Rows.Add(CDate(toutesLesFactures(i).dateOperation).ToShortDateString, toutesLesFactures(i).libelleOperation, Format(toutesLesFactures(i).Debit, "#,##0.00"), Format(toutesLesFactures(i).Credit, "#,##0.00"), toutesLesFactures(i).Article, toutesLesFactures(i).Code, toutesLesFactures(i).Id)
-                        End If
-
-                    Next
-
-                    'Sorting the elements of situation client
-                    'GunaDataGridView1.DataSource.Sort(GunaDataGridView1.DataSource.Columns(-1), ListSortDirection.Descending)
-
-                End If
-
-                'GunaTextBoxSolde.Text = Format(totalReglement - totalFacture, "#,##0")
-
-                FacturationForm.AutoLoadOfBlocNote()
-
-                'connect.closeConnection()
-
-            End If
+            ReAffichageDesElementsDuBlocNotes(NUMERO_BLOC_NOTE)
 
         ElseIf encaissementAvantEnregistrementDeReservation Then
 
@@ -634,7 +597,12 @@ Public Class ReglementForm
 
             Dim command3 As New MySqlCommand(query3, GlobalVariable.connect)
             command3.Parameters.Add("@CODE_CLIENT", MySqlDbType.VarChar).Value = CodeClient
-            command3.Parameters.Add("@CODE_RESERVATION", MySqlDbType.VarChar).Value = MainWindow.GunaLabelNumReservation.Text
+
+            If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                command3.Parameters.Add("@CODE_RESERVATION", MySqlDbType.VarChar).Value = MainWindow.GunaLabelNumReservation.Text
+            Else
+                command3.Parameters.Add("@CODE_RESERVATION", MySqlDbType.VarChar).Value = RestaurantBookingForm.GunaLabelNumReservation.Text
+            End If
 
             Dim adapter3 As New MySqlDataAdapter(command3)
             Dim tableReglement As New DataTable()
@@ -719,8 +687,6 @@ Public Class ReglementForm
                     GunaTextBoxReference.Text = DEPOT_GARANTIE_PAR & "CASH IN (" & GunaComboBoxModereglement.SelectedItem & ") FROM " & GunaTextBoxClientAFacturer.Text & " " & Date.Now()
 
                 End If
-
-
 
             Else
 
@@ -871,6 +837,7 @@ Public Class ReglementForm
         'ETAT_BLOC_NOTE = 2 : GRATUITEE
         'ETAT_BLOC_NOTE = 3 : COMPTE
 
+        Dim NUMERO_BLOC_NOTE As String = ""
         Dim CODE_CAUTION As String = GunaTextBoxCodeDepot.Text
         Dim DEPOT_DE_GARANTIE As Double = 0
         Dim DEPOT_DE_GARANTIE_VERIF As Double = 0
@@ -923,7 +890,7 @@ Public Class ReglementForm
                 Dim ETAT_FACTURE_POUR_COMPTE As Integer = -1
                 Dim ETAT_FACTURE_POUR_EN_CHAMBRE As Integer = -1
                 Dim ETAT_BLOC_NOTE As Integer
-                Dim NUMERO_BLOC_NOTE As String = ""
+
                 Dim LigneFacture As New LigneFacture()
 
                 Dim CODE_CHAMBRE_ As String = GunaTextBoxCodeChambre.Text
@@ -953,7 +920,6 @@ Public Class ReglementForm
 
                     If GlobalVariable.actualLanguageValue = 1 Then
                         messageText = "Voulez-vous effectuer une " & GunaComboBoxModereglement.SelectedItem & " de " & Format(Double.Parse(GunaTextBoxMontantVerse.Text), "#,##0") & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE")
-
                     Else
                         messageText = "You are about to pay through " & GunaComboBoxModereglement.SelectedItem & " an amount " & Format(Double.Parse(GunaTextBoxMontantVerse.Text), "#,##0") & " " & GlobalVariable.societe.Rows(0)("CODE_MONNAIE")
                     End If
@@ -1049,7 +1015,7 @@ Public Class ReglementForm
                                 'DE PERMETTRE D'OUVRIR LA CAISSE
 
                                 Dim gestionStock As Integer = GlobalVariable.AgenceActuelle.Rows(0)("GERER_STOCK")
-                                Dim choixShiftMagasin As Boolean = True
+                                Dim ouvrirCaisse As Boolean = True
                                 'PAR DEFAUT POURSUIVRE POUR GERER LE CAS DE NON ACTIVATION DE LA GESTION DES STOCK
 
                                 'ON NE DOIT PAS POUVOUR OUVRIR SA CAISSE SI LA GESTION DES STOCKS EST ACTIVE
@@ -1057,17 +1023,23 @@ Public Class ReglementForm
 
                                 If gestionStock = 1 Then
 
-                                    choixShiftMagasin = False
+                                    ouvrirCaisse = False
 
-                                    If GlobalVariable.magasinActuel.Equals("") Then
+                                    If Trim(GlobalVariable.magasinActuel.Equals("")) Then
                                         Functions.magasinActuelEtShiftDunUtilisateur()
                                     Else
-                                        choixShiftMagasin = True
+                                        ouvrirCaisse = True
                                     End If
 
                                 End If
 
-                                If choixShiftMagasin Then
+                                If Not ouvrirCaisse Then
+                                    If Not GlobalVariable.magasinActuel.Equals("") Then
+                                        ouvrirCaisse = True
+                                    End If
+                                End If
+
+                                If ouvrirCaisse Then
 
                                     passwordVerifivationForm.Close()
 
@@ -1084,6 +1056,8 @@ Public Class ReglementForm
 
                                     passwordVerifivationForm.GunaTextBoxMontantQueLonVeutRegler.Text = GunaTextBoxMontantVerse.Text
                                     passwordVerifivationForm.GunaTextBoxApresTentativeEncaissemtn.Text = 1
+
+                                    ouvrirCaisse = False
 
                                 End If
 
@@ -1253,19 +1227,19 @@ Public Class ReglementForm
 
                                 ElseIf GunaComboBoxModereglement.SelectedIndex = 3 Or GunaComboBoxModereglement.SelectedIndex = 8 Then
 
-                                    '1- EN PACKATAGE DES CHARGES POUR LA PRODUCTION D'UNE FACTURE
-
+                                    '1- EN PACKATAGE DES CHARGES POUR LA PRODUCTION D'UNE FACTURE PRODUCTION DES FACTURES
+                                    'kklg
                                     If typeDeCompte = "entreprise" Then
                                         empackatageDesLignesDeChargesPourFacture()
                                     End If
 
                                     If typeDeCompte = "individuel" Then
 
-                                        If GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "INDIVIDUEL" Then
+                                        If GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "INDIVIDUEL" Or GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "INDIVIDUAL" Then
 
                                             empackatageDesLignesDeChargesPourFacture()
 
-                                        ElseIf GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "COMPTE" Then
+                                        ElseIf GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "COMPTE" Or GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "ACCOUNT" Then
 
                                             Dim NUMERO_DU_COMPTE As String = GunaTextBoxNumeroCompte.Text
 
@@ -1281,6 +1255,8 @@ Public Class ReglementForm
                                         End If
 
                                     End If
+
+                                    '
 
                                     If GlobalVariable.typeDeClientAFacturer = "comptoir" Then
 
@@ -1384,7 +1360,13 @@ Public Class ReglementForm
                                             CODE_RESERVATION = GlobalVariable.codeReservationToUpdate
                                         Else
                                             If encaissementAvantEnregistrementDeReservation Then
-                                                CODE_RESERVATION = MainWindow.GunaLabelNumReservation.Text
+
+                                                If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                                                    CODE_RESERVATION = MainWindow.GunaLabelNumReservation.Text
+                                                Else
+                                                    CODE_RESERVATION = RestaurantBookingForm.GunaLabelNumReservation.Text
+                                                End If
+
                                             End If
                                         End If
 
@@ -1443,7 +1425,12 @@ Public Class ReglementForm
                                                     CODE_CHAMBRE = GlobalVariable.ReservationToUpdate.Rows(0)("CHAMBRE_ID")
                                                 Else
                                                     If encaissementAvantEnregistrementDeReservation Then
-                                                        CODE_CHAMBRE = MainWindow.GunaTextBoxNumeroChambre.Text
+                                                        If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                                                            CODE_CHAMBRE = MainWindow.GunaTextBoxNumeroChambre.Text
+                                                        Else
+                                                            CODE_CHAMBRE = RestaurantBookingForm.GunaTextBoxNumeroChambre.Text
+                                                        End If
+
                                                     End If
                                                 End If
 
@@ -1551,6 +1538,7 @@ Public Class ReglementForm
                                                     Dim LIBELLE_FACTURE As String = ""
 
                                                     If GlobalVariable.actualLanguageValue = 1 Then
+                                                        'kklg
                                                         MONTANT_HT = dt.Rows(i).Cells("MONTANT HT").Value
                                                         QUANTITE = dt.Rows(i).Cells("QUANTITE").Value
                                                         MONTANT_TTC = dt.Rows(i).Cells("MONTANT TTC").Value
@@ -1560,7 +1548,7 @@ Public Class ReglementForm
                                                         MONTANT_HT = dt.Rows(i).Cells("AMOUNT ET").Value
                                                         QUANTITE = dt.Rows(i).Cells("QUANTITY").Value
                                                         MONTANT_TTC = dt.Rows(i).Cells("AMOUNT IT").Value
-                                                        PRIX_UNITAIRE_TTC = dt.Rows(i).Cells("UNIT PRICE").Value
+                                                        PRIX_UNITAIRE_TTC = dt.Rows(i).Cells("PU").Value
                                                         TYPE_LIGNE_FACTURE = "FREE" '**
                                                         LIBELLE_FACTURE = dt.Rows(i).Cells("ITEM").Value & CODE_CHAMBRE_LIBELLE
                                                     End If
@@ -1683,7 +1671,7 @@ Public Class ReglementForm
                                                 End If
 
                                                 If GlobalVariable.actualLanguageValue = 1 Then
-                                                    MessageBox.Show("Règlement effectué avec succès **", "Règlement", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                                                    MessageBox.Show("Règlement effectué avec succès ", "Règlement", MessageBoxButtons.OK, MessageBoxIcon.Information)
                                                 Else
                                                     MessageBox.Show("Cash in successful", "Cash In", MessageBoxButtons.OK, MessageBoxIcon.Information)
                                                 End If
@@ -1910,8 +1898,13 @@ Public Class ReglementForm
                                     'We have to activate the MainWindow so as to refresh the value of the GunaLabelSolde in the activated event of the MainWindow
                                     If Not GlobalVariable.codeReservationToUpdate = "" Then
 
-                                        MainWindow.MainWindowManualActivation()
-
+                                        If encaissementAvantEnregistrementDeReservation Then
+                                            If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                                                MainWindow.MainWindowManualActivation()
+                                            Else
+                                                RestaurantBookingForm.MainWindowManualActivation()
+                                            End If
+                                        End If
                                         'We aactivate the ReglementForm To refresh the values of the DataGrids in the Folio
                                         Me.Refresh()
 
@@ -1929,7 +1922,11 @@ Public Class ReglementForm
 
                                     GlobalVariable.cardPaiement = 0
 
-                                    MainWindow.GunaTextBoxPaiement.Text = 0
+                                    If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                                        MainWindow.GunaTextBoxPaiement.Text = 0
+                                    Else
+                                        RestaurantBookingForm.GunaTextBoxPaiement.Text = 0
+                                    End If
 
                                     If Not Trim(GlobalVariable.codeReservationToUpdate) = "" Then
 
@@ -2015,10 +2012,15 @@ Public Class ReglementForm
 
                                 If GlobalVariable.typeDeClientAFacturer = "comptoir" Then
 
-                                    If Not blocNoteTermine Then
+                                    If Not blocNoteTermine Then 'Partiel payment
                                         MONTANT_DEJA_REGLE += MONTANT_REGLEMENT
                                         'GunaTextBoxMontantVerse.Text = Format(MONTANT_TOTAL_A_REGLER - MONTANT_REGLEMENT, "#,##0")
                                         GunaTextBoxMontantVerse.Text = Format(MONTANT_TOTAL_A_REGLER - MONTANT_DEJA_REGLE, "#,##0")
+
+                                        GunaDataGridViewLigneFactureReglement.Rows.Clear()
+
+                                        ReAffichageDesElementsDuBlocNotes(NUMERO_BLOC_NOTE)
+
                                     End If
 
                                     '1- ON MET AJOUR LE MONTANT DU REGLEMENT
@@ -2053,8 +2055,15 @@ Public Class ReglementForm
                     End If
 
                     Dim doManualRefreshOfMainWindow As Boolean = False
-                    If MainWindow.Visible Then
-                        doManualRefreshOfMainWindow = True
+
+                    If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                        If MainWindow.Visible Then
+                            doManualRefreshOfMainWindow = True
+                        End If
+                    Else
+                        If RestaurantBookingForm.Visible Then
+                            doManualRefreshOfMainWindow = True
+                        End If
                     End If
 
                     If fermer Then
@@ -2071,17 +2080,38 @@ Public Class ReglementForm
 
                                     MainWindow.GunaLabelSolde.Text = Format(solde, "#,##0")
 
-                                    If 0 > solde Then
-                                        MainWindow.GunaLabelSolde.ForeColor = Color.Red
-                                    ElseIf solde = 0 Then
-                                        MainWindow.GunaLabelSolde.ForeColor = Color.Black
+                                    If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                                        MainWindow.GunaLabelSolde.Text = Format(solde, "#,##0")
+
+
+                                        If 0 > solde Then
+                                            MainWindow.GunaLabelSolde.ForeColor = Color.Red
+                                        ElseIf solde = 0 Then
+                                            MainWindow.GunaLabelSolde.ForeColor = Color.Black
+                                        Else
+                                            MainWindow.GunaLabelSolde.ForeColor = Color.Green
+                                        End If
+
+                                        MainWindow.MainWindowManualActivation()
+
+                                        MainWindow.Refresh()
                                     Else
-                                        MainWindow.GunaLabelSolde.ForeColor = Color.Green
+                                        RestaurantBookingForm.GunaLabelSolde.Text = Format(solde, "#,##0")
+
+
+                                        If 0 > solde Then
+                                            RestaurantBookingForm.GunaLabelSolde.ForeColor = Color.Red
+                                        ElseIf solde = 0 Then
+                                            RestaurantBookingForm.GunaLabelSolde.ForeColor = Color.Black
+                                        Else
+                                            RestaurantBookingForm.GunaLabelSolde.ForeColor = Color.Green
+                                        End If
+
+                                        RestaurantBookingForm.MainWindowManualActivation()
+
+                                        RestaurantBookingForm.Refresh()
                                     End If
 
-                                    MainWindow.MainWindowManualActivation()
-
-                                    MainWindow.Refresh()
 
                                 End If
 
@@ -2183,19 +2213,34 @@ Public Class ReglementForm
 
                     If encaissementAvantEnregistrementDeReservation Then 'ENCAISSEMENT POUR UNE RESA NON ENREGISTREE
 
-                        Dim solde As Double = Double.Parse(Functions.SituationDeReservation(MainWindow.GunaLabelNumReservation.Text))
-                        MainWindow.GunaLabelSolde.Text = Format(solde, "#,##0")
+                        If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
 
-                        If 0 > solde Then
-                            MainWindow.GunaLabelSolde.ForeColor = Color.Red
+                            Dim solde As Double = Double.Parse(Functions.SituationDeReservation(MainWindow.GunaLabelNumReservation.Text))
+                            MainWindow.GunaLabelSolde.Text = Format(solde, "#,##0")
+
+                            If 0 > solde Then
+                                MainWindow.GunaLabelSolde.ForeColor = Color.Red
+                            Else
+                                MainWindow.GunaLabelSolde.ForeColor = Color.Black
+                            End If
+
+                            If MainWindow.GunaRadioButtonChambre.Checked Then
+
+                                If 0 < MainWindow.GunaLabelSolde.Text Then
+                                    MainWindow.GunaTextBoxMontantARegler.Text = Format(MainWindow.GunaTextBoxTotal.Text - solde, "#,##0")
+                                End If
+
+                            End If
+
                         Else
-                            MainWindow.GunaLabelSolde.ForeColor = Color.Black
-                        End If
 
-                        If MainWindow.GunaRadioButtonChambre.Checked Then
+                            Dim solde As Double = Double.Parse(Functions.SituationDeReservation(RestaurantBookingForm.GunaLabelNumReservation.Text))
+                            RestaurantBookingForm.GunaLabelSolde.Text = Format(solde, "#,##0")
 
-                            If 0 < MainWindow.GunaLabelSolde.Text Then
-                                MainWindow.GunaTextBoxMontantARegler.Text = Format(MainWindow.GunaTextBoxTotal.Text - solde, "#,##0")
+                            If 0 > solde Then
+                                RestaurantBookingForm.GunaLabelSolde.ForeColor = Color.Red
+                            Else
+                                RestaurantBookingForm.GunaLabelSolde.ForeColor = Color.Black
                             End If
 
                         End If
@@ -2208,7 +2253,13 @@ Public Class ReglementForm
 
             End If
 
+        End If
 
+        If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("FAST_FOOD") = 1 Then
+            FastFoodForm.AutoLoadOfBlocNoteOuvert()
+            FastFoodForm.AutoLoadOfBlocNoteAPayer()
+            FastFoodForm.SituationDeCaisseJournaliere()
+            Functions.DeleteElementByCode(NUMERO_BLOC_NOTE, "ligne_facture_temp", "NUMERO_BLOC_NOTE")
         End If
 
     End Sub
@@ -2255,14 +2306,14 @@ Public Class ReglementForm
 
         Dim TYPE_CLIENT As String = ""
 
-        If typeDeCompte = "individuel" Then
+        If typeDeCompte = "individuel" Or typeDeCompte = "individual" Then
 
             If GlobalVariable.actualLanguageValue = 1 Then
                 TYPE_CLIENT = "Individuel"
             Else
                 TYPE_CLIENT = "Individual"
             End If
-        ElseIf typeDeCompte = "entreprise" Then
+        ElseIf typeDeCompte = "entreprise" Or typeDeCompte = "company" Then
             If GlobalVariable.actualLanguageValue = 1 Then
                 TYPE_CLIENT = "Entreprise"
             Else
@@ -2277,9 +2328,10 @@ Public Class ReglementForm
 
         If typeDeCompte = "individuel" Then
 
-            If GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "INDIVIDUEL" Then
-                query = "SELECT NOM_CLIENT, client.CODE_CLIENT From client, compte WHERE NOM_CLIENT LIKE '%" & GunaTextBoxEntreprise.Text & "%' AND CODE_AGENCE=@CODE_AGENCE AND TYPE_CLIENT=@TYPE_CLIENT AND compte.NUMERO_COMPTE =client.NUM_COMPTE AND ETAT_DU_COMPTE=@ETAT_DU_COMPTE ORDER BY NOM_CLIENT ASC "
-            ElseIf GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "COMPTE" Then
+            If GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "INDIVIDUEL" Or GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "INDIVIDUAL" Then
+                'query = "SELECT NOM_CLIENT, client.CODE_CLIENT From client, compte WHERE NOM_CLIENT LIKE '%" & GunaTextBoxEntreprise.Text & "%' AND CODE_AGENCE=@CODE_AGENCE AND TYPE_CLIENT=@TYPE_CLIENT AND compte.NUMERO_COMPTE =client.NUM_COMPTE AND ETAT_DU_COMPTE=@ETAT_DU_COMPTE ORDER BY NOM_CLIENT ASC "
+                query = "SELECT NOM_CLIENT, client.CODE_CLIENT From client, compte WHERE NOM_CLIENT LIKE '%" & GunaTextBoxEntreprise.Text & "%' AND CODE_AGENCE=@CODE_AGENCE AND TYPE_CLIENT IN ('INDIVIDUEL','INDIVIDUAL','ENTREPRISE','COMPANY','WALK IN','COMPTOIR') AND compte.NUMERO_COMPTE =client.NUM_COMPTE AND ETAT_DU_COMPTE=@ETAT_DU_COMPTE ORDER BY NOM_CLIENT ASC "
+            ElseIf GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "COMPTE" Or GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "ACCOUNT" Then
                 query = "SELECT INTITULE, NUMERO_COMPTE From compte WHERE INTITULE LIKE '%" & GunaTextBoxEntreprise.Text & "%' AND ETAT_DU_COMPTE =@ETAT_DU_COMPTE AND CODE_CLIENT=@CODE_CLIENT ORDER BY INTITULE ASC"
             End If
 
@@ -2301,19 +2353,6 @@ Public Class ReglementForm
             adapter.Fill(table)
 
         End If
-
-        'ElseIf typeDeCompte = "individuel" Then
-
-        ' query = "SELECT INTITULE, NUMERO_COMPTE From compte WHERE INTITULE LIKE '%" & GunaTextBoxEntreprise.Text & "%' AND ETAT_DU_COMPTE =@ETAT_DU_COMPTE ORDER BY INTITULE ASC"
-
-        'Dim command As New MySqlCommand(query, GlobalVariable.connect)
-        'command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = GlobalVariable.codeAgence
-        'command.Parameters.Add("@ETAT_DU_COMPTE", MySqlDbType.Int64).Value = ETAT_DU_COMPTE
-
-        'Dim adapter As New MySqlDataAdapter(command)
-
-        'adapter.Fill(table)
-
 
         If (table.Rows.Count > 0) Then
             GunaDataGridViewCompany.DataSource = table
@@ -2425,7 +2464,7 @@ Public Class ReglementForm
 
             ElseIf typeDeCompte = "individuel" Then
 
-                If GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "INDIVIDUEL" Then
+                If GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "INDIVIDUEL" Or GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "INDIVIDUAL" Then
 
                     Dim CODE_CLIENT As String = row.Cells("CODE_CLIENT").Value.ToString
 
@@ -2445,7 +2484,7 @@ Public Class ReglementForm
                         GunaTextBoxNumeroCompte.Text = "PAS DE COMPTE"
                     End If
 
-                ElseIf GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "COMPTE" Then
+                ElseIf GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "COMPTE" Or GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "ACCOUNT" Then
 
                     Dim INTITULE_DU_COMPTE As String = row.Cells("INTITULE").Value.ToString
 
@@ -2701,6 +2740,7 @@ Public Class ReglementForm
             LabelEntreprise.Visible = True
 
             If GunaComboBoxModereglement.SelectedIndex = 3 Then
+                'PRISE EN CHARGE ENTREPRISE
                 typeDeCompte = "entreprise"
 
                 If GlobalVariable.actualLanguageValue = 1 Then
@@ -2712,7 +2752,7 @@ Public Class ReglementForm
                 GunaComboBoxCompteIndividuelOuPaymaster.Visible = False
 
             ElseIf GunaComboBoxModereglement.SelectedIndex = 8 Then
-
+                'TRANSFERT VERS COMPTE INDIVIDUEL OU COMPTE SIMPLE
                 typeDeCompte = "individuel"
                 GunaComboBoxCompteIndividuelOuPaymaster.Visible = True
 
@@ -2863,7 +2903,11 @@ Public Class ReglementForm
         Else
 
             If encaissementAvantEnregistrementDeReservation Then
-                chambre = "[" & GunaTextBoxClientAFacturer.Text & " / " & MainWindow.GunaTextBoxNumeroChambre.Text & "]"
+                If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                    chambre = "[" & GunaTextBoxClientAFacturer.Text & " / " & MainWindow.GunaTextBoxNumeroChambre.Text & "]"
+                Else
+                    chambre = "[" & GunaTextBoxClientAFacturer.Text & " / " & RestaurantBookingForm.GunaTextBoxNumeroChambre.Text & "]"
+                End If
             Else
                 chambre = " [" & GunaLabelBlocNoteARegler.Text & "]"
             End If
@@ -2923,7 +2967,11 @@ Public Class ReglementForm
             chambre = "[" & GlobalVariable.ReservationToUpdate.Rows(0)("NOM_CLIENT") & " / " & GlobalVariable.codeChambreToUpdate & "]"
         Else
             If encaissementAvantEnregistrementDeReservation Then
-                chambre = "[" & MainWindow.GunaTextBoxNomPrenom.Text & " / " & MainWindow.GunaTextBoxNumeroChambre.Text & "]"
+                If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                    chambre = "[" & MainWindow.GunaTextBoxNomPrenom.Text & " / " & MainWindow.GunaTextBoxNumeroChambre.Text & "]"
+                Else
+                    chambre = "[" & MainWindow.GunaTextBoxNomPrenom.Text & " / " & RestaurantBookingForm.GunaTextBoxNumeroChambre.Text & "]"
+                End If
             Else
                 chambre = " [" & GunaLabelBlocNoteARegler.Text & "]"
             End If
@@ -3076,11 +3124,8 @@ Public Class ReglementForm
             MONTANT_TTC = Double.Parse(GunaTextBoxAPayer.Text)
         End If
 
-
         Dim DATE_PAIEMENT As Date = GlobalVariable.DateDeTravail
         Dim ETAT_FACTURE As Integer = 1
-
-
 
         Dim MONTANT_TRANSPORT As Double = 0
         Dim MONTANT_REMISE As Double = 0
@@ -3099,12 +3144,16 @@ Public Class ReglementForm
 
             'MISE A JOURS DU CODE_FACTURE DES LIGNES POUR CORRESPONDRE A CELLE DE LA FACTURE
 
+            Dim MONTANT_VERSE As Double = 0
+
             For i = 0 To GunaDataGridViewLigneFactureReglement.Rows.Count - 1
 
                 'mettre a jour le code_facture et etat_fature des lignes actuels contenu dans l
 
                 OLD_CODE_FACTURE = GunaDataGridViewLigneFactureReglement.Rows(i).Cells("codeFacture").Value.ToString
                 Dim CODE_ARTICLE As String = GunaDataGridViewLigneFactureReglement.Rows(i).Cells("Article").Value.ToString
+
+                MONTANT_VERSE += GunaDataGridViewLigneFactureReglement.Rows(i).Cells(3).Value
 
                 'POUR UN TRAITEMENT VERITABLE UNIQUE DES LIGNES REPOSER SUR L'ID DE LIGNE_FACTURE
                 'Dim ID_LIGNE_FACTURE As Integer = GunaDataGridViewLigneFactureReglement.Rows(i).Cells("Id").Value
@@ -3122,11 +3171,11 @@ Public Class ReglementForm
 
             Next
 
+            Functions.updateOfFieldsAddSubtract("facture", "AVANCE", CODE_FACTURE, MONTANT_VERSE, "CODE_FACTURE", 1) 'ON AJOUTE AVANCE
+            Functions.updateOfFieldsAddSubtract("facture", "MONTANT_AVANCE", MONTANT_VERSE, "CODE_FACTURE", CODE_FACTURE, 1) 'ON AJOUTE AVANCE
+            Functions.updateOfFieldsAddSubtract("facture", "RESTE_A_PAYER", MONTANT_VERSE * -1, "CODE_FACTURE", CODE_FACTURE, 1) 'ON RETRANCHE LE MONTANT VERSE DU MONTANT TOTAL
+
             '1- ENVOI DES CHARGES DU PERSONNEL VERS UN COMPTE : COMPTOIRE (BLOC NOTE) -> COMPTE
-
-            If GlobalVariable.typeDeClientAFacturer = "comptoir" Then
-
-            End If
 
             Dim TOTAL_DEBIT As Double = MONTANT_TTC
             Dim TOTAL_CREDIT As Double = 0
@@ -3432,10 +3481,27 @@ Public Class ReglementForm
 
         GunaAdvenceButtonCodeClientDuCompte.Text = ""
 
-        If GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "INDIVIDUEL" Then
-            LabelEntreprise.Text = "INDIVIDUEL"
-        ElseIf GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "COMPTE" Then
-            LabelEntreprise.Text = "COMPTE"
+        If typeDeCompte = "entreprise" Then
+
+            LabelEntreprise.Text = "ENTREPRISE"
+            If GlobalVariable.actualLanguageValue = 0 Then
+                LabelEntreprise.Text = "COMPANY"
+            End If
+
+        Else
+
+            If GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "INDIVIDUEL" Or GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "INDIVIDUAL" Then
+                LabelEntreprise.Text = "INDIVIDUEL"
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    LabelEntreprise.Text = "INDIVIDUAL"
+                End If
+            ElseIf GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "COMPTE" Or GunaComboBoxCompteIndividuelOuPaymaster.SelectedItem = "ACCOUNT" Then
+                LabelEntreprise.Text = "COMPTE"
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    LabelEntreprise.Text = "ACCOUNT"
+                End If
+            End If
+
         End If
 
         GunaButtonEnregistrerReglement.Enabled = False
@@ -3681,17 +3747,22 @@ Public Class ReglementForm
             DEPOT_GARANTIE_PAR = ""
 
             Dim SOLDE As Double = 0
-            SOLDE = MainWindow.GunaLabelSolde.Text
-            If SOLDE <= 0 Then
-                GunaTextBoxMontantVerse.Text = Format(SOLDE * -1)
+            If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                SOLDE = MainWindow.GunaLabelSolde.Text
+            Else
+                SOLDE = RestaurantBookingForm.GunaLabelSolde.Text
             End If
 
-            GunaComboBoxModereglement.SelectedIndex = -1
-            GunaComboBoxModereglement.SelectedIndex = 0
+            If SOLDE <= 0 Then
+                    GunaTextBoxMontantVerse.Text = Format(SOLDE * -1)
+                End If
 
-        End If
+                GunaComboBoxModereglement.SelectedIndex = -1
+                GunaComboBoxModereglement.SelectedIndex = 0
 
-        If GunaCheckBoxArrhes.Checked Then
+            End If
+
+            If GunaCheckBoxArrhes.Checked Then
             If Not GunaTextBoxReference.Text.Contains(DEPOT_GARANTIE_PAR) Then
                 GunaTextBoxReference.Text = DEPOT_GARANTIE_PAR & " " & GunaTextBoxReference.Text
             End If
@@ -3810,6 +3881,90 @@ Public Class ReglementForm
             End If
 
         End If
+
+    End Sub
+
+    Public Sub ReAffichageDesElementsDuBlocNotes(ByVal NUMERO_BLOC_NOTE As String)
+
+        'Règlement des factures POUR CLIENT COMPTOIRE ------------------------------------------------
+
+
+        'On ne règle pas le contenus des commandes simplement mais l'ensemble des commandes en relation avec un client
+        Dim ListeDesFacturesDuBlocNote As DataTable = Functions.GetAllElementsOnCondition(Trim(GlobalVariable.blocNoteARegler), "ligne_facture", "NUMERO_BLOC_NOTE")
+
+        Dim ListeDesRglementDuBlocNote As DataTable = Functions.GetAllElementsOnCondition(Trim(GlobalVariable.blocNoteARegler), "reglement", "NUMERO_BLOC_NOTE")
+
+        If ListeDesFacturesDuBlocNote.Rows.Count > 0 Then
+
+            Dim tailleDuTableau As Integer = ListeDesFacturesDuBlocNote.Rows.Count + ListeDesRglementDuBlocNote.Rows.Count
+            'On crée une structure de tableau
+            Dim toutesLesFactures(tailleDuTableau) As SituationClient
+
+            Dim totalFacture As Double = 0
+            Dim totalReglement As Double = 0
+
+            Dim niemElementDutableau As Integer = 0
+
+            'Puis dans notre structure on ajoute les factures
+            For i = 0 To ListeDesFacturesDuBlocNote.Rows.Count - 1
+
+                toutesLesFactures(i).dateOperation = ListeDesFacturesDuBlocNote.Rows(i)("DATE_FACTURE")
+                toutesLesFactures(i).Debit = ListeDesFacturesDuBlocNote.Rows(i)("MONTANT_TTC")
+                toutesLesFactures(i).Credit = 0
+                toutesLesFactures(i).libelleOperation = ListeDesFacturesDuBlocNote.Rows(i)("LIBELLE_FACTURE")
+                toutesLesFactures(i).Article = ListeDesFacturesDuBlocNote.Rows(i)("CODE_ARTICLE")
+                toutesLesFactures(i).Code = ListeDesFacturesDuBlocNote.Rows(i)("CODE_FACTURE")
+                toutesLesFactures(i).Id = ListeDesFacturesDuBlocNote.Rows(i)("ID_LIGNE_FACTURE")
+
+                totalFacture = totalFacture + ListeDesFacturesDuBlocNote.Rows(i)("MONTANT_TTC")
+
+                niemElementDutableau = i
+
+            Next
+
+            niemElementDutableau += 1
+
+            '--------------------------------------------------------------------------------------
+            'Insertion des reglements dans notre structure
+            For i = 0 To ListeDesRglementDuBlocNote.Rows.Count - 1
+
+                toutesLesFactures(niemElementDutableau).Id = ListeDesRglementDuBlocNote.Rows(i)("ID_REGLEMENT")
+                toutesLesFactures(niemElementDutableau).dateOperation = ListeDesRglementDuBlocNote.Rows(i)("DATE_REGLEMENT")
+                toutesLesFactures(niemElementDutableau).Debit = 0
+                toutesLesFactures(niemElementDutableau).Credit = ListeDesRglementDuBlocNote.Rows(i)("MONTANT_VERSE")
+                toutesLesFactures(niemElementDutableau).libelleOperation = ListeDesRglementDuBlocNote.Rows(i)("REF_REGLEMENT")
+                toutesLesFactures(niemElementDutableau).Article = ""
+                toutesLesFactures(niemElementDutableau).Code = ListeDesRglementDuBlocNote.Rows(i)("NUM_REGLEMENT")
+
+                totalReglement = totalReglement + ListeDesRglementDuBlocNote.Rows(i)("MONTANT_VERSE")
+
+                niemElementDutableau += 1
+
+            Next
+
+            '--------------------------------------------------------------------------------------
+            GunaTextBoxAPayer.Text = Format(totalFacture, "#,##0")
+            GunaTextBoxSolde.Text = Format(totalFacture, "#,##0")
+
+            'Enfin on insere le tout dans notre datagrid
+            If (toutesLesFactures.Length > 0) Then
+
+                For i = 0 To toutesLesFactures.Length - 1
+
+                    If Not toutesLesFactures(i).libelleOperation = "" Then
+                        GunaDataGridViewLigneFactureReglement.Rows.Add(CDate(toutesLesFactures(i).dateOperation).ToShortDateString, toutesLesFactures(i).libelleOperation, Format(toutesLesFactures(i).Debit, "#,##0"), Format(toutesLesFactures(i).Credit, "#,##0"), toutesLesFactures(i).Article, toutesLesFactures(i).Code, toutesLesFactures(i).Id)
+                    End If
+
+                Next
+
+                'Sorting the elements of situation client
+                'GunaDataGridView1.DataSource.Sort(GunaDataGridView1.DataSource.Columns(-1), ListSortDirection.Descending)
+
+            End If
+
+        End If
+
+        FacturationForm.AutoLoadOfBlocNote()
 
     End Sub
 

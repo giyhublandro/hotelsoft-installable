@@ -25,6 +25,7 @@ Partial Class BankOperationsForm
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BankOperationsForm))
         Me.GunaPanel1 = New Guna.UI.WinForms.GunaPanel()
+        Me.GunaImageButton3 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaImageButton2 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaLabelGestCompteGeneraux = New Guna.UI.WinForms.GunaLabel()
         Me.GunaImageButton1 = New Guna.UI.WinForms.GunaImageButton()
@@ -49,7 +50,6 @@ Partial Class BankOperationsForm
         Me.GunaTextBox4 = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaButton1 = New Guna.UI.WinForms.GunaButton()
         Me.GunaButton2 = New Guna.UI.WinForms.GunaButton()
-        Me.GunaImageButton3 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaPanel1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPageDescription.SuspendLayout()
@@ -70,6 +70,19 @@ Partial Class BankOperationsForm
         Me.GunaPanel1.Name = "GunaPanel1"
         Me.GunaPanel1.Size = New System.Drawing.Size(934, 25)
         Me.GunaPanel1.TabIndex = 1
+        '
+        'GunaImageButton3
+        '
+        Me.GunaImageButton3.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.GunaImageButton3.DialogResult = System.Windows.Forms.DialogResult.None
+        Me.GunaImageButton3.Image = CType(resources.GetObject("GunaImageButton3.Image"), System.Drawing.Image)
+        Me.GunaImageButton3.ImageSize = New System.Drawing.Size(20, 20)
+        Me.GunaImageButton3.Location = New System.Drawing.Point(891, 2)
+        Me.GunaImageButton3.Name = "GunaImageButton3"
+        Me.GunaImageButton3.OnHoverImage = Nothing
+        Me.GunaImageButton3.OnHoverImageOffset = New System.Drawing.Point(0, 0)
+        Me.GunaImageButton3.Size = New System.Drawing.Size(27, 21)
+        Me.GunaImageButton3.TabIndex = 7
         '
         'GunaImageButton2
         '
@@ -406,19 +419,6 @@ Partial Class BankOperationsForm
         Me.GunaButton2.TabIndex = 3
         Me.GunaButton2.Text = "Enregistrer"
         Me.GunaButton2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'GunaImageButton3
-        '
-        Me.GunaImageButton3.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.GunaImageButton3.DialogResult = System.Windows.Forms.DialogResult.None
-        Me.GunaImageButton3.Image = CType(resources.GetObject("GunaImageButton3.Image"), System.Drawing.Image)
-        Me.GunaImageButton3.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaImageButton3.Location = New System.Drawing.Point(891, 2)
-        Me.GunaImageButton3.Name = "GunaImageButton3"
-        Me.GunaImageButton3.OnHoverImage = Nothing
-        Me.GunaImageButton3.OnHoverImageOffset = New System.Drawing.Point(0, 0)
-        Me.GunaImageButton3.Size = New System.Drawing.Size(27, 21)
-        Me.GunaImageButton3.TabIndex = 7
         '
         'BankOperationsForm
         '

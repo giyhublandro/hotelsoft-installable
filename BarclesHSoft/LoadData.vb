@@ -320,7 +320,7 @@ Public Class LoadData
                 Dim FAX As String
                 Dim NUMERO_COMPTE As String
                 Dim CODE_AGENCE As String
-
+                Dim BLANCHISSEUR As Integer = 0
                 For i = 0 To GunaDataGridView1.Rows.Count - 1
 
                     NOM_FOURNISSEUR = GunaDataGridView1.Rows(i).Cells("NOM_FOURNISSEUR").Value.ToString()
@@ -333,7 +333,7 @@ Public Class LoadData
                     CODE_AGENCE = GunaDataGridView1.Rows(i).Cells("CODE_AGENCE").Value.ToString()
 
                     'We update the value of the row in case of any change
-                    If fournisseur.insertFournisseur(NOM_FOURNISSEUR, CODE_FOURNISSEUR, POURCENTAGE_REMISE, ADRESSE, TELEPHONE, FAX, NUMERO_COMPTE, CODE_AGENCE) Then
+                    If fournisseur.insertFournisseur(NOM_FOURNISSEUR, CODE_FOURNISSEUR, POURCENTAGE_REMISE, ADRESSE, TELEPHONE, FAX, NUMERO_COMPTE, CODE_AGENCE, BLANCHISSEUR) Then
 
                     End If
 

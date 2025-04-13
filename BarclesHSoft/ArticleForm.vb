@@ -7,9 +7,10 @@ Public Class ArticleForm
 
     Private Sub ArticleForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        Dim languages As New Languages()
+        languages.article(GlobalVariable.actualLanguageValue)
+
         informationUtiles()
-
-
 
         If GlobalVariable.typeArticle = "" Then
             GlobalVariable.typeArticle = "article"
@@ -19,15 +20,33 @@ Public Class ArticleForm
 
         listeDesFichesTechniques()
 
+        If GlobalVariable.actualLanguageValue = 0 Then
+
+            GunaComboBoxSuiviStock.Items.Clear()
+            GunaComboBoxSuiviStock.Items.Add("No")
+            GunaComboBoxSuiviStock.Items.Add("Yes")
+
+            GunaComboBoxSuiviStock.SelectedIndex = 0
+
+        End If
+
         If GlobalVariable.typeArticle = "article" Then
             GunaCheckBoxAlaCarte.Visible = True
-            GunaLabel116.Text = "CODE ARTICLE / NOM DE L'ARTICLE"
+            If GlobalVariable.actualLanguageValue = 1 Then
+                GunaLabel116.Text = "CODE ARTICLE / NOM DE L'ARTICLE"
+            Else
+                GunaLabel116.Text = "ITEM CODE / NAME"
+            End If
             GunaCheckBoxVisibiliteAuBar.Visible = True
             GunaCheckBoxBoisson.Visible = True
             GunaComboBoxArticleMatiere.SelectedIndex = 0
         Else
             GunaCheckBoxAlaCarte.Visible = False
-            GunaLabel116.Text = "CODE MATIERE / NOM DE LA MATIERE"
+            If GlobalVariable.actualLanguageValue = 1 Then
+                GunaLabel116.Text = "CODE MATIERE / NOM DE LA MATIERE"
+            Else
+                GunaLabel116.Text = "ITEM CODE / NAME"
+            End If
             GunaCheckBoxVisibiliteAuBar.Visible = False
             GunaCheckBoxVisibiliteAuBar.Checked = False
             GunaCheckBoxBoisson.Checked = False
@@ -60,6 +79,42 @@ Public Class ArticleForm
             GunaCheckBoxRetablirLesQuantie.Visible = True
         Else
             GunaCheckBoxRetablirLesQuantie.Visible = False
+        End If
+
+        Dim showCustomImage As Boolean = False
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+            If GlobalVariable.config.Rows.Count > 0 Then
+                showCustomImage = True
+            End If
+        End If
+
+        If showCustomImage Then
+
+            Dim buttonPanel As Integer = 1
+            GunaPanel1.BackColor = Functions.colorationWindow(buttonPanel)
+            GunaPanel2.BackColor = Functions.colorationWindow(buttonPanel)
+
+            buttonPanel = 0 'Button Background
+            GunaButton1.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonEnregistrer.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonFicheDeStock.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton1.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonUpload.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton5.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonRetablirQte.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton2.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonVisualierArticlePreparee.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonAjouterPlat.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonAjouterLigne.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonPreparationDePlat.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonImprimerFicheTechnique.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonAfficherFiche.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton3.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonPreparer.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonImprimerCommandeDuBar.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonAfficherLesFacturesEtReglement.BaseColor = Functions.colorationWindow(buttonPanel)
+
         End If
 
     End Sub
@@ -246,359 +301,413 @@ Public Class ArticleForm
     'Enregistrer
     Private Sub GunaButton2_Click(sender As Object, e As EventArgs) Handles GunaButtonEnregistrer.Click
 
-        Dim CODE_ARTICLE As String = Functions.GeneratingRandomCode("article", "")
+        If Not Trim(GunaTextBoxDesignation.Text).Equals("") Then
 
-        Dim REFERENCE As String = ""
-        Dim CODE_BARRE As String = ""
+            Dim CODE_ARTICLE As String = Functions.GeneratingRandomCode("article", "")
 
-        If Trim(GunaTextBoxCodeBarre.Text) = "" Then
-            CODE_BARRE = "-"
-        Else
-            CODE_BARRE = Trim(GunaTextBoxCodeBarre.Text)
-        End If
+            Dim REFERENCE As String = ""
+            Dim CODE_BARRE As String = ""
 
-        Dim TYPE_
-
-        If GunaComboBoxArticleMatiere.SelectedIndex >= 0 Then
-
-            If GunaComboBoxArticleMatiere.SelectedIndex = 0 Then
-                TYPE_ = "article"
-            ElseIf GunaComboBoxArticleMatiere.SelectedIndex = 1 Then
-                TYPE_ = "matiere"
-            End If
-
-        End If
-
-        Dim DESIGNATION_FR As String = Trim(GunaTextBoxDesignation.Text)
-        Dim DESIGNATION_EN As String = ""
-        Dim DESCRIPTION As String = ""
-        Dim CODE_GROUPE_ARTICLE As String = ""
-
-        Dim CODE_FAMILLE As String = ""
-        If GunaComboBoxCategorieArticle.SelectedIndex >= 0 Then
-            CODE_FAMILLE = GunaComboBoxCategorieArticle.SelectedValue 'CATEGORIE D'ARTICLE 
-        End If
-
-        ' TAUX_EXONERATION_TVA : SEUIL_REAPPROVISIONNEMENT_PETIT_MAGASIN
-
-        Dim CODE_SOUS_FAMILLE As String = ""
-        If GunaComboBoxSousFamilleArticle.SelectedIndex >= 0 Then
-            CODE_SOUS_FAMILLE = GunaComboBoxSousFamilleArticle.SelectedValue 'FAMILLE
-        End If
-
-        Dim CODE_UNITE_DE_COMPTAGE As String = ""
-        If GunaComboBoxUniteDeCompatage.SelectedIndex >= 0 Then
-            CODE_UNITE_DE_COMPTAGE = GunaComboBoxUniteDeCompatage.SelectedValue 'UNITE DE COMPTAGE
-        End If
-
-        Dim CODE_SOUS_SOUS_FAMILLE As String = ""
-        If GunaComboBoxLastLevelArticle.SelectedIndex >= 0 Then
-            CODE_SOUS_SOUS_FAMILLE = GunaComboBoxLastLevelArticle.SelectedValue 'SOUS FAMILLE
-        End If
-
-        Dim TYPE_ARTICLE As String = ""
-        If GunaComboBoxTypeArticle.SelectedIndex >= 0 Then
-            TYPE_ARTICLE = GunaComboBoxTypeArticle.SelectedValue ''Equivalent de la sous famille : point de vente
-        End If
-
-        Dim METHODE_SUIVI_STOCK As String = Trim(GunaComboBoxSuiviStock.SelectedItem)
-
-        Dim CONDITIONNEMENT As String = ""
-        Dim SEUIL_PRIX_VENTE_HT As Double = 0
-
-        Dim PRIX_ACHAT_HT As Double = 0 'C'EST LE COUT MOYEN UNITAIRE PONDERE
-        Double.TryParse(GunaTextBoxCUMP.Text, PRIX_ACHAT_HT)
-
-        Dim COUT_U_MOYEN_PONDERE As Double = 0
-
-        If Not GunaTextBoxPrixAchat.Text = "" Then
-            COUT_U_MOYEN_PONDERE = Double.Parse(GunaTextBoxPrixAchat.Text) 'C'EST LE PRIX D'ACHAT
-        End If
-
-        Dim PRIX_ACHAT_TTC As Double = 0
-
-        Dim PRIX_VENTE_HT As Double = 0
-        If Not Trim(GunaTextBoxVenteHT.Text).Equals("") Then
-            Double.TryParse(GunaTextBoxVenteHT.Text, PRIX_VENTE_HT)
-        End If
-
-        Dim QUANTITE As Double = 0 'USED A STOCK QUANTITY
-
-        If Not Trim(GunaTextBoxStock.Text).Equals("") Then
-            QUANTITE = GunaTextBoxStock.Text
-        End If
-
-        Dim PRIX_VENTE_TTC As Double = 0
-        Dim PRIX_VENTE1_HT As Double = 0
-
-        If Not Trim(GunaTextBoxVenteHT2.Text).Equals("") Then
-            Double.TryParse(GunaTextBoxVenteHT2.Text, PRIX_VENTE1_HT)
-        End If
-
-        Dim PRIX_VENTE1_TTC As Double = 0
-        Dim PRIX_VENTE2_HT As Double = 0
-
-        If Not Trim(GunaTextBoxVenteHT3.Text).Equals("") Then
-            Double.TryParse(GunaTextBoxVenteHT3.Text, PRIX_VENTE2_HT)
-        End If
-        Dim PRIX_VENTE2_TTC As Double = 0
-
-        Dim PRIX_VENTE3_HT As Double = 0
-        If Not Trim(GunaTextBoxVenteHT4.Text).Equals("") Then
-            Double.TryParse(GunaTextBoxVenteHT4.Text, PRIX_VENTE3_HT)
-        End If
-
-        Dim PRIX_VENTE3_TTC As Double = 0
-        Dim PRIX_VENTE4_HT As Double = 0
-        Dim PRIX_VENTE4_TTC As Double = 0
-        Dim PRIX_VENTE5_HT As Double = 0
-        Dim PRIX_VENTE5_TTC As Double = 0
-        Dim PRIX_VENTE6_HT As Double = 0
-        Dim PRIX_VENTE6_TTC As Double = 0
-        Dim PRIX_VENTE7_HT As Double = 0
-        Dim PRIX_VENTE7_TTC As Double = 0
-        Dim PRIX_VENTE8_HT As Double = 0
-        Dim PRIX_VENTE8_TTC As Double = 0
-        Dim PRIX_VENTE9_HT As Double = 0
-        Dim POURCENTAGE_REMISE As Double = 0
-
-        Dim SEUIL_REAPPROVISIONNEMENT_PETIT_MAGASIN As Double = 0
-
-        If Trim(GunaTextBoxStockReaProPetitMagasin.Text) = "" Then
-            GunaTextBoxStockReaProPetitMagasin.Text = 0
-        End If
-
-        Double.TryParse(GunaTextBoxStockReaProPetitMagasin.Text, SEUIL_REAPPROVISIONNEMENT_PETIT_MAGASIN)
-
-        Dim SEUIL_REAPPROVISIONNEMENT As Double = 0
-        If Trim(GunaTextBoxStockReapproGrandMagasin.Text) = "" Then
-            GunaTextBoxStockReapproGrandMagasin.Text = 0
-        End If
-
-        Double.TryParse(GunaTextBoxStockReapproGrandMagasin.Text, SEUIL_REAPPROVISIONNEMENT)
-
-        Dim NUMERO_SERIE As String = GunaTextBoxNumSerie.Text
-        Dim ARTICLE_COMPOSE As String = ""
-        Dim ARTICLE_LIE As String = ""
-        Dim ARTICLE_RECONDITIONNABLE As String = ""
-        Dim APPARAIT_SUR_FICHE_CLIENT As String = ""
-        Dim ARTICLE_PERISSABLE As String = ""
-        Dim ARTICLE_GERE_PAR_LOT As String = ""
-        Dim DATE_DEBUT_PROMOTION As Date = GlobalVariable.DateDeTravail
-        Dim POURCENTAGE_REMISE_PROMOTION As Double = 0
-        Dim DATE_FIN_PROMOTION As Date = GlobalVariable.DateDeTravail
-        Dim CHEMIN_PHOTO As String = ""
-        Dim DATE_CREATION As Date = GlobalVariable.DateDeTravail
-        Dim CODE_UTILISATEUR_CREA As String = GlobalVariable.codeUser
-        Dim DATE_MODIFICATION As Date = GlobalVariable.DateDeTravail
-        Dim CODE_UTILISATEUR_MODIF As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
-        Dim ARTICLE_A_REMISE As String = ""
-        Dim CODE_CLE As String = ""
-
-        Dim DELEGUE As String = ""
-        Dim SEUIL_PRIX_VENTE_TTC As Double = 0
-        Dim TX_LIMIT As Double = 0
-        Dim DAILY_LIMIT As Double = 0
-        Dim TAUX_TVA As Double = 0
-        Dim SPECIALITE_ARTICLE As String = ""
-        Dim ARTICLE_MULTIPRIX As String = ""
-        Dim CODE_AGENCE As String = GlobalVariable.codeAgence
-        Dim TYPE As String = GlobalVariable.typeArticle
-
-        If GunaComboBoxArticleMatiere.SelectedIndex >= 0 Then
-            If GunaComboBoxArticleMatiere.SelectedIndex = 0 Then
-                TYPE = "article"
+            If Trim(GunaTextBoxCodeBarre.Text) = "" Then
+                CODE_BARRE = "-"
             Else
-                TYPE = "matiere"
-            End If
-        End If
-
-        Dim BOISSON As Integer = 0
-        Dim VISIBLE As Integer = 0
-
-        If GunaCheckBoxVisibiliteAuBar.Checked Then
-            VISIBLE = 1
-        End If
-
-        If GunaCheckBoxBoisson.Checked Then
-            BOISSON = 1
-        Else
-
-        End If
-
-        Dim CONTENANCE As Double = 0
-
-        If Not GunaTextBoxContenance.Text = "" Then
-            CONTENANCE = Double.Parse(GunaTextBoxContenance.Text)
-        End If
-
-        'UN PRODUIT A LA CARTE : CARTE = 1 EST UN ARTICLE DONT LES MATIERES SONT DESTOCKER A LA VENTE UNIQUEMENT
-        'UN PRODUIT PAS A LA CARTE : CARTE = 0 EST UN ARTICLEDONT LES MATIERES SONT DESTOCKER A LA PREPARATION
-
-        Dim CARTE As Integer = 0
-
-        If GunaCheckBoxAlaCarte.Checked Then
-
-            CARTE = 1
-
-            If GunaComboBoxFicheTechnique.SelectedIndex >= 0 Then
-                CODE_CLE = GunaComboBoxFicheTechnique.SelectedValue.ToString 'CODE_CLE USED AS CODE_FICHE_TECHNIQUE
+                CODE_BARRE = Trim(GunaTextBoxCodeBarre.Text)
             End If
 
-        End If
+            Dim TYPE_
 
-        Dim CODE_CONSO = GunaComboBoxUniteDeConsommation.SelectedValue
+            If GunaComboBoxArticleMatiere.SelectedIndex >= 0 Then
 
-        Dim PRIX_CONSO = Double.Parse(GunaTextBoxPrixConso1.Text)
-        Dim PRIX_CONSO2 = Double.Parse(GunaTextBoxPrixConso2.Text)
-        Dim PRIX_CONSO3 = Double.Parse(GunaTextBoxPrixConso3.Text)
-        Dim PRIX_CONSO4 = Double.Parse(GunaTextBoxPrixConso4.Text)
-
-        If BOISSON = 0 Then
-            CODE_CONSO = ""
-            PRIX_CONSO = 0
-            PRIX_CONSO2 = 0
-            PRIX_CONSO3 = 0
-            PRIX_CONSO4 = 0
-        End If
-
-        Dim article As New Article()
-
-        If Trim(GunaButtonEnregistrer.Text) = "Sauvegarder" Then
-
-            CODE_ARTICLE = GunaTextBoxCodeArticle.Text
-
-            'TAUX_EXONERATION_TVA = SEUIL_REAPPROVISIONNEMENT_PETIT_MAGASIN
-
-            If article.updateArticle(CODE_ARTICLE, REFERENCE, CODE_BARRE, DESIGNATION_FR, DESIGNATION_EN, DESCRIPTION, CODE_GROUPE_ARTICLE, CODE_FAMILLE, CODE_SOUS_FAMILLE, CODE_SOUS_SOUS_FAMILLE, METHODE_SUIVI_STOCK, TYPE_ARTICLE, CONDITIONNEMENT, SEUIL_PRIX_VENTE_HT, PRIX_ACHAT_HT, COUT_U_MOYEN_PONDERE, PRIX_ACHAT_TTC, PRIX_VENTE_HT, PRIX_VENTE_TTC, PRIX_VENTE1_HT, PRIX_VENTE1_TTC, PRIX_VENTE2_HT, PRIX_VENTE2_TTC, PRIX_VENTE3_HT, PRIX_VENTE3_TTC, PRIX_VENTE4_HT, PRIX_VENTE4_TTC, PRIX_VENTE5_HT, PRIX_VENTE5_TTC, PRIX_VENTE6_HT, PRIX_VENTE6_TTC, PRIX_VENTE7_HT, PRIX_VENTE7_TTC, PRIX_VENTE8_HT, PRIX_VENTE8_TTC, PRIX_VENTE9_HT, QUANTITE, POURCENTAGE_REMISE, SEUIL_REAPPROVISIONNEMENT_PETIT_MAGASIN, SEUIL_REAPPROVISIONNEMENT, NUMERO_SERIE, ARTICLE_COMPOSE, ARTICLE_LIE, ARTICLE_RECONDITIONNABLE, APPARAIT_SUR_FICHE_CLIENT, ARTICLE_PERISSABLE, ARTICLE_GERE_PAR_LOT, DATE_DEBUT_PROMOTION, POURCENTAGE_REMISE_PROMOTION, DATE_FIN_PROMOTION, CHEMIN_PHOTO, DATE_CREATION, CODE_UTILISATEUR_CREA, DATE_MODIFICATION, CODE_UTILISATEUR_MODIF, ARTICLE_A_REMISE, CODE_CLE, DELEGUE, SEUIL_PRIX_VENTE_TTC, TX_LIMIT, DAILY_LIMIT, TAUX_TVA, SPECIALITE_ARTICLE, ARTICLE_MULTIPRIX, CODE_AGENCE, CODE_UNITE_DE_COMPTAGE, CARTE, CODE_CONSO, PRIX_CONSO, CONTENANCE, BOISSON, PRIX_CONSO2, PRIX_CONSO3, PRIX_CONSO4, VISIBLE, TYPE_) Then
-
-                If GlobalVariable.typeArticle = "article" Then
-                    MessageBox.Show("Article mise à jour avec succès", "Mise à jour d'Article", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Else
-                    MessageBox.Show("Matière mise à jour avec succès", "Mise à jour de Matière", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                If GunaComboBoxArticleMatiere.SelectedIndex = 0 Then
+                    TYPE_ = "article"
+                ElseIf GunaComboBoxArticleMatiere.SelectedIndex = 1 Then
+                    TYPE_ = "matiere"
                 End If
 
-                Dim QTE_STOCK As Double = 0
+            End If
 
-                If Not Trim(GunaTextBoxStock.Text) = "" Then
+            Dim DESIGNATION_FR As String = Trim(GunaTextBoxDesignation.Text)
+            Dim DESIGNATION_EN As String = ""
+            Dim DESCRIPTION As String = ""
+            Dim CODE_GROUPE_ARTICLE As String = ""
 
-                    If BOISSON = 1 Then
+            Dim CODE_FAMILLE As String = ""
+            If GunaComboBoxCategorieArticle.SelectedIndex >= 0 Then
+                CODE_FAMILLE = GunaComboBoxCategorieArticle.SelectedValue 'CATEGORIE D'ARTICLE 
+            End If
 
-                        '------------------------------------------------------------
-                        Dim nombreDeConso = GunaTextBoxStockEnConso.Text
-                        Dim valeurConversion As Double = Double.Parse(GunaTextBoxValeurUniteConso.Text)
-                        Dim nombreDeConsoTotal As Integer = nombreDeConso + Math.Floor(CONTENANCE / valeurConversion) * QUANTITE
+            ' TAUX_EXONERATION_TVA : SEUIL_REAPPROVISIONNEMENT_PETIT_MAGASIN
 
-                        QTE_STOCK = nombreDeConsoTotal 'LES QTE DES ARTICLES APAR APPORTS AUX CONSOMMATIONS
-                        '------------------------------------------------------------
+            Dim CODE_SOUS_FAMILLE As String = ""
+            If GunaComboBoxSousFamilleArticle.SelectedIndex >= 0 Then
+                CODE_SOUS_FAMILLE = GunaComboBoxSousFamilleArticle.SelectedValue 'FAMILLE
+            End If
 
+            Dim CODE_UNITE_DE_COMPTAGE As String = ""
+            If GunaComboBoxUniteDeCompatage.SelectedIndex >= 0 Then
+                CODE_UNITE_DE_COMPTAGE = GunaComboBoxUniteDeCompatage.SelectedValue 'UNITE DE COMPTAGE
+            End If
+
+            Dim CODE_SOUS_SOUS_FAMILLE As String = ""
+            If GunaComboBoxLastLevelArticle.SelectedIndex >= 0 Then
+                CODE_SOUS_SOUS_FAMILLE = GunaComboBoxLastLevelArticle.SelectedValue 'SOUS FAMILLE
+            End If
+
+            Dim TYPE_ARTICLE As String = ""
+            If GunaComboBoxTypeArticle.SelectedIndex >= 0 Then
+                TYPE_ARTICLE = GunaComboBoxTypeArticle.SelectedValue ''Equivalent de la sous famille : point de vente
+            End If
+
+            Dim METHODE_SUIVI_STOCK As String = Trim(GunaComboBoxSuiviStock.SelectedItem)
+
+            If GlobalVariable.actualLanguageValue = 0 Then
+                If GunaComboBoxSuiviStock.SelectedIndex = 0 Then
+                    METHODE_SUIVI_STOCK = "Non Suivi"
+                Else
+                    METHODE_SUIVI_STOCK = "Suivi simple"
+                End If
+            End If
+
+            Dim CONDITIONNEMENT As String = ""
+            Dim SEUIL_PRIX_VENTE_HT As Double = 0
+
+            Dim PRIX_ACHAT_HT As Double = 0 'C'EST LE COUT MOYEN UNITAIRE PONDERE
+            Double.TryParse(GunaTextBoxCUMP.Text, PRIX_ACHAT_HT)
+
+            Dim COUT_U_MOYEN_PONDERE As Double = 0
+
+            If Not GunaTextBoxPrixAchat.Text = "" Then
+                COUT_U_MOYEN_PONDERE = Double.Parse(GunaTextBoxPrixAchat.Text) 'C'EST LE PRIX D'ACHAT
+            End If
+
+            Dim PRIX_ACHAT_TTC As Double = 0
+
+            Dim PRIX_VENTE_HT As Double = 0
+            If Not Trim(GunaTextBoxVenteHT.Text).Equals("") Then
+                Double.TryParse(GunaTextBoxVenteHT.Text, PRIX_VENTE_HT)
+            End If
+
+            Dim QUANTITE As Double = 0 'USED A STOCK QUANTITY
+
+            If Not Trim(GunaTextBoxStock.Text).Equals("") Then
+                QUANTITE = GunaTextBoxStock.Text
+            End If
+
+            Dim PRIX_VENTE_TTC As Double = 0
+            Dim PRIX_VENTE1_HT As Double = 0
+
+            If Not Trim(GunaTextBoxVenteHT2.Text).Equals("") Then
+                Double.TryParse(GunaTextBoxVenteHT2.Text, PRIX_VENTE1_HT)
+            End If
+
+            Dim PRIX_VENTE1_TTC As Double = 0
+            Dim PRIX_VENTE2_HT As Double = 0
+
+            If Not Trim(GunaTextBoxVenteHT3.Text).Equals("") Then
+                Double.TryParse(GunaTextBoxVenteHT3.Text, PRIX_VENTE2_HT)
+            End If
+            Dim PRIX_VENTE2_TTC As Double = 0
+
+            Dim PRIX_VENTE3_HT As Double = 0
+            If Not Trim(GunaTextBoxVenteHT4.Text).Equals("") Then
+                Double.TryParse(GunaTextBoxVenteHT4.Text, PRIX_VENTE3_HT)
+            End If
+
+            Dim PRIX_VENTE3_TTC As Double = 0
+            Dim PRIX_VENTE4_HT As Double = 0
+            Dim PRIX_VENTE4_TTC As Double = 0
+            Dim PRIX_VENTE5_HT As Double = 0
+            Dim PRIX_VENTE5_TTC As Double = 0
+            Dim PRIX_VENTE6_HT As Double = 0
+            Dim PRIX_VENTE6_TTC As Double = 0
+            Dim PRIX_VENTE7_HT As Double = 0
+            Dim PRIX_VENTE7_TTC As Double = 0
+            Dim PRIX_VENTE8_HT As Double = 0
+            Dim PRIX_VENTE8_TTC As Double = 0
+            Dim PRIX_VENTE9_HT As Double = 0
+            Dim POURCENTAGE_REMISE As Double = 0
+
+            Dim SEUIL_REAPPROVISIONNEMENT_PETIT_MAGASIN As Double = 0
+
+            If Trim(GunaTextBoxStockReaProPetitMagasin.Text) = "" Then
+                GunaTextBoxStockReaProPetitMagasin.Text = 0
+            End If
+
+            Double.TryParse(GunaTextBoxStockReaProPetitMagasin.Text, SEUIL_REAPPROVISIONNEMENT_PETIT_MAGASIN)
+
+            Dim SEUIL_REAPPROVISIONNEMENT As Double = 0
+            If Trim(GunaTextBoxStockReapproGrandMagasin.Text) = "" Then
+                GunaTextBoxStockReapproGrandMagasin.Text = 0
+            End If
+
+            Double.TryParse(GunaTextBoxStockReapproGrandMagasin.Text, SEUIL_REAPPROVISIONNEMENT)
+
+            Dim NUMERO_SERIE As String = GunaTextBoxNumSerie.Text
+            Dim ARTICLE_COMPOSE As String = ""
+            Dim ARTICLE_LIE As String = ""
+            Dim ARTICLE_RECONDITIONNABLE As String = ""
+            Dim APPARAIT_SUR_FICHE_CLIENT As String = ""
+            Dim ARTICLE_PERISSABLE As String = ""
+            Dim ARTICLE_GERE_PAR_LOT As String = ""
+            Dim DATE_DEBUT_PROMOTION As Date = GlobalVariable.DateDeTravail
+            Dim POURCENTAGE_REMISE_PROMOTION As Double = 0
+            Dim DATE_FIN_PROMOTION As Date = GlobalVariable.DateDeTravail
+            Dim CHEMIN_PHOTO As String = ""
+            Dim DATE_CREATION As Date = GlobalVariable.DateDeTravail
+            Dim CODE_UTILISATEUR_CREA As String = GlobalVariable.codeUser
+            Dim DATE_MODIFICATION As Date = GlobalVariable.DateDeTravail
+            Dim CODE_UTILISATEUR_MODIF As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+            Dim ARTICLE_A_REMISE As String = ""
+            Dim CODE_CLE As String = ""
+
+            Dim DELEGUE As String = ""
+            Dim SEUIL_PRIX_VENTE_TTC As Double = 0
+            Dim TX_LIMIT As Double = 0
+            Dim DAILY_LIMIT As Double = 0
+            Dim TAUX_TVA As Double = 0
+            Dim SPECIALITE_ARTICLE As String = ""
+            Dim ARTICLE_MULTIPRIX As String = ""
+            Dim CODE_AGENCE As String = GlobalVariable.codeAgence
+            Dim TYPE As String = GlobalVariable.typeArticle
+
+            If GunaComboBoxArticleMatiere.SelectedIndex >= 0 Then
+                If GunaComboBoxArticleMatiere.SelectedIndex = 0 Then
+                    TYPE = "article"
+                Else
+                    TYPE = "matiere"
+                End If
+            End If
+
+            Dim BOISSON As Integer = 0
+            Dim VISIBLE As Integer = 0
+
+            If GunaCheckBoxVisibiliteAuBar.Checked Then
+                VISIBLE = 1
+            End If
+
+            If GunaCheckBoxBoisson.Checked Then
+                BOISSON = 1
+            Else
+
+            End If
+
+            Dim CONTENANCE As Double = 0
+
+            If Not GunaTextBoxContenance.Text = "" Then
+                CONTENANCE = Double.Parse(GunaTextBoxContenance.Text)
+            End If
+
+            'UN PRODUIT A LA CARTE : CARTE = 1 EST UN ARTICLE DONT LES MATIERES SONT DESTOCKER A LA VENTE UNIQUEMENT
+            'UN PRODUIT PAS A LA CARTE : CARTE = 0 EST UN ARTICLEDONT LES MATIERES SONT DESTOCKER A LA PREPARATION
+
+            Dim CARTE As Integer = 0
+
+            If GunaCheckBoxAlaCarte.Checked Then
+
+                CARTE = 1
+
+                If GunaComboBoxFicheTechnique.SelectedIndex >= 0 Then
+                    CODE_CLE = GunaComboBoxFicheTechnique.SelectedValue.ToString 'CODE_CLE USED AS CODE_FICHE_TECHNIQUE
+                End If
+
+            End If
+
+            Dim CODE_CONSO = GunaComboBoxUniteDeConsommation.SelectedValue
+
+            Dim PRIX_CONSO = Double.Parse(GunaTextBoxPrixConso1.Text)
+            Dim PRIX_CONSO2 = Double.Parse(GunaTextBoxPrixConso2.Text)
+            Dim PRIX_CONSO3 = Double.Parse(GunaTextBoxPrixConso3.Text)
+            Dim PRIX_CONSO4 = Double.Parse(GunaTextBoxPrixConso4.Text)
+
+            If BOISSON = 0 Then
+                CODE_CONSO = ""
+                PRIX_CONSO = 0
+                PRIX_CONSO2 = 0
+                PRIX_CONSO3 = 0
+                PRIX_CONSO4 = 0
+            End If
+
+            Dim article As New Article()
+
+            Dim eraseField As Boolean = False
+
+            If Trim(GunaButtonEnregistrer.Text) = "Sauvegarder" Or Trim(GunaButtonEnregistrer.Text) = "Update" Then
+
+                CODE_ARTICLE = GunaTextBoxCodeArticle.Text
+
+                'TAUX_EXONERATION_TVA = SEUIL_REAPPROVISIONNEMENT_PETIT_MAGASIN
+
+                If article.updateArticle(CODE_ARTICLE, REFERENCE, CODE_BARRE, DESIGNATION_FR, DESIGNATION_EN, DESCRIPTION, CODE_GROUPE_ARTICLE, CODE_FAMILLE, CODE_SOUS_FAMILLE, CODE_SOUS_SOUS_FAMILLE, METHODE_SUIVI_STOCK, TYPE_ARTICLE, CONDITIONNEMENT, SEUIL_PRIX_VENTE_HT, PRIX_ACHAT_HT, COUT_U_MOYEN_PONDERE, PRIX_ACHAT_TTC, PRIX_VENTE_HT, PRIX_VENTE_TTC, PRIX_VENTE1_HT, PRIX_VENTE1_TTC, PRIX_VENTE2_HT, PRIX_VENTE2_TTC, PRIX_VENTE3_HT, PRIX_VENTE3_TTC, PRIX_VENTE4_HT, PRIX_VENTE4_TTC, PRIX_VENTE5_HT, PRIX_VENTE5_TTC, PRIX_VENTE6_HT, PRIX_VENTE6_TTC, PRIX_VENTE7_HT, PRIX_VENTE7_TTC, PRIX_VENTE8_HT, PRIX_VENTE8_TTC, PRIX_VENTE9_HT, QUANTITE, POURCENTAGE_REMISE, SEUIL_REAPPROVISIONNEMENT_PETIT_MAGASIN, SEUIL_REAPPROVISIONNEMENT, NUMERO_SERIE, ARTICLE_COMPOSE, ARTICLE_LIE, ARTICLE_RECONDITIONNABLE, APPARAIT_SUR_FICHE_CLIENT, ARTICLE_PERISSABLE, ARTICLE_GERE_PAR_LOT, DATE_DEBUT_PROMOTION, POURCENTAGE_REMISE_PROMOTION, DATE_FIN_PROMOTION, CHEMIN_PHOTO, DATE_CREATION, CODE_UTILISATEUR_CREA, DATE_MODIFICATION, CODE_UTILISATEUR_MODIF, ARTICLE_A_REMISE, CODE_CLE, DELEGUE, SEUIL_PRIX_VENTE_TTC, TX_LIMIT, DAILY_LIMIT, TAUX_TVA, SPECIALITE_ARTICLE, ARTICLE_MULTIPRIX, CODE_AGENCE, CODE_UNITE_DE_COMPTAGE, CARTE, CODE_CONSO, PRIX_CONSO, CONTENANCE, BOISSON, PRIX_CONSO2, PRIX_CONSO3, PRIX_CONSO4, VISIBLE, TYPE_) Then
+
+                    If GlobalVariable.actualLanguageValue = 1 Then
+                        If GlobalVariable.typeArticle = "article" Then
+                            MessageBox.Show("Article mise à jour avec succès", "Mise à jour d'Article", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Else
+                            MessageBox.Show("Matière mise à jour avec succès", "Mise à jour de Matière", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        End If
+                    Else
+                        MessageBox.Show("Item successfully updated", "Item Update", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     End If
 
-                End If
+                    Dim QTE_STOCK As Double = 0
 
-                article.updateQuantite(CODE_ARTICLE, QTE_STOCK)
+                    If Not Trim(GunaTextBoxStock.Text) = "" Then
 
-            End If
+                        If BOISSON = 1 Then
 
-            'TabControlArticle.SelectedIndex = 1
+                            '------------------------------------------------------------
+                            Dim nombreDeConso = GunaTextBoxStockEnConso.Text
+                            Dim valeurConversion As Double = Double.Parse(GunaTextBoxValeurUniteConso.Text)
+                            Dim nombreDeConsoTotal As Integer = nombreDeConso + Math.Floor(CONTENANCE / valeurConversion) * QUANTITE
 
-            GunaButtonEnregistrer.Text = "Enregistrer"
+                            QTE_STOCK = nombreDeConsoTotal 'LES QTE DES ARTICLES APAR APPORTS AUX CONSOMMATIONS
+                            '------------------------------------------------------------
 
-        Else
-
-            'verifyfields function
-            If (True) Then
-                'check existence
-                If Not Functions.entryCodeExists(CODE_ARTICLE, "article", "CODE_ARTICLE") Then
-                    If article.insertArticle(CODE_ARTICLE, REFERENCE, CODE_BARRE, DESIGNATION_FR, DESIGNATION_EN, DESCRIPTION, CODE_GROUPE_ARTICLE, CODE_FAMILLE, CODE_SOUS_FAMILLE, CODE_SOUS_SOUS_FAMILLE, METHODE_SUIVI_STOCK, TYPE_ARTICLE, CONDITIONNEMENT, SEUIL_PRIX_VENTE_HT, PRIX_ACHAT_HT, COUT_U_MOYEN_PONDERE, PRIX_ACHAT_TTC, PRIX_VENTE_HT, PRIX_VENTE_TTC, PRIX_VENTE1_HT, PRIX_VENTE1_TTC, PRIX_VENTE2_HT, PRIX_VENTE2_TTC, PRIX_VENTE3_HT, PRIX_VENTE3_TTC, PRIX_VENTE4_HT, PRIX_VENTE4_TTC, PRIX_VENTE5_HT, PRIX_VENTE5_TTC, PRIX_VENTE6_HT, PRIX_VENTE6_TTC, PRIX_VENTE7_HT, PRIX_VENTE7_TTC, PRIX_VENTE8_HT, PRIX_VENTE8_TTC, PRIX_VENTE9_HT, QUANTITE, POURCENTAGE_REMISE, SEUIL_REAPPROVISIONNEMENT_PETIT_MAGASIN, SEUIL_REAPPROVISIONNEMENT, NUMERO_SERIE, ARTICLE_COMPOSE, ARTICLE_LIE, ARTICLE_RECONDITIONNABLE, APPARAIT_SUR_FICHE_CLIENT, ARTICLE_PERISSABLE, ARTICLE_GERE_PAR_LOT, DATE_DEBUT_PROMOTION, POURCENTAGE_REMISE_PROMOTION, DATE_FIN_PROMOTION, CHEMIN_PHOTO, DATE_CREATION, CODE_UTILISATEUR_CREA, DATE_MODIFICATION, CODE_UTILISATEUR_MODIF, ARTICLE_A_REMISE, CODE_CLE, DELEGUE, SEUIL_PRIX_VENTE_TTC, TX_LIMIT, DAILY_LIMIT, TAUX_TVA, SPECIALITE_ARTICLE, ARTICLE_MULTIPRIX, CODE_AGENCE, TYPE, CODE_UNITE_DE_COMPTAGE, CARTE, CODE_CONSO, PRIX_CONSO, CONTENANCE, BOISSON, PRIX_CONSO2, PRIX_CONSO3, PRIX_CONSO4, VISIBLE) Then
-
-                        If GlobalVariable.typeArticle = "article" Then
-                            MessageBox.Show("Nouvel Article enregistré avec succès", "Création d'Article", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Else
-                            MessageBox.Show("Nouvelle Matière enregistré avec succès", "Création d'Article", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         End If
 
-                    Else
-                        MessageBox.Show("Un problème lors de la création !!", "Création ", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     End If
-                Else
-                    MessageBox.Show("Cette Article/Matière existe déjà, Essayer à nouveau", "Article Invalide", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+
+                    article.updateQuantite(CODE_ARTICLE, QTE_STOCK)
+
                 End If
 
+                'TabControlArticle.SelectedIndex = 1
+
+                If GlobalVariable.actualLanguageValue = 1 Then
+                    GunaButtonEnregistrer.Text = "Enregistrer"
+                Else
+                    GunaButtonEnregistrer.Text = "Create"
+                End If
+
+                eraseField = True
+
             Else
-                MessageBox.Show("Bien vouloir remplir tous les champs!!", "Création", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                'On Recherche l'Existence de l'article / matiere
+                Dim infoSupArticle As DataTable = Functions.getElementByCodeLike(Trim(DESIGNATION_FR), "article", "DESIGNATION_FR")
+                Dim continuer As Boolean = True
+
+                If infoSupArticle.Rows.Count > 0 Then
+
+                    For i = 0 To infoSupArticle.Rows.Count - 1
+                        If Trim(infoSupArticle.Rows(i)("DESIGNATION_FR")).Equals(Trim(DESIGNATION_FR)) Then
+                            continuer = False
+                            Exit For
+                        End If
+                    Next
+
+                End If
+
+                If continuer Then
+
+                    If article.insertArticle(CODE_ARTICLE, REFERENCE, CODE_BARRE, DESIGNATION_FR, DESIGNATION_EN, DESCRIPTION, CODE_GROUPE_ARTICLE, CODE_FAMILLE, CODE_SOUS_FAMILLE, CODE_SOUS_SOUS_FAMILLE, METHODE_SUIVI_STOCK, TYPE_ARTICLE, CONDITIONNEMENT, SEUIL_PRIX_VENTE_HT, PRIX_ACHAT_HT, COUT_U_MOYEN_PONDERE, PRIX_ACHAT_TTC, PRIX_VENTE_HT, PRIX_VENTE_TTC, PRIX_VENTE1_HT, PRIX_VENTE1_TTC, PRIX_VENTE2_HT, PRIX_VENTE2_TTC, PRIX_VENTE3_HT, PRIX_VENTE3_TTC, PRIX_VENTE4_HT, PRIX_VENTE4_TTC, PRIX_VENTE5_HT, PRIX_VENTE5_TTC, PRIX_VENTE6_HT, PRIX_VENTE6_TTC, PRIX_VENTE7_HT, PRIX_VENTE7_TTC, PRIX_VENTE8_HT, PRIX_VENTE8_TTC, PRIX_VENTE9_HT, QUANTITE, POURCENTAGE_REMISE, SEUIL_REAPPROVISIONNEMENT_PETIT_MAGASIN, SEUIL_REAPPROVISIONNEMENT, NUMERO_SERIE, ARTICLE_COMPOSE, ARTICLE_LIE, ARTICLE_RECONDITIONNABLE, APPARAIT_SUR_FICHE_CLIENT, ARTICLE_PERISSABLE, ARTICLE_GERE_PAR_LOT, DATE_DEBUT_PROMOTION, POURCENTAGE_REMISE_PROMOTION, DATE_FIN_PROMOTION, CHEMIN_PHOTO, DATE_CREATION, CODE_UTILISATEUR_CREA, DATE_MODIFICATION, CODE_UTILISATEUR_MODIF, ARTICLE_A_REMISE, CODE_CLE, DELEGUE, SEUIL_PRIX_VENTE_TTC, TX_LIMIT, DAILY_LIMIT, TAUX_TVA, SPECIALITE_ARTICLE, ARTICLE_MULTIPRIX, CODE_AGENCE, TYPE, CODE_UNITE_DE_COMPTAGE, CARTE, CODE_CONSO, PRIX_CONSO, CONTENANCE, BOISSON, PRIX_CONSO2, PRIX_CONSO3, PRIX_CONSO4, VISIBLE) Then
+
+                        If GlobalVariable.actualLanguageValue = 1 Then
+                            If GlobalVariable.typeArticle = "article" Then
+                                MessageBox.Show("Nouvel Article enregistré avec succès", "Création d'Article", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            Else
+                                MessageBox.Show("Nouvelle Matière enregistré avec succès", "Création d'Article", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            End If
+                        Else
+                            MessageBox.Show("Item successfully created", "Item Creation", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        End If
+
+                        eraseField = True
+
+                    End If
+
+
+                    Dim ms As New MemoryStream()
+
+                    If Not GunaPictureBoxLogo.Image Is Nothing Then
+
+                        GunaPictureBoxLogo.Image.Save(ms, GunaPictureBoxLogo.Image.RawFormat)
+
+                        Dim img As Byte() = ms.GetBuffer()
+
+                        If ms.Length > 0 Then
+
+                            Dim updateQuery As String = "UPDATE `article` SET `IMAGE_1`= @IMAGE_1 WHERE CODE_ARTICLE = @CODE_ARTICLE"
+
+                            Dim command As New MySqlCommand(updateQuery, GlobalVariable.connect)
+
+                            command.Parameters.Add("@CODE_ARTICLE", MySqlDbType.VarChar).Value = CODE_ARTICLE
+                            command.Parameters.Add("@IMAGE_1", MySqlDbType.Blob).Value = ms.ToArray()
+
+                            command.ExecuteNonQuery()
+
+                        End If
+
+                    End If
+
+                Else
+                    If GlobalVariable.actualLanguageValue = 1 Then
+                        MessageBox.Show("Cette Article/Matière existe déjà, Essayer à nouveau", "Article Invalide", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    Else
+                        MessageBox.Show("This Item already Exist, Try another", "Invalid Item", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    End If
+                End If
+
+
             End If
 
-        End If
+            If eraseField Then
 
-        '------------------------ GESTION DES IMAGES ----------------------------------------
+                '-----------------------------------------------------------------------------------
 
-        Dim ms As New MemoryStream()
+                GunaPictureBoxLogo.Image = Nothing
 
-        If Not GunaPictureBoxLogo.Image Is Nothing Then
+                ArticleList()
 
-            GunaPictureBoxLogo.Image.Save(ms, GunaPictureBoxLogo.Image.RawFormat)
+                GunaTextBoxPrixConso1.Text = 0
 
-            Dim img As Byte() = ms.GetBuffer()
+                GunaTextBoxDesignation.Text = ""
+                GunaComboBoxSuiviStock.SelectedIndex = 0
+                GunaTextBoxCUMP.Text = 0
+                GunaTextBoxStockReaProPetitMagasin.Text = 0
+                GunaTextBoxStockReapproGrandMagasin.Text = 0
+                'GunaComboBoxTypeArticle.SelectedIndex = -1
+                GunaTextBoxCodeArticle.Text = ""
+                GunaTextBoxVenteHT.Text = 0
+                GunaTextBoxNumSerie.Text = ""
+                GunaTextBoxStockReaProPetitMagasin.Text = 6
+                GunaTextBoxStockReapproGrandMagasin.Text = 12
+                GunaTextBoxStock.Text = 0
+                GunaTextBoxPrixAchat.Text = 0
 
-            If ms.Length > 0 Then
+                GunaTextBoxContenance.Text = 0
 
-                Dim updateQuery As String = "UPDATE `article` SET `IMAGE_1`= @IMAGE_1 WHERE CODE_ARTICLE = @CODE_ARTICLE"
+                GunaTextBoxVenteHT2.Text = 0
+                GunaTextBoxVenteHT3.Text = 0
+                GunaTextBoxVenteHT4.Text = 0
 
-                Dim command As New MySqlCommand(updateQuery, GlobalVariable.connect)
+                GunaCheckBoxBoisson.Checked = False
 
-                command.Parameters.Add("@CODE_ARTICLE", MySqlDbType.VarChar).Value = CODE_ARTICLE
-                command.Parameters.Add("@IMAGE_1", MySqlDbType.Blob).Value = ms.ToArray()
+                GunaTextBoxPrixConso2.Text = 0
+                GunaTextBoxPrixConso3.Text = 0
+                GunaTextBoxPrixConso4.Text = 0
 
-                command.ExecuteNonQuery()
+                GunaLabelStockEnConso.Visible = False
+                GunaTextBoxStockEnConso.Visible = False
+                GunaTextBoxStockEnConso.Text = 0
+                'connect.closeConnection()
 
+                If GlobalVariable.typeArticle = "article" Then
+                    GunaComboBoxArticleMatiere.SelectedIndex = 0
+                Else
+                    GunaComboBoxArticleMatiere.SelectedIndex = 1
+                End If
             End If
+            '------------------------ GESTION DES IMAGES ----------------------------------------
 
-        End If
-
-        '-----------------------------------------------------------------------------------
-
-        GunaPictureBoxLogo.Image = Nothing
-
-        ArticleList()
-
-        GunaTextBoxPrixConso1.Text = 0
-
-        GunaTextBoxDesignation.Text = ""
-        GunaComboBoxSuiviStock.SelectedIndex = 0
-        GunaTextBoxCUMP.Text = 0
-        GunaTextBoxStockReaProPetitMagasin.Text = 0
-        GunaTextBoxStockReapproGrandMagasin.Text = 0
-        'GunaComboBoxTypeArticle.SelectedIndex = -1
-        GunaTextBoxCodeArticle.Text = ""
-        GunaTextBoxVenteHT.Text = 0
-        GunaTextBoxNumSerie.Text = ""
-        GunaTextBoxStockReaProPetitMagasin.Text = 6
-        GunaTextBoxStockReapproGrandMagasin.Text = 12
-        GunaTextBoxStock.Text = 0
-        GunaTextBoxPrixAchat.Text = 0
-
-        GunaTextBoxContenance.Text = 0
-
-        GunaTextBoxVenteHT2.Text = 0
-        GunaTextBoxVenteHT3.Text = 0
-        GunaTextBoxVenteHT4.Text = 0
-
-        GunaCheckBoxBoisson.Checked = False
-
-        GunaTextBoxPrixConso2.Text = 0
-        GunaTextBoxPrixConso3.Text = 0
-        GunaTextBoxPrixConso4.Text = 0
-
-        GunaLabelStockEnConso.Visible = False
-        GunaTextBoxStockEnConso.Visible = False
-        GunaTextBoxStockEnConso.Text = 0
-        'connect.closeConnection()
-
-        If GlobalVariable.typeArticle = "article" Then
-            GunaComboBoxArticleMatiere.SelectedIndex = 0
         Else
-            GunaComboBoxArticleMatiere.SelectedIndex = 1
+
+            If GlobalVariable.actualLanguageValue = 1 Then
+                MessageBox.Show("Bien vouloir remplir le champ Designation", "Création d'Article / matière", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                MessageBox.Show("Please, fill the field Name", "Item Creation", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+
         End If
 
     End Sub
@@ -608,9 +717,13 @@ Public Class ArticleForm
 
         If e.RowIndex >= 0 Then
 
-            GunaButtonEnregistrer.Text = "Sauvegarder"
+            If GlobalVariable.actualLanguageValue = 0 Then
+                GunaButtonEnregistrer.Text = "Update"
+            Else
+                GunaButtonEnregistrer.Text = "Sauvegarder"
+            End If
 
-            If GunaButtonEnregistrer.Text = "Sauvegarder" Then
+            If GunaButtonEnregistrer.Text = "Sauvegarder" Or GunaButtonEnregistrer.Text = "Update" Then
                 GunaButtonFicheDeStock.Visible = True
             Else
                 GunaButtonFicheDeStock.Visible = False
@@ -627,7 +740,17 @@ Public Class ArticleForm
             If Article.Rows.Count > 0 Then
 
                 GunaTextBoxCodeArticle.Text = Article.Rows(0)("CODE_ARTICLE")
-                GunaComboBoxSuiviStock.SelectedItem = Article.Rows(0)("METHODE_SUIVI_STOCK")
+
+                If GlobalVariable.actualLanguageValue = 1 Then
+                    GunaComboBoxSuiviStock.SelectedItem = Article.Rows(0)("METHODE_SUIVI_STOCK")
+                Else
+                    If Article.Rows(0)("METHODE_SUIVI_STOCK").Equals("Suivi simple") Then
+                        GunaComboBoxSuiviStock.SelectedIndex = 1
+                    Else
+                        GunaComboBoxSuiviStock.SelectedIndex = 0
+                    End If
+                End If
+
                 GunaTextBoxDesignation.Text = Article.Rows(0)("DESIGNATION_FR")
                 GunaTextBoxCUMP.Text = Format(Article.Rows(0)("PRIX_ACHAT_HT"), "#,##0")
                 GunaTextBoxVenteHT.Text = Format(Article.Rows(0)("PRIX_VENTE_HT"), "#,##0")
@@ -760,7 +883,7 @@ Public Class ArticleForm
     'SUPRESSION D'ARTICLE
     Private Sub SupprimerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SupprimerToolStripMenuItem.Click
 
-        If GunaDataGridViewArticle.Rows.Count > 0 Then
+        If GunaDataGridViewArticle.CurrentRow.Selected Then
 
             Dim CODE_ARTICLE As String = GunaDataGridViewArticle.CurrentRow.Cells("CODE").Value.ToString
             Dim NOM_ARTICLE As String = GunaDataGridViewArticle.CurrentRow.Cells("DESIGNATION").Value.ToString
@@ -1677,10 +1800,6 @@ Public Class ArticleForm
 
             TabControlArticle.SelectedIndex = 4
 
-        Else
-
-            MessageBox.Show("Oups", "Enregistrement", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
         End If
 
     End Sub
@@ -1697,7 +1816,9 @@ Public Class ArticleForm
 
             If GlobalVariable.typeArticle = "article" Then
                 title = "FICHE DE RENSEIGNEMENT D'ARTICLE / PLAT"
-
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    title = "ARTICLE / MEAL SHEET"
+                End If
                 Dim tableFicheTechnique As DataTable = Functions.allTableFieldsOrganised("fiche_technique", "LIBELLE_FICHE")
 
                 If (tableFicheTechnique.Rows.Count > 0) Then
@@ -1711,13 +1832,18 @@ Public Class ArticleForm
 
             ElseIf GlobalVariable.typeArticle = "matiere" Then
                 title = "FICHE DE RENSEIGNEMENT DE MATIERE"
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    title = "METERIAL SHEET"
+                End If
             End If
 
 
         ElseIf TabControlArticle.SelectedIndex = 1 Then
 
             title = " LISTE DES " + GlobalVariable.typeArticle.ToUpper() + "S"
-
+            If GlobalVariable.actualLanguageValue = 0 Then
+                title = " LIST OF " + GlobalVariable.typeArticle.ToUpper() + "S"
+            End If
         ElseIf TabControlArticle.SelectedIndex = 2 Then
 
             Dim TYPE_LIGNE_FACTURE As String = "fiche technique"
@@ -1726,19 +1852,26 @@ Public Class ArticleForm
             Functions.DeleteElementOnTwoConditions(CODE_UTILISATEUR_CREA, "ligne_facture_temp", "CODE_UTILISATEUR_CREA", "TYPE_LIGNE_FACTURE", TYPE_LIGNE_FACTURE)
 
             title = " FICHE TECHNIQUE DE PLAT "
-
+            If GlobalVariable.actualLanguageValue = 0 Then
+                title = " TECHNICAL SHEET "
+            End If
         ElseIf TabControlArticle.SelectedIndex = 3 Then
-
             title = "LISTE DES FICHES TECHNIQUES DE PLAT"
-
+            If GlobalVariable.actualLanguageValue = 0 Then
+                title = "LIST OF TECHNICAL SHEET"
+            End If
         ElseIf TabControlArticle.SelectedIndex = 4 Then
 
             title = "DETAILS D'UNE FICHE TECHNIQUE DE PLAT"
-
+            If GlobalVariable.actualLanguageValue = 0 Then
+                title = "DETAILS OF TECHNICAL SHEET"
+            End If
         ElseIf TabControlArticle.SelectedIndex = 5 Then
 
             title = "COMMANDES DE LA CUISINE"
-
+            If GlobalVariable.actualLanguageValue = 0 Then
+                title = "ORDER FOR KITCHEN"
+            End If
             'AFFICHAGE DES COMMANDES EN COURS OU EN ATTENTE
             commandeEncoursDePreparation()
 
@@ -1782,6 +1915,75 @@ Public Class ArticleForm
             GunaDataGridViewCommandePreparee.Columns("ETAT").Visible = False
             GunaDataGridViewCommandePreparee.Columns("CODE_FICHE_TECHNIQUE").Visible = False
             GunaDataGridViewCommandePreparee.Columns("RANDOM_CODE").Visible = False
+
+        End If
+
+    End Sub
+
+
+    Public Sub commandeNonCloture()
+
+        Dim DateDeSituation As Date = CDate(GlobalVariable.DateDeTravail).ToShortDateString
+
+        Dim query As String = ""
+
+        If GlobalVariable.actualLanguageValue = 0 Then
+
+            query = "SELECT CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'ITEM', 
+                ligne_facture_temp.QUANTITE AS QUANTITY, MONTANT_HT AS 'AMOUNT ET' 
+                FROM ligne_facture_temp WHERE DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "'
+                AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' ORDER BY LIBELLE_FACTURE ASC"
+
+        ElseIf GlobalVariable.actualLanguageValue = 1 Then
+            query = "SELECT CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'DESIGNATION',
+                ligne_facture_temp.QUANTITE FROM ligne_facture_temp WHERE DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' 
+                AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' ORDER BY LIBELLE_FACTURE ASC"
+
+        End If
+
+        Dim command As New MySqlCommand(query, GlobalVariable.connect)
+
+        Dim adapter As New MySqlDataAdapter(command)
+
+        Dim table As New DataTable()
+
+        adapter.Fill(table)
+
+        GunaDataGridView1.Columns.Clear()
+
+        If table.Rows.Count > 0 Then
+
+            If GlobalVariable.actualLanguageValue = 1 Then
+                GunaDataGridView1.Columns.Add("CODE_ARTICLE", "CODE_ARTCILE")
+                GunaDataGridView1.Columns.Add("ARTICLE", "ARTICLE")
+                GunaDataGridView1.Columns.Add("QUANTITE", "QUANTITE")
+            Else
+                GunaDataGridView1.Columns.Add("CODE_ARTICLE", "CODE_ARTCILE")
+                GunaDataGridView1.Columns.Add("ITEM", "ITEM")
+                GunaDataGridView1.Columns.Add("QUANTITE", "QUANTITY")
+            End If
+
+            Dim CODE_ARTICLE As String = ""
+            Dim infoSupArticle As DataTable = Functions.getElementByCode(CODE_ARTICLE, "article", "CODE_ARTICLE")
+
+            Dim nombreDeCOmmande As Integer = 0
+
+            For i = 0 To table.Rows.Count - 1
+
+                CODE_ARTICLE = table.Rows(i)(0)
+                infoSupArticle = Functions.getElementByCode(CODE_ARTICLE, "article", "CODE_ARTICLE")
+
+                If infoSupArticle.Rows.Count > 0 Then
+                    If Not Trim(infoSupArticle.Rows(0)("CODE_CLE")).Equals("") Then
+                        GunaDataGridView1.Rows.Add(table.Rows(i)(0), table.Rows(i)(1), table.Rows(i)(2))
+                        nombreDeCOmmande += 1
+                    End If
+                End If
+            Next
+
+            GunaDataGridView1.Columns(0).Visible = False
+
+            GunaTextBox1.Text = nombreDeCOmmande
 
         End If
 
@@ -2499,27 +2701,6 @@ Public Class ArticleForm
 
     End Sub
 
-    'ENREGISTREMENT DE MENU DU JOUR
-    Private Sub GunaButtonCloturerFolio2_Click(sender As Object, e As EventArgs) Handles GunaButtonCloturerFolio2.Click
-
-        Dim article As New Article()
-
-        For i = 0 To GunaDataGridViewCommandePreparee.Rows.Count - 1
-
-
-            Dim CODE_MENU As String = Functions.GeneratingRandomCode("menu_du_jour", "")
-            Dim CODE_FICHE_TECHNIQUE As String = GunaDataGridViewCommandePreparee.Rows(i).Cells("DataGridViewTextBoxColumn2").Value.ToString()
-            Dim LIBELLE_FICHE As String = GunaDataGridViewCommandePreparee.Rows(i).Cells("DataGridViewTextBoxColumn1").Value.ToString()
-            Dim DATE_DU_JOUR As Date = GlobalVariable.DateDeTravail
-
-            article.meneDuJour(CODE_MENU, CODE_FICHE_TECHNIQUE, LIBELLE_FICHE, DATE_DU_JOUR)
-
-        Next
-
-        GunaDataGridViewCommandePreparee.Rows.Clear()
-
-    End Sub
-
     'VISUALISATION DES ARTICLES / PPLAT / MATIERES EXISTANTES
     Private Sub GunaTextBoxDesignation_TextChanged(sender As Object, e As EventArgs) Handles GunaTextBoxDesignation.TextChanged
 
@@ -2565,9 +2746,13 @@ Public Class ArticleForm
 
         If e.RowIndex >= 0 Then
 
-            GunaButtonEnregistrer.Text = "Sauvegarder"
+            If GlobalVariable.actualLanguageValue = 0 Then
+                GunaButtonEnregistrer.Text = "Update"
+            Else
+                GunaButtonEnregistrer.Text = "Sauvegarder"
+            End If
 
-            If GunaButtonEnregistrer.Text = "Sauvegarder" Then
+            If GunaButtonEnregistrer.Text = "Sauvegarder" Or GunaButtonEnregistrer.Text = "Update" Then
                 GunaButtonFicheDeStock.Visible = True
             Else
                 GunaButtonFicheDeStock.Visible = False
@@ -2776,10 +2961,8 @@ Public Class ArticleForm
 
             If Double.Parse(GunaTextBoxValeurUniteConso.Text) > 0 Then
 
-                Dim nombreDeConso As Integer = Double.Parse(GunaTextBoxContenance.Text) / Double.Parse(GunaTextBoxValeurUniteConso.Text)
-                GunaTextBoxNbreConso.Text = Format(Math.Floor(nombreDeConso), "#,##0")
-                'GunaTextBoxStockEnConso.Text = Format(Double.Parse(GunaTextBoxContenance.Text) / Double.Parse(GunaTextBoxValeurUniteConso.Text) * GunaTextBoxStock.Text, "#,##0")
-                'GunaTextBoxStockEnConso.Text = Format(Math.Floor(nombreDeConso) * GunaTextBoxStock.Text, "#,##0")
+                Dim nombreDeConso As Integer = Math.Floor(Double.Parse(GunaTextBoxContenance.Text) / Double.Parse(GunaTextBoxValeurUniteConso.Text))
+                GunaTextBoxNbreConso.Text = Format(nombreDeConso, "#,##0")
 
                 'ECLATEMENT EN BOUTEILLE ET CONSOMMATION
 
@@ -3330,6 +3513,8 @@ Public Class ArticleForm
         commandeEncoursDePreparation()
 
         informationUtiles()
+
+        commandeNonCloture()
 
     End Sub
 
@@ -3964,6 +4149,96 @@ Public Class ArticleForm
         Else
             GunaComboBoxFiltreArticle.Visible = False
             GunaComboBoxFiltreArticle.SelectedIndex = -1
+        End If
+
+    End Sub
+
+    Private Sub GunaDataGridView1_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GunaDataGridView1.CellDoubleClick
+
+        If e.RowIndex >= 0 Then
+
+            Dim row As DataGridViewRow
+
+            row = Me.GunaDataGridView1.Rows(e.RowIndex)
+
+            Dim CODE_ARTICLE As String = row.Cells("CODE_ARTICLE").Value.ToString
+            Dim CODE_FICHE_TECHNIQUE As String = ""
+            Dim infoSup As DataTable = Functions.getElementByCode(CODE_ARTICLE, "article", "CODE_ARTICLE")
+            If infoSup.Rows.Count > 0 Then
+                CODE_FICHE_TECHNIQUE = infoSup.Rows(0)("CODE_CLE")
+            End If
+
+            Dim query As String = "SELECT * FROM fiche_technique WHERE CODE_FICHE_TECHNIQUE=@CODE_FICHE_TECHNIQUE ORDER BY LIBELLE_FICHE ASC"
+            Dim adapter As New MySqlDataAdapter
+            Dim fiche As New DataTable
+            Dim command As New MySqlCommand(query, GlobalVariable.connect)
+
+            Dim QUANTITE As Double = Double.Parse(row.Cells("QUANTITE").Value)
+
+            command.Parameters.Add("@CODE_FICHE_TECHNIQUE", MySqlDbType.VarChar).Value = CODE_FICHE_TECHNIQUE
+            adapter.SelectCommand = command
+            adapter.Fill(fiche)
+
+            If fiche.Rows.Count > 0 Then
+
+                Dim ficheTechniqueElements As New Article()
+
+                GunaDataGridViewMatieresArticle.Columns.Clear()
+                GunaDataGridViewMatieresArticle.Rows.Clear()
+
+                'AJOUTS DES COLUMNS
+
+                GunaDataGridViewMatieresArticle.Columns.Add("CODE ARTICLE", "CODE ARTICLE")
+                GunaDataGridViewMatieresArticle.Columns.Add("DESIGNATION", "DESIGNATION")
+                GunaDataGridViewMatieresArticle.Columns.Add("UNITE", "UNITE")
+                GunaDataGridViewMatieresArticle.Columns.Add("QTE UTILISE", "QTE UTILISE")
+                GunaDataGridViewMatieresArticle.Columns.Add("QTE / PORTION", "QTE / PORTION")
+                GunaDataGridViewMatieresArticle.Columns.Add("COUT DE REVIENT", "COUT DE REVIENT")
+                GunaDataGridViewMatieresArticle.Columns.Add("COUT ACHAT", "COUT ACHAT") 'PRIX ACHAT
+
+                'GunaDataGridViewMatieresArticle.DataSource = ficheTechniqueElements.elementsDuneFicheTechniquePourPreparation(fiche.Rows(0)("CODE_FICHE_TECHNIQUE"))
+                Dim ficheTechElement As DataTable = ficheTechniqueElements.elementsDuneFicheTechniquePourPreparation(fiche.Rows(0)("CODE_FICHE_TECHNIQUE"))
+
+                Dim coutTotalDeProduction As Double = 0
+
+                If ficheTechElement.Rows.Count > 0 Then
+
+                    For i = 0 To ficheTechElement.Rows.Count - 1
+                        GunaDataGridViewMatieresArticle.Rows.Add(ficheTechElement(i)("CODE ARTICLE"), ficheTechElement(i)("DESIGNATION"), ficheTechElement(i)("UNITE"), ficheTechElement(i)("QTE UTILISE") * QUANTITE, ficheTechElement(i)("QTE / PORTION"), ficheTechElement(i)("COUT DE REVIENT") * QUANTITE, ficheTechElement(i)("COUT ACHAT") * QUANTITE)
+
+                        coutTotalDeProduction += ficheTechElement(i)("COUT DE REVIENT") * QUANTITE
+
+                    Next
+
+                End If
+
+                GunaDataGridViewMatieresArticle.Columns("COUT ACHAT").DefaultCellStyle.Format = "#,##0"
+                GunaDataGridViewMatieresArticle.Columns("COUT ACHAT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                GunaDataGridViewMatieresArticle.Columns("COUT ACHAT").DefaultCellStyle.Format = "n2"
+
+                GunaDataGridViewMatieresArticle.Columns("QTE UTILISE").DefaultCellStyle.Format = "#,##0"
+                GunaDataGridViewMatieresArticle.Columns("QTE UTILISE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                GunaDataGridViewMatieresArticle.Columns("QTE UTILISE").DefaultCellStyle.Format = "n2"
+
+                GunaDataGridViewMatieresArticle.Columns("COUT DE REVIENT").DefaultCellStyle.Format = "#,##0"
+                GunaDataGridViewMatieresArticle.Columns("COUT DE REVIENT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                GunaDataGridViewMatieresArticle.Columns("COUT DE REVIENT").DefaultCellStyle.Format = "n2"
+                GunaDataGridViewMatieresArticle.Columns("QTE / PORTION").DefaultCellStyle.Format = "#,##0"
+                GunaDataGridViewMatieresArticle.Columns("QTE / PORTION").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                GunaDataGridViewMatieresArticle.Columns("QTE / PORTION").DefaultCellStyle.Format = "n2"
+                GunaDataGridViewMatieresArticle.Columns("CODE ARTICLE").Visible = False
+                GunaDataGridViewMatieresArticle.Columns("COUT ACHAT").Visible = False
+
+                GunaTextBoxCoutDeProduction.Text = Format(coutTotalDeProduction, "#,##0")
+
+            Else
+
+                GunaTextBoxCoutDeProduction.Text = 0
+                GunaDataGridViewMatieresArticle.Rows.Clear()
+                'GunaDataGridViewMatieresArticle.Visible = False
+
+            End If
+
         End If
 
     End Sub

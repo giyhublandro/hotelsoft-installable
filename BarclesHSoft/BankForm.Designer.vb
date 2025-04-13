@@ -55,9 +55,9 @@ Partial Class BankForm
         Me.GunaLabel2 = New Guna.UI.WinForms.GunaLabel()
         Me.TabPageListe = New System.Windows.Forms.TabPage()
         Me.GunaDataGridViewBanqueListe = New Guna.UI.WinForms.GunaDataGridView()
-        Me.GunaButton1 = New Guna.UI.WinForms.GunaButton()
         Me.GunaContextMenuStrip1 = New Guna.UI.WinForms.GunaContextMenuStrip()
         Me.SupprimerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GunaButton1 = New Guna.UI.WinForms.GunaButton()
         Me.GunaPanel1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPageDescription.SuspendLayout()
@@ -503,6 +503,27 @@ Partial Class BankForm
         Me.GunaDataGridViewBanqueListe.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(183, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.GunaDataGridViewBanqueListe.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.Black
         '
+        'GunaContextMenuStrip1
+        '
+        Me.GunaContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SupprimerToolStripMenuItem})
+        Me.GunaContextMenuStrip1.Name = "GunaContextMenuStrip1"
+        Me.GunaContextMenuStrip1.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaContextMenuStrip1.RenderStyle.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaContextMenuStrip1.RenderStyle.ColorTable = Nothing
+        Me.GunaContextMenuStrip1.RenderStyle.RoundedEdges = True
+        Me.GunaContextMenuStrip1.RenderStyle.SelectionArrowColor = System.Drawing.Color.White
+        Me.GunaContextMenuStrip1.RenderStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaContextMenuStrip1.RenderStyle.SelectionForeColor = System.Drawing.Color.White
+        Me.GunaContextMenuStrip1.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
+        Me.GunaContextMenuStrip1.RenderStyle.TextRenderingHint = Guna.UI.WinForms.DrawingTextRenderingHint.SystemDefault
+        Me.GunaContextMenuStrip1.Size = New System.Drawing.Size(130, 26)
+        '
+        'SupprimerToolStripMenuItem
+        '
+        Me.SupprimerToolStripMenuItem.Name = "SupprimerToolStripMenuItem"
+        Me.SupprimerToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.SupprimerToolStripMenuItem.Text = "Supprimer"
+        '
         'GunaButton1
         '
         Me.GunaButton1.AnimationHoverSpeed = 0.07!
@@ -528,27 +549,6 @@ Partial Class BankForm
         Me.GunaButton1.TabIndex = 3
         Me.GunaButton1.Text = "Fermer"
         Me.GunaButton1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'GunaContextMenuStrip1
-        '
-        Me.GunaContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SupprimerToolStripMenuItem})
-        Me.GunaContextMenuStrip1.Name = "GunaContextMenuStrip1"
-        Me.GunaContextMenuStrip1.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaContextMenuStrip1.RenderStyle.BorderColor = System.Drawing.Color.Gainsboro
-        Me.GunaContextMenuStrip1.RenderStyle.ColorTable = Nothing
-        Me.GunaContextMenuStrip1.RenderStyle.RoundedEdges = True
-        Me.GunaContextMenuStrip1.RenderStyle.SelectionArrowColor = System.Drawing.Color.White
-        Me.GunaContextMenuStrip1.RenderStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaContextMenuStrip1.RenderStyle.SelectionForeColor = System.Drawing.Color.White
-        Me.GunaContextMenuStrip1.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
-        Me.GunaContextMenuStrip1.RenderStyle.TextRenderingHint = Guna.UI.WinForms.DrawingTextRenderingHint.SystemDefault
-        Me.GunaContextMenuStrip1.Size = New System.Drawing.Size(130, 26)
-        '
-        'SupprimerToolStripMenuItem
-        '
-        Me.SupprimerToolStripMenuItem.Name = "SupprimerToolStripMenuItem"
-        Me.SupprimerToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.SupprimerToolStripMenuItem.Text = "Supprimer"
         '
         'BankForm
         '

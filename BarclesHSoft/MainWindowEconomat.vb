@@ -49,6 +49,7 @@ Public Class MainWindowEconomat
 
         Dim langue As New Languages()
         langue.economat(GlobalVariable.actualLanguageValue)
+        langue.side_menu_purchase(GlobalVariable.actualLanguageValue)
 
         Dim menuAccess As New AccessRight()
 
@@ -98,6 +99,55 @@ Public Class MainWindowEconomat
 
         notification()
         '----------------------------END ECONOMAT ------------------
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 1 Then 'RESTAURANT
+            ReceptionToolStripMenuItem.Visible = False
+            RESERVATIONToolStripMenuItem.Visible = False
+            SERVICEDETAGEToolStripMenuItem.Visible = False
+            TECHNIQUEToolStripMenuItem.Visible = False
+            ToolStripMenuItemServTech.Visible = False
+        End If
+
+        GunaComboBoxTypeBorderoRapport.SelectedIndex = 0
+
+        Dim showCustomImage As Boolean = False
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+            If GlobalVariable.config.Rows.Count > 0 Then
+                showCustomImage = True
+            End If
+        End If
+
+        If showCustomImage Then
+
+            Dim buttonPanel As Integer = 1
+            GunaPanel1.BackColor = Functions.colorationWindow(buttonPanel)
+
+            buttonPanel = 0 'Button Background
+            GunaButtonAfficherValidee.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton1.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton13.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton16.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonImpressionDirecte.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonDetails.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton1.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton2.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton16.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonAnnulerBordereau.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonEnregistrer.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonCommander.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonValider.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonVerification.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonController.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonAjouterLigne.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonImpirmerRapportEconomat.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonAfficher.BaseColor = Functions.colorationWindow(buttonPanel)
+
+            buttonPanel = 2 'Button Text : white
+            'GunaButtonMoveLeftToRight.ForeColor = Functions.colorationWindow(buttonPanel)
+            'GunaButtonAllToRight.ForeColor = Functions.colorationWindow(buttonPanel)
+
+        End If
 
     End Sub
 
@@ -197,7 +247,7 @@ Public Class MainWindowEconomat
             VALIDE = ETAT_NOTE_DU_BORDEREAU
         End If
 
-        If Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.transfert_inter Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.sortie Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.bon_approvisi Then
+        If Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.transfert_inter Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.sortie Then
 
             If Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.bon_approvisi Then
                 CODE_MAGASIN = GunaComboBoxMagasin_2.SelectedValue.ToString
@@ -234,6 +284,55 @@ Public Class MainWindowEconomat
                 command.ExecuteNonQuery()
 
             End If
+
+            CONTROLER = GunaTextBox1.Text
+            VALIDER = GunaTextBox2.Text
+            VERIFIER = GunaTextBox3.Text
+            COMMANDER = GunaTextBox4.Text
+
+            If ETAT_OLD = 1 Then
+                CHAMP_A_METTRE_A_JOUR = "CONTROLER"
+                Functions.updateOfFields("bordereaux", CHAMP_A_METTRE_A_JOUR, GRIFFE_UTILISATEUR, "CODE_BORDEREAUX", CODE_BORDEREAUX, 2)
+
+            ElseIf ETAT_OLD = 2 Then
+
+                CHAMP_A_METTRE_A_JOUR = "CONTROLER"
+                Functions.updateOfFields("bordereaux", CHAMP_A_METTRE_A_JOUR, GRIFFE_UTILISATEUR, "CODE_BORDEREAUX", CODE_BORDEREAUX, 2)
+
+                CHAMP_A_METTRE_A_JOUR = "VERIFIER"
+                Functions.updateOfFields("bordereaux", CHAMP_A_METTRE_A_JOUR, GRIFFE_UTILISATEUR, "CODE_BORDEREAUX", CODE_BORDEREAUX, 2)
+
+            ElseIf ETAT_OLD = 3 Then
+
+                CHAMP_A_METTRE_A_JOUR = "CONTROLER"
+                Functions.updateOfFields("bordereaux", CHAMP_A_METTRE_A_JOUR, GRIFFE_UTILISATEUR, "CODE_BORDEREAUX", CODE_BORDEREAUX, 2)
+
+                CHAMP_A_METTRE_A_JOUR = "VERIFIER"
+                Functions.updateOfFields("bordereaux", CHAMP_A_METTRE_A_JOUR, GRIFFE_UTILISATEUR, "CODE_BORDEREAUX", CODE_BORDEREAUX, 2)
+
+                CHAMP_A_METTRE_A_JOUR = "VALIDER"
+                Functions.updateOfFields("bordereaux", CHAMP_A_METTRE_A_JOUR, GRIFFE_UTILISATEUR, "CODE_BORDEREAUX", CODE_BORDEREAUX, 2)
+            ElseIf ETAT_OLD = 4 Then
+
+                CHAMP_A_METTRE_A_JOUR = "CONTROLER"
+                Functions.updateOfFields("bordereaux", CHAMP_A_METTRE_A_JOUR, GRIFFE_UTILISATEUR, "CODE_BORDEREAUX", CODE_BORDEREAUX, 2)
+
+                CHAMP_A_METTRE_A_JOUR = "VERIFIER"
+                Functions.updateOfFields("bordereaux", CHAMP_A_METTRE_A_JOUR, GRIFFE_UTILISATEUR, "CODE_BORDEREAUX", CODE_BORDEREAUX, 2)
+
+                CHAMP_A_METTRE_A_JOUR = "VALIDER"
+                Functions.updateOfFields("bordereaux", CHAMP_A_METTRE_A_JOUR, GRIFFE_UTILISATEUR, "CODE_BORDEREAUX", CODE_BORDEREAUX, 2)
+
+                CHAMP_A_METTRE_A_JOUR = "COMMANDER"
+                Functions.updateOfFields("bordereaux", CHAMP_A_METTRE_A_JOUR, GRIFFE_UTILISATEUR, "CODE_BORDEREAUX", CODE_BORDEREAUX, 2)
+
+            End If
+
+            GunaTextBox1.Clear()
+            GunaTextBox2.Clear()
+            GunaTextBox3.Clear()
+            GunaTextBox4.Clear()
+
             '-----------------------LIGNE DE BORDEREAUX -----------------------------
             'TRANSFERT INTER MAGASINS
             '------------------------ LIGNE DE MOVEMENT --------------------------
@@ -425,6 +524,11 @@ Public Class MainWindowEconomat
 
                 'NUM_SERIE_DEBUT : USED AS UNITE D'ENTREE
                 'Insertion des informations des lignes du bordereau
+
+                PRIX_UNITAIRE_HT = PRIX_TOTAL_HT / QUANTITE_ENTREE_STOCK
+
+                PRIX_UNITAIRE_TTC = PRIX_TOTAL_TTC / QUANTITE_ENTREE_STOCK
+
                 If econom.insertLigneBordereau(CODE_BORDEREAUX, CODE_LIGNE, CODE_MAGASIN, CODE_ARTICLE, CODE_LOT, QUANTITE, QUANTITE_ENTREE_STOCK, DATE_PEREMPTION, PRIX_UNITAIRE_HT, PRIX_UNITAIRE_TTC, PRIX_TOTAL_HT, PRIX_TOTAL_TTC, NUM_SERIE_DEBUT, NUM_SERIE_FIN, COUT_DU_STOCK, CODE_SOUS_MAGASIN) Then
 
                     Dim CODE_MOUVEMENT As String = Functions.GeneratingRandomCode("mouvement_stock", "MS")
@@ -482,6 +586,8 @@ Public Class MainWindowEconomat
     Dim CODE_REFERENCE_BORDERO As String = ""
 
     Private Sub GunaButtonEnregistrer_Click(sender As Object, e As EventArgs) Handles GunaButtonEnregistrer.Click
+
+        edited = False
 
         If GunaDataGridViewLigneArticleCommande.Rows.Count > 0 Then
 
@@ -575,12 +681,11 @@ Public Class MainWindowEconomat
                     'Dim ETAT_BORDEREAU As Integer = 4
                     Dim ETAT_BORDEREAU As Integer = 5
 
-                    'Dim CODE_BORDEREAUX_A_RECEPTION_A_METTRE_AJOUR As String = Functions.latInsertedElementCode("bordereaux", "CODE_BORDEREAUX")
                     'MISE A JOUR DU BON DE COMMANDE AYANT CONDUIT AU TRANSFERT INTER MAGASIN
 
                     Dim CODE_BORDEREAUX_A_METTRE_AJOUR As String = CODE_REFERENCE_BORDERO
 
-                    econom.updateBordereauDeCommandeAyantConduitAuBordereauDeReception(CODE_BORDEREAUX_A_METTRE_AJOUR, ETAT_BORDEREAU)
+                    'econom.updateBordereauDeCommandeAyantConduitAuBordereauDeReception(CODE_BORDEREAUX_A_METTRE_AJOUR, ETAT_BORDEREAU)
 
                     If GlobalVariable.actualLanguageValue = 1 Then
                         MessageBox.Show("Transfert Inter Magasin enregistré avec succès!", "Bordereau", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -654,11 +759,13 @@ Public Class MainWindowEconomat
 
                         Dim ETAT_DU_BORDEREAU As String = infoSupBordereaux.Rows(0)("VALIDE")
 
+                        Dim ETAT_BORDEREAU As Integer = infoSupBordereaux.Rows(0)("ETAT_BORDEREAU")
+
                         Functions.DeleteElementByCode(GunaTextBoxCodeBordereau.Text, "bordereaux", "CODE_BORDEREAUX")
 
                         Functions.DeleteElementByCode(GunaTextBoxCodeBordereau.Text, "ligne_bordereaux", "CODE_BORDEREAUX")
 
-                        InsertionDesElementsPourGestionDeStock(ETAT_DU_BORDEREAU)
+                        InsertionDesElementsPourGestionDeStock(ETAT_DU_BORDEREAU, ETAT_BORDEREAU)
 
                     End If
 
@@ -675,12 +782,13 @@ Public Class MainWindowEconomat
                     If infoSupBordereaux.Rows.Count > 0 Then
 
                         Dim ETAT_DU_BORDEREAU As String = infoSupBordereaux.Rows(0)("VALIDE")
+                        Dim ETAT_BORDEREAU As String = infoSupBordereaux.Rows(0)("ETAT_BORDEREAU")
 
                         Functions.DeleteElementByCode(GunaTextBoxCodeBordereau.Text, "bordereaux", "CODE_BORDEREAUX")
 
                         Functions.DeleteElementByCode(GunaTextBoxCodeBordereau.Text, "ligne_bordereaux", "CODE_BORDEREAUX")
 
-                        InsertionDesElementsPourGestionDeStock(ETAT_DU_BORDEREAU)
+                        InsertionDesElementsPourGestionDeStock(ETAT_DU_BORDEREAU, ETAT_BORDEREAU)
 
                     End If
 
@@ -701,6 +809,8 @@ Public Class MainWindowEconomat
             NewBonDeRequisition()
 
             Me.Cursor = Cursors.Default
+
+            GunaComboBoxTypeDeBordereau.SelectedIndex = GunaComboBoxTypeBordereau.SelectedIndex
 
             TabControlEconomat.SelectedIndex = 0
 
@@ -1095,7 +1205,6 @@ Public Class MainWindowEconomat
         If GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.bon_requisition Or GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.list_du_marche Then
 
             Dim totalAchat As Double = 0
-            'Dim numeroBon As String = GunaTextBoxCodeBordereau.Text
 
             If Not Trim(GunaTextBoxMontantHTGeneralAchat.Text).Equals("") Then
                 totalAchat = GunaTextBoxMontantHTGeneralAchat.Text
@@ -2009,7 +2118,7 @@ Public Class MainWindowEconomat
 
                 If GunaComboBoxMagasin_2.DataSource IsNot Nothing Then
 
-                    If GunaComboBoxMagasin_2.Items.Count >= 0 Then
+                    If GunaComboBoxMagasin_2.Items.Count > 0 Then
                         CODE_SOUS_MAGASIN = GunaComboBoxMagasin_2.SelectedValue.ToString
                     End If
 
@@ -2098,14 +2207,34 @@ Public Class MainWindowEconomat
         GunaButtonController.Visible = False
         GunaButtonEnregistrer.Visible = False
 
+        If GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.list_du_marche Or GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.bon_requisition Then
+            annulationDuNombreDeModification(CODE_BORDEREAUX)
+        End If
+
         Me.Cursor = Cursors.Default
 
         TabControlEconomat.SelectedIndex = 0
 
     End Sub
 
-    Private Sub ToolStripMenuItem105_Click(sender As Object, e As EventArgs)
-        FournisseurForm.Show()
+    Public Sub annulationDuNombreDeModification(ByVal CODE_BORDEREAUX As String)
+
+        Dim bordoro As DataTable = Functions.getElementByCode(CODE_BORDEREAUX, "bordereaux", "CODE_BORDEREAUX")
+        If bordoro.Rows.Count > 0 Then
+            Dim VALIDE As String = bordoro.Rows(0)("VALIDE")
+            Dim MODIFIER As String = ""
+            Dim BEFORE_CANCELATION_NEW As String = ""
+            Dim BEFORE_CANCELATION As String = bordoro.Rows(0)("BEFORE_CANCELATION")
+            Dim NBRE_MODIF As Integer = 0
+
+            If VALIDE.Equals(BEFORE_CANCELATION) Then
+                Functions.updateOfFields("bordereaux", "MODIFIER", MODIFIER, "CODE_BORDEREAUX", CODE_BORDEREAUX, 2)
+                Functions.updateOfFields("bordereaux", "BEFORE_CANCELATION", BEFORE_CANCELATION_NEW, "CODE_BORDEREAUX", CODE_BORDEREAUX, 2)
+                Functions.updateOfFields("bordereaux", "NBRE_MODIF", NBRE_MODIF, "CODE_BORDEREAUX", CODE_BORDEREAUX, 0)
+            End If
+
+        End If
+
     End Sub
 
     '1- LOT TAB
@@ -2337,8 +2466,6 @@ Public Class MainWindowEconomat
         'Le bouton permettant d'ajouter un article a la facture n'est visible que lorsque l'on est sure que le produit existe
         'il disparait de nouveau après ajout a la facture
 
-        GunaButtonAjouterLigne.Visible = True
-
         If e.RowIndex >= 0 Then
 
             GunaTextBoxQuantite.Text = 1
@@ -2388,7 +2515,6 @@ Public Class MainWindowEconomat
                     GunaTextBoxQunatiteDansLeMagasinDestination.Visible = True
 
                     Dim CODE_SOUS_MAGASIN As String = GunaComboBoxMagasin_2.SelectedValue.ToString
-
                     GunaTextBoxQunatiteDansLeMagasinDestination.Text = econom.QuantiteDunArticleQuelconqueDansUnMagasinQuelconque(CODE_SOUS_MAGASIN, CODE_ARTCLE)
 
                 Else
@@ -2396,12 +2522,6 @@ Public Class MainWindowEconomat
                     If Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.sortie Then
                         GunaComboBoxMagasin_2.Visible = True
                         GunaLabelMagasin_2.Visible = True
-
-                        '------------------------------------------------
-
-
-
-                        '------------------------------------------------
 
                     Else
                         LabelQteEnMagasinDeDestination.Visible = False
@@ -2434,13 +2554,8 @@ Public Class MainWindowEconomat
 
                 Dim QUANTITE_DU_MAGASIN_ACTUEL
 
-                If gestionDesStock = 0 Then
-                    QUANTITE_DU_MAGASIN_ACTUEL = Article.Rows(0)("QUANTITE")
-                    GunaTextBoxQunatiteDansLeMagasinProvenance.Text = 0
-                ElseIf gestionDesStock = 1 Then
-                    QUANTITE_DU_MAGASIN_ACTUEL = econom.QuantiteDunArticleQuelconqueDansUnMagasinQuelconque(CODE_MAGASIN, CODE_ARTCLE)
-                    GunaTextBoxQunatiteDansLeMagasinProvenance.Text = QUANTITE_DU_MAGASIN_ACTUEL
-                End If
+                QUANTITE_DU_MAGASIN_ACTUEL = econom.QuantiteDunArticleQuelconqueDansUnMagasinQuelconque(CODE_MAGASIN, CODE_ARTCLE)
+                GunaTextBoxQunatiteDansLeMagasinProvenance.Text = QUANTITE_DU_MAGASIN_ACTUEL
 
                 'If Not Trim(GunaTextBoxQteGrdeUnite.Text) = "" Then
 
@@ -2551,36 +2666,30 @@ Public Class MainWindowEconomat
                 GunaTextBoxPlusBasPrix.Text = Format(econo.historiquesArticlePlusHautBasPrix(CODE_ARTCLE, BAS_PRIX), "#,##0")
                 GunaTextBoxPlusHautPrix.Text = Format(econo.historiquesArticlePlusHautBasPrix(CODE_ARTCLE, HAUT_PRIX), "#,##0")
 
-            Else
-
-                'We clear the article field if nothing is found when we click on the custom datagrid
 
             End If
 
             'connect.closeConnection()
+            'kklg
+            Dim ETAT_BORDEREAU As Integer = -1
+            If Not Trim(GunaTextBoxEtatBordereau.Text).Equals("") Then
+                ETAT_BORDEREAU = Trim(GunaTextBoxEtatBordereau.Text)
+            End If
 
-            If GunaComboBoxTypeBordereau.Enabled Then
-                GunaButtonAjouterLigne.Visible = True
-            Else
+            'ON PEUT AJOUTER SI ON N'A PAS ENCORE CONTROLE
+            GunaButtonAjouterLigne.Visible = True
 
-                Dim ETAT_BORDEREAU As Integer = -1
-
-                If Not Trim(GunaTextBoxEtatBordereau.Text).Equals("") Then
-                    ETAT_BORDEREAU = GunaTextBoxEtatBordereau.Text
-                End If
-
-                'ON PEUT AJOUTER SI ON N'A PAS ENCORE CONTROLE
-                If ETAT_BORDEREAU = 0 Then
-
-                    If GunaComboBoxTypeBordereau.SelectedIndex = 1 Or GunaComboBoxTypeBordereau.SelectedIndex = 0 Or GunaComboBoxTypeBordereau.SelectedIndex = 3 Or GunaComboBoxTypeBordereau.SelectedIndex = 4 Or GunaComboBoxTypeBordereau.SelectedIndex = 6 Or GunaComboBoxTypeBordereau.SelectedIndex = 7 Or GunaComboBoxTypeBordereau.SelectedIndex = 8 Or GunaComboBoxTypeBordereau.SelectedIndex = 10 Then
-                        GunaButtonAjouterLigne.Visible = True
-                    End If
-
-                Else
+            If GunaComboBoxTypeBordereau.SelectedIndex = 3 Or GunaComboBoxTypeBordereau.SelectedIndex = 4 Or GunaComboBoxTypeBordereau.SelectedIndex = 5 Or GunaComboBoxTypeBordereau.SelectedIndex = 6 Then
+                If ETAT_BORDEREAU > 0 Then
                     GunaButtonAjouterLigne.Visible = False
                 End If
-
+            Else
+                If ETAT_BORDEREAU >= 4 Then
+                    GunaButtonAjouterLigne.Visible = False
+                End If
             End If
+
+            empecherParcours()
 
         End If
 
@@ -2725,30 +2834,52 @@ Public Class MainWindowEconomat
 
                 Dim CODE_MAGASIN As String = GunaComboBoxMagasin_1.SelectedValue.ToString
                 Dim CODE_ARTCLE As String = GunaTextBoxCodeArticle.Text
-
+                Dim requestedQty As Double = 0
+                If Not Trim(GunaTextBoxQuantite.Text).Equals("") Then
+                    requestedQty = GunaTextBoxQuantite.Text
+                End If
                 Dim quantiteEnStock As Double = econom.QuantiteDunArticleQuelconqueDansUnMagasinQuelconque(CODE_MAGASIN, CODE_ARTCLE)
 
-                'Si la qte  à ajouter est inférieur ou égale à la quantité du stock dans le dit magasin alors on l'ajoute au bordereau
-                If Not Double.Parse(GunaTextBoxQuantite.Text) <= quantiteEnStock Then
+                If quantiteEnStock > 0 Then
+                    'Si la qte  à ajouter est inférieur ou égale à la quantité du stock dans le dit magasin alors on l'ajoute au bordereau
+                    If requestedQty <= quantiteEnStock Then
 
-                    CODE_BORDEREAUX = GunaTextBoxCodeBordereau.Text
-                    UNITE_COMPTAGE = GunaComboBoxUniteOuConso.SelectedItem
-                    DESIGNATION = GunaTextBoxArticle.Text
-                    CODE_ARTICLE = GunaTextBoxCodeArticle.Text
-                    QUANTITE = Double.Parse(GunaTextBoxQuantite.Text)
-                    EN_STOCK = Double.Parse(GunaTextBoxQteGrdeUnite.Text)
-                    DATE_PEREMPTION = dateDatePeremption
-                    PRIX_VENTE = Double.Parse(GunaTextBoxPrixVente.Text) * Integer.Parse(GunaTextBoxQuantite.Text)
-                    PRIX_ACHAT = Double.Parse(GunaTextBoxAchat.Text) * Integer.Parse(GunaTextBoxQuantite.Text)
-                    CODE_AGENCE = GlobalVariable.codeAgence
-                    CODE_USER = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
-                    COUT_DU_STOCK = Double.Parse(GunaTextBoxCoutDuStock.Text)
+                        CODE_BORDEREAUX = GunaTextBoxCodeBordereau.Text
+                        UNITE_COMPTAGE = GunaComboBoxUniteOuConso.SelectedItem
+                        DESIGNATION = GunaTextBoxArticle.Text
+                        CODE_ARTICLE = GunaTextBoxCodeArticle.Text
+                        QUANTITE = Double.Parse(GunaTextBoxQuantite.Text)
+                        EN_STOCK = Double.Parse(GunaTextBoxQteGrdeUnite.Text)
+                        DATE_PEREMPTION = dateDatePeremption
+                        PRIX_VENTE = Double.Parse(GunaTextBoxPrixVente.Text) * Integer.Parse(GunaTextBoxQuantite.Text)
+                        PRIX_ACHAT = Double.Parse(GunaTextBoxAchat.Text) * Integer.Parse(GunaTextBoxQuantite.Text)
+                        CODE_AGENCE = GlobalVariable.codeAgence
+                        CODE_USER = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+                        COUT_DU_STOCK = Double.Parse(GunaTextBoxCoutDuStock.Text)
 
-                    econom.insertLigneBordereauTemp(CODE_ARTICLE, DESIGNATION, QUANTITE, EN_STOCK, PRIX_VENTE, PRIX_ACHAT, DATE_PEREMPTION, CODE_AGENCE, CODE_BORDEREAUX, UNITE_COMPTAGE, CODE_USER, COUT_DU_STOCK)
+                        econom.insertLigneBordereauTemp(CODE_ARTICLE, DESIGNATION, QUANTITE, EN_STOCK, PRIX_VENTE, PRIX_ACHAT, DATE_PEREMPTION, CODE_AGENCE, CODE_BORDEREAUX, UNITE_COMPTAGE, CODE_USER, COUT_DU_STOCK)
 
-                    GunaDataGridViewLigneArticleCommande.Columns.Clear()
+                        GunaDataGridViewLigneArticleCommande.Columns.Clear()
 
-                    GunaDataGridViewLigneArticleCommande.DataSource = econom.ligneBordereauTempElementsSuivantBordoro(GlobalVariable.codeAgence, CODE_BORDEREAUX)
+                        GunaDataGridViewLigneArticleCommande.DataSource = econom.ligneBordereauTempElementsSuivantBordoro(GlobalVariable.codeAgence, CODE_BORDEREAUX)
+
+                    Else
+
+                        If GlobalVariable.actualLanguageValue = 0 Then
+                            MessageBox.Show("You do not have enough in the source store!", "Bordereau", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Else
+                            MessageBox.Show("Vous n'avez pas en qunatité souffisante dans le magasin source", "Bordereau", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        End If
+
+                    End If
+
+                Else
+
+                    If GlobalVariable.actualLanguageValue = 0 Then
+                        MessageBox.Show("You do not have in the source store!", "Bordereau", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Else
+                        MessageBox.Show("Vous n'avez pas dans le magasin source", "Bordereau", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    End If
 
                 End If
 
@@ -2805,60 +2936,68 @@ Public Class MainWindowEconomat
 
         End If
 
-        If GlobalVariable.actualLanguageValue = 1 Then
+        If GunaDataGridViewLigneArticleCommande IsNot Nothing Then
 
-            GunaDataGridViewLigneArticleCommande.Columns("PRIX VENTE").DefaultCellStyle.Format = "#,##0.0"
+            If GunaDataGridViewLigneArticleCommande.Rows.Count > 0 Then
 
-            GunaDataGridViewLigneArticleCommande.Columns("PRIX VENTE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                If GlobalVariable.actualLanguageValue = 1 Then
 
-            GunaDataGridViewLigneArticleCommande.Columns("PRIX UNITAIRE").DefaultCellStyle.Format = "#,##0.0"
-            GunaDataGridViewLigneArticleCommande.Columns("PRIX UNITAIRE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                    GunaDataGridViewLigneArticleCommande.Columns("PRIX VENTE").DefaultCellStyle.Format = "#,##0.0"
 
-            GunaDataGridViewLigneArticleCommande.Columns("QUANTITE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-            GunaDataGridViewLigneArticleCommande.Columns("QUANTITE").DefaultCellStyle.Format = "#,##0.0"
+                    GunaDataGridViewLigneArticleCommande.Columns("PRIX VENTE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-            GunaDataGridViewLigneArticleCommande.Columns("EN STOCK").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-            GunaDataGridViewLigneArticleCommande.Columns("EN STOCK").DefaultCellStyle.Format = "#,##0.0"
+                    GunaDataGridViewLigneArticleCommande.Columns("PRIX UNITAIRE").DefaultCellStyle.Format = "#,##0.0"
+                    GunaDataGridViewLigneArticleCommande.Columns("PRIX UNITAIRE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-            GunaDataGridViewLigneArticleCommande.Columns("PRIX TOTAL").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            GunaDataGridViewLigneArticleCommande.Columns("PRIX TOTAL").DefaultCellStyle.Format = "#,##0.0"
+                    GunaDataGridViewLigneArticleCommande.Columns("QUANTITE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                    GunaDataGridViewLigneArticleCommande.Columns("QUANTITE").DefaultCellStyle.Format = "#,##0.0"
 
-            GunaDataGridViewLigneArticleCommande.Columns("PRIX VENTE").Visible = False '
+                    GunaDataGridViewLigneArticleCommande.Columns("EN STOCK").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                    GunaDataGridViewLigneArticleCommande.Columns("EN STOCK").DefaultCellStyle.Format = "#,##0.0"
 
-            GunaDataGridViewLigneArticleCommande.Columns("CODE ARTICLE").Visible = False 'false
+                    GunaDataGridViewLigneArticleCommande.Columns("PRIX TOTAL").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                    GunaDataGridViewLigneArticleCommande.Columns("PRIX TOTAL").DefaultCellStyle.Format = "#,##0.0"
 
-            GunaDataGridViewLigneArticleCommande.Columns("DESIGNATION").ReadOnly = True '
-            GunaDataGridViewLigneArticleCommande.Columns("PRIX TOTAL").ReadOnly = True
-            GunaDataGridViewLigneArticleCommande.Columns("EN STOCK").ReadOnly = True
+                    GunaDataGridViewLigneArticleCommande.Columns("PRIX VENTE").Visible = False '
 
-        Else
+                    GunaDataGridViewLigneArticleCommande.Columns("CODE ARTICLE").Visible = False 'false
 
-            GunaDataGridViewLigneArticleCommande.Columns("SELLING PRICE").DefaultCellStyle.Format = "#,##0.0"
-            GunaDataGridViewLigneArticleCommande.Columns("SELLING PRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                    GunaDataGridViewLigneArticleCommande.Columns("DESIGNATION").ReadOnly = True '
+                    GunaDataGridViewLigneArticleCommande.Columns("PRIX TOTAL").ReadOnly = True
+                    GunaDataGridViewLigneArticleCommande.Columns("EN STOCK").ReadOnly = True
 
-            GunaDataGridViewLigneArticleCommande.Columns("UNIT PRICE").DefaultCellStyle.Format = "#,##0.0"
-            GunaDataGridViewLigneArticleCommande.Columns("UNIT PRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                Else
 
-            GunaDataGridViewLigneArticleCommande.Columns("QUANTITY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-            GunaDataGridViewLigneArticleCommande.Columns("QUANTITY").DefaultCellStyle.Format = "#,##0.0"
+                    GunaDataGridViewLigneArticleCommande.Columns("SELLING PRICE").DefaultCellStyle.Format = "#,##0.0"
+                    GunaDataGridViewLigneArticleCommande.Columns("SELLING PRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-            GunaDataGridViewLigneArticleCommande.Columns("STOCK").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-            GunaDataGridViewLigneArticleCommande.Columns("STOCK").DefaultCellStyle.Format = "#,##0.0"
+                    GunaDataGridViewLigneArticleCommande.Columns("UNIT PRICE").DefaultCellStyle.Format = "#,##0.0"
+                    GunaDataGridViewLigneArticleCommande.Columns("UNIT PRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-            GunaDataGridViewLigneArticleCommande.Columns("TOTAL PRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            GunaDataGridViewLigneArticleCommande.Columns("TOTAL PRICE").DefaultCellStyle.Format = "#,##0.0"
+                    GunaDataGridViewLigneArticleCommande.Columns("QUANTITY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                    GunaDataGridViewLigneArticleCommande.Columns("QUANTITY").DefaultCellStyle.Format = "#,##0.0"
 
-            GunaDataGridViewLigneArticleCommande.Columns("SELLING PRICE").Visible = False '
+                    GunaDataGridViewLigneArticleCommande.Columns("STOCK").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                    GunaDataGridViewLigneArticleCommande.Columns("STOCK").DefaultCellStyle.Format = "#,##0.0"
 
-            GunaDataGridViewLigneArticleCommande.Columns("CODE ARTICLE").Visible = False 'false
+                    GunaDataGridViewLigneArticleCommande.Columns("TOTAL PRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                    GunaDataGridViewLigneArticleCommande.Columns("TOTAL PRICE").DefaultCellStyle.Format = "#,##0.0"
 
-            GunaDataGridViewLigneArticleCommande.Columns("DESIGNATION").ReadOnly = True '
-            GunaDataGridViewLigneArticleCommande.Columns("TOTAL PRICE").ReadOnly = True
-            GunaDataGridViewLigneArticleCommande.Columns("STOCK").ReadOnly = True
+                    GunaDataGridViewLigneArticleCommande.Columns("SELLING PRICE").Visible = False '
+
+                    GunaDataGridViewLigneArticleCommande.Columns("CODE ARTICLE").Visible = False 'false
+
+                    GunaDataGridViewLigneArticleCommande.Columns("DESIGNATION").ReadOnly = True '
+                    GunaDataGridViewLigneArticleCommande.Columns("TOTAL PRICE").ReadOnly = True
+                    GunaDataGridViewLigneArticleCommande.Columns("STOCK").ReadOnly = True
+
+                End If
+
+                GunaDataGridViewLigneArticleCommande.Columns("ID_LIGNE_BORDEREAU").Visible = False 'false
+
+            End If
 
         End If
-
-        GunaDataGridViewLigneArticleCommande.Columns("ID_LIGNE_BORDEREAU").Visible = False 'false
 
         GunaTextBoxArticle.Clear()
         GunaButtonAjouterLigne.Visible = False
@@ -2908,6 +3047,10 @@ Public Class MainWindowEconomat
         GunaTextBoxPlusBasPrix.Clear()
         GunaTextBoxPlusHautPrix.Clear()
 
+        If GunaDataGridViewLigneArticleCommande.Rows.Count <= 0 Then
+            resetResumeBon()
+        End If
+
     End Sub
 
     'appuarution du second magasin en cas de transfert inter magain
@@ -2920,7 +3063,7 @@ Public Class MainWindowEconomat
         gestionCodeDesBons()
 
         'TRANSFERT INTER MAGASIN / 'SORTIE DIRECTE
-        If GunaComboBoxTypeBordereau.SelectedIndex = 6 Or GunaComboBoxTypeBordereau.SelectedIndex = 3 Then
+        If GunaComboBoxTypeBordereau.SelectedIndex = 5 Or GunaComboBoxTypeBordereau.SelectedIndex = 3 Then
 
             GunaLabelMagasin_2.Visible = True
             GunaComboBoxMagasin_2.Visible = True
@@ -3078,12 +3221,12 @@ Public Class MainWindowEconomat
             GunaDataGridViewInventaire.Visible = True
 
             Dim CODE_MAGASIN As String = ""
+            AutoLoadlisteMagasinSource()
 
             If GunaComboBoxMagasin_1.Items.Count > 0 Then
                 CODE_MAGASIN = GunaComboBoxMagasin_1.SelectedValue.ToString
             End If
-
-            inventaireDesArticles(CODE_MAGASIN)
+            'kklg
 
             If GlobalVariable.actualLanguageValue = 1 Then
                 GunaLabelMagasin_1.Text = "Magasin d'Inventaire"
@@ -3091,11 +3234,15 @@ Public Class MainWindowEconomat
                 GunaLabelMagasin_1.Text = "Inventory Store"
             End If
 
-            AutoLoadlisteMagasinSource()
+            Me.Cursor = Cursors.WaitCursor
+
+            inventaireDesArticles(CODE_MAGASIN)
+
+            Me.Cursor = Cursors.Default
 
         ElseIf GunaComboBoxTypeBordereau.SelectedIndex = 4 Then
 
-            LabelBon.Text = GlobalVariable.sortie_exceptionnelle
+            LabelBon.Text = GlobalVariable.sortie_exceptionnelle.ToUpper()
 
             GunaDataGridViewInventaire.Visible = False
 
@@ -3109,7 +3256,7 @@ Public Class MainWindowEconomat
 
             AutoLoadlisteMagasinSource()
 
-        ElseIf GunaComboBoxTypeBordereau.SelectedIndex = 7 Then
+        ElseIf GunaComboBoxTypeBordereau.SelectedIndex = 6 Then
 
             LabelBon.Text = GlobalVariable.entree_exceptionnelle.ToUpper()
 
@@ -3122,28 +3269,6 @@ Public Class MainWindowEconomat
             End If
 
             AutoLoadlisteMagasinSource()
-
-        ElseIf GunaComboBoxTypeBordereau.SelectedIndex = 8 Then
-
-            LabelBon.Text = GlobalVariable.bon_approvisi.ToUpper()
-
-            GunaDataGridViewInventaire.Visible = False
-
-            If GlobalVariable.actualLanguageValue = 1 Then
-                GunaLabelMagasin_1.Text = "Magasin de Réception"
-            Else
-                GunaLabelMagasin_1.Text = "Receiving Store"
-            End If
-
-            If GlobalVariable.actualLanguageValue = 10 Then
-                CODE_MAGASIN_OU_TYPE_MAGASIN_RECETION = "small storage"
-                CODE_MAGASIN_OU_TYPE_MAGASIN_PROVENANCE = "Main storage"
-            Else
-                CODE_MAGASIN_OU_TYPE_MAGASIN_RECETION = "Petit magasin"
-                CODE_MAGASIN_OU_TYPE_MAGASIN_PROVENANCE = "Magasin central"
-            End If
-
-            magasinSourceOuDeRecetionAAfficher(CODE_MAGASIN_OU_TYPE_MAGASIN_RECETION, CODE_MAGASIN_OU_TYPE_MAGASIN_PROVENANCE)
 
         ElseIf GunaComboBoxTypeBordereau.SelectedIndex = 0 Then
 
@@ -3165,7 +3290,7 @@ Public Class MainWindowEconomat
                 GunaLabelMagasin_1.Text = "Receiving Store"
             End If
 
-        ElseIf GunaComboBoxTypeBordereau.SelectedIndex = 6 Then
+        ElseIf GunaComboBoxTypeBordereau.SelectedIndex = 5 Then
 
             LabelBon.Text = GlobalVariable.transfert_inter.ToUpper()
 
@@ -3189,7 +3314,7 @@ Public Class MainWindowEconomat
 
             magasinSourceOuDeRecetionAAfficher(CODE_MAGASIN_OU_TYPE_MAGASIN_RECETION, CODE_MAGASIN_OU_TYPE_MAGASIN_PROVENANCE)
 
-        ElseIf GunaComboBoxTypeBordereau.SelectedIndex = 9 Then
+        ElseIf GunaComboBoxTypeBordereau.SelectedIndex = 7 Then
 
             LabelBon.Text = GlobalVariable.bon_cmd.ToUpper()
 
@@ -3204,7 +3329,7 @@ Public Class MainWindowEconomat
             GunaComboBoxMagasin_1.DataSource = Nothing
             GunaComboBoxMagasin_2.DataSource = Nothing
 
-        ElseIf GunaComboBoxTypeBordereau.SelectedIndex = 10 Then
+        ElseIf GunaComboBoxTypeBordereau.SelectedIndex = 8 Then
 
             LabelBon.Text = GlobalVariable.list_du_marche.ToUpper
 
@@ -3226,7 +3351,10 @@ Public Class MainWindowEconomat
 
         End If
 
-        If GunaComboBoxTypeBordereau.SelectedIndex = 6 Or GunaComboBoxTypeBordereau.SelectedIndex = 0 Then
+        'kklg
+        ' If GunaComboBoxTypeBordereau.SelectedIndex = 6 Or GunaComboBoxTypeBordereau.SelectedIndex = 0 Then
+
+        If GunaComboBoxTypeBordereau.SelectedIndex = 0 Then
 
             Dim infoSupBordereau As DataTable = Functions.getElementByCode(GunaTextBoxCodeBordereau.Text, "bordereaux", "CODE_BORDEREAUX")
 
@@ -3266,7 +3394,7 @@ Public Class MainWindowEconomat
 
         End If
 
-        If GunaComboBoxTypeBordereau.SelectedIndex = 10 Then
+        If GunaComboBoxTypeBordereau.SelectedIndex = 8 Then
             GunaPanelListeMarche.Visible = True
         Else
             GunaPanelListeMarche.Visible = False
@@ -3289,11 +3417,23 @@ Public Class MainWindowEconomat
 
         GunaDataGridViewInventaire.Columns.Clear()
 
-        GunaDataGridViewInventaire.Columns.Add("CODE_ARTICLE", "CODE ARTICLE")
-        GunaDataGridViewInventaire.Columns.Add("LIBELLE", "DESIGNATION")
-        GunaDataGridViewInventaire.Columns.Add("QUANTITE_EN_STOCK", "QUANTITE EN STOCK")
-        GunaDataGridViewInventaire.Columns.Add("QUANTITE_PHYSIQUE", "QUANTITE PHYSIQUE")
-        GunaDataGridViewInventaire.Columns.Add("COUT_DU_STOCK", "COUT DU STOCK")
+        If GlobalVariable.actualLanguageValue = 0 Then
+
+            GunaDataGridViewInventaire.Columns.Add("CODE_ARTICLE", "CODE ARTICLE")
+            GunaDataGridViewInventaire.Columns.Add("LIBELLE", "ITEM")
+            GunaDataGridViewInventaire.Columns.Add("QUANTITE_EN_STOCK", "STOCK")
+            GunaDataGridViewInventaire.Columns.Add("QUANTITE_PHYSIQUE", "PHYSICAL QTY")
+            GunaDataGridViewInventaire.Columns.Add("COUT_DU_STOCK", "STOCK COST")
+
+        Else
+
+            GunaDataGridViewInventaire.Columns.Add("CODE_ARTICLE", "CODE ARTICLE")
+            GunaDataGridViewInventaire.Columns.Add("LIBELLE", "DESIGNATION")
+            GunaDataGridViewInventaire.Columns.Add("QUANTITE_EN_STOCK", "QUANTITE EN STOCK")
+            GunaDataGridViewInventaire.Columns.Add("QUANTITE_PHYSIQUE", "QUANTITE PHYSIQUE")
+            GunaDataGridViewInventaire.Columns.Add("COUT_DU_STOCK", "COUT DU STOCK")
+
+        End If
 
         If tousLesArticles.Rows.Count > 0 Then
 
@@ -3311,17 +3451,20 @@ Public Class MainWindowEconomat
                 QUANTITE_EN_STOCK = econom.QuantiteDunArticleQuelconqueDansUnMagasinQuelconque(CODE_MAGASIN, CODE_ARTICLE)
                 COUT_DU_STOCK = QUANTITE_EN_STOCK * tousLesArticles.Rows(i)("PRIX_ACHAT_HT")
 
-                GunaDataGridViewInventaire.Rows.Add(CODE_ARTICLE, LIBELLE_ARTICLE, QUANTITE_EN_STOCK, "", COUT_DU_STOCK)
+                If QUANTITE_EN_STOCK > 0 Then
+                    GunaDataGridViewInventaire.Rows.Add(CODE_ARTICLE, LIBELLE_ARTICLE, QUANTITE_EN_STOCK, "", COUT_DU_STOCK)
+                End If
 
             Next
 
             'GunaDataGridViewInventaire.DataSource = tousLesArticles
-
+            GunaDataGridViewInventaire.Columns(0).Visible = False
             GunaDataGridViewInventaire.Columns("QUANTITE_EN_STOCK").DefaultCellStyle.Format = "#,##0"
             GunaDataGridViewInventaire.Columns("QUANTITE_EN_STOCK").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 
         Else
             'GunaDataGridViewInventaire.Rows.Clear()
+            GunaDataGridViewInventaire.Columns(0).Visible = False
         End If
 
     End Sub
@@ -3375,9 +3518,13 @@ Public Class MainWindowEconomat
     End Sub
 
     Private Sub GunaAdvenceButton26_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButton26.Click
-        FournisseurForm.TopMost() = True
 
+        GlobalVariable.prestaire_fournisseur = 0
+
+        FournisseurForm.TopMost() = True
         FournisseurForm.Show()
+        FournisseurForm.TabControl1.SelectedIndex = 1
+
     End Sub
 
     'Selection d'un élément de la liste des type de tiers proposé
@@ -3525,7 +3672,9 @@ Public Class MainWindowEconomat
     End Sub
 
     'Sélection du type de bordereau 
-    Private Sub GunaButtonAfficherValidee_Click(sender As Object, e As EventArgs) Handles GunaButtonAfficherValidee.Click
+
+
+    Private Sub affichageDesBordoro()
 
         Dim econom As New Economat()
 
@@ -3550,6 +3699,10 @@ Public Class MainWindowEconomat
 
         End If
 
+    End Sub
+
+    Private Sub GunaButtonAfficherValidee_Click(sender As Object, e As EventArgs) Handles GunaButtonAfficherValidee.Click
+        affichageDesBordoro()
     End Sub
 
     'Choix du bon de commande de la réception (Bon de commande en relation avec un bon de recption)
@@ -3869,6 +4022,10 @@ Public Class MainWindowEconomat
 
     End Sub
 
+    Private Sub empecherParcours()
+        edited = True
+    End Sub
+
     Private Sub magasinSourceOuDeRecetionAAfficher(ByVal CODE_MAGASIN_OU_TYPE_MAGASIN As String, ByVal CODE_SOUS_MAGASIN_OU_TYPE_MAGASIN As String)
 
         GunaComboBoxMagasin_1.DataSource = Nothing
@@ -3941,6 +4098,14 @@ Public Class MainWindowEconomat
 
     End Sub
 
+
+    Dim ETAT_OLD As Integer = 0
+
+    Dim CONTROLER As String = ""
+    Dim VALIDER As String = ""
+    Dim VERIFIER As String =""
+    Dim COMMANDER As String = ""
+
     Private Sub GunaDataGridViewListeBordereauxValides_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GunaDataGridViewListeBordereauxValides.CellDoubleClick
 
         NewBonDeRequisition()
@@ -3974,11 +4139,7 @@ Public Class MainWindowEconomat
                     magasinSourceOuDeRecetionAAfficher(CODE_MAGASIN_OU_TYPE_MAGASIN_RECEPTION, CODE_MAGASIN_OU_TYPE_MAGASIN_PROVENANCE)
                 Else
 
-                    If bordereau.Rows(0)("TYPE_BORDEREAUX").Equals(GlobalVariable.bon_approvisi) Then
-                        CODE_MAGASIN_OU_TYPE_MAGASIN_RECEPTION = CODE_SOUS_MAGASIN
-                        CODE_MAGASIN_OU_TYPE_MAGASIN_PROVENANCE = CODE_MAGASIN
-                        magasinSourceOuDeRecetionAAfficher(CODE_MAGASIN_OU_TYPE_MAGASIN_RECEPTION, CODE_MAGASIN_OU_TYPE_MAGASIN_PROVENANCE)
-                    ElseIf bordereau.Rows(0)("TYPE_BORDEREAUX").Equals(GlobalVariable.sortie) Or bordereau.Rows(0)("TYPE_BORDEREAUX").Equals(GlobalVariable.transfert_inter) Then
+                    If bordereau.Rows(0)("TYPE_BORDEREAUX").Equals(GlobalVariable.sortie) Or bordereau.Rows(0)("TYPE_BORDEREAUX").Equals(GlobalVariable.transfert_inter) Then
                         CODE_MAGASIN_OU_TYPE_MAGASIN_RECEPTION = CODE_MAGASIN
                         CODE_MAGASIN_OU_TYPE_MAGASIN_PROVENANCE = "Petit magasin"
                         magasinSourceOuDeRecetionAAfficher(CODE_MAGASIN_OU_TYPE_MAGASIN_RECEPTION, CODE_MAGASIN_OU_TYPE_MAGASIN_PROVENANCE)
@@ -3996,7 +4157,7 @@ Public Class MainWindowEconomat
 
                 End If
 
-                If GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.list_du_marche Then
+                If Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.list_du_marche Then
 
                     If bordereau.Rows(0)("DATE_DU").ToShortDateString() <= GunaDateTimePickerP1LM.MaxDate And bordereau.Rows(0)("DATE_DU").ToShortDateString() >= GunaDateTimePickerP1LM.MinDate Then
                         GunaDateTimePickerP1LM.Value = bordereau.Rows(0)("DATE_DU")
@@ -4022,6 +4183,13 @@ Public Class MainWindowEconomat
 
                 CODE_REFERENCE_BORDERO = GunaTextBoxReference.Text
 
+                GunaTextBox1.Text = bordereau.Rows(0)("CONTROLER")
+                GunaTextBox2.Text = bordereau.Rows(0)("VALIDER")
+                GunaTextBox3.Text = bordereau.Rows(0)("VERIFIER")
+                GunaTextBox4.Text = bordereau.Rows(0)("COMMANDER")
+                GunaTextBox5.Text = bordereau.Rows(0)("ETAT_BORDEREAU")
+                ETAT_OLD = bordereau.Rows(0)("ETAT_BORDEREAU")
+
                 GunaDataGridViewTiers.Visible = False
 
                 'ON VERIFIE SI LA REFERENCE DU BC CORRESPOND AU CODE D'UNE FICHE TECHNIQUE AUQUEL CAS IL FAUDRA JUSTE VALIDER POUR DESTOCKER
@@ -4029,7 +4197,8 @@ Public Class MainWindowEconomat
 
                 If ficheTechnique.Rows.Count > 0 Then
                     GunaButtonEnregistrer.Visible = True
-                    GunaButtonEnregistrer.Enabled = False
+                    'GunaButtonEnregistrer.Enabled = False
+                    GunaButtonEnregistrer.Enabled = True
                 Else
                     GunaButtonEnregistrer.Visible = True
                 End If
@@ -4058,7 +4227,8 @@ Public Class MainWindowEconomat
                     '-------- ENREGISTRER ---------
                     GunaLabelEnregistreur.Visible = True
                     GunaButtonEnregistrer.Visible = True
-                    GunaButtonEnregistrer.Enabled = False
+                    'GunaButtonEnregistrer.Enabled = False
+                    GunaButtonEnregistrer.Enabled = True
                     GunaLabelEnregistreur.Text = bordereau.Rows(0)("ENREGISTRER")
 
                     '------ CONTROLER -----------------
@@ -4073,7 +4243,7 @@ Public Class MainWindowEconomat
                     GunaButtonVerification.Visible = True
                     GunaButtonVerification.Enabled = True
 
-                    If Trim(GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.transfert_inter) Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.sortie_exceptionnelle Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.sortie Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.entree_exceptionnelle Then
+                    If Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.transfert_inter Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.sortie_exceptionnelle Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.sortie Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.entree_exceptionnelle Then
 
                         GunaButtonAnnulerBordereau.Visible = False
                         GunaButtonVerification.Visible = False
@@ -4087,12 +4257,13 @@ Public Class MainWindowEconomat
                     GunaButtonAnnulerBordereau.Visible = True
                     GunaButtonAnnulerBordereau.Enabled = True
 
-                    empecherAjoutArticle()
+                    'empecherAjoutArticle()
 
                     '-------- ENREGISTRER ---------
                     GunaLabelEnregistreur.Visible = True
                     GunaButtonEnregistrer.Visible = True
-                    GunaButtonEnregistrer.Enabled = False
+                    'GunaButtonEnregistrer.Enabled = False
+                    GunaButtonEnregistrer.Enabled = True
                     GunaLabelEnregistreur.Text = bordereau.Rows(0)("ENREGISTRER")
 
                     '------ CONTROLER -----------------
@@ -4115,6 +4286,9 @@ Public Class MainWindowEconomat
                         GunaButtonValider.Text = "Entrer"
                     Else
                         GunaButtonValider.Text = "Valider"
+                        If GlobalVariable.actualLanguageValue = 0 Then
+                            GunaButtonValider.Text = "Validate"
+                        End If
                     End If
 
                     '---------- VALIDER ------------------
@@ -4128,12 +4302,13 @@ Public Class MainWindowEconomat
                     GunaButtonAnnulerBordereau.Visible = True
                     GunaButtonAnnulerBordereau.Enabled = True
 
-                    empecherAjoutArticle()
+                    'empecherAjoutArticle()
 
                     '-------- ENREGISTRER ---------
                     GunaLabelEnregistreur.Visible = True
                     GunaButtonEnregistrer.Visible = True
-                    GunaButtonEnregistrer.Enabled = False
+                    'GunaButtonEnregistrer.Enabled = False
+                    GunaButtonEnregistrer.Enabled = True
                     GunaLabelEnregistreur.Text = bordereau.Rows(0)("ENREGISTRER")
 
                     '------ CONTROLER -----------------
@@ -4170,6 +4345,9 @@ Public Class MainWindowEconomat
                             GunaButtonValider.Text = "Entrer"
                         Else
                             GunaButtonValider.Text = "Valider"
+                            If GlobalVariable.actualLanguageValue = 0 Then
+                                GunaButtonValider.Text = "Validate"
+                            End If
                         End If
 
                         '---------- VALIDER ------------------
@@ -4199,12 +4377,13 @@ Public Class MainWindowEconomat
                     GunaButtonAnnulerBordereau.Visible = True
                     GunaButtonAnnulerBordereau.Enabled = True
 
-                    empecherAjoutArticle()
+                    'empecherAjoutArticle()
 
                     '-------- ENREGISTRER ---------
                     GunaLabelEnregistreur.Visible = True
                     GunaButtonEnregistrer.Visible = True
-                    GunaButtonEnregistrer.Enabled = False
+                    'GunaButtonEnregistrer.Enabled = False
+                    GunaButtonEnregistrer.Enabled = True
                     GunaLabelEnregistreur.Text = bordereau.Rows(0)("ENREGISTRER")
 
                     '------ CONTROLER -----------------
@@ -4250,7 +4429,8 @@ Public Class MainWindowEconomat
                     '-------- ENREGISTRER ---------
                     GunaLabelEnregistreur.Visible = True
                     GunaButtonEnregistrer.Visible = True
-                    GunaButtonEnregistrer.Enabled = False
+                    'GunaButtonEnregistrer.Enabled = False
+                    GunaButtonEnregistrer.Enabled = True
                     GunaLabelEnregistreur.Text = bordereau.Rows(0)("ENREGISTRER")
 
                     '------ CONTROLER -----------------
@@ -4291,7 +4471,8 @@ Public Class MainWindowEconomat
                     '-------- ENREGISTRER ---------
                     GunaLabelEnregistreur.Visible = True
                     GunaButtonEnregistrer.Visible = True
-                    GunaButtonEnregistrer.Enabled = False
+                    'GunaButtonEnregistrer.Enabled = False
+                    GunaButtonEnregistrer.Enabled = True
                     GunaLabelEnregistreur.Text = bordereau.Rows(0)("ENREGISTRER")
 
                     '------ CONTROLER -----------------
@@ -4303,7 +4484,8 @@ Public Class MainWindowEconomat
                 ElseIf bordereau.Rows(0)("ETAT_BORDEREAU") = 7 Then
 
                     GunaLabelEnregistreur.Visible = True
-                    GunaButtonEnregistrer.Enabled = False
+                    'GunaButtonEnregistrer.Enabled = False
+                    GunaButtonEnregistrer.Enabled = True
                     GunaLabelAnnuler.Text = bordereau.Rows(0)("ENREGISTRER")
 
                     'ANNULATION
@@ -4446,6 +4628,21 @@ Public Class MainWindowEconomat
                 GunaButtonEnregistrer.Text = "Sauvegarder"
             Else
                 GunaButtonEnregistrer.Text = "Update"
+                GunaButtonController.Text = "Controle"
+                GunaButtonVerification.Text = "Verify"
+                GunaButtonValider.Text = "Validate"
+                GunaButtonCommander.Text = "Order"
+            End If
+
+            'POUR LES TRANSFERTS ET SORTIE SORTIE EXCEPTTIONNELLE ON DOIT TOUJOURS AVOIR UN MAGASIN.
+            If GunaComboBoxTypeBordereau.SelectedIndex = 5 Or GunaComboBoxTypeBordereau.SelectedIndex = 3 Then
+
+                If GunaComboBoxMagasin_2.SelectedIndex < 0 Then
+                    If GunaComboBoxMagasin_2.Items.Count > 0 Then
+                        GunaComboBoxMagasin_2.SelectedIndex = 0
+                    End If
+                End If
+
             End If
 
             TabControlEconomat.SelectedIndex = 1
@@ -4459,11 +4656,15 @@ Public Class MainWindowEconomat
 
         LabelListeDesBons.Visible = True
 
+        GunaContextMenuStripEditerBordoro.Visible = False
+
         If GunaComboBoxTypeDeBordereau.SelectedIndex = 1 Then
             LabelListeDesBons.Text = GlobalVariable.bon_requisition.ToUpper()
+            'GunaContextMenuStripEditerBordoro.Visible = True
         ElseIf GunaComboBoxTypeDeBordereau.SelectedIndex = 0 Then
             LabelListeDesBons.Text = GlobalVariable.bon_reception
         ElseIf GunaComboBoxTypeDeBordereau.SelectedIndex = 4 Then
+            'GunaContextMenuStripEditerBordoro.Visible = True
             LabelListeDesBons.Text = GlobalVariable.sortie_exceptionnelle.ToUpper()
         ElseIf GunaComboBoxTypeDeBordereau.SelectedIndex = 3 Then
             LabelListeDesBons.Text = GlobalVariable.sortie
@@ -4479,8 +4680,13 @@ Public Class MainWindowEconomat
             LabelListeDesBons.Text = GlobalVariable.list_du_marche.ToUpper()
         End If
 
+        If GunaComboBoxTypeDeBordereau.SelectedIndex = 7 Or GunaComboBoxTypeDeBordereau.SelectedIndex = 8 Then
+            GunaContextMenuStripEditerBordoro.Enabled = True
+        End If
+
         GunaDataGridViewListeBordereauxValides.Columns.Clear()
         GunaLabelNombreClient.Text = "(" & 0 & ")"
+
     End Sub
 
     'MODIFICATION DE DATAGRID DES LIGNE DU BORDEREAU DE COMMANDE
@@ -4806,7 +5012,7 @@ Public Class MainWindowEconomat
     Private Sub TabControlEconomat_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TabControlEconomat.SelectedIndexChanged
 
         PanelApport.Visible = False
-
+        edited = False
         LabelListeDesBons.Visible = False
 
         Dim econom As New Economat()
@@ -4831,6 +5037,19 @@ Public Class MainWindowEconomat
 
         If TabControlEconomat.SelectedIndex = 0 Then
             NewBonDeRequisition()
+        ElseIf TabControlEconomat.SelectedIndex = 2 Then
+            PanelApport.Visible = True
+            LabelTypeDeRapport.Visible = True
+
+            LabelTypeDeRapport.Text = GunaComboBoxTypeBorderoRapport.SelectedItem.ToString.ToUpper
+            GunaComboBoxTypeBorderoRapport.Visible = True
+            GlobalVariable.typeRapportEconmat = "BC"
+            GunaButtonAfficher.Visible = True
+            GunaDateTimePicker1.Visible = True
+            GunaDateTimePicker2.Visible = True
+            GunaLabelDu.Visible = True
+            GunaLabelAu.Visible = True
+            GunaButtonImpirmerRapportEconomat.Visible = False
         End If
 
     End Sub
@@ -4842,6 +5061,7 @@ Public Class MainWindowEconomat
         Dim econom As New Economat()
 
         Dim CODE_BORDEREAUX_COMMANDE_METTRE_AJOUR As String = ""
+        Dim CODE_BORDEREAUX As String = Trim(GunaTextBoxCodeBordereau.Text)
 
         Dim ETAT_BORDEREAU As Integer = 0
 
@@ -4865,6 +5085,7 @@ Public Class MainWindowEconomat
             Dim reference As String = GunaTextBoxReference.Text
             Dim observation As String = GunaTextBoxObservation.Text
             Dim numeroBon As String = GunaTextBoxCodeBordereau.Text
+            'CODE_BORDEREAUX = GunaTextBoxCodeBordereau.Text
 
             Dim typeBordereau As String = GlobalVariable.list_du_marche
 
@@ -4899,7 +5120,7 @@ Public Class MainWindowEconomat
 
             Dim CODE_LOT As String = ""
 
-            Dim CODE_BORDEREAUX As String = Trim(GunaTextBoxCodeBordereau.Text)
+            CODE_BORDEREAUX = Trim(GunaTextBoxCodeBordereau.Text)
 
             For i = 0 To GunaDataGridViewLigneArticleCommande.Rows.Count - 1
 
@@ -5025,7 +5246,7 @@ Public Class MainWindowEconomat
 
             Dim CODE_LOT As String = ""
 
-            Dim CODE_BORDEREAUX As String = Trim(GunaTextBoxCodeBordereau.Text)
+            CODE_BORDEREAUX = Trim(GunaTextBoxCodeBordereau.Text)
 
             For i = 0 To GunaDataGridViewLigneArticleCommande.Rows.Count - 1
 
@@ -5227,6 +5448,10 @@ Public Class MainWindowEconomat
 
         TabControlEconomat.SelectedIndex = 0
 
+        If GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.list_du_marche Or GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.bon_requisition Then
+            annulationDuNombreDeModification(CODE_BORDEREAUX)
+        End If
+
     End Sub
 
     Private Sub GunaTextBoxLibelleBordereau_TextChanged(sender As Object, e As EventArgs) Handles GunaTextBoxLibelleBordereau.TextChanged
@@ -5324,10 +5549,12 @@ Public Class MainWindowEconomat
 
     Public Sub NewBonDeRequisition()
 
+        edited = False
+        GunaTextBoxEtatBordereau.Text = 0
         GunaDataGridViewLigneArticleCommande.Columns.Clear()
 
         GunaTextBoxCodeArticle.Clear()
-
+        GunaButtonEnregistrer.Visible = False
         GunaTextBoxPlusBasPrix.Text = 0
         GunaTextBoxPlusHautPrix.Text = 0
 
@@ -5475,110 +5702,39 @@ Public Class MainWindowEconomat
 
         nettoyageDuDataGrid()
 
-        GunaRadioButtonParBordero.Checked = True
-        GunaRadioButtonParBordero.Visible = True
-
-        GunaRadioButtonParTypeEtDate.Visible = True
-
         PanelApport.Visible = True
         LabelTypeDeRapport.Visible = True
+        GunaTextBoxElementRapport.Visible = True
+        GunaLabel8.Visible = True
+        GunaComboBoxEntreSortie.Visible = False
+        GunaComboBoxGlobalIndividuel.Visible = False
 
-
-        If GlobalVariable.actualLanguageValue = 1 Then
-            LabelTypeDeRapport.Text = "BONS DE COMMANDES"
-            GunaRadioButtonParBordero.Text = "D'UN BON"
-            GunaRadioButtonParTypeEtDate.Text = "PAR TYPE DE BON ET DATE"
-        Else
-            LabelTypeDeRapport.Text = "ORDER SLIP"
-            GunaRadioButtonParBordero.Text = "A SLIP"
-            GunaRadioButtonParTypeEtDate.Text = "PER SLIP TYPE AND DATE"
-        End If
+        LabelTypeDeRapport.Text = GunaComboBoxTypeBorderoRapport.SelectedItem.ToString.ToUpper
 
         GlobalVariable.typeRapportEconmat = "BC"
 
-        GunaComboBoxTypeBorderoRapport.Visible = False
-
-        GunaDateTimePicker1.Visible = False
-        GunaDateTimePicker2.Visible = False
-        GunaLabelDu.Visible = False
-        GunaLabelAu.Visible = False
+        GunaButtonAfficher.Visible = True
+        GunaDateTimePicker1.Visible = True
+        GunaDateTimePicker2.Visible = True
+        GunaLabelDu.Visible = True
+        GunaLabelAu.Visible = True
+        GunaComboBoxTypeBorderoRapport.Visible = True
+        GunaDataGridViewBorderoByTypeEtDate.Visible = True
         GunaButtonImpirmerRapportEconomat.Visible = False
-        GunaButtonAfficher.Visible = False
-
-    End Sub
-
-    Private Sub GunaButton5_Click(sender As Object, e As EventArgs) Handles GunaButton5.Click
-
-
-        nettoyageDuDataGrid()
-
-        GunaRadioButtonParBordero.Checked = True
-        GunaRadioButtonParBordero.Visible = True
-
-        GunaRadioButtonParTypeEtDate.Visible = True
-
-        PanelApport.Visible = True
-        LabelTypeDeRapport.Visible = True
-        GlobalVariable.typeRapportEconmat = "BR"
-
-        If GlobalVariable.actualLanguageValue = 1 Then
-            LabelTypeDeRapport.Text = "BONS DE RECEPTIONS"
-            GunaRadioButtonParBordero.Text = "D'UN BON"
-            GunaRadioButtonParTypeEtDate.Text = "PAR TYPE DE BON ET DATE"
-        Else
-            LabelTypeDeRapport.Text = "DELIVERY SLIP"
-            GunaRadioButtonParBordero.Text = "A SLIP"
-            GunaRadioButtonParTypeEtDate.Text = "PER SLIP TYPE AND DATE"
-        End If
-        GunaDateTimePicker1.Visible = False
-        GunaDateTimePicker2.Visible = False
-        GunaLabelDu.Visible = False
-        GunaLabelAu.Visible = False
-        GunaButtonImpirmerRapportEconomat.Visible = False
-        GunaButtonAfficher.Visible = False
-
-    End Sub
-
-    Private Sub GunaButton7_Click(sender As Object, e As EventArgs) Handles GunaButton7.Click
-
-        nettoyageDuDataGrid()
-        GunaRadioButtonParBordero.Checked = True
-        GunaRadioButtonParBordero.Visible = True
-        GunaRadioButtonParBordero.Text = "D'UN BON"
-        GunaRadioButtonParTypeEtDate.Text = "PAR TYPE DE BON ET DATE"
-
-        GunaRadioButtonParTypeEtDate.Visible = True
-
-        PanelApport.Visible = True
-        LabelTypeDeRapport.Visible = True
-        LabelTypeDeRapport.Text = "TRANSFERT INTER MAGASINS"
-        GlobalVariable.typeRapportEconmat = "TIM"
-
-        GunaDateTimePicker1.Visible = False
-        GunaDateTimePicker2.Visible = False
-        GunaLabelDu.Visible = False
-        GunaLabelAu.Visible = False
-        GunaButtonImpirmerRapportEconomat.Visible = False
-        GunaButtonAfficher.Visible = False
 
     End Sub
 
     Private Sub GunaButton11_Click(sender As Object, e As EventArgs) Handles GunaButton11.Click
 
+        GunaComboBoxTypeBorderoRapport.Visible = False
         nettoyageDuDataGrid()
-        GunaRadioButtonParBordero.Text = "FICHE DE PRODUIT (ARTICLE / MATIERE)"
-
-        GunaRadioButtonParTypeEtDate.Visible = False
-
-        GunaRadioButtonParBordero.Visible = True
-        GunaTextBoxElementRapport.Visible = True
-
-        GunaRadioButtonParBordero.Checked = True
 
         PanelApport.Visible = True
         LabelTypeDeRapport.Visible = True
         LabelTypeDeRapport.Text = "FICHE DES PRODUITS (ARTICLES/MATIERE)"
-
+        If GlobalVariable.actualLanguageValue = 0 Then
+            LabelTypeDeRapport.Text = "PRODUCT SHEET (ITEMS/MATERIAL)"
+        End If
         GlobalVariable.typeRapportEconmat = "FPAM"
 
         GunaDateTimePicker1.Visible = False
@@ -5587,56 +5743,39 @@ Public Class MainWindowEconomat
         GunaLabelAu.Visible = False
         GunaButtonImpirmerRapportEconomat.Visible = False
         GunaButtonAfficher.Visible = False
-
-    End Sub
-
-    Private Sub GunaButton4_Click_1(sender As Object, e As EventArgs)
-
-        GunaRadioButtonParBordero.Checked = True
-
-        PanelApport.Visible = True
-        LabelTypeDeRapport.Visible = True
-        LabelTypeDeRapport.Text = "PRODUCTIONS DU RESTAURANT"
-        GlobalVariable.typeRapportEconmat = "pr"
+        GunaComboBoxTypeBorderoRapport.Visible = False
+        GunaTextBoxElementRapport.Visible = False
+        GunaLabel8.Visible = False
+        GunaTextBoxElementRapport.Visible = True
+        GunaLabel8.Visible = True
     End Sub
 
     Private Sub GunaButton12_Click(sender As Object, e As EventArgs) Handles GunaButton12.Click
 
         nettoyageDuDataGrid()
-        GunaRadioButtonParBordero.Checked = True
-        GunaRadioButtonParBordero.Visible = True
-
-        'GunaDateTimePicker1.Visible = True
-        'GunaDateTimePicker2.Visible = True
-        'GunaLabelDu.Visible = True
-        'GunaLabelAu.Visible = True
-
-        GunaRadioButtonParBordero.Text = "ARTICLE OU MATIERE"
-        GunaRadioButtonParTypeEtDate.Text = "ARTICLES OU MATIERES"
-
-        GunaRadioButtonParTypeEtDate.Visible = True
 
         PanelApport.Visible = True
         LabelTypeDeRapport.Visible = True
         LabelTypeDeRapport.Text = "FICHE DE STOCKS"
-
+        If GlobalVariable.actualLanguageValue = 0 Then
+            LabelTypeDeRapport.Text = "STOCK SHEET"
+        End If
         GlobalVariable.typeRapportEconmat = "FS"
 
     End Sub
 
     Private Sub GunaButtonEtatDesChambres_Click(sender As Object, e As EventArgs) Handles GunaButtonInventaire.Click
 
+        GunaButtonAfficher.Visible = True
+
         GunaComboBoxListeDesMagasinPourInventaire.SelectedIndex = 0
-
+        GunaComboBoxTypeBorderoRapport.Visible = False
         nettoyageDuDataGrid()
-
-        GunaRadioButtonParTypeEtDate.Checked = True
-        GunaRadioButtonParTypeEtDate.Visible = False
-
+        GunaButtonAfficher.Visible = False
         GunaButtonImpirmerRapportEconomat.Visible = True
 
-        GunaRadioButtonParBordero.Visible = False
         GunaTextBoxElementRapport.Visible = False
+        GunaLabel8.Visible = False
 
         GunaLabelDu.Visible = False
         GunaDateTimePicker1.Visible = False
@@ -5647,27 +5786,35 @@ Public Class MainWindowEconomat
         LabelTypeDeRapport.Visible = True
 
         LabelTypeDeRapport.Text = "INVENTAIRES"
-
+        If GlobalVariable.actualLanguageValue = 0 Then
+            LabelTypeDeRapport.Text = "INVENTORIES"
+        End If
         GlobalVariable.typeRapportEconmat = "INV"
 
         GunaLabel2.Visible = True
         GunaComboBoxListeDesMagasinPourInventaire.Visible = True
-
+        GunaComboBoxEntreSortie.Visible = False
+        GunaComboBoxGlobalIndividuel.Visible = False
+        GunaComboBoxTypeBorderoRapport.Visible = False
     End Sub
 
-    Private Sub GunaButton3_Click(sender As Object, e As EventArgs) Handles GunaButton3.Click
+    Private Sub GunaButton3_Click(sender As Object, e As EventArgs) Handles GunaButtonPopularMeals.Click
 
-        nettoyageDuDataGrid()
-        GunaRadioButtonParBordero.Checked = True
-
-        GunaRadioButtonParBordero.Text = "ARTICLE OU MATIERE"
-        GunaRadioButtonParTypeEtDate.Text = "TOUS LES ARTICLES OU TOUTES LES MATIERES"
-
-        PanelApport.Visible = True
-        LabelTypeDeRapport.Visible = True
-        LabelTypeDeRapport.Text = "MOVEMENTS DE STOCK"
-
-        GlobalVariable.typeRapportEconmat = "MS"
+        GlobalVariable.DocumentToGenerate = "PLATS POPULAIRES"
+        GunaButtonAfficher.Visible = True
+        RapportFacturesForm.GunaLabelGeneral.Text = "PLATS POPULAIRES"
+        If GlobalVariable.actualLanguageValue = 0 Then
+            RapportFacturesForm.GunaLabelGeneral.Text = "POPULAR DISHES"
+        End If
+        RapportFacturesForm.GunaCheckBoxPropResa.Checked = False
+        GunaComboBoxTypeBorderoRapport.Visible = False
+        GunaLabel8.Visible = False
+        RapportFacturesForm.GunaButtonAfficher.Visible = False
+        RapportFacturesForm.GunaButtonImprimer.Visible = True
+        RapportFacturesForm.Show()
+        RapportFacturesForm.TopMost = True
+        GunaComboBoxEntreSortie.Visible = False
+        GunaComboBoxGlobalIndividuel.Visible = False
 
     End Sub
 
@@ -5723,8 +5870,6 @@ Public Class MainWindowEconomat
 
             If table.Rows.Count > 0 Then
                 Impression.productionDelaCuisine(table, dateDebut_, dateFin_, "fiche_technique_article_prepare", "PRODUCTION DE LA CUISINE")
-            Else
-                MessageBox.Show("Aucun élément à Imprimer ! ", "Documents", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
 
         ElseIf GlobalVariable.typeRapportEconmat = "CPC" Then
@@ -5849,7 +5994,6 @@ Public Class MainWindowEconomat
             If Not Trim(GunaTextBoxCodeElementRapport.Text) = "" Then
                 'RAPPORT INDIVIDUEL
                 existQuery = "SELECT bordereaux.CODE_BORDEREAUX, `TYPE_BORDEREAUX`, `REF_BORDEREAUX`, `LIBELLE_BORDEREAUX`, `NON_TIERS`, `DATE_BORDEREAU`, `OBSERVATIONS`, `MONTANT_HT`, `MONTANT_TAXE`, `MONTANT_TTC`, `MONTANT_PAYER`, DESIGNATION_FR, ligne_bordereaux.QUANTITE_ENTREE_STOCK, PRIX_UNITAIRE_HT, PRIX_TOTAL_HT FROM `bordereaux`, `ligne_bordereaux`, article WHERE bordereaux.CODE_BORDEREAUX=@CODE_BORDEREAUX AND TYPE_BORDEREAUX=@TYPE_BORDEREAUX AND bordereaux.CODE_BORDEREAUX= ligne_bordereaux.CODE_BORDEREAUX AND article.CODE_ARTICLE =ligne_bordereaux.CODE_ARTICLE"
-
             End If
 
             Dim command As New MySqlCommand(existQuery, GlobalVariable.connect)
@@ -5861,8 +6005,9 @@ Public Class MainWindowEconomat
             adapter.Fill(table)
 
             'IMPRESSION DES BORDEREAU
+            Dim title As String = GunaComboBoxTypeBorderoRapport.SelectedItem.ToString.ToUpper
 
-            Impression.Bon(table)
+            Impression.Bon(table, title)
 
         ElseIf GlobalVariable.typeRapportEconmat = "FS" Or GlobalVariable.typeRapportEconmat = "FPAM" Then 'FICHE DE STOCK
 
@@ -5930,8 +6075,6 @@ Public Class MainWindowEconomat
 
         ElseIf GlobalVariable.typeRapportEconmat = "FPT" Then
 
-            'GunaDataGridViewBorderoByTypeEtDate.Visible = True
-
             Dim CODE_FICHE_TECHNIQUE As String = GunaTextBoxCodeElementRapport.Text
 
             Dim ficheTechnique As DataTable = Functions.getElementByCode(CODE_FICHE_TECHNIQUE, "fiche_technique", "CODE_FICHE_TECHNIQUE")
@@ -5949,8 +6092,6 @@ Public Class MainWindowEconomat
                 Dim NOM_FICHE As String = GunaTextBoxElementRapport.Text
                 Dim NOMBRE_DE_PORTION = 0
                 Dim PRIX_VENTE = 0
-
-                'GunaDataGridViewBorderoByTypeEtDate.Visible = FALSE
 
                 Impression.ficheTechnique(GunaDataGridViewBorderoByTypeEtDate, NOM_FICHE, CODE_FICHE_TECHNIQUE, NOMBRE_DE_PORTION, PRIX_VENTE, CTR, PV, CRPPP, PMI, CM, CRPPV, MB, TM)
 
@@ -5993,6 +6134,15 @@ Public Class MainWindowEconomat
                     title = "SORTIES PAR MAGASIN"
                 End If
 
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    If entreeSortie = 0 Then
+                        title = "ENTRIES PER STORE"
+                    Else
+                        title = "OUTFLOW PER STORE"
+                    End If
+
+                End If
+
                 Impression.affichageDesEntreesSortiePeriodiqueImpression(GunaDateTimePicker1.Value.ToShortDateString, GunaDateTimePicker2.Value.ToShortDateString, entreeSortie, globalIndividuel, title, entreeSortieOuAchatPeriodique)
 
             End If
@@ -6012,7 +6162,7 @@ Public Class MainWindowEconomat
                 End If
 
             End If
-
+            'kklg
             Impression.affichageDesEntreesSortiePeriodiqueImpression(GunaDateTimePicker1.Value.ToShortDateString, GunaDateTimePicker2.Value.ToShortDateString, entreeSortie, globalIndividuel, title, entreeSortieOuAchatPeriodique)
 
         End If
@@ -6079,27 +6229,25 @@ Public Class MainWindowEconomat
             adapter.SelectCommand = Command
             adapter.Fill(table)
 
-        ElseIf GlobalVariable.typeRapportEconmat = "BRQ" Or GlobalVariable.typeRapportEconmat = "BC" Or GlobalVariable.typeRapportEconmat = "BR" Or GlobalVariable.typeRapportEconmat = "TIM" Or GlobalVariable.typeRapportEconmat = "BS" Then
-            'BON DE REQUISITION, 'BON DE COMMANDE, 'BON DE SORTIE, 'BON DE RECEPTION, 'TRANSFERT INTER MAGASIN
+        ElseIf GlobalVariable.typeRapportEconmat = "BC" Then
 
-            If GlobalVariable.typeRapportEconmat = "BC" Then
-                TYPE_BORDEREAUX = GlobalVariable.bon_cmd
-            ElseIf GlobalVariable.typeRapportEconmat = "BR" Then
-                TYPE_BORDEREAUX = GlobalVariable.bon_reception
-            ElseIf GlobalVariable.typeRapportEconmat = "BS" Then
-                TYPE_BORDEREAUX = GlobalVariable.sortie
-            ElseIf GlobalVariable.typeRapportEconmat = "BRQ" Then
-                TYPE_BORDEREAUX = GlobalVariable.bon_requisition
-            ElseIf GlobalVariable.typeRapportEconmat = "TIM" Then
-                TYPE_BORDEREAUX = GlobalVariable.transfert_inter
+            Dim econom As New Economat()
+
+            If Not Trim(GunaTextBoxElementRapport.Text).Equals("") Then
+
+                If GunaComboBoxTypeBorderoRapport.SelectedIndex >= 0 Then
+                    GunaDataGridViewBorderoByTypeEtDate.DataSource = econom.allTableFieldsOrganisedBetweenDatesLike(GunaComboBoxTypeBorderoRapport.SelectedItem.ToString, GunaComboBoxTrierLeBordereau.SelectedIndex, GunaDateTimePicker1.Value, GunaDateTimePicker2.Value, GunaTextBoxElementRapport.Text)
+                    If GlobalVariable.actualLanguageValue = 0 Then
+                        GunaDataGridViewBorderoByTypeEtDate.Columns("AMOUNT").DefaultCellStyle.Format = "#,##0"
+                        GunaDataGridViewBorderoByTypeEtDate.Columns("AMOUNT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                    Else
+                        GunaDataGridViewBorderoByTypeEtDate.Columns("MONTANT").DefaultCellStyle.Format = "#,##0"
+                        GunaDataGridViewBorderoByTypeEtDate.Columns("MONTANT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                    End If
+
+                End If
+
             End If
-
-            getArticleQuery = "SELECT `CODE_BORDEREAUX`, `LIBELLE_BORDEREAUX` FROM `bordereaux` WHERE CODE_BORDEREAUX Like '%" & Trim(GunaTextBoxElementRapport.Text) & "%' AND TYPE_BORDEREAUX=@TYPE_BORDEREAUX OR LIBELLE_BORDEREAUX Like '%" & Trim(GunaTextBoxElementRapport.Text) & "%' AND TYPE_BORDEREAUX=@TYPE_BORDEREAUX"
-
-            Dim Command As New MySqlCommand(getArticleQuery, GlobalVariable.connect)
-            Command.Parameters.Add("@TYPE_BORDEREAUX", MySqlDbType.VarChar).Value = TYPE_BORDEREAUX
-            adapter.SelectCommand = Command
-            adapter.Fill(table)
 
         ElseIf GlobalVariable.typeRapportEconmat = "FS" Or GlobalVariable.typeRapportEconmat = "MS" Or GlobalVariable.typeRapportEconmat = "FPAM" Or GlobalVariable.typeRapportEconmat = "INV" Then
             'FICHE DE STOCK, MOVEMENT DE STOCK, FICHE PRODUIT (ARTICLE/MATIERE), INVENTAIRE
@@ -6206,8 +6354,6 @@ Public Class MainWindowEconomat
 
                 If (Article.Rows.Count > 0) Then
 
-                    'GunaDataGridViewBorderoByTypeEtDate.Visible = True
-
                     GunaTextBoxCodeElementRapport.Text = Article.Rows(0)("CODE_FICHE_TECHNIQUE")
                     Dim CODE_FICHE_TECHNIQUE As String = Article.Rows(0)("CODE_FICHE_TECHNIQUE")
                     GunaTextBoxElementRapport.Text = Article.Rows(0)("LIBELLE_FICHE")
@@ -6313,6 +6459,8 @@ Public Class MainWindowEconomat
 
         Me.Cursor = Cursors.WaitCursor
 
+        Dim CODE_BORDEREAUX As String = ""
+
         If GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.bon_requisition Or GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.list_du_marche Then
             Dim totalAchat As Double = 0
             'Dim numeroBon As String = GunaTextBoxCodeBordereau.Text
@@ -6333,6 +6481,7 @@ Public Class MainWindowEconomat
             Dim reference As String = GunaTextBoxReference.Text
             Dim observation As String = GunaTextBoxObservation.Text
             Dim numeroBon As String = GunaTextBoxCodeBordereau.Text
+            CODE_BORDEREAUX = GunaTextBoxCodeBordereau.Text
 
             Dim typeBordereau As String = GlobalVariable.list_du_marche
 
@@ -6409,6 +6558,10 @@ Public Class MainWindowEconomat
 
         TabControlEconomat.SelectedIndex = 0
 
+        If GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.list_du_marche Or GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.bon_requisition Then
+            annulationDuNombreDeModification(CODE_BORDEREAUX)
+        End If
+
         initArticleTable()
 
     End Sub
@@ -6467,147 +6620,19 @@ Public Class MainWindowEconomat
 
     End Sub
 
-    Private Sub GunaButtonRequisition_Click(sender As Object, e As EventArgs) Handles GunaButtonRequisition.Click
-
-        nettoyageDuDataGrid()
-        GunaRadioButtonParBordero.Checked = True
-        GunaRadioButtonParBordero.Visible = True
-        GunaRadioButtonParBordero.Text = "D'UN BON"
-        GunaRadioButtonParTypeEtDate.Text = "PAR TYPE DE BON ET DATE"
-
-        GunaRadioButtonParTypeEtDate.Visible = True
-
-        PanelApport.Visible = True
-        LabelTypeDeRapport.Visible = True
-        LabelTypeDeRapport.Text = "BON DE REQUISITION"
-        GlobalVariable.typeRapportEconmat = "BRQ"
-    End Sub
-
-    Private Sub GunaButtonBonSortie_Click(sender As Object, e As EventArgs) Handles GunaButtonBonSortie.Click
-
-        nettoyageDuDataGrid()
-        GunaRadioButtonParBordero.Checked = True
-        GunaRadioButtonParBordero.Visible = True
-        GunaRadioButtonParBordero.Text = "D'UN BON"
-        GunaRadioButtonParTypeEtDate.Text = "PAR TYPE DE BON ET DATE"
-
-        GunaRadioButtonParTypeEtDate.Visible = True
-
-        PanelApport.Visible = True
-        LabelTypeDeRapport.Visible = True
-        LabelTypeDeRapport.Text = "BON DE SORTIE"
-        GlobalVariable.typeRapportEconmat = "BS"
-
-    End Sub
-
     Public Sub nettoyageDuDataGrid()
 
         GunaDataGridViewBorderoByTypeEtDate.Columns.Clear()
-        GunaDataGridViewBorderoByTypeEtDate.Visible = False
 
         GunaLabel2.Visible = False
-        GunaComboBoxListeDesMagasinPourInventaire.Visible = False
-
-    End Sub
-
-    'RAPPORT PAR CODE DE BORDERO 
-    Private Sub GunaRadioButtonParBordero_CheckedChanged(sender As Object, e As EventArgs) Handles GunaRadioButtonParBordero.CheckedChanged
-
-        If GlobalVariable.typeRapportEconmat = "BC" Or GlobalVariable.typeRapportEconmat = "BR" Or GlobalVariable.typeRapportEconmat = "BRQ" Or GlobalVariable.typeRapportEconmat = "TIM" Or GlobalVariable.typeRapportEconmat = "BS" Then
-
-            If GunaRadioButtonParBordero.Checked Then
-
-                GunaTextBoxElementRapport.Visible = True
-
-                GunaTextBoxElementRapport.Clear()
-
-                GunaRadioButtonParBordero.Text = "D'UN BON"
-
-                GunaTextBoxElementRapport.Visible = True
-                GunaComboBoxTypeBorderoRapport.Visible = False
-
-                GunaDataGridViewBorderoByTypeEtDate.Visible = False
-                GunaButtonAfficher.Visible = False
-
-                GunaDataGridViewBorderoByTypeEtDate.Columns.Clear()
-
-            Else
-
-                'GunaRadioButtonParBordero.Text = "PAR TYPE DE BON ET DATE"
-
-                'GunaTextBoxElementRapport.Visible = False
-                'GunaComboBoxTypeBorderoRapport.Visible = True
-                'GunaDateTimePicker1.Visible = True
-                'GunaDateTimePicker2.Visible = True
-                'GunaLabelDu.Visible = True
-                'GunaLabelAu.Visible = True
-                'GunaDataGridViewBorderoByTypeEtDate.Visible = True
-                'GunaButtonAfficher.Visible = True
-
-
-
-            End If
-
-        ElseIf GlobalVariable.typeRapportEconmat = "FS" Then
-
-            If GunaRadioButtonParBordero.Checked Then
-                GunaTextBoxElementRapport.Clear()
-                GunaTextBoxElementRapport.Visible = True
-                GunaButtonImpirmerRapportEconomat.Visible = False
-                GunaDateTimePicker1.Visible = True
-                GunaDateTimePicker2.Visible = True
-                GunaLabelDu.Visible = True
-                GunaLabelAu.Visible = True
-            Else
-                GunaTextBoxElementRapport.Visible = False
-                GunaButtonImpirmerRapportEconomat.Visible = True
-                GunaDateTimePicker1.Visible = True
-                GunaDateTimePicker2.Visible = True
-                GunaLabelDu.Visible = True
-                GunaLabelAu.Visible = True
-            End If
-
-        ElseIf GlobalVariable.typeRapportEconmat = "MS" Then
-
-            If GunaRadioButtonParBordero.Checked Then
-
-            Else
-
-            End If
-
-        ElseIf GlobalVariable.typeRapportEconmat = "PR" Then
-
-            If GunaRadioButtonParBordero.Checked Then
-                GunaDateTimePicker1.Visible = False
-                GunaDateTimePicker2.Visible = False
-                GunaLabelDu.Visible = False
-                GunaLabelAu.Visible = False
-                GunaButtonImpirmerRapportEconomat.Visible = False
-                GunaTextBoxElementRapport.Visible = True
-            Else
-                GunaDateTimePicker1.Visible = True
-                GunaDateTimePicker2.Visible = True
-                GunaLabelDu.Visible = True
-                GunaLabelAu.Visible = True
-                GunaButtonImpirmerRapportEconomat.Visible = True
-                GunaTextBoxElementRapport.Visible = False
-            End If
-
-        End If
-
-
-        If GunaRadioButtonParBordero.Checked Then
-
-            GunaDateTimePicker1.Visible = False
-            GunaDateTimePicker2.Visible = False
-            GunaLabelDu.Visible = False
-            GunaLabelAu.Visible = False
+        If GlobalVariable.typeRapportEconmat = "BC" Then
             GunaButtonImpirmerRapportEconomat.Visible = False
-            GunaButtonAfficher.Visible = False
-
+            GunaComboBoxTypeBorderoRapport.Visible = True
         Else
-            GunaRadioButtonParTypeEtDate.Checked = True
+            GunaButtonImpirmerRapportEconomat.Visible = True
+            GunaComboBoxTypeBorderoRapport.Visible = False
         End If
+        GunaComboBoxListeDesMagasinPourInventaire.Visible = False
 
     End Sub
 
@@ -6647,20 +6672,23 @@ Public Class MainWindowEconomat
 
             If (globalIndividuel >= 0 And globalIndividuel <= 1) And (entreeSortie >= 0 And entreeSortie <= 1) Then
                 'DEMANDE A AFFICHER LES ENTREES OU SORTIES GLOBALES OU INDIVIDUELLE DONC DETAILLEES
-                GunaDataGridViewBorderoByTypeEtDate.DataSource = econom.affichageDesEntreesSortiePeriodique(GunaDateTimePicker1.Value.ToShortDateString, GunaDateTimePicker2.Value.ToShortDateString, entreeSortie, globalIndividuel)
+                'GunaDataGridViewBorderoByTypeEtDate.DataSource = econom.affichageDesEntreesSortiePeriodique(GunaDateTimePicker1.Value.ToShortDateString, GunaDateTimePicker2.Value.ToShortDateString, entreeSortie, globalIndividuel)
+
+                GunaButtonAfficher.Visible = False
+                GunaButtonImpirmerRapportEconomat.Visible = True
 
                 If GunaDataGridViewBorderoByTypeEtDate.Rows.Count > 0 Then
 
-                    GunaDataGridViewBorderoByTypeEtDate.Columns("PRIX UNITAIRE").DefaultCellStyle.Format = "#,##0"
+                    GunaDataGridViewBorderoByTypeEtDate.Columns("PRIX UNITAIRE").DefaultCellStyle.Format = "#,##0.00"
                     GunaDataGridViewBorderoByTypeEtDate.Columns("PRIX UNITAIRE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
                     GunaDataGridViewBorderoByTypeEtDate.Columns("TOTAL").DefaultCellStyle.Format = "#,##0"
                     GunaDataGridViewBorderoByTypeEtDate.Columns("TOTAL").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-                    GunaDataGridViewBorderoByTypeEtDate.Columns("QTE AVANT MOVT").DefaultCellStyle.Format = "#,##0"
+                    GunaDataGridViewBorderoByTypeEtDate.Columns("QTE AVANT MOVT").DefaultCellStyle.Format = "#,##0.00"
                     GunaDataGridViewBorderoByTypeEtDate.Columns("QTE AVANT MOVT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 
-                    GunaDataGridViewBorderoByTypeEtDate.Columns("QTE EN MOVT").DefaultCellStyle.Format = "#,##0"
+                    GunaDataGridViewBorderoByTypeEtDate.Columns("QTE EN MOVT").DefaultCellStyle.Format = "#,##0.00"
                     GunaDataGridViewBorderoByTypeEtDate.Columns("QTE EN MOVT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 
                     GunaButtonImpirmerRapportEconomat.Visible = True
@@ -6702,20 +6730,20 @@ Public Class MainWindowEconomat
 
             If (globalIndividuel >= 0 And globalIndividuel <= 1) And (entreeSortie >= 0 And entreeSortie <= 1) Then
                 'DEMANDE A AFFICHER LES ENTREES OU SORTIES GLOBALES OU INDIVIDUELLE DONC DETAILLEES
-                GunaDataGridViewBorderoByTypeEtDate.DataSource = econom.affichageDesEntreesSortiePeriodique(GunaDateTimePicker1.Value.ToShortDateString, GunaDateTimePicker2.Value.ToShortDateString, entreeSortie, globalIndividuel)
+                GunaDataGridViewBorderoByTypeEtDate.DataSource = econom.affichageDesAchatsPeriodique(GunaDateTimePicker1.Value.ToShortDateString, GunaDateTimePicker2.Value.ToShortDateString, entreeSortie, globalIndividuel)
 
                 If GunaDataGridViewBorderoByTypeEtDate.Rows.Count > 0 Then
 
-                    GunaDataGridViewBorderoByTypeEtDate.Columns("PRIX UNITAIRE").DefaultCellStyle.Format = "#,##0"
+                    GunaDataGridViewBorderoByTypeEtDate.Columns("PRIX UNITAIRE").DefaultCellStyle.Format = "#,##0.00"
                     GunaDataGridViewBorderoByTypeEtDate.Columns("PRIX UNITAIRE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
                     GunaDataGridViewBorderoByTypeEtDate.Columns("TOTAL").DefaultCellStyle.Format = "#,##0"
                     GunaDataGridViewBorderoByTypeEtDate.Columns("TOTAL").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-                    GunaDataGridViewBorderoByTypeEtDate.Columns("QTE AVANT MOVT").DefaultCellStyle.Format = "#,##0"
+                    GunaDataGridViewBorderoByTypeEtDate.Columns("QTE AVANT MOVT").DefaultCellStyle.Format = "#,##0.00"
                     GunaDataGridViewBorderoByTypeEtDate.Columns("QTE AVANT MOVT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 
-                    GunaDataGridViewBorderoByTypeEtDate.Columns("QTE EN MOVT").DefaultCellStyle.Format = "#,##0"
+                    GunaDataGridViewBorderoByTypeEtDate.Columns("QTE EN MOVT").DefaultCellStyle.Format = "#,##0.00"
                     GunaDataGridViewBorderoByTypeEtDate.Columns("QTE EN MOVT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 
                     GunaButtonImpirmerRapportEconomat.Visible = True
@@ -6731,18 +6759,14 @@ Public Class MainWindowEconomat
         Else
 
             If GunaComboBoxTypeBorderoRapport.SelectedIndex >= 0 Then
-
                 GunaDataGridViewBorderoByTypeEtDate.DataSource = econom.allTableFieldsOrganisedBetweenDates(GunaComboBoxTypeBorderoRapport.SelectedItem.ToString, GunaComboBoxTrierLeBordereau.SelectedIndex, GunaDateTimePicker1.Value, GunaDateTimePicker2.Value)
-
-                GunaDataGridViewBorderoByTypeEtDate.Visible = True
-
-                GunaDataGridViewBorderoByTypeEtDate.Columns("MONTANT").DefaultCellStyle.Format = "#,##0"
-
-                GunaDataGridViewBorderoByTypeEtDate.Columns("MONTANT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
-            Else
-
-                MessageBox.Show("Aucun Type de bordereau sélectionné !!")
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    GunaDataGridViewBorderoByTypeEtDate.Columns("AMOUNT").DefaultCellStyle.Format = "#,##0"
+                    GunaDataGridViewBorderoByTypeEtDate.Columns("AMOUNT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                Else
+                    GunaDataGridViewBorderoByTypeEtDate.Columns("MONTANT").DefaultCellStyle.Format = "#,##0"
+                    GunaDataGridViewBorderoByTypeEtDate.Columns("MONTANT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                End If
 
             End If
 
@@ -6750,57 +6774,62 @@ Public Class MainWindowEconomat
 
     End Sub
 
+    Public Sub ImprimerBordero(ByVal CODE_BORDEREAUX As String, ByVal TYPE_BORDEREAUX As String, ByVal title As String)
+
+        Dim getQuery As String = ""
+        Dim adapter As New MySqlDataAdapter
+        Dim table As New DataTable
+
+        If Not CODE_BORDEREAUX = "" Then
+            getQuery = "SELECT bordereaux.CODE_BORDEREAUX, `TYPE_BORDEREAUX`, `REF_BORDEREAUX`, `LIBELLE_BORDEREAUX`, `NON_TIERS`, `DATE_BORDEREAU`, `OBSERVATIONS`, `MONTANT_HT`, `MONTANT_TAXE`, `MONTANT_TTC`, `MONTANT_PAYER`, DESIGNATION_FR, ligne_bordereaux.QUANTITE_ENTREE_STOCK, PRIX_UNITAIRE_HT, PRIX_TOTAL_HT FROM `bordereaux`, `ligne_bordereaux`, article WHERE bordereaux.CODE_BORDEREAUX=@CODE_BORDEREAUX AND TYPE_BORDEREAUX=@TYPE_BORDEREAUX AND bordereaux.CODE_BORDEREAUX= ligne_bordereaux.CODE_BORDEREAUX AND article.CODE_ARTICLE =ligne_bordereaux.CODE_ARTICLE"
+        End If
+
+        Dim command As New MySqlCommand(getQuery, GlobalVariable.connect)
+
+        command.Parameters.Add("@CODE_BORDEREAUX", MySqlDbType.VarChar).Value = CODE_BORDEREAUX
+        command.Parameters.Add("@TYPE_BORDEREAUX", MySqlDbType.VarChar).Value = TYPE_BORDEREAUX
+
+        adapter.SelectCommand = command
+        adapter.Fill(table)
+
+        'IMPRESSION DES BORDEREAU
+        If table.Rows.Count > 0 Then
+            Impression.Bon(table, title)
+        End If
+
+
+    End Sub
+
     'IMPRESSION DES BON DE COMMANDE APRES AFFICHAGE DANS LE DATAGRID
     Private Sub TransférerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TransférerToolStripMenuItem.Click
 
-        If GunaDataGridViewBorderoByTypeEtDate.Rows.Count > 0 Then
-
-            Dim getQuery As String = ""
-            Dim adapter As New MySqlDataAdapter
-            Dim table As New DataTable
+        If GunaDataGridViewBorderoByTypeEtDate.CurrentRow.Selected Then
 
             Dim TYPE_BORDEREAUX As String = ""
 
-            If GlobalVariable.typeRapportEconmat = "BC" Then
-                TYPE_BORDEREAUX = GlobalVariable.bon_cmd
-            ElseIf GlobalVariable.typeRapportEconmat = "BR" Then
+            If GunaComboBoxTypeBorderoRapport.SelectedIndex = 0 Then
                 TYPE_BORDEREAUX = GlobalVariable.bon_reception
-            ElseIf GlobalVariable.typeRapportEconmat = "BS" Then
-                TYPE_BORDEREAUX = GlobalVariable.sortie
-            ElseIf GlobalVariable.typeRapportEconmat = "BRQ" Then
+            ElseIf GunaComboBoxTypeBorderoRapport.SelectedIndex = 1 Then
                 TYPE_BORDEREAUX = GlobalVariable.bon_requisition
-            ElseIf GlobalVariable.typeRapportEconmat = "TIM" Then
+            ElseIf GunaComboBoxTypeBorderoRapport.SelectedIndex = 2 Then
+                TYPE_BORDEREAUX = GlobalVariable.inventaire
+            ElseIf GunaComboBoxTypeBorderoRapport.SelectedIndex = 3 Then
+                TYPE_BORDEREAUX = GlobalVariable.sortie
+            ElseIf GunaComboBoxTypeBorderoRapport.SelectedIndex = 4 Then
+                TYPE_BORDEREAUX = GlobalVariable.sortie_exceptionnelle
+            ElseIf GunaComboBoxTypeBorderoRapport.SelectedIndex = 5 Then
                 TYPE_BORDEREAUX = GlobalVariable.transfert_inter
+            ElseIf GunaComboBoxTypeBorderoRapport.SelectedIndex = 6 Then
+                TYPE_BORDEREAUX = GlobalVariable.entree_exceptionnelle
+            ElseIf GunaComboBoxTypeBorderoRapport.SelectedIndex = 7 Then
+                TYPE_BORDEREAUX = GlobalVariable.bon_cmd
+            ElseIf GunaComboBoxTypeBorderoRapport.SelectedIndex = 8 Then
+                TYPE_BORDEREAUX = GlobalVariable.list_du_marche
             End If
 
-            For Each row As DataGridViewRow In GunaDataGridViewBorderoByTypeEtDate.SelectedRows
-
-                Dim CODE_BORDEREAUX As String = Trim(row.Cells("CODE BORDEREAUX").Value)
-
-                If Not CODE_BORDEREAUX = "" Then
-                    'RAPPORT INDIVIDUEL
-                    getQuery = "SELECT bordereaux.CODE_BORDEREAUX, `TYPE_BORDEREAUX`, `REF_BORDEREAUX`, `LIBELLE_BORDEREAUX`, `NON_TIERS`, `DATE_BORDEREAU`, `OBSERVATIONS`, `MONTANT_HT`, `MONTANT_TAXE`, `MONTANT_TTC`, `MONTANT_PAYER`, DESIGNATION_FR, ligne_bordereaux.QUANTITE_ENTREE_STOCK, PRIX_UNITAIRE_HT, PRIX_TOTAL_HT FROM `bordereaux`, `ligne_bordereaux`, article WHERE bordereaux.CODE_BORDEREAUX=@CODE_BORDEREAUX AND TYPE_BORDEREAUX=@TYPE_BORDEREAUX AND bordereaux.CODE_BORDEREAUX= ligne_bordereaux.CODE_BORDEREAUX AND article.CODE_ARTICLE =ligne_bordereaux.CODE_ARTICLE"
-
-                Else
-                    'ENSEMBLE DE RAPPORT
-
-
-
-                End If
-
-                Dim command As New MySqlCommand(getQuery, GlobalVariable.connect)
-
-                command.Parameters.Add("@CODE_BORDEREAUX", MySqlDbType.VarChar).Value = CODE_BORDEREAUX
-                command.Parameters.Add("@TYPE_BORDEREAUX", MySqlDbType.VarChar).Value = TYPE_BORDEREAUX
-
-                adapter.SelectCommand = command
-                adapter.Fill(table)
-
-                'IMPRESSION DES BORDEREAU
-
-                Impression.Bon(table)
-
-            Next
+            Dim CODE_BORDEREAUX As String = GunaDataGridViewBorderoByTypeEtDate.CurrentRow.Cells(0).Value.ToString
+            Dim title As String = GunaComboBoxTypeBorderoRapport.SelectedItem.ToString.ToUpper
+            ImprimerBordero(CODE_BORDEREAUX, TYPE_BORDEREAUX, title)
 
         End If
 
@@ -6808,24 +6837,13 @@ Public Class MainWindowEconomat
 
     Private Sub GunaComboBoxTypeBorderoRapport_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GunaComboBoxTypeBorderoRapport.SelectedIndexChanged
 
-        If GunaComboBoxTypeBorderoRapport.SelectedIndex = 0 Then
-            GlobalVariable.typeRapportEconmat = "BR"
-        ElseIf GunaComboBoxTypeBorderoRapport.SelectedIndex = 1 Then
-            GlobalVariable.typeRapportEconmat = "BRQ"
-        ElseIf GunaComboBoxTypeBorderoRapport.SelectedIndex = 2 Then
-            GlobalVariable.typeRapportEconmat = "INV"
-        ElseIf GunaComboBoxTypeBorderoRapport.SelectedIndex = 3 Then
-            GlobalVariable.typeRapportEconmat = "BS"
-        ElseIf GunaComboBoxTypeBorderoRapport.SelectedIndex = 4 Then
-            GlobalVariable.typeRapportEconmat = ""
-        ElseIf GunaComboBoxTypeBorderoRapport.SelectedIndex = 5 Then
-            GlobalVariable.typeRapportEconmat = ""
-        ElseIf GunaComboBoxTypeBorderoRapport.SelectedIndex = 6 Then
-            GlobalVariable.typeRapportEconmat = "TIM"
-        ElseIf GunaComboBoxTypeBorderoRapport.SelectedIndex = 7 Then
-            GlobalVariable.typeRapportEconmat = ""
-        ElseIf GunaComboBoxTypeBorderoRapport.SelectedIndex = 8 Then
-            GlobalVariable.typeRapportEconmat = "BC"
+        nettoyageDuDataGrid()
+        If GlobalVariable.typeRapportEconmat = "BC" Then
+            LabelTypeDeRapport.Text = GunaComboBoxTypeBorderoRapport.SelectedItem.ToString.ToUpper
+            GunaDataGridViewBorderoByTypeEtDate.Visible = True
+            If GunaComboBoxTypeBorderoRapport.SelectedIndex = 2 Then
+
+            End If
         End If
 
     End Sub
@@ -6833,17 +6851,15 @@ Public Class MainWindowEconomat
     Private Sub GunaButton4_Click_2(sender As Object, e As EventArgs) Handles GunaButton4.Click
 
         nettoyageDuDataGrid()
-        GunaRadioButtonParBordero.Text = "FICHE TECHNIQUE DE PLAT"
-        GunaRadioButtonParTypeEtDate.Visible = False
 
-        GunaRadioButtonParBordero.Checked = True
-
-        GunaRadioButtonParBordero.Visible = True
         GunaTextBoxElementRapport.Visible = True
 
         PanelApport.Visible = True
         LabelTypeDeRapport.Visible = True
         LabelTypeDeRapport.Text = "FICHE TECHNIQUE DE PLAT"
+        If GlobalVariable.actualLanguageValue = 0 Then
+            LabelTypeDeRapport.Text = "DISH TECHNICAL SHEET"
+        End If
         GlobalVariable.typeRapportEconmat = "FPT"
 
         GunaDateTimePicker1.Visible = False
@@ -6859,20 +6875,8 @@ Public Class MainWindowEconomat
         nettoyageDuDataGrid()
         'PRODUCTION DU RESTAURANT
 
-        GunaRadioButtonParTypeEtDate.Checked = True
-
-        GunaRadioButtonParTypeEtDate.Visible = True
-        GunaComboBoxTypeBorderoRapport.Visible = False
-
-
-        GunaRadioButtonParTypeEtDate.Text = "PRODUCTION DE CUISINE"
-
-        GunaRadioButtonParBordero.Text = "PRODUCTION DE CUISINE"
-
-        'GunaRadioButtonParTypeEtDate.Checked = False
-        GunaRadioButtonParBordero.Visible = False
         GunaTextBoxElementRapport.Visible = False
-
+        GunaLabel8.Visible = False
 
         GunaDateTimePicker1.Visible = True
         GunaDateTimePicker2.Visible = True
@@ -6883,6 +6887,9 @@ Public Class MainWindowEconomat
         PanelApport.Visible = True
         LabelTypeDeRapport.Visible = True
         LabelTypeDeRapport.Text = "PRODUCTION DE CUISINE"
+        If GlobalVariable.actualLanguageValue = 0 Then
+            LabelTypeDeRapport.Text = "COOKING PRODUCTION"
+        End If
 
         GlobalVariable.typeRapportEconmat = "PC"
 
@@ -6970,6 +6977,7 @@ Public Class MainWindowEconomat
     Private Sub GunaButtonVerification_Click(sender As Object, e As EventArgs) Handles GunaButtonVerification.Click
 
         Me.Cursor = Cursors.WaitCursor
+        Dim CODE_BORDEREAUX As String = ""
 
         If GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.bon_requisition Then
             Dim totalAchat As Double = 0
@@ -6991,6 +6999,7 @@ Public Class MainWindowEconomat
             Dim reference As String = GunaTextBoxReference.Text
             Dim observation As String = GunaTextBoxObservation.Text
             Dim numeroBon As String = GunaTextBoxCodeBordereau.Text
+            CODE_BORDEREAUX = GunaTextBoxCodeBordereau.Text
 
             Dim typeBordereau As String = GlobalVariable.list_du_marche
 
@@ -7052,6 +7061,10 @@ Public Class MainWindowEconomat
 
         initArticleTable()
 
+        If GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.list_du_marche Or GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.bon_requisition Then
+            annulationDuNombreDeModification(CODE_BORDEREAUX)
+        End If
+
     End Sub
 
     Private Sub GunaButtonAnnulerBordereau_Click(sender As Object, e As EventArgs) Handles GunaButtonAnnulerBordereau.Click
@@ -7110,20 +7123,8 @@ Public Class MainWindowEconomat
         nettoyageDuDataGrid()
         'COMMMANDE DE LA CUISINE
 
-        GunaRadioButtonParTypeEtDate.Checked = True
-
-        GunaRadioButtonParTypeEtDate.Visible = True
-        GunaRadioButtonParTypeEtDate.Text = "COMMANDES PREPAREES DE LA CUISINE"
-
-        GunaRadioButtonParBordero.Text = "COMMANDES PREPAREES DE LA CUISINE"
-
-        GunaComboBoxTypeBorderoRapport.Visible = False
-
-        'GunaRadioButtonParTypeEtDate.Checked = False
-        GunaRadioButtonParBordero.Visible = False
         GunaTextBoxElementRapport.Visible = False
-
-
+        GunaLabel8.Visible = False
         GunaDateTimePicker1.Visible = True
         GunaDateTimePicker2.Visible = True
         GunaLabelDu.Visible = True
@@ -7133,7 +7134,9 @@ Public Class MainWindowEconomat
         PanelApport.Visible = True
         LabelTypeDeRapport.Visible = True
         LabelTypeDeRapport.Text = "COMMANDES PREPAREES DE LA CUISINE"
-
+        If GlobalVariable.actualLanguageValue = 0 Then
+            LabelTypeDeRapport.Text = "PREPARED ORDERS FROM THE KITCHEN"
+        End If
         GlobalVariable.typeRapportEconmat = "CPC"
 
     End Sub
@@ -7167,7 +7170,7 @@ Public Class MainWindowEconomat
 
         Dim econom As New Economat()
 
-        If GunaDataGridViewLigneArticleCommande.Rows.Count > 0 Then
+        If GunaDataGridViewLigneArticleCommande.CurrentRow.Selected Then
 
             Dim DeleteRow As Boolean = False
 
@@ -7295,25 +7298,22 @@ Public Class MainWindowEconomat
                 For i = 0 To GunaDataGridViewLigneArticleCommande.Rows.Count - 1
 
                     If GlobalVariable.actualLanguageValue = 1 Then
-
                         montantGlobalAchat += GunaDataGridViewLigneArticleCommande.Rows(i).Cells("PRIX TOTAL").Value
-
                         montantGlobalVente += GunaDataGridViewLigneArticleCommande.Rows(i).Cells("PRIX VENTE").Value * GunaDataGridViewLigneArticleCommande.Rows(i).Cells("QUANTITE").Value
-
                     Else
-
                         montantGlobalAchat += GunaDataGridViewLigneArticleCommande.Rows(i).Cells("TOTAL PRICE").Value
-
                         montantGlobalVente += GunaDataGridViewLigneArticleCommande.Rows(i).Cells("SELLING PRICE").Value * GunaDataGridViewLigneArticleCommande.Rows(i).Cells("QUANTITY").Value
-
                     End If
 
                 Next
 
                 GunaTextBoxMontantHTGeneralAchat.Text = Format(montantGlobalAchat, "#,##0")
-
                 GunaTextBoxMontantTTCGeneralVente.Text = Format(montantGlobalVente, "#,##0")
 
+            End If
+
+            If DeleteRow Then
+                empecherParcours()
             End If
 
         End If
@@ -7323,21 +7323,46 @@ Public Class MainWindowEconomat
 
     'AU CHANGEMENT D'UNE VALEUR DE CELLULE (QUANTITE / PU) ON MODIFIE LE PRIX TOTAL
 
+    Dim edited As Boolean = False
+
     Private Sub GunaDataGridViewLigneArticleMagasin_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GunaDataGridViewLigneArticleCommande.CellDoubleClick
 
+        edited = True
+        'DELIVERY : 1
+        'REQUESITION : 2 
+        'EXIT SLIP : 3
+        'EXCEPTIONNAL EXIT : 4
+        'INTER STORE : 5
+        'EXCEPTIONNAL ENTRY : 6
+        'ORDER SLIP : 7
+        'MARKET LIST : 8
 
         'MODICFICATION DU DATAGRID
+
         Dim econom As New Economat()
 
         Dim CODE_BORDEREAUX As String = Trim(GunaTextBoxCodeBordereau.Text)
 
         Dim infoSupBordereau As DataTable = Functions.getElementByCode(CODE_BORDEREAUX, "bordereaux", "CODE_BORDEREAUX")
-        Dim edit As Boolean = False
+        Dim edit As Boolean = True
 
         If infoSupBordereau.Rows.Count > 0 Then
-            If infoSupBordereau.Rows(0)("ETAT_BORDEREAU") = 0 Then
-                edit = True
+
+            If GunaComboBoxTypeBordereau.SelectedIndex = 3 Or GunaComboBoxTypeBordereau.SelectedIndex = 4 Or GunaComboBoxTypeBordereau.SelectedIndex = 5 Or GunaComboBoxTypeBordereau.SelectedIndex = 6 Then
+
+                If infoSupBordereau.Rows(0)("ETAT_BORDEREAU") > 0 Then
+                    edit = False
+                    GunaButtonEnregistrer.Enabled = False
+                End If
+
+            Else
+
+                If infoSupBordereau.Rows(0)("ETAT_BORDEREAU") >= 4 Then
+                    edit = False
+                End If
+
             End If
+
         Else
             edit = True
         End If
@@ -7389,7 +7414,8 @@ Public Class MainWindowEconomat
 
             adapter.Fill(Article)
 
-            If (Article.Rows.Count > 0) Then
+            If Article.Rows.Count > 0 Then
+
 
                 GunaTextBoxCodeArticle.Text = Article.Rows(0)("CODE_ARTICLE")
 
@@ -7446,10 +7472,6 @@ Public Class MainWindowEconomat
                 GunaTextBoxCoutDuStock.Text = Format(PU, "#,##0.0")
                 'GunaTextBoxAchat.Text = PU
                 GunaDataGridViewArticle.Visible = False
-
-            Else
-
-                'We clear the article field if nothing is found when we click on the custom datagrid
 
             End If
 
@@ -7527,34 +7549,6 @@ Public Class MainWindowEconomat
 
     End Function
 
-    Private Sub GunaRadioButtonParTypeEtDate_CheckedChanged(sender As Object, e As EventArgs) Handles GunaRadioButtonParTypeEtDate.CheckedChanged
-
-        If GunaRadioButtonParTypeEtDate.Checked Then
-
-            GunaTextBoxElementRapport.Visible = False
-            GunaDateTimePicker1.Visible = True
-            GunaDateTimePicker2.Visible = True
-            GunaLabelDu.Visible = True
-            GunaLabelAu.Visible = True
-            GunaComboBoxTypeBorderoRapport.Visible = True
-            GunaButtonImpirmerRapportEconomat.Visible = False
-            GunaButtonAfficher.Visible = False
-
-            If GlobalVariable.typeRapportEconmat = "BC" Or GlobalVariable.typeRapportEconmat = "BR" Or GlobalVariable.typeRapportEconmat = "BRQ" Or GlobalVariable.typeRapportEconmat = "TIM" Or GlobalVariable.typeRapportEconmat = "BS" Then
-                GunaButtonAfficher.Visible = True
-                GunaButtonImpirmerRapportEconomat.Visible = False
-            Else
-                GunaButtonAfficher.Visible = False
-                GunaButtonImpirmerRapportEconomat.Visible = True
-            End If
-
-        Else
-            GunaTextBoxElementRapport.Visible = True
-            GunaRadioButtonParBordero.Checked = True
-        End If
-
-    End Sub
-
     Public Sub etapeDuParcoursMiseAjours(ByVal bordereau As DataTable)
 
         If bordereau.Rows(0)("ETAT_BORDEREAU") = 0 Then
@@ -7581,7 +7575,8 @@ Public Class MainWindowEconomat
             '-------- ENREGISTRER ---------
             GunaLabelEnregistreur.Visible = True
             GunaButtonEnregistrer.Visible = True
-            GunaButtonEnregistrer.Enabled = False
+            'GunaButtonEnregistrer.Enabled = False
+            GunaButtonEnregistrer.Enabled = True
             GunaLabelEnregistreur.Text = bordereau.Rows(0)("ENREGISTRER")
 
             '------ CONTROLER -----------------
@@ -7610,12 +7605,13 @@ Public Class MainWindowEconomat
             GunaButtonAnnulerBordereau.Visible = True
             GunaButtonAnnulerBordereau.Enabled = True
 
-            empecherAjoutArticle()
+            'empecherAjoutArticle()
 
             '-------- ENREGISTRER ---------
             GunaLabelEnregistreur.Visible = True
             GunaButtonEnregistrer.Visible = True
-            GunaButtonEnregistrer.Enabled = False
+            'GunaButtonEnregistrer.Enabled = False
+            GunaButtonEnregistrer.Enabled = True
             GunaLabelEnregistreur.Text = bordereau.Rows(0)("ENREGISTRER")
 
             '------ CONTROLER -----------------
@@ -7638,6 +7634,9 @@ Public Class MainWindowEconomat
                 GunaButtonValider.Text = "Entrer"
             Else
                 GunaButtonValider.Text = "Valider"
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    GunaButtonValider.Text = "Validate"
+                End If
             End If
 
             '---------- VALIDER ------------------
@@ -7651,12 +7650,13 @@ Public Class MainWindowEconomat
             GunaButtonAnnulerBordereau.Visible = True
             GunaButtonAnnulerBordereau.Enabled = True
 
-            empecherAjoutArticle()
+            'empecherAjoutArticle()
 
             '-------- ENREGISTRER ---------
             GunaLabelEnregistreur.Visible = True
             GunaButtonEnregistrer.Visible = True
-            GunaButtonEnregistrer.Enabled = False
+            'GunaButtonEnregistrer.Enabled = False
+            GunaButtonEnregistrer.Enabled = True
             GunaLabelEnregistreur.Text = bordereau.Rows(0)("ENREGISTRER")
 
             '------ CONTROLER -----------------
@@ -7693,6 +7693,9 @@ Public Class MainWindowEconomat
                     GunaButtonValider.Text = "Entrer"
                 Else
                     GunaButtonValider.Text = "Valider"
+                    If GlobalVariable.actualLanguageValue = 0 Then
+                        GunaButtonValider.Text = "Validate"
+                    End If
                 End If
 
                 '---------- VALIDER ------------------
@@ -7718,12 +7721,13 @@ Public Class MainWindowEconomat
             GunaButtonAnnulerBordereau.Visible = True
             GunaButtonAnnulerBordereau.Enabled = True
 
-            empecherAjoutArticle()
+            'empecherAjoutArticle()
 
             '-------- ENREGISTRER ---------
             GunaLabelEnregistreur.Visible = True
             GunaButtonEnregistrer.Visible = True
             GunaButtonEnregistrer.Enabled = False
+            'GunaButtonEnregistrer.Enabled = True
             GunaLabelEnregistreur.Text = bordereau.Rows(0)("ENREGISTRER")
 
             '------ CONTROLER -----------------
@@ -7769,7 +7773,8 @@ Public Class MainWindowEconomat
             '-------- ENREGISTRER ---------
             GunaLabelEnregistreur.Visible = True
             GunaButtonEnregistrer.Visible = True
-            GunaButtonEnregistrer.Enabled = False
+            'GunaButtonEnregistrer.Enabled = False
+            GunaButtonEnregistrer.Enabled = True
             GunaLabelEnregistreur.Text = bordereau.Rows(0)("ENREGISTRER")
 
             '------ CONTROLER -----------------
@@ -7810,7 +7815,8 @@ Public Class MainWindowEconomat
             '-------- ENREGISTRER ---------
             GunaLabelEnregistreur.Visible = True
             GunaButtonEnregistrer.Visible = True
-            GunaButtonEnregistrer.Enabled = False
+            'GunaButtonEnregistrer.Enabled = False
+            GunaButtonEnregistrer.Enabled = True
             GunaLabelEnregistreur.Text = bordereau.Rows(0)("ENREGISTRER")
 
             '------ CONTROLER -----------------
@@ -7822,7 +7828,8 @@ Public Class MainWindowEconomat
         ElseIf bordereau.Rows(0)("ETAT_BORDEREAU") = 7 Then
 
             GunaLabelEnregistreur.Visible = True
-            GunaButtonEnregistrer.Enabled = False
+            'GunaButtonEnregistrer.Enabled = False
+            GunaButtonEnregistrer.Enabled = True
             GunaLabelAnnuler.Text = bordereau.Rows(0)("ENREGISTRER")
 
             'ANNULATION
@@ -7969,15 +7976,18 @@ Public Class MainWindowEconomat
 
         End If
 
+        If edited Then
+            GunaButtonCommander.Enabled = False
+            GunaButtonController.Enabled = False
+            GunaButtonValider.Enabled = False
+            GunaButtonVerification.Enabled = False
+        End If
+
     End Sub
 
     'VISIBILITE DES BOUTONS
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         visibiliteDesBoutonDuParcours()
-    End Sub
-
-    Private Sub GunaComboBox1_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles GunaComboBoxListeDesMagasinPourInventaire.SelectedIndexChanged
-
     End Sub
 
     Dim title As String
@@ -8024,10 +8034,12 @@ Public Class MainWindowEconomat
 
         If GunaComboBoxTypeBordereau.SelectedIndex = 2 Then
             'INVENTAIRES
-            Impression.impressionEconomat(GunaDataGridViewInventaire, title, totalAchat, totalVente, numeroBon, nomTiers, libelle, reference, observation)
+            If GunaDataGridViewInventaire.Rows.Count > 0 Then
+                Impression.impressionEconomat(GunaDataGridViewInventaire, title, totalAchat, totalVente, numeroBon, nomTiers, libelle, reference, observation)
+            End If
         Else
 
-            If GunaComboBoxTypeBordereau.SelectedIndex = 10 Then
+            If GunaComboBoxTypeBordereau.SelectedIndex = 8 Then
                 'GESSTION DES LISTES DU MARCHE
                 Impression.impressionEconomaListeMarche(title, totalAchat, totalVente, numeroBon, nomTiers, libelle, reference, observation)
             Else
@@ -8045,22 +8057,19 @@ Public Class MainWindowEconomat
 
         'ENTREES / SORTIES PAR MAGASIN
         LabelTypeDeRapport.Text = "ENTREES - SORTIES PAR MAGASIN"
-
+        If GlobalVariable.actualLanguageValue = 0 Then
+            LabelTypeDeRapport.Text = "IN - OUT MOVEMENT OF STOCKS BY STORE"
+        End If
         nettoyageDuDataGrid()
+        GunaComboBoxTypeBorderoRapport.Visible = False
+        GunaLabel8.Visible = False
 
         entreeSortieOuAchatPeriodique = 0 ' ON TRAITE LES ENTREES SORTIES DE CHAQUE MAGASIN
-
-        GunaRadioButtonParBordero.Checked = True
-        GunaRadioButtonParBordero.Visible = True
-
-        GunaRadioButtonParTypeEtDate.Visible = False
 
         PanelApport.Visible = True
         LabelTypeDeRapport.Visible = True
 
         GlobalVariable.typeRapportEconmat = "ES" 'ENTREES SORTIES PAR MAGASIN
-
-        GunaComboBoxTypeBorderoRapport.Visible = False
 
         GunaDateTimePicker1.Visible = False
         GunaDateTimePicker2.Visible = False
@@ -8068,7 +8077,6 @@ Public Class MainWindowEconomat
         GunaLabelAu.Visible = False
         GunaButtonImpirmerRapportEconomat.Visible = False
         GunaButtonAfficher.Visible = False
-        GunaRadioButtonParBordero.Visible = False
         GunaTextBoxElementRapport.Visible = False
 
         '-----------------------------------------------------
@@ -8084,28 +8092,26 @@ Public Class MainWindowEconomat
         GunaComboBoxGlobalIndividuel.SelectedIndex = 0
         GunaDataGridViewBorderoByTypeEtDate.Visible = True
 
-
+        GunaButtonAfficher.Visible = False
+        GunaButtonImpirmerRapportEconomat.Visible = True
     End Sub
 
     Private Sub GunaButton9_Click(sender As Object, e As EventArgs) Handles GunaButton9.Click
 
         'ACHATS PERIODIQUE
         LabelTypeDeRapport.Text = "ACHATS SUR UNE PERIODE"
+        If GlobalVariable.actualLanguageValue = 0 Then
+            LabelTypeDeRapport.Text = "PURCHASES OVER A PERIOD"
+        End If
         nettoyageDuDataGrid()
-
-        GunaRadioButtonParBordero.Checked = True
-        GunaRadioButtonParBordero.Visible = True
-
-        GunaRadioButtonParTypeEtDate.Visible = False
-
+        GunaButtonImpirmerRapportEconomat.Visible = False
         PanelApport.Visible = True
         LabelTypeDeRapport.Visible = True
-
+        GunaComboBoxTypeBorderoRapport.Visible = False
+        GunaLabel8.Visible = False
         GlobalVariable.typeRapportEconmat = "AP" 'ACHATS PERIODIQUES
 
         entreeSortieOuAchatPeriodique = 1 ' ON TRAITE LES ACHATS PERIODIQUES
-
-        GunaComboBoxTypeBorderoRapport.Visible = False
 
         GunaDateTimePicker1.Visible = False
         GunaDateTimePicker2.Visible = False
@@ -8113,7 +8119,6 @@ Public Class MainWindowEconomat
         GunaLabelAu.Visible = False
         GunaButtonImpirmerRapportEconomat.Visible = False
         GunaButtonAfficher.Visible = False
-        GunaRadioButtonParBordero.Visible = False
         GunaTextBoxElementRapport.Visible = False
 
         '-----------------------------------------------------
@@ -8129,15 +8134,17 @@ Public Class MainWindowEconomat
         GunaComboBoxGlobalIndividuel.SelectedIndex = 0
         GunaDataGridViewBorderoByTypeEtDate.Visible = True
 
+        Dim updateQuery As String = "UPDATE `ligne_bordereaux` SET `PRIX_UNITAIRE_HT` = PRIX_TOTAL_HT / QUANTITE_ENTREE_STOCK,  `PRIX_UNITAIRE_TTC` = PRIX_TOTAL_TTC / QUANTITE_ENTREE_STOCK"
+        Dim commandupdateQuery As New MySqlCommand(updateQuery, GlobalVariable.connect)
+        commandupdateQuery.ExecuteNonQuery()
+
     End Sub
 
     Private Sub GunaComboBoxEntreSortie_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GunaComboBoxEntreSortie.SelectedIndexChanged
-        GunaButtonImpirmerRapportEconomat.Visible = False
         GunaDataGridViewBorderoByTypeEtDate.Columns.Clear()
     End Sub
 
     Private Sub GunaComboBoxGlobalIndividuel_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GunaComboBoxGlobalIndividuel.SelectedIndexChanged
-        GunaButtonImpirmerRapportEconomat.Visible = False
         GunaDataGridViewBorderoByTypeEtDate.Columns.Clear()
     End Sub
 
@@ -8247,19 +8254,8 @@ Public Class MainWindowEconomat
         nettoyageDuDataGrid()
         'COMMMANDE DE LA CUISINE
 
-        GunaRadioButtonParTypeEtDate.Checked = True
-
-        GunaRadioButtonParTypeEtDate.Visible = True
-        GunaRadioButtonParTypeEtDate.Text = "PREPARATION / COMMANDE DE LA CUISINE"
-
-        GunaRadioButtonParBordero.Text = "PREPARATION / COMMANDE DE LA CUISINE"
-
-        'GunaRadioButtonParTypeEtDate.Checked = False
-        GunaRadioButtonParBordero.Visible = False
         GunaTextBoxElementRapport.Visible = False
-
-        GunaComboBoxTypeBorderoRapport.Visible = False
-
+        GunaLabel8.Visible = False
         GunaDateTimePicker1.Visible = True
         GunaDateTimePicker2.Visible = True
         GunaLabelDu.Visible = True
@@ -8269,7 +8265,9 @@ Public Class MainWindowEconomat
         PanelApport.Visible = True
         LabelTypeDeRapport.Visible = True
         LabelTypeDeRapport.Text = "PREPARATION / COMMANDE DE LA CUISINE"
-
+        If GlobalVariable.actualLanguageValue = 0 Then
+            LabelTypeDeRapport.Text = "PREPARATION / KITCHEN ORDERS"
+        End If
         GlobalVariable.typeRapportEconmat = "RECAP_CUISINE"
 
     End Sub
@@ -8575,6 +8573,13 @@ Public Class MainWindowEconomat
         Dim econom As New Economat
         econom.freeligneBordereauTempElements(GlobalVariable.codeAgence, GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR"))
         GunaDataGridViewLigneArticleCommande.DataSource = Nothing
+        resetResumeBon()
+    End Sub
+
+    Private Sub resetResumeBon()
+        GunaTextBoxMontantHTGeneralAchat.Text = 0
+        GunaTextBoxMontantTTCGeneralVente.Text = 0
+        GunaTextBoxMarge.Text = 0
     End Sub
 
     Private Sub GunaButton16_Click(sender As Object, e As EventArgs) Handles GunaButton16.Click
@@ -8584,6 +8589,317 @@ Public Class MainWindowEconomat
             title = "Inventory Excel " & GlobalVariable.DateDeTravail.ToString("ddMMyyHms")
         End If
         Impression.inventoryExportExcelForm(GunaDataGridViewInventaire, title)
+
+    End Sub
+
+    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
+
+        If GunaComboBoxTypeDeBordereau.SelectedItem = GlobalVariable.bon_cmd Or GunaComboBoxTypeDeBordereau.SelectedItem = GlobalVariable.list_du_marche Then
+
+            Dim CODE_BORDORO As String = GunaDataGridViewListeBordereauxValides.CurrentRow.Cells("CODE BORDEREAUX").Value.ToString
+
+            Dim info As DataTable = Functions.getElementByCode(CODE_BORDORO, "bordereaux", "REF_BORDEREAUX")
+
+            If Not info.Rows.Count > 0 Then
+
+                GunaTextBoxQuantite.Text = 1
+
+                GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.bon_reception
+
+                Dim query As String = "SELECT * FROM bordereaux WHERE CODE_BORDEREAUX =@CODE_BORDEREAUX ORDER BY LIBELLE_BORDEREAUX ASC"
+
+                Dim adapter As New MySqlDataAdapter
+                Dim Bordereau As New DataTable
+                Dim command As New MySqlCommand(query, GlobalVariable.connect)
+
+                command.Parameters.Add("@CODE_BORDEREAUX", MySqlDbType.VarChar).Value = CODE_BORDORO
+
+                adapter.SelectCommand = command
+                adapter.Fill(Bordereau)
+
+                Dim economatArticleDuBordereau As New Economat()
+
+                If (Bordereau.Rows.Count > 0) Then
+
+                    GunaTextBoxReference.Text = Bordereau.Rows(0)("CODE_BORDEREAUX")
+
+                    CODE_REFERENCE_BORDERO = Bordereau.Rows(0)("CODE_BORDEREAUX")
+
+                    GunaTextBoxTiers.Text = Bordereau.Rows(0)("CODE_TIERS")
+                    GunaTextBoxNomTiers.Text = Bordereau.Rows(0)("NON_TIERS")
+                    GunaTextBoxObservation.Text = Bordereau.Rows(0)("OBSERVATIONS")
+
+                    GunaDataGridViewTiers.Visible = False
+
+                    GunaTextBoxMontantHTGeneralAchat.Text = Format(Bordereau.Rows(0)("MONTANT_HT"), "#,##0")
+
+                    GunaTextBoxMontantTTCGeneralVente.Text = Format(Bordereau.Rows(0)("MONTANT_PAYER"), "#,##0")
+
+                    'On liste l'ensemble des articles de ce bordereau
+                    GunaDataGridViewLigneArticleCommande.Columns.Clear()
+
+                    Dim CODE_BORDEREAUX As String = GunaTextBoxCodeBordereau.Text
+
+                    Dim econom As New Economat()
+
+                    For i = 0 To econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows.Count - 1
+
+                        If GlobalVariable.actualLanguageValue = 1 Then
+
+                            Dim UNITE_COMPTAGE As String = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("UNITE")
+
+                            'Dim CODE_BORDEREAUX As String = econom.ArticleDunBordereauQuelconque(bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("CODE_BORDEREAUX")
+                            Dim DESIGNATION As String = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("DESIGNATION")
+                            Dim CODE_ARTICLE As String = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("CODE ARTICLE")
+
+                            Dim QUANTITE As Double = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("QUANTITE")
+
+                            Dim EN_STOCK As Double = 0
+
+                            If Bordereau.Rows(0)("ETAT_BORDEREAU") = 6 Then
+                                EN_STOCK = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("EN STOCK") - QUANTITE
+                            Else
+                                EN_STOCK = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("EN STOCK")
+                            End If
+
+                            Dim DATE_PEREMPTION As Date = GlobalVariable.DateDeTravail
+                            Dim PRIX_VENTE As Double = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("PRIX VENTE")
+                            Dim PRIX_ACHAT As Double = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("PRIX UNITAIRE")
+                            Dim CODE_AGENCE As String = GlobalVariable.codeAgence
+                            Dim CODE_USER As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+                            Dim COUT_DU_STOCK As Double = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("PRIX TOTAL")
+
+                            econom.insertLigneBordereauTemp(CODE_ARTICLE, DESIGNATION, QUANTITE, EN_STOCK, PRIX_VENTE, PRIX_ACHAT, DATE_PEREMPTION, CODE_AGENCE, CODE_BORDEREAUX, UNITE_COMPTAGE, CODE_USER, COUT_DU_STOCK)
+
+                        Else
+
+                            Dim UNITE_COMPTAGE As String = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("UNIT")
+
+                            'Dim CODE_BORDEREAUX As String = econom.ArticleDunBordereauQuelconque(bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("CODE_BORDEREAUX")
+                            Dim DESIGNATION As String = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("DESIGNATION")
+                            Dim CODE_ARTICLE As String = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("CODE ARTICLE")
+
+                            Dim QUANTITE As Double = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("QUANTITY")
+
+                            Dim EN_STOCK As Double = 0
+
+                            If Bordereau.Rows(0)("ETAT_BORDEREAU") = 6 Then
+                                EN_STOCK = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("STOCK") - QUANTITE
+                            Else
+                                EN_STOCK = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("STOCK")
+                            End If
+
+                            Dim DATE_PEREMPTION As Date = GlobalVariable.DateDeTravail
+                            Dim PRIX_VENTE As Double = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("TOTAL PRICE")
+                            Dim PRIX_ACHAT As Double = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("UNIT PRICE")
+                            Dim CODE_AGENCE As String = GlobalVariable.codeAgence
+                            Dim CODE_USER As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+                            Dim COUT_DU_STOCK As Double = econom.ArticleDunBordereauQuelconque(Bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("TOTAL PRICE")
+
+                            econom.insertLigneBordereauTemp(CODE_ARTICLE, DESIGNATION, QUANTITE, EN_STOCK, PRIX_VENTE, PRIX_ACHAT, DATE_PEREMPTION, CODE_AGENCE, CODE_BORDEREAUX, UNITE_COMPTAGE, CODE_USER, COUT_DU_STOCK)
+
+
+                        End If
+
+                    Next
+
+                    GunaDataGridViewLigneArticleCommande.Columns.Clear()
+
+                    'GunaDataGridViewLigneArticleCommande.DataSource = econom.ligneBordereauTempElements(GlobalVariable.codeAgence, GlobalVariable.codeUser)
+                    GunaDataGridViewLigneArticleCommande.DataSource = econom.ligneBordereauTempElementsSuivantBordoro(GlobalVariable.codeAgence, CODE_BORDEREAUX)
+
+                    '----------------------------------------------------------------------------------------------------------------------
+
+                    If GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.transfert_inter Then
+                        GunaComboBoxMagasin_2.SelectedValue = Trim(Bordereau.Rows(0)("CODE_SOUS_MAGASIN"))
+                    Else
+                        'GunaComboBoxMagasin_1.SelectedValue = Trim(Bordereau.Rows(0)("CODE_MAGASIN"))
+                    End If
+
+                Else
+
+                    'We clear the article field if nothing is found when we click on the custom datagrid
+
+                End If
+
+
+                If GlobalVariable.actualLanguageValue = 1 Then
+
+                    GunaDataGridViewLigneArticleCommande.Columns("PRIX VENTE").DefaultCellStyle.Format = "#,##0.0"
+                    GunaDataGridViewLigneArticleCommande.Columns("PRIX VENTE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+                    GunaDataGridViewLigneArticleCommande.Columns("PRIX UNITAIRE").DefaultCellStyle.Format = "#,##0.0"
+                    GunaDataGridViewLigneArticleCommande.Columns("PRIX UNITAIRE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+                    GunaDataGridViewLigneArticleCommande.Columns("QUANTITE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                    GunaDataGridViewLigneArticleCommande.Columns("QUANTITE").DefaultCellStyle.Format = "#,##0.0"
+
+                    GunaDataGridViewLigneArticleCommande.Columns("EN STOCK").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                    GunaDataGridViewLigneArticleCommande.Columns("EN STOCK").DefaultCellStyle.Format = "#,##0.0"
+
+                    GunaDataGridViewLigneArticleCommande.Columns("PRIX TOTAL").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                    GunaDataGridViewLigneArticleCommande.Columns("PRIX TOTAL").DefaultCellStyle.Format = "#,##0.0"
+
+                    'GunaDataGridViewLigneArticleMagasin.Columns("PRIX ACHAT").Visible = False
+
+                    GunaDataGridViewLigneArticleCommande.Columns("PRIX VENTE").Visible = False
+
+                Else
+
+                    GunaDataGridViewLigneArticleCommande.Columns("SELLING PRICE").DefaultCellStyle.Format = "#,##0.0"
+                    GunaDataGridViewLigneArticleCommande.Columns("SELLING PRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+                    GunaDataGridViewLigneArticleCommande.Columns("UNIT PRICE").DefaultCellStyle.Format = "#,##0.0"
+                    GunaDataGridViewLigneArticleCommande.Columns("UNIT PRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+                    GunaDataGridViewLigneArticleCommande.Columns("QUANTITY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                    GunaDataGridViewLigneArticleCommande.Columns("QUANTITY").DefaultCellStyle.Format = "#,##0.0"
+
+                    GunaDataGridViewLigneArticleCommande.Columns("STOCK").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                    GunaDataGridViewLigneArticleCommande.Columns("STOCK").DefaultCellStyle.Format = "#,##0.0"
+
+                    GunaDataGridViewLigneArticleCommande.Columns("TOTAL PRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                    GunaDataGridViewLigneArticleCommande.Columns("TOTAL PRICE").DefaultCellStyle.Format = "#,##0.0"
+
+                    GunaDataGridViewLigneArticleCommande.Columns("SELLING PRICE").Visible = False
+
+                End If
+
+                GunaDataGridViewLigneArticleCommande.Columns("CODE ARTICLE").Visible = False
+                GunaDataGridViewLigneArticleCommande.Columns("ID_LIGNE_BORDEREAU").Visible = False
+
+                TabControlEconomat.SelectedIndex = 1
+                GunaDataGridViewRefBordero.Visible = False
+
+            Else
+
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    MessageBox.Show("A Delivery Slip with this reference already exist", "Purchase", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Else
+                    MessageBox.Show("Un Bon de Réception avec cette Réference existe déjà", "Command", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End If
+
+        End If
+
+    End Sub
+
+    Private Sub AnnulerPrécédentToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AnnulerPrécédentToolStripMenuItem.Click
+
+
+        If GunaComboBoxTypeDeBordereau.SelectedItem = GlobalVariable.bon_requisition Or GunaComboBoxTypeDeBordereau.SelectedItem = GlobalVariable.list_du_marche Then
+
+            Dim CODE_BORDEREAUX As String = GunaDataGridViewListeBordereauxValides.CurrentRow.Cells("CODE BORDEREAUX").Value.ToString
+
+            Dim bordoro As DataTable = Functions.getElementByCode(CODE_BORDEREAUX, "bordereaux", "CODE_BORDEREAUX")
+
+            If bordoro.Rows.Count > 0 Then
+
+                If bordoro.Rows(0)("ETAT_BORDEREAU") > 0 Then
+
+                    Dim VALIDE As String = bordoro.Rows(0)("VALIDE")
+                    Dim NBRE_MODIF As Integer = bordoro.Rows(0)("NBRE_MODIF")
+                    Dim VALIDE_NEW As String = ""
+                    Dim MODIFIER As String = ""
+                    Dim ACTION As String = ""
+
+                    NBRE_MODIF += 1
+
+                    Dim ETAT_BORDEREAU As Integer = bordoro.Rows(0)("ETAT_BORDEREAU")
+                    ETAT_BORDEREAU -= 1
+
+                    If ETAT_BORDEREAU = 0 Then
+                        VALIDE_NEW = "NON CONTROLE"
+                    ElseIf ETAT_BORDEREAU = 1 Then
+                        VALIDE_NEW = "CONTROLER"
+                    ElseIf ETAT_BORDEREAU = 2 Then
+                        VALIDE_NEW = "VERIFIER"
+                    ElseIf ETAT_BORDEREAU = 3 Then
+                        VALIDE_NEW = "VALIDER"
+                    End If
+
+                    If VALIDE.Equals("CONTROLER") Then
+                        ACTION = "le contrôle"
+                    ElseIf VALIDE.Equals("VERIFIER") Then
+                        ACTION = "la vérification"
+                    ElseIf VALIDE.Equals("VALIDER") Then
+                        ACTION = "la validation"
+                    End If
+
+                    If NBRE_MODIF > 0 Then
+                        MODIFIER = "MODIFICATION " & NBRE_MODIF
+                    End If
+
+                    Dim dialog As DialogResult
+                    If GlobalVariable.actualLanguageValue = 1 Then
+                        dialog = MessageBox.Show("Voulez-vous vraiment Annuler " & ACTION, "Annulation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                    Else
+                        dialog = MessageBox.Show("Do you really want to Cancel the action " & ACTION, "Cancelation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                    End If
+
+                    Dim nombreDeDuplication As Integer = 1
+
+                    If dialog = DialogResult.Yes Then
+
+                        Functions.updateOfFields("bordereaux", "VALIDE", VALIDE_NEW, "CODE_BORDEREAUX", CODE_BORDEREAUX, 2)
+
+                        Functions.updateOfFields("bordereaux", "ETAT_BORDEREAU", ETAT_BORDEREAU, "CODE_BORDEREAUX", CODE_BORDEREAUX, 0)
+
+                        Functions.updateOfFields("bordereaux", "MODIFIER", MODIFIER, "CODE_BORDEREAUX", CODE_BORDEREAUX, 2)
+
+                        Functions.updateOfFields("bordereaux", "BEFORE_CANCELATION", VALIDE, "CODE_BORDEREAUX", CODE_BORDEREAUX, 2)
+
+                        Functions.updateOfFields("bordereaux", "NBRE_MODIF", NBRE_MODIF, "CODE_BORDEREAUX", CODE_BORDEREAUX, 0)
+
+                        If GlobalVariable.actualLanguageValue = 1 Then
+                            MessageBox.Show("Annulation faite avec succès ", "Annulation", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Else
+                            MessageBox.Show("Cancelation successuflly done ", "Cancelation", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        End If
+
+                        affichageDesBordoro()
+
+                    End If
+
+                End If
+
+            End If
+
+        End If
+
+    End Sub
+
+    Private Sub ImprimerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ImprimerToolStripMenuItem.Click
+
+        If GunaDataGridViewListeBordereauxValides.CurrentRow.Selected Then
+
+            Dim TYPE_BORDEREAUX As String = ""
+
+            If GunaComboBoxTypeDeBordereau.SelectedIndex = 0 Then
+                TYPE_BORDEREAUX = GlobalVariable.bon_reception
+            ElseIf GunaComboBoxTypeDeBordereau.SelectedIndex = 1 Then
+                TYPE_BORDEREAUX = GlobalVariable.bon_requisition
+            ElseIf GunaComboBoxTypeDeBordereau.SelectedIndex = 2 Then
+                TYPE_BORDEREAUX = GlobalVariable.inventaire
+            ElseIf GunaComboBoxTypeDeBordereau.SelectedIndex = 3 Then
+                TYPE_BORDEREAUX = GlobalVariable.sortie
+            ElseIf GunaComboBoxTypeDeBordereau.SelectedIndex = 4 Then
+                TYPE_BORDEREAUX = GlobalVariable.sortie_exceptionnelle
+            ElseIf GunaComboBoxTypeDeBordereau.SelectedIndex = 5 Then
+                TYPE_BORDEREAUX = GlobalVariable.transfert_inter
+            ElseIf GunaComboBoxTypeDeBordereau.SelectedIndex = 6 Then
+                TYPE_BORDEREAUX = GlobalVariable.entree_exceptionnelle
+            ElseIf GunaComboBoxTypeDeBordereau.SelectedIndex = 7 Then
+                TYPE_BORDEREAUX = GlobalVariable.bon_cmd
+            ElseIf GunaComboBoxTypeDeBordereau.SelectedIndex = 8 Then
+                TYPE_BORDEREAUX = GlobalVariable.list_du_marche
+            End If
+
+            Dim CODE_BORDEREAUX As String = GunaDataGridViewListeBordereauxValides.CurrentRow.Cells("CODE BORDEREAUX").Value.ToString
+            Dim title As String = GunaComboBoxTypeDeBordereau.SelectedItem.ToString.ToUpper
+            ImprimerBordero(CODE_BORDEREAUX, TYPE_BORDEREAUX, title)
+
+        End If
 
     End Sub
 

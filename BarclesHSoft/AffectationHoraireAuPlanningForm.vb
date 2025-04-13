@@ -17,8 +17,11 @@ Public Class AffectationHoraireAuPlanningForm
     Private Sub AutoloadPlanningEtHoraire()
 
         '1- PLANNING HEBDOMADAIRE
-        Dim plannings As String = "SELECT * FROM planning_hebdomadaire ORDER BY INTITULE_PLANNING ASC"
+        'Dim CODE_TYPE_PERSONNEL As String = PlanningHebdomadaireDuPersonnelForm.GunaComboBoxProfilPlanning.SelectedValue.ToString
+        Dim CODE_TYPE_PERSONNEL As String = GunaTextBoxCodeDepart.Text
+        Dim plannings As String = "SELECT * FROM planning_hebdomadaire WHERE CODE_TYPE_PERSONNEL=@CODE_TYPE_PERSONNEL ORDER BY INTITULE_PLANNING ASC"
         Dim commandplanningsList As New MySqlCommand(plannings, GlobalVariable.connect)
+        commandplanningsList.Parameters.Add("@CODE_TYPE_PERSONNEL", MySqlDbType.VarChar).Value = CODE_TYPE_PERSONNEL
 
         Dim adapterplanningsList As New MySqlDataAdapter(commandplanningsList)
         Dim tableplanningsList As New DataTable()
@@ -52,6 +55,7 @@ Public Class AffectationHoraireAuPlanningForm
 
     Private Sub planning_horaire()
 
+        Dim CODE_TYPE_PERSONNEL As String = GunaTextBoxCodeDepart.Text
         'Dim dateDuJour As Date = GlobalVariable.DateDeTravail
 
         'Dim query04 As String = "SELECT `HEURE_DEBUT`, `HEURE_FIN`, DATE_DEBUT, DATE_FIN, HEURE_DEBUT_FIN, planning_hebdomadaire_horaire.CODE_PLANNING FROM `planning_horaire`, `planning_hebdomadaire_horaire` 
@@ -59,12 +63,12 @@ Public Class AffectationHoraireAuPlanningForm
         '      AND DATE_FIN >='" & dateDuJour.ToString("yyyy-MM-dd") & "'"
 
         Dim query04 As String = "SELECT INTITULE_PLANNING , planning_horaire.DATE_DEBUT, planning_horaire.DATE_FIN, HEURE_DEBUT_FIN AS 'HORAIRE', planning_horaire.ID_HORAIRE, planning_horaire.CODE_PLANNING, ID_PLANNING_HORAIRE FROM `planning_horaire`, `planning_hebdomadaire_horaire`, planning_hebdomadaire
-                        WHERE planning_hebdomadaire_horaire.ID_HORAIRE =planning_horaire.ID_HORAIRE AND planning_hebdomadaire.CODE_PLANNING=planning_horaire.CODE_PLANNING ORDER BY ID_HORAIRE DESC"
+                        WHERE planning_hebdomadaire_horaire.ID_HORAIRE =planning_horaire.ID_HORAIRE AND planning_hebdomadaire.CODE_PLANNING=planning_horaire.CODE_PLANNING AND planning_hebdomadaire.CODE_TYPE_PERSONNEL=@CODE_TYPE_PERSONNEL ORDER BY ID_HORAIRE DESC"
 
         Dim ETAT_HORAIRE_PLANNINg As Integer = 1
 
         Dim command04 As New MySqlCommand(query04, GlobalVariable.connect)
-        'command04.Parameters.Add("@ETAT", MySqlDbType.Int64).Value = ETAT_HORAIRE_PLANNINg
+        command04.Parameters.Add("@CODE_TYPE_PERSONNEL", MySqlDbType.VarChar).Value = CODE_TYPE_PERSONNEL
         'command04.Parameters.Add("@CODE_PLANNING", MySqlDbType.VarChar).Value = planning.Rows(i)("CODE_PLANNING")
 
         Dim adapter04 As New MySqlDataAdapter(command04)
@@ -92,10 +96,35 @@ Public Class AffectationHoraireAuPlanningForm
 
     Private Sub AffectationHoraireAuPlanningForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        GunaDateTimePickerDispoDebut.Value = GlobalVariable.DateDeTravail
-        GunaDateTimePickerDispoFin.Value = GlobalVariable.DateDeTravail
+        Dim language As New Languages()
+        language.AffectationHoraireAuPlanning(GlobalVariable.actualLanguageValue)
+
+        'GunaDateTimePickerDispoDebut.Value = GlobalVariable.DateDeTravail
+        'GunaDateTimePickerDispoFin.Value = GlobalVariable.DateDeTravail
+        GunaDateTimePickerDispoFin.Value = GunaDateTimePickerDispoDebut.Value.AddDays(7)
 
         AutoloadPlanningEtHoraire()
+
+        Dim showCustomImage As Boolean = False
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+            If GlobalVariable.config.Rows.Count > 0 Then
+                showCustomImage = True
+            End If
+        End If
+
+        If showCustomImage Then
+
+            Dim buttonPanel As Integer = 1
+            GunaPanel1.BackColor = Functions.colorationWindow(buttonPanel)
+            GunaLinePanelTop.BackColor = Functions.colorationWindow(buttonPanel)
+
+            buttonPanel = 0 'Button Background
+            GunaButtonTerminer.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonAppliquerTarifSpecifique.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonEditionDeMasse.BaseColor = Functions.colorationWindow(buttonPanel)
+
+        End If
 
     End Sub
 
@@ -143,9 +172,7 @@ Public Class AffectationHoraireAuPlanningForm
 
     Private Sub GunaButtonTerminer_Click(sender As Object, e As EventArgs) Handles GunaButtonTerminer.Click
         Me.Cursor = Cursors.WaitCursor
-
         PlanningHebdomadaireDuPersonnelForm.DisponibiliteEtTarifs(PlanningHebdomadaireDuPersonnelForm.GunaDateTimePickerDispoDebut.Value.ToShortDateString, PlanningHebdomadaireDuPersonnelForm.GunaDateTimePickerDispoFin.Value.ToShortDateString)
-
         Me.Cursor = Cursors.Default
     End Sub
 

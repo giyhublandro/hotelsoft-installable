@@ -14,6 +14,10 @@ Public Class RapportFacturesForm
             DataGridViewRapports.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         End If
 
+        GunaLabelGeneral.Text = GlobalVariable.DocumentToGenerate
+
+        Dim title As String = ""
+
         GunaDateTimePickerFin.Value = GlobalVariable.DateDeTravail.ToShortDateString
         GunaDateTimePickerDebut.Value = GlobalVariable.DateDeTravail.ToShortDateString
 
@@ -29,7 +33,26 @@ Public Class RapportFacturesForm
             GlobalVariable.DocumentToGenerate = "INVENTAIRE DES VENTES" Or
             GlobalVariable.DocumentToGenerate = "SITUATION GLOBAL" Or
             GlobalVariable.DocumentToGenerate = "JOURNAL DES VENTES" Or
+            GlobalVariable.DocumentToGenerate = "JOURNAL DE VERSEMENT" Or
             GlobalVariable.DocumentToGenerate = "FICHE DE VENTILATION" Then
+
+            If GlobalVariable.actualLanguageValue = 0 Then
+                If GlobalVariable.DocumentToGenerate = "JOURNAL DES VENTES PERIODIQUE" Then
+                    title = "PERIODIC SALES HISTORY"
+                ElseIf GlobalVariable.DocumentToGenerate = "SITUATION DE CAISSE PERIODIQUE" Then
+                    title = "PERIODIC CASH REGISTER HISTORY"
+                ElseIf GlobalVariable.DocumentToGenerate = "INVENTAIRE DES VENTES" Then
+                    title = "ARTICLES SOLD"
+                ElseIf GlobalVariable.DocumentToGenerate = "SITUATION GLOBAL" Then
+                    title = "GLOBAL SITUATION"
+                ElseIf GlobalVariable.DocumentToGenerate = "JOURNAL DES VENTES" Then
+                    title = "SALES HISTORY"
+                ElseIf GlobalVariable.DocumentToGenerate = "JOURNAL DE VERSEMENT" Then
+                    title = "HAND OVER FORM"
+                ElseIf GlobalVariable.DocumentToGenerate = "FICHE DE VENTILATION" Then
+                    title = "SALES VENTILATION FORM"
+                End If
+            End If
 
             utiliseteurDeCaisse()
 
@@ -51,14 +74,24 @@ Public Class RapportFacturesForm
         If GlobalVariable.DocumentToGenerate = "INVENTAIRE DES VENTES" Then
             GunaComboBoxParPointDeVente.Visible = True
             GunaComboBoxParPointDeVente.SelectedIndex = 0
+            If GlobalVariable.actualLanguageValue = 0 Then
+                title = "LIST OF ARTICLES SOLD"
+            End If
         End If
-
 
         If GlobalVariable.DocumentToGenerate = "JOURNAL DES VENTES" Then
             GunaDateTimePickerFin.Enabled = False
+            GunaCheckBoxTous.Enabled = False
+            If GlobalVariable.actualLanguageValue = 0 Then
+                title = "SALES HISTORY"
+            End If
         End If
 
         If GlobalVariable.DocumentToGenerate = "FICHE D'INVENTAIRE JOURNALIERE BAR" Then
+
+            If GlobalVariable.actualLanguageValue = 0 Then
+                title = "BAR DAILY INVENTORY"
+            End If
 
             GunaLabel3.Visible = True
             GunaComboBoxMagasins.Visible = True
@@ -72,6 +105,14 @@ Public Class RapportFacturesForm
 
         ElseIf GlobalVariable.DocumentToGenerate = "SITUATION MENSUEL DE L'ETABLISSEMENT" Or GlobalVariable.DocumentToGenerate = "PERIODIC ACCOMMODATION REPORT" Then
 
+            If GlobalVariable.actualLanguageValue = 0 Then
+                If GlobalVariable.DocumentToGenerate = "SITUATION MENSUEL DE L'ETABLISSEMENT" Then
+                    title = "SITUATION MENSUEL DE L'ETABLISSEMENT"
+                ElseIf GlobalVariable.DocumentToGenerate = "PERIODIC ACCOMMODATION REPORT" Then
+                    title = "PERIODIC ACCOMMODATION REPORT"
+                End If
+            End If
+
             GunaDateTimePickerDebut.Value = Functions.firstDayOfMonth(GlobalVariable.DateDeTravail)
             GunaDateTimePickerFin.Value = GlobalVariable.DateDeTravail.ToShortDateString
 
@@ -79,6 +120,10 @@ Public Class RapportFacturesForm
             GunaDateTimePickerFin.Enabled = True
 
         ElseIf GlobalVariable.DocumentToGenerate = "INVENTAIRE DU MAGASIN" Then
+
+            If GlobalVariable.actualLanguageValue = 0 Then
+                title = "STORE INVENTORY"
+            End If
 
             AutoLoadlisteMagasinSource()
             GunaLabel3.Visible = True
@@ -94,6 +139,10 @@ Public Class RapportFacturesForm
         End If
 
         If GlobalVariable.DocumentToGenerate = "FICHE STATISTIQUE JOURNALIERE" Then
+
+            If GlobalVariable.actualLanguageValue = 0 Then
+                title = "DAILY STATISTICS"
+            End If
 
             'LE JOUR MAXIMUM D'OBTENTION DE LA FICHE STATISTIQUE ET LE JOUR DE LA DATE DE TRAVAIL
             GunaDateTimePickerDebut.MaxDate = GlobalVariable.DateDeTravail
@@ -113,13 +162,24 @@ Public Class RapportFacturesForm
 
             utiliseteur()
 
+            If GlobalVariable.actualLanguageValue = 0 Then
+                title = "TRACES"
+            End If
+
             GunaLabel2.Visible = True
             GunaComboBoxUtilisateurDeMagasinBar.Visible = True
             GunaCheckBoxTous.Visible = True
 
         End If
 
-        GunaLabelGeneral.Text = GlobalVariable.DocumentToGenerate
+        If GlobalVariable.actualLanguageValue = 0 Then
+            GunaLabelGeneral.Text = title
+            GunaLabel3.Text = "Store"
+        End If
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("GERER_STOCK") = 0 Then
+            GunaComboBoxParPointDeVente.Enabled = False
+        End If
 
     End Sub
 
@@ -251,7 +311,11 @@ Public Class RapportFacturesForm
 
         ElseIf GlobalVariable.DocumentToGenerate = "INVENTAIRE DU MAGASIN" Then
 
-            GunaLabelGeneral.Text = "INVENTAIRE DU MAGASIN " & GlobalVariable.magasinActuel.ToUpper()
+            If GlobalVariable.actualLanguageValue = 1 Then
+                GunaLabelGeneral.Text = "INVENTAIRE DU MAGASIN " & GlobalVariable.magasinActuel.ToUpper()
+            Else
+                GunaLabelGeneral.Text = "STORE INVENTORY OF " & GlobalVariable.magasinActuel.ToUpper()
+            End If
 
             Dim CODE_MAGASIN As String = ""
 
@@ -277,11 +341,19 @@ Public Class RapportFacturesForm
 
             DataGridViewRapports.Columns.Clear()
 
-            DataGridViewRapports.Columns.Add("CODE_ARTICLE", "CODE ARTICLE")
-            DataGridViewRapports.Columns.Add("LIBELLE", "DESIGNATION")
-            DataGridViewRapports.Columns.Add("QUANTITE_EN_STOCK", "QUANTITE EN STOCK")
-            DataGridViewRapports.Columns.Add("QUANTITE_PHYSIQUE", "QUANTITE PHYSIQUE")
-            DataGridViewRapports.Columns.Add("COUT_DU_STOCK", "COUT DU STOCK")
+            If GlobalVariable.actualLanguageValue = 1 Then
+                DataGridViewRapports.Columns.Add("CODE_ARTICLE", "CODE ARTICLE")
+                DataGridViewRapports.Columns.Add("LIBELLE", "DESIGNATION")
+                DataGridViewRapports.Columns.Add("QUANTITE_EN_STOCK", "QUANTITE EN STOCK")
+                DataGridViewRapports.Columns.Add("QUANTITE_PHYSIQUE", "QUANTITE PHYSIQUE")
+                DataGridViewRapports.Columns.Add("COUT_DU_STOCK", "COUT DU STOCK")
+            Else
+                DataGridViewRapports.Columns.Add("CODE_ARTICLE", "ARTICLE CODE")
+                DataGridViewRapports.Columns.Add("LIBELLE", "ITEM")
+                DataGridViewRapports.Columns.Add("QUANTITE_EN_STOCK", "STOCK QTY")
+                DataGridViewRapports.Columns.Add("QUANTITE_PHYSIQUE", "PHYSICAL QTY")
+                DataGridViewRapports.Columns.Add("COUT_DU_STOCK", "COST OF STOCK")
+            End If
 
             If tousLesArticles.Rows.Count > 0 Then
 
@@ -326,7 +398,7 @@ Public Class RapportFacturesForm
 
         ElseIf GlobalVariable.DocumentToGenerate = "JOURNAL DES VENTES" Then
 
-            GunaLabelGeneral.Text = GlobalVariable.DocumentToGenerate & " JOURNALIER "
+            'GunaLabelGeneral.Text = GlobalVariable.DocumentToGenerate & " JOURNALIER "
 
             Dim ventes As New LigneFacture()
 
@@ -443,7 +515,7 @@ Public Class RapportFacturesForm
 
         ElseIf GlobalVariable.DocumentToGenerate = "INVENTAIRE DES VENTES" Then
 
-            GunaLabelGeneral.Text = GlobalVariable.DocumentToGenerate
+            'GunaLabelGeneral.Text = GlobalVariable.DocumentToGenerate
 
             Dim ventes As New LigneFacture()
 
@@ -462,13 +534,24 @@ Public Class RapportFacturesForm
                 DataGridViewRapports.Columns.Clear()
                 DataGridViewRapports.Rows.Clear()
 
-                DataGridViewRapports.Columns.Add("ARTICLE", "ARTICLE")
-                DataGridViewRapports.Columns.Add("QUANTITE", "QTE VENDU")
-                DataGridViewRapports.Columns.Add("STOCK", "STOCK ACTUEL")
-                DataGridViewRapports.Columns.Add("PU", "PRIX UNITAIRE")
-                DataGridViewRapports.Columns.Add("PA", "PRIX ACHAT")
-                DataGridViewRapports.Columns.Add("MONTANT", "MONTANT TOTAL")
-                DataGridViewRapports.Columns.Add("MARGE", "MARGE")
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    DataGridViewRapports.Columns.Add("ARTICLE", "ITEM")
+                    DataGridViewRapports.Columns.Add("QUANTITE", "QTY SOLD")
+                    DataGridViewRapports.Columns.Add("STOCK", "STOCK")
+                    DataGridViewRapports.Columns.Add("PU", "UNIT PRICE")
+                    DataGridViewRapports.Columns.Add("PA", "BUYING PRICE")
+                    DataGridViewRapports.Columns.Add("MONTANT", "AMOUNT")
+                    DataGridViewRapports.Columns.Add("MARGE", "PROFIT")
+                Else
+                    DataGridViewRapports.Columns.Add("ARTICLE", "ARTICLE")
+                    DataGridViewRapports.Columns.Add("QUANTITE", "QTE VENDU")
+                    DataGridViewRapports.Columns.Add("STOCK", "STOCK ACTUEL")
+                    DataGridViewRapports.Columns.Add("PU", "PRIX UNITAIRE")
+                    DataGridViewRapports.Columns.Add("PA", "PRIX ACHAT")
+                    DataGridViewRapports.Columns.Add("MONTANT", "MONTANT TOTAL")
+                    DataGridViewRapports.Columns.Add("MARGE", "MARGE")
+                End If
+
 
                 Dim articleIndividuel As New DataTable()
 
@@ -478,6 +561,7 @@ Public Class RapportFacturesForm
                     'Dim LIBELLE_FACTURE As String = ListeDesVentes.Rows(i)("LIBELLE_FACTURE")
 
                     Dim LIBELLE_FACTURE As String = ""
+                    Dim TYPE_ARTICLE As String = ""
                     Dim FAMILLE As String = ""
                     Dim SUIVIE As String = ""
 
@@ -492,7 +576,7 @@ Public Class RapportFacturesForm
                         PA = infoArticle.Rows(0)("COUT_U_MOYEN_PONDERE")
 
                         SUIVIE = infoArticle.Rows(0)("METHODE_SUIVI_STOCK")
-
+                        TYPE_ARTICLE = infoArticle.Rows(0)("TYPE_ARTICLE")
                         'If Trim(SUIVIE).Equals("Suivi simple") Then
                         STOCK = infoArticle.Rows(0)("QUANTITE")
                         'Else
@@ -538,7 +622,15 @@ Public Class RapportFacturesForm
                     Dim STOCK_CORRECTE_FORMAT = Functions.affichageQteDansUnFormatCorrect(CODE_ARTICLE, STOCK)
 
                     If Not Trim(LIBELLE_FACTURE).Equals("LIBELLE_FACTURE") Then
-                        DataGridViewRapports.Rows.Add(LIBELLE_FACTURE, QUANITE_CORRECTE_FORMAT, STOCK_CORRECTE_FORMAT, PRIXMOYENUNITAIRE, PA, MONTANT, MARGE)
+                        If GlobalVariable.DocumentToGenerate = "INVENTAIRE DES VENTES" Then
+                            DataGridViewRapports.Rows.Add(LIBELLE_FACTURE, QUANITE_CORRECTE_FORMAT, STOCK_CORRECTE_FORMAT, PRIXMOYENUNITAIRE, PA, MONTANT, MARGE)
+                        Else
+                            'INVENTAIRE DES VENTES CUSTOM
+                            If TYPE_ARTICLE.Equals("BAR") Then
+                                DataGridViewRapports.Rows.Add(LIBELLE_FACTURE, QUANITE_CORRECTE_FORMAT, STOCK_CORRECTE_FORMAT, PRIXMOYENUNITAIRE, PA, MONTANT, MARGE)
+                            End If
+
+                        End If
                     End If
 
                 Next
@@ -551,6 +643,165 @@ Public Class RapportFacturesForm
 
                 DataGridViewRapports.Columns("STOCK").DefaultCellStyle.Format = "#,##0.00"
                 DataGridViewRapports.Columns("STOCK").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+
+                DataGridViewRapports.Columns("PA").DefaultCellStyle.Format = "#,##0"
+                DataGridViewRapports.Columns("PA").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+                DataGridViewRapports.Columns("MARGE").DefaultCellStyle.Format = "#,##0"
+                DataGridViewRapports.Columns("MARGE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+                DataGridViewRapports.Columns("QUANTITE").DefaultCellStyle.Format = "#,##0.00"
+                DataGridViewRapports.Columns("QUANTITE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+
+                'DataGridViewFactures.Columns("ARTICLE").Visible = False
+
+                GunaButtonImprimer.Visible = True
+
+            End If
+
+        ElseIf GlobalVariable.DocumentToGenerate = "INVENTAIRE DES VENTES CUSTOM" Then
+
+            GunaLabelGeneral.Text = GlobalVariable.DocumentToGenerate
+
+            Dim ventes As New LigneFacture()
+
+            Dim CODE_UTILISATEUR As String = ""
+
+            Dim ListeDesVentes As New DataTable()
+
+            If GunaComboBoxUtilisateurDeMagasinBar.SelectedIndex >= 0 Then
+                CODE_UTILISATEUR = GunaComboBoxUtilisateurDeMagasinBar.SelectedValue.ToString
+            End If
+
+            ListeDesVentes = ventes.ListeDesArticlesVendusInventaire(DateDebut, DateFin, CODE_UTILISATEUR)
+
+            If ListeDesVentes.Rows.Count > 0 Then
+
+                DataGridViewRapports.Columns.Clear()
+                DataGridViewRapports.Rows.Clear()
+
+
+                If GlobalVariable.actualLanguageValue = 0 Then
+
+                    DataGridViewRapports.Columns.Add("ARTICLE", "DRINK")
+                    DataGridViewRapports.Columns.Add("STOCK", "STOCK")
+                    DataGridViewRapports.Columns.Add("PA", "PURCHASE PRICE")
+                    DataGridViewRapports.Columns.Add("QUANTITE", "QUANTITY SOLD")
+                    DataGridViewRapports.Columns.Add("PU", "SELLING PRICE")
+                    DataGridViewRapports.Columns.Add("MONTANT", "TOTAL PRICE")
+                    DataGridViewRapports.Columns.Add("PROFIT-BOTTLE", "PROFIT / BOTTLE")
+                    DataGridViewRapports.Columns.Add("MARGE", "PROFIT")
+                    DataGridViewRapports.Columns.Add("DEBIT", "DEBIT")
+
+                ElseIf GlobalVariable.actualLanguageValue = 1 Then
+
+                    DataGridViewRapports.Columns.Add("ARTICLE", "ARTICLE")
+                    DataGridViewRapports.Columns.Add("STOCK", "STOCK ACTUEL")
+                    DataGridViewRapports.Columns.Add("PA", "PRIX ACHAT")
+                    DataGridViewRapports.Columns.Add("QUANTITE", "QTE VENDU")
+                    DataGridViewRapports.Columns.Add("PU", "PRIX UNITAIRE")
+                    DataGridViewRapports.Columns.Add("MONTANT", "MONTANT TOTAL")
+                    DataGridViewRapports.Columns.Add("PROFIT-BOTTLE", "PROFIT PAR BOUTEILLE")
+                    DataGridViewRapports.Columns.Add("MARGE", "MARGE")
+                    DataGridViewRapports.Columns.Add("DEBIT", "DEBIT")
+
+                End If
+
+                Dim articleIndividuel As New DataTable()
+
+                For i = 0 To ListeDesVentes.Rows.Count - 1
+
+                    Dim CODE_ARTICLE As String = ListeDesVentes.Rows(i)("CODE_ARTICLE")
+                    'Dim LIBELLE_FACTURE As String = ListeDesVentes.Rows(i)("LIBELLE_FACTURE")
+
+                    Dim LIBELLE_FACTURE As String = ""
+                    Dim TYPE_ARTICLE As String = ""
+                    Dim FAMILLE As String = ""
+                    Dim SUIVIE As String = ""
+
+                    Dim PA As Double = 0
+                    Dim STOCK As Double = 0
+
+                    Dim infoArticle As DataTable = Functions.getElementByCode(CODE_ARTICLE, "article", "CODE_ARTICLE")
+
+                    If infoArticle.Rows.Count > 0 Then
+
+                        LIBELLE_FACTURE = infoArticle.Rows(0)("DESIGNATION_FR")
+                        PA = infoArticle.Rows(0)("COUT_U_MOYEN_PONDERE")
+
+                        SUIVIE = infoArticle.Rows(0)("METHODE_SUIVI_STOCK")
+                        TYPE_ARTICLE = infoArticle.Rows(0)("TYPE_ARTICLE")
+                        'If Trim(SUIVIE).Equals("Suivi simple") Then
+                        STOCK = infoArticle.Rows(0)("QUANTITE")
+                        'Else
+
+                        'End If
+
+                    End If
+
+                    Dim PRIXMOYENUNITAIRE As Double = 0
+                    Dim QUANTITE As Double = 0
+                    Dim MONTANT As Double = 0
+
+                    Dim UNITE_DE_VENTE As String = ""
+
+                    articleIndividuel = ventes.ListeDesArticlesVendusInventaireIndividuel(DateDebut, DateFin, CODE_UTILISATEUR, CODE_ARTICLE)
+
+                    '------------------------------ NEW 18.08.2023 ------------------------------------------------
+
+                    Dim QUANITE_CORRECTE_FORMAT = Functions.affichageQteDansUnFormatCorrect(CODE_ARTICLE, QUANTITE)
+
+                    '----------------------------------------------------------------------------------------------
+
+                    For j = 0 To articleIndividuel.Rows.Count - 1
+
+                        UNITE_DE_VENTE = articleIndividuel.Rows(j)("CODE_LOT")
+
+                        QUANTITE += articleIndividuel.Rows(j)("QUANTITE")
+                        MONTANT += articleIndividuel.Rows(j)("MONTANT TOTAL")
+
+                        If QUANTITE > 0 Then
+                            PRIXMOYENUNITAIRE = MONTANT / QUANTITE
+                        End If
+
+                        QUANITE_CORRECTE_FORMAT += Functions.conversionEnPlusPetiteUnite(CODE_ARTICLE, articleIndividuel.Rows(j)("QUANTITE"), UNITE_DE_VENTE)
+
+                    Next
+
+                    Dim MARGE As Double = MONTANT - (QUANTITE * PA)
+                    Dim DEBIT As Double = 0
+                    Dim PROFIT_BOTTLE As Double = Math.Round(MARGE / QUANTITE)
+
+                    'DataGridViewRapports.Rows.Add(LIBELLE_FACTURE, QUANTITE, STOCK, PRIXMOYENUNITAIRE, PA, MONTANT, MARGE)
+
+                    QUANITE_CORRECTE_FORMAT = Functions.affichageQteDansUnFormatCorrect(CODE_ARTICLE, QUANITE_CORRECTE_FORMAT)
+                    Dim STOCK_CORRECTE_FORMAT = Functions.affichageQteDansUnFormatCorrect(CODE_ARTICLE, STOCK)
+
+                    If Not Trim(LIBELLE_FACTURE).Equals("LIBELLE_FACTURE") Then
+                        If GlobalVariable.DocumentToGenerate = "INVENTAIRE DES VENTES" Then
+                            DataGridViewRapports.Rows.Add(LIBELLE_FACTURE, QUANITE_CORRECTE_FORMAT, STOCK_CORRECTE_FORMAT, PRIXMOYENUNITAIRE, PA, MONTANT, MARGE)
+                        Else
+                            'INVENTAIRE DES VENTES CUSTOM
+                            If TYPE_ARTICLE.Equals("BAR") Then
+                                DataGridViewRapports.Rows.Add(LIBELLE_FACTURE, STOCK_CORRECTE_FORMAT, PA, QUANITE_CORRECTE_FORMAT, PRIXMOYENUNITAIRE, MONTANT, PROFIT_BOTTLE, MARGE, DEBIT)
+                            End If
+
+                        End If
+                    End If
+
+                Next
+
+                DataGridViewRapports.Columns("MONTANT").DefaultCellStyle.Format = "#,##0"
+                DataGridViewRapports.Columns("MONTANT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+                DataGridViewRapports.Columns("PU").DefaultCellStyle.Format = "#,##0"
+                DataGridViewRapports.Columns("PU").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+                DataGridViewRapports.Columns("STOCK").DefaultCellStyle.Format = "#,##0.00"
+                DataGridViewRapports.Columns("STOCK").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+
+                DataGridViewRapports.Columns("PROFIT-BOTTLE").DefaultCellStyle.Format = "#,##0.00"
+                DataGridViewRapports.Columns("PROFIT-BOTTLE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 
                 DataGridViewRapports.Columns("PA").DefaultCellStyle.Format = "#,##0"
                 DataGridViewRapports.Columns("PA").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -601,24 +852,55 @@ Public Class RapportFacturesForm
                 Else
 
                     'SPECIQUEMENT PAR APPORT A UNE RESERVATION
-                    If GunaCheckBoxTous.Checked Then
 
-                        query13 = "SELECT `ACTION`, `PAR`, `DATE_DE_CONTROLE` AS A, `UTILISATEUR_ID`, `CHAMBRE_ID`, `NOM_CLIENT`, `DATE_ENTTRE`, 
-                    `HEURE_ENTREE`, `DATE_SORTIE`, `HEURE_SORTIE`,`MONTANT_ACCORDE`, `ADULTES`, `NB_PERSONNES` AS PAX, `ENFANTS`, 
-                      `MONTANT_TOTAL_CAUTION`,  `GROUPE`,  `SOLDE_RESERVATION`, `CHAMBRE_ROUTAGE`, `VENANT_DE`, `SE_RENDANT_A`, 
-                     `ROUTAGE`, `ETAT_NOTE_RESERVATION`, `CODE_ENTREPRISE`, `NOM_ENTREPRISE`,  `BC_ENTREPRISE`, `TYPE_CHAMBRE`, `CODE_RESERVATION`  FROM `trace` 
-                    WHERE DATE_CREATION BETWEEN '" & DateDebut.ToString("yyyy-MM-dd") & "' AND '" & DateFin.ToString("yyyy-MM-dd") & "' AND CODE_RESERVATION=@CODE_RESERVATION ORDER BY ID_TRACE, DATE_DE_CONTROLE ASC"
+                    If GlobalVariable.actualLanguageValue = 1 Then
+
+                        If GunaCheckBoxTous.Checked Then
+
+                            query13 = "SELECT `ACTION`, `PAR`, `DATE_DE_CONTROLE` AS A, `UTILISATEUR_ID` AS UTILISATEUR, `CHAMBRE_ID` AS CHAMBRE, `NOM_CLIENT` AS CLIENT, `DATE_ENTTRE` AS 'DATE ARRIVEE', 
+                            `HEURE_ENTREE` AS 'HEURE ENTREE', `DATE_SORTIE` AS 'DATE DEPART', `HEURE_SORTIE` AS 'HEURE SORTIE',`MONTANT_ACCORDE` AS 'MONTANT ACCORDE', `ADULTES`, `NB_PERSONNES` AS PAX, `ENFANTS`, 
+                              `MONTANT_TOTAL_CAUTION` AS CAUTION,  `GROUPE`,  `SOLDE_RESERVATION` AS 'SOLDE RESERVATION', `CHAMBRE_ROUTAGE` AS 'CHAMBRE ROUTAGE', `VENANT_DE` AS 'VENANTDE', 
+                            `SE_RENDANT_A` AS 'SE RENDANT A', 
+                             `ROUTAGE`, `ETAT_NOTE_RESERVATION` AS STATUT, `NOM_ENTREPRISE` AS ENTREPRISE,  `BC_ENTREPRISE` AS 'BON COMMANDE', `TYPE_CHAMBRE` AS 'TYPE CHAMBRE', 
+                            `CODE_RESERVATION` AS 'No RESERVATION' FROM `trace` 
+                            WHERE DATE_CREATION BETWEEN '" & DateDebut.ToString("yyyy-MM-dd") & "' AND '" & DateFin.ToString("yyyy-MM-dd") & "' AND CODE_RESERVATION=@CODE_RESERVATION ORDER BY ID_TRACE, DATE_DE_CONTROLE ASC"
+
+                        Else
+
+                            query13 = "SELECT `ACTION`, `PAR`, `DATE_DE_CONTROLE` AS A, `UTILISATEUR_ID` AS UTILISATEUR, `CHAMBRE_ID` AS CHAMBRE, `NOM_CLIENT` AS CLIENT, `DATE_ENTTRE` AS 'DATE ARRIVEE', 
+                            `HEURE_ENTREE` AS 'HEURE ENTREE', `DATE_SORTIE` AS 'DATE DEPART', `HEURE_SORTIE` AS 'HEURE SORTIE',`MONTANT_ACCORDE` AS 'MONTANT ACCORDE', `ADULTES`, `NB_PERSONNES` AS PAX, `ENFANTS`, 
+                              `MONTANT_TOTAL_CAUTION` AS CAUTION,  `GROUPE`,  `SOLDE_RESERVATION` AS 'SOLDE RESERVATION', `CHAMBRE_ROUTAGE` AS 'CHAMBRE ROUTAGE', `VENANT_DE` AS 'VENANTDE', 
+                            `SE_RENDANT_A` AS 'SE RENDANT A', 
+                             `ROUTAGE`, `ETAT_NOTE_RESERVATION` AS STATUT, `NOM_ENTREPRISE` AS ENTREPRISE,  `BC_ENTREPRISE` AS 'BON COMMANDE', `TYPE_CHAMBRE` AS 'TYPE CHAMBRE', 
+                            `CODE_RESERVATION` AS 'No RESERVATION' FROM `trace` 
+                            WHERE UTILISATEUR_ID=@UTILISATEUR_ID AND DATE_CREATION BETWEEN '" & DateDebut.ToString("yyyy-MM-dd") & "' AND '" & DateFin.ToString("yyyy-MM-dd") & "' AND CODE_RESERVATION=@CODE_RESERVATION ORDER BY ACTION, DATE_DE_CONTROLE ASC"
+
+                            CODE_UTILISATEUR = GunaComboBoxUtilisateurDeMagasinBar.SelectedValue.ToString
+
+                        End If
 
                     Else
-                        query13 = "SELECT `ACTION`, `PAR`, `DATE_DE_CONTROLE` AS A, `UTILISATEUR_ID`, `CHAMBRE_ID`, `NOM_CLIENT`, `DATE_ENTTRE`, 
-                    `HEURE_ENTREE`, `DATE_SORTIE`, `HEURE_SORTIE`, `MONTANT_ACCORDE`, `ADULTES`, `NB_PERSONNES` AS PAX, `ENFANTS`, 
-                      `MONTANT_TOTAL_CAUTION`,  `GROUPE`, `SOLDE_RESERVATION`, `CHAMBRE_ROUTAGE`, `VENANT_DE`, `SE_RENDANT_A`, 
-                    `ROUTAGE`, `ETAT_NOTE_RESERVATION`, `CODE_ENTREPRISE`, `NOM_ENTREPRISE`, `BC_ENTREPRISE`, `TYPE_CHAMBRE`, `CODE_RESERVATION` FROM `trace` 
-                    WHERE UTILISATEUR_ID=@UTILISATEUR_ID AND DATE_CREATION BETWEEN '" & DateDebut.ToString("yyyy-MM-dd") & "' AND '" & DateFin.ToString("yyyy-MM-dd") & "' AND CODE_RESERVATION=@CODE_RESERVATION ORDER BY ACTION, DATE_DE_CONTROLE ASC"
 
-                        CODE_UTILISATEUR = GunaComboBoxUtilisateurDeMagasinBar.SelectedValue.ToString
+                        If GunaCheckBoxTous.Checked Then
 
+                            query13 = "SELECT `ACTION`, `PAR` AS 'DONNE BY', `DATE_DE_CONTROLE` AS AT, `UTILISATEUR_ID` AS USER, `CHAMBRE_ID` AS ROOM, `NOM_CLIENT` AS CLIENT, `DATE_ENTTRE` AS 'ARRIVAL', 
+                            `HEURE_ENTREE` AS 'ARRIVAL TIME', `DATE_SORTIE` AS DEPARTURE, `HEURE_SORTIE` AS 'DEPART TIME',`MONTANT_ACCORDE` AS 'REAL PRICE', `ADULTES`, `NB_PERSONNES` AS PAX, `ENFANTS` AS CHILDREN, 
+                              `MONTANT_TOTAL_CAUTION` AS 'ARRHES', `GROUPE` AS 'GROUP',  `SOLDE_RESERVATION` AS BALANCE, `CHAMBRE_ROUTAGE` AS 'ROUNTING ROOM', `VENANT_DE` AS 'FROM', `SE_RENDANT_A` AS 'HEADING TO', 
+                             `ROUTAGE`, `ETAT_NOTE_RESERVATION` AS STATUS, `NOM_ENTREPRISE` AS COMPANY,  `BC_ENTREPRISE` AS 'ORDER', `TYPE_CHAMBRE` AS 'ROOM TYPE' , `CODE_RESERVATION` AS 'RESERVATION No' FROM `trace` 
+                            WHERE DATE_CREATION BETWEEN '" & DateDebut.ToString("yyyy-MM-dd") & "' AND '" & DateFin.ToString("yyyy-MM-dd") & "' AND CODE_RESERVATION=@CODE_RESERVATION ORDER BY ID_TRACE, DATE_DE_CONTROLE ASC"
+
+                        Else
+                            query13 = "SELECT `ACTION`, `PAR` AS  'DONNE BY', `DATE_DE_CONTROLE` AS AT, `UTILISATEUR_ID` AS USER, `CHAMBRE_ID` AS ROOM, `NOM_CLIENT` AS CLIENT, `DATE_ENTTRE` AS 'ARRIVAL', 
+                            `HEURE_ENTREE` AS 'ARRIVAL TIME', `DATE_SORTIE` AS DEPARTURE, `HEURE_SORTIE` AS 'DEPART TIME',`MONTANT_ACCORDE` AS 'REAL PRICE', `ADULTES`, `NB_PERSONNES` AS PAX, `ENFANTS` AS CHILDREN, 
+                              `MONTANT_TOTAL_CAUTION` AS 'ARRHES', `GROUPE` AS 'GROUP',  `SOLDE_RESERVATION` AS BALANCE, `CHAMBRE_ROUTAGE` AS 'ROUNTING ROOM', `VENANT_DE` AS 'FROM', `SE_RENDANT_A` AS 'HEADING TO', 
+                             `ROUTAGE`, `ETAT_NOTE_RESERVATION` AS STATUS, `NOM_ENTREPRISE` AS COMPANY,  `BC_ENTREPRISE` AS 'ORDER', `TYPE_CHAMBRE` AS 'ROOM TYPE' , `CODE_RESERVATION` AS 'RESERVATION No' FROM `trace` 
+                            WHERE UTILISATEUR_ID=@UTILISATEUR_ID AND DATE_CREATION BETWEEN '" & DateDebut.ToString("yyyy-MM-dd") & "' AND '" & DateFin.ToString("yyyy-MM-dd") & "' AND CODE_RESERVATION=@CODE_RESERVATION ORDER BY ACTION, DATE_DE_CONTROLE ASC"
+
+                            CODE_UTILISATEUR = GunaComboBoxUtilisateurDeMagasinBar.SelectedValue.ToString
+
+                        End If
                     End If
+
 
                 End If
 
@@ -701,9 +983,15 @@ Public Class RapportFacturesForm
             Dim misc As Double = 0
 
             DataGridViewRapports.Columns.Add("No", "No")
-            DataGridViewRapports.Columns.Add("CLIENT", "CLIENT")
-            DataGridViewRapports.Columns.Add("IN", "IN")
-            DataGridViewRapports.Columns.Add("OUT", "OUT")
+
+            If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                DataGridViewRapports.Columns.Add("CLIENT", "CLIENT")
+                DataGridViewRapports.Columns.Add("IN", "IN")
+                DataGridViewRapports.Columns.Add("OUT", "OUT")
+            Else
+                DataGridViewRapports.Columns.Add("STAFF_NAME", "STAFF NAME")
+                DataGridViewRapports.Columns.Add("TIME", "TIME")
+            End If
 
             If GlobalVariable.actualLanguageValue = 0 Then
                 DataGridViewRapports.Columns.Add("INVOICE", "INVOICE")
@@ -758,6 +1046,8 @@ Public Class RapportFacturesForm
                 Dim montant As Double = 0
                 Dim ETAT_FACTURE As Integer = -1
                 Dim infoSupClient As DataTable
+                Dim SERVEUR As String = ""
+                Dim CREATEDTIME As String = ""
 
                 For i = 0 To blocNoteDuCaissier.Rows.Count - 1
 
@@ -782,6 +1072,14 @@ Public Class RapportFacturesForm
                     NUMERO_BLOC_NOTE_VERIF = blocNoteDuCaissier.Rows(i)("NUMERO_BLOC_NOTE_VERIF")
                     ETAT_FACTURE = Integer.Parse(blocNoteDuCaissier.Rows(i)("ETAT_FACTURE"))
                     CODE_CLIENT = blocNoteDuCaissier.Rows(i)("CODE_CLIENT")
+                    Dim CODE_UTILISATEUR As String = blocNoteDuCaissier.Rows(i)("SERVEUR")
+
+                    Dim infoserver As DataTable = Functions.getElementByCode(CODE_UTILISATEUR, "utilisateurs", "CODE_UTILISATEUR")
+                    If infoserver.Rows.Count > 0 Then
+                        SERVEUR = infoserver.Rows(0)("NOM_UTILISATEUR")
+                    End If
+
+                    CREATEDTIME = CDate(blocNoteDuCaissier.Rows(i)("DATE_DE_CONTROLE")).ToLongTimeString
 
                     If ETAT_FACTURE = 1 Then
 
@@ -886,7 +1184,11 @@ Public Class RapportFacturesForm
 
                     End If
 
-                    DataGridViewRapports.Rows.Add(i + 1, NOM_CLIENT, In_, Out_, NUMERO_BLOC_NOTE_VERIF, pax, breakfast, dejeuner, dinner, boisson, misc, cash, visa, mobile_money, guest_in, free, compte, observation)
+                    If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                        DataGridViewRapports.Rows.Add(i + 1, NOM_CLIENT, In_, Out_, NUMERO_BLOC_NOTE_VERIF, pax, breakfast, dejeuner, dinner, boisson, misc, cash, visa, mobile_money, guest_in, free, compte, observation)
+                    Else
+                        DataGridViewRapports.Rows.Add(i + 1, SERVEUR, CREATEDTIME, NUMERO_BLOC_NOTE_VERIF, pax, breakfast, dejeuner, dinner, boisson, misc, cash, visa, mobile_money, guest_in, free, compte, observation)
+                    End If
 
                 Next
 
@@ -1039,19 +1341,35 @@ Public Class RapportFacturesForm
 
             GunaDateTimePickerDebut.Enabled = True
 
-            DataGridViewRapports.Columns.Add("DESIGNATION", "DESIGNATION")
+            If GlobalVariable.actualLanguageValue = 1 Then
+                DataGridViewRapports.Columns.Add("DESIGNATION", "DESIGNATION")
 
-            DataGridViewRapports.Columns.Add("STOCK_INITIAL_MATIN", "SI MATIN")
-            DataGridViewRapports.Columns.Add("ENTREE_MATIN", "ENTREE MATIN")
-            DataGridViewRapports.Columns.Add("SORTIE_MATIN", "SORTIE MATIN")
-            DataGridViewRapports.Columns.Add("STOCK_FINAL_MATIN", "SF MATIN")
+                DataGridViewRapports.Columns.Add("STOCK_INITIAL_MATIN", "SI MATIN")
+                DataGridViewRapports.Columns.Add("ENTREE_MATIN", "ENTREE MATIN")
+                DataGridViewRapports.Columns.Add("SORTIE_MATIN", "SORTIE MATIN")
+                DataGridViewRapports.Columns.Add("STOCK_FINAL_MATIN", "SF MATIN")
 
-            DataGridViewRapports.Columns.Add("STOCK_INITIAL_SOIR", "SI SOIR")
-            DataGridViewRapports.Columns.Add("ENTREE_SOIR", "ENTREE SOIR")
-            DataGridViewRapports.Columns.Add("SORTIE_SOIR", "SORTIE SOIR")
-            DataGridViewRapports.Columns.Add("STOCK_FINAL_SOIR", "SF SOIR")
+                DataGridViewRapports.Columns.Add("STOCK_INITIAL_SOIR", "SI SOIR")
+                DataGridViewRapports.Columns.Add("ENTREE_SOIR", "ENTREE SOIR")
+                DataGridViewRapports.Columns.Add("SORTIE_SOIR", "SORTIE SOIR")
+                DataGridViewRapports.Columns.Add("STOCK_FINAL_SOIR", "SF SOIR")
 
-            DataGridViewRapports.Columns.Add("CODE_ARTICLE", "CODE_ARTICLE")
+                DataGridViewRapports.Columns.Add("CODE_ARTICLE", "CODE_ARTICLE")
+            Else
+                DataGridViewRapports.Columns.Add("ITEM", "ITEM")
+
+                DataGridViewRapports.Columns.Add("STOCK_INITIAL_MATIN", "INITIAL STOCK")
+                DataGridViewRapports.Columns.Add("ENTREE_MATIN", "ENTERED STOCK")
+                DataGridViewRapports.Columns.Add("SORTIE_MATIN", "QTY SOLD")
+                DataGridViewRapports.Columns.Add("STOCK_FINAL_MATIN", "FINAL STOCK")
+
+                DataGridViewRapports.Columns.Add("STOCK_INITIAL_SOIR", "INITIAL STOCK")
+                DataGridViewRapports.Columns.Add("ENTREE_SOIR", "ENTERED STOCK")
+                DataGridViewRapports.Columns.Add("SORTIE_SOIR", "QTY SOLD")
+                DataGridViewRapports.Columns.Add("STOCK_FINAL_SOIR", "FINAL STOCK")
+
+                DataGridViewRapports.Columns.Add("CODE_ARTICLE", "CODE_ARTICLE")
+            End If
 
             Dim CODE_CAISSIER As String = ""
 
@@ -1298,6 +1616,61 @@ Public Class RapportFacturesForm
             montantService_11 = 0
             montantService_12 = 0
 
+        ElseIf GlobalVariable.DocumentToGenerate = "PRODUCTIVITE DU BAR" Then
+
+            Me.Cursor = Cursors.WaitCursor
+            'Impression.productiviteReceptionnistes(DateDebut, DateFin)
+            Impression.productivitePersonnelDuBar(DateDebut, DateFin)
+            Me.Cursor = Cursors.Default
+
+        ElseIf GlobalVariable.DocumentToGenerate = "INVENTAIRE DES VENTES GLOBAL PAR SERVEUR" Then
+
+            Dim titre As String = "INVENTAIRE DES VENTES GLOBAL PAR SERVEUR "
+            If GlobalVariable.actualLanguageValue = 0 Then
+                titre = "SALES REVENUES PER ISSUER "
+            End If
+
+            Dim ETAT_FACTURE As Integer = 0
+
+            Dim ligneFacture As New LigneFacture()
+            Dim CODE_CAISSIER As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+
+            Impression.inventaireDesVentesFastFood(DateDebut, DateFin, CODE_CAISSIER, titre)
+
+        ElseIf GlobalVariable.DocumentToGenerate = "INVENTAIRE BAR - RESTAURANT" Then
+
+            Dim titre As String = "INVENTAIRE DES VENTES BAR - RESTAURANT "
+            If GlobalVariable.actualLanguageValue = 0 Then
+                titre = "SALES REVENUES FOR BAR OR RESTAURANT "
+            End If
+
+            Dim ETAT_FACTURE As Integer = 0
+
+            Dim ligneFacture As New LigneFacture()
+            Dim CODE_CAISSIER As String = "" 'GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+
+            Impression.inventaireDesVentesFastFoodGroupByBarRestaurant(DateDebut, DateFin, CODE_CAISSIER, titre)
+
+        ElseIf GlobalVariable.DocumentToGenerate = "INVENTAIRE BAR - RESTAURANT PAR SERVEUR" Then
+
+            Dim titre As String = "INVENTAIRE BAR - RESTAURANT PAR SERVEUR "
+            If GlobalVariable.actualLanguageValue = 0 Then
+                titre = "SALES REVENUES PER STAFF (WAITERS - WAITRESSES) "
+            End If
+
+            Dim ETAT_FACTURE As Integer = 0
+
+            Dim ligneFacture As New LigneFacture()
+            Dim CODE_CAISSIER As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+
+            Impression.inventaireDesVentesFastFoodBarRestaurantPerIssuer(DateDebut, DateFin, CODE_CAISSIER, titre)
+
+        ElseIf GlobalVariable.DocumentToGenerate = "PLATS POPULAIRES" Then
+
+            Me.Cursor = Cursors.WaitCursor
+            'Impression.productiviteReceptionnistes(DateDebut, DateFin)
+            Impression.platsPopulaires(DateDebut, DateFin)
+            Me.Cursor = Cursors.Default
 
         ElseIf GlobalVariable.DocumentToGenerate = "PERIODIC ACCOMMODATION REPORT" Then
 
@@ -1695,7 +2068,7 @@ Public Class RapportFacturesForm
 
             Functions.DocumentToPrint(CODE_FACTURE, "lign_facture", "CODE_FACTURE", CODE_CLIENT)
 
-        ElseIf GlobalVariable.DocumentToGenerate = "JOURNAL DES VENTES PERIODIQUE" Or GlobalVariable.DocumentToGenerate = "JOURNAL DES VENTES" Then
+        ElseIf GlobalVariable.DocumentToGenerate = "JOURNAL DES VENTES PERIODIQUE" Then
 
             Dim CODE_UTILISATEUR As String = ""
 
@@ -1704,6 +2077,46 @@ Public Class RapportFacturesForm
             End If
 
             Impression.journalDesVentesPeriodique(DateDebut, DateFin, CODE_UTILISATEUR)
+
+        ElseIf GlobalVariable.DocumentToGenerate = "JOURNAL DE VERSEMENT" Then
+
+            Dim dtSpecific As New DataTable
+
+            If GunaComboBoxUtilisateurDeMagasinBar.SelectedIndex >= 0 Then
+
+                Dim CODE_CAISSIER As String = GunaComboBoxUtilisateurDeMagasinBar.SelectedValue.ToString
+
+                Dim adapter As New MySqlDataAdapter
+                Dim getUserQuery = "SELECT * FROM transfert_recette WHERE CODE_UTILISATEUR_CREA = @CODE_UTILISATEUR_CREA AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateFin.ToString("yyyy-MM-dd") & "'ORDER BY ID_FACTURE DESC"
+
+                Dim Command As New MySqlCommand(getUserQuery, GlobalVariable.connect)
+                Command.Parameters.Add("@CODE_UTILISATEUR_CREA", MySqlDbType.VarChar).Value = CODE_CAISSIER
+                adapter.SelectCommand = Command
+
+                adapter.Fill(dtSpecific)
+
+            Else
+
+                Dim getUserQuery = "SELECT * FROM transfert_recette WHERE DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateFin.ToString("yyyy-MM-dd") & "'ORDER BY ID_FACTURE DESC"
+
+                Dim command As New MySqlCommand(getUserQuery, GlobalVariable.connect)
+
+                Dim adapter As New MySqlDataAdapter
+                adapter.SelectCommand = command
+                adapter.Fill(dtSpecific)
+
+            End If
+
+            'GENERATION DU BON DE TRANSFERT DE CAISSE
+
+            If dtSpecific.Rows.Count > 0 Then
+
+                Dim CODE_CAISSIER As String = ""
+                If dtSpecific.Rows.Count = 1 Then
+                    CODE_CAISSIER = dtSpecific.Rows(0)("CODE_UTILISATEUR_CREA")
+                End If
+                Functions.RapportBonDeCaisseDeTransfert(dtSpecific, DateFin, CODE_CAISSIER)
+            End If
 
         ElseIf GlobalVariable.DocumentToGenerate = "SITUATION DE CAISSE PERIODIQUE" Or GlobalVariable.DocumentToGenerate = "SITUATION GLOBAL" Then
 
@@ -1724,10 +2137,18 @@ Public Class RapportFacturesForm
 
             Dim LIBELLE As String = ""
 
-            If GunaCheckBoxParFamille.Checked Then
-                LIBELLE = " RAPPORT DES VENTES JOURNALIER PAR FAMILLE D'ARTICLE DU "
+            If GlobalVariable.actualLanguageValue = 1 Then
+                If GunaCheckBoxParFamille.Checked Then
+                    LIBELLE = " RAPPORT DES VENTES JOURNALIER PAR FAMILLE D'ARTICLE DU "
+                Else
+                    LIBELLE = " RAPPORT DES VENTES JOURNALIER PAR ARTICLE DU "
+                End If
             Else
-                LIBELLE = " RAPPORT DES VENTES JOURNALIER PAR ARTICLE DU "
+                If GunaCheckBoxParFamille.Checked Then
+                    LIBELLE = " DAILY SALES HISTORY PER FAMILY OF ARTICLE"
+                Else
+                    LIBELLE = " DAILY SALES HISTORY PER ARTICLE"
+                End If
             End If
 
             Dim CODE_CAISSIER As String = ""
@@ -1751,7 +2172,6 @@ Public Class RapportFacturesForm
                 End If
 
             Else
-
                 'INVENTAIRE PAR MAGASIN
                 If GunaCheckBoxParFamille.Visible Then
                     If GunaCheckBoxParFamille.Checked Then
@@ -1765,6 +2185,28 @@ Public Class RapportFacturesForm
 
             Me.Cursor = Cursors.Default
 
+        ElseIf GlobalVariable.DocumentToGenerate = "INVENTAIRE DES VENTES CUSTOM" Then
+
+            Me.Cursor = Cursors.WaitCursor
+
+            Dim LIBELLE As String = ""
+
+            If GunaCheckBoxParFamille.Checked Then
+                LIBELLE = " RAPPORT DES VENTES JOURNALIER PAR FAMILLE D'ARTICLE DU "
+            Else
+                LIBELLE = " RAPPORT DES VENTES JOURNALIER PAR ARTICLE DU "
+            End If
+
+            Dim CODE_CAISSIER As String = ""
+
+            If GunaComboBoxUtilisateurDeMagasinBar.SelectedIndex >= 0 Then
+                CODE_CAISSIER = GunaComboBoxUtilisateurDeMagasinBar.SelectedValue.ToString
+            End If
+
+            Impression.inventaireDesVentesCustom(DataGridViewRapports, DateDebut, DateFin, CODE_CAISSIER, LIBELLE)
+
+            Me.Cursor = Cursors.Default
+
         ElseIf GlobalVariable.DocumentToGenerate = "PRODUCTIVITE DES RECEPTIONNISTES" Then
 
             Me.Cursor = Cursors.WaitCursor
@@ -1773,7 +2215,9 @@ Public Class RapportFacturesForm
 
         ElseIf GlobalVariable.DocumentToGenerate = "FICHE D'INVENTAIRE JOURNALIERE BAR" Then
 
+            Me.Cursor = Cursors.WaitCursor
             Impression.ficheInventaireJournalierBar(DataGridViewRapports, DateDebut, DateFin)
+            Me.Cursor = Cursors.Default
 
         ElseIf GlobalVariable.DocumentToGenerate = "MOUCHARDS" Then
 
@@ -1796,9 +2240,13 @@ Public Class RapportFacturesForm
         ElseIf GlobalVariable.DocumentToGenerate = "INVENTAIRE DU MAGASIN" Then
 
             Me.Cursor = Cursors.WaitCursor
+            Dim CODE_MAGASIN_ACTUEL As String = ""
 
-            Impression.impressionEconomatBarRestautant(DataGridViewRapports, GunaLabelGeneral.Text)
+            If GunaComboBoxMagasins.SelectedIndex >= 0 Then
+                CODE_MAGASIN_ACTUEL = GunaComboBoxMagasins.SelectedValue.ToString()
+            End If
 
+            Impression.impressionEconomatBarRestautant(DataGridViewRapports, GunaLabelGeneral.Text, CODE_MAGASIN_ACTUEL)
             Me.Cursor = Cursors.Default
 
         ElseIf GlobalVariable.DocumentToGenerate = "SITUATION MENSUEL DE L'ETABLISSEMENT" Then
@@ -1845,7 +2293,11 @@ Public Class RapportFacturesForm
 
             Me.Cursor = Cursors.WaitCursor
 
-            Impression.FicheVentilationBarRestaurant(DataGridViewRapports, GunaDateTimePickerDebut.Value.ToShortDateString, GunaDateTimePickerFin.Value.ToShortDateString)
+            If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                Impression.FicheVentilationBarRestaurant(DataGridViewRapports, GunaDateTimePickerDebut.Value.ToShortDateString, GunaDateTimePickerFin.Value.ToShortDateString)
+            Else
+                Impression.FicheVentilationBarRestaurantFastFood(DataGridViewRapports, GunaDateTimePickerDebut.Value.ToShortDateString, GunaDateTimePickerFin.Value.ToShortDateString)
+            End If
 
             Me.Cursor = Cursors.Default
 
@@ -1857,8 +2309,13 @@ Public Class RapportFacturesForm
 
         If GunaCheckBoxTous.Checked Then
             GunaComboBoxUtilisateurDeMagasinBar.SelectedIndex = -1
+            GunaComboBoxUtilisateurDeMagasinBar.Enabled = False
         Else
-            GunaComboBoxUtilisateurDeMagasinBar.SelectedIndex = 0
+            If GunaComboBoxUtilisateurDeMagasinBar.Items.Count > 0 Then
+                GunaComboBoxUtilisateurDeMagasinBar.SelectedIndex = 0
+                GunaComboBoxUtilisateurDeMagasinBar.Enabled = True
+                GunaComboBoxUtilisateurDeMagasinBar.SelectedValue = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+            End If
         End If
 
         DataGridViewRapports.Columns.Clear()
@@ -1870,7 +2327,10 @@ Public Class RapportFacturesForm
         Dim indexUser As Integer = GunaComboBoxUtilisateurDeMagasinBar.SelectedIndex
 
         If GunaComboBoxUtilisateurDeMagasinBar.SelectedIndex >= 0 Then
-            'GunaCheckBoxTous.Checked = False
+            If GunaCheckBoxTous.Checked Then
+                GunaCheckBoxTous.Checked = False
+            End If
+
             'GunaComboBoxUtilisateurDeMagasinBar.SelectedIndex = indexUser
         End If
 
@@ -1881,7 +2341,7 @@ Public Class RapportFacturesForm
     Private Sub GunaDateTimePickerDebut_ValueChanged(sender As Object, e As EventArgs) Handles GunaDateTimePickerDebut.ValueChanged
         DataGridViewRapports.Columns.Clear()
 
-        If GlobalVariable.DocumentToGenerate = "FICHE D'INVENTAIRE JOURNALIERE BAR" Or
+        If GlobalVariable.DocumentToGenerate = "FICHE D'INVENTAIRE JOURNALIERE BAR" Or GlobalVariable.DocumentToGenerate = "JOURNAL DE VERSEMENT" Or
             GlobalVariable.DocumentToGenerate = "SITUATION GLOBAL" Or GlobalVariable.DocumentToGenerate = "MOUCHARDS" Or
             GlobalVariable.DocumentToGenerate = "FICHE STATISTIQUE JOURNALIERE" Or GlobalVariable.DocumentToGenerate = "JOURNAL DES VENTES SHIFT" Or
             GlobalVariable.DocumentToGenerate = "JOURNAL DES VENTES" Then

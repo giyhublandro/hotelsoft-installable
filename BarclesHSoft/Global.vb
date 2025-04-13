@@ -3,7 +3,11 @@ Imports MySql.Data.MySqlClient
 
 Public Class GlobalVariable
 
+    Public Shared grandeCaisse = ""
+
     Public Shared typeDeCompte As String = ""
+
+    Public Shared prestaire_fournisseur As Integer = 0
 
     Public Shared libre_propre As String = ""
     Public Shared occupee_propre As String = ""
@@ -13,7 +17,8 @@ Public Class GlobalVariable
     Public Shared reserver As String = ""
 
     Public Shared bon_reception As String = "Bon de Réception"
-    Public Shared bon_requisition As String = "Bon de Réquisition"
+    'Public Shared bon_requisition As String = "Bon de Réquisition"
+    Public Shared bon_requisition As String = "Demande d'Achat"
     Public Shared inventaire As String = "Inventaire"
     Public Shared sortie As String = "Sortie"
     Public Shared sortie_exceptionnelle As String = "Sortie Exceptionnelle"
@@ -60,6 +65,8 @@ Public Class GlobalVariable
     Public Shared attribuerChambre As Boolean = False
 
     Public Shared quantite_conso As Double = 0
+
+    Public Shared pasDeMagasin As Boolean = False
 
     'CONTROL DE DUPLICATION
 
@@ -161,6 +168,9 @@ Public Class GlobalVariable
     Public Shared AgenceActuelle As DataTable
     'Company
     Public Shared societe As DataTable
+
+    'Config
+    Public Shared config As DataTable
 
     'tarif 
     Public Shared codeTarifPrixToUpdate

@@ -63,6 +63,12 @@ Public Class BilletageForm
 
             afficherButtonTrasnfert()
 
+        ElseIf GlobalVariable.billetageAPartirDe = "fast_food" Then
+
+            SituationDeCaisseJournaliere()
+
+            afficherButtonTrasnfert()
+
         ElseIf GlobalVariable.billetageAPartirDe = "petite caisse" Then
 
             LabelSituationCaisse.Text = Format(PetiteCaisseForm.LabelSituationCaisse.Text, "#,##0")
@@ -131,6 +137,24 @@ Public Class BilletageForm
 
         Functions.magasinActuelEtShiftDunUtilisateur()
 
+        Dim showCustomImage As Boolean = False
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+            If GlobalVariable.config.Rows.Count > 0 Then
+                showCustomImage = True
+            End If
+        End If
+
+        If showCustomImage Then
+
+            Dim buttonPanel As Integer = 1
+            GunaPanel1.BackColor = Functions.colorationWindow(buttonPanel)
+            GunaPanel2.BackColor = Functions.colorationWindow(buttonPanel)
+
+            buttonPanel = 0 'Button Background
+            GunaButtonSaveFacturation.BaseColor = Functions.colorationWindow(buttonPanel)
+
+        End If
     End Sub
 
     Public Shared Function SituationDeCaisseEspeces(ByVal DateDeSituation As Date) As DataTable
@@ -557,7 +581,7 @@ Public Class BilletageForm
 
                 GlobalVariable.transfertDeCaisseVersCaissiere = True
 
-                If GlobalVariable.billetageAPartirDe = "reception" Or GlobalVariable.billetageAPartirDe = "comptable" Then
+                If GlobalVariable.billetageAPartirDe = "reception" Or GlobalVariable.billetageAPartirDe = "comptable" Or GlobalVariable.billetageAPartirDe = "fast_food" Then
 
                     'FacturationForm.Close()
 
@@ -622,6 +646,32 @@ Public Class BilletageForm
                     MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
 
+                    If GlobalVariable.AgenceActuelle.Rows(0)("MESSAGE_WHATSAPP") = 1 Then
+
+                        If GlobalVariable.fenetreDouvervetureDeCaisse = "bar" Or GlobalVariable.fenetreDouvervetureDeCaisse = "fast_food" Then
+
+                            Dim ligneFacture As New LigneFacture
+                            Dim DateDebut As Date = GlobalVariable.DateDeTravail.ToString("yyyy-MM-dd")
+                            Dim DateFin As Date = GlobalVariable.DateDeTravail.ToString("yyyy-MM-dd")
+
+                            GlobalVariable.DocumentToGenerate = "JOURNAL DES VENTES SHIFT"
+                            'Dim ligneFacture_ As New LigneFacture()
+                            Dim CODE_CAISSIER_ As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+                            dtParentCategory = ligneFacture.ListeDesCategoriesDArticleVendus(DateDebut, DateFin, CODE_CAISSIER_)
+
+                            args.action = 0 'JOURNAL DES VENTES DU SHIFT
+                            args.dt = dtParentCategory
+                            args.DateDebut = DateDebut
+                            args.DateFin = DateFin
+
+                            If dtParentCategory.Rows.Count > 0 Then
+                                backGroundWorkerToCall(args)
+                            End If
+
+                        End If
+
+                    End If
+
                     '-----------------------------------------------
 
                     'CHARGEMENT DU FICHIER DE VENTILATION DU SHIFT APRES CLOTURE DE CAISSE
@@ -641,7 +691,7 @@ Public Class BilletageForm
                     '-----------------------------------------------
 
 
-                ElseIf GlobalVariable.billetageAPartirDe = "bar" Then
+                ElseIf GlobalVariable.billetageAPartirDe = "bar" Or GlobalVariable.billetageAPartirDe = "fast_food" Then
 
                     'AU NIVEAU DU BAR AVANT CLOTURE ON DOIT VERIFIER QUE LES CAISSES SONT EQUILIBREES
 
@@ -655,9 +705,14 @@ Public Class BilletageForm
 
                         CODE_CAISSE = CAISSE_UTILISATEUR.Rows(0)("CODE_CAISSE")
 
-                        BarRestaurantForm.FermerCaisseToolStripMenuItem.Visible = False
+                        If GlobalVariable.billetageAPartirDe.Equals("fast_food") Then
+                            FastFoodForm.FermerCaisseToolStripMenuItem.Visible = False
+                            FastFoodForm.OuvrirCaisseToolStripMenuItem.Visible = True
+                        Else
+                            BarRestaurantForm.FermerCaisseToolStripMenuItem.Visible = False
+                            BarRestaurantForm.OuvrirCaisseToolStripMenuItem.Visible = True
+                        End If
 
-                        BarRestaurantForm.OuvrirCaisseToolStripMenuItem.Visible = True
 
                     End If
 
@@ -749,6 +804,16 @@ Public Class BilletageForm
                         Dim DATE_VENTE As Date = GlobalVariable.DateDeTravail
                         Dim CODE_AGENCE As String = GlobalVariable.AgenceActuelle.Rows(0)("CODE_AGENCE")
 
+                        If GlobalVariable.billetageAPartirDe.Equals("fast_food") Then
+                            EN_CHAMBRE = 0
+                            EN_SALLE = 0
+                            COMPTOIR = FastFoodForm.LabelTotalVenteComptoire.Text
+                            COMPTE = FastFoodForm.LabelVenteVersCompte.Text
+                            GRATUITEE = 0
+                            GRATUITE_EN_CHAMBRE = 0
+                            TOTAL_VENTE = FastFoodForm.GunaTextBoxTotalDesVentesJournaliere.Text
+                        End If
+
                         If CAISSE_UTILISATEUR.Rows.Count > 0 Then
                             CODE_CAISSE = CAISSE_UTILISATEUR.Rows(0)("CODE_CAISSE")
                         End If
@@ -770,19 +835,44 @@ Public Class BilletageForm
                     Functions.inventaireJournalierTextFile(CODE_MAGASIN, SHIFT_VALUE, DEBUT_FIN)
                     '-----------------------------------------------
 
-                    BarRestaurantForm.FermerCaisseToolStripMenuItem.Visible = False
+                    If GlobalVariable.billetageAPartirDe.Equals("fast_food") Then
 
-                    BarRestaurantForm.OuvrirCaisseToolStripMenuItem.Visible = True
+                        FastFoodForm.FermerCaisseToolStripMenuItem.Visible = False
+                        FastFoodForm.OuvrirCaisseToolStripMenuItem.Visible = True
 
-                    BarRestaurantForm.GunaTextBoxTotalDesVentesJournaliere.Text = 0
-                    BarRestaurantForm.LabelTotalVenteEnChambre.Text = 0
-                    BarRestaurantForm.LabelTotalVenteComptoire.Text = 0
-                    BarRestaurantForm.LabelVenteOfferte.Text = 0
-                    BarRestaurantForm.LabelVenteVersCompte.Text = 0
-                    BarRestaurantForm.LabelSituationCaisse.Text = 0
-                    BarRestaurantForm.LabelOffresEnChambre.Text = 0
-                    BarRestaurantForm.LabelVenteEvent.Text = 0
-                    BarRestaurantForm.LabelSituationCaisse.Text = 0
+                        FastFoodForm.GunaTextBoxTotalDesVentesJournaliere.Text = 0
+                        FastFoodForm.LabelTotalVenteComptoire.Text = 0
+                        FastFoodForm.LabelVenteVersCompte.Text = 0
+                        FastFoodForm.LabelSituationCaisse.Text = 0
+
+                    Else
+
+                        BarRestaurantForm.FermerCaisseToolStripMenuItem.Visible = False
+                        BarRestaurantForm.OuvrirCaisseToolStripMenuItem.Visible = True
+
+                        BarRestaurantForm.GunaTextBoxTotalDesVentesJournaliere.Text = 0
+                        BarRestaurantForm.LabelTotalVenteEnChambre.Text = 0
+                        BarRestaurantForm.LabelTotalVenteComptoire.Text = 0
+                        BarRestaurantForm.LabelVenteOfferte.Text = 0
+                        BarRestaurantForm.LabelVenteVersCompte.Text = 0
+                        BarRestaurantForm.LabelSituationCaisse.Text = 0
+                        BarRestaurantForm.LabelOffresEnChambre.Text = 0
+                        BarRestaurantForm.LabelVenteEvent.Text = 0
+
+                        BarRestaurantCaisseEnregistreuseForm.FermerCaisseToolStripMenuItem.Visible = False
+                        BarRestaurantCaisseEnregistreuseForm.OuvrirCaisseToolStripMenuItem.Visible = True
+
+                        BarRestaurantCaisseEnregistreuseForm.GunaTextBoxTotalDesVentesJournaliere.Text = 0
+                        BarRestaurantCaisseEnregistreuseForm.LabelTotalVenteEnChambre.Text = 0
+                        BarRestaurantCaisseEnregistreuseForm.LabelTotalVenteComptoire.Text = 0
+                        BarRestaurantCaisseEnregistreuseForm.LabelVenteOfferte.Text = 0
+                        BarRestaurantCaisseEnregistreuseForm.LabelVenteVersCompte.Text = 0
+                        BarRestaurantCaisseEnregistreuseForm.LabelSituationCaisse.Text = 0
+                        BarRestaurantCaisseEnregistreuseForm.LabelOffresEnChambre.Text = 0
+                        BarRestaurantCaisseEnregistreuseForm.LabelVenteEvent.Text = 0
+
+                    End If
+
 
                     '-------------------------------------------------- GESTION DU TRANSFERT DE RECETTE -----------------------------------------------
 
@@ -820,7 +910,15 @@ Public Class BilletageForm
 
                     GlobalVariable.transfertDeCaisseVersCaissiere = False
 
-                    BarRestaurantForm.indicateurDEtatDeCaisse()
+                    If GlobalVariable.billetageAPartirDe.Equals("bar") Then
+                        BarRestaurantForm.indicateurDEtatDeCaisse()
+                    ElseIf GlobalVariable.billetageAPartirDe.Equals("fast_food") Then
+                        FastFoodForm.indicateurDEtatDeCaisse()
+                    ElseIf GlobalVariable.billetageAPartirDe.Equals("comptable") Then
+                        'MainWindowComptabiliteForm.indicateurDEtatDeCaisse()
+                    End If
+
+
 
                     'RapportApresCloture.journalDesVentes(dtParentCategory, DateDebut, DateFin)
 
@@ -832,7 +930,7 @@ Public Class BilletageForm
 
             Dim FORM_NAME As String = ""
 
-            If GlobalVariable.billetageAPartirDe = "reception" Or GlobalVariable.billetageAPartirDe = "bar" Or GlobalVariable.billetageAPartirDe = "petite caisse" Then
+            If GlobalVariable.billetageAPartirDe = "reception" Or GlobalVariable.billetageAPartirDe = "bar" Or GlobalVariable.billetageAPartirDe = "fast_food" Or GlobalVariable.billetageAPartirDe = "comptable" Or GlobalVariable.billetageAPartirDe = "petite caisse" Then
 
                 Dim NB1 As Integer = GunaTextBox35.Text
                 Dim NB2 As Integer = GunaTextBox30.Text
@@ -901,7 +999,7 @@ Public Class BilletageForm
 
                     closeMe = True
 
-                    Functions.BonDeCaisseDeTransfert(CODE_CAISSIER, REFERENCE_TRANSACTION, LIBELLE_TRANSFERT, DEBIT, CREDIT, REFERENCE_TRANSACTION, FORM_NAME)
+                    Functions.BonDeCaisseDeTransfert(CODE_CAISSIER, REFERENCE_TRANSACTION, LIBELLE_TRANSFERT, DEBIT, CREDIT,REFERENCE_TRANSACTION, FORM_NAME)
 
                 End If
 
@@ -1010,5 +1108,7 @@ Public Class BilletageForm
 
     End Sub
 
-
+    Private Sub GunaImageButton2_Click(sender As Object, e As EventArgs) Handles GunaImageButton2.Click
+        Me.WindowState = FormWindowState.Minimized
+    End Sub
 End Class

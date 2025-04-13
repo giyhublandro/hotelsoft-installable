@@ -142,12 +142,13 @@ Public Class BarRestaurantForm
 
             Dim CODE_CLIENT As String = ""
 
-            Dim query As String = "SELECT * FROM client WHERE TYPE_CLIENT=@TYPE_CLIENT ORDER BY NOM_PRENOM ASC"
+            Dim query As String = "SELECT * FROM client WHERE TYPE_CLIENT=@TYPE_CLIENT or TYPE_CLIENT=@TYPE_CLIENT_1 ORDER BY NOM_PRENOM ASC"
             Dim adapter As New MySqlDataAdapter
             Dim Client As New DataTable
             Dim command As New MySqlCommand(query, GlobalVariable.connect)
 
             command.Parameters.Add("@TYPE_CLIENT", MySqlDbType.VarChar).Value = "COMPTOIR"
+            command.Parameters.Add("@TYPE_CLIENT_1", MySqlDbType.VarChar).Value = "WALK IN"
 
             adapter.SelectCommand = command
 
@@ -179,13 +180,59 @@ Public Class BarRestaurantForm
         TimerRefreshConnexion.Start()
 
         Dim language As New Languages()
-
         language.barRestaurant(GlobalVariable.actualLanguageValue)
+        language.side_menu_bar_restaurant_form(GlobalVariable.actualLanguageValue)
+
+        EchangerToolStripMenuItem.Visible = False
 
         If GlobalVariable.AgenceActuelle.Rows(0)("SESSION_UNIQUE") = 0 Then
             GunaComboBoxFiltreBlocNotre.Visible = True
         Else
             GunaComboBoxFiltreBlocNotre.Visible = False
+        End If
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 1 Then
+
+            If GlobalVariable.actualLanguageValue = 0 Then
+                GunaAdvenceButtonFacturationDesEnChambres.Text = "RESERVATIONS"
+            Else
+                GunaAdvenceButtonFacturationDesEnChambres.Text = "BOOKING"
+            End If
+
+            Label22.Visible = False
+            Panel2.Visible = False
+            TablesToolStripMenuItem.Visible = True
+
+        End If
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("NUM_BLOC_NOTE_AUTOMATIQUE") = 1 Then
+
+            GunaComboBoxTable.Visible = True
+            LabelBlocNoteOuTable.Visible = True
+            GunaButtonTables.Visible = True
+            GunaTextBoxServeur.Visible = True
+
+            Dim query4 = "SELECT * FROM `tables` ORDER BY TABLE_NAME ASC"
+
+            Dim command4 As New MySqlCommand(query4, GlobalVariable.connect)
+
+            Dim adapter4 As New MySqlDataAdapter(command4)
+            Dim dt As New DataTable()
+            adapter4.Fill(dt)
+
+            If dt.Rows.Count > 0 Then
+                For i = 0 To dt.Rows.Count - 1
+                    GunaComboBoxTable.Items.Add(dt.Rows(i)("TABLE_NAME"))
+                Next
+            End If
+
+            GunaTextBoxBlocNote.Enabled = False
+
+            GunaComboBoxTable.SelectedIndex = 0
+            generationBlocNote()
+
+        Else
+            LabelBlocNoteOuTable.Visible = False
         End If
 
         '----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -269,6 +316,10 @@ Public Class BarRestaurantForm
 
         'Managing  the facturationcoming from the front desk
 
+
+        'gestion_des_shifts : ON REGARDE SI L'UTILISATEUR A DEJA UN MAGASIN ET SON SHIFT UTILE POUR LA GESTION DES STOCKS
+        Functions.magasinActuelEtShiftDunUtilisateur()
+
         'CLIENT COMPTOIRE
         If GlobalVariable.typeDeClientAFacturer = "comptoir" Then
 
@@ -278,7 +329,7 @@ Public Class BarRestaurantForm
 
             GunaTextBoxBlocNote.Visible = True
             GunaComboBoxListeDesComandes.Visible = True
-            LabelBlocNoteOuTable.Visible = True
+            'LabelBlocNoteOuTable.Visible = True
 
             'Client comptoir liste des commandes pour chaque bloc_note
             AutoLoadOfBlocNote()
@@ -320,13 +371,13 @@ Public Class BarRestaurantForm
                         GunaTextBoxNomPrenom.Text = ""
                     End If
 
-                    Dim ListeDesArticlesDeCetteComandes As DataTable = Functions.GetAllElementsOnCondition(blocNoteEnCours.Rows(0)("NUMERO_BLOC_NOTE"), "ligne_facture_temp", "NUMERO_BLOC_NOTE")
-                    'On charge l'ensemble des articles en relation avec cette commande ou numero de bloc note
-                    If ListeDesArticlesDeCetteComandes.Rows.Count > 0 Then
-                        OutPutLigneFacture()
-                    Else
-                        'GunaDataGridViewLigneFacture.Columns.Clear()
+                    Dim TABLE_NAME As String = "ligne_facture_temp"
+
+                    If blocNoteEnCours.Rows(0)("ETAT_BLOC_NOTE") = 1 Then
+                        TABLE_NAME = "ligne_facture"
                     End If
+
+                    OutPutLigneFacture(TABLE_NAME)
 
                     If GlobalVariable.actualLanguageValue = 0 Then
                         If blocNoteEnCours.Rows(0)("ETAT_BLOC_NOTE") = 0 Then
@@ -354,6 +405,10 @@ Public Class BarRestaurantForm
 
                 End If
 
+            Else
+
+                loadComptoirByDefault()
+
             End If
 
         Else
@@ -372,8 +427,6 @@ Public Class BarRestaurantForm
 
         resumeDesVentesDuJours(CDate(GlobalVariable.DateDeTravail).ToShortDateString)
 
-        'gestion_des_shifts : ON REGARDE SI L'UTILISATEUR A DEJA UN MAGASIN ET SON SHIFT UTILE POUR LA GESTION DES STOCKS
-        Functions.magasinActuelEtShiftDunUtilisateur()
 
         If GlobalVariable.actualLanguageValue = 0 Then
 
@@ -393,95 +446,253 @@ Public Class BarRestaurantForm
 
         'GunaTextBoxNom_Prenom.Text = Functions.getMacAddresse()
 
+        If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 1 Then
+
+            ReceptionToolStripMenuItem.Visible = False
+            RESERVATIONToolStripMenuItem.Visible = False
+            SERVICEDETAGEToolStripMenuItem.Visible = False
+            TECHNIQUEToolStripMenuItem.Visible = False
+            ToolStripMenuItemServTech.Visible = False
+
+            ClôturerToolStripMenuItem.Visible = True
+
+        End If
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 1 Then
+            GunaButtonProductionReceptionnists.Visible = True
+        End If
+
+        If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("SERVEUR") = 1 Then
+            Label6.Visible = False
+            PanelSituationCaisse.Visible = False
+        End If
+
+        Dim showButton As Boolean = False
+        DépensesToolStripMenuItem.Visible = False
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+            Dim config As DataTable = Functions.allTableFields("config")
+            If config.Rows.Count > 0 Then
+                showButton = True
+            End If
+        End If
+
+        If showButton Then
+            GunaButtonOnL.Visible = True
+            DépensesToolStripMenuItem.Visible = True
+            EchangerToolStripMenuItem.Visible = True
+
+            Dim buttonPanel As Integer = 1
+            GunaPanelTopPanel.BackColor = Functions.colorationWindow(buttonPanel)
+            GunaPanelBottom.BackColor = Functions.colorationWindow(buttonPanel)
+            GunaAdvenceButton3.BackColor = Functions.colorationWindow(buttonPanel)
+            GunaShadowPanel2.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaGroupBox1.LineColor = Functions.colorationWindow(buttonPanel)
+
+            buttonPanel = 0 'Button Background
+            'GunaAdvenceButton3.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonAjouterLigne.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonTables.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton9.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonnNouvelleFacture.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonImprimer.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonSaveFacturation.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonRefresh.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonNouveauBloc.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonArricherBlocNotes.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonNouveau.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonAjouterLigneAppro.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonImpressionDirecteAppro.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonEnregistrer.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonAnnulerBordereau.BaseColor = Functions.colorationWindow(buttonPanel)
+
+            GunaButtonOnL.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton12.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton1.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonListePetitDejeuner.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton2.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonVenteShift.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton3.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonRapportDesVentes.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton13.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton4.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton6.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton7.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton8.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonProductionReceptionnists.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonCaisseJournalier.BaseColor = Functions.colorationWindow(buttonPanel)
+
+            GunaButtonCaisseGlobal.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton14.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton5.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonInventaire.BaseColor = Functions.colorationWindow(buttonPanel)
+
+            buttonPanel = 2  'Button Background
+            GunaButtonSaveFacturation.ForeColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonnNouvelleFacture.ForeColor = Functions.colorationWindow(buttonPanel)
+            GunaButton12.ForeColor = Functions.colorationWindow(buttonPanel)
+            GunaButton1.ForeColor = Functions.colorationWindow(buttonPanel)
+            GunaButtonRefresh.ForeColor = Functions.colorationWindow(buttonPanel)
+
+            GunaButtonProductionReceptionnists.Visible = True
+            GunaButton8.Visible = False
+
+        End If
+
+    End Sub
+
+    Public Sub loadComptoirByDefault()
+
+        'ON VA CHARGER PAR DEFAUT LE CLIENT COMPTOIR
+        Dim gestionStock As Integer = GlobalVariable.AgenceActuelle.Rows(0)("GERER_STOCK")
+
+        Dim NOM_CLIENT As String = "COMPTOIR"
+        If GlobalVariable.actualLanguageValue = 0 Then
+            NOM_CLIENT = "WALK IN"
+        End If
+
+        Dim client As DataTable = Functions.getElementByCodeLike(NOM_CLIENT, "client", "NOM_CLIENT")
+
+        If client.Rows.Count > 0 Then
+
+            If gestionStock = 0 Or Not Trim(GlobalVariable.magasinActuel).Equals("") Then
+
+                GunaTextBoxNom_Prenom.Enabled = True
+
+                GunaTextBoxCodeClient.Visible = False
+
+                '-----------------------------------------------------------------
+                Dim CODE_CLIENT_FIDEL As String = client.Rows(0)("CODE_CLIENT")
+                Dim CODE_ELITE As String = client.Rows(0)("CODE_ELITE")
+                '-----------------------------------------------------------------
+                Dim ClientFidel As DataTable = Functions.getElementByCode(CODE_CLIENT_FIDEL, "client", "CODE_CLIENT")
+
+                If ClientFidel.Rows.Count > 0 Then
+
+                    GunaTextBoxNomPrenom.Text = ClientFidel.Rows(0)("NOM_PRENOM") 'Nom du client Fidel
+
+                    If GlobalVariable.AgenceActuelle.Rows(0)("CLUB_ELITE") = 1 Then
+                        AffichageDesIinformationsDuCLientFidel(CODE_ELITE, CODE_CLIENT_FIDEL)
+                    End If
+
+                Else
+                    GunaTextBoxNomPrenom.Text = ""
+                End If
+
+                GunaTextBoxNom_Prenom.Enabled = False
+
+                GunaTextBoxCodeClient.Text = client.Rows(0)("CODE_CLIENT")
+                GunaTextBoxNom_Prenom.Text = client.Rows(0)("NOM_PRENOM")
+
+                GunaDataGridViewClient.Visible = False
+
+                If GlobalVariable.typeDeClientAFacturer = "comptoir" Then
+                    GunaTextBoxNom_Prenom.Enabled = False
+                End If
+
+            End If
+
+        End If
+
     End Sub
 
     Private Sub GunaAdvenceButtonFacturationDesEnChambres_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButtonFacturationDesEnChambres.Click
 
-        '-----------------------------------------------------------
 
-        Dim continuer As Boolean = True
+        If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
 
-        If GunaLabelHeader.Text.Equals("EN CHAMBRE") Then
-            continuer = False
-        End If
+            '-----------------------------------------------------------
 
-        If GunaLabelHeader.Text.Equals("IN HOUSE") Then
-            continuer = False
-        End If
+            Dim continuer As Boolean = True
 
-        If continuer Then
-
-            Me.Cursor = Cursors.WaitCursor
-
-            GunaComboBoxFiltreBlocNotre.Visible = False
-
-            GunaDataGridViewClient.BringToFront()
-
-            ClearFacturationKeyInformation()
-            clearArticleFields()
-
-            GlobalVariable.typeDeClientAFacturer = "en chambre"
-
-            GunaPanelEnChambre.Visible = True
-            GunaPanelEnChambre.BringToFront()
-            GunaPanelEventsSup.Visible = False
-            GunaPanelClientComptoirSup.Visible = False
-            GunaPanelComptoirBloc.Visible = False
-
-            TB_RoomNo.Visible = True
-            LabelNumeroChambre.Visible = True
-            GunaAdvenceButtonLectureDeCarte.Visible = True
-
-            GunaDataGridViewLigneFacture.Columns.Clear()
-
-            GunaTextBoxCodeClient.Clear()
-            GunaTextBoxArticle.Clear()
-
-            GunaTextBoxCodeClient.Visible = True
-
-            If Trim(GlobalVariable.ArticleFamily) = "" Then
-                GlobalVariable.ArticleFamily = "BAR"
+            If GunaLabelHeader.Text.Equals("EN CHAMBRE") Then
+                continuer = False
             End If
 
-            If GlobalVariable.actualLanguageValue = 0 Then
-                GunaLabelHeader.Text = "IN HOUSE"
-                LibelleFacturation.Text = GlobalVariable.ArticleFamily & " BILLING "
-                GunaButtonSaveFacturation.Text = "Save"
-                LabelRef.Text = "Customer"
-            ElseIf GlobalVariable.actualLanguageValue = 1 Then
-                GunaLabelHeader.Text = "EN CHAMBRE"
-                LibelleFacturation.Text = "FACTURATION " & GlobalVariable.ArticleFamily
-                GunaButtonSaveFacturation.Text = "Enregistrer"
-                LabelRef.Text = "Client"
+            If GunaLabelHeader.Text.Equals("IN HOUSE") Then
+                continuer = False
             End If
 
-            'Oon affiche le bouton permettant de lire la carte si on traite un client en chambre
+            If continuer Then
 
-            tb_server.Text = GlobalVariable.AgenceActuelle.Rows(0)("CHEMIN_HOTEL_LOCK_SYSTEM")
+                Me.Cursor = Cursors.WaitCursor
 
-            'gestion des cartes d'acces
-            CB_Software.SelectedIndex = 0
-            CB_Port.SelectedIndex = 0
-            CB_Breakfast.SelectedIndex = 1
-            CB_DB.SelectedIndex = 0
+                GunaComboBoxFiltreBlocNotre.Visible = False
 
-            GunaPanelComptoirBloc.Visible = True
+                GunaDataGridViewClient.BringToFront()
 
-            TB_Time.Text = DateTime.Now.ToString("yyyyMMdd1200") + DateTime.Now.AddDays(1).ToString("yyyyMMdd1200")
+                ClearFacturationKeyInformation()
+                clearArticleFields()
 
-            GunaTextBoxFacturationDate.Text = CDate(GlobalVariable.DateDeTravail).ToShortDateString
+                GlobalVariable.typeDeClientAFacturer = "en chambre"
 
-            'CLIENT EN CHAMBRE
+                GunaPanelEnChambre.Visible = True
+                GunaPanelEnChambre.BringToFront()
+                GunaPanelEventsSup.Visible = False
+                GunaPanelClientComptoirSup.Visible = False
+                GunaPanelComptoirBloc.Visible = False
 
-            GunaTextBoxNumfacture.Text = Functions.GeneratingRandomCodeWithSpecifications("facture", "")
+                TB_RoomNo.Visible = True
+                LabelNumeroChambre.Visible = True
+                GunaAdvenceButtonLectureDeCarte.Visible = True
 
-            GunaTextBoxNom_Prenom.Enabled = False
+                GunaDataGridViewLigneFacture.Columns.Clear()
 
-            TabControlBarRestaurant.SelectedIndex = 0
+                GunaTextBoxCodeClient.Clear()
+                GunaTextBoxArticle.Clear()
 
-            TB_RoomNo.Enabled = True
+                GunaTextBoxCodeClient.Visible = True
 
-            Me.Cursor = Cursors.Default
+                If Trim(GlobalVariable.ArticleFamily) = "" Then
+                    GlobalVariable.ArticleFamily = "BAR"
+                End If
+
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    GunaLabelHeader.Text = "IN HOUSE"
+                    LibelleFacturation.Text = GlobalVariable.ArticleFamily & " BILLING "
+                    GunaButtonSaveFacturation.Text = "Save"
+                    LabelRef.Text = "Customer"
+                ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                    GunaLabelHeader.Text = "EN CHAMBRE"
+                    LibelleFacturation.Text = "FACTURATION " & GlobalVariable.ArticleFamily
+                    GunaButtonSaveFacturation.Text = "Enregistrer"
+                    LabelRef.Text = "Client"
+                End If
+
+                'Oon affiche le bouton permettant de lire la carte si on traite un client en chambre
+
+                tb_server.Text = GlobalVariable.AgenceActuelle.Rows(0)("CHEMIN_HOTEL_LOCK_SYSTEM")
+
+                'gestion des cartes d'acces
+                CB_Software.SelectedIndex = 0
+                CB_Port.SelectedIndex = 0
+                CB_Breakfast.SelectedIndex = 1
+                CB_DB.SelectedIndex = 0
+
+                GunaPanelComptoirBloc.Visible = True
+
+                TB_Time.Text = DateTime.Now.ToString("yyyyMMdd1200") + DateTime.Now.AddDays(1).ToString("yyyyMMdd1200")
+
+                GunaTextBoxFacturationDate.Text = CDate(GlobalVariable.DateDeTravail).ToShortDateString
+
+                'CLIENT EN CHAMBRE
+                generatingRandomCodeFacture()
+
+                GunaTextBoxNom_Prenom.Enabled = False
+
+                TabControlBarRestaurant.SelectedIndex = 0
+
+                TB_RoomNo.Enabled = True
+
+                Me.Cursor = Cursors.Default
+
+            End If
+
+
+        Else
+
+            RestaurantBookingForm.Close()
+            RestaurantBookingForm.Show()
 
         End If
 
@@ -517,46 +728,46 @@ Public Class BarRestaurantForm
 
     '1- BOUTON A AFFICHER
 
-    Public Sub DisplaySavingButton()
+    Public Sub DisplaySavingButton(Optional ByVal ETAT_FACTURE As Integer = 0)
 
-        Dim facturationLine As DataTable
+        If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("SERVEUR") = 0 Then
 
-        If GlobalVariable.typeDeClientAFacturer = "evenement" Or GlobalVariable.typeDeClientAFacturer = "en chambre" Then
-            facturationLine = Functions.getElementByCode(GunaTextBoxNumReservation.Text, "ligne_facture_temp", "CODE_RESERVATION")
-        Else
-            facturationLine = Functions.getElementByCode(GunaTextBoxNumfacture.Text, "ligne_facture_temp", "CODE_FACTURE")
-        End If
+            If GunaComboBoxListeDesComandes.SelectedIndex >= 0 Then
+                'puis on selection les informations de numero de bloc note en cour
+                Dim blocNoteEnCours As DataTable
+                blocNoteEnCours = Functions.getElementByCode(GunaComboBoxListeDesComandes.SelectedValue.ToString, "ligne_facture_bloc_note", "NUMERO_BLOC_NOTE")
 
-        If facturationLine.Rows.Count > 0 Then
-            'We can only save a facturation if it is associated to atleast one facturationLine
-            'We display the button to save facturation as it is associated to atleast one line in ligne_facturation
+                If blocNoteEnCours.Rows.Count > 0 Then
+                    'si son etat = 2 alors on ne doit pas afficher au cas contraire on l'affiche
+                    If blocNoteEnCours.Rows(0)("ETAT_BLOC_NOTE") <= 1 Then
 
-            If GlobalVariable.typeDeClientAFacturer = "comptoir" Then
-                'On se rassure que notre combo de bloc note n'est pas vide 
-                If GunaComboBoxListeDesComandes.SelectedIndex >= 0 Then
-                    'puis on selection les informations de numero de bloc note en cour
-                    Dim blocNoteEnCours As DataTable
-                    blocNoteEnCours = Functions.getElementByCode(GunaComboBoxListeDesComandes.SelectedValue.ToString, "ligne_facture_bloc_note", "NUMERO_BLOC_NOTE")
+                        Dim ETAT_BLOC_NOTE As Integer = blocNoteEnCours.Rows(0)("ETAT_BLOC_NOTE")
 
-                    If blocNoteEnCours.Rows.Count > 0 Then
-                        'si son etat = 2 alors on ne doit pas afficher au cas contraire on l'affiche
-                        If Not blocNoteEnCours.Rows(0)("ETAT_BLOC_NOTE") = 2 Then
+                        If GunaDataGridViewLigneFacture.Rows.Count > 0 Then
                             GunaButtonSaveFacturation.Visible = True
                         Else
                             GunaButtonSaveFacturation.Visible = False
                         End If
 
+                    Else
+                        GunaButtonSaveFacturation.Visible = False
                     End If
 
                 End If
 
             Else
-                GunaButtonSaveFacturation.Visible = True
+                GunaButtonSaveFacturation.Visible = False
             End If
 
         Else
-            'We hide the button to save facturation as it is not associated to atleast one line in ligne_facturation
-            GunaButtonSaveFacturation.Visible = False
+
+            'Meme les serveuses doivent cloturer sans encaisser
+            If GunaButtonSaveFacturation.Text.Equals("Close") Or GunaButtonSaveFacturation.Text.Equals("Clôturer") Then
+                'LES SERVEUSES NE PEUVENT PAS ENCAISSER
+                GunaButtonSaveFacturation.Visible = True
+            Else
+                GunaButtonSaveFacturation.Visible = False
+            End If
         End If
 
     End Sub
@@ -588,8 +799,6 @@ Public Class BarRestaurantForm
         Dim ligneFactureBlocNote1 As DataTable = caisse.AutoLoadBlocNote(DateDeSituation, CODE_CAISSIER, ETAT_BLOC_NOTE)
 
         ligneFactureBlocNote.Merge(ligneFactureBlocNote1)
-        'klg
-        'GunaComboBoxListeDesComandes.DataSource = Nothing
 
         If ligneFactureBlocNote.Rows.Count > 0 Then
 
@@ -708,16 +917,7 @@ Public Class BarRestaurantForm
 
             For i = 0 To selectionDesDifferentsServeurs.Rows.Count - 1
 
-                'Dim CODE_UTILIASTEUR As String = selectionDesDifferentsServeurs.Rows(i)("CODE_CAISSIER")
-                'Dim infoSupCassier As DataTable = Functions.getElementByCode(CODE_UTILIASTEUR, "utilisateurs", "CODE_UTILIASTEUR")
-
-                'If infoSupCassier.Rows.Count > 0 Then
-
-                'GunaComboBoxFiltreBlocNotre.Items.Add()
-
                 GunaComboBoxFiltreBlocNotre.Items.Add(selectionDesDifferentsServeurs.Rows(i)("CODE_CAISSIER").ToString.ToUpper)
-
-                'End If
 
             Next
 
@@ -791,7 +991,7 @@ Public Class BarRestaurantForm
 
     End Sub
 
-    Private Sub BlocNotesVisualisation()
+    Public Sub BlocNotesVisualisation()
 
         Dim caisse As New Caisse()
 
@@ -821,7 +1021,7 @@ Public Class BarRestaurantForm
                 GunaDataGridViewBlocNoteOuvert.Columns.Add("RECEIPT NUMBER", "RECEIPT NUMBER")
                 GunaDataGridViewBlocNoteOuvert.Columns.Add("AMOUNT", "AMOUNT")
                 GunaDataGridViewBlocNoteOuvert.Columns.Add("STATE", "STATE")
-                GunaDataGridViewBlocNoteOuvert.Columns.Add("TEMPS", "TEMPS")
+                GunaDataGridViewBlocNoteOuvert.Columns.Add("TIME", "TIME")
 
                 For i = 0 To blocNoteAvisualiser.Rows.Count - 1
 
@@ -849,7 +1049,7 @@ Public Class BarRestaurantForm
                 GunaDataGridViewBlocNoteOuvert.Columns.Add("NUMERO BLOC NOTE", "NUMERO BLOC NOTE")
                 GunaDataGridViewBlocNoteOuvert.Columns.Add("MONTANT", "MONTANT")
                 GunaDataGridViewBlocNoteOuvert.Columns.Add("ETAT", "ETAT")
-                GunaDataGridViewBlocNoteOuvert.Columns.Add("TIME", "TIME")
+                GunaDataGridViewBlocNoteOuvert.Columns.Add("TEMPS", "TEMPS")
 
                 For i = 0 To blocNoteAvisualiser.Rows.Count - 1
 
@@ -929,6 +1129,7 @@ Public Class BarRestaurantForm
         End If
 
     End Sub
+
     '3- FACTURATION KEY INFORMATION
 
     Public Sub FacturationKeyInformation()
@@ -955,6 +1156,8 @@ Public Class BarRestaurantForm
 
         GunaTextBoxMontantTTCGeneral.Text = Format(MontantTTCGeneral, "#,##0")
 
+        resumeDesVentesDuJours(GlobalVariable.DateDeTravail)
+
     End Sub
 
     Public Sub OutPutLigneFactureFermee(ByVal NUMERO_BLOC_NOTE As String)
@@ -963,12 +1166,12 @@ Public Class BarRestaurantForm
 
         If GlobalVariable.actualLanguageValue = 0 Then
             getUserQuery = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, ligne_facture.CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'ITEM',
-            PRIX_UNITAIRE_TTC As 'UNIT PRICE', ligne_facture.QUANTITE AS QUANTITY, MONTANT_HT AS 'AMOUNT ET', MONTANT_TTC AS 'AMOUNT IT', 
-            GRIFFE_UTILISATEUR AS 'USER' FROM ligne_facture WHERE NUMERO_BLOC_NOTE = @NUMERO_BLOC_NOTE ORDER BY LIBELLE_FACTURE ASC"
+            PRIX_UNITAIRE_TTC As 'PU', ligne_facture.QUANTITE AS QUANTITY, MONTANT_HT AS 'AMOUNT ET', MONTANT_TTC AS 'AMOUNT IT', 
+            GRIFFE_UTILISATEUR AS 'CASHIER', SERVEUR FROM ligne_facture WHERE NUMERO_BLOC_NOTE = @NUMERO_BLOC_NOTE ORDER BY LIBELLE_FACTURE ASC"
         ElseIf GlobalVariable.actualLanguageValue = 1 Then
             getUserQuery = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, ligne_facture.CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'DESIGNATION',
             PRIX_UNITAIRE_TTC As 'PU TTC', ligne_facture.QUANTITE, MONTANT_HT AS 'MONTANT HT', MONTANT_TTC AS 'MONTANT TTC', 
-            GRIFFE_UTILISATEUR AS 'GRIFFE UTILISATEUR' FROM ligne_facture WHERE NUMERO_BLOC_NOTE = @NUMERO_BLOC_NOTE ORDER BY LIBELLE_FACTURE ASC"
+            GRIFFE_UTILISATEUR AS 'CAISSIER', SERVEUR FROM ligne_facture WHERE NUMERO_BLOC_NOTE = @NUMERO_BLOC_NOTE ORDER BY LIBELLE_FACTURE ASC"
         End If
 
         Dim command As New MySqlCommand(getUserQuery, GlobalVariable.connect)
@@ -990,12 +1193,14 @@ Public Class BarRestaurantForm
             Dim getUserQuery01 = ""
 
             If GlobalVariable.actualLanguageValue = 0 Then
+
                 getUserQuery01 = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, ligne_facture.CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'ITEM',
-                PRIX_UNITAIRE_TTC As 'UNIT PRICE', ligne_facture.QUANTITE as QUANTITY, MONTANT_HT AS 'MONTANT ET', MONTANT_TTC AS 'AMOUNT IT',
-                GRIFFE_UTILISATEUR AS 'USER' FROM ligne_facture WHERE NUMERO_SERIE_FIN = @NUMERO_BLOC_NOTE ORDER BY LIBELLE_FACTURE ASC"
+                PRIX_UNITAIRE_TTC As 'PU', ligne_facture.QUANTITE as QUANTITY, MONTANT_HT AS 'MONTANT ET', MONTANT_TTC AS 'AMOUNT IT',
+                GRIFFE_UTILISATEUR AS 'CASHIER', SERVER FROM ligne_facture WHERE NUMERO_SERIE_FIN = @NUMERO_BLOC_NOTE ORDER BY LIBELLE_FACTURE ASC"
             ElseIf GlobalVariable.actualLanguageValue = 1 Then
+
                 getUserQuery01 = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, ligne_facture.CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'DESIGNATION',
-                PRIX_UNITAIRE_TTC As 'PU TTC', ligne_facture.QUANTITE, MONTANT_HT AS 'MONTANT HT', MONTANT_TTC AS 'MONTANT TTC', GRIFFE_UTILISATEUR AS 'GRIFFE UTILISATEUR' 
+                PRIX_UNITAIRE_TTC As 'PU TTC', ligne_facture.QUANTITE, MONTANT_HT AS 'MONTANT HT', MONTANT_TTC AS 'MONTANT TTC', GRIFFE_UTILISATEUR AS 'CAISSIER', SERVEUR 
                 FROM ligne_facture WHERE NUMERO_SERIE_FIN = @NUMERO_BLOC_NOTE ORDER BY LIBELLE_FACTURE ASC"
 
             End If
@@ -1020,14 +1225,16 @@ Public Class BarRestaurantForm
 
             If GlobalVariable.actualLanguageValue = 0 Then
 
-                GunaDataGridViewLigneFacture.Columns("UNIT PRICE").DefaultCellStyle.Format = "#,##0.00"
-                GunaDataGridViewLigneFacture.Columns("UNIT PRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
+                GunaDataGridViewLigneFacture.Columns("PU").DefaultCellStyle.Format = "#,##0.00"
+                GunaDataGridViewLigneFacture.Columns("PU").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
                 GunaDataGridViewLigneFacture.Columns("QUANTITY").DefaultCellStyle.Format = "#,##0.00"
                 GunaDataGridViewLigneFacture.Columns("QUANTITY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
                 GunaDataGridViewLigneFacture.Columns("AMOUNT ET").DefaultCellStyle.Format = "#,##0.00"
                 GunaDataGridViewLigneFacture.Columns("AMOUNT ET").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
                 GunaDataGridViewLigneFacture.Columns("AMOUNT IT").DefaultCellStyle.Format = "#,##0.00"
                 GunaDataGridViewLigneFacture.Columns("AMOUNT IT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
+
+                'GunaDataGridViewLigneFacture.Columns("SERVER").Visible = True
 
             ElseIf GlobalVariable.actualLanguageValue = 1 Then
 
@@ -1046,14 +1253,22 @@ Public Class BarRestaurantForm
             GunaDataGridViewLigneFacture.Columns("ID_LIGNE_FACTURE").Visible = False
             GunaDataGridViewLigneFacture.Columns("TYPE_LIGNE_FACTURE").Visible = False
 
+            If GlobalVariable.actualLanguageValue = 0 Then
+                GunaDataGridViewLigneFacture.Columns("AMOUNT ET").Visible = False
+            Else
+                GunaDataGridViewLigneFacture.Columns("MONTANT HT").Visible = False
+            End If
         Else
             'GunaDataGridViewLigneFacture.Columns.Clear()
         End If
 
+        DisplaySavingButton()
+        FacturationKeyInformation()
+
     End Sub
     '4- OUTPUT LIGNE FACTURE TEMP
 
-    Public Sub OutPutLigneFacture()
+    Public Sub OutPutLigneFacture(ByVal TABLE_NAME As String)
 
         Dim DateDeSituation As Date = CDate(GlobalVariable.DateDeTravail).ToShortDateString
 
@@ -1065,25 +1280,27 @@ Public Class BarRestaurantForm
         If GlobalVariable.actualLanguageValue = 0 Then
 
             If GlobalVariable.typeDeClientAFacturer = "evenement" Or GlobalVariable.typeDeClientAFacturer = "en chambre" Then
-                query = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, ligne_facture_temp.CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'ITEM',PRIX_UNITAIRE_TTC As 'UNIT PRICE', 
-                ligne_facture_temp.QUANTITE AS QUANTITY, MONTANT_HT AS 'AMOUNT ET', MONTANT_TTC AS 'AMOUNT IT', GRIFFE_UTILISATEUR AS 'USER' 
-                , CODE_LOT FROM ligne_facture_temp WHERE CODE_RESERVATION =@CODE_RESERVATION AND DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' ORDER BY ID_LIGNE_FACTURE DESC"
+                query = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'ITEM',PRIX_UNITAIRE_TTC As 'PU', 
+                QUANTITE AS QUANTITY, MONTANT_HT AS 'AMOUNT ET', MONTANT_TTC AS 'AMOUNT IT', GRIFFE_UTILISATEUR AS 'CASHIER', SERVEUR AS SERVER
+                , CODE_LOT FROM " & TABLE_NAME & " WHERE CODE_RESERVATION =@CODE_RESERVATION AND DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' ORDER BY ID_LIGNE_FACTURE DESC"
             Else
-                query = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, ligne_facture_temp.CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'ITEM',PRIX_UNITAIRE_TTC As 'UNIT PRICE', 
-                ligne_facture_temp.QUANTITE AS QUANTITY, MONTANT_HT AS 'AMOUNT ET', MONTANT_TTC AS 'AMOUNT IT', GRIFFE_UTILISATEUR AS 'USER' 
-                , CODE_LOT FROM ligne_facture_temp WHERE DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND CODE_FACTURE =@CODE_FACTURE ORDER BY ID_LIGNE_FACTURE DESC"
+                query = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'ITEM',PRIX_UNITAIRE_TTC As 'PU', 
+                QUANTITE AS QUANTITY, MONTANT_HT AS 'AMOUNT ET', MONTANT_TTC AS 'AMOUNT IT', GRIFFE_UTILISATEUR AS 'CASHIER', SERVEUR AS SERVER  
+                , CODE_LOT FROM " & TABLE_NAME & " WHERE DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND CODE_FACTURE =@CODE_FACTURE ORDER BY ID_LIGNE_FACTURE DESC"
             End If
 
         ElseIf GlobalVariable.actualLanguageValue = 1 Then
 
             If GlobalVariable.typeDeClientAFacturer = "evenement" Or GlobalVariable.typeDeClientAFacturer = "en chambre" Then
-                query = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, ligne_facture_temp.CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'DESIGNATION',PRIX_UNITAIRE_TTC As 'PU TTC',
-                ligne_facture_temp.QUANTITE, MONTANT_HT AS 'MONTANT HT', MONTANT_TTC AS 'MONTANT TTC', GRIFFE_UTILISATEUR AS 'GRIFFE UTILISATEUR'
-                , CODE_LOT FROM ligne_facture_temp WHERE CODE_RESERVATION =@CODE_RESERVATION AND DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' ORDER BY ID_LIGNE_FACTURE DESC"
+                query = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'DESIGNATION',PRIX_UNITAIRE_TTC As 'PU TTC',
+                QUANTITE, MONTANT_HT AS 'MONTANT HT', MONTANT_TTC AS 'MONTANT TTC', GRIFFE_UTILISATEUR AS 'CAISSIER', SERVEUR
+                , CODE_LOT FROM " & TABLE_NAME & " WHERE CODE_RESERVATION =@CODE_RESERVATION AND DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND
+                DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' ORDER BY ID_LIGNE_FACTURE DESC"
             Else
-                query = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, ligne_facture_temp.CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'DESIGNATION',PRIX_UNITAIRE_TTC As 'PU TTC',
-                ligne_facture_temp.QUANTITE, MONTANT_HT AS 'MONTANT HT', MONTANT_TTC AS 'MONTANT TTC', GRIFFE_UTILISATEUR AS 'GRIFFE UTILISATEUR' 
-                , CODE_LOT FROM ligne_facture_temp WHERE DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND CODE_FACTURE =@CODE_FACTURE ORDER BY ID_LIGNE_FACTURE DESC"
+                query = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'DESIGNATION',PRIX_UNITAIRE_TTC As 'PU TTC',
+                QUANTITE, MONTANT_HT AS 'MONTANT HT', MONTANT_TTC AS 'MONTANT TTC', GRIFFE_UTILISATEUR AS 'CAISSIER', SERVEUR 
+                , CODE_LOT FROM " & TABLE_NAME & " WHERE DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' 
+                AND CODE_FACTURE =@CODE_FACTURE ORDER BY ID_LIGNE_FACTURE DESC"
             End If
 
         End If
@@ -1112,8 +1329,8 @@ Public Class BarRestaurantForm
 
             If GlobalVariable.actualLanguageValue = 0 Then
 
-                GunaDataGridViewLigneFacture.Columns("UNIT PRICE").DefaultCellStyle.Format = "#,##0.00"
-                GunaDataGridViewLigneFacture.Columns("UNIT PRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
+                GunaDataGridViewLigneFacture.Columns("PU").DefaultCellStyle.Format = "#,##0.00"
+                GunaDataGridViewLigneFacture.Columns("PU").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
                 GunaDataGridViewLigneFacture.Columns("QUANTITY").DefaultCellStyle.Format = "#,##0.00"
                 GunaDataGridViewLigneFacture.Columns("QUANTITY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
                 GunaDataGridViewLigneFacture.Columns("AMOUNT ET").DefaultCellStyle.Format = "#,##0.00"
@@ -1150,25 +1367,25 @@ Public Class BarRestaurantForm
                 If GlobalVariable.actualLanguageValue = 0 Then
 
                     If GlobalVariable.typeDeClientAFacturer = "evenement" Or GlobalVariable.typeDeClientAFacturer = "en chambre" Then
-                        query_ = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, ligne_facture_temp.CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'ITEM',PRIX_UNITAIRE_TTC As 'UNIT PRICE', 
-                ligne_facture_temp.QUANTITE AS QUANTITY, MONTANT_HT AS 'AMOUNT ET', MONTANT_TTC AS 'AMOUNT IT', GRIFFE_UTILISATEUR AS 'USER' 
-                , CODE_LOT FROM ligne_facture_temp WHERE CODE_RESERVATION =@CODE_RESERVATION AND DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' ORDER BY ID_LIGNE_FACTURE DESC"
+                        query_ = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'ITEM',PRIX_UNITAIRE_TTC As 'PU', 
+                        QUANTITE AS QUANTITY, MONTANT_HT AS 'AMOUNT ET', MONTANT_TTC AS 'AMOUNT IT', GRIFFE_UTILISATEUR AS 'CASHIER', SERVEUR AS SERVER , CODE_LOT 
+                        FROM " & TABLE_NAME & " WHERE CODE_RESERVATION =@CODE_RESERVATION AND DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' ORDER BY ID_LIGNE_FACTURE DESC"
                     Else
-                        query_ = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, ligne_facture_temp.CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'ITEM',PRIX_UNITAIRE_TTC As 'UNIT PRICE', 
-                ligne_facture_temp.QUANTITE AS QUANTITY, MONTANT_HT AS 'AMOUNT ET', MONTANT_TTC AS 'AMOUNT IT', GRIFFE_UTILISATEUR AS 'USER', CODE_FACTURE 
-                , CODE_LOT FROM ligne_facture_temp WHERE DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND NUMERO_BLOC_NOTE = @NUMERO_BLOC_NOTE ORDER BY ID_LIGNE_FACTURE DESC"
+                        query_ = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'ITEM',PRIX_UNITAIRE_TTC As 'PU', 
+                        QUANTITE AS QUANTITY, MONTANT_HT AS 'AMOUNT ET', MONTANT_TTC AS 'AMOUNT IT', GRIFFE_UTILISATEUR AS 'CASHIER', SERVEUR AS SERVER, CODE_FACTURE , CODE_LOT 
+                        FROM " & TABLE_NAME & " WHERE DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND NUMERO_BLOC_NOTE = @NUMERO_BLOC_NOTE ORDER BY ID_LIGNE_FACTURE DESC"
                     End If
 
                 ElseIf GlobalVariable.actualLanguageValue = 1 Then
 
                     If GlobalVariable.typeDeClientAFacturer = "evenement" Or GlobalVariable.typeDeClientAFacturer = "en chambre" Then
-                        query_ = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, ligne_facture_temp.CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'DESIGNATION',PRIX_UNITAIRE_TTC As 'PU TTC',
-                ligne_facture_temp.QUANTITE, MONTANT_HT AS 'MONTANT HT', MONTANT_TTC AS 'MONTANT TTC', GRIFFE_UTILISATEUR AS 'GRIFFE UTILISATEUR'
-                , CODE_LOT FROM ligne_facture_temp WHERE CODE_RESERVATION =@CODE_RESERVATION AND DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' ORDER BY ID_LIGNE_FACTURE DESC"
+                        query_ = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'DESIGNATION',PRIX_UNITAIRE_TTC As 'PU TTC',
+                QUANTITE, MONTANT_HT AS 'MONTANT HT', MONTANT_TTC AS 'MONTANT TTC', GRIFFE_UTILISATEUR AS 'CAISSIER', SERVEUR 
+                , CODE_LOT FROM " & TABLE_NAME & " WHERE CODE_RESERVATION =@CODE_RESERVATION AND DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' ORDER BY ID_LIGNE_FACTURE DESC"
                     Else
-                        query_ = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, ligne_facture_temp.CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'DESIGNATION',PRIX_UNITAIRE_TTC As 'PU TTC',
-                ligne_facture_temp.QUANTITE, MONTANT_HT AS 'MONTANT HT', MONTANT_TTC AS 'MONTANT TTC', GRIFFE_UTILISATEUR AS 'GRIFFE UTILISATEUR', CODE_FACTURE 
-                , CODE_LOT FROM ligne_facture_temp WHERE DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND NUMERO_BLOC_NOTE =@NUMERO_BLOC_NOTE ORDER BY ID_LIGNE_FACTURE DESC"
+                        query_ = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'DESIGNATION',PRIX_UNITAIRE_TTC As 'PU TTC',
+                QUANTITE, MONTANT_HT AS 'MONTANT HT', MONTANT_TTC AS 'MONTANT TTC', GRIFFE_UTILISATEUR AS 'CAISSIER', SERVEUR , CODE_FACTURE 
+                , CODE_LOT FROM " & TABLE_NAME & " WHERE DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND NUMERO_BLOC_NOTE =@NUMERO_BLOC_NOTE ORDER BY ID_LIGNE_FACTURE DESC"
                     End If
 
                 End If
@@ -1208,8 +1425,8 @@ Public Class BarRestaurantForm
 
                     If GlobalVariable.actualLanguageValue = 0 Then
 
-                        GunaDataGridViewLigneFacture.Columns("UNIT PRICE").DefaultCellStyle.Format = "#,##0.00"
-                        GunaDataGridViewLigneFacture.Columns("UNIT PRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
+                        GunaDataGridViewLigneFacture.Columns("PU").DefaultCellStyle.Format = "#,##0.00"
+                        GunaDataGridViewLigneFacture.Columns("PU").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
                         GunaDataGridViewLigneFacture.Columns("QUANTITY").DefaultCellStyle.Format = "#,##0.00"
                         GunaDataGridViewLigneFacture.Columns("QUANTITY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
                         GunaDataGridViewLigneFacture.Columns("AMOUNT ET").DefaultCellStyle.Format = "#,##0.00"
@@ -1249,6 +1466,18 @@ Public Class BarRestaurantForm
 
             End If
 
+        End If
+
+        If GunaDataGridViewLigneFacture.Rows.Count > 0 Then
+            If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("SERVEUR") = 1 Then
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    GunaDataGridViewLigneFacture.Columns("CASHIER").Visible = False
+                Else
+                    GunaDataGridViewLigneFacture.Columns("CAISSIER").Visible = False
+                End If
+            ElseIf GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("SERVEUR") = 0 Then
+
+            End If
         End If
 
     End Sub
@@ -1321,13 +1550,44 @@ Public Class BarRestaurantForm
     End Sub
 
     Private Sub GunaAdvenceButtonRapportBar_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButtonRapportBar.Click
+
         If GlobalVariable.actualLanguageValue = 0 Then
             GunaLabelHeader.Text = "REPORTS"
         ElseIf GlobalVariable.actualLanguageValue = 1 Then
             GunaLabelHeader.Text = "RAPPORTS"
         End If
 
+        If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 1 Then
+            GunaButtonListePetitDejeuner.Visible = False
+        End If
+
+        If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("SERVEUR") = 1 Then
+
+            GunaButton12.Enabled = False
+            GunaButton1.Enabled = False
+            GunaButtonRapportDesVentes.Enabled = False
+            GunaButton13.Enabled = False
+            GunaButtonCaisseJournalier.Enabled = False
+            GunaButtonCaisseGlobal.Enabled = False
+            GunaButton14.Enabled = False
+            GunaButton5.Enabled = False
+            GunaButtonCaisseJournalier.Enabled = False
+            GunaButtonProductionReceptionnists.Enabled = False
+
+            GunaButton4.Enabled = False
+            GunaButton6.Enabled = False
+            GunaButton7.Enabled = False
+
+        End If
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+            GunaButton4.Visible = True
+            GunaButton6.Visible = False
+            GunaButton7.Visible = False
+        End If
+
         TabControlBarRestaurant.SelectedIndex = 3
+
     End Sub
 
     Private Sub GunaAdvenceButtonEvent_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButtonEvent.Click
@@ -1389,7 +1649,7 @@ Public Class BarRestaurantForm
 
             GlobalVariable.typeDeClientAFacturer = "evenement"
 
-            GunaTextBoxNumfacture.Text = Functions.GeneratingRandomCodeWithSpecifications("facture", "")
+            generatingRandomCodeFacture()
 
             ListeDesSalles()
 
@@ -1624,7 +1884,7 @@ Public Class BarRestaurantForm
 
             GlobalVariable.fenetreDouvervetureDeCaisse = "bar"
 
-            If TotalEncaisse = TotalDesVentes Then
+            If TotalEncaisse >= TotalDesVentes Then
 
                 '3- ON DETERMINE SI ON A EFFECTUE DES ENCAISSEMENTS EN ESPECES
 
@@ -1750,6 +2010,9 @@ Public Class BarRestaurantForm
 
                     envoiDeRapport = True
 
+                    'Dim DateDeSituation As Date = GlobalVariable.DateDeTravail
+                    Functions.updatReglementSansTRansfertVersCaissePrincipale(CODE_UTILISATEUR, DateDeSituation)
+
                     Dim caisse As New Caisse()
 
                     If True Then
@@ -1779,7 +2042,7 @@ Public Class BarRestaurantForm
                         LabelOffresEnChambre.Text = 0
                         LabelVenteEvent.Text = 0
 
-                        BackgroundWorker1.RunWorkerAsync()
+                        'BackgroundWorker1.RunWorkerAsync()
 
                         'GESTION DES SHIFTS
 
@@ -1789,20 +2052,20 @@ Public Class BarRestaurantForm
 
                         Functions.inventaireJournalierTextFile(CODE_MAGASIN, SHIFT_VALUE, DEBUT_FIN)
 
-                        Dim DateDebut As Date = GlobalVariable.DateDeTravail.ToString("yyyy-MM-dd")
-                        Dim DateFin As Date = GlobalVariable.DateDeTravail.ToString("yyyy-MM-dd")
-
-                        GlobalVariable.DocumentToGenerate = "JOURNAL DES VENTES SHIFT"
-                        'Dim ligneFacture_ As New LigneFacture()
-                        Dim CODE_CAISSIER_ As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
-                        dtParentCategory = ligneFacture.ListeDesCategoriesDArticleVendus(DateDebut, DateFin, CODE_CAISSIER_)
-
-                        args.action = 0 'JOURNAL DES VENTES DU SHIFT
-                        args.dt = dtParentCategory
-                        args.DateDebut = DateDebut
-                        args.DateFin = DateFin
-
                         If GlobalVariable.AgenceActuelle.Rows(0)("MESSAGE_WHATSAPP") = 1 Then
+
+                            Dim DateDebut As Date = GlobalVariable.DateDeTravail.ToString("yyyy-MM-dd")
+                            Dim DateFin As Date = GlobalVariable.DateDeTravail.ToString("yyyy-MM-dd")
+
+                            GlobalVariable.DocumentToGenerate = "JOURNAL DES VENTES SHIFT"
+                            'Dim ligneFacture_ As New LigneFacture()
+                            Dim CODE_CAISSIER_ As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+                            dtParentCategory = ligneFacture.ListeDesCategoriesDArticleVendus(DateDebut, DateFin, CODE_CAISSIER_)
+
+                            args.action = 0 'JOURNAL DES VENTES DU SHIFT
+                            args.dt = dtParentCategory
+                            args.DateDebut = DateDebut
+                            args.DateFin = DateFin
 
                             If dtParentCategory.Rows.Count > 0 Then
                                 backGroundWorkerToCall(args)
@@ -1935,6 +2198,8 @@ Public Class BarRestaurantForm
         Dim gestionStock As Integer = GlobalVariable.AgenceActuelle.Rows(0)("GERER_STOCK")
         Dim continuer As Boolean = True 'PAR DEFAUT POURSUIVRE POUR GERER LE CAS DE NON ACTIVATION DE LA GESTION DES STOCK
 
+        Dim CODE_UTILISATEUR As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+
         'ON NE DOIT PAS POUVOUR OUVRIR SA CAISSE SI LA GESTION DES STOCKS EST ACTIVE
         'ET QUE L'ON A PAS ENCORE CHOISI SON MAGASIN ET CHOISI UN SHIFT
 
@@ -1950,6 +2215,12 @@ Public Class BarRestaurantForm
                 continuer = True
             End If
 
+            If Not continuer Then
+                If Not GlobalVariable.magasinActuel.Equals("") Then
+                    continuer = True
+                End If
+            End If
+
         End If
 
         If continuer Then
@@ -1962,8 +2233,6 @@ Public Class BarRestaurantForm
                 '2- VERIFICATION DE CAISSE
 
                 Dim possedeUneCaisse As Boolean = False
-
-                Dim CODE_UTILISATEUR As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
 
                 possedeUneCaisse = Functions.detentionDeCaisse(CODE_UTILISATEUR)
 
@@ -1992,6 +2261,20 @@ Public Class BarRestaurantForm
                     MessageBox.Show("You don't have the right to own a cash box", "Cash box Management", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 End If
 
+            End If
+
+        Else
+
+            'Dim lesMagasins As DataTable = Functions.getElementByCode(Trim(GlobalVariable.ConnectedUser(0)("CODE_UTILISATEUR")), "utilisateur_magazin", "CODE_UTILISATEUR")
+
+            'If Not (lesMagasins.Rows.Count > 0) Then
+            If GlobalVariable.pasDeMagasin Then
+                If GlobalVariable.actualLanguageValue = 1 Then
+                    MessageBox.Show("Vous n'avez pas de magasin", "Gestion Magasin", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Else
+                    MessageBox.Show("You don't have a store", "Store Management", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                End If
+                GlobalVariable.pasDeMagasin = False
             End If
 
         End If
@@ -2417,7 +2700,10 @@ Public Class BarRestaurantForm
                             End If
                             '-------------------- ON RECHERCHE SI IL EXISTE D'EVENTUELLE INFORMATION CONCERNANT CETTE RESA
                             'Refresh Datagrid To view newly inserted Articles
-                            OutPutLigneFacture()
+
+                            Dim TABLE_NAME As String = "ligne_facture_temp"
+
+                            OutPutLigneFacture(TABLE_NAME)
 
                             'We Refresh the general information concerning the Invoice
                             FacturationKeyInformation()
@@ -2448,7 +2734,7 @@ Public Class BarRestaurantForm
                         GunaDataGridViewClient.Visible = False
                         GunaDataGridViewClient.Columns.Clear()
 
-                        GunaTextBoxNumfacture.Text = Functions.GeneratingRandomCodeWithSpecifications("facture", "")
+                        generatingRandomCodeFacture()
 
                     Else
 
@@ -2574,7 +2860,9 @@ Public Class BarRestaurantForm
                 GunaComboBoxListeDesComandes.DisplayMember = "NUMERO_BLOC_NOTE"
             End If
 
-            OutPutLigneFacture()
+            Dim TABLE_NAME As String = "ligne_facture_temp"
+
+            OutPutLigneFacture(TABLE_NAME)
 
             DisplaySavingButton()
 
@@ -2790,8 +3078,7 @@ Public Class BarRestaurantForm
         Else
 
             'Génération d'un nouveau numéro proforma associé au numéro de bloc_note
-
-            GunaTextBoxNumfacture.Text = Functions.GeneratingRandomCodeWithSpecifications("ligne_facture", "")
+            generatingRandomCodeFacture()
 
             Dim LigneReservationTemp As New LigneFacture()
 
@@ -2799,102 +3086,147 @@ Public Class BarRestaurantForm
 
             Dim MONTANT_BLOC_NOTE As Double = Double.Parse(GunaTextBoxMontantTTCGeneral.Text)
 
-            Dim NUMERO_BLOC_NOTE_VERIF As String = Trim(GunaTextBoxBlocNote.Text) 'Permet de vérifier l'unicité des bloc notes
-            Dim NUMERO_BLOC_NOTE As String = GlobalVariable.ConnectedUser.Rows(0)("GRIFFE_UTILISATEUR") & GlobalVariable.DateDeTravail.ToString("ddMM") & "-" & Trim(GunaTextBoxBlocNote.Text)
+            Dim NUMERO_BLOC_NOTE_VERIF As String = "" 'Permet de vérifier l'unicité des bloc notes
+            Dim NUMERO_BLOC_NOTE As String = ""
 
-            Dim DATE_CREATION As Date = GlobalVariable.DateDeTravail
+            Dim SERVEUR As String = GunaTextBoxServeur.Text
 
-            Dim CODE_CAISSIER = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
-            Dim CODE_CLIENT_FIDEL As String = GunaTextBoxRefClient.Text
-            Dim CODE_ELITE As String = GunaTextBoxCodeElite.Text
+            Dim servereur_restaurant As Boolean = True
 
-            'NUMERO DE BLOC NOTE DEVANT ETRE UNIQUE
-            Dim blocNoteExistant As DataTable = Functions.getElementByCode(NUMERO_BLOC_NOTE_VERIF, "ligne_facture_bloc_note", "NUMERO_BLOC_NOTE_VERIF")
+            If GlobalVariable.AgenceActuelle.Rows(0)("NUM_BLOC_NOTE_AUTOMATIQUE") = 1 Then 'GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 1
 
-            If Not blocNoteExistant.Rows.Count > 0 Then
+                If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("SERVEUR") = 0 Then
+                    If Trim(GunaTextBoxServeur.Text).Equals("") Then
+                        servereur_restaurant = False
+                    End If
+                Else
+                    SERVEUR = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+                End If
 
-                'GunaTextBoxNumfacture.Text = GunaTextBoxNumfacture.Text = Functions.GeneratingRandomCode("facture", "")
+            End If
 
-                If GlobalVariable.typeDeClientAFacturer = "en chambre" Then
+            If GlobalVariable.AgenceActuelle.Rows(0)("NUM_BLOC_NOTE_AUTOMATIQUE") = 1 Then
+                NUMERO_BLOC_NOTE_VERIF = Trim(GunaTextBoxBlocNote.Text) 'Permet de vérifier l'unicité des bloc notes
+                NUMERO_BLOC_NOTE = Trim(GunaTextBoxBlocNote.Text) & "-" & Trim(GunaComboBoxTable.SelectedItem)
+            Else
+                NUMERO_BLOC_NOTE_VERIF = Trim(GunaTextBoxBlocNote.Text) 'Permet de vérifier l'unicité des bloc notes
+                NUMERO_BLOC_NOTE = GlobalVariable.ConnectedUser.Rows(0)("GRIFFE_UTILISATEUR") & GlobalVariable.DateDeTravail.ToString("ddMM") & "-" & Trim(GunaTextBoxBlocNote.Text)
+            End If
 
-                    GunaDataGridViewLigneFacture.Columns.Clear()
+            If servereur_restaurant Then
 
-                    'Pour les en chambres impossible de traiter deux blocs simultanement
-                    If GunaComboBoxListeDesComandes.Items.Count = 0 Then
+                Dim DATE_CREATION As Date = GlobalVariable.DateDeTravail
 
-                        LigneReservationTemp.InsertLigneBlocNoteCommande(NUMERO_BLOC_NOTE, GunaTextBoxNumfacture.Text, GunaTextBoxCodeClient.Text, DATE_CREATION, CODE_CAISSIER, NUMERO_BLOC_NOTE_VERIF)
+                Dim CODE_CAISSIER = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+                Dim CODE_CLIENT_FIDEL As String = GunaTextBoxRefClient.Text
+                Dim CODE_ELITE As String = GunaTextBoxCodeElite.Text
 
-                        If GlobalVariable.typeDeClientAFacturer = "en chambre" Then
+                'NUMERO DE BLOC NOTE DEVANT ETRE UNIQUE
+                Dim blocNoteExistant As DataTable = Functions.getElementByCode(NUMERO_BLOC_NOTE_VERIF, "ligne_facture_bloc_note", "NUMERO_BLOC_NOTE_VERIF")
 
-                            Dim CODE_RESSERVATION = GunaTextBoxNumReservation.Text
-                            Dim updateQuery As String = "UPDATE `ligne_facture_bloc_note` SET `ETAT_FACTURE` = @ETAT_FACTURE, `CODE_RESERVATION`=@CODE_RESERVATION WHERE NUMERO_BLOC_NOTE = @NUMERO_BLOC_NOTE"
+                If Not blocNoteExistant.Rows.Count > 0 Then
 
-                            Dim commandupdateQuery As New MySqlCommand(updateQuery, GlobalVariable.connect)
+                    If GlobalVariable.typeDeClientAFacturer = "en chambre" Then
 
-                            commandupdateQuery.Parameters.Add("@NUMERO_BLOC_NOTE", MySqlDbType.VarChar).Value = NUMERO_BLOC_NOTE
-                            commandupdateQuery.Parameters.Add("@CODE_RESERVATION", MySqlDbType.VarChar).Value = CODE_RESSERVATION
-                            commandupdateQuery.Parameters.Add("@ETAT_FACTURE", MySqlDbType.Int64).Value = 1
+                        GunaDataGridViewLigneFacture.Columns.Clear()
 
-                            commandupdateQuery.ExecuteNonQuery()
+                        'Pour les en chambres impossible de traiter deux blocs simultanement
+                        If GunaComboBoxListeDesComandes.Items.Count = 0 Then
+
+                            LigneReservationTemp.InsertLigneBlocNoteCommande(NUMERO_BLOC_NOTE, GunaTextBoxNumfacture.Text, GunaTextBoxCodeClient.Text, DATE_CREATION, CODE_CAISSIER, NUMERO_BLOC_NOTE_VERIF, SERVEUR)
+
+                            If GlobalVariable.typeDeClientAFacturer = "en chambre" Then
+
+                                Dim CODE_RESSERVATION = GunaTextBoxNumReservation.Text
+                                Dim updateQuery As String = "UPDATE `ligne_facture_bloc_note` SET `ETAT_FACTURE` = @ETAT_FACTURE, `CODE_RESERVATION`=@CODE_RESERVATION WHERE NUMERO_BLOC_NOTE = @NUMERO_BLOC_NOTE"
+
+                                Dim commandupdateQuery As New MySqlCommand(updateQuery, GlobalVariable.connect)
+
+                                commandupdateQuery.Parameters.Add("@NUMERO_BLOC_NOTE", MySqlDbType.VarChar).Value = NUMERO_BLOC_NOTE
+                                commandupdateQuery.Parameters.Add("@CODE_RESERVATION", MySqlDbType.VarChar).Value = CODE_RESSERVATION
+                                commandupdateQuery.Parameters.Add("@ETAT_FACTURE", MySqlDbType.Int64).Value = 1
+
+                                commandupdateQuery.ExecuteNonQuery()
+
+                            End If
+
+                            Dim caisse As New Caisse()
+                            Dim CODE_RESERVATION As String = GunaTextBoxNumReservation.Text
+
+                            Dim dt As New DataTable()
+                            dt = caisse.AutoLoadBlocNoteEnChambre(GlobalVariable.DateDeTravail.ToShortDateString, GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR"), 0, CODE_RESERVATION)
+
+                            If dt.Rows.Count > 0 Then
+
+                                GunaComboBoxListeDesComandes.DataSource = dt
+                                GunaComboBoxListeDesComandes.DisplayMember = "NUMERO_BLOC_NOTE"
+                                GunaComboBoxListeDesComandes.ValueMember = "NUMERO_BLOC_NOTE"
+
+                                GunaComboBoxListeDesComandes.SelectedValue = NUMERO_BLOC_NOTE
+
+                            End If
 
                         End If
 
-                        Dim caisse As New Caisse()
-                        Dim CODE_RESERVATION As String = GunaTextBoxNumReservation.Text
+                    Else
 
-                        Dim dt As New DataTable()
-                        dt = caisse.AutoLoadBlocNoteEnChambre(GlobalVariable.DateDeTravail.ToShortDateString, GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR"), 0, CODE_RESERVATION)
+                        LigneReservationTemp.InsertLigneBlocNoteCommande(NUMERO_BLOC_NOTE, GunaTextBoxNumfacture.Text, GunaTextBoxCodeClient.Text, DATE_CREATION, CODE_CAISSIER, NUMERO_BLOC_NOTE_VERIF, CODE_CLIENT_FIDEL, CODE_ELITE, SERVEUR)
 
-                        If dt.Rows.Count > 0 Then
+                        'On charge l'ensemble des bloc notes non réglés et clôturé
+                        AutoLoadOfBlocNote()
 
-                            GunaComboBoxListeDesComandes.DataSource = dt
-                            GunaComboBoxListeDesComandes.DisplayMember = "NUMERO_BLOC_NOTE"
-                            GunaComboBoxListeDesComandes.ValueMember = "NUMERO_BLOC_NOTE"
-
+                        If GunaComboBoxListeDesComandes.Items.Count > 0 Then
                             GunaComboBoxListeDesComandes.SelectedValue = NUMERO_BLOC_NOTE
+                        End If
 
+                        'A la création d'un nouveau bloc note 
+
+                        If GlobalVariable.actualLanguageValue = 0 Then
+                            GunaButtonSaveFacturation.Text = "Close"
+                        ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                            GunaButtonSaveFacturation.Text = "Clôturer"
                         End If
 
                     End If
 
                 Else
 
-                    LigneReservationTemp.InsertLigneBlocNoteCommande(NUMERO_BLOC_NOTE, GunaTextBoxNumfacture.Text, GunaTextBoxCodeClient.Text, DATE_CREATION, CODE_CAISSIER, NUMERO_BLOC_NOTE_VERIF, CODE_CLIENT_FIDEL, CODE_ELITE)
-
-                    'On charge l'ensemble des bloc notes non réglés et clôturé
-                    AutoLoadOfBlocNote()
-
-                    If GunaComboBoxListeDesComandes.Items.Count > 0 Then
-                        GunaComboBoxListeDesComandes.SelectedValue = NUMERO_BLOC_NOTE
-                    End If
-
-                    'A la création d'un nouveau bloc note 
-
                     If GlobalVariable.actualLanguageValue = 0 Then
-                        GunaButtonSaveFacturation.Text = "Close"
+                        languageTitle = "Receipt and Table management"
+                        languageMessage = "This code exist, please type another !!"
                     ElseIf GlobalVariable.actualLanguageValue = 1 Then
-                        GunaButtonSaveFacturation.Text = "Clôturer"
+                        languageTitle = "gestion de bloc note et table"
+                        languageMessage = "Se numéro existe déjà bien vouloir saisir un autre !!"
                     End If
+
+                    MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 End If
+
+                GunaTextBoxBlocNote.Clear()
+
+                If GlobalVariable.AgenceActuelle.Rows(0)("NUM_BLOC_NOTE_AUTOMATIQUE") = 1 Then 'GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 1
+                    generationBlocNote()
+                End If
+
+                LabelNomServeur.Text = ""
+                LabelNomServeur.Visible = False
+                GunaTextBoxServeur.Clear()
 
             Else
 
                 If GlobalVariable.actualLanguageValue = 0 Then
-                    languageTitle = "Receipt and Table management"
-                    languageMessage = "This code exist, please type another !!"
+                    languageTitle = "Server"
+                    languageMessage = "Please choose a server !!"
                 ElseIf GlobalVariable.actualLanguageValue = 1 Then
-                    languageTitle = "gestion de bloc note et table"
-                    languageMessage = "Se numéro existe déjà bien vouloir saisir un autre !!"
+                    languageTitle = "Serveur"
+                    languageMessage = "Bien vouloir choisir un Serveur !!"
                 End If
 
                 MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                'GunaTextBoxBlocNote.Clear()
-
             End If
 
-            GunaTextBoxBlocNote.Clear()
 
         End If
 
@@ -2903,7 +3235,7 @@ Public Class BarRestaurantForm
     End Sub
 
     Private Sub GunaComboBoxListeDesComandes_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GunaComboBoxListeDesComandes.SelectedIndexChanged
-
+        'kklg
 
         If GlobalVariable.typeDeClientAFacturer = "comptoir" Then
 
@@ -2913,17 +3245,19 @@ Public Class BarRestaurantForm
             'GunaDataGridViewLigneFacture.Columns.Clear()
 
             Dim blocNoteEnCours As DataTable
+            Dim ETAT_BLOC_NOTE As Integer = 0
 
             If GunaComboBoxListeDesComandes.SelectedIndex >= 0 Then
 
-                blocNoteEnCours = Functions.getElementByCode(GunaComboBoxListeDesComandes.SelectedValue.ToString, "ligne_facture_bloc_note", "NUMERO_BLOC_NOTE")
+                Dim NUMERO_BLOC_NOTE_ As String = GunaComboBoxListeDesComandes.SelectedValue.ToString
+                blocNoteEnCours = Functions.getElementByCode(NUMERO_BLOC_NOTE_, "ligne_facture_bloc_note", "NUMERO_BLOC_NOTE")
 
                 If blocNoteEnCours.Rows.Count > 0 Then
 
                     'GlobalVariable.blocNoteARegler = 
 
                     GunaTextBoxNumfacture.Text = blocNoteEnCours.Rows(0)("CODE_FACTURE")
-
+                    ETAT_BLOC_NOTE = blocNoteEnCours.Rows(0)("ETAT_BLOC_NOTE")
                     Dim ClientDevantRegler As DataTable = Functions.getElementByCode(blocNoteEnCours.Rows(0)("CODE_CLIENT"), "client", "CODE_CLIENT")
 
                     If ClientDevantRegler.Rows.Count > 0 Then
@@ -2952,10 +3286,9 @@ Public Class BarRestaurantForm
                     End If
 
                     'on verifie si le bon est associe aux clients fidels
+                    Dim TABLE_NAME As String = "ligne_facture_temp"
 
-                    Dim ListeDesArticlesDeCetteComandes As DataTable = Functions.GetAllElementsOnCondition(blocNoteEnCours.Rows(0)("NUMERO_BLOC_NOTE"), "ligne_facture_temp", "NUMERO_BLOC_NOTE")
-
-                    If ListeDesArticlesDeCetteComandes.Rows.Count > 0 Then
+                    If blocNoteEnCours.Rows(0)("ETAT_BLOC_NOTE") = 0 Then
 
                         'QUAND LE BLOC NOTE SE TROUVE DANS LIGNE FACTURE TEMP
 
@@ -2976,75 +3309,44 @@ Public Class BarRestaurantForm
                             End If
 
                         End If
-                        'klg
-                        'Determining wether or not to save a facturation
-
-                        OutPutLigneFacture()
-
-                        DisplaySavingButton()
-
-                        FacturationKeyInformation()
 
                     Else
 
-                        'AU CAS OU LES FACTURES SE TROUVE DANS LIGNE_FACTURE
+                        TABLE_NAME = "ligne_facture"
 
-                        'On charge l'ensemble des articles en relation avec cette commande ou numero de bloc note
+                        If GlobalVariable.actualLanguageValue = 0 Then
 
-                        Dim NUMERO_BLOC_NOTE As String = blocNoteEnCours.Rows(0)("NUMERO_BLOC_NOTE")
-
-                        'ListeDesArticlesDeCetteComandes = Functions.GetAllElementsOnCondition(NUMERO_BLOC_NOTE, "ligne_facture_temp", "NUMERO_BLOC_NOTE")
-                        ListeDesArticlesDeCetteComandes = Functions.GetAllElementsOnCondition(NUMERO_BLOC_NOTE, "ligne_facture", "NUMERO_BLOC_NOTE")
-
-                        If ListeDesArticlesDeCetteComandes.Rows.Count > 0 Then
-
-                            If ListeDesArticlesDeCetteComandes.Rows.Count > 0 Then
-                                OutPutLigneFactureFermee(NUMERO_BLOC_NOTE)
+                            If blocNoteEnCours.Rows(0)("ETAT_BLOC_NOTE") = 0 Then
+                                GunaButtonSaveFacturation.Text = "Close"
+                            ElseIf blocNoteEnCours.Rows(0)("ETAT_BLOC_NOTE") = 1 Then
+                                GunaButtonSaveFacturation.Text = "Pay"
                             End If
 
-                            If GlobalVariable.actualLanguageValue = 0 Then
+                        ElseIf GlobalVariable.actualLanguageValue = 1 Then
 
-                                If blocNoteEnCours.Rows(0)("ETAT_BLOC_NOTE") = 0 Then
-                                    GunaButtonSaveFacturation.Text = "Close"
-                                ElseIf blocNoteEnCours.Rows(0)("ETAT_BLOC_NOTE") = 1 Then
-                                    GunaButtonSaveFacturation.Text = "Pay"
-                                End If
-
-                            ElseIf GlobalVariable.actualLanguageValue = 1 Then
-
-                                If blocNoteEnCours.Rows(0)("ETAT_BLOC_NOTE") = 0 Then
-                                    GunaButtonSaveFacturation.Text = "Clôturer"
-                                ElseIf blocNoteEnCours.Rows(0)("ETAT_BLOC_NOTE") = 1 Then
-                                    GunaButtonSaveFacturation.Text = "Régler"
-                                End If
-
+                            If blocNoteEnCours.Rows(0)("ETAT_BLOC_NOTE") = 0 Then
+                                GunaButtonSaveFacturation.Text = "Clôturer"
+                            ElseIf blocNoteEnCours.Rows(0)("ETAT_BLOC_NOTE") = 1 Then
+                                GunaButtonSaveFacturation.Text = "Régler"
                             End If
 
-                            'Determining wether or not to save a facturation
-                            DisplaySavingButton()
-
-                            FacturationKeyInformation()
-
-                        Else
-                            GunaButtonSaveFacturation.Visible = False
                         End If
 
-                        OutPutLigneFacture()
+                        GunaButtonSaveFacturation.Visible = False
 
                     End If
 
-                    'OutPutLigneFacture()
+                    OutPutLigneFacture(TABLE_NAME)
+
+                    DisplaySavingButton(ETAT_BLOC_NOTE)
+
+                    FacturationKeyInformation()
 
                 End If
 
             Else
 
                 GunaButtonSaveFacturation.Visible = False
-
-                If GlobalVariable.typeDeClientAFacturer = "en chmabre" Or GlobalVariable.typeDeClientAFacturer = "comptoir" Then
-                    'klg
-                    'GunaComboBoxListeDesComandes.DataSource = Nothing
-                End If
 
             End If
 
@@ -3188,7 +3490,10 @@ Public Class BarRestaurantForm
                     GunaDataGridViewClient.Visible = False
 
                     'ON CHARGE LES INFORMATIONS EN RAPPORTS AVEC UNE RESA DE LA LISTE
-                    OutPutLigneFacture()
+
+                    Dim TABLE_NAME As String = "ligne_facture_temp"
+
+                    OutPutLigneFacture(TABLE_NAME)
 
                     DisplaySavingButton()
 
@@ -3273,7 +3578,45 @@ Public Class BarRestaurantForm
         End If
 
         Dim NUM_FACTURE As String = GunaTextBoxNumfacture.Text
-        Impression.commandeImpression(GunaDataGridViewLigneFacture, GunaTextBoxNom_Prenom.Text, GunaTextBoxNumfacture.Text, TB_RoomNo.Text, BLOC_NOTE)
+
+        Dim infoBlocNote As DataTable = Functions.getElementByCode(BLOC_NOTE, "ligne_facture_bloc_note", "NUMERO_BLOC_NOTE")
+        Dim CONSOLIDATE As String = ""
+        If infoBlocNote.Rows.Count > 0 Then
+            CONSOLIDATE = infoBlocNote.Rows(0)("CONSOLIDATE")
+        End If
+
+        If Trim(CONSOLIDATE).Equals("") Then
+            'Impression.commandeImpression(GunaDataGridViewLigneFacture, GunaTextBoxNom_Prenom.Text, GunaTextBoxNumfacture.Text, TB_RoomNo.Text, BLOC_NOTE)
+            Impression.docCommandeImpression(GunaDataGridViewLigneFacture, GunaTextBoxNom_Prenom.Text, GunaTextBoxNumfacture.Text, TB_RoomNo.Text, BLOC_NOTE)
+        Else
+
+            Dim getUserQuery As String = ""
+
+            If GlobalVariable.actualLanguageValue = 0 Then
+                getUserQuery = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, ligne_facture.CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'ITEM',
+            PRIX_UNITAIRE_TTC As 'PU', ligne_facture.QUANTITE AS QUANTITY, MONTANT_HT AS 'AMOUNT ET', MONTANT_TTC AS 'AMOUNT IT', 
+            GRIFFE_UTILISATEUR AS 'CASHIER', SERVEUR FROM ligne_facture WHERE CONSOLIDATE = @CONSOLIDATE ORDER BY LIBELLE_FACTURE ASC"
+            ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                getUserQuery = "SELECT ID_LIGNE_FACTURE, TYPE_LIGNE_FACTURE, ligne_facture.CODE_ARTICLE As 'ARTICLE', LIBELLE_FACTURE AS 'DESIGNATION',
+            PRIX_UNITAIRE_TTC As 'PU TTC', ligne_facture.QUANTITE, MONTANT_HT AS 'MONTANT HT', MONTANT_TTC AS 'MONTANT TTC', 
+            GRIFFE_UTILISATEUR AS 'CAISSIER', SERVEUR FROM ligne_facture WHERE CONSOLIDATE = @CONSOLIDATE ORDER BY LIBELLE_FACTURE ASC"
+            End If
+
+            Dim command As New MySqlCommand(getUserQuery, GlobalVariable.connect)
+
+            command.Parameters.Add("@CONSOLIDATE", MySqlDbType.VarChar).Value = CONSOLIDATE
+            Dim adapter As New MySqlDataAdapter
+
+            Dim table As New DataTable()
+
+            adapter.SelectCommand = command
+
+            adapter.Fill(table)
+
+            Impression.commandeConsolideeImpression(table, GunaTextBoxNom_Prenom.Text, GunaTextBoxNumfacture.Text, TB_RoomNo.Text, CONSOLIDATE)
+
+        End If
+
         Me.Cursor = Cursors.Default
 
     End Sub
@@ -3300,7 +3643,7 @@ Public Class BarRestaurantForm
 
         GunaDataGridViewLigneFacture.Columns.Clear()
 
-        GunaTextBoxNumfacture.Text = Functions.GeneratingRandomCodeWithSpecifications("ligne_facture", "")
+        generatingRandomCodeFacture()
 
         TB_RoomNo.Enabled = True
 
@@ -3452,11 +3795,8 @@ Public Class BarRestaurantForm
 
     Private Sub GunaDataGridViewArticle_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles GunaDataGridViewArticle.CellClick
 
-        'MessageBox.Show(GlobalVariable.magasinActuel)
-
         Me.Cursor = Cursors.WaitCursor
 
-        'GunaTextBoxSousFamilleArticle
         If e.RowIndex >= 0 Then
 
             GunaDataGridViewArticle.Visible = False
@@ -3539,22 +3879,10 @@ Public Class BarRestaurantForm
                 codeArticle = Article.Rows(0)("CODE_ARTICLE")
                 nomArticle = row.Cells("DESIGNATION_FR").Value.ToString
 
-                If GlobalVariable.actualLanguageValue = 0 Then
-
-                    If Trim(Article.Rows(0)("METHODE_SUIVI_STOCK")) = "Simple tracking" Or Trim(Article.Rows(0)("METHODE_SUIVI_STOCK")) = "Suivi simple" Then
-                        suivieStock = True
-                    Else
-                        suivieStock = False
-                    End If
-
-                ElseIf GlobalVariable.actualLanguageValue = 1 Then
-
-                    If Trim(Article.Rows(0)("METHODE_SUIVI_STOCK")) = "Suivi simple" Or Trim(Article.Rows(0)("METHODE_SUIVI_STOCK")) = "Simple tracking" Then
-                        suivieStock = True
-                    Else
-                        suivieStock = False
-                    End If
-
+                If Trim(Article.Rows(0)("METHODE_SUIVI_STOCK")) = "Suivi simple" Or Trim(Article.Rows(0)("METHODE_SUIVI_STOCK")) = "Simple tracking" Then
+                    suivieStock = True
+                Else
+                    suivieStock = False
                 End If
 
                 Double.TryParse(GunaTextBoxQuantite.Text, quantite)
@@ -3827,7 +4155,7 @@ Public Class BarRestaurantForm
 
     End Sub
 
-    Private Function prixUtilse(ByVal CODE_MAGASIN As String, ByVal article As DataTable) As Double
+    Public Function prixUtilse(ByVal CODE_MAGASIN As String, ByVal article As DataTable) As Double
 
         Dim PRIX_UTILISE As Double = 0
 
@@ -4269,7 +4597,21 @@ Public Class BarRestaurantForm
                         End If
 
                         'Refresh Datagrid To view newly inserted Articles
-                        OutPutLigneFacture()
+                        Dim dt As DataTable = Functions.getElementByCode(NUMERO_BLOC_NOTE, "ligne_facture_bloc_note", "NUMERO_BLOC_NOTE")
+
+                        If dt.Rows.Count > 0 Then
+
+                            'Les bloc notes cloture on utilise outputligneFactureFermee
+
+                            Dim TABLE_NAME As String = "ligne_facture_temp"
+
+                            If dt.Rows(0)("ETAT_BLOC_NOTE") = 1 Then
+                                TABLE_NAME = "ligne_facture"
+                            End If
+
+                            OutPutLigneFacture(TABLE_NAME)
+
+                        End If
 
                         'We Refresh the general information concerning the Invoice
                         FacturationKeyInformation()
@@ -4596,7 +4938,7 @@ Public Class BarRestaurantForm
 
                         If GlobalVariable.actualLanguageValue = 0 Then
                             languageMessage = "A Store has not been assigned to you !!"
-                            languageTitle = "INVENTORY MANAGAMENT"
+                            languageTitle = "INVENTORY MANAGEMENT"
                         ElseIf GlobalVariable.actualLanguageValue = 1 Then
                             languageMessage = "Aucun magasin ne vous a été affecté !!"
                             languageTitle = "GESTION DES STOCKS"
@@ -4616,7 +4958,7 @@ Public Class BarRestaurantForm
 
                     If GlobalVariable.actualLanguageValue = 0 Then
                         languageMessage = "You don't have the right to have a store !!"
-                        languageTitle = "INVENTORY MANAGAMENT"
+                        languageTitle = "INVENTORY MANAGEMENT"
                     ElseIf GlobalVariable.actualLanguageValue = 1 Then
                         languageMessage = "Vous n'avez pas droit a un magasin !!"
                         languageTitle = "GESTION DES STOCKS"
@@ -4796,15 +5138,25 @@ Public Class BarRestaurantForm
 
                 End If
 
-                '-------------------------- LIGNE FACTURATION--------------------------
+                Dim infoSupBlocNote As DataTable = Functions.getElementByCode(NUMERO_BLOC_NOTE, "ligne_facture_bloc_note", "NUMERO_BLOC_NOTE")
+                Dim SERVEUR As String = ""
 
-                ' If Trim(CODE_FACTURE) = "" Then
-                'CODE_FACTURE = Functions.GeneratingRandomCodeWithSpecifications("ligne_facture", "")
-                'GunaTextBoxNumfacture.Text = CODE_FACTURE
-                'End If
+                Dim ETAT_BLOC_NOTE As Integer = 0
 
+                If infoSupBlocNote.Rows.Count > 0 Then
 
-                If ligneFacture.insertLigneFactureTemp(CODE_FACTURE, CODE_RESERVATION, CODE_MOUVEMENT, CODE_CHAMBRE, CODE_MODE_PAIEMENT, NUMERO_PIECE, CODE_ARTICLE, CODE_LOT, MONTANT_HT, TAXE, QUANTITE, PRIX_UNITAIRE_TTC, MONTANT_TTC, DATE_FACTURE, HEURE_FACTURE, ETAT_FACTURE, DATE_OCCUPATION, HEURE_OCCUPATION, LIBELLE_FACTURE, TYPE_LIGNE_FACTURE, NUMERO_SERIE, NUMERO_ORDRE, DESCRIPTION, CODE_UTILISATEUR_CREA, CODE_AGENCE, MONTANT_REMISE, MONTANT_TAXE, NUMERO_SERIE_DEBUT, NUMERO_SERIE_FIN, CODE_MAGASIN, FUSIONNEE, TYPE, TABLE_LIGNE, NUMERO_BLOC_NOTE, GRIFFE_UTILISATEUR, VALEUR_CONSO) Then
+                    ETAT_BLOC_NOTE = infoSupBlocNote.Rows(0)("ETAT_BLOC_NOTE")
+
+                    Dim CODE_PERSONNEL As String = infoSupBlocNote.Rows(0)("SERVEUR")
+                    infoSupBlocNote = Functions.getElementByCode(CODE_PERSONNEL, "personnel", "CODE_PERSONNEL")
+                    If infoSupBlocNote.Rows.Count > 0 Then
+                        SERVEUR = infoSupBlocNote.Rows(0)("PRENOM_PERSONNEL")
+                    Else
+                        SERVEUR = CODE_PERSONNEL
+                    End If
+                End If
+
+                If ligneFacture.insertLigneFactureTemp(CODE_FACTURE, CODE_RESERVATION, CODE_MOUVEMENT, CODE_CHAMBRE, CODE_MODE_PAIEMENT, NUMERO_PIECE, CODE_ARTICLE, CODE_LOT, MONTANT_HT, TAXE, QUANTITE, PRIX_UNITAIRE_TTC, MONTANT_TTC, DATE_FACTURE, HEURE_FACTURE, ETAT_FACTURE, DATE_OCCUPATION, HEURE_OCCUPATION, LIBELLE_FACTURE, TYPE_LIGNE_FACTURE, NUMERO_SERIE, NUMERO_ORDRE, DESCRIPTION, CODE_UTILISATEUR_CREA, CODE_AGENCE, MONTANT_REMISE, MONTANT_TAXE, NUMERO_SERIE_DEBUT, NUMERO_SERIE_FIN, CODE_MAGASIN, FUSIONNEE, TYPE, TABLE_LIGNE, NUMERO_BLOC_NOTE, GRIFFE_UTILISATEUR, VALEUR_CONSO, SERVEUR) Then
                     'FUSIONNEE : UTILISE COMME SOUS FAMILLE DE L'ARTICLE
 
                 End If
@@ -4835,14 +5187,23 @@ Public Class BarRestaurantForm
                 GunaComboBoxUniteOuConso.Visible = False
 
                 If GlobalVariable.typeDeClientAFacturer = "comptoir" Then
-                    miseAJourDuMontantDuBlocNote(NUMERO_BLOC_NOTE)
+                    miseAJourDuMontantDuBlocNote(NUMERO_BLOC_NOTE, ETAT_BLOC_NOTE)
                     BlocNotesVisualisation()
                 ElseIf GlobalVariable.typeDeClientAFacturer = "evenement" Then
                     AutoLoadEventListeVisualisation()
                 End If
 
                 'Refresh Datagrid To view newly inserted Articles
-                OutPutLigneFacture()
+                'Refresh Datagrid To view newly inserted Articles
+                Dim dt As DataTable = Functions.getElementByCode(NUMERO_BLOC_NOTE, "ligne_facture_bloc_note", "NUMERO_BLOC_NOTE")
+
+                Dim TABLE_NAME As String = "ligne_facture_temp"
+
+                If ETAT_BLOC_NOTE = 1 Then
+                    TABLE_NAME = "ligne_facture"
+                End If
+
+                OutPutLigneFacture(TABLE_NAME)
 
                 'We Refresh the general information concerning the Invoice
                 FacturationKeyInformation()
@@ -4894,6 +5255,8 @@ Public Class BarRestaurantForm
             clearArticleFields()
 
         End If
+
+        resumeDesVentesDuJours(GlobalVariable.DateDeTravail)
 
     End Sub
 
@@ -5040,27 +5403,7 @@ Public Class BarRestaurantForm
                             nombreDeConso = nombreDeConsoTotal Mod nombreDeConsoDansUneBouteille
                         End If
 
-                        If gestionDesStock = 0 Then
-
-                            ' GunaTextBoxStockEconomat.Text = Format(nombreDeBouteille, "#,##0")
-                            'GunaTextBoxConsoOnly.Text = Format(nombreDeConso, "#,##0") 'LES QTE DES ARTICLES APAR APPORTS AUX CONSOMMATIONS
-
-                        ElseIf gestionDesStock = 1 Then
-
-                            'GunaTextBoxStockMagasin.Text = Format(nombreDeBouteille, "#,##0")
-                            'GunaTextBoxConso.Text = Format(nombreDeConso, "#,##0") 'LES QTE DES ARTICLES APAR APPORTS AUX CONSOMMATIONS
-
-                        End If
-
-                        '------------------------------------------------------------------------------------------------------------------------
-
                     End If
-
-                Else
-
-                    'GunaTextBoxConsoOnly.Visible = False
-                    'GunaLabel5.Visible = False
-                    'GunaLabel6.Visible = False
 
                 End If
 
@@ -5113,8 +5456,6 @@ Public Class BarRestaurantForm
         If GunaDataGridViewLigneFacture.Rows.Count > 0 Then
 
             numberOfElement = GunaDataGridViewLigneFacture.Rows.Count
-
-            Dim ETAT_BLOC_NOTE As String = Trim(GunaButtonSaveFacturation.Text)
 
             If GlobalVariable.typeDeClientAFacturer = "comptoir" Or GlobalVariable.typeDeClientAFacturer = "en chambre" Or GlobalVariable.typeDeClientAFacturer = "evenement" Then
 
@@ -5201,7 +5542,7 @@ Public Class BarRestaurantForm
                                 'SUPPRESSION DES LIGNES DE REDUCTION SI ELLE EXISTE
                                 Functions.DeleteElementOnTwoConditions(CODE_ARTICLE, "ligne_facture_temp", "NUMERO_SERIE_DEBUT", "NUMERO_BLOC_NOTE", NUMERO_BLOC_NOTE)
 
-                                miseAJourDuMontantDuBlocNote(NUMERO_BLOC_NOTE)
+                                miseAJourDuMontantDuBlocNote(NUMERO_BLOC_NOTE, infoBlocNote.Rows(0)("ETAT_BLOC_NOTE"))
 
                                 If GlobalVariable.actualLanguageValue = 0 Then
                                     languageMessage = "You successfully deleted"
@@ -5213,13 +5554,15 @@ Public Class BarRestaurantForm
 
                                 MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+                                numberOfElement -= 1
+
                             Else
 
                                 If GlobalVariable.actualLanguageValue = 0 Then
                                     languageMessage = "Cannot delete, receipt as it is closed!"
                                     languageTitle = "Delete"
                                 ElseIf GlobalVariable.actualLanguageValue = 1 Then
-                                    languageMessage = "Impossible de supprimer, bloc notre clôturé !"
+                                    languageMessage = "Impossible de supprimer, bloc note clôturé !"
                                     languageTitle = "Suppression"
                                 End If
 
@@ -5227,6 +5570,10 @@ Public Class BarRestaurantForm
 
                             End If
                         End If
+
+                        GunaComboBoxListeDesComandes.SelectedValue = NUMERO_BLOC_NOTE
+
+                        BlocNotesVisualisation()
 
                     Else
 
@@ -5243,10 +5590,6 @@ Public Class BarRestaurantForm
                     End If
 
                 End If
-
-                GunaComboBoxListeDesComandes.SelectedValue = NUMERO_BLOC_NOTE
-
-                BlocNotesVisualisation()
 
             Else
 
@@ -5279,6 +5622,7 @@ Public Class BarRestaurantForm
                     languageMessage = "Supression"
                 End If
 
+                numberOfElement -= 1
                 MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 'GunaComboBoxListeDesComandes.SelectedValue = NUMERO_BLOC_NOTE
@@ -5299,7 +5643,19 @@ Public Class BarRestaurantForm
 
         End If
 
-        OutPutLigneFacture()
+        Dim TABLE_NAME As String = "ligne_facture_temp"
+
+        Dim dt As DataTable = Functions.getElementByCode(NUMERO_BLOC_NOTE, "ligne_facture_bloc_note", "NUMERO_BLOC_NOTE")
+
+        If dt.Rows.Count > 0 Then
+
+            If dt.Rows(0)("ETAT_BLOC_NOTE") = 1 Then
+                TABLE_NAME = "ligne_facture"
+            End If
+
+        End If
+
+        OutPutLigneFacture(TABLE_NAME)
 
         FacturationKeyInformation()
 
@@ -5308,7 +5664,7 @@ Public Class BarRestaurantForm
         Dim MONTANT_BLOC_NOTE_ As Double = GunaTextBoxMontantTTCGeneral.Text
         Functions.updateOfFields("ligne_facture_bloc_note", "MONTANT_BLOC_NOTE", MONTANT_BLOC_NOTE_, "NUMERO_BLOC_NOTE", NUMERO_BLOC_NOTE, 0)
 
-        If numberOfElement = 1 Then
+        If numberOfElement <= 0 Then
             GunaDataGridViewLigneFacture.DataSource = Nothing
         End If
 
@@ -5318,11 +5674,17 @@ Public Class BarRestaurantForm
         'MontantTotalDesVentesDuJours(DateDeSituation)
     End Sub
 
-    Public Sub miseAJourDuMontantDuBlocNote(ByVal NUMERO_BLOC_NOTE As String)
+    Public Sub miseAJourDuMontantDuBlocNote(ByVal NUMERO_BLOC_NOTE As String, ByVal ETAT_BLOC_NOTE As Integer)
 
         Dim MONTANT_BLOC_NOTE As Double = 0
 
-        Dim ligneDuBlocNotes As DataTable = Functions.getElementByCode(NUMERO_BLOC_NOTE, "ligne_facture_temp", "NUMERO_BLOC_NOTE")
+        Dim ligneDuBlocNotes As DataTable
+
+        If ETAT_BLOC_NOTE = 0 Then
+            ligneDuBlocNotes = Functions.getElementByCode(NUMERO_BLOC_NOTE, "ligne_facture_temp", "NUMERO_BLOC_NOTE")
+        Else
+            ligneDuBlocNotes = Functions.getElementByCode(NUMERO_BLOC_NOTE, "ligne_facture", "NUMERO_BLOC_NOTE")
+        End If
 
         If ligneDuBlocNotes.Rows.Count > 0 Then
 
@@ -5380,7 +5742,7 @@ Public Class BarRestaurantForm
 
                     GunaTextBoxQuantite.Text = Format(row.Cells("QUANTITY").Value, "#,##0")
 
-                    GunaTextBoxMontantHT.Text = Format(row.Cells("UNIT PRICE").Value, "#,##0")
+                    GunaTextBoxMontantHT.Text = Format(row.Cells("PU").Value, "#,##0")
 
                     GunaTextBoxMontantTTC.Text = Format(row.Cells("AMOUNT IT").Value, "#,##0")
 
@@ -5555,7 +5917,7 @@ Public Class BarRestaurantForm
 
                         If infoSupBlocNote.Rows.Count > 0 Then
 
-                            miseAJourDuMontantDuBlocNote(NUMERO_BLOC_NOTE)
+                            miseAJourDuMontantDuBlocNote(NUMERO_BLOC_NOTE, infoSupBlocNote.Rows(0)("ETAT_BLOC_NOTE"))
 
                         End If
 
@@ -5578,23 +5940,43 @@ Public Class BarRestaurantForm
 
                 End If
 
-                OutPutLigneFacture()
+                Dim TABLE_NAME As String = "ligne_facture_temp"
+
+                Dim dt As DataTable = Functions.getElementByCode(NUMERO_BLOC_NOTE, "ligne_facture_bloc_note", "NUMERO_BLOC_NOTE")
+
+                If dt.Rows(0)("ETAT_BLOC_NOTE") = 1 Then
+                    TABLE_NAME = "ligne_facture"
+                End If
+
+                OutPutLigneFacture(TABLE_NAME)
 
                 FacturationKeyInformation()
 
                 DisplaySavingButton()
                 '------------------------------------------------------------------------------
+
+                If GlobalVariable.AgenceActuelle.Rows(0)("PRIX_BAR_RESTAU_MODIFIABLE") = 1 Then
+                    GunaTextBoxMontantHT.Enabled = True
+                Else
+                    If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CORRECTIONS") = 1 Then
+                        GunaTextBoxMontantHT.Enabled = True
+                    Else
+                        GunaTextBoxMontantHT.Enabled = False
+                    End If
+                End If
+
             Else
 
                 If GlobalVariable.actualLanguageValue = 0 Then
-                    languageMessage = "Impossible to close a receipt that has been closed !!"
-                    languageTitle = "Delete"
-                ElseIf GlobalVariable.actualLanguageValue = 0 Then
-                    languageMessage = "Impossible de supprimer un bloc note cloturé !!"
-                    languageTitle = "Supression"
+                    languageMessage = "Impossible to edit a receipt that has been closed !!"
+                    languageTitle = "Edit"
+                ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                    languageMessage = "Impossible de modifier un bloc note cloturé !!"
+                    languageTitle = "Modifier"
                 End If
 
                 MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
             End If
 
         End If
@@ -5711,7 +6093,9 @@ Public Class BarRestaurantForm
 
                                 AutoLoadOfBlocNote()
 
-                                OutPutLigneFacture()
+                                Dim TABLE_NAME As String = "ligne_facture_temp"
+
+                                OutPutLigneFacture(TABLE_NAME)
 
                                 FacturationKeyInformation()
 
@@ -6034,6 +6418,12 @@ Public Class BarRestaurantForm
 
         Dim CAISSE_UTILISATEUR As DataTable = Functions.getElementByCode(CODE_UTILISATEUR, "caisse", "CODE_UTILISATEUR")
 
+        'Le controle de caissse ne doit pas se faire sur les serveuses
+        Dim serveuse As Boolean = False
+        If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("SERVEUR") = 1 Then
+            serveuse = True
+        End If
+
         Dim possedeCaisse As Boolean = False
 
         Dim CODE_RESERVATION As String = GunaTextBoxNumReservation.Text
@@ -6049,11 +6439,8 @@ Public Class BarRestaurantForm
         Dim imprimerCommandeComptoir As Boolean = False
 
         dt = GunaDataGridViewLigneFacture
-        'If CAISSE_UTILISATEUR.Rows.Count > 0 Then
 
-        'End If
-
-        If CAISSE_UTILISATEUR.Rows.Count <= 0 Then
+        If CAISSE_UTILISATEUR.Rows.Count <= 0 And Not serveuse Then
 
             If GlobalVariable.actualLanguageValue = 0 Then
                 languageTitle = "Cash In Management"
@@ -6067,7 +6454,11 @@ Public Class BarRestaurantForm
 
         Else
 
-            ETAT_CAISSE = CAISSE_UTILISATEUR.Rows(0)("ETAT_CAISSE")
+            If serveuse Then
+                ETAT_CAISSE = 1
+            Else
+                ETAT_CAISSE = CAISSE_UTILISATEUR.Rows(0)("ETAT_CAISSE")
+            End If
 
             If ETAT_CAISSE = 0 Then
 
@@ -6148,11 +6539,8 @@ Public Class BarRestaurantForm
                         If GlobalVariable.typeDeClientAFacturer = "comptoir" Then
 
                             If Not GunaComboBoxListeDesComandes.SelectedValue.ToString Is Nothing Then
-
                                 GlobalVariable.blocNoteARegler = GunaComboBoxListeDesComandes.SelectedValue.ToString
-
                                 GunaComboBoxListeDesComandes.SelectedValue = GlobalVariable.blocNoteARegler
-
                             End If
 
                         End If
@@ -6209,6 +6597,7 @@ Public Class BarRestaurantForm
                             'LES ARTICLES ASSOCIE A UNE FICHE TECHNIQUE SERONT TRANSFERE LORS DE LA MIGRATION DE TEMP VERS LIGNE FACTURE
                             facturation.MigrationDeLigneFatureTempVersLigneFactureComptoire(GunaComboBoxListeDesComandes.SelectedValue.ToString)
 
+                            Functions.DeleteElementByCode(GunaComboBoxListeDesComandes.SelectedValue.ToString, "ligne_facture_temp", "NUMERO_BLOC_NOTE")
                             'GunaTextBoxNumfacture.Text = Functions.GeneratingRandomCodeWithSpecifications("ligne_facture", "")
 
                             'Impression.commande(GunaDataGridViewLigneFacture, GunaTextBoxNom_Prenom.Text, TB_RoomNo.Text)
@@ -6373,8 +6762,6 @@ Public Class BarRestaurantForm
 
                                 Else
 
-                                    'GunaDataGridViewLigneFacture.Columns.Clear()
-
                                 End If
 
                             End If
@@ -6403,19 +6790,51 @@ Public Class BarRestaurantForm
                     'Facturation calculator
                     FacturationKeyInformation()
 
-                    'DisplaySavingButton()
+                    DisplaySavingButton()
 
                     GunaDataGridViewClient.Visible = False
 
+                    Dim args As ArgumentType = New ArgumentType()
+                    args.action = 1 'JOURNAL DES VENTES DU SHIFT
+
+                    'generation document
+
                     If imprimerCommandeComptoir Then
-                        Impression.commandeImpression(dt, NOM_CLIENT, NUM_FACTURE, CHAMBRE, BLOC_A_REGLER)
+
+                        args.fichier = Impression.docCommandeImpression(dt, NOM_CLIENT, NUM_FACTURE, CHAMBRE, BLOC_A_REGLER)
+                        orderNumber = BLOC_A_REGLER
+
+                        'If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                        'Impression.commandeImpression(dt, NOM_CLIENT, NUM_FACTURE, CHAMBRE, BLOC_A_REGLER)
+                        'Else
+                        'args.fichier = Impression.docCommandeImpression(dt, NOM_CLIENT, NUM_FACTURE, CHAMBRE, BLOC_A_REGLER)
+                        'orderNumber = BLOC_A_REGLER
+                        'End If
+
+                    End If
+
+                    If imprimerCommandeEnChambre Then
+                        args.fichier = Impression.docCommandeImpression(dt, NOM_CLIENT, NUM_FACTURE, CHAMBRE)
+                        orderNumber = BLOC_A_REGLER
+                        'If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+                        'Impression.commandeImpression(dt, NOM_CLIENT, NUM_FACTURE, CHAMBRE)
+                        'Else
+                        'args.fichier = Impression.docCommandeImpression(dt, NOM_CLIENT, NUM_FACTURE, CHAMBRE)
+                        'End If
+                    End If
+
+                    'If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 1 Then
+                    'If GlobalVariable.AgenceActuelle.Rows(0)("MESSAGE_WHATSAPP") = 1 Then
+                    'backGroundWorkerToCall(args)
+                    'End If
+                    'End If
+
+                    If GlobalVariable.AgenceActuelle.Rows(0)("MESSAGE_WHATSAPP") = 1 Then
+                        'Not to send order slip again
+                        'backGroundWorkerToCall(args)
                     End If
 
                     manualRefresh()
-
-                    If imprimerCommandeEnChambre Then
-                        Impression.commandeImpression(dt, NOM_CLIENT, NUM_FACTURE, CHAMBRE)
-                    End If
 
                     If GlobalVariable.typeDeClientAFacturer = "en chambre" Or GlobalVariable.typeDeClientAFacturer = "evenement" Then
                         GunaDataGridViewLigneFacture.DataSource = Nothing
@@ -6439,6 +6858,7 @@ Public Class BarRestaurantForm
     End Sub
 
     Dim i As Integer = 0
+    Dim orderNumber As String = ""
 
     Public Sub manualRefresh()
 
@@ -6514,16 +6934,24 @@ Public Class BarRestaurantForm
                     GunaComboBoxListeDesComandes.SelectedValue = GlobalVariable.blocNoteARegler
                 End If
 
-            Else
-                'klg
-                'GunaDataGridViewLigneFacture.Columns.Clear()
-                'GunaDataGridViewLigneFacture.DataSource = Nothing
             End If
 
             '------------------------------------------------------------------------
         End If
 
-        OutPutLigneFacture()
+        Dim dt As DataTable = Functions.getElementByCode(GunaComboBoxListeDesComandes.SelectedValue, "ligne_facture_bloc_note", "NUMERO_BLOC_NOTE")
+
+        Dim TABLE_NAME As String = "ligne_facture_temp"
+
+        If dt.Rows.Count > 0 Then
+
+            If dt.Rows(0)("ETAT_BLOC_NOTE") = 1 Then
+                TABLE_NAME = "ligne_facture"
+            End If
+
+        End If
+
+        OutPutLigneFacture(TABLE_NAME)
 
         DisplaySavingButton()
 
@@ -7022,12 +7450,6 @@ Public Class BarRestaurantForm
                             GunaTextBoxCompteDebiteur.Text = compte.Rows(0)("NUMERO_COMPTE")
 
                             ClientForm.GunaTextBoxSoldeCompte.Text = Format(compte.Rows(0)("SOLDE_COMPTE"), "#,##0")
-                            'GunaTextBoxPersonneAContacter.Text = compte.Rows(0)("PERSONNE_A_CONTACTER")
-                            'GunaTextBoxContactPaiement.Text = compte.Rows(0)("CONTACT_PAIEMENT")
-                            'GunaTextBoxAdressePaiement.Text = compte.Rows(0)("ADRESSE_DE_FACTURATION")
-                            'GunaTextBoxDelaiPaiement.Text = compte.Rows(0)("DELAI_DE_PAIEMENT")
-
-                            'GunaTextBoxPlafonds.Text = Format(compte.Rows(0)("PLAFONDS_DU_COMPTE"), "#,##0")
 
                         End If
 
@@ -7112,30 +7534,6 @@ Public Class BarRestaurantForm
 
             Else
 
-                'query = "SELECT INTITULE, NUMERO_COMPTE From compte WHERE 
-                'INTITULE LIKE '%" & GunaTextBoxNomPrenom.Text & "%'
-                'Or NUMERO_COMPTE LIKE '%" & Trim(GunaTextBoxNomPrenom.Text) & "%' ORDER BY INTITULE ASC"
-
-                'command = New MySqlCommand(query, GlobalVariable.connect)
-                'command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = GlobalVariable.codeAgence
-                'command.Parameters.Add("@ETAT_DU_COMPTE", MySqlDbType.Int64).Value = 1
-
-                'table = New DataTable
-                'adapter = New MySqlDataAdapter(command)
-
-                'adapter.Fill(table)
-
-                'If (table.Rows.Count > 0) Then
-
-                'GunaDataGridViewClientMaison.DataSource = table
-
-                'Else
-
-                'GunaDataGridViewClientMaison.Columns.Clear()
-                'GunaDataGridViewClientMaison.Visible = False
-
-                'End If
-
                 GunaDataGridViewClientMaison.Columns.Clear()
                 GunaDataGridViewClientMaison.Visible = False
 
@@ -7164,13 +7562,12 @@ Public Class BarRestaurantForm
 
             row = Me.GunaDataGridViewClientMaison.Rows(e.RowIndex)
 
-            Dim query As String = "SELECT * FROM client WHERE NOM_CLIENT = @NOM_CLIENT AND EMAIL=@EMAIL"
+            Dim query As String = "SELECT * FROM client WHERE NOM_CLIENT = @NOM_CLIENT"
             Dim adapter As New MySqlDataAdapter
 
             Dim table As New DataTable()
             Dim command As New MySqlCommand(query, GlobalVariable.connect)
-            command.Parameters.Add("@NOM_CLIENT", MySqlDbType.VarChar).Value = Trim(row.Cells("NOM_CLIENT").Value.ToString())
-            command.Parameters.Add("@EMAIL", MySqlDbType.VarChar).Value = row.Cells("EMAIL").Value.ToString()
+            command.Parameters.Add("@NOM_CLIENT", MySqlDbType.VarChar).Value = row.Cells("NOM_CLIENT").Value.ToString()
 
             adapter.SelectCommand = command
             adapter.Fill(table)
@@ -7237,7 +7634,7 @@ Public Class BarRestaurantForm
                 GunaTextBoxNomPrenom.Text = table.Rows(0)("NOM_PRENOM")
 
             Else
-                GunaTextBoxNomPrenom.Clear()
+                'GunaTextBoxNomPrenom.Clear()
                 GunaButtonFactures.Visible = False
                 GunaTextBoxCompteDebiteur.Visible = False
             End If
@@ -7276,6 +7673,9 @@ Public Class BarRestaurantForm
 
         Else
             discounStays = False
+            GunaTextBoxNomPrenom.Clear()
+            GunaButtonCodeEliteDetails.Visible = False
+            GunaTextBoxCodeElite.Text = ""
         End If
 
     End Sub
@@ -7473,11 +7873,14 @@ Public Class BarRestaurantForm
         If Trim(GunaTextBoxArticleAppro.Text).Equals("") Then
 
             GunaComboBoxUniteComptageAppro.Items.Clear()
-
+            GunaButtonAjouterLigneAppro.Visible = False
             GunaTextBoxGrandeUniteDeCompatge.Clear()
 
-            GunaTextBoxEnStock.Text = 0
-            GunaTextBoxConsoAppro.Text = 0
+            If GlobalVariable.actualLanguageValue = 0 Then
+                GunaButtonAjouterLigneAppro.Text = "Add"
+            Else
+                GunaButtonAjouterLigneAppro.Text = "Ajouter"
+            End If
             GunaTextBoxSeuile.Text = 0
 
             GunaTextBoxCoutDuStock.Text = 0
@@ -7545,12 +7948,11 @@ Public Class BarRestaurantForm
 
     Private Sub GunaDataGridViewArticleAppro_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles GunaDataGridViewArticleAppro.CellClick
 
+        '------------------------------------------
+
         GunaDataGridViewArticleAppro.Visible = False
 
         Dim econom As New Economat()
-        'Le bouton permettant d'ajouter un article a la facture n'est visible que lorsque l'on est sure que le produit existe
-        'il disparait de nouveau après ajout a la facture
-
         GunaButtonAjouterLigneAppro.Visible = True
 
         If e.RowIndex >= 0 Then
@@ -7571,15 +7973,43 @@ Public Class BarRestaurantForm
             adapter.SelectCommand = command
             adapter.Fill(Article)
 
-            If (Article.Rows.Count > 0) Then
+            Dim CODE_MAGASIN As String = ""
+            Dim CODE_ARTCLE As String = ""
+
+            Dim CODE_SOUS_MAGASIN As String = GlobalVariable.magasinActuel
+
+            Dim LIBELLE_MAGASIN As String = "GRAND MAGASIN"
+            Dim LIBELLE_MAGASIN_ As String = "MAIN STORE"
+
+
+            '--------------------------------- QUANTITE DANS LE MAGASIN CENTRAL --------------------------------
+            Dim getArticleQuery_ As String = "SELECT * FROM magasin WHERE LIBELLE_MAGASIN LIKE '%" & LIBELLE_MAGASIN & "%' OR LIBELLE_MAGASIN LIKE '%" & LIBELLE_MAGASIN_ & "%' "
+            Dim adapter_ As New MySqlDataAdapter
+            Dim table_ As New DataTable
+            '--------------------------------------------------------------------------------
+
+            Dim Command_ As New MySqlCommand(getArticleQuery_, GlobalVariable.connect)
+            adapter_.SelectCommand = Command_
+            adapter_.Fill(table_)
+
+            If table_.Rows.Count > 0 Then
+                CODE_MAGASIN = table_.Rows(0)("CODE_MAGASIN")
+            End If
+
+            Dim CODE_AGENCE As String = GlobalVariable.AgenceActuelle.Rows(0)("CODE_AGENCE")
+            Dim gestionDesStock As Integer = Functions.getElementByCode(CODE_AGENCE, "agence", "CODE_AGENCE").Rows(0)("GERER_STOCK")
+
+            If Article.Rows.Count > 0 Then
 
                 GunaTextBoxCodeArticleAppro.Text = Article.Rows(0)("CODE_ARTICLE")
+                CODE_ARTCLE = Article.Rows(0)("CODE_ARTICLE")
 
-                GunaTextBoxAchat.Text = Format(Article.Rows(0)("COUT_U_MOYEN_PONDERE"), "#,##0.0") 'PRIX D'ACHAT 
+                'GunaTextBoxQunatiteDansLeMagasinDestination.Text = econom.QuantiteDunArticleQuelconqueDansUnMagasinQuelconque(CODE_SOUS_MAGASIN, CODE_ARTCLE)
+
+                GunaTextBoxAchat.Text = Format(Article.Rows(0)("COUT_U_MOYEN_PONDERE"), "#,##0.0") 'PRIX D'ACHAT UNITAIRE
                 GunaTextBoxPrixVente.Text = Format(Article.Rows(0)("PRIX_VENTE_HT"), "#,##0.0") 'COUT MOYEN UNITAIRE PONDERE
                 GunaTextBoxArticleAppro.Text = Article.Rows(0)("DESIGNATION_FR")
                 GunaTextBoxSeuile.Text = Article.Rows(0)("SEUIL_REAPPROVISIONNEMENT")
-                GunaTextBoxEnStock.Text = Article.Rows(0)("QUANTITE")
                 GunaTextBoxCodeUniteComptage.Text = Article.Rows(0)("UNITE_COMPTAGE")
 
                 GunaTextBoxCoutDuStock.Text = Format(Article.Rows(0)("COUT_U_MOYEN_PONDERE"), "#,##0.0") ' PRIX UNITAIRE A L'ACHAT
@@ -7587,64 +8017,156 @@ Public Class BarRestaurantForm
                 Dim unite As DataTable = Functions.getElementByCode(GunaTextBoxCodeUniteComptage.Text, "unite_comptage", "CODE_UNITE_DE_COMPTAGE")
 
                 If unite.Rows.Count > 0 Then
-                    gestionDesUnitesAppro(Article)
+
+                    gestionDesUnites(Article)
+
                 End If
+
+                Dim QUANTITE_DU_MAGASIN_ACTUEL As Double = 0
+                Dim QUANTITE_DU_MAGASIN_ACTUEL_ As Double = 0
+
+                If gestionDesStock = 0 Then
+                    QUANTITE_DU_MAGASIN_ACTUEL = Article.Rows(0)("QUANTITE")
+                ElseIf gestionDesStock = 1 Then
+                    QUANTITE_DU_MAGASIN_ACTUEL = econom.QuantiteDunArticleQuelconqueDansUnMagasinQuelconque(CODE_SOUS_MAGASIN, CODE_ARTCLE)
+                    QUANTITE_DU_MAGASIN_ACTUEL_ = econom.QuantiteDunArticleQuelconqueDansUnMagasinQuelconque(CODE_MAGASIN, CODE_ARTCLE)
+                End If
+
+                'If Not Trim(GunaTextBoxQteGrdeUnite.Text) = "" Then
+
+                If unite.Rows.Count > 0 Then
+
+                    'PETIT MAGASIN
+                    Dim nombreDeGrandeUnite As Double = 0
+                    Dim nombreDePetiteUnite As Integer = 0
+                    Dim nombreTotalDePetiteUnite As Double = QUANTITE_DU_MAGASIN_ACTUEL
+
+                    'GRAND MAGASIN
+                    Dim nombreDeGrandeUnite_ As Double = 0
+                    Dim nombreDePetiteUnite_ As Integer = 0
+                    Dim nombreTotalDePetiteUnite_ As Double = QUANTITE_DU_MAGASIN_ACTUEL_
+
+                    Dim VALEUR_DE_CONVERSION = unite.Rows(0)("VALEUR_NUMERIQUE")
+
+                    If VALEUR_DE_CONVERSION > 1 Then
+
+                        If nombreTotalDePetiteUnite > 0 Then
+                            nombreDeGrandeUnite = Int(nombreTotalDePetiteUnite / VALEUR_DE_CONVERSION)
+                            nombreDePetiteUnite = nombreTotalDePetiteUnite Mod VALEUR_DE_CONVERSION
+                        End If
+
+                        If nombreTotalDePetiteUnite_ > 0 Then
+                            nombreDeGrandeUnite_ = Int(nombreTotalDePetiteUnite_ / VALEUR_DE_CONVERSION)
+                            nombreDePetiteUnite_ = nombreTotalDePetiteUnite_ Mod VALEUR_DE_CONVERSION
+                        End If
+
+                        GunaTextBoxQteGrdeUnite.Text = Format(nombreDeGrandeUnite, "#,##0.00")
+                        GunaTextBox7.Text = Format(nombreDeGrandeUnite_, "#,##0.00")
+
+                        GunaTextBoxSeuile.Text = Format(Article.Rows(0)("SEUIL_REAPPROVISIONNEMENT"), "#,##0.0")
+                        GunaTextBoxPrixVente.Text = Format(Article.Rows(0)("PRIX_VENTE_HT"), "#,##0.0")
+
+                        GunaTextBoxQtePetiteUnite.Text = Format(nombreDePetiteUnite, "#,##0.0")
+                        GunaTextBox6.Text = Format(nombreDePetiteUnite_, "#,##0.0")
+
+                        LabelPteUnite.Visible = True
+                        GunaTextBoxQtePetiteUnite.Visible = True
+
+                        LabelGrdeUnite.Visible = True
+                        GunaTextBoxQteGrdeUnite.Visible = True
+                        GunaTextBox7.Visible = True
+
+                        LabelPteUnite.Text = unite.Rows(0)("PETITE_UNITE").ToString.ToString()
+                        LabelGrdeUnite.Text = unite.Rows(0)("GRANDE_UNITE").ToString.ToString()
+
+                    Else
+
+                        If Integer.Parse(Article.Rows(0)("BOISSON")) = 1 Then
+
+                            Dim conso As DataTable = Functions.getElementByCode(Trim(Article.Rows(0)("CODE_CONSO")), "unite_comptage", "CODE_UNITE_DE_COMPTAGE")
+
+                            If Trim(Article.Rows(0)("CODE_CONSO")).Equals("") Then
+                                conso = Nothing
+                            End If
+
+                            If conso.Rows.Count > 0 Then
+
+                                Dim nombreDeBouteille As Integer = 0
+                                Dim nombreDeConso As Integer = 0
+                                Dim nombreDeConsoTotal As Double = QUANTITE_DU_MAGASIN_ACTUEL
+
+                                Dim nombreDeBouteille_ As Integer = 0
+                                Dim nombreDeConso_ As Integer = 0
+                                Dim nombreDeConsoTotal_ As Double = QUANTITE_DU_MAGASIN_ACTUEL_
+
+                                Dim contenance As Double = Article.Rows(0)("CONTENANCE")
+                                Dim valeurConversion = conso.Rows(0)("VALEUR_NUMERIQUE")
+                                Dim nombreDeConsoDansUneBouteille As Integer = Math.Floor(contenance / valeurConversion)
+
+                                If nombreDeConsoDansUneBouteille > 0 Then
+                                    nombreDeBouteille = Int(nombreDeConsoTotal / nombreDeConsoDansUneBouteille)
+                                    nombreDeConso = nombreDeConsoTotal Mod nombreDeConsoDansUneBouteille
+                                End If
+
+                                Dim nombreDeConsoDansUneBouteille_ As Integer = Math.Floor(contenance / valeurConversion)
+
+                                If nombreDeConsoDansUneBouteille_ > 0 Then
+                                    nombreDeBouteille_ = Int(nombreDeConsoTotal_ / nombreDeConsoDansUneBouteille_)
+                                    nombreDeConso_ = nombreDeConsoTotal_ Mod nombreDeConsoDansUneBouteille_
+                                End If
+
+                                LabelPteUnite.Visible = True
+                                GunaTextBoxQtePetiteUnite.Visible = True
+
+                                LabelGrdeUnite.Visible = True
+                                GunaTextBoxQteGrdeUnite.Visible = True
+
+                                GunaTextBoxQteGrdeUnite.Text = nombreDeBouteille
+                                GunaTextBoxQtePetiteUnite.Text = nombreDeConso 'LES QTE DES ARTICLES APAR APPORTS AUX CONSOMMATIONS
+
+                                GunaTextBox6.Text = nombreDeBouteille_
+                                GunaTextBox7.Text = nombreDeConso_ 'LES QTE DES ARTICLES APAR APPORTS AUX CONSOMMATIONS
+
+                                LabelGrdeUnite.Text = unite.Rows(0)("PETITE_UNITE").ToString()
+                                LabelPteUnite.Text = "CONSO"
+                                GunaComboBoxUniteOuConso.Items.Add("CONSOMMATION")
+
+                            End If
+
+                        Else
+
+                            'SI NON
+                            GunaTextBoxQteGrdeUnite.Text = Format(0, "#,##0.00")
+                            GunaTextBoxSeuile.Text = Format(Article.Rows(0)("SEUIL_REAPPROVISIONNEMENT"), "#,##0.0")
+                            GunaTextBoxPrixVente.Text = Format(Article.Rows(0)("PRIX_VENTE_HT"), "#,##0.0")
+                            GunaTextBoxQtePetiteUnite.Text = Format(QUANTITE_DU_MAGASIN_ACTUEL, "#,##0.0")
+                            GunaTextBox6.Text = Format(QUANTITE_DU_MAGASIN_ACTUEL_, "#,##0.0")
+
+                            LabelPteUnite.Visible = True
+                            GunaTextBoxQtePetiteUnite.Visible = True
+
+                            LabelGrdeUnite.Visible = False
+                            GunaTextBoxQteGrdeUnite.Visible = False
+                            GunaTextBox7.Visible = False
+
+                            LabelPteUnite.Text = unite.Rows(0)("PETITE_UNITE").ToString()
+                            LabelGrdeUnite.Text = unite.Rows(0)("PETITE_UNITE").ToString()
+
+                        End If
+
+                    End If
+
+                End If
+
+                GunaComboBoxUniteOuConso.SelectedItem = unite.Rows(0)("PETITE_UNITE").ToString.ToString()
 
                 GunaDataGridViewArticleAppro.Visible = False
 
-                '--------------------------------------------------------------------------------------------------------------------
-
-                If Integer.Parse(Article.Rows(0)("BOISSON")) = 1 Then
-
-                    'ON RECUPERE LA CONSOMMATION
-                    Dim conso As DataTable = Functions.getElementByCode(Trim(Article.Rows(0)("CODE_CONSO")), "unite_comptage", "CODE_UNITE_DE_COMPTAGE")
-
-                    If Trim(Article.Rows(0)("CODE_CONSO")).Equals("") Then
-                        conso = Nothing
-                    End If
-
-                    If conso.Rows.Count > 0 Then
-
-                        Dim valeurConversion As Double = conso.Rows(0)("VALEUR_NUMERIQUE") 'VOLUME DE LA CONSOMMATION
-
-                        '---------------------------------------------------------------------------------------------------------------------------------------------
-
-                        Dim nombreDeBouteille As Double = 0
-                        Dim nombreDeConso As Integer = 0
-
-                        Dim nombreDeConsoTotal = Article.Rows(0)("QUANTITE")
-                        Dim contenance As Double = Article.Rows(0)("CONTENANCE")
-
-                        Dim nombreDeConsoDansUneBouteille As Integer = Math.Floor(contenance / valeurConversion)
-
-                        If nombreDeConsoDansUneBouteille > 0 Then
-                            nombreDeBouteille = Int(nombreDeConsoTotal / nombreDeConsoDansUneBouteille)
-                            nombreDeConso = nombreDeConsoTotal Mod nombreDeConsoDansUneBouteille
-                        End If
-
-                        GunaTextBoxEnStock.Text = nombreDeBouteille
-                        GunaTextBoxConsoAppro.Text = nombreDeConso
-
-                        GunaTextBoxConsoAppro.Visible = True
-                        LabelConso.Visible = True
-
-                        '------------------------------------------------------------------------------------------------------------------------
-
-                    Else
-                        GunaTextBoxConsoAppro.Visible = False
-                        LabelConso.Visible = False
-                    End If
-
-                Else
-                    GunaComboBoxUniteOuConso.Visible = False
-                End If
-
-
-                '--------------------------------------------------------------------------------------------------------------------
-
             End If
 
+
         End If
+
 
     End Sub
 
@@ -7809,7 +8331,7 @@ Public Class BarRestaurantForm
             DESIGNATION = GunaTextBoxArticleAppro.Text
             CODE_ARTICLE = GunaTextBoxCodeArticleAppro.Text
             QUANTITE = Double.Parse(GunaTextBoxQteAppro.Text)
-            EN_STOCK = Double.Parse(GunaTextBoxEnStock.Text)
+            'EN_STOCK = Double.Parse(GunaTextBoxEnStock.Text)
             DATE_PEREMPTION = dateDatePeremption
             'PRIX_VENTE = Double.Parse(GunaTextBoxPrixVente.Text) * Integer.Parse(GunaTextBoxQuantite.Text)
             PRIX_VENTE = Double.Parse(GunaTextBoxPrixVente.Text)
@@ -7856,7 +8378,7 @@ Public Class BarRestaurantForm
             DESIGNATION = GunaTextBoxArticleAppro.Text
             CODE_ARTICLE = GunaTextBoxCodeArticleAppro.Text
             QUANTITE = Double.Parse(GunaTextBoxQteAppro.Text)
-            EN_STOCK = Double.Parse(GunaTextBoxEnStock.Text)
+            'EN_STOCK = Double.Parse(GunaTextBoxEnStock.Text)
             DATE_PEREMPTION = dateDatePeremption
 
             'PRIX_VENTE = Double.Parse(GunaTextBoxPrixVente.Text) * Integer.Parse(GunaTextBoxQuantite.Text)
@@ -7976,7 +8498,7 @@ Public Class BarRestaurantForm
         montantGlobalVente = 0
 
         GunaTextBoxSeuile.Text = 0
-        GunaTextBoxEnStock.Text = 0
+        'GunaTextBoxEnStock.Text = 0
         GunaTextBoxCoutDuStock.Text = 0
 
         GunaTextBoxGrandeUniteDeCompatge.Clear()
@@ -7997,7 +8519,9 @@ Public Class BarRestaurantForm
 
         If GunaButtonEnregistrer.Text = "Emettre" Or GunaButtonEnregistrer.Text = "Emit" Then
 
-            If GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.bon_approvisi Or GunaComboBoxTypeBordereau.SelectedItem = "Store Requisition" Then
+            'If GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.bon_approvisi Or GunaComboBoxTypeBordereau.SelectedItem = "Store Requisition" Then
+
+            If GunaComboBoxTypeBordereau.SelectedItem = GlobalVariable.transfert_inter Or GunaComboBoxTypeBordereau.SelectedItem = "Store Requisition" Then
 
                 Dim status As String = ""
 
@@ -8070,8 +8594,9 @@ Public Class BarRestaurantForm
         Dim econom As New Economat()
         'Enregistrement des éléments du bordereau
 
-        If Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.bon_approvisi Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = "Store Requisition" Then
-            CODE_BORDEREAUX = Functions.GeneratingRandomCodePanne("bordereaux", "BA")
+        'If Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.bon_approvisi Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = "Store Requisition" Then
+        If Trim(GunaComboBoxTypeBordereau.SelectedItem) = GlobalVariable.transfert_inter Or Trim(GunaComboBoxTypeBordereau.SelectedItem) = "Store Requisition" Then
+            CODE_BORDEREAUX = Functions.GeneratingRandomCodePanne("bordereaux", "TIM")
         End If
 
         Dim ETAT_DU_BORDEREAU As Integer = 0
@@ -8100,16 +8625,12 @@ Public Class BarRestaurantForm
         Dim infoSupMagCentrale As DataTable
         Dim TYPE_MAGASIN As String = ""
 
-        If GlobalVariable.actualLanguageValue = 0 Then
+        TYPE_MAGASIN = "Main storage"
 
-            TYPE_MAGASIN = "Main storage"
+        infoSupMagCentrale = Functions.getElementByCode(TYPE_MAGASIN, "magasin", "TYPE_MAGASIN")
 
-            infoSupMagCentrale = Functions.getElementByCode(TYPE_MAGASIN, "magasin", "TYPE_MAGASIN")
-
-            If infoSupMagCentrale.Rows.Count > 0 Then
-                CODE_MAGASIN = infoSupMagCentrale.Rows(0)("CODE_MAGASIN")
-            End If
-
+        If infoSupMagCentrale.Rows.Count > 0 Then
+            CODE_MAGASIN = infoSupMagCentrale.Rows(0)("CODE_MAGASIN")
         Else
 
             TYPE_MAGASIN = "Magasin central"
@@ -8178,7 +8699,6 @@ Public Class BarRestaurantForm
                 End If
 
                 Dim qte As Double = 0
-
 
                 Dim QUANTITE As Double = qte 'QUANTITE INITIAL implique la QUANTITE FINAL = QUANTITE INITIAL + QUANTITE EN MOVEMENT (ENTREE EN STOCK)
 
@@ -8359,10 +8879,23 @@ Public Class BarRestaurantForm
             Dim Article As New DataTable
             Dim command As New MySqlCommand(query, GlobalVariable.connect)
 
-            Dim CODE_ARTICLE As String = row.Cells("CODE ARTICLE").Value.ToString
-            Dim QUANTITE As Double = row.Cells("QUANTITE").Value
-            Dim PU As Double = row.Cells("PRIX UNITAIRE").Value
-            Dim UNITE_UTILISE As String = row.Cells("UNITE").Value
+            Dim CODE_ARTICLE As String = ""
+            Dim QUANTITE As Double = 0
+            Dim PU As Double = 0
+            Dim UNITE_UTILISE As String = ""
+
+            If GlobalVariable.actualLanguageValue = 1 Then
+                CODE_ARTICLE = row.Cells("CODE ARTICLE").Value.ToString
+                QUANTITE = row.Cells("QUANTITE").Value
+                PU = row.Cells("PRIX UNITAIRE").Value
+                UNITE_UTILISE = row.Cells("UNITE").Value
+            Else
+                CODE_ARTICLE = row.Cells("CODE ARTICLE").Value.ToString
+                QUANTITE = row.Cells("QUANTITY").Value
+                PU = row.Cells("UNIT PRICE").Value
+                UNITE_UTILISE = row.Cells("UNIT").Value
+            End If
+
 
             GunaTextBoxID_LIGNE_TEMP.Text = row.Cells("ID_LIGNE_BORDEREAU").Value
 
@@ -8380,7 +8913,7 @@ Public Class BarRestaurantForm
                 GunaTextBoxPrixVente.Text = Format(Article.Rows(0)("PRIX_VENTE_HT"), "#,##0.0") 'COUT MOYEN UNITAIRE PONDERE
                 GunaTextBoxArticleAppro.Text = Article.Rows(0)("DESIGNATION_FR")
                 GunaTextBoxSeuile.Text = Article.Rows(0)("SEUIL_REAPPROVISIONNEMENT")
-                GunaTextBoxEnStock.Text = Article.Rows(0)("QUANTITE")
+                'GunaTextBoxEnStock.Text = Article.Rows(0)("QUANTITE")
                 GunaTextBoxCodeUniteComptage.Text = Article.Rows(0)("UNITE_COMPTAGE")
 
                 GunaTextBoxCoutDuStock.Text = Format(Article.Rows(0)("COUT_U_MOYEN_PONDERE"), "#,##0.0") ' PRIX UNITAIRE A L'ACHAT
@@ -8400,8 +8933,6 @@ Public Class BarRestaurantForm
                 GunaTextBoxCoutDuStock.Text = Format(PU, "#,##0.0")
                 'GunaTextBoxAchat.Text = PU
                 GunaDataGridViewArticle.Visible = False
-
-            Else
 
             End If
 
@@ -8517,6 +9048,10 @@ Public Class BarRestaurantForm
         'End If
 
         manualRefresh()
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("NUM_BLOC_NOTE_AUTOMATIQUE") = 1 Then
+            generationBlocNote()
+        End If
 
     End Sub
 
@@ -8880,7 +9415,7 @@ Public Class BarRestaurantForm
             'FOR RAPPORT FINANCIER
             RapportApresCloture.docJournalDesVentesShift(args.dt, args.DateDebut, args.DateFin)
         ElseIf args.action = 1 Then
-
+            RapportApresCloture.docBondeCommande(args.fichier, orderNumber)
         ElseIf args.action = 2 Then
 
         ElseIf args.action = 3 Then
@@ -8917,6 +9452,54 @@ Public Class BarRestaurantForm
 
     End Sub
 
+    Private Sub BackgroundWorker5_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker5.DoWork
+
+        Dim args As ArgumentType = e.Argument
+
+        documentToBeSendUsingBackGroundWorker(args)
+
+    End Sub
+
+    Private Sub BackgroundWorker6_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker6.DoWork
+
+        Dim args As ArgumentType = e.Argument
+
+        documentToBeSendUsingBackGroundWorker(args)
+
+    End Sub
+
+    Private Sub BackgroundWorker7_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker7.DoWork
+
+        Dim args As ArgumentType = e.Argument
+
+        documentToBeSendUsingBackGroundWorker(args)
+
+    End Sub
+
+    Private Sub BackgroundWorker8_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker8.DoWork
+
+        Dim args As ArgumentType = e.Argument
+
+        documentToBeSendUsingBackGroundWorker(args)
+
+    End Sub
+
+    Private Sub BackgroundWorker9_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker9.DoWork
+
+        Dim args As ArgumentType = e.Argument
+
+        documentToBeSendUsingBackGroundWorker(args)
+
+    End Sub
+
+    Private Sub BackgroundWorker10_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker10.DoWork
+
+        Dim args As ArgumentType = e.Argument
+
+        documentToBeSendUsingBackGroundWorker(args)
+
+    End Sub
+
     Public Sub backGroundWorkerToCall(ByVal args As ArgumentType)
 
         If Not BackgroundWorker2.IsBusy Then
@@ -8927,11 +9510,24 @@ Public Class BarRestaurantForm
             BackgroundWorker3.RunWorkerAsync(args)
         ElseIf Not BackgroundWorker4.IsBusy Then
             BackgroundWorker4.RunWorkerAsync(args)
+        ElseIf Not BackgroundWorker5.IsBusy Then
+            BackgroundWorker5.RunWorkerAsync(args)
+        ElseIf Not BackgroundWorker6.IsBusy Then
+            BackgroundWorker6.RunWorkerAsync(args)
+        ElseIf Not BackgroundWorker7.IsBusy Then
+            BackgroundWorker7.RunWorkerAsync(args)
+        ElseIf Not BackgroundWorker8.IsBusy Then
+            BackgroundWorker8.RunWorkerAsync(args)
+        ElseIf Not BackgroundWorker9.IsBusy Then
+            BackgroundWorker9.RunWorkerAsync(args)
+        ElseIf Not BackgroundWorker10.IsBusy Then
+            BackgroundWorker10.RunWorkerAsync(args)
         End If
 
     End Sub
 
     Private Sub GunaButton2_Click(sender As Object, e As EventArgs) Handles GunaButton2.Click
+
         GlobalVariable.DocumentToGenerate = "INVENTAIRE DES VENTES"
 
         RapportFacturesForm.Close()
@@ -8939,6 +9535,13 @@ Public Class BarRestaurantForm
 
         RapportFacturesForm.TopMost = True
         RapportFacturesForm.Show()
+
+        If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("SERVEUR") = 1 Then
+            RapportFacturesForm.GunaCheckBoxTous.Checked = False
+            RapportFacturesForm.GunaCheckBoxTous.Enabled = False
+            RapportFacturesForm.GunaComboBoxUtilisateurDeMagasinBar.SelectedValue = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+        End If
+
     End Sub
 
     Private Sub journalDesVentesDuShiftImprimer()
@@ -9009,12 +9612,6 @@ Public Class BarRestaurantForm
     Private Sub GunaButtonRapportDesVentes_Click(sender As Object, e As EventArgs) Handles GunaButtonRapportDesVentes.Click
         RapportFacturesForm.Close()
         GlobalVariable.DocumentToGenerate = "JOURNAL DES VENTES" 'CUMUL JOURNALIER
-
-        If GlobalVariable.actualLanguageValue = 1 Then
-
-        Else
-
-        End If
 
         RapportFacturesForm.Show()
         RapportFacturesForm.TopMost = True
@@ -9118,7 +9715,7 @@ Public Class BarRestaurantForm
             GunaTextBoxCodeClient.Clear()
             GunaTextBoxArticle.Clear()
 
-            GunaTextBoxNumfacture.Text = Functions.GeneratingRandomCodeWithSpecifications("facture", "")
+            generatingRandomCodeFacture()
 
             GunaTextBoxFacturationDate.Text = CDate(GlobalVariable.DateDeTravail).ToShortDateString
 
@@ -9140,17 +9737,6 @@ Public Class BarRestaurantForm
                         GunaTextBoxNom_Prenom.Text = Functions.getElementByCode(blocNoteEnCours.Rows(0)("CODE_CLIENT"), "client", "CODE_CLIENT").Rows(0)("NOM_PRENOM")
                     End If
 
-                    Dim ListeDesArticlesDeCetteComandes As DataTable = Functions.GetAllElementsOnCondition(blocNoteEnCours.Rows(0)("NUMERO_BLOC_NOTE"), "ligne_facture_temp", "NUMERO_BLOC_NOTE")
-
-                    'On charge l'ensemble des articles en relation avec cette commande ou numero de bloc note
-                    If ListeDesArticlesDeCetteComandes.Rows.Count > 0 Then
-
-                        OutPutLigneFacture()
-
-                        DisplaySavingButton()
-
-                    End If
-
                     If GlobalVariable.actualLanguageValue = 0 Then
 
                         If blocNoteEnCours.Rows(0)("ETAT_BLOC_NOTE") = 0 Then
@@ -9169,6 +9755,16 @@ Public Class BarRestaurantForm
 
                     End If
 
+                    Dim TABLE_NAME As String = "ligne_facture_temp"
+
+                    If blocNoteEnCours.Rows(0)("ETAT_BLOC_NOTE") = 1 Then
+                        TABLE_NAME = "ligne_facture"
+                    End If
+
+                    OutPutLigneFacture(TABLE_NAME)
+
+                    DisplaySavingButton()
+
                     FacturationKeyInformation()
 
                     GunaTextBoxCodeClient.Visible = False
@@ -9176,12 +9772,23 @@ Public Class BarRestaurantForm
                 End If
 
             Else
-                GunaTextBoxCodeClient.Visible = True
+
+                loadComptoirByDefault()
+
+                If GlobalVariable.AgenceActuelle.Rows(0)("NUM_BLOC_NOTE_AUTOMATIQUE") = 1 Then
+                    generationBlocNote()
+                End If
+
+                GunaTextBoxNom_Prenom.Enabled = False
+
             End If
 
             TabControlBarRestaurant.SelectedIndex = 0
 
             Me.Cursor = Cursors.Default
+
+        Else
+
 
         End If
         '----------------------------------------------------------
@@ -9432,6 +10039,12 @@ Public Class BarRestaurantForm
             RapportFacturesForm.GunaLabelGeneral.Text = "SALES VENTILATION FORM"
         End If
 
+        If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("SERVEUR") = 1 Then
+            RapportFacturesForm.GunaCheckBoxTous.Checked = False
+            RapportFacturesForm.GunaCheckBoxTous.Enabled = False
+            RapportFacturesForm.GunaComboBoxUtilisateurDeMagasinBar.SelectedValue = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+        End If
+
     End Sub
 
     Private Sub ImprimerToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ImprimerToolStripMenuItem1.Click
@@ -9494,9 +10107,7 @@ Public Class BarRestaurantForm
             GunaDataGridViewBills.Visible = False
             GunaDataGridViewBills.Columns.Clear()
         Else
-
             GunaDataGridViewBills.Visible = True
-
             Dim DateDeSituation As Date = GlobalVariable.DateDeTravail
             Dim CODE_CAISSIER As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
 
@@ -9608,5 +10219,562 @@ Public Class BarRestaurantForm
         GunaTextBox5.Text = ""
     End Sub
 
+    Private Sub ToolStripMenuItem76_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem76.Click
+        CashierForm.Show()
+    End Sub
+
+    Private Sub ToolStripMenuItem75_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem75.Click
+        GeneralAccountForm.Show()
+    End Sub
+
+    Private Sub ComptesDExploitationToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ComptesDExploitationToolStripMenuItem.Click
+        GlobalVariable.typeDeCompte = "exploitation"
+
+        DepenseFamilyForm.Close()
+        DepenseFamilyForm.Show()
+        DepenseFamilyForm.TopMost = True
+    End Sub
+
+    Private Sub BanqueToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BanqueToolStripMenuItem.Click
+        BankForm.Close()
+        BankForm.Show()
+        BankForm.TopMost = True
+    End Sub
+
+    Private Sub ToolStripMenuItem82_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem82.Click
+        ArticleFamilyForm.Close()
+
+        GlobalVariable.typeFamilleOuSousFamille = "famille" 'POINT DE VENTE
+
+        ArticleFamilyForm.Show()
+
+        ArticleFamilyForm.TopMost = True
+    End Sub
+
+    Private Sub CatégoriesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CatégoriesToolStripMenuItem.Click
+        ArticleFamilyForm.Close()
+
+        GlobalVariable.typeFamilleOuSousFamille = "categorie" 'CATEGORIE
+
+        ArticleFamilyForm.Show()
+
+        ArticleFamilyForm.TopMost() = True
+    End Sub
+
+    Private Sub ToolStripMenuItem83_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem83.Click
+        ArticleFamilyForm.Close()
+
+        GlobalVariable.typeFamilleOuSousFamille = "sous famille" 'FAMILLE
+        ArticleFamilyForm.TopMost() = True
+        ArticleFamilyForm.Show()
+    End Sub
+
+    Private Sub FamilleDArToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FamilleDArToolStripMenuItem.Click
+        ArticleFamilyForm.Close()
+
+        GlobalVariable.typeFamilleOuSousFamille = "sous sous famille" 'SOUS FAMILLE
+        ArticleFamilyForm.TopMost() = True
+        ArticleFamilyForm.Show()
+
+    End Sub
+
+    Private Sub FichesTechniquesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FichesTechniquesToolStripMenuItem.Click
+        GlobalVariable.ficheTechnique = "fiche"
+        ArticleForm.TopMost() = True
+        ArticleForm.Show()
+        ArticleForm.TabControlArticle.SelectedIndex = 3
+    End Sub
+
+    Private Sub ToolStripMenuItem93_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem93.Click
+        UniteDeComptageForm.TopMost() = True
+        UniteDeComptageForm.Show()
+    End Sub
+
+    Private Sub ToolStripMenuItem86_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem86.Click
+        ArticleForm.Close()
+
+        GlobalVariable.typeArticle = "article"
+        ArticleForm.TopMost() = True
+        ArticleForm.Show()
+    End Sub
+
+    Private Sub MatièresToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MatièresToolStripMenuItem.Click
+        GlobalVariable.typeArticle = "matiere"
+        ArticleForm.TopMost() = True
+        ArticleForm.Show()
+    End Sub
+
+    Private Sub ToolStripMenuItem91_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem91.Click
+        MAgasinForm.Show()
+    End Sub
+
+    Private Sub ToolStripMenuItem92_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem92.Click
+        MAgasinForm.Show()
+        MAgasinForm.TabControl1.SelectedIndex = 2
+    End Sub
+
+    Private Sub ClubEliteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClubEliteToolStripMenuItem.Click
+
+        If GlobalVariable.AgenceActuelle.Rows.Count > 0 Then
+
+            If GlobalVariable.AgenceActuelle.Rows(0)("CLUB_ELITE") = 1 Then
+                EliteClubForm.Show()
+                EliteClubForm.TopMost = True
+            Else
+                If GlobalVariable.actualLanguageValue = 1 Then
+                    MessageBox.Show("Le programme de Fidélité n'est pas activé", "Club Elite", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Else
+                    MessageBox.Show("The fidelity program is not actif", "Elite Club", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End If
+
+        End If
+
+    End Sub
+
+    Private Sub ClôturerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClôturerToolStripMenuItem.Click
+
+        Dim CODE_CAISSIER As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+
+        Dim infoSupCaisse As DataTable = Functions.getElementByCode(CODE_CAISSIER, "caisse", "CODE_UTILISATEUR")
+
+        If infoSupCaisse.Rows.Count > 0 Then
+
+            If infoSupCaisse.Rows(0)("ETAT_CAISSE") = 1 Then
+
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    languageTitle = "Impossible to do the night audit"
+                    languageMessage = "Please close your main cash box"
+                Else
+                    languageTitle = "Impossible de cloturer"
+                    languageMessage = "Bien vouloir fermer votre caisse"
+                End If
+
+                MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            Else
+
+                CloturerForm.Show()
+                CloturerForm.TopMost = True
+
+            End If
+
+        Else
+
+            If GlobalVariable.actualLanguageValue = 0 Then
+                languageTitle = "Impossible to do the night audit"
+                languageMessage = "Please close your main cash register if you have one"
+            Else
+                languageTitle = "Impossible de cloturer"
+                languageMessage = "Bien vouloir fermer votre caisse si vous disposez d'une"
+            End If
+
+            MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        End If
+
+    End Sub
+
+    Private Sub ToolStripMenuItem133_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem133.Click
+        CompanyForm.Show()
+        CompanyForm.TopMost = True
+    End Sub
+
+    Private Sub ToolStripMenuItem136_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem136.Click
+        UserForm.TopMost() = True
+        UserForm.Show()
+    End Sub
+
+    Private Sub LicenceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LicenceToolStripMenuItem.Click
+        If GlobalVariable.actualLanguageValue = 0 Then
+            languageMessage = "HOTEL SOFT is activated"
+        ElseIf GlobalVariable.actualLanguageValue = 1 Then
+            languageMessage = "HOTEL SOFT est activé"
+        End If
+
+        ActivationForm.Close()
+        ActivationForm.Show()
+        ActivationForm.GunaTextBoxMessage.Text = languageMessage
+        ActivationForm.TopMost = True
+
+    End Sub
+
+    Private Sub ToolStripMenuItem134_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem134.Click
+        AgencyForm.Show()
+        AgencyForm.TopMost = True
+    End Sub
+
+    Public Sub generationBlocNote()
+        GunaTextBoxBlocNote.Text = GlobalVariable.ConnectedUser.Rows(0)("GRIFFE_UTILISATEUR") & GlobalVariable.DateDeTravail.ToString("ddMM") & Now().ToString("HHmmss")
+    End Sub
+
+    Private Sub GunaButton4_Click(sender As Object, e As EventArgs) Handles GunaButtonTables.Click
+        TablesForm.Close()
+        TablesForm.Show()
+    End Sub
+
+    Private Sub GunaTextBoxServeur_TextChanged(sender As Object, e As EventArgs) Handles GunaTextBoxServeur.TextChanged
+
+        'Si code de chambre n'existe pas alors on efface toute les informations le concernant
+        If Trim(GunaTextBoxServeur.Text).Equals("") Then
+            GunaDataGridViewServeur.Visible = False
+            LabelNomServeur.Text = ""
+            LabelNomServeur.Visible = False
+        End If
+
+        Dim query As String = "SELECT NOM_PERSONNEL,PRENOM_PERSONNEL From personnel WHERE NOM_PERSONNEL Like '%" & GunaTextBoxServeur.Text & "%' OR PRENOM_PERSONNEL Like '%" & GunaTextBoxServeur.Text & "%'"
+
+        Dim command As New MySqlCommand(query, GlobalVariable.connect)
+        command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = GlobalVariable.codeAgence
+
+        Dim adapter As New MySqlDataAdapter(command)
+        Dim table As New DataTable()
+
+        adapter.Fill(table)
+
+        If (table.Rows.Count > 0) Then
+            GunaDataGridViewServeur.Visible = True
+            GunaDataGridViewServeur.DataSource = table
+        Else
+            GunaDataGridViewServeur.Columns.Clear()
+            GunaDataGridViewServeur.Visible = False
+        End If
+
+        If GunaTextBoxServeur.Text.Trim().Equals("") Then
+            GunaDataGridViewServeur.Columns.Clear()
+            GunaDataGridViewServeur.Visible = False
+        End If
+
+    End Sub
+
+    Private Sub GunaDataGridViewServeur_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles GunaDataGridViewServeur.CellClick
+        If e.RowIndex >= 0 Then
+
+            Dim row As DataGridViewRow
+
+            row = Me.GunaDataGridViewServeur.Rows(e.RowIndex)
+
+            Dim personnel As DataTable = Functions.GetAllElementsOnTwoConditions(row.Cells("NOM_PERSONNEL").Value.ToString, "personnel", "NOM_PERSONNEL", row.Cells("PRENOM_PERSONNEL").Value.ToString, "PRENOM_PERSONNEL")
+
+            'GunaTextBoxServeur.Text = row.Cells("NOM_PERSONNEL").Value.ToString & " " & row.Cells("PRENOM_PERSONNEL").Value.ToString
+            LabelNomServeur.Text = row.Cells("NOM_PERSONNEL").Value.ToString
+            LabelNomServeur.Visible = True
+            GunaTextBoxServeur.Text = personnel.Rows(0)("CODE_PERSONNEL")
+
+            GunaDataGridViewServeur.Visible = False
+
+            'connect.closeConnection()
+
+        End If
+    End Sub
+
+    Private Sub ClientToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClientToolStripMenuItem.Click
+
+        ClientForm.Show()
+        ClientForm.TopMost = True
+
+    End Sub
+
+    Private Sub GunaButtonProductionReceptionnists_Click(sender As Object, e As EventArgs) Handles GunaButtonProductionReceptionnists.Click
+
+        GlobalVariable.DocumentToGenerate = "PRODUCTIVITE DU BAR"
+
+        RapportFacturesForm.GunaLabelGeneral.Text = "PRODUCTIVITE BU BAR / RESTAURANT"
+        RapportFacturesForm.GunaCheckBoxPropResa.Checked = False
+        RapportFacturesForm.GunaButtonAfficher.Visible = False
+        RapportFacturesForm.GunaButtonImprimer.Visible = True
+        RapportFacturesForm.Show()
+        RapportFacturesForm.TopMost = True
+
+    End Sub
+
+    Public Sub gestionDesUnites(ByVal Article As DataTable)
+
+        GunaComboBoxUniteComptageAppro.Items.Clear()
+
+        Dim UNITE_COMPTAGE As String = Article.Rows(0)("UNITE_COMPTAGE")
+
+        Dim pasDeConso As Boolean = True
+
+        Dim unite As DataTable = Functions.getElementByCode(UNITE_COMPTAGE, "unite_comptage", "CODE_UNITE_DE_COMPTAGE")
+
+        If unite.Rows.Count > 0 Then
+
+            GunaComboBoxUniteComptageAppro.Items.Add(unite.Rows(0)("GRANDE_UNITE"))
+
+            If unite.Rows(0)("VALEUR_NUMERIQUE") > 1 Then
+                GunaComboBoxUniteComptageAppro.Items.Add(unite.Rows(0)("PETITE_UNITE"))
+                LabelPteUnite.Text = unite.Rows(0)("PETITE_UNITE")
+            Else
+                GunaComboBoxUniteComptageAppro.SelectedItem = unite.Rows(0)("GRANDE_UNITE")
+            End If
+
+        End If
+
+    End Sub
+
+    Private Sub TablesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TablesToolStripMenuItem.Click
+
+        TableListForm.Show()
+        TableListForm.TopMost = True
+
+    End Sub
+
+    Private Sub GunaButton7_Click(sender As Object, e As EventArgs) Handles GunaButton7.Click
+
+        GlobalVariable.DocumentToGenerate = "INVENTAIRE DES VENTES GLOBAL PAR SERVEUR"
+
+        RapportFacturesForm.Close()
+        RapportFacturesForm.Show()
+        RapportFacturesForm.TopMost = True
+        RapportFacturesForm.GunaCheckBoxParFamille.Visible = True
+
+    End Sub
+
+    Private Sub GunaButton4_Click_1(sender As Object, e As EventArgs) Handles GunaButton4.Click
+
+        GlobalVariable.DocumentToGenerate = "INVENTAIRE BAR - RESTAURANT"
+
+        RapportFacturesForm.Close()
+        RapportFacturesForm.Show()
+        RapportFacturesForm.TopMost = True
+        RapportFacturesForm.GunaCheckBoxParFamille.Visible = True
+
+    End Sub
+
+    Private Sub GunaButton6_Click(sender As Object, e As EventArgs) Handles GunaButton6.Click
+
+        GlobalVariable.DocumentToGenerate = "INVENTAIRE BAR - RESTAURANT PAR SERVEUR"
+
+        RapportFacturesForm.Close()
+        RapportFacturesForm.Show()
+        RapportFacturesForm.TopMost = True
+        RapportFacturesForm.GunaCheckBoxParFamille.Visible = True
+
+    End Sub
+
+    Private Sub GunaButton8_Click(sender As Object, e As EventArgs) Handles GunaButton8.Click
+
+        GlobalVariable.DocumentToGenerate = "INVENTAIRE DES VENTES CUSTOM"
+
+        RapportFacturesForm.Close()
+        RapportFacturesForm.GunaCheckBoxParFamille.Visible = True
+
+        RapportFacturesForm.TopMost = True
+        RapportFacturesForm.Show()
+
+        If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("SERVEUR") = 1 Then
+            RapportFacturesForm.GunaCheckBoxTous.Checked = False
+            RapportFacturesForm.GunaCheckBoxTous.Enabled = False
+            RapportFacturesForm.GunaComboBoxUtilisateurDeMagasinBar.SelectedValue = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+        End If
+
+    End Sub
+
+    Public Sub generatingRandomCodeFacture()
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("HOTEL") = 0 Then
+            GunaTextBoxNumfacture.Text = Functions.GeneratingRandomCodeWithSpecifications("ligne_facture_bloc_note", "")
+        Else
+            GunaTextBoxNumfacture.Text = Functions.GeneratingRandomCodeWithSpecificationsRestaurant("ligne_facture_bloc_note", "")
+        End If
+
+    End Sub
+
+    Private Sub GunaButton9_Click(sender As Object, e As EventArgs) Handles GunaButton9.Click
+        If ConsolidationForm.Visible Then
+            ConsolidationForm.Close()
+        End If
+        ConsolidationForm.Show()
+    End Sub
+
+    Private Sub GunaButton10_Click(sender As Object, e As EventArgs) Handles GunaButtonOnL.Click
+        OnlineForm.Show()
+        OnlineForm.TopMost = True
+    End Sub
+
+    Private Sub ToolStripMenuItem96_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem96.Click
+        RoomTypeForm.TopMost = True
+        RoomTypeForm.Show()
+    End Sub
+
+    Private Sub ToolStripMenuItem108_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem108.Click
+        RoomForm.TopMost = True
+        RoomForm.Show()
+    End Sub
+
+    Private Sub ToolStripMenuItem111_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem111.Click
+        SourceReservation.TopMost() = True
+        SourceReservation.Show()
+    End Sub
+
+    Private Sub ToolStripMenuItem112_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem112.Click
+        TaxeSejourForm.Show()
+        TaxeSejourForm.TopMost = True
+    End Sub
+
+    Private Sub ToolStripMenuItem105_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem105.Click
+        FournisseurForm.Show()
+        FournisseurForm.TopMost = True
+    End Sub
+
+    Private Sub DépensesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DépensesToolStripMenuItem.Click
+        'ExpendituresForm.show()
+
+        If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CAISSE_PRINCIPALE_LECTURE") = 1 Then
+            GlobalVariable.grandeCaisse = "bar"
+            GrandeCaisseForm.Show()
+            GrandeCaisseForm.TopMost = True
+        Else
+            If GlobalVariable.actualLanguageValue = 1 Then
+                MessageBox.Show("Vous ne pouvez pas visualiser la caisse principale !!", "Gestion de Caisse", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Else
+                MessageBox.Show("You don't have access to the main cash Box !!", "Cash Box Manamgement", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub EchangerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EchangerToolStripMenuItem.Click
+
+        Dim NUMERO_BLOC_NOTE As String = ""
+        Dim numberOfElement As Integer = 0
+        Dim exchange As Boolean = False
+        Dim ID_LIGNE_FACTURE As Integer
+        Dim QTY As Integer
+        Dim CODE_ARTICLE As String = ""
+        Dim UP As Double = 0
+
+        If GunaDataGridViewLigneFacture.Rows.Count > 0 Then
+
+            numberOfElement = GunaDataGridViewLigneFacture.Rows.Count
+
+            If GlobalVariable.typeDeClientAFacturer = "comptoir" Or GlobalVariable.typeDeClientAFacturer = "en chambre" Or GlobalVariable.typeDeClientAFacturer = "evenement" Then
+
+                If GunaComboBoxListeDesComandes.SelectedIndex >= 0 Then
+                    NUMERO_BLOC_NOTE = GunaComboBoxListeDesComandes.SelectedValue.ToString
+                End If
+
+            End If
+
+            Dim infoBloc As DataTable = Functions.getElementByCode(NUMERO_BLOC_NOTE, "ligne_facture_bloc_note", "NUMERO_BLOC_NOTE")
+
+            If infoBloc.Rows.Count > 0 Then
+
+                If infoBloc.Rows(0)("ETAT_BLOC_NOTE") = 1 Then
+
+                    Dim rowToDelete As String = ""
+                    Dim NameOfrowToDelete As String = ""
+                    Dim ligneDuBlocNOte As Integer
+
+                    Dim MONTANT_A_RETRANCHER As Double = 0
+
+                    If rowToDelete = "" Then
+
+                        rowToDelete = GunaDataGridViewLigneFacture.CurrentRow.Cells("ARTICLE").Value.ToString
+
+                        ligneDuBlocNOte = GunaDataGridViewLigneFacture.CurrentRow.Cells("ID_LIGNE_FACTURE").Value
+                        ID_LIGNE_FACTURE = GunaDataGridViewLigneFacture.CurrentRow.Cells("ID_LIGNE_FACTURE").Value
+
+
+                        If GlobalVariable.actualLanguageValue = 0 Then
+
+                            NameOfrowToDelete = GunaDataGridViewLigneFacture.CurrentRow.Cells("ITEM").Value.ToString
+                            'MONTANT_A_RETRANCHER = GunaDataGridViewLigneFacture.CurrentRow.Cells("AMOUNT IT").Value
+                            UP = GunaDataGridViewLigneFacture.CurrentRow.Cells("PU").Value
+                            QTY = GunaDataGridViewLigneFacture.CurrentRow.Cells("QUANTITY").Value
+
+                        ElseIf GlobalVariable.actualLanguageValue = 1 Then
+
+                            NameOfrowToDelete = GunaDataGridViewLigneFacture.CurrentRow.Cells("DESIGNATION").Value.ToString
+                            'MONTANT_A_RETRANCHER = GunaDataGridViewLigneFacture.CurrentRow.Cells("MONTANT TTC").Value
+                            UP = GunaDataGridViewLigneFacture.CurrentRow.Cells("PU TTC").Value
+                            QTY = GunaDataGridViewLigneFacture.CurrentRow.Cells("QUANTITE").Value
+
+                        End If
+
+                    End If
+
+                    Dim dialog As DialogResult
+
+                    If GlobalVariable.actualLanguageValue = 0 Then
+                        languageMessage = "Do you really want to exchange the item " & NameOfrowToDelete
+                        languageTitle = "Item Exchange"
+                    ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                        languageMessage = "Voulez-vous vraiment Echanger l'article " & NameOfrowToDelete
+                        languageTitle = "Echange d'article"
+                    End If
+
+                    dialog = MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+                    If dialog = DialogResult.Yes Then
+                        exchange = True
+                    End If
+
+                    If exchange Then
+
+                        CODE_ARTICLE = rowToDelete
+
+                        Dim articleExistant As DataTable = Functions.GetAllElementsOnTwoConditions(CODE_ARTICLE, "ligne_facture", "CODE_ARTICLE", NUMERO_BLOC_NOTE, "NUMERO_BLOC_NOTE")
+                        'Dim articleExistant As DataTable = Functions.GetAllElementsOnTwoConditions(ID_LIGNE_FACTURE, "ligne_facture", "ID_LIGNE_FACTURE", NUMERO_BLOC_NOTE, "NUMERO_BLOC_NOTE")
+
+                        If Not articleExistant.Rows.Count > 0 Then
+
+                            exchange = False
+
+                            If GlobalVariable.actualLanguageValue = 0 Then
+                                languageMessage = "Impossible to Exchange, the item as the receipt is not closed !"
+                                languageTitle = "Exchange"
+                            ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                                languageMessage = "Impossible d'échanger, l'article car le bloc note n'est pas clôturé !"
+                                languageTitle = "Echange"
+                            End If
+
+                            MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                        End If
+
+                    End If
+
+                Else
+                    exchange = False
+                End If
+
+            Else
+                exchange = False
+            End If
+
+        Else
+
+            exchange = False
+
+        End If
+
+        If exchange Then
+            ExchangeForm.Close()
+            ExchangeForm.Show()
+            ExchangeForm.GunaTextBoxNumBlocNote.Text = NUMERO_BLOC_NOTE
+            ExchangeForm.GunaTextBoxCodeArticle.Text = CODE_ARTICLE
+            ExchangeForm.GunaTextBoxIdLigne.Text = ID_LIGNE_FACTURE
+            ExchangeForm.GunaTextBoxQuantite.Text = QTY
+            ExchangeForm.GunaTextBoxOriginalQty.Text = QTY
+            ExchangeForm.GunaTextBoxPUItem.Text = UP
+            ExchangeForm.GunaTextBoxOldMontant.Text = QTY * UP
+            ExchangeForm.TopMost = True
+        Else
+
+            If GlobalVariable.actualLanguageValue = 0 Then
+                languageMessage = "The Item can not be exchanged !"
+                languageTitle = "Exchange"
+            ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                languageMessage = "L'article ne peut être échangé !"
+                languageTitle = "Echanger"
+            End If
+
+            MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        End If
+
+    End Sub
 
 End Class

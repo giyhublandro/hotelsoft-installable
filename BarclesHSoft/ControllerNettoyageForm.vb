@@ -1,6 +1,10 @@
 ﻿Public Class ControllerNettoyageForm
+
+    Dim CODE_CHAMBRE As String = ""
+
     Private Sub ControllerNettoyageForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        Dim CODE_CHAMBRE As String = Trim(EtatDeChambreForm.GunaLabelChmabreEncoursDeNettoyage.Text)
         Dim langue As New Languages
         langue.controllerNettoyage(GlobalVariable.actualLanguageValue)
 
@@ -17,17 +21,27 @@
 
     Private Sub GunaButton2_Click(sender As Object, e As EventArgs) Handles GunaButtonEnregistrer.Click
 
-        GlobalVariable.controlDeChambreOk = True
+        Dim serviceEtag As New ServicesEtage
+
+        Dim CODE_CHAMBRE As String = GlobalVariable.btnNettoyage.Name
+        Dim CHAMP As String = "HEURE_CONTROL"
+        Dim STATUTS As Integer = 3
+        Dim ETAT_CHAMBRE_NOTE As String = "Libre propre"
+        If GlobalVariable.actualLanguageValue = 0 Then
+            ETAT_CHAMBRE_NOTE = "Free clean"
+        End If
+
+        serviceEtag.updateNettoyageTime(CODE_CHAMBRE, CHAMP, STATUTS)
+
+        serviceEtag.updateRoomApresNettoyage(CODE_CHAMBRE, ETAT_CHAMBRE_NOTE)
+
+        serviceEtag.miseAjourDelaChambreApreNettoyage(CODE_CHAMBRE, ETAT_CHAMBRE_NOTE)
 
         Me.Close()
-
-        EtatDeChambreForm.Show()
 
         MainWindowServiceEtageForm.TabPageNettoyage.Controls.Clear()
         MainWindowServiceEtageForm.StatistiquesDeNettoyage()
         MainWindowServiceEtageForm.StatusDesChambres()
-
-        EtatDeChambreForm.Close()
 
     End Sub
 

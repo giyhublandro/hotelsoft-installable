@@ -68,6 +68,7 @@ Partial Class ArticleFamilyForm
         Me.SupprimerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GunaButtonAfficher = New Guna.UI.WinForms.GunaButton()
         Me.GunaPanel2 = New Guna.UI.WinForms.GunaPanel()
+        Me.GunaTextBoxCode = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaPanel1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPageDescription.SuspendLayout()
@@ -710,12 +711,12 @@ Partial Class ArticleFamilyForm
         Me.GunaContextMenuStrip1.RenderStyle.SelectionForeColor = System.Drawing.Color.White
         Me.GunaContextMenuStrip1.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
         Me.GunaContextMenuStrip1.RenderStyle.TextRenderingHint = Guna.UI.WinForms.DrawingTextRenderingHint.SystemDefault
-        Me.GunaContextMenuStrip1.Size = New System.Drawing.Size(181, 48)
+        Me.GunaContextMenuStrip1.Size = New System.Drawing.Size(130, 26)
         '
         'SupprimerToolStripMenuItem
         '
         Me.SupprimerToolStripMenuItem.Name = "SupprimerToolStripMenuItem"
-        Me.SupprimerToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SupprimerToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
         Me.SupprimerToolStripMenuItem.Text = "Supprimer"
         '
         'GunaButtonAfficher
@@ -752,11 +753,29 @@ Partial Class ArticleFamilyForm
         Me.GunaPanel2.Size = New System.Drawing.Size(934, 8)
         Me.GunaPanel2.TabIndex = 47
         '
+        'GunaTextBoxCode
+        '
+        Me.GunaTextBoxCode.BaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxCode.BorderColor = System.Drawing.Color.Silver
+        Me.GunaTextBoxCode.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBoxCode.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxCode.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBoxCode.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBoxCode.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.GunaTextBoxCode.Location = New System.Drawing.Point(797, 597)
+        Me.GunaTextBoxCode.Name = "GunaTextBoxCode"
+        Me.GunaTextBoxCode.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBoxCode.SelectedText = ""
+        Me.GunaTextBoxCode.Size = New System.Drawing.Size(121, 30)
+        Me.GunaTextBoxCode.TabIndex = 108
+        Me.GunaTextBoxCode.Visible = False
+        '
         'ArticleFamilyForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(934, 650)
+        Me.Controls.Add(Me.GunaTextBoxCode)
         Me.Controls.Add(Me.GunaPanel2)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.GunaButtonEnregistrer)
@@ -819,4 +838,5 @@ Partial Class ArticleFamilyForm
     Friend WithEvents GunaComboBoxFamilleArticle As Guna.UI.WinForms.GunaComboBox
     Friend WithEvents GunaLabelFamilleArticle As Guna.UI.WinForms.GunaLabel
     Friend WithEvents GunaLabelCategorie As Guna.UI.WinForms.GunaLabel
+    Friend WithEvents GunaTextBoxCode As Guna.UI.WinForms.GunaTextBox
 End Class

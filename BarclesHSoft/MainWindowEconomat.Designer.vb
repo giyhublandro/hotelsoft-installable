@@ -102,6 +102,10 @@ Partial Class MainWindowEconomat
         Me.GunaComboBoxTrierLeBordereau = New Guna.UI.WinForms.GunaComboBox()
         Me.GunaLabelTriBon = New Guna.UI.WinForms.GunaLabel()
         Me.GunaDataGridViewListeBordereauxValides = New Guna.UI.WinForms.GunaDataGridView()
+        Me.GunaContextMenuStripEditerBordoro = New Guna.UI.WinForms.GunaContextMenuStrip()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AnnulerPrécédentToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ImprimerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Bordereau = New System.Windows.Forms.TabPage()
         Me.GunaGroupBoxListeDesBordereaux = New Guna.UI.WinForms.GunaGroupBox()
         Me.GunaButton16 = New Guna.UI.WinForms.GunaButton()
@@ -216,6 +220,11 @@ Partial Class MainWindowEconomat
         Me.GunaButtonAfficherLots = New Guna.UI.WinForms.GunaButton()
         Me.GunaDataGridViewListeDesLots = New Guna.UI.WinForms.GunaDataGridView()
         Me.GunaGroupBox8 = New Guna.UI.WinForms.GunaGroupBox()
+        Me.GunaTextBox5 = New Guna.UI.WinForms.GunaTextBox()
+        Me.GunaTextBox4 = New Guna.UI.WinForms.GunaTextBox()
+        Me.GunaTextBox3 = New Guna.UI.WinForms.GunaTextBox()
+        Me.GunaTextBox2 = New Guna.UI.WinForms.GunaTextBox()
+        Me.GunaTextBox1 = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaDataGridView3 = New Guna.UI.WinForms.GunaDataGridView()
         Me.GunaGroupBoxCreation = New Guna.UI.WinForms.GunaGroupBox()
         Me.GunaButtonEnregistrerLot = New Guna.UI.WinForms.GunaButton()
@@ -227,10 +236,9 @@ Partial Class MainWindowEconomat
         Me.GunaTextBoxCodeLot = New Guna.UI.WinForms.GunaTextBox()
         Me.TabPageRapport = New System.Windows.Forms.TabPage()
         Me.PanelApport = New System.Windows.Forms.Panel()
+        Me.GunaLabel8 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaComboBoxGlobalIndividuel = New Guna.UI.WinForms.GunaComboBox()
         Me.GunaComboBoxEntreSortie = New Guna.UI.WinForms.GunaComboBox()
-        Me.GunaRadioButtonParTypeEtDate = New Guna.UI.WinForms.GunaRadioButton()
-        Me.GunaRadioButtonParBordero = New Guna.UI.WinForms.GunaRadioButton()
         Me.GunaComboBoxListeDesMagasinPourInventaire = New Guna.UI.WinForms.GunaComboBox()
         Me.GunaComboBoxTypeBorderoRapport = New Guna.UI.WinForms.GunaComboBox()
         Me.LabelTypeDeRapport = New System.Windows.Forms.Label()
@@ -251,7 +259,7 @@ Partial Class MainWindowEconomat
         Me.GunaButton12 = New Guna.UI.WinForms.GunaButton()
         Me.GunaButton9 = New Guna.UI.WinForms.GunaButton()
         Me.GunaButton6 = New Guna.UI.WinForms.GunaButton()
-        Me.GunaButton3 = New Guna.UI.WinForms.GunaButton()
+        Me.GunaButtonPopularMeals = New Guna.UI.WinForms.GunaButton()
         Me.GunaButtonInventaire = New Guna.UI.WinForms.GunaButton()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.GunaButton11 = New Guna.UI.WinForms.GunaButton()
@@ -261,10 +269,6 @@ Partial Class MainWindowEconomat
         Me.GunaButton4 = New Guna.UI.WinForms.GunaButton()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GunaButton2 = New Guna.UI.WinForms.GunaButton()
-        Me.GunaButtonBonSortie = New Guna.UI.WinForms.GunaButton()
-        Me.GunaButtonRequisition = New Guna.UI.WinForms.GunaButton()
-        Me.GunaButton7 = New Guna.UI.WinForms.GunaButton()
-        Me.GunaButton5 = New Guna.UI.WinForms.GunaButton()
         Me.MenuStripLeftSideMenu = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItemSession = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem117 = New System.Windows.Forms.ToolStripMenuItem()
@@ -369,6 +373,7 @@ Partial Class MainWindowEconomat
         Me.GunaGroupBox7.SuspendLayout()
         Me.GunaGroupBox12.SuspendLayout()
         CType(Me.GunaDataGridViewListeBordereauxValides, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GunaContextMenuStripEditerBordoro.SuspendLayout()
         Me.Bordereau.SuspendLayout()
         Me.GunaGroupBoxListeDesBordereaux.SuspendLayout()
         CType(Me.GunaDataGridViewLigneArticleCommande, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1260,6 +1265,7 @@ Partial Class MainWindowEconomat
         Me.GunaDataGridViewListeBordereauxValides.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.GunaDataGridViewListeBordereauxValides.ColumnHeadersHeight = 28
         Me.GunaDataGridViewListeBordereauxValides.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.GunaDataGridViewListeBordereauxValides.ContextMenuStrip = Me.GunaContextMenuStripEditerBordoro
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
         DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1300,6 +1306,39 @@ Partial Class MainWindowEconomat
         Me.GunaDataGridViewListeBordereauxValides.ThemeStyle.RowsStyle.Height = 22
         Me.GunaDataGridViewListeBordereauxValides.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewListeBordereauxValides.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        '
+        'GunaContextMenuStripEditerBordoro
+        '
+        Me.GunaContextMenuStripEditerBordoro.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.AnnulerPrécédentToolStripMenuItem, Me.ImprimerToolStripMenuItem})
+        Me.GunaContextMenuStripEditerBordoro.Name = "GunaContextMenuStripTransfertDeBlocNote"
+        Me.GunaContextMenuStripEditerBordoro.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaContextMenuStripEditerBordoro.RenderStyle.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaContextMenuStripEditerBordoro.RenderStyle.ColorTable = Nothing
+        Me.GunaContextMenuStripEditerBordoro.RenderStyle.RoundedEdges = True
+        Me.GunaContextMenuStripEditerBordoro.RenderStyle.SelectionArrowColor = System.Drawing.Color.White
+        Me.GunaContextMenuStripEditerBordoro.RenderStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaContextMenuStripEditerBordoro.RenderStyle.SelectionForeColor = System.Drawing.Color.White
+        Me.GunaContextMenuStripEditerBordoro.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
+        Me.GunaContextMenuStripEditerBordoro.RenderStyle.TextRenderingHint = Guna.UI.WinForms.DrawingTextRenderingHint.SystemDefault
+        Me.GunaContextMenuStripEditerBordoro.Size = New System.Drawing.Size(204, 70)
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(203, 22)
+        Me.ToolStripMenuItem1.Text = "Etablir Bon de Reception"
+        '
+        'AnnulerPrécédentToolStripMenuItem
+        '
+        Me.AnnulerPrécédentToolStripMenuItem.Name = "AnnulerPrécédentToolStripMenuItem"
+        Me.AnnulerPrécédentToolStripMenuItem.Size = New System.Drawing.Size(203, 22)
+        Me.AnnulerPrécédentToolStripMenuItem.Text = "Annuler Précédent"
+        '
+        'ImprimerToolStripMenuItem
+        '
+        Me.ImprimerToolStripMenuItem.Name = "ImprimerToolStripMenuItem"
+        Me.ImprimerToolStripMenuItem.Size = New System.Drawing.Size(203, 22)
+        Me.ImprimerToolStripMenuItem.Text = "Imprimer"
         '
         'Bordereau
         '
@@ -1507,13 +1546,13 @@ Partial Class MainWindowEconomat
         Me.GunaDataGridViewLigneArticleCommande.DefaultCellStyle = DataGridViewCellStyle6
         Me.GunaDataGridViewLigneArticleCommande.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewLigneArticleCommande.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaDataGridViewLigneArticleCommande.Location = New System.Drawing.Point(11, 114)
+        Me.GunaDataGridViewLigneArticleCommande.Location = New System.Drawing.Point(11, 115)
         Me.GunaDataGridViewLigneArticleCommande.Name = "GunaDataGridViewLigneArticleCommande"
         Me.GunaDataGridViewLigneArticleCommande.ReadOnly = True
         Me.GunaDataGridViewLigneArticleCommande.RowHeadersVisible = False
         Me.GunaDataGridViewLigneArticleCommande.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.GunaDataGridViewLigneArticleCommande.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewLigneArticleCommande.Size = New System.Drawing.Size(604, 447)
+        Me.GunaDataGridViewLigneArticleCommande.Size = New System.Drawing.Size(604, 446)
         Me.GunaDataGridViewLigneArticleCommande.TabIndex = 62
         Me.GunaDataGridViewLigneArticleCommande.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
         Me.GunaDataGridViewLigneArticleCommande.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
@@ -2104,9 +2143,9 @@ Partial Class MainWindowEconomat
         Me.GunaPanelListeMarche.Controls.Add(Me.GunaLabel5)
         Me.GunaPanelListeMarche.Controls.Add(Me.GunaLabel4)
         Me.GunaPanelListeMarche.Controls.Add(Me.GunaLabel3)
-        Me.GunaPanelListeMarche.Location = New System.Drawing.Point(65, 32)
+        Me.GunaPanelListeMarche.Location = New System.Drawing.Point(9, 32)
         Me.GunaPanelListeMarche.Name = "GunaPanelListeMarche"
-        Me.GunaPanelListeMarche.Size = New System.Drawing.Size(249, 64)
+        Me.GunaPanelListeMarche.Size = New System.Drawing.Size(305, 64)
         Me.GunaPanelListeMarche.TabIndex = 192
         Me.GunaPanelListeMarche.Visible = False
         '
@@ -2167,7 +2206,7 @@ Partial Class MainWindowEconomat
         Me.GunaLabel5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaLabel5.AutoSize = True
         Me.GunaLabel5.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel5.Location = New System.Drawing.Point(124, 5)
+        Me.GunaLabel5.Location = New System.Drawing.Point(180, 5)
         Me.GunaLabel5.Name = "GunaLabel5"
         Me.GunaLabel5.Size = New System.Drawing.Size(23, 17)
         Me.GunaLabel5.TabIndex = 192
@@ -2178,7 +2217,7 @@ Partial Class MainWindowEconomat
         Me.GunaLabel4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaLabel4.AutoSize = True
         Me.GunaLabel4.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel4.Location = New System.Drawing.Point(41, 5)
+        Me.GunaLabel4.Location = New System.Drawing.Point(97, 5)
         Me.GunaLabel4.Name = "GunaLabel4"
         Me.GunaLabel4.Size = New System.Drawing.Size(24, 17)
         Me.GunaLabel4.TabIndex = 193
@@ -2189,7 +2228,7 @@ Partial Class MainWindowEconomat
         Me.GunaLabel3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaLabel3.AutoSize = True
         Me.GunaLabel3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel3.Location = New System.Drawing.Point(-33, 5)
+        Me.GunaLabel3.Location = New System.Drawing.Point(23, 5)
         Me.GunaLabel3.Name = "GunaLabel3"
         Me.GunaLabel3.Size = New System.Drawing.Size(57, 17)
         Me.GunaLabel3.TabIndex = 194
@@ -2339,7 +2378,7 @@ Partial Class MainWindowEconomat
         Me.GunaDataGridViewArticle.RowHeadersVisible = False
         Me.GunaDataGridViewArticle.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.GunaDataGridViewArticle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewArticle.Size = New System.Drawing.Size(317, 120)
+        Me.GunaDataGridViewArticle.Size = New System.Drawing.Size(317, 123)
         Me.GunaDataGridViewArticle.TabIndex = 63
         Me.GunaDataGridViewArticle.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Guna
         Me.GunaDataGridViewArticle.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
@@ -2382,7 +2421,7 @@ Partial Class MainWindowEconomat
         Me.GunaLabelCommandeur.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GunaLabelCommandeur.AutoSize = True
         Me.GunaLabelCommandeur.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.GunaLabelCommandeur.Location = New System.Drawing.Point(343, 563)
+        Me.GunaLabelCommandeur.Location = New System.Drawing.Point(349, 563)
         Me.GunaLabelCommandeur.Name = "GunaLabelCommandeur"
         Me.GunaLabelCommandeur.Size = New System.Drawing.Size(37, 15)
         Me.GunaLabelCommandeur.TabIndex = 118
@@ -2406,7 +2445,7 @@ Partial Class MainWindowEconomat
         Me.GunaLabelValideur.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GunaLabelValideur.AutoSize = True
         Me.GunaLabelValideur.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.GunaLabelValideur.Location = New System.Drawing.Point(232, 563)
+        Me.GunaLabelValideur.Location = New System.Drawing.Point(238, 563)
         Me.GunaLabelValideur.Name = "GunaLabelValideur"
         Me.GunaLabelValideur.Size = New System.Drawing.Size(37, 15)
         Me.GunaLabelValideur.TabIndex = 118
@@ -2505,7 +2544,7 @@ Partial Class MainWindowEconomat
         '
         Me.PictureBoxNext3.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PictureBoxNext3.Image = CType(resources.GetObject("PictureBoxNext3.Image"), System.Drawing.Image)
-        Me.PictureBoxNext3.Location = New System.Drawing.Point(289, 579)
+        Me.PictureBoxNext3.Location = New System.Drawing.Point(297, 579)
         Me.PictureBoxNext3.Name = "PictureBoxNext3"
         Me.PictureBoxNext3.Size = New System.Drawing.Size(25, 21)
         Me.PictureBoxNext3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -2875,7 +2914,7 @@ Partial Class MainWindowEconomat
         Me.GunaButtonCommander.ForeColor = System.Drawing.Color.White
         Me.GunaButtonCommander.Image = Nothing
         Me.GunaButtonCommander.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonCommander.Location = New System.Drawing.Point(323, 578)
+        Me.GunaButtonCommander.Location = New System.Drawing.Point(329, 578)
         Me.GunaButtonCommander.Name = "GunaButtonCommander"
         Me.GunaButtonCommander.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
         Me.GunaButtonCommander.OnHoverBorderColor = System.Drawing.Color.Black
@@ -2911,7 +2950,7 @@ Partial Class MainWindowEconomat
         Me.GunaButtonValider.OnHoverImage = Nothing
         Me.GunaButtonValider.OnPressedColor = System.Drawing.Color.Black
         Me.GunaButtonValider.Radius = 5
-        Me.GunaButtonValider.Size = New System.Drawing.Size(56, 22)
+        Me.GunaButtonValider.Size = New System.Drawing.Size(67, 22)
         Me.GunaButtonValider.TabIndex = 75
         Me.GunaButtonValider.Text = "Valider"
         Me.GunaButtonValider.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -3611,6 +3650,11 @@ Partial Class MainWindowEconomat
         Me.GunaGroupBox8.BaseColor = System.Drawing.Color.White
         Me.GunaGroupBox8.BorderColor = System.Drawing.Color.Gainsboro
         Me.GunaGroupBox8.BorderSize = 1
+        Me.GunaGroupBox8.Controls.Add(Me.GunaTextBox5)
+        Me.GunaGroupBox8.Controls.Add(Me.GunaTextBox4)
+        Me.GunaGroupBox8.Controls.Add(Me.GunaTextBox3)
+        Me.GunaGroupBox8.Controls.Add(Me.GunaTextBox2)
+        Me.GunaGroupBox8.Controls.Add(Me.GunaTextBox1)
         Me.GunaGroupBox8.Controls.Add(Me.GunaDataGridView3)
         Me.GunaGroupBox8.LineColor = System.Drawing.Color.Gainsboro
         Me.GunaGroupBox8.Location = New System.Drawing.Point(520, 9)
@@ -3619,6 +3663,91 @@ Partial Class MainWindowEconomat
         Me.GunaGroupBox8.TabIndex = 1
         Me.GunaGroupBox8.Text = "Articles du lots"
         Me.GunaGroupBox8.TextLocation = New System.Drawing.Point(10, 8)
+        '
+        'GunaTextBox5
+        '
+        Me.GunaTextBox5.BaseColor = System.Drawing.Color.White
+        Me.GunaTextBox5.BorderColor = System.Drawing.Color.Silver
+        Me.GunaTextBox5.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBox5.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBox5.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBox5.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBox5.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.GunaTextBox5.Location = New System.Drawing.Point(496, 403)
+        Me.GunaTextBox5.Name = "GunaTextBox5"
+        Me.GunaTextBox5.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBox5.SelectedText = ""
+        Me.GunaTextBox5.Size = New System.Drawing.Size(91, 30)
+        Me.GunaTextBox5.TabIndex = 63
+        Me.GunaTextBox5.Text = "GunaTextBox1"
+        '
+        'GunaTextBox4
+        '
+        Me.GunaTextBox4.BaseColor = System.Drawing.Color.White
+        Me.GunaTextBox4.BorderColor = System.Drawing.Color.Silver
+        Me.GunaTextBox4.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBox4.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBox4.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBox4.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBox4.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.GunaTextBox4.Location = New System.Drawing.Point(399, 403)
+        Me.GunaTextBox4.Name = "GunaTextBox4"
+        Me.GunaTextBox4.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBox4.SelectedText = ""
+        Me.GunaTextBox4.Size = New System.Drawing.Size(91, 30)
+        Me.GunaTextBox4.TabIndex = 63
+        Me.GunaTextBox4.Text = "GunaTextBox1"
+        '
+        'GunaTextBox3
+        '
+        Me.GunaTextBox3.BaseColor = System.Drawing.Color.White
+        Me.GunaTextBox3.BorderColor = System.Drawing.Color.Silver
+        Me.GunaTextBox3.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBox3.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBox3.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBox3.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBox3.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.GunaTextBox3.Location = New System.Drawing.Point(302, 403)
+        Me.GunaTextBox3.Name = "GunaTextBox3"
+        Me.GunaTextBox3.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBox3.SelectedText = ""
+        Me.GunaTextBox3.Size = New System.Drawing.Size(91, 30)
+        Me.GunaTextBox3.TabIndex = 63
+        Me.GunaTextBox3.Text = "GunaTextBox1"
+        '
+        'GunaTextBox2
+        '
+        Me.GunaTextBox2.BaseColor = System.Drawing.Color.White
+        Me.GunaTextBox2.BorderColor = System.Drawing.Color.Silver
+        Me.GunaTextBox2.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBox2.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBox2.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBox2.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBox2.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.GunaTextBox2.Location = New System.Drawing.Point(205, 403)
+        Me.GunaTextBox2.Name = "GunaTextBox2"
+        Me.GunaTextBox2.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBox2.SelectedText = ""
+        Me.GunaTextBox2.Size = New System.Drawing.Size(91, 30)
+        Me.GunaTextBox2.TabIndex = 63
+        Me.GunaTextBox2.Text = "GunaTextBox1"
+        '
+        'GunaTextBox1
+        '
+        Me.GunaTextBox1.BaseColor = System.Drawing.Color.White
+        Me.GunaTextBox1.BorderColor = System.Drawing.Color.Silver
+        Me.GunaTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBox1.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBox1.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBox1.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBox1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.GunaTextBox1.Location = New System.Drawing.Point(108, 403)
+        Me.GunaTextBox1.Name = "GunaTextBox1"
+        Me.GunaTextBox1.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBox1.SelectedText = ""
+        Me.GunaTextBox1.Size = New System.Drawing.Size(91, 30)
+        Me.GunaTextBox1.TabIndex = 63
+        Me.GunaTextBox1.Text = "GunaTextBox1"
         '
         'GunaDataGridView3
         '
@@ -3837,10 +3966,9 @@ Partial Class MainWindowEconomat
         '
         Me.PanelApport.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PanelApport.Controls.Add(Me.GunaLabel8)
         Me.PanelApport.Controls.Add(Me.GunaComboBoxGlobalIndividuel)
         Me.PanelApport.Controls.Add(Me.GunaComboBoxEntreSortie)
-        Me.PanelApport.Controls.Add(Me.GunaRadioButtonParTypeEtDate)
-        Me.PanelApport.Controls.Add(Me.GunaRadioButtonParBordero)
         Me.PanelApport.Controls.Add(Me.GunaComboBoxListeDesMagasinPourInventaire)
         Me.PanelApport.Controls.Add(Me.GunaComboBoxTypeBorderoRapport)
         Me.PanelApport.Controls.Add(Me.LabelTypeDeRapport)
@@ -3861,6 +3989,16 @@ Partial Class MainWindowEconomat
         Me.PanelApport.TabIndex = 9
         Me.PanelApport.Visible = False
         '
+        'GunaLabel8
+        '
+        Me.GunaLabel8.AutoSize = True
+        Me.GunaLabel8.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.GunaLabel8.Location = New System.Drawing.Point(24, 45)
+        Me.GunaLabel8.Name = "GunaLabel8"
+        Me.GunaLabel8.Size = New System.Drawing.Size(73, 15)
+        Me.GunaLabel8.TabIndex = 301
+        Me.GunaLabel8.Text = "RECHERCHE"
+        '
         'GunaComboBoxGlobalIndividuel
         '
         Me.GunaComboBoxGlobalIndividuel.BackColor = System.Drawing.Color.Transparent
@@ -3875,7 +4013,7 @@ Partial Class MainWindowEconomat
         Me.GunaComboBoxGlobalIndividuel.FormattingEnabled = True
         Me.GunaComboBoxGlobalIndividuel.ItemHeight = 25
         Me.GunaComboBoxGlobalIndividuel.Items.AddRange(New Object() {"Individuelle", "Globale"})
-        Me.GunaComboBoxGlobalIndividuel.Location = New System.Drawing.Point(548, 67)
+        Me.GunaComboBoxGlobalIndividuel.Location = New System.Drawing.Point(487, 67)
         Me.GunaComboBoxGlobalIndividuel.Name = "GunaComboBoxGlobalIndividuel"
         Me.GunaComboBoxGlobalIndividuel.OnHoverItemBaseColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaComboBoxGlobalIndividuel.OnHoverItemForeColor = System.Drawing.Color.White
@@ -3898,7 +4036,7 @@ Partial Class MainWindowEconomat
         Me.GunaComboBoxEntreSortie.FormattingEnabled = True
         Me.GunaComboBoxEntreSortie.ItemHeight = 25
         Me.GunaComboBoxEntreSortie.Items.AddRange(New Object() {"Entrées", "Sorties"})
-        Me.GunaComboBoxEntreSortie.Location = New System.Drawing.Point(418, 68)
+        Me.GunaComboBoxEntreSortie.Location = New System.Drawing.Point(357, 68)
         Me.GunaComboBoxEntreSortie.Name = "GunaComboBoxEntreSortie"
         Me.GunaComboBoxEntreSortie.OnHoverItemBaseColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaComboBoxEntreSortie.OnHoverItemForeColor = System.Drawing.Color.White
@@ -3906,30 +4044,6 @@ Partial Class MainWindowEconomat
         Me.GunaComboBoxEntreSortie.Size = New System.Drawing.Size(115, 31)
         Me.GunaComboBoxEntreSortie.TabIndex = 300
         Me.GunaComboBoxEntreSortie.Visible = False
-        '
-        'GunaRadioButtonParTypeEtDate
-        '
-        Me.GunaRadioButtonParTypeEtDate.BaseColor = System.Drawing.SystemColors.Control
-        Me.GunaRadioButtonParTypeEtDate.CheckedOffColor = System.Drawing.Color.Gray
-        Me.GunaRadioButtonParTypeEtDate.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaRadioButtonParTypeEtDate.FillColor = System.Drawing.Color.White
-        Me.GunaRadioButtonParTypeEtDate.Location = New System.Drawing.Point(418, 44)
-        Me.GunaRadioButtonParTypeEtDate.Name = "GunaRadioButtonParTypeEtDate"
-        Me.GunaRadioButtonParTypeEtDate.Size = New System.Drawing.Size(183, 20)
-        Me.GunaRadioButtonParTypeEtDate.TabIndex = 298
-        Me.GunaRadioButtonParTypeEtDate.Text = "PAR TYPE DE BON ET DATE"
-        '
-        'GunaRadioButtonParBordero
-        '
-        Me.GunaRadioButtonParBordero.BaseColor = System.Drawing.SystemColors.Control
-        Me.GunaRadioButtonParBordero.CheckedOffColor = System.Drawing.Color.Gray
-        Me.GunaRadioButtonParBordero.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaRadioButtonParBordero.FillColor = System.Drawing.Color.White
-        Me.GunaRadioButtonParBordero.Location = New System.Drawing.Point(20, 44)
-        Me.GunaRadioButtonParBordero.Name = "GunaRadioButtonParBordero"
-        Me.GunaRadioButtonParBordero.Size = New System.Drawing.Size(128, 20)
-        Me.GunaRadioButtonParBordero.TabIndex = 298
-        Me.GunaRadioButtonParBordero.Text = "PAR BORDEREAU"
         '
         'GunaComboBoxListeDesMagasinPourInventaire
         '
@@ -3945,12 +4059,12 @@ Partial Class MainWindowEconomat
         Me.GunaComboBoxListeDesMagasinPourInventaire.FormattingEnabled = True
         Me.GunaComboBoxListeDesMagasinPourInventaire.ItemHeight = 25
         Me.GunaComboBoxListeDesMagasinPourInventaire.Items.AddRange(New Object() {"Global", "Par Magasin"})
-        Me.GunaComboBoxListeDesMagasinPourInventaire.Location = New System.Drawing.Point(829, 65)
+        Me.GunaComboBoxListeDesMagasinPourInventaire.Location = New System.Drawing.Point(768, 65)
         Me.GunaComboBoxListeDesMagasinPourInventaire.Name = "GunaComboBoxListeDesMagasinPourInventaire"
         Me.GunaComboBoxListeDesMagasinPourInventaire.OnHoverItemBaseColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaComboBoxListeDesMagasinPourInventaire.OnHoverItemForeColor = System.Drawing.Color.White
         Me.GunaComboBoxListeDesMagasinPourInventaire.Radius = 5
-        Me.GunaComboBoxListeDesMagasinPourInventaire.Size = New System.Drawing.Size(163, 31)
+        Me.GunaComboBoxListeDesMagasinPourInventaire.Size = New System.Drawing.Size(198, 31)
         Me.GunaComboBoxListeDesMagasinPourInventaire.TabIndex = 297
         Me.GunaComboBoxListeDesMagasinPourInventaire.Visible = False
         '
@@ -3968,7 +4082,7 @@ Partial Class MainWindowEconomat
         Me.GunaComboBoxTypeBorderoRapport.FormattingEnabled = True
         Me.GunaComboBoxTypeBorderoRapport.ItemHeight = 25
         Me.GunaComboBoxTypeBorderoRapport.Items.AddRange(New Object() {"Bon de Réception", "Bon de Réquisition", "Bon de Réquisition", "Sortie", "Sortie Exceptionnelle", "Retour Marchandises", "Transfert Inter Magasin", "Entrée Exceptionnelle", "Bon de Commande", "Bon Approvisionnement"})
-        Me.GunaComboBoxTypeBorderoRapport.Location = New System.Drawing.Point(418, 67)
+        Me.GunaComboBoxTypeBorderoRapport.Location = New System.Drawing.Point(357, 67)
         Me.GunaComboBoxTypeBorderoRapport.Name = "GunaComboBoxTypeBorderoRapport"
         Me.GunaComboBoxTypeBorderoRapport.OnHoverItemBaseColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaComboBoxTypeBorderoRapport.OnHoverItemForeColor = System.Drawing.Color.White
@@ -3993,7 +4107,7 @@ Partial Class MainWindowEconomat
         '
         Me.GunaLabelAu.AutoSize = True
         Me.GunaLabelAu.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.GunaLabelAu.Location = New System.Drawing.Point(852, 49)
+        Me.GunaLabelAu.Location = New System.Drawing.Point(791, 49)
         Me.GunaLabelAu.Name = "GunaLabelAu"
         Me.GunaLabelAu.Size = New System.Drawing.Size(28, 15)
         Me.GunaLabelAu.TabIndex = 69
@@ -4004,7 +4118,7 @@ Partial Class MainWindowEconomat
         '
         Me.GunaLabel2.AutoSize = True
         Me.GunaLabel2.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.GunaLabel2.Location = New System.Drawing.Point(761, 47)
+        Me.GunaLabel2.Location = New System.Drawing.Point(772, 47)
         Me.GunaLabel2.Name = "GunaLabel2"
         Me.GunaLabel2.Size = New System.Drawing.Size(110, 15)
         Me.GunaLabel2.TabIndex = 69
@@ -4015,7 +4129,7 @@ Partial Class MainWindowEconomat
         '
         Me.GunaLabelDu.AutoSize = True
         Me.GunaLabelDu.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.GunaLabelDu.Location = New System.Drawing.Point(678, 49)
+        Me.GunaLabelDu.Location = New System.Drawing.Point(617, 49)
         Me.GunaLabelDu.Name = "GunaLabelDu"
         Me.GunaLabelDu.Size = New System.Drawing.Size(28, 15)
         Me.GunaLabelDu.TabIndex = 69
@@ -4060,7 +4174,7 @@ Partial Class MainWindowEconomat
         Me.GunaTextBoxElementRapport.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxElementRapport.Radius = 5
         Me.GunaTextBoxElementRapport.SelectedText = ""
-        Me.GunaTextBoxElementRapport.Size = New System.Drawing.Size(377, 34)
+        Me.GunaTextBoxElementRapport.Size = New System.Drawing.Size(316, 34)
         Me.GunaTextBoxElementRapport.TabIndex = 67
         '
         'GunaDataGridViewRapport
@@ -4142,7 +4256,7 @@ Partial Class MainWindowEconomat
         Me.GunaDateTimePicker2.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.GunaDateTimePicker2.ForeColor = System.Drawing.Color.Black
         Me.GunaDateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.GunaDateTimePicker2.Location = New System.Drawing.Point(845, 66)
+        Me.GunaDateTimePicker2.Location = New System.Drawing.Point(784, 66)
         Me.GunaDateTimePicker2.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.GunaDateTimePicker2.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.GunaDateTimePicker2.Name = "GunaDateTimePicker2"
@@ -4168,7 +4282,7 @@ Partial Class MainWindowEconomat
         Me.GunaDateTimePicker1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.GunaDateTimePicker1.ForeColor = System.Drawing.Color.Black
         Me.GunaDateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.GunaDateTimePicker1.Location = New System.Drawing.Point(672, 66)
+        Me.GunaDateTimePicker1.Location = New System.Drawing.Point(611, 66)
         Me.GunaDateTimePicker1.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.GunaDateTimePicker1.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.GunaDateTimePicker1.Name = "GunaDateTimePicker1"
@@ -4196,7 +4310,7 @@ Partial Class MainWindowEconomat
         Me.GunaButtonAfficher.ForeColor = System.Drawing.Color.White
         Me.GunaButtonAfficher.Image = Nothing
         Me.GunaButtonAfficher.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonAfficher.Location = New System.Drawing.Point(998, 65)
+        Me.GunaButtonAfficher.Location = New System.Drawing.Point(981, 65)
         Me.GunaButtonAfficher.Name = "GunaButtonAfficher"
         Me.GunaButtonAfficher.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonAfficher.OnHoverBorderColor = System.Drawing.Color.Black
@@ -4223,7 +4337,7 @@ Partial Class MainWindowEconomat
         Me.GunaButtonImpirmerRapportEconomat.ForeColor = System.Drawing.Color.White
         Me.GunaButtonImpirmerRapportEconomat.Image = CType(resources.GetObject("GunaButtonImpirmerRapportEconomat.Image"), System.Drawing.Image)
         Me.GunaButtonImpirmerRapportEconomat.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonImpirmerRapportEconomat.Location = New System.Drawing.Point(1075, 63)
+        Me.GunaButtonImpirmerRapportEconomat.Location = New System.Drawing.Point(1058, 63)
         Me.GunaButtonImpirmerRapportEconomat.Name = "GunaButtonImpirmerRapportEconomat"
         Me.GunaButtonImpirmerRapportEconomat.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButtonImpirmerRapportEconomat.OnHoverBorderColor = System.Drawing.Color.Black
@@ -4247,7 +4361,7 @@ Partial Class MainWindowEconomat
         DataGridViewCellStyle28.BackColor = System.Drawing.Color.White
         Me.GunaDataGridViewBorderoByTypeEtDate.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle28
         Me.GunaDataGridViewBorderoByTypeEtDate.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GunaDataGridViewBorderoByTypeEtDate.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.GunaDataGridViewBorderoByTypeEtDate.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.GunaDataGridViewBorderoByTypeEtDate.BackgroundColor = System.Drawing.Color.LightBlue
         Me.GunaDataGridViewBorderoByTypeEtDate.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewBorderoByTypeEtDate.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
@@ -4304,7 +4418,6 @@ Partial Class MainWindowEconomat
         Me.GunaDataGridViewBorderoByTypeEtDate.ThemeStyle.RowsStyle.Height = 22
         Me.GunaDataGridViewBorderoByTypeEtDate.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaDataGridViewBorderoByTypeEtDate.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.GunaDataGridViewBorderoByTypeEtDate.Visible = False
         '
         'GunaContextMenuStripImprimerBordero
         '
@@ -4334,7 +4447,7 @@ Partial Class MainWindowEconomat
         Me.GroupBox3.Controls.Add(Me.GunaButton12)
         Me.GroupBox3.Controls.Add(Me.GunaButton9)
         Me.GroupBox3.Controls.Add(Me.GunaButton6)
-        Me.GroupBox3.Controls.Add(Me.GunaButton3)
+        Me.GroupBox3.Controls.Add(Me.GunaButtonPopularMeals)
         Me.GroupBox3.Controls.Add(Me.GunaButtonInventaire)
         Me.GroupBox3.Location = New System.Drawing.Point(832, 350)
         Me.GroupBox3.Name = "GroupBox3"
@@ -4368,6 +4481,7 @@ Partial Class MainWindowEconomat
         Me.GunaButton12.TabIndex = 5
         Me.GunaButton12.Text = "FICHE DE SUIVI DE STOCKS"
         Me.GunaButton12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.GunaButton12.Visible = False
         '
         'GunaButton9
         '
@@ -4421,32 +4535,31 @@ Partial Class MainWindowEconomat
         Me.GunaButton6.Text = "ENTREES / SORTIES PAR MAGASIN"
         Me.GunaButton6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'GunaButton3
+        'GunaButtonPopularMeals
         '
-        Me.GunaButton3.AnimationHoverSpeed = 0.07!
-        Me.GunaButton3.AnimationSpeed = 0.03!
-        Me.GunaButton3.BackColor = System.Drawing.Color.Transparent
-        Me.GunaButton3.BaseColor = System.Drawing.Color.Indigo
-        Me.GunaButton3.BorderColor = System.Drawing.Color.Black
-        Me.GunaButton3.DialogResult = System.Windows.Forms.DialogResult.None
-        Me.GunaButton3.FocusedColor = System.Drawing.Color.Empty
-        Me.GunaButton3.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.GunaButton3.ForeColor = System.Drawing.Color.White
-        Me.GunaButton3.Image = Nothing
-        Me.GunaButton3.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButton3.Location = New System.Drawing.Point(21, 108)
-        Me.GunaButton3.Name = "GunaButton3"
-        Me.GunaButton3.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaButton3.OnHoverBorderColor = System.Drawing.Color.Black
-        Me.GunaButton3.OnHoverForeColor = System.Drawing.Color.White
-        Me.GunaButton3.OnHoverImage = Nothing
-        Me.GunaButton3.OnPressedColor = System.Drawing.Color.Black
-        Me.GunaButton3.Radius = 5
-        Me.GunaButton3.Size = New System.Drawing.Size(327, 29)
-        Me.GunaButton3.TabIndex = 6
-        Me.GunaButton3.Text = "MOVEMENTS DE STOCKS"
-        Me.GunaButton3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.GunaButton3.Visible = False
+        Me.GunaButtonPopularMeals.AnimationHoverSpeed = 0.07!
+        Me.GunaButtonPopularMeals.AnimationSpeed = 0.03!
+        Me.GunaButtonPopularMeals.BackColor = System.Drawing.Color.Transparent
+        Me.GunaButtonPopularMeals.BaseColor = System.Drawing.Color.Indigo
+        Me.GunaButtonPopularMeals.BorderColor = System.Drawing.Color.Black
+        Me.GunaButtonPopularMeals.DialogResult = System.Windows.Forms.DialogResult.None
+        Me.GunaButtonPopularMeals.FocusedColor = System.Drawing.Color.Empty
+        Me.GunaButtonPopularMeals.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.GunaButtonPopularMeals.ForeColor = System.Drawing.Color.White
+        Me.GunaButtonPopularMeals.Image = Nothing
+        Me.GunaButtonPopularMeals.ImageSize = New System.Drawing.Size(20, 20)
+        Me.GunaButtonPopularMeals.Location = New System.Drawing.Point(21, 108)
+        Me.GunaButtonPopularMeals.Name = "GunaButtonPopularMeals"
+        Me.GunaButtonPopularMeals.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaButtonPopularMeals.OnHoverBorderColor = System.Drawing.Color.Black
+        Me.GunaButtonPopularMeals.OnHoverForeColor = System.Drawing.Color.White
+        Me.GunaButtonPopularMeals.OnHoverImage = Nothing
+        Me.GunaButtonPopularMeals.OnPressedColor = System.Drawing.Color.Black
+        Me.GunaButtonPopularMeals.Radius = 5
+        Me.GunaButtonPopularMeals.Size = New System.Drawing.Size(327, 29)
+        Me.GunaButtonPopularMeals.TabIndex = 6
+        Me.GunaButtonPopularMeals.Text = "PLATS POPULAIRES"
+        Me.GunaButtonPopularMeals.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'GunaButtonInventaire
         '
@@ -4623,10 +4736,6 @@ Partial Class MainWindowEconomat
         '
         Me.GroupBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.GunaButton2)
-        Me.GroupBox1.Controls.Add(Me.GunaButtonBonSortie)
-        Me.GroupBox1.Controls.Add(Me.GunaButtonRequisition)
-        Me.GroupBox1.Controls.Add(Me.GunaButton7)
-        Me.GroupBox1.Controls.Add(Me.GunaButton5)
         Me.GroupBox1.Location = New System.Drawing.Point(9, 350)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(366, 270)
@@ -4647,7 +4756,7 @@ Partial Class MainWindowEconomat
         Me.GunaButton2.ForeColor = System.Drawing.Color.White
         Me.GunaButton2.Image = Nothing
         Me.GunaButton2.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButton2.Location = New System.Drawing.Point(14, 22)
+        Me.GunaButton2.Location = New System.Drawing.Point(14, 29)
         Me.GunaButton2.Name = "GunaButton2"
         Me.GunaButton2.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButton2.OnHoverBorderColor = System.Drawing.Color.Black
@@ -4655,114 +4764,10 @@ Partial Class MainWindowEconomat
         Me.GunaButton2.OnHoverImage = Nothing
         Me.GunaButton2.OnPressedColor = System.Drawing.Color.Black
         Me.GunaButton2.Radius = 5
-        Me.GunaButton2.Size = New System.Drawing.Size(328, 28)
+        Me.GunaButton2.Size = New System.Drawing.Size(328, 26)
         Me.GunaButton2.TabIndex = 7
-        Me.GunaButton2.Text = "BON DE COMMANDES"
+        Me.GunaButton2.Text = "LISTE DES BONS"
         Me.GunaButton2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'GunaButtonBonSortie
-        '
-        Me.GunaButtonBonSortie.AnimationHoverSpeed = 0.07!
-        Me.GunaButtonBonSortie.AnimationSpeed = 0.03!
-        Me.GunaButtonBonSortie.BackColor = System.Drawing.Color.Transparent
-        Me.GunaButtonBonSortie.BaseColor = System.Drawing.Color.DarkSlateGray
-        Me.GunaButtonBonSortie.BorderColor = System.Drawing.Color.Black
-        Me.GunaButtonBonSortie.DialogResult = System.Windows.Forms.DialogResult.None
-        Me.GunaButtonBonSortie.FocusedColor = System.Drawing.Color.Empty
-        Me.GunaButtonBonSortie.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.GunaButtonBonSortie.ForeColor = System.Drawing.Color.White
-        Me.GunaButtonBonSortie.Image = Nothing
-        Me.GunaButtonBonSortie.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonBonSortie.Location = New System.Drawing.Point(14, 192)
-        Me.GunaButtonBonSortie.Name = "GunaButtonBonSortie"
-        Me.GunaButtonBonSortie.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaButtonBonSortie.OnHoverBorderColor = System.Drawing.Color.Black
-        Me.GunaButtonBonSortie.OnHoverForeColor = System.Drawing.Color.White
-        Me.GunaButtonBonSortie.OnHoverImage = Nothing
-        Me.GunaButtonBonSortie.OnPressedColor = System.Drawing.Color.Black
-        Me.GunaButtonBonSortie.Radius = 5
-        Me.GunaButtonBonSortie.Size = New System.Drawing.Size(328, 28)
-        Me.GunaButtonBonSortie.TabIndex = 7
-        Me.GunaButtonBonSortie.Text = "BON DE SORTIE"
-        Me.GunaButtonBonSortie.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'GunaButtonRequisition
-        '
-        Me.GunaButtonRequisition.AnimationHoverSpeed = 0.07!
-        Me.GunaButtonRequisition.AnimationSpeed = 0.03!
-        Me.GunaButtonRequisition.BackColor = System.Drawing.Color.Transparent
-        Me.GunaButtonRequisition.BaseColor = System.Drawing.Color.Tomato
-        Me.GunaButtonRequisition.BorderColor = System.Drawing.Color.Black
-        Me.GunaButtonRequisition.DialogResult = System.Windows.Forms.DialogResult.None
-        Me.GunaButtonRequisition.FocusedColor = System.Drawing.Color.Empty
-        Me.GunaButtonRequisition.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.GunaButtonRequisition.ForeColor = System.Drawing.Color.White
-        Me.GunaButtonRequisition.Image = Nothing
-        Me.GunaButtonRequisition.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonRequisition.Location = New System.Drawing.Point(14, 151)
-        Me.GunaButtonRequisition.Name = "GunaButtonRequisition"
-        Me.GunaButtonRequisition.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaButtonRequisition.OnHoverBorderColor = System.Drawing.Color.Black
-        Me.GunaButtonRequisition.OnHoverForeColor = System.Drawing.Color.White
-        Me.GunaButtonRequisition.OnHoverImage = Nothing
-        Me.GunaButtonRequisition.OnPressedColor = System.Drawing.Color.Black
-        Me.GunaButtonRequisition.Radius = 5
-        Me.GunaButtonRequisition.Size = New System.Drawing.Size(328, 28)
-        Me.GunaButtonRequisition.TabIndex = 7
-        Me.GunaButtonRequisition.Text = "BON DE REQUISITION"
-        Me.GunaButtonRequisition.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'GunaButton7
-        '
-        Me.GunaButton7.AnimationHoverSpeed = 0.07!
-        Me.GunaButton7.AnimationSpeed = 0.03!
-        Me.GunaButton7.BackColor = System.Drawing.Color.Transparent
-        Me.GunaButton7.BaseColor = System.Drawing.Color.SaddleBrown
-        Me.GunaButton7.BorderColor = System.Drawing.Color.Black
-        Me.GunaButton7.DialogResult = System.Windows.Forms.DialogResult.None
-        Me.GunaButton7.FocusedColor = System.Drawing.Color.Empty
-        Me.GunaButton7.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.GunaButton7.ForeColor = System.Drawing.Color.White
-        Me.GunaButton7.Image = Nothing
-        Me.GunaButton7.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButton7.Location = New System.Drawing.Point(14, 108)
-        Me.GunaButton7.Name = "GunaButton7"
-        Me.GunaButton7.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaButton7.OnHoverBorderColor = System.Drawing.Color.Black
-        Me.GunaButton7.OnHoverForeColor = System.Drawing.Color.White
-        Me.GunaButton7.OnHoverImage = Nothing
-        Me.GunaButton7.OnPressedColor = System.Drawing.Color.Black
-        Me.GunaButton7.Radius = 5
-        Me.GunaButton7.Size = New System.Drawing.Size(328, 28)
-        Me.GunaButton7.TabIndex = 7
-        Me.GunaButton7.Text = "Transfert Inter Magasin"
-        Me.GunaButton7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'GunaButton5
-        '
-        Me.GunaButton5.AnimationHoverSpeed = 0.07!
-        Me.GunaButton5.AnimationSpeed = 0.03!
-        Me.GunaButton5.BackColor = System.Drawing.Color.Transparent
-        Me.GunaButton5.BaseColor = System.Drawing.Color.Green
-        Me.GunaButton5.BorderColor = System.Drawing.Color.Black
-        Me.GunaButton5.DialogResult = System.Windows.Forms.DialogResult.None
-        Me.GunaButton5.FocusedColor = System.Drawing.Color.Empty
-        Me.GunaButton5.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.GunaButton5.ForeColor = System.Drawing.Color.White
-        Me.GunaButton5.Image = Nothing
-        Me.GunaButton5.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButton5.Location = New System.Drawing.Point(14, 65)
-        Me.GunaButton5.Name = "GunaButton5"
-        Me.GunaButton5.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaButton5.OnHoverBorderColor = System.Drawing.Color.Black
-        Me.GunaButton5.OnHoverForeColor = System.Drawing.Color.White
-        Me.GunaButton5.OnHoverImage = Nothing
-        Me.GunaButton5.OnPressedColor = System.Drawing.Color.Black
-        Me.GunaButton5.Radius = 5
-        Me.GunaButton5.Size = New System.Drawing.Size(328, 28)
-        Me.GunaButton5.TabIndex = 7
-        Me.GunaButton5.Text = "BON DE RECEPTIONS"
-        Me.GunaButton5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'MenuStripLeftSideMenu
         '
@@ -5326,6 +5331,7 @@ Partial Class MainWindowEconomat
         Me.GunaGroupBox12.ResumeLayout(False)
         Me.GunaGroupBox12.PerformLayout()
         CType(Me.GunaDataGridViewListeBordereauxValides, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GunaContextMenuStripEditerBordoro.ResumeLayout(False)
         Me.Bordereau.ResumeLayout(False)
         Me.GunaGroupBoxListeDesBordereaux.ResumeLayout(False)
         Me.GunaGroupBoxListeDesBordereaux.PerformLayout()
@@ -5478,13 +5484,12 @@ Partial Class MainWindowEconomat
     Friend WithEvents GunaAdvenceButton2 As Guna.UI.WinForms.GunaAdvenceButton
     Friend WithEvents GunaAdvenceButton5 As Guna.UI.WinForms.GunaAdvenceButton
     Friend WithEvents TabPageRapport As TabPage
-    Friend WithEvents GunaButton3 As Guna.UI.WinForms.GunaButton
+    Friend WithEvents GunaButtonPopularMeals As Guna.UI.WinForms.GunaButton
     Friend WithEvents GunaButton12 As Guna.UI.WinForms.GunaButton
     Friend WithEvents GunaButton2 As Guna.UI.WinForms.GunaButton
     Friend WithEvents GunaButton11 As Guna.UI.WinForms.GunaButton
     Friend WithEvents GunaButtonInventaire As Guna.UI.WinForms.GunaButton
     Friend WithEvents GunaButton4 As Guna.UI.WinForms.GunaButton
-    Friend WithEvents GunaButton5 As Guna.UI.WinForms.GunaButton
     Friend WithEvents LabelBon As Label
     Friend WithEvents LabelListeDesBons As Label
     Friend WithEvents GroupBox1 As GroupBox
@@ -5499,7 +5504,6 @@ Partial Class MainWindowEconomat
     Friend WithEvents GunaDataGridViewRapport As Guna.UI.WinForms.GunaDataGridView
     Friend WithEvents GunaLabelAu As Guna.UI.WinForms.GunaLabel
     Friend WithEvents GunaLabelDu As Guna.UI.WinForms.GunaLabel
-    Friend WithEvents GunaButton7 As Guna.UI.WinForms.GunaButton
     Friend WithEvents LabelTypeDeRapport As Label
     Friend WithEvents GunaTextBoxSuivreArticleNonSuivi As Guna.UI.WinForms.GunaTextBox
     Friend WithEvents GunaDataGridViewInventaire As Guna.UI.WinForms.GunaDataGridView
@@ -5513,11 +5517,7 @@ Partial Class MainWindowEconomat
     Friend WithEvents GunaLabelCommandeur As Guna.UI.WinForms.GunaLabel
     Friend WithEvents GunaLabelValideur As Guna.UI.WinForms.GunaLabel
     Friend WithEvents GunaLabelControleur As Guna.UI.WinForms.GunaLabel
-    Friend WithEvents GunaButtonRequisition As Guna.UI.WinForms.GunaButton
-    Friend WithEvents GunaButtonBonSortie As Guna.UI.WinForms.GunaButton
     Friend WithEvents GunaComboBoxTypeBorderoRapport As Guna.UI.WinForms.GunaComboBox
-    Friend WithEvents GunaRadioButtonParTypeEtDate As Guna.UI.WinForms.GunaRadioButton
-    Friend WithEvents GunaRadioButtonParBordero As Guna.UI.WinForms.GunaRadioButton
     Friend WithEvents GunaDataGridViewBorderoByTypeEtDate As Guna.UI.WinForms.GunaDataGridView
     Friend WithEvents GunaButtonAfficher As Guna.UI.WinForms.GunaButton
     Friend WithEvents GunaContextMenuStripImprimerBordero As Guna.UI.WinForms.GunaContextMenuStrip
@@ -5674,4 +5674,14 @@ Partial Class MainWindowEconomat
     Friend WithEvents GunaLabel7 As Guna.UI.WinForms.GunaLabel
     Friend WithEvents GunaLabel6 As Guna.UI.WinForms.GunaLabel
     Friend WithEvents GunaButton16 As Guna.UI.WinForms.GunaButton
+    Friend WithEvents GunaContextMenuStripEditerBordoro As Guna.UI.WinForms.GunaContextMenuStrip
+    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents AnnulerPrécédentToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents GunaTextBox4 As Guna.UI.WinForms.GunaTextBox
+    Friend WithEvents GunaTextBox3 As Guna.UI.WinForms.GunaTextBox
+    Friend WithEvents GunaTextBox2 As Guna.UI.WinForms.GunaTextBox
+    Friend WithEvents GunaTextBox1 As Guna.UI.WinForms.GunaTextBox
+    Friend WithEvents GunaTextBox5 As Guna.UI.WinForms.GunaTextBox
+    Friend WithEvents ImprimerToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents GunaLabel8 As Guna.UI.WinForms.GunaLabel
 End Class

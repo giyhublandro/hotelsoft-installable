@@ -1109,7 +1109,7 @@
         SUVORK5CYII=
 </value>
   </data>
-  <data name="GunaAdvenceButton2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="GunaAdvenceButtonAgedBillsButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
         JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAA3aElEQVR4Xu3dCZQkVZm38emGbpaWHQFl
@@ -4530,6 +4530,12 @@
   <metadata name="GunaGroupRecherche.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="DataGridViewListeDesComptes.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="GunaGroupRecherche.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="GunaButtonImprimerListeDesComptes.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
@@ -4563,10 +4569,39 @@
     <value>True</value>
   </metadata>
   <metadata name="ContextMenuStripViewUnClearedBills.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 116</value>
+    <value>32, 10</value>
   </metadata>
+  <data name="GunaButton15.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+        QmCC
+</value>
+  </data>
   <metadata name="GunaContextMenuStripRembourserCaution.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>667, 3</value>
+    <value>476, 8</value>
   </metadata>
   <data name="GunaButton5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -4782,7 +4817,7 @@
     <value>True</value>
   </metadata>
   <metadata name="GunaContextMenuStripFactureARegler.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1046, 77</value>
+    <value>774, 10</value>
   </metadata>
   <data name="GunaButtonImprimerSituation.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -4813,6 +4848,12 @@
         QmCC
 </value>
   </data>
+  <metadata name="GunaLabelNbreResa.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="GunaLabelNbreResa.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="GunaButton17.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
@@ -4843,7 +4884,7 @@
 </value>
   </data>
   <metadata name="MenuStripLeftSideMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>955, 3</value>
+    <value>1126, 5</value>
   </metadata>
   <data name="ToolStripMenuItem108.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -4884,9 +4925,9 @@
 </value>
   </data>
   <metadata name="TimerToRefreshClock.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>879, 77</value>
+    <value>40, 53</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>190</value>
+    <value>25</value>
   </metadata>
 </root>

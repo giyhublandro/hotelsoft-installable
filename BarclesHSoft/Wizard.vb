@@ -1002,9 +1002,6 @@ Public Class Wizard
 
     End Sub
 
-    Private Sub GunaPanelCreationSalleDeFete_Paint(sender As Object, e As PaintEventArgs) Handles GunaPanelCreationSalleDeFete.Paint
-
-    End Sub
 
     '--------------------------------------------END GESTION DE LA SALLE DE FETE --------------------------------------------------------------
 

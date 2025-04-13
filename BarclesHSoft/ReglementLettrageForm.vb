@@ -555,7 +555,7 @@ Public Class ReglementLettrageForm
         Dim CODE_ENTREPRISE As String = Trim(CODE_CLIENT)
 
         'Dim query2 As String = "SELECT CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT SOLDE', LETTRAGE  FROM facture WHERE ETAT_FACTURE = 1 AND CODE_CLIENT=@CODE_CLIENT ORDER BY DATE_FACTURE DESC"
-        Dim query2 As String = "SELECT CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT SOLDE', LETTRAGE  FROM facture WHERE CODE_CLIENT=@CODE_CLIENT ORDER BY DATE_FACTURE DESC"
+        Dim query2 As String = "SELECT CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT SOLDE', MONTANT_REMISE, LETTRAGE FROM facture WHERE CODE_CLIENT=@CODE_CLIENT ORDER BY DATE_FACTURE DESC"
         Dim command2 As New MySqlCommand(query2, GlobalVariable.connect)
         command2.Parameters.Add("@CODE_CLIENT", MySqlDbType.VarChar).Value = CODE_ENTREPRISE
         'command2.Parameters.Add("@CODE_RESERVATION", MySqlDbType.VarChar).Value = CODE_RESERVATION
@@ -567,9 +567,11 @@ Public Class ReglementLettrageForm
 
         Dim totalFacture As Double = 0
         Dim totalReglement As Double = 0
+        Dim totalRemise As Double = 0
 
         For j = 0 To tableFacture.Rows.Count - 1
             totalFacture = totalFacture + tableFacture.Rows(j)("MONTANT")
+            totalRemise += tableFacture.Rows(j)("MONTANT_REMISE")
             totalReglement += tableFacture.Rows(j)("MONTANT SOLDE")
         Next
 
@@ -2452,7 +2454,7 @@ Public Class ReglementLettrageForm
 
     Private Sub ImprimerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ImprimerToolStripMenuItem.Click
 
-        If GunaDataGridViewListeFacture.Rows.Count > 0 Then
+        If GunaDataGridViewListeFacture.CurrentRow.Selected Then
 
             Dim NATURE_OPERATION As String = GunaDataGridViewListeFacture.CurrentRow.Cells("NATURE").Value.ToString
 
@@ -2480,8 +2482,6 @@ Public Class ReglementLettrageForm
 
             End If
 
-        Else
-            MessageBox.Show("OUps", "Gestion de caisse", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
 
     End Sub
@@ -2596,10 +2596,9 @@ Public Class ReglementLettrageForm
 
     Private Sub ImprimerFactureSynthèseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ImprimerFactureSynthèseToolStripMenuItem.Click
 
-        If GunaDataGridViewListeFacture.Rows.Count > 0 Then
+        If GunaDataGridViewListeFacture.CurrentRow.Selected Then
 
             Dim NATURE_OPERATION As String = GunaDataGridViewListeFacture.CurrentRow.Cells("NATURE").Value.ToString
-
             Dim CODE_CLIENT_COMPTE As String = ""
 
             If GunaComboBoxTypeDeFiltre.SelectedItem = "Entreprise" Or GunaComboBoxTypeDeFiltre.SelectedItem = "Individuel" Or GunaComboBoxTypeDeFiltre.SelectedItem = "Company" Or GunaComboBoxTypeDeFiltre.SelectedItem = "Individual" Then
@@ -2623,9 +2622,6 @@ Public Class ReglementLettrageForm
                 Functions.DocumentToPrintSynthese(GunaDataGridViewListeFacture.CurrentRow.Cells("REFERENCE").Value.ToString, "reglement", "NUM_REGLEMENT", CODE_CLIENT_COMPTE, "")
 
             End If
-
-        Else
-            MessageBox.Show("OUps", "Gestion de caisse", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
     End Sub
 
@@ -2634,7 +2630,7 @@ Public Class ReglementLettrageForm
         ' ------------------------------ display of information into datagrid in the form dateOperation-Libelle-Debit-Credit -----------------------------
 
         'Dim query2 As String = "SELECT CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT SOLDE', LETTRAGE  FROM facture WHERE ETAT_FACTURE = 1 AND CODE_CLIENT=@CODE_CLIENT ORDER BY DATE_FACTURE DESC"
-        Dim query2 As String = "SELECT CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT SOLDE', LETTRAGE  FROM facture WHERE CODE_CLIENT=@CODE_CLIENT ORDER BY DATE_FACTURE DESC"
+        Dim query2 As String = "SELECT CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT SOLDE', MONTANT_REMISE,LETTRAGE  FROM facture WHERE CODE_CLIENT=@CODE_CLIENT ORDER BY DATE_FACTURE DESC"
         Dim command2 As New MySqlCommand(query2, GlobalVariable.connect)
         command2.Parameters.Add("@CODE_CLIENT", MySqlDbType.VarChar).Value = NUMERO_COMPTE
         'command2.Parameters.Add("@CODE_RESERVATION", MySqlDbType.VarChar).Value = CODE_RESERVATION
@@ -2646,13 +2642,193 @@ Public Class ReglementLettrageForm
 
         Dim totalFacture As Double = 0
         Dim totalReglement As Double = 0
+        Dim totalRemise As Double = 0
 
         For j = 0 To tableFacture.Rows.Count - 1
             totalFacture = totalFacture + tableFacture.Rows(j)("MONTANT")
+            totalRemise += tableFacture.Rows(j)("MONTANT_REMISE")
             totalReglement += tableFacture.Rows(j)("MONTANT SOLDE")
         Next
 
         GunaTextBoxSoldeCompte.Text = Format(Double.Parse(totalReglement) - Double.Parse(totalFacture), "#,##0")
+
+    End Sub
+
+    Private Sub RéductionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RéductionToolStripMenuItem.Click
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("REDUCTION_GLOBAL_FACTURE") = 1 Then
+
+            If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CORRECTIONS") = 1 Then
+
+                '--------------------------------------------------------------------------------------------------
+                If GunaDataGridViewListeFacture.CurrentRow.Selected Then
+
+                    If GunaDataGridViewListeFacture.CurrentRow.Cells("NATURE").Value.ToString IsNot Nothing Then
+
+                        Dim NATURE_OPERATION As String = GunaDataGridViewListeFacture.CurrentRow.Cells("NATURE").Value.ToString
+                        Dim CODE_FACTURE As String = GunaDataGridViewListeFacture.CurrentRow.Cells(0).Value.ToString
+
+                        If Trim(NATURE_OPERATION) = "FACTURE" Then
+
+                            Dim dialog As DialogResult
+
+                            If GlobalVariable.actualLanguageValue = 1 Then
+                                dialog = MessageBox.Show("Vous êtes sur le point de faire une réduction", "Réduction de charge", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                            Else
+                                dialog = MessageBox.Show("You are about to do a reduction", "Charge reduction", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                            End If
+
+                            If dialog = DialogResult.Yes Then
+
+                                Me.TopMost = False
+
+                                Dim MONTANT As Double = 0
+
+                                If Not Trim(InputBox("DISCOUNT AMOUNT ", "Charge Discount", "")).Equals("") Then
+                                    If GlobalVariable.actualLanguageValue = 1 Then
+                                        MONTANT = Double.Parse(InputBox("MONTANT DE LA REDUCTION ", "Réduction de charge", ""))
+                                    Else
+                                        MONTANT = Double.Parse(InputBox("DISCOUNT AMOUNT ", "Charge Discount", ""))
+                                    End If
+                                End If
+
+                                If MONTANT > 0 Then
+
+                                    'Dim insert As String = "INSERT INTO ligne_facture (`CODE_FACTURE`, `CODE_RESERVATION`, `CODE_MOUVEMENT`, `CODE_CHAMBRE`, `CODE_MODE_PAIEMENT`, `NUMERO_PIECE`, `CODE_ARTICLE`, `CODE_LOT`, `MONTANT_HT`, `TAXE`, `QUANTITE`, `PRIX_UNITAIRE_TTC`, `MONTANT_TTC`, `DATE_FACTURE`, `HEURE_FACTURE`, `ETAT_FACTURE`, `DATE_OCCUPATION`, `HEURE_OCCUPATION`, `LIBELLE_FACTURE`, `TYPE_LIGNE_FACTURE`, `NUMERO_SERIE`, `NUMERO_ORDRE`, `DESCRIPTION`, `CODE_UTILISATEUR_CREA`, `CODE_AGENCE`, `MONTANT_REMISE`, `MONTANT_TAXE`, `NUMERO_SERIE_DEBUT`, `NUMERO_SERIE_FIN`, `CODE_MAGASIN`, `FUSIONNEE`, `TYPE`, `NUMERO_BLOC_NOTE`, `GRIFFE_UTILISATEUR`, `VALEUR_CONSO`, `ETAT`) 
+                                    'Select Case`CODE_FACTURE`, `CODE_RESERVATION`, `CODE_MOUVEMENT`, `CODE_CHAMBRE`, `CODE_MODE_PAIEMENT`, `NUMERO_PIECE`, `CODE_ARTICLE`, `CODE_LOT`, `MONTANT_HT`, `TAXE`, `QUANTITE`, `PRIX_UNITAIRE_TTC`, `MONTANT_TTC`, `DATE_FACTURE`, `HEURE_FACTURE`, `ETAT_FACTURE`, `DATE_OCCUPATION`, `HEURE_OCCUPATION`, `LIBELLE_FACTURE`, `TYPE_LIGNE_FACTURE`, `NUMERO_SERIE`, `NUMERO_ORDRE`, `DESCRIPTION`, `CODE_UTILISATEUR_CREA`, `CODE_AGENCE`, `MONTANT_REMISE`, `MONTANT_TAXE`, `NUMERO_SERIE_DEBUT`, `NUMERO_SERIE_FIN`, `CODE_MAGASIN`, `FUSIONNEE`, `TYPE`, `NUMERO_BLOC_NOTE`, `GRIFFE_UTILISATEUR`, `VALEUR_CONSO`, `ETAT` FROM ligne_facture WHERE ID_LIGNE_FACTURE = @ID_LIGNE_FACTURE"
+
+                                    'Dim command As New MySqlCommand(insert, GlobalVariable.connect)
+
+                                    'Command.Parameters.Add("@ID_LIGNE_FACTURE", MySqlDbType.Int32).Value = ID_LIGNE_FACTURE
+                                    'Command.ExecuteNonQuery()
+
+                                    Dim nomDuChamp As String = "MONTANT_REMISE"
+                                    Dim nomDuChampDuCode As String = "CODE_FACTURE"
+                                    Dim valeurDuChampDuCode As String = CODE_FACTURE
+                                    Dim variableType As Integer = 1
+                                    Dim ValeurDuChamp = MONTANT
+                                    Dim nomDelaTable As String = "facture"
+                                    Functions.updateOfFieldsAddSubtract(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
+
+                                    nomDuChamp = "AVANCE"
+                                    Functions.updateOfFieldsAddSubtract(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
+
+                                    nomDuChamp = "MONTANT_AVANCE"
+                                    Functions.updateOfFieldsAddSubtract(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
+
+                                    nomDuChamp = "RESTE_A_PAYER"
+                                    ValeurDuChamp = MONTANT * -1
+                                    Functions.updateOfFieldsAddSubtract(nomDelaTable, nomDuChamp, ValeurDuChamp, nomDuChampDuCode, valeurDuChampDuCode, variableType)
+
+                                    If GlobalVariable.actualLanguageValue = 1 Then
+                                        MessageBox.Show("Réduction fait avec succès", "Réduction de Charge", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                                    Else
+                                        MessageBox.Show("Reduction succesffully donne", "Discount", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                                    End If
+
+                                    listeDesFacturesSuivantUnePeriode()
+
+                                    Dim facture_ligne As DataTable = Functions.getElementByCode(CODE_FACTURE, "ligne_facture", "CODE_FACTURE")
+
+                                    If facture_ligne.Rows.Count > 0 Then
+                                        insertReduction(facture_ligne, MONTANT * -1)
+                                    End If
+
+                                    If GunaComboBoxTypeDeFiltre.SelectedIndex < 2 Then
+                                        situationDuClientEntreprise(GunaTextBoxCodeEntreprise.Text)
+                                    Else
+                                        situationDuCompte(GunaTextBoxCompteDebiteur.Text)
+                                    End If
+
+                                End If
+
+                            End If
+
+                        End If
+
+                    End If
+
+                End If
+
+                '---------------------------------------------------------------------------------------------------
+
+            Else
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    MessageBox.Show("You don't have the rigth to do a discount", "Payment and Lettering", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Else
+                    MessageBox.Show("Vous n'avez pas le droit de faire des réductions", "Paiement et Lettrage", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End If
+
+        Else
+            If GlobalVariable.actualLanguageValue = 0 Then
+                MessageBox.Show("This finctionality is not actif", "Payment and Lettering", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                MessageBox.Show("Cette fonctionnalité n'est pas activé", "Règlement et Lettrage", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        End If
+
+    End Sub
+
+    Public Sub insertReduction(ByVal facture As DataTable, ByVal MONTANT As Double)
+
+        Dim ligne_facture As New LigneFacture
+
+        Dim CODE_MOUVEMENT As String = Functions.GeneratingRandomCodeWithSpecifications("mouvement_stock", "MS")
+        Dim CODE_CHAMBRE As String = facture.Rows(0)("CODE_CHAMBRE")
+        Dim CODE_MODE_PAIEMENT As String = facture.Rows(0)("CODE_MODE_PAIEMENT")
+        Dim NUMERO_PIECE As String = facture.Rows(0)("NUMERO_PIECE")
+        Dim CODE_ARTICLE As String = ""
+        Dim CODE_LOT As String = facture.Rows(0)("CODE_LOT")
+
+        Dim TAXE As Double = 0
+        Dim QUANTITE As Double = 1
+        Dim MONTANT_HT As Double = MONTANT
+        Dim PRIX_UNITAIRE_TTC As Double = MONTANT
+        Dim MONTANT_TTC As Double = MONTANT
+        Dim DATE_FACTURE As Date = GlobalVariable.DateDeTravail.ToShortDateString()
+        Dim HEURE_FACTURE As DateTime = Date.Now().ToShortTimeString
+        Dim ETAT_FACTURE As Integer = facture.Rows(0)("ETAT_FACTURE")
+        Dim DATE_OCCUPATION As Date = GlobalVariable.DateDeTravail
+        Dim HEURE_OCCUPATION As DateTime = Date.Now().ToShortTimeString
+
+        Dim VALEUR_CONSO = facture.Rows(0)("CODE_CHAMBRE")
+
+        Dim LIBELLE_FACTURE As String = "REDUCTION "
+        If GlobalVariable.actualLanguageValue = 0 Then
+            LIBELLE_FACTURE = "DISCOUNT "
+        End If
+        Dim TYPE_LIGNE_FACTURE As String = "REDUCTION"
+        If GlobalVariable.actualLanguageValue = 0 Then
+            TYPE_LIGNE_FACTURE = "DISCOUNT"
+        End If
+        Dim CODE_RESERVATION As String = facture.Rows(0)("CODE_CHAMBRE")
+        Dim NUMERO_SERIE As String = ""
+        Dim NUMERO_ORDRE As Double = 0
+        Dim DESCRIPTION As String = ""
+        Dim CODE_UTILISATEUR_CREA As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+        Dim CODE_AGENCE As String = GlobalVariable.codeAgence
+        Dim MONTANT_REMISE As Double = 0
+        Dim MONTANT_TAXE As Double = 0
+        Dim NUMERO_SERIE_DEBUT As String = ""
+        Dim NUMERO_SERIE_FIN As String = ""
+        Dim CODE_MAGASIN As String = facture.Rows(0)("CODE_MAGASIN")
+        Dim FUSIONNEE As String = "REDUCTION"
+        If GlobalVariable.actualLanguageValue = 0 Then
+            FUSIONNEE = "DISCOUNT"
+        End If
+        Dim CODE_FACTURE As String = facture.Rows(0)("CODE_FACTURE")
+        Dim NUMERO_BLOC_NOTE As String = ""
+        Dim SERVEUR As String = ""
+        Dim SORTIE = facture.Rows(0)("SORTIE")
+        Dim SORTIE_PAR = facture.Rows(0)("SORTIE_PAR")
+        Dim TYPE As String = facture.Rows(0)("TYPE")
+
+        Dim GRIFFE_UTILISATEUR As String = GlobalVariable.ConnectedUser.Rows(0)("GRIFFE_UTILISATEUR")
+        ligne_facture.insertLigneFacture(CODE_FACTURE, CODE_RESERVATION, CODE_MOUVEMENT, CODE_CHAMBRE, CODE_MODE_PAIEMENT, NUMERO_PIECE, CODE_ARTICLE, CODE_LOT, MONTANT_HT, TAXE, QUANTITE, PRIX_UNITAIRE_TTC, MONTANT_TTC, DATE_FACTURE, HEURE_FACTURE, ETAT_FACTURE,
+                                        DATE_OCCUPATION, HEURE_OCCUPATION, LIBELLE_FACTURE, TYPE_LIGNE_FACTURE, NUMERO_SERIE, NUMERO_ORDRE, DESCRIPTION, CODE_UTILISATEUR_CREA, CODE_AGENCE, MONTANT_REMISE, MONTANT_TAXE,
+                                        NUMERO_SERIE_DEBUT, NUMERO_SERIE_FIN, CODE_MAGASIN, FUSIONNEE, TYPE, NUMERO_BLOC_NOTE, GRIFFE_UTILISATEUR, VALEUR_CONSO, SERVEUR, SORTIE, SORTIE_PAR)
+
 
     End Sub
 

@@ -23,11 +23,12 @@ Partial Class NotificationsForm
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GunaLinePanelTop = New Guna.UI.WinForms.GunaLinePanel()
-        Me.GunaLabelNomDuNettoyeur = New Guna.UI.WinForms.GunaLabel()
+        Me.GunaTextBoxFromWhichWindow = New Guna.UI.WinForms.GunaTextBox()
+        Me.GunaLabelTitle = New Guna.UI.WinForms.GunaLabel()
         Me.GunaDragControl1 = New Guna.UI.WinForms.GunaDragControl(Me.components)
         Me.GunaDragControl2 = New Guna.UI.WinForms.GunaDragControl(Me.components)
         Me.GunaButton1 = New Guna.UI.WinForms.GunaButton()
@@ -51,7 +52,6 @@ Partial Class NotificationsForm
         Me.GunaButtonMessageLus = New Guna.UI.WinForms.GunaButton()
         Me.GunaButtonMessageNonLus = New Guna.UI.WinForms.GunaButton()
         Me.GunaButton5 = New Guna.UI.WinForms.GunaButton()
-        Me.GunaTextBoxFromWhichWindow = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaLinePanelTop.SuspendLayout()
         Me.GunaPanelEcrire.SuspendLayout()
         Me.GunaPanelLire.SuspendLayout()
@@ -62,7 +62,7 @@ Partial Class NotificationsForm
         '
         Me.GunaLinePanelTop.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
         Me.GunaLinePanelTop.Controls.Add(Me.GunaTextBoxFromWhichWindow)
-        Me.GunaLinePanelTop.Controls.Add(Me.GunaLabelNomDuNettoyeur)
+        Me.GunaLinePanelTop.Controls.Add(Me.GunaLabelTitle)
         Me.GunaLinePanelTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.GunaLinePanelTop.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaLinePanelTop.ForeColor = System.Drawing.Color.Transparent
@@ -73,15 +73,33 @@ Partial Class NotificationsForm
         Me.GunaLinePanelTop.Size = New System.Drawing.Size(700, 33)
         Me.GunaLinePanelTop.TabIndex = 1
         '
-        'GunaLabelNomDuNettoyeur
+        'GunaTextBoxFromWhichWindow
         '
-        Me.GunaLabelNomDuNettoyeur.AutoSize = True
-        Me.GunaLabelNomDuNettoyeur.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabelNomDuNettoyeur.Location = New System.Drawing.Point(247, 9)
-        Me.GunaLabelNomDuNettoyeur.Name = "GunaLabelNomDuNettoyeur"
-        Me.GunaLabelNomDuNettoyeur.Size = New System.Drawing.Size(140, 17)
-        Me.GunaLabelNomDuNettoyeur.TabIndex = 74
-        Me.GunaLabelNomDuNettoyeur.Text = "BOITE DE RECEPTION"
+        Me.GunaTextBoxFromWhichWindow.BaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxFromWhichWindow.BorderColor = System.Drawing.Color.Silver
+        Me.GunaTextBoxFromWhichWindow.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBoxFromWhichWindow.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxFromWhichWindow.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBoxFromWhichWindow.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBoxFromWhichWindow.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.GunaTextBoxFromWhichWindow.ForeColor = System.Drawing.Color.Black
+        Me.GunaTextBoxFromWhichWindow.Location = New System.Drawing.Point(590, 3)
+        Me.GunaTextBoxFromWhichWindow.Name = "GunaTextBoxFromWhichWindow"
+        Me.GunaTextBoxFromWhichWindow.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBoxFromWhichWindow.SelectedText = ""
+        Me.GunaTextBoxFromWhichWindow.Size = New System.Drawing.Size(98, 26)
+        Me.GunaTextBoxFromWhichWindow.TabIndex = 75
+        Me.GunaTextBoxFromWhichWindow.Visible = False
+        '
+        'GunaLabelTitle
+        '
+        Me.GunaLabelTitle.AutoSize = True
+        Me.GunaLabelTitle.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaLabelTitle.Location = New System.Drawing.Point(251, 8)
+        Me.GunaLabelTitle.Name = "GunaLabelTitle"
+        Me.GunaLabelTitle.Size = New System.Drawing.Size(140, 17)
+        Me.GunaLabelTitle.TabIndex = 74
+        Me.GunaLabelTitle.Text = "BOITE DE RECEPTION"
         '
         'GunaDragControl1
         '
@@ -152,7 +170,7 @@ Partial Class NotificationsForm
         Me.GunaPanelTopLine.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
         Me.GunaPanelTopLine.Location = New System.Drawing.Point(0, 439)
         Me.GunaPanelTopLine.Name = "GunaPanelTopLine"
-        Me.GunaPanelTopLine.Size = New System.Drawing.Size(621, 10)
+        Me.GunaPanelTopLine.Size = New System.Drawing.Size(700, 10)
         Me.GunaPanelTopLine.TabIndex = 7
         Me.GunaPanelTopLine.Visible = False
         '
@@ -174,7 +192,7 @@ Partial Class NotificationsForm
         Me.GunaFermer.ForeColor = System.Drawing.Color.White
         Me.GunaFermer.Image = Nothing
         Me.GunaFermer.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaFermer.Location = New System.Drawing.Point(12, 410)
+        Me.GunaFermer.Location = New System.Drawing.Point(10, 410)
         Me.GunaFermer.Name = "GunaFermer"
         Me.GunaFermer.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
         Me.GunaFermer.OnHoverBorderColor = System.Drawing.Color.Black
@@ -200,7 +218,7 @@ Partial Class NotificationsForm
         Me.GunaButton3.ForeColor = System.Drawing.Color.White
         Me.GunaButton3.Image = Nothing
         Me.GunaButton3.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButton3.Location = New System.Drawing.Point(21, 45)
+        Me.GunaButton3.Location = New System.Drawing.Point(10, 45)
         Me.GunaButton3.Name = "GunaButton3"
         Me.GunaButton3.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
         Me.GunaButton3.OnHoverBorderColor = System.Drawing.Color.Black
@@ -226,7 +244,7 @@ Partial Class NotificationsForm
         Me.GunaButton4.ForeColor = System.Drawing.Color.White
         Me.GunaButton4.Image = Nothing
         Me.GunaButton4.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButton4.Location = New System.Drawing.Point(21, 78)
+        Me.GunaButton4.Location = New System.Drawing.Point(10, 78)
         Me.GunaButton4.Name = "GunaButton4"
         Me.GunaButton4.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
         Me.GunaButton4.OnHoverBorderColor = System.Drawing.Color.Black
@@ -248,9 +266,9 @@ Partial Class NotificationsForm
         Me.GunaPanelEcrire.Controls.Add(Me.GunaLabel2)
         Me.GunaPanelEcrire.Controls.Add(Me.GunaLabel3)
         Me.GunaPanelEcrire.Controls.Add(Me.GunaButtonEnvoyer)
-        Me.GunaPanelEcrire.Location = New System.Drawing.Point(209, 47)
+        Me.GunaPanelEcrire.Location = New System.Drawing.Point(162, 47)
         Me.GunaPanelEcrire.Name = "GunaPanelEcrire"
-        Me.GunaPanelEcrire.Size = New System.Drawing.Size(465, 390)
+        Me.GunaPanelEcrire.Size = New System.Drawing.Size(526, 390)
         Me.GunaPanelEcrire.TabIndex = 79
         Me.GunaPanelEcrire.Visible = False
         '
@@ -311,7 +329,7 @@ Partial Class NotificationsForm
         Me.GunaTextBoxMessage.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxMessage.Radius = 5
         Me.GunaTextBoxMessage.SelectedText = ""
-        Me.GunaTextBoxMessage.Size = New System.Drawing.Size(438, 221)
+        Me.GunaTextBoxMessage.Size = New System.Drawing.Size(497, 221)
         Me.GunaTextBoxMessage.TabIndex = 84
         '
         'GunaLabel4
@@ -320,9 +338,9 @@ Partial Class NotificationsForm
         Me.GunaLabel4.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaLabel4.Location = New System.Drawing.Point(15, 16)
         Me.GunaLabel4.Name = "GunaLabel4"
-        Me.GunaLabel4.Size = New System.Drawing.Size(56, 17)
+        Me.GunaLabel4.Size = New System.Drawing.Size(60, 17)
         Me.GunaLabel4.TabIndex = 82
-        Me.GunaLabel4.Text = "Service:"
+        Me.GunaLabel4.Text = "Service :"
         '
         'GunaLabel2
         '
@@ -330,9 +348,9 @@ Partial Class NotificationsForm
         Me.GunaLabel2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaLabel2.Location = New System.Drawing.Point(15, 104)
         Me.GunaLabel2.Name = "GunaLabel2"
-        Me.GunaLabel2.Size = New System.Drawing.Size(65, 17)
+        Me.GunaLabel2.Size = New System.Drawing.Size(69, 17)
         Me.GunaLabel2.TabIndex = 81
-        Me.GunaLabel2.Text = "Message:"
+        Me.GunaLabel2.Text = "Message :"
         '
         'GunaLabel3
         '
@@ -340,9 +358,9 @@ Partial Class NotificationsForm
         Me.GunaLabel3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaLabel3.Location = New System.Drawing.Point(15, 64)
         Me.GunaLabel3.Name = "GunaLabel3"
-        Me.GunaLabel3.Size = New System.Drawing.Size(50, 17)
+        Me.GunaLabel3.Size = New System.Drawing.Size(54, 17)
         Me.GunaLabel3.TabIndex = 82
-        Me.GunaLabel3.Text = "Objet: "
+        Me.GunaLabel3.Text = "Objet : "
         '
         'GunaButtonEnvoyer
         '
@@ -357,7 +375,7 @@ Partial Class NotificationsForm
         Me.GunaButtonEnvoyer.ForeColor = System.Drawing.Color.White
         Me.GunaButtonEnvoyer.Image = Nothing
         Me.GunaButtonEnvoyer.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonEnvoyer.Location = New System.Drawing.Point(309, 356)
+        Me.GunaButtonEnvoyer.Location = New System.Drawing.Point(401, 356)
         Me.GunaButtonEnvoyer.Name = "GunaButtonEnvoyer"
         Me.GunaButtonEnvoyer.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
         Me.GunaButtonEnvoyer.OnHoverBorderColor = System.Drawing.Color.Black
@@ -373,9 +391,9 @@ Partial Class NotificationsForm
         'GunaPanelLire
         '
         Me.GunaPanelLire.Controls.Add(Me.GunaDataGridViewNotification)
-        Me.GunaPanelLire.Location = New System.Drawing.Point(208, 45)
+        Me.GunaPanelLire.Location = New System.Drawing.Point(162, 45)
         Me.GunaPanelLire.Name = "GunaPanelLire"
-        Me.GunaPanelLire.Size = New System.Drawing.Size(465, 349)
+        Me.GunaPanelLire.Size = New System.Drawing.Size(526, 349)
         Me.GunaPanelLire.TabIndex = 85
         '
         'GunaDataGridViewNotification
@@ -384,39 +402,39 @@ Partial Class NotificationsForm
         Me.GunaDataGridViewNotification.AllowUserToDeleteRows = False
         Me.GunaDataGridViewNotification.AllowUserToResizeColumns = False
         Me.GunaDataGridViewNotification.AllowUserToResizeRows = False
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(247, Byte), Integer), CType(CType(201, Byte), Integer), CType(CType(197, Byte), Integer))
-        Me.GunaDataGridViewNotification.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(247, Byte), Integer), CType(CType(201, Byte), Integer), CType(CType(197, Byte), Integer))
+        Me.GunaDataGridViewNotification.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.GunaDataGridViewNotification.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.GunaDataGridViewNotification.BackgroundColor = System.Drawing.Color.White
+        Me.GunaDataGridViewNotification.BackgroundColor = System.Drawing.Color.LightBlue
         Me.GunaDataGridViewNotification.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GunaDataGridViewNotification.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.GunaDataGridViewNotification.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(76, Byte), Integer), CType(CType(60, Byte), Integer))
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GunaDataGridViewNotification.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(76, Byte), Integer), CType(CType(60, Byte), Integer))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GunaDataGridViewNotification.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.GunaDataGridViewNotification.ColumnHeadersHeight = 25
         Me.GunaDataGridViewNotification.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(219, Byte), Integer), CType(CType(216, Byte), Integer))
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(135, Byte), Integer), CType(CType(125, Byte), Integer))
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GunaDataGridViewNotification.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(219, Byte), Integer), CType(CType(216, Byte), Integer))
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(135, Byte), Integer), CType(CType(125, Byte), Integer))
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GunaDataGridViewNotification.DefaultCellStyle = DataGridViewCellStyle3
         Me.GunaDataGridViewNotification.EnableHeadersVisualStyles = False
         Me.GunaDataGridViewNotification.GridColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(188, Byte), Integer))
-        Me.GunaDataGridViewNotification.Location = New System.Drawing.Point(6, 11)
+        Me.GunaDataGridViewNotification.Location = New System.Drawing.Point(5, 10)
         Me.GunaDataGridViewNotification.Name = "GunaDataGridViewNotification"
         Me.GunaDataGridViewNotification.ReadOnly = True
         Me.GunaDataGridViewNotification.RowHeadersVisible = False
         Me.GunaDataGridViewNotification.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GunaDataGridViewNotification.Size = New System.Drawing.Size(453, 335)
+        Me.GunaDataGridViewNotification.Size = New System.Drawing.Size(518, 335)
         Me.GunaDataGridViewNotification.TabIndex = 0
         Me.GunaDataGridViewNotification.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Alizarin
         Me.GunaDataGridViewNotification.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(247, Byte), Integer), CType(CType(201, Byte), Integer), CType(CType(197, Byte), Integer))
@@ -424,7 +442,7 @@ Partial Class NotificationsForm
         Me.GunaDataGridViewNotification.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty
         Me.GunaDataGridViewNotification.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty
         Me.GunaDataGridViewNotification.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty
-        Me.GunaDataGridViewNotification.ThemeStyle.BackColor = System.Drawing.Color.White
+        Me.GunaDataGridViewNotification.ThemeStyle.BackColor = System.Drawing.Color.LightBlue
         Me.GunaDataGridViewNotification.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(188, Byte), Integer))
         Me.GunaDataGridViewNotification.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(76, Byte), Integer), CType(CType(60, Byte), Integer))
         Me.GunaDataGridViewNotification.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
@@ -454,7 +472,7 @@ Partial Class NotificationsForm
         Me.GunaButtonMessageLus.ForeColor = System.Drawing.Color.White
         Me.GunaButtonMessageLus.Image = Nothing
         Me.GunaButtonMessageLus.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonMessageLus.Location = New System.Drawing.Point(21, 145)
+        Me.GunaButtonMessageLus.Location = New System.Drawing.Point(10, 145)
         Me.GunaButtonMessageLus.Name = "GunaButtonMessageLus"
         Me.GunaButtonMessageLus.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
         Me.GunaButtonMessageLus.OnHoverBorderColor = System.Drawing.Color.Black
@@ -480,7 +498,7 @@ Partial Class NotificationsForm
         Me.GunaButtonMessageNonLus.ForeColor = System.Drawing.Color.White
         Me.GunaButtonMessageNonLus.Image = Nothing
         Me.GunaButtonMessageNonLus.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButtonMessageNonLus.Location = New System.Drawing.Point(21, 184)
+        Me.GunaButtonMessageNonLus.Location = New System.Drawing.Point(10, 184)
         Me.GunaButtonMessageNonLus.Name = "GunaButtonMessageNonLus"
         Me.GunaButtonMessageNonLus.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
         Me.GunaButtonMessageNonLus.OnHoverBorderColor = System.Drawing.Color.Black
@@ -506,7 +524,7 @@ Partial Class NotificationsForm
         Me.GunaButton5.ForeColor = System.Drawing.Color.White
         Me.GunaButton5.Image = Nothing
         Me.GunaButton5.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButton5.Location = New System.Drawing.Point(21, 227)
+        Me.GunaButton5.Location = New System.Drawing.Point(10, 227)
         Me.GunaButton5.Name = "GunaButton5"
         Me.GunaButton5.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(95, Byte), Integer))
         Me.GunaButton5.OnHoverBorderColor = System.Drawing.Color.Black
@@ -519,31 +537,12 @@ Partial Class NotificationsForm
         Me.GunaButton5.Text = "BOITE D'ENVOI"
         Me.GunaButton5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'GunaTextBoxFromWhichWindow
-        '
-        Me.GunaTextBoxFromWhichWindow.BaseColor = System.Drawing.Color.White
-        Me.GunaTextBoxFromWhichWindow.BorderColor = System.Drawing.Color.Silver
-        Me.GunaTextBoxFromWhichWindow.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.GunaTextBoxFromWhichWindow.FocusedBaseColor = System.Drawing.Color.White
-        Me.GunaTextBoxFromWhichWindow.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaTextBoxFromWhichWindow.FocusedForeColor = System.Drawing.SystemColors.ControlText
-        Me.GunaTextBoxFromWhichWindow.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.GunaTextBoxFromWhichWindow.ForeColor = System.Drawing.Color.Black
-        Me.GunaTextBoxFromWhichWindow.Location = New System.Drawing.Point(590, 3)
-        Me.GunaTextBoxFromWhichWindow.Name = "GunaTextBoxFromWhichWindow"
-        Me.GunaTextBoxFromWhichWindow.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.GunaTextBoxFromWhichWindow.SelectedText = ""
-        Me.GunaTextBoxFromWhichWindow.Size = New System.Drawing.Size(98, 26)
-        Me.GunaTextBoxFromWhichWindow.TabIndex = 75
-        Me.GunaTextBoxFromWhichWindow.Visible = False
-        '
         'NotificationsForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(700, 450)
         Me.Controls.Add(Me.GunaPanelLire)
-        Me.Controls.Add(Me.GunaPanelEcrire)
         Me.Controls.Add(Me.GunaLinePanelTop)
         Me.Controls.Add(Me.GunaButton5)
         Me.Controls.Add(Me.GunaButtonMessageNonLus)
@@ -554,6 +553,7 @@ Partial Class NotificationsForm
         Me.Controls.Add(Me.GunaPanelTopLine)
         Me.Controls.Add(Me.GunaButton2)
         Me.Controls.Add(Me.GunaButton1)
+        Me.Controls.Add(Me.GunaPanelEcrire)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "NotificationsForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -576,7 +576,7 @@ Partial Class NotificationsForm
     Friend WithEvents GunaButton2 As Guna.UI.WinForms.GunaButton
     Friend WithEvents GunaPanelTopLine As Guna.UI.WinForms.GunaPanel
     Friend WithEvents TimerToRefreshClock As Timer
-    Friend WithEvents GunaLabelNomDuNettoyeur As Guna.UI.WinForms.GunaLabel
+    Friend WithEvents GunaLabelTitle As Guna.UI.WinForms.GunaLabel
     Friend WithEvents GunaFermer As Guna.UI.WinForms.GunaButton
     Friend WithEvents GunaPanelEcrire As Guna.UI.WinForms.GunaPanel
     Friend WithEvents GunaTextBoxMessage As Guna.UI.WinForms.GunaTextBox

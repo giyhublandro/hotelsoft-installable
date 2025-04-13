@@ -37,13 +37,19 @@ Public Class ChoixDuMagasinForm
 
         Functions.inventaireJournalierTextFile(GlobalVariable.magasinActuel, GlobalVariable.shiftActuel, 0)
 
+        '0 : shift du matin
+        '1 : shift du soir
+        '2 : shift de nuit
+
         If GlobalVariable.billetageAPartirDe = "bar" Then
 
-            BarRestaurantForm.autoLoadMagasinActuel()
-
-            '0 : shift du matin
-            '1 : shift du soir
-            '2 : shift de nuit
+            If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CAISSE_ENREGISTREUSE") = 1 Then
+                BarRestaurantCaisseEnregistreuseForm.loadComptoirByDefault()
+                BarRestaurantCaisseEnregistreuseForm.autoLoadMagasinActuel()
+            Else
+                BarRestaurantForm.loadComptoirByDefault()
+                BarRestaurantForm.autoLoadMagasinActuel()
+            End If
 
         End If
 

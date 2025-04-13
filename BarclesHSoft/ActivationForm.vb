@@ -9,8 +9,48 @@
 
         languages.activation(GlobalVariable.actualLanguageValue)
 
-        Dim licence As New Licence()
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
 
+            If GlobalVariable.config.Rows.Count > 0 Then
+
+                Dim C_NAME As String = GlobalVariable.config.Rows(0)("C_NAME")
+                Dim LOG As String = GlobalVariable.config.Rows(0)("LOG")
+                Dim OF_DE As String = "DE"
+                Dim PAR_BY As String = " PAR"
+
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    PAR_BY = " BY "
+                    PAR_BY = "OF"
+                End If
+
+                GunaLabelTitre.Text = "ACTIVATION " + OF_DE + " " + LOG + PAR_BY + C_NAME
+
+                Dim backColorString As String = GlobalVariable.config.Rows(0)("SCHEME_COLOR")
+                Dim backSecondaryColorString As String = GlobalVariable.config.Rows(0)("SCHEME_SECONDARY_COLOR")
+                Dim textColorString As String = GlobalVariable.config.Rows(0)("TEXT_PRIMARY_COLOR")
+                Dim textSecondaryColorString As String = GlobalVariable.config.Rows(0)("TEXT_SECONDARY_COLOR")
+
+                Dim paramCouleur() As String
+                Dim paramSecondaryCouleur() As String
+                Dim paramSecondaryTextCouleur() As String
+                Dim paramPrimaryTextCouleur() As String
+
+                paramCouleur = Functions.returningColorFromString(backColorString)
+                paramSecondaryCouleur = Functions.returningColorFromString(backSecondaryColorString)
+                paramSecondaryTextCouleur = Functions.returningColorFromString(textSecondaryColorString)
+                paramPrimaryTextCouleur = Functions.returningColorFromString(textColorString)
+
+                If paramCouleur(1).Equals("") Then
+                    GunaLinePanelTop.BackColor = Color.FromName(paramCouleur(0))
+                    GunaButtonActiver.BaseColor = Color.FromName(paramSecondaryCouleur(0))
+                Else
+                    GunaLinePanelTop.BackColor = Color.FromArgb(Integer.Parse(paramCouleur(0)), Integer.Parse(paramCouleur(1)), Integer.Parse(paramCouleur(2)), Integer.Parse(paramCouleur(3)))
+                    GunaButtonActiver.BaseColor = Color.FromArgb(Integer.Parse(paramSecondaryCouleur(0)), Integer.Parse(paramSecondaryCouleur(1)), Integer.Parse(paramSecondaryCouleur(2)), Integer.Parse(paramSecondaryCouleur(3)))
+                End If
+            End If
+        End If
+
+        Dim licence As New Licence()
         licence.gestionDesLicence()
 
     End Sub
@@ -150,12 +190,30 @@
 
         Else
 
-            If GlobalVariable.actualLanguageValue = 0 Then
-                languageMessage = "Please type in the Serial Key !!"
-                languageTitle = "Hotel Soft Activation"
-            ElseIf GlobalVariable.actualLanguageValue = 1 Then
-                languageMessage = "Bien vouloir saisir la clé d'activation !!"
-                languageTitle = "Activation Hotel Soft"
+            If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+
+                Dim LOG As String = GlobalVariable.config.Rows(0)("LOG")
+
+                If GlobalVariable.config.Rows.Count > 0 Then
+                    If GlobalVariable.actualLanguageValue = 0 Then
+                        languageMessage = "Please type in the Serial Key !!"
+                        languageTitle = LOG + " Activation"
+                    ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                        languageMessage = "Bien vouloir saisir la clé d'activation !!"
+                        languageTitle = "Activation " + LOG
+                    End If
+                End If
+
+            Else
+
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    languageMessage = "Please type in the Serial Key !!"
+                    languageTitle = "Hotel Soft Activation"
+                ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                    languageMessage = "Bien vouloir saisir la clé d'activation !!"
+                    languageTitle = "Activation Hotel Soft"
+                End If
+
             End If
 
             MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -166,13 +224,33 @@
 
     Private Sub errorMessage()
 
-        If GlobalVariable.actualLanguageValue = 0 Then
-            languageMessage = "The Serial Key is incorrect !!"
-            languageTitle = "Hotel Soft Activation"
-        ElseIf GlobalVariable.actualLanguageValue = 1 Then
-            languageMessage = "Mauvaise Clé d'Activation"
-            languageTitle = "Activation Hotel Soft"
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+
+            Dim LOG As String = GlobalVariable.config.Rows(0)("LOG")
+
+            If GlobalVariable.config.Rows.Count > 0 Then
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    languageMessage = "The Serial Key is incorrect !!"
+                    languageTitle = LOG + " Activation"
+                ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                    languageMessage = "Mauvaise Clé d'Activation"
+                    languageTitle = "Activation " + LOG
+                End If
+            End If
+
+        Else
+
+            If GlobalVariable.actualLanguageValue = 0 Then
+                languageMessage = "The Serial Key is incorrect !!"
+                languageTitle = "Hotel Soft Activation"
+            ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                languageMessage = "Mauvaise Clé d'Activation"
+                languageTitle = "Activation Hotel Soft"
+            End If
+
         End If
+
+
 
         MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
@@ -182,12 +260,33 @@
 
         Dim license As New Licence()
 
-        If GlobalVariable.actualLanguageValue = 0 Then
-            languageMessage = "Hotel Soft activated successfully"
-            languageTitle = "Hotel Soft Activation"
-        ElseIf GlobalVariable.actualLanguageValue = 1 Then
-            languageMessage = "Hotel Soft activé avec succès"
-            languageTitle = "Activation Hotel Soft"
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+
+            If GlobalVariable.config.Rows.Count > 0 Then
+
+                Dim LOG As String = GlobalVariable.config.Rows(0)("LOG")
+
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    languageMessage = LOG + " activated successfully"
+                    languageTitle = LOG + " Activation"
+                ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                    languageMessage = LOG + " activé avec succès"
+                    languageTitle = "Activation " + LOG
+                End If
+
+            End If
+
+        Else
+
+            If GlobalVariable.actualLanguageValue = 0 Then
+                languageMessage = "Hotel Soft activated successfully"
+                languageTitle = "Hotel Soft Activation"
+            ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                languageMessage = "Hotel Soft activé avec succès"
+                languageTitle = "Activation Hotel Soft"
+            End If
+
+
         End If
 
         MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)

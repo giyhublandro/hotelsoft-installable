@@ -19,13 +19,15 @@
             Dim CODE_CHAMBRE As String = GlobalVariable.btnNettoyage.Name
             Dim CHAMP As String = "HEURE_CONTROL"
             Dim STATUTS As Integer = 3
-            Dim ETAT_CHAMBRE_NOTE As String = ""
-
+            Dim ETAT_CHAMBRE_NOTE As String = "Libre propre"
+            If GlobalVariable.actualLanguageValue = 0 Then
+                ETAT_CHAMBRE_NOTE = "Free clean"
+            End If
             Dim room As DataTable = Functions.getElementByCode(CODE_CHAMBRE, "chambre", "CODE_CHAMBRE")
 
             If room.Rows.Count > 0 Then
 
-                ETAT_CHAMBRE_NOTE = "Pas attribuer"
+                ETAT_CHAMBRE_NOTE = "---"
                 Dim roomNettoyageTable As DataTable = Functions.GetAllElementsOnTwoConditions(CODE_CHAMBRE, "nettoyage", "CODE_CHAMBRE", 2, "STATUTS")
 
                 If roomNettoyageTable.Rows.Count > 0 Then
@@ -48,7 +50,7 @@
                     GunaAdvenceButtonFin.Enabled = False
                     PictureBox2.Enabled = False
 
-                    GunaAdvenceButtonTerminer.Enabled = False
+                    GunaAdvenceButtonTerminer.Enabled = True
                     GunaAdvenceButtonTerminer.Visible = True
 
                     'Times
@@ -59,21 +61,17 @@
                     GunaLabelHeureControle.Visible = True
                     GunaLabelHeureControle.Text = Now().ToLongTimeString()
 
-                    serviceEtag.updateNettoyageTime(CODE_CHAMBRE, CHAMP, STATUTS)
+                    'serviceEtag.updateNettoyageTime(CODE_CHAMBRE, CHAMP, STATUTS)
+                    'serviceEtag.updateRoomApresNettoyage(CODE_CHAMBRE, ETAT_CHAMBRE_NOTE)
+                    'serviceEtag.miseAjourDelaChambreApreNettoyage(CODE_CHAMBRE, ETAT_CHAMBRE_NOTE)
 
-                    serviceEtag.updateRoomApresNettoyage(CODE_CHAMBRE, ETAT_CHAMBRE_NOTE)
-
-                    serviceEtag.miseAjourDelaChambreApreNettoyage(CODE_CHAMBRE, ETAT_CHAMBRE_NOTE)
-
-                    GlobalVariable.btnNettoyage.BackColor = Color.Green
+                    GlobalVariable.btnNettoyage.BackColor = Color.Orange
 
                     GlobalVariable.controlDeChambreOk = False
 
                 End If
 
             End If
-
-
 
         End If
 
@@ -129,6 +127,9 @@
         Dim CODE_CHAMBRE As String = GlobalVariable.btnNettoyage.Name
         Dim CHAMP As String = "HEURE_DEBUT"
         Dim ETAT_CHAMBRE_NOTE As String = "Nettoyage"
+        If GlobalVariable.actualLanguageValue = 0 Then
+            ETAT_CHAMBRE_NOTE = "Cleaning"
+        End If
         Dim STATUTS As Integer = 1
 
         serviceEtag.updateNettoyageTime(CODE_CHAMBRE, CHAMP, STATUTS)
@@ -160,9 +161,7 @@
         If GlobalVariable.controlDeChambreOk Then
 
             If Not Trim(GlobalVariable.chambreEnCoursDeControl).Equals("") Then
-
                 ControllerNettoyageForm.Show()
-
             End If
 
         End If
@@ -219,6 +218,9 @@
         Dim CHAMP As String = "HEURE_FIN"
         Dim STATUTS As Integer = 2
         Dim ETAT_CHAMBRE_NOTE As String = "Attente"
+        If GlobalVariable.actualLanguageValue = 0 Then
+            ETAT_CHAMBRE_NOTE = "Pending"
+        End If
 
         service.updateNettoyageTime(CODE_CHAMBRE, CHAMP, STATUTS)
 

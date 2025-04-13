@@ -31,13 +31,27 @@ Public Class Licence
                     ActivationForm.Show()
                     ActivationForm.TopMost = True
 
-                    If GlobalVariable.actualLanguageValue = 0 Then
-                        languageMessage = "Remanining " & NC & " running of HOTEL SOFT. " & Chr(13) & "Please contact us on 695-04-35-76 for activation"
+                    If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+                        If GlobalVariable.config.Rows.Count > 0 Then
+                            Dim LOG As String = GlobalVariable.config.Rows(0)("LOG")
+                            Dim CONTACT As String = GlobalVariable.config.Rows(0)("ACTIV_MES")
+                            If GlobalVariable.actualLanguageValue = 0 Then
+                                languageMessage = "Remanining " & NC & " running of " + LOG + "." & Chr(13) & "Please contact us on " + CONTACT + " for activation"
+                            Else
+                                languageMessage = "Il vous manque " & NC & " exécution" & s & " de " + LOG + "." & Chr(13) & "Bien vouloir nous contacter au " + CONTACT + " pour l'activation"
+                            End If
+                        End If
                     Else
-                        languageMessage = "Il vous manque " & NC & " exécution" & s & " de HOTEL SOFT. " & Chr(13) & "Bien vouloir nous contacter au 695-04-35-76 pour l'activation"
+                        If GlobalVariable.actualLanguageValue = 0 Then
+                            languageMessage = "Remanining " & NC & " running of HOTEL SOFT. " & Chr(13) & "Please contact us on 695-04-35-76 for activation"
+                        Else
+                            languageMessage = "Il vous manque " & NC & " exécution" & s & " de HOTEL SOFT. " & Chr(13) & "Bien vouloir nous contacter au 695-04-35-76 pour l'activation"
+                        End If
                     End If
 
                     ActivationForm.GunaTextBoxMessage.Text = languageMessage
+
+                    activationIndicator()
 
                 End If
 
@@ -55,19 +69,27 @@ Public Class Licence
                     ActivationForm.Show()
                     ActivationForm.TopMost = True
 
-                    If GlobalVariable.actualLanguageValue = 0 Then
-                        languageMessage = "Type a correct Serial key for HOTEL SOFT. " & Chr(13) & "Please contact us on 695-04-35-76 for Activation"
+                    If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+                        If GlobalVariable.config.Rows.Count > 0 Then
+                            Dim LOG As String = GlobalVariable.config.Rows(0)("LOG")
+                            Dim CONTACT As String = GlobalVariable.config.Rows(0)("ACTIV_MES")
+                            If GlobalVariable.actualLanguageValue = 0 Then
+                                languageMessage = "Type a correct Serial key for " + LOG + "." & Chr(13) & "Please contact us on " + CONTACT + " for Activation"
+                            Else
+                                languageMessage = "Saisir un clé d'activation correcte pour " + LOG + "." & Chr(13) & "Bien vouloir nous contacter au " + CONTACT + " pour l'activation"
+                            End If
+                        End If
                     Else
-                        languageMessage = "Saisir un clé d'activation correcte pour HOTEL SOFT. " & Chr(13) & "Bien vouloir nous contacter au 695-04-35-76 pour l'activation"
+                        If GlobalVariable.actualLanguageValue = 0 Then
+                            languageMessage = "Type a correct Serial key for HOTEL SOFT. " & Chr(13) & "Please contact us on 695-04-35-76 for Activation"
+                        Else
+                            languageMessage = "Saisir un clé d'activation correcte pour HOTEL SOFT. " & Chr(13) & "Bien vouloir nous contacter au 695-04-35-76 pour l'activation"
+                        End If
                     End If
 
                     ActivationForm.GunaTextBoxMessage.Text = languageMessage
 
-                    If GlobalVariable.actualLanguageValue = 0 Then
-                        AccueilForm.GunaButtonSeConnecter.Text = "ACTIVATE HOTEL SOFT"
-                    ElseIf GlobalVariable.actualLanguageValue = 1 Then
-                        AccueilForm.GunaButtonSeConnecter.Text = "ACTIVER HOTEL SOFT"
-                    End If
+                    activationIndicator()
 
                 Else
 
@@ -81,19 +103,27 @@ Public Class Licence
                         ActivationForm.Show()
                         ActivationForm.TopMost = True
 
-                        If GlobalVariable.actualLanguageValue = 0 Then
-                            languageMessage = "Your activation key has already expired ! " & Chr(13) & "Please contact us on 695-04-35-76 for activation"
-                        ElseIf GlobalVariable.actualLanguageValue = 1 Then
-                            languageMessage = "Votre clé d'activation a expirée ! " & Chr(13) & "Bien vouloir nous contacter au 695-04-35-76 pour l'activation"
+                        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+                            If GlobalVariable.config.Rows.Count > 0 Then
+                                Dim LOG As String = GlobalVariable.config.Rows(0)("LOG")
+                                Dim CONTACT As String = GlobalVariable.config.Rows(0)("ACTIV_MES")
+                                If GlobalVariable.actualLanguageValue = 0 Then
+                                    languageMessage = "Your activation key has already expired ! " & Chr(13) & "Please contact us on " + CONTACT + " for activation"
+                                ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                                    languageMessage = "Votre clé d'activation a expirée ! " & Chr(13) & "Bien vouloir nous contacter au " + CONTACT + " pour l'activation"
+                                End If
+                            End If
+                        Else
+                            If GlobalVariable.actualLanguageValue = 0 Then
+                                languageMessage = "Your activation key has already expired ! " & Chr(13) & "Please contact us on 695-04-35-76 for activation"
+                            ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                                languageMessage = "Votre clé d'activation a expirée ! " & Chr(13) & "Bien vouloir nous contacter au 695-04-35-76 pour l'activation"
+                            End If
                         End If
 
                         ActivationForm.GunaTextBoxMessage.Text = languageMessage
 
-                        If GlobalVariable.actualLanguageValue = 0 Then
-                            AccueilForm.GunaButtonSeConnecter.Text = "ACTIVATE HOTEL SOFT"
-                        ElseIf GlobalVariable.actualLanguageValue = 1 Then
-                            AccueilForm.GunaButtonSeConnecter.Text = "ACTIVER HOTEL SOFT"
-                        End If
+                        activationIndicator()
 
                     End If
 
@@ -104,13 +134,29 @@ Public Class Licence
         Else
 
             'AU CAS OU IL Y'A PAS DE LIGNE DE LICENCE ON BLOQUE LE LOGICIEL 
+            activationIndicator()
 
+        End If
+
+    End Sub
+
+    Public Sub activationIndicator()
+
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+            If GlobalVariable.config.Rows.Count > 0 Then
+                Dim LOG As String = GlobalVariable.config.Rows(0)("LOG")
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    AccueilForm.GunaButtonSeConnecter.Text = "ACTIVATE " + LOG
+                ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                    AccueilForm.GunaButtonSeConnecter.Text = "ACTIVER " + LOG
+                End If
+            End If
+        Else
             If GlobalVariable.actualLanguageValue = 0 Then
                 AccueilForm.GunaButtonSeConnecter.Text = "ACTIVATE HOTEL SOFT"
             ElseIf GlobalVariable.actualLanguageValue = 1 Then
                 AccueilForm.GunaButtonSeConnecter.Text = "ACTIVER HOTEL SOFT"
             End If
-
         End If
 
     End Sub
@@ -178,11 +224,7 @@ Public Class Licence
 
                         If licenceDefault.Rows(0)("NC") = 0 Then
 
-                            If GlobalVariable.actualLanguageValue = 0 Then
-                                languageMessage = "ACTIVATE HOTEL SOFT"
-                            Else
-                                languageMessage = "ACTIVER HOTEL SOFT"
-                            End If
+                            activationIndicator()
 
                             AccueilForm.GunaButtonSeConnecter.Text = languageMessage
 
@@ -566,12 +608,31 @@ Public Class Licence
 
     Private Sub errorMessage()
 
-        If GlobalVariable.actualLanguageValue = 0 Then
-            languageMessage = "The Serial Key is incorrect !!"
-            languageTitle = "Hotel Soft Activation"
-        ElseIf GlobalVariable.actualLanguageValue = 1 Then
-            languageMessage = "Mauvaise Clé d'Activation"
-            languageTitle = "Activation Hotel Soft"
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+
+            If GlobalVariable.config.Rows.Count > 0 Then
+
+                Dim LOG As String = GlobalVariable.config.Rows(0)("LOG")
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    languageMessage = "The Serial Key is incorrect !!"
+                    languageTitle = LOG + " Activation"
+                ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                    languageMessage = "Mauvaise Clé d'Activation"
+                    languageTitle = "Activation " + LOG
+                End If
+
+            End If
+
+        Else
+
+            If GlobalVariable.actualLanguageValue = 0 Then
+                languageMessage = "The Serial Key is incorrect !!"
+                languageTitle = "Hotel Soft Activation"
+            ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                languageMessage = "Mauvaise Clé d'Activation"
+                languageTitle = "Activation Hotel Soft"
+            End If
+
         End If
 
         MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -582,15 +643,43 @@ Public Class Licence
 
         Dim license As New Licence()
 
-        If GlobalVariable.actualLanguageValue = 0 Then
-            languageMessage = "Hotel Soft activated successfully"
-            languageTitle = "Hotel Soft Activation"
-        ElseIf GlobalVariable.actualLanguageValue = 1 Then
-            languageMessage = "Hotel Soft activé avec succès"
-            languageTitle = "Activation Hotel Soft"
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+
+            If GlobalVariable.config.Rows.Count > 0 Then
+                Dim LOG As String = GlobalVariable.config.Rows(0)("LOG")
+                If GlobalVariable.actualLanguageValue = 0 Then
+                    languageMessage = LOG + " activated successfully"
+                    languageTitle = LOG + " Activation"
+                ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                    languageMessage = LOG + " activé avec succès"
+                    languageTitle = "Activation " + LOG
+                End If
+            End If
+
+        Else
+            If GlobalVariable.actualLanguageValue = 0 Then
+                languageMessage = "Hotel Soft activated successfully"
+                languageTitle = "Hotel Soft Activation"
+            ElseIf GlobalVariable.actualLanguageValue = 1 Then
+                languageMessage = "Hotel Soft activé avec succès"
+                languageTitle = "Activation Hotel Soft"
+            End If
         End If
 
         MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+    End Sub
+
+    Public Sub authentification_code(ByVal ACTION As String, ByVal DATE_CREATION As Date, ByVal CODE As String)
+
+        Dim insertQuery As String = "INSERT INTO `authentification_code` (`ACTION`, `DATE_CREATION`, `CODE`) VALUES (@ACTION,@DATE_CREATION,@CODE)"
+
+        Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
+        command.Parameters.Add("@ACTION", MySqlDbType.Int64).Value = ACTION
+        command.Parameters.Add("@DATE_CREATION", MySqlDbType.Date).Value = DATE_CREATION
+        command.Parameters.Add("@CODE", MySqlDbType.VarChar).Value = CODE
+
+        command.ExecuteNonQuery()
 
     End Sub
 

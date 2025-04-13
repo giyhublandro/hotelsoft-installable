@@ -13,7 +13,13 @@ Public Class MainWindowServiceEtageForm
 
         Dim Query1 As String = ""
 
-        Query1 = "SELECT `COD_PERSONNEL`, `NOM_COMPLET_PERSONNEL` FROM `nettoyage` WHERE DATE_CREATION <= '" & DateFin.ToString("yyyy-MM-dd") & "' AND DATE_CREATION >='" & DateDebut.ToString("yyyy-MM-dd") & "' AND CODE_CHAMBRE = @CODE_CHAMBRE AND STATUTS=@STATUTS OR DATE_CREATION <= '" & DateFin.ToString("yyyy-MM-dd") & "' AND DATE_CREATION >='" & DateDebut.ToString("yyyy-MM-dd") & "' AND CODE_CHAMBRE = @CODE_CHAMBRE  OR DATE_CREATION <= '" & DateFin.ToString("yyyy-MM-dd") & "' AND DATE_CREATION >='" & DateDebut.ToString("yyyy-MM-dd") & "' AND CODE_CHAMBRE = @CODE_CHAMBRE AND STATUTS=@STATUTS_1 OR DATE_CREATION <= '" & DateFin.ToString("yyyy-MM-dd") & "' AND DATE_CREATION >='" & DateDebut.ToString("yyyy-MM-dd") & "' AND CODE_CHAMBRE = @CODE_CHAMBRE AND STATUTS=@STATUTS_2 OR DATE_CREATION <= '" & DateFin.ToString("yyyy-MM-dd") & "' AND DATE_CREATION >='" & DateDebut.ToString("yyyy-MM-dd") & "' AND CODE_CHAMBRE = @CODE_CHAMBRE AND STATUTS=@STATUTS_3 ORDER BY ID_NETTOYAGE DESC"
+        Query1 = "SELECT `COD_PERSONNEL`, `NOM_COMPLET_PERSONNEL` FROM `nettoyage` WHERE DATE_CREATION <= '" & DateFin.ToString("yyyy-MM-dd") & "' 
+        AND DATE_CREATION >='" & DateDebut.ToString("yyyy-MM-dd") & "' AND CODE_CHAMBRE = @CODE_CHAMBRE AND STATUTS=@STATUTS OR DATE_CREATION <= '" & DateFin.ToString("yyyy-MM-dd") & "' 
+        AND DATE_CREATION >='" & DateDebut.ToString("yyyy-MM-dd") & "' AND CODE_CHAMBRE = @CODE_CHAMBRE  OR DATE_CREATION <= '" & DateFin.ToString("yyyy-MM-dd") & "' 
+        AND DATE_CREATION >='" & DateDebut.ToString("yyyy-MM-dd") & "' AND CODE_CHAMBRE = @CODE_CHAMBRE 
+        AND STATUTS=@STATUTS_1 OR DATE_CREATION <= '" & DateFin.ToString("yyyy-MM-dd") & "' AND DATE_CREATION >='" & DateDebut.ToString("yyyy-MM-dd") & "'
+        AND CODE_CHAMBRE = @CODE_CHAMBRE AND STATUTS=@STATUTS_2 OR DATE_CREATION <= '" & DateFin.ToString("yyyy-MM-dd") & "' 
+        AND DATE_CREATION >='" & DateDebut.ToString("yyyy-MM-dd") & "' AND CODE_CHAMBRE = @CODE_CHAMBRE AND STATUTS=@STATUTS_3 ORDER BY ID_NETTOYAGE DESC"
 
         Dim command1 = New MySqlCommand(Query1, GlobalVariable.connect)
 
@@ -41,6 +47,7 @@ Public Class MainWindowServiceEtageForm
 
         Dim language As New Languages()
         language.serviceEtage(GlobalVariable.actualLanguageValue)
+        language.side_menu_house_keeping(GlobalVariable.actualLanguageValue)
 
         GunaLabelDateDeTravail.Text = GlobalVariable.DateDeTravail
 
@@ -103,6 +110,11 @@ Public Class MainWindowServiceEtageForm
         GunaComboBoxEtatChambre.Items.Add(GlobalVariable.libre_propre)
         GunaComboBoxEtatChambre.Items.Add(GlobalVariable.reserver)
         GunaComboBoxEtatChambre.Items.Add(GlobalVariable.hors_service)
+
+        If GlobalVariable.actualLanguageValue = 0 Then
+            Me.GunaButton21.Text = "PROVIDERS"
+            Me.GunaButton1.Text = "LINENS CLEANING"
+        End If
 
     End Sub
 
@@ -493,11 +505,11 @@ Public Class MainWindowServiceEtageForm
         Dim CODE_MOTIF As String = ""
         Dim MOTIF As String = ""
 
-        If (Not ETAT_CHAMBRE_NOTE = GlobalVariable.hors_service) Or (Not ETAT_CHAMBRE_NOTE = "Out of Service") Then
-            ETAT_CHAMBRE = 0
-        Else
+        If ETAT_CHAMBRE_NOTE = GlobalVariable.hors_service Then
             CODE_MOTIF = Functions.GeneratingRandomCode("motif_hors_service", "")
             MOTIF = GunaComboBoxMotifHS.SelectedItem
+        Else
+            ETAT_CHAMBRE = 0
         End If
 
         Dim LOCALISATION = GunaTextBoxLocalisation.Text
@@ -1054,7 +1066,6 @@ Public Class MainWindowServiceEtageForm
                 Dim CODE_CHAMBRE As String = table1.Rows(i)("CHAMBRE")
                 Dim STATUTS As Integer = 0
 
-                'Dim ChambreDejaAttribuee As DataTable = Functions.GetAllElementsOnTwoConditions(CODE_CHAMBRE, "nettoyage", "CODE_CHAMBRE", STATUTS, "STATUTS")
                 Dim ChambreDejaAttribuee As DataTable = chambreDejaAttribueeDataTable(STATUTS, CODE_CHAMBRE)
 
                 If Not ChambreDejaAttribuee.Rows.Count > 0 Then
@@ -1520,6 +1531,7 @@ Public Class MainWindowServiceEtageForm
     Public Sub deplacemntDeLigne(ByVal GridDepart As DataGridView, ByVal GridArrive As DataGridView)
 
         If GridDepart.SelectedRows.Count > 0 Then
+
             Dim selectedgrid As DataGridViewRow = GridDepart.SelectedRows(0)
             GridDepart.Rows.Remove(selectedgrid)
             GridArrive.Rows.Add(selectedgrid)
@@ -1668,7 +1680,7 @@ Public Class MainWindowServiceEtageForm
                         'Tip.ToolTipTitle = rooms.Rows(i)("CODE_CHAMBRE")
                         'Tip.SetToolTip(customPictureBox, rooms.Rows(i)("ETAT_CHAMBRE_NOTE"))
 
-                    ElseIf rooms.Rows(i)("ETAT_CHAMBRE_NOTE") = "Attente" Or rooms.Rows(i)("ETAT_CHAMBRE_NOTE") = "Waiting" Then
+                    ElseIf rooms.Rows(i)("ETAT_CHAMBRE_NOTE") = "Attente" Or rooms.Rows(i)("ETAT_CHAMBRE_NOTE") = "Pending" Then
 
                         buttonColor = Color.Orange
 
@@ -1885,7 +1897,7 @@ Public Class MainWindowServiceEtageForm
                         'Tip.ToolTipTitle = rooms.Rows(i)("CODE_CHAMBRE")
                         'Tip.SetToolTip(customPictureBox, rooms.Rows(i)("ETAT_CHAMBRE_NOTE"))
 
-                    ElseIf rooms.Rows(i)("ETAT_CHAMBRE_NOTE") = "Attente" Or rooms.Rows(i)("ETAT_CHAMBRE_NOTE") = "Waiting" Then
+                    ElseIf rooms.Rows(i)("ETAT_CHAMBRE_NOTE") = "Attente" Or rooms.Rows(i)("ETAT_CHAMBRE_NOTE") = "Pending" Then
 
                         buttonColor = Color.Orange
 
@@ -2057,6 +2069,7 @@ Public Class MainWindowServiceEtageForm
                 roomNettoyage = selectionDesChambresANettoyer(STATUTS)
 
                 If roomNettoyage.Rows.Count > 0 Then
+
                     EtatDeChambreForm.GunaLabelHeureDebut.Visible = True
                     EtatDeChambreForm.GunaLabelHeureDebut.Text = CDate(roomNettoyage.Rows(0)("HEURE_DEBUT")).ToLongTimeString
                     EtatDeChambreForm.GunaLabelHeureFin.Visible = False
@@ -2066,7 +2079,7 @@ Public Class MainWindowServiceEtageForm
 
                 End If
 
-            ElseIf room.Rows(0)("ETAT_CHAMBRE_NOTE") = "Attente" Or room.Rows(0)("ETAT_CHAMBRE_NOTE") = "Waiting" Then
+            ElseIf room.Rows(0)("ETAT_CHAMBRE_NOTE") = "Attente" Or room.Rows(0)("ETAT_CHAMBRE_NOTE") = "Pending" Then
 
                 EtatDeChambreForm.PictureBox2.Visible = True
                 EtatDeChambreForm.GunaAdvenceButtonTerminer.Visible = True
@@ -2188,7 +2201,7 @@ Public Class MainWindowServiceEtageForm
                 ElseIf Room.Rows(i)("ETAT_CHAMBRE_NOTE") = "Nettoyage" Or Room.Rows(i)("ETAT_CHAMBRE_NOTE") = "Cleaning" Then
                     'En cours de nettoyage
                     enCours += 1
-                ElseIf Room.Rows(i)("ETAT_CHAMBRE_NOTE") = "Attente" Or Room.Rows(i)("ETAT_CHAMBRE_NOTE") = "Waiting" Then
+                ElseIf Room.Rows(i)("ETAT_CHAMBRE_NOTE") = "Attente" Or Room.Rows(i)("ETAT_CHAMBRE_NOTE") = "Pending" Then
                     'Chambre dont le nettoyage est termine et en attente de validation
                     aInspecter += 1
                 End If
@@ -3127,6 +3140,61 @@ Public Class MainWindowServiceEtageForm
         PlanningHebdomadaireDuPersonnelForm.Show()
         PlanningHebdomadaireDuPersonnelForm.TopMost = True
 
+    End Sub
+
+    Private Sub GunaButton1_Click_1(sender As Object, e As EventArgs) Handles GunaButton1.Click
+        BlanchisseurForm.Show()
+        BlanchisseurForm.TopMost = True
+    End Sub
+
+    Private Sub MatièresToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MatièresToolStripMenuItem.Click
+
+        ArticleForm.Show()
+        ArticleForm.TopMost() = True
+
+        GlobalVariable.typeArticle = "matiere"
+        If GlobalVariable.actualLanguageValue = 1 Then
+            ArticleForm.GunaComboBoxTypeArticle.SelectedValue = "BLANCHISSERIE"
+        Else
+            ArticleForm.GunaComboBoxTypeArticle.SelectedValue = "LAUNDRY"
+        End If
+
+        ArticleForm.GunaComboBoxTypeArticle.Enabled = False
+        ArticleForm.GunaComboBoxTypeArticle.SelectedValue = "BLANCHISSERIE"
+        ArticleForm.GunaComboBoxCategorieArticle.Enabled = False
+        ArticleForm.GunaComboBoxCategorieArticle.SelectedValue = "PRESSING"
+
+        ArticleForm.TabControlArticle.SelectedIndex = 0
+
+    End Sub
+
+
+    Private Sub ToolStripMenuItem83_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem83.Click
+        ArticleFamilyForm.Close()
+
+        GlobalVariable.typeFamilleOuSousFamille = "sous sous famille" 'SOUS FAMILLE
+        ArticleFamilyForm.TopMost() = True
+        ArticleFamilyForm.Show()
+    End Sub
+
+    Private Sub GunaButton21_Click(sender As Object, e As EventArgs) Handles GunaButton21.Click
+
+        GlobalVariable.prestaire_fournisseur = 1
+
+        FournisseurForm.Show()
+        FournisseurForm.TopMost = True
+        FournisseurForm.TabControl1.SelectedIndex = 1
+        FournisseurForm.GunaLabelGestCompteGeneraux.Text = "PRESTATAIRES"
+        FournisseurForm.GunaCheckBoxBlanchisseur.Checked = True
+
+    End Sub
+
+    Private Sub FamilleArticleToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FamilleArticleToolStripMenuItem.Click
+        ArticleFamilyForm.Close()
+
+        GlobalVariable.typeFamilleOuSousFamille = "sous famille" 'FAMILLE
+        ArticleFamilyForm.TopMost() = True
+        ArticleFamilyForm.Show()
     End Sub
 
 

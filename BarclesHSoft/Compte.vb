@@ -2,6 +2,20 @@
 Imports MySql.Data.MySqlClient
 
 Public Class Compte
+
+    Structure FactureAgees
+
+        Dim debiteur
+        Dim total
+        Dim v0
+        Dim v1
+        Dim v2
+        Dim v3
+        Dim v4
+        Dim v5
+
+    End Structure
+
     'Creating an instance of database
     'Dim connect As New DataBaseManipulation()
 
@@ -336,6 +350,165 @@ Public Class Compte
             Return True
         Else
             Return False
+        End If
+
+    End Function
+
+
+    Public Function facturesAgees()
+
+        Dim getUserQuery = ""
+
+        '1- SELECTION DES DIFFERENTES FACTURES
+
+        getUserQuery = "SELECT DISTINCT CODE_CLIENT FROM `facture` WHERE RESTE_A_PAYER > 0 "
+
+        Dim Command As New MySqlCommand(getUserQuery, GlobalVariable.connect)
+        'Command.Parameters.Add("@ETAT_CONSIGNE", MySqlDbType.Int64).Value = ETAT_CONSIGNE
+
+        Dim adapter As New MySqlDataAdapter(Command)
+        Dim table As New DataTable()
+
+        adapter.Fill(table)
+
+        If table.Rows.Count > 0 Then
+
+            Dim tailleDuTableau As Integer = table.Rows.Count
+            Dim factures(tailleDuTableau) As FactureAgees
+
+            Dim v0 As Double = 0
+            Dim v1 As Double = 0
+            Dim v2 As Double = 0
+            Dim v3 As Double = 0
+            Dim v4 As Double = 0
+            Dim v5 As Double = 0
+            Dim total As Double = 0
+
+            For i = 0 To table.Rows.Count - 1
+
+                '2- DETERMINONS SI LE CODE EST UN NUMERO DE COMPTE OU UN CODE CLIENT : AFFICHER LE BON NOM
+                Dim CODE_CLIENT_COMPTE As String = table.Rows(i)("CODE_CLIENT")
+                Dim debiteur As String = ""
+                Dim infoSup As DataTable = Functions.getElementByCode(CODE_CLIENT_COMPTE, "client", "CODE_CLIENT")
+                If Not infoSup.Rows.Count > 0 Then
+                    infoSup = Functions.getElementByCode(CODE_CLIENT_COMPTE, "compte", "NUMERO_COMPTE")
+                    If infoSup.Rows.Count > 0 Then
+                        debiteur = infoSup.Rows(0)("INTITULE")
+                    End If
+                Else
+                    debiteur = infoSup.Rows(0)("NOM_PRENOM")
+                End If
+
+                '3- DETERMINONS LES SOMMES ASSOCIEES A CHAQUE COMTE
+
+                Dim infoSupFacture As DataTable = Functions.getElementByCode(CODE_CLIENT_COMPTE, "facture", "CODE_CLIENT")
+
+                If infoSupFacture.Rows.Count > 0 Then
+
+                    v0 = 0
+                    v1 = 0
+                    v2 = 0
+                    v3 = 0
+                    v4 = 0
+                    v5 = 0
+                    total = 0
+
+                    For j = 0 To infoSupFacture.Rows.Count - 1
+
+                        '4-EVALUONS LA DUREE ECOULE DEPUIS LA PRODUCTION DE LA FACTURE
+                        Dim DATE_FACTURE As Date = CDate(infoSupFacture.Rows(j)("DATE_FACTURE")).ToShortDateString
+                        Dim duree As Integer = CType((GlobalVariable.DateDeTravail - DATE_FACTURE).TotalDays, Int32)
+
+                        If duree >= 0 And duree <= 31 Then
+                            v1 += infoSupFacture.Rows(j)("RESTE_A_PAYER")
+                        ElseIf duree > 31 And duree <= 60 Then
+                            v2 += infoSupFacture.Rows(j)("RESTE_A_PAYER")
+                        ElseIf duree > 60 And duree <= 90 Then
+                            v3 += infoSupFacture.Rows(j)("RESTE_A_PAYER")
+                        ElseIf duree > 90 And duree <= 121 Then
+                            v4 += infoSupFacture.Rows(j)("RESTE_A_PAYER")
+                        ElseIf duree > 121 Then
+                            v5 += infoSupFacture.Rows(j)("RESTE_A_PAYER")
+                        End If
+
+                    Next
+
+                    '5- DETERMINONS V0 LA VALEUR ECHU EN COURS SI LE CODE CORRESPOND A CELUI D'UN CLIENT EN COURS
+                    Dim infoResa As DataTable = Functions.GetAllElementsOnTwoConditions(CODE_CLIENT_COMPTE, "reserve_conf", "CLIENT_ID", "ETAT_RESERVATION", 1)
+
+                    If infoResa.Rows.Count > 0 Then
+
+                        For k = 0 To infoResa.Rows.Count - 1
+                            Dim CODE_RESERVATION As String = infoResa.Rows(k)("CODE_RESERVATION")
+                            v0 += Functions.SituationDeReservation(CODE_RESERVATION)
+                        Next
+
+                    End If
+
+                    total = v0 + v1 + v2 + v3 + v4 + v5
+
+                    factures(i).v0 = v0
+                    factures(i).v1 = v1
+                    factures(i).v2 = v2
+                    factures(i).v3 = v3
+                    factures(i).v4 = v4
+                    factures(i).v5 = v5
+                    factures(i).total = total
+                    factures(i).debiteur = debiteur
+
+                End If
+
+            Next
+
+            '6- DETERMINONS LES v0
+
+            Dim enChambre As DataTable = Functions.enChambreDuJour(GlobalVariable.DateDeTravail)
+            Dim start As Integer = factures.Length - 1
+
+            If enChambre.Rows.Count > 0 Then
+
+                For i = 0 To enChambre.Rows.Count - 1
+
+                    Dim CODE_RESERVATION As String = enChambre.Rows(i)("CODE_RESERVATION")
+                    Dim debiteur As String = enChambre.Rows(i)("NOM_CLIENT")
+
+                    v0 = Functions.SituationDeReservation(CODE_RESERVATION)
+                    v1 = 0
+                    v2 = 0
+                    v3 = 0
+                    v4 = 0
+                    v5 = 0
+                    total = 0
+
+                    Dim continuer As Boolean = True
+
+                    For l = 0 To factures.Length - 1
+
+                        If debiteur.Equals(factures(l).debiteur) Then
+                            '7- ON SE RASSURE QUE CLIENT N'A PAS DEJA ETE RAJOUTE A LA LISTE DES FACTURES AGES
+                            continuer = False
+                        End If
+
+                    Next
+
+                    If continuer Then
+
+                        'factures(start + i).v0 = v0
+                        'factures(start + i).v1 = v1
+                        'factures(start + i).v2 = v2
+                        'factures(start + i).v3 = v3
+                        'factures(start + i).v4 = v4
+                        'factures(start + i).v5 = v5
+                        'factures(start + i).total = total
+                        'factures(start + i).debiteur = debiteur
+
+                    End If
+                Next
+
+            End If
+
+            Return factures
+
         End If
 
     End Function

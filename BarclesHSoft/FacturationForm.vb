@@ -186,7 +186,7 @@ Public Class FacturationForm
 
         End If
 
-        If Trim(GlobalVariable.ArticleFamily) = "SERVICES" Or Trim(GlobalVariable.ArticleFamily) = "BLANCHISSERIE" Then
+        If Trim(GlobalVariable.ArticleFamily) = "SERVICES" Or Trim(GlobalVariable.ArticleFamily) = "BLANCHISSERIE" Or Trim(GlobalVariable.ArticleFamily) = "LAUNDRY" Then
             GunaTextBoxBlocNote.Visible = False
             GunaButtonNouveauBloc.Visible = False
             GunaComboBoxListeDesComandes.Visible = False
@@ -288,6 +288,10 @@ Public Class FacturationForm
         GunaTextBoxNumReservation.Text = ""
         GunaTextBoxFacturationDate.Text = GlobalVariable.DateDeTravail
         LibelleFacturation.Text = "FACTURATION COMPTOIRE"
+
+        If GlobalVariable.actualLanguageValue = 0 Then
+            LibelleFacturation.Text = "BILLING WALK IN"
+        End If
 
         'We disable the fields
         GunaTextBoxNumReservation.Enabled = False
@@ -395,39 +399,43 @@ Public Class FacturationForm
             GlobalVariable.ArticleFamily = GunaComboBoxTypeArticle.SelectedValue.ToString
         End If
 
-
         'Determining from which table to search for the articles
         If GlobalVariable.ArticleFamily = "BAR" Or GlobalVariable.ArticleFamily = "RESTAURANT" Then
 
-            LibelleFacturation.Text = "FACTURATION " & GlobalVariable.ArticleFamily
+            LibelleFacturation.Text = "FACTURATION BAR & RESTAURANT"
+            If GlobalVariable.actualLanguageValue = 0 Then
+                LibelleFacturation.Text = "BAR & RESTAURANT BILLING"
+            End If
             getArticleQuery = "SELECT DESIGNATION_FR FROM article WHERE DESIGNATION_FR LIKE '%" & Trim(GunaTextBoxArticle.Text) & "%' AND TYPE_ARTICLE =@ARTICLEFAMILY1 AND TYPE=@TYPE AND VISIBLE=@VISIBLE OR DESIGNATION_FR LIKE '%" & Trim(GunaTextBoxArticle.Text) & "%' AND TYPE_ARTICLE =@ARTICLEFAMILY2 AND TYPE=@TYPE AND VISIBLE=@VISIBLE ORDER BY DESIGNATION_FR ASC"
 
         End If
 
-        'If GlobalVariable.ArticleFamily = "RESTAURANT" Then
-
-        'LibelleFacturation.Text = "FACTURATION RESTAURANT"
-        'getArticleQuery = "SELECT DESIGNATION_FR FROM article WHERE DESIGNATION_FR LIKE '%" & GunaTextBoxArticle.Text & "%' AND TYPE_ARTICLE =@ARTICLEFAMILY ORDER BY DESIGNATION_FR ASC"
-
-        ' End If
-
         If GlobalVariable.ArticleFamily = "SERVICES" Then
 
             LibelleFacturation.Text = "FACTURATION SERVICES"
+            If GlobalVariable.actualLanguageValue = 0 Then
+                LibelleFacturation.Text = "SERVICES BILLING "
+            End If
             getArticleQuery = "SELECT DESIGNATION_FR FROM article WHERE DESIGNATION_FR LIKE '%" & GunaTextBoxArticle.Text & "%' AND TYPE_ARTICLE=@ARTICLEFAMILY AND TYPE=@TYPE AND VISIBLE=@VISIBLE ORDER BY DESIGNATION_FR ASC"
 
         End If
 
-        If GlobalVariable.ArticleFamily = "SALON DE BEAUTE" Then
+        If GlobalVariable.ArticleFamily = "SALON DE BEAUTE" Or GlobalVariable.ArticleFamily = "BEAUTY SALON" Then
 
             LibelleFacturation.Text = "FACTURATION SALON DE BEAUTE"
+            If GlobalVariable.actualLanguageValue = 0 Then
+                LibelleFacturation.Text = "BEAUTY SALON BILLING "
+            End If
             getArticleQuery = "SELECT DESIGNATION_FR FROM article WHERE DESIGNATION_FR LIKE '%" & GunaTextBoxArticle.Text & "%' AND TYPE_ARTICLE=@ARTICLEFAMILY AND TYPE=@TYPE AND VISIBLE=@VISIBLE ORDER BY DESIGNATION_FR ASC"
 
         End If
 
-        If GlobalVariable.ArticleFamily = "BOUTIQUE" Then
+        If GlobalVariable.ArticleFamily = "BOUTIQUE" Or GlobalVariable.ArticleFamily = "SHOP" Then
 
             LibelleFacturation.Text = "FACTURATION BOUTIQUE"
+            If GlobalVariable.actualLanguageValue = 0 Then
+                LibelleFacturation.Text = "SHOP BILLING"
+            End If
             getArticleQuery = "SELECT DESIGNATION_FR FROM article WHERE DESIGNATION_FR LIKE '%" & GunaTextBoxArticle.Text & "%' AND TYPE_ARTICLE=@ARTICLEFAMILY AND TYPE=@TYPE AND VISIBLE=@VISIBLE ORDER BY DESIGNATION_FR ASC"
 
         End If
@@ -435,28 +443,40 @@ Public Class FacturationForm
         If GlobalVariable.ArticleFamily = "BUSINESS CENTER" Then
 
             LibelleFacturation.Text = "FACTURATION BUSINESS CENTER"
+            If GlobalVariable.actualLanguageValue = 0 Then
+                LibelleFacturation.Text = "BUSINESS CENTER BILLING "
+            End If
             getArticleQuery = "SELECT DESIGNATION_FR FROM article WHERE DESIGNATION_FR LIKE '%" & GunaTextBoxArticle.Text & "%' AND TYPE_ARTICLE=@ARTICLEFAMILY AND TYPE=@TYPE AND VISIBLE=@VISIBLE ORDER BY DESIGNATION_FR ASC"
 
         End If
 
-        If GlobalVariable.ArticleFamily = "AUTRES" Then
+        If GlobalVariable.ArticleFamily = "AUTRES" Or GlobalVariable.ArticleFamily = "OTHERS" Then
 
             LibelleFacturation.Text = "AUTRES FACTURATION"
+            If GlobalVariable.actualLanguageValue = 0 Then
+                LibelleFacturation.Text = "OTHERS BILLING "
+            End If
             getArticleQuery = "SELECT DESIGNATION_FR FROM article WHERE DESIGNATION_FR LIKE '%" & GunaTextBoxArticle.Text & "%' AND TYPE_ARTICLE=@ARTICLEFAMILY AND TYPE=@TYPE AND VISIBLE=@VISIBLE ORDER BY DESIGNATION_FR ASC"
 
         End If
 
-        If GlobalVariable.ArticleFamily = "LOISIRS" Then
+        If GlobalVariable.ArticleFamily = "LOISIRS" Or GlobalVariable.ArticleFamily = "LEASURE" Then
 
             LibelleFacturation.Text = "FACTURATION LOISIRS"
+            If GlobalVariable.actualLanguageValue = 0 Then
+                LibelleFacturation.Text = "LEASURE BILLING "
+            End If
             'getArticleQuery = "SELECT DESIGNATION_FR FROM article WHERE DESIGNATION_FR LIKE '%" & GunaTextBoxArticle.Text & "%' AND TYPE_ARTICLE=@ARTICLEFAMILY AND TYPE=@TYPE AND METHODE_SUIVI_STOCK=@METHODE_SUIVI_STOCK ORDER BY DESIGNATION_FR ASC"
             getArticleQuery = "SELECT DESIGNATION_FR FROM article WHERE DESIGNATION_FR LIKE '%" & GunaTextBoxArticle.Text & "%' AND TYPE_ARTICLE=@ARTICLEFAMILY AND TYPE=@TYPE AND VISIBLE=@VISIBLE ORDER BY DESIGNATION_FR ASC"
 
         End If
 
-        If GlobalVariable.ArticleFamily = "KIOSQUE A JOURNAUX" Then
+        If GlobalVariable.ArticleFamily = "KIOSQUE A JOURNAUX" Or GlobalVariable.ArticleFamily = "NEWSPAPER STAND" Then
 
             LibelleFacturation.Text = "FACTURATION KIOSQUE A JOURNAUX"
+            If GlobalVariable.actualLanguageValue = 0 Then
+                LibelleFacturation.Text = "NEWSPAPER STAND BILLING"
+            End If
             getArticleQuery = "SELECT DESIGNATION_FR FROM article WHERE DESIGNATION_FR LIKE '%" & GunaTextBoxArticle.Text & "%' AND TYPE_ARTICLE=@ARTICLEFAMILY AND TYPE=@TYPE AND VISIBLE=@VISIBLE ORDER BY DESIGNATION_FR ASC"
 
         End If
@@ -464,23 +484,22 @@ Public Class FacturationForm
         If GlobalVariable.ArticleFamily = "SPORTS" Then
 
             LibelleFacturation.Text = "FACTURATION SPORTS"
+            If GlobalVariable.actualLanguageValue = 0 Then
+                LibelleFacturation.Text = "SPORTS BILLING"
+            End If
             getArticleQuery = "SELECT DESIGNATION_FR FROM article WHERE DESIGNATION_FR LIKE '%" & GunaTextBoxArticle.Text & "%' AND TYPE_ARTICLE=@ARTICLEFAMILY AND TYPE=@TYPE AND VISIBLE=@VISIBLE ORDER BY DESIGNATION_FR ASC"
 
         End If
 
-        If GlobalVariable.ArticleFamily = "BLANCHISSERIE" Then
+        If GlobalVariable.ArticleFamily = "BLANCHISSERIE" Or GlobalVariable.ArticleFamily = "LAUNDRY" Then
 
             LibelleFacturation.Text = "FACTURATION BLANCHISSERIE"
+            If GlobalVariable.actualLanguageValue = 0 Then
+                LibelleFacturation.Text = "LAUNDRY BILLING"
+            End If
             getArticleQuery = "SELECT DESIGNATION_FR FROM article WHERE DESIGNATION_FR LIKE '%" & GunaTextBoxArticle.Text & "%' AND TYPE_ARTICLE=@ARTICLEFAMILY AND TYPE=@TYPE AND VISIBLE=@VISIBLE ORDER BY DESIGNATION_FR ASC"
 
         End If
-
-        'If Not GlobalVariable.ArticleFamily = "" Then
-
-        'lleFacturation.Text = "FACTURATION " & GlobalVariable.ArticleFamily
-        'getArticleQuery = "SELECT DESIGNATION_FR FROM article WHERE DESIGNATION_FR LIKE '%" & GunaTextBoxArticle.Text & "%' AND TYPE_ARTICLE=@ARTICLEFAMILY ORDER BY DESIGNATION_FR ASC"
-
-        'End If
 
         If Not GlobalVariable.ArticleFamily = "" Then
 
@@ -601,7 +620,7 @@ Public Class FacturationForm
                     If GunaComboBoxListeDesComandes.SelectedIndex >= 0 Then
                         GunaButtonAjouterLigne.Visible = True
                     Else
-                        If Trim(GlobalVariable.ArticleFamily = "SERVICES") Or Trim(GlobalVariable.ArticleFamily) = "BLANCHISSERIE" Then
+                        If Trim(GlobalVariable.ArticleFamily = "SERVICES") Or Trim(GlobalVariable.ArticleFamily) = "BLANCHISSERIE" Or Trim(GlobalVariable.ArticleFamily) = "LAUNDRY" Then
                             GunaButtonAjouterLigne.Visible = True
                         End If
                     End If
@@ -642,7 +661,7 @@ Public Class FacturationForm
 
                 If GlobalVariable.actualLanguageValue = 0 Then
 
-                    If Trim(Article.Rows(0)("METHODE_SUIVI_STOCK")) = "Simple tracking" Then
+                    If Trim(Article.Rows(0)("METHODE_SUIVI_STOCK")) = "Simple tracking" Or Trim(Article.Rows(0)("METHODE_SUIVI_STOCK")) = "Suivi simple" Then
                         suivieStock = True
                     Else
                         suivieStock = False
@@ -650,7 +669,7 @@ Public Class FacturationForm
 
                 ElseIf GlobalVariable.actualLanguageValue = 1 Then
 
-                    If Trim(Article.Rows(0)("METHODE_SUIVI_STOCK")) = "Suivi simple" Then
+                    If Trim(Article.Rows(0)("METHODE_SUIVI_STOCK")) = "Suivi simple" Or Trim(Article.Rows(0)("METHODE_SUIVI_STOCK")) = "Simple tracking" Then
                         suivieStock = True
                     Else
                         suivieStock = False
@@ -1317,6 +1336,10 @@ Public Class FacturationForm
 
                     LIBELLE_FACTURE = "REMISE DE " & "[" & GunaTextBoxRemise.Text & " %]" & " SUR " & LIBELLE_FACTURE
 
+                    If GlobalVariable.actualLanguageValue = 0 Then
+                        LIBELLE_FACTURE = "DISCOUNT OF " & "[" & GunaTextBoxRemise.Text & " %]" & " ON " & LIBELLE_FACTURE
+                    End If
+
                     MONTANT_TTC = GunaTextBoxMontantReduction.Text * -1
                     MONTANT_HT = GunaTextBoxMontantReduction.Text * -1
                     QUANTITE = 1
@@ -1861,6 +1884,9 @@ Public Class FacturationForm
         GunaComboBoxTypeArticle.SelectedItem = Trim(GlobalVariable.ArticleFamily)
 
         LibelleFacturation.Text = "FACTURATION " & GunaComboBoxTypeArticle.SelectedValue.ToString
+        If GlobalVariable.actualLanguageValue = 0 Then
+            LibelleFacturation.Text = GunaComboBoxTypeArticle.SelectedValue.ToString & " BILLING"
+        End If
         'GlobalVariable.ArticleFamily = LibelleFacturation.Text
         'GlobalVariable.ArticleFamily = GunaComboBoxTypeArticle.SelectedValue.ToString
         'If GlobalVariable.checkInFacturation Then

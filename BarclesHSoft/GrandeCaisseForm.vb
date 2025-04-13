@@ -35,11 +35,49 @@ Public Class GrandeCaisseForm
 
     End Sub
 
+    Dim caisseCommune As Boolean = False
+
     Private Sub GrandeCaisseForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        If Not Trim(GlobalVariable.grandeCaisse).Equals("") Then
+            caisseCommune = True
+        End If
 
         Dim language As New Languages()
         language.grandeCaisse(GlobalVariable.actualLanguageValue)
 
+        If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
+
+            GlobalVariable.config = Functions.allTableFields("config")
+
+            If GlobalVariable.config.Rows.Count > 0 Then
+
+                Dim backColorString As String = GlobalVariable.config.Rows(0)("SCHEME_COLOR")
+                Dim backSecondaryColorString As String = GlobalVariable.config.Rows(0)("SCHEME_SECONDARY_COLOR")
+                Dim textColorString As String = GlobalVariable.config.Rows(0)("TEXT_PRIMARY_COLOR")
+                Dim textSecondaryColorString As String = GlobalVariable.config.Rows(0)("TEXT_SECONDARY_COLOR")
+
+                Dim paramCouleur() As String
+                Dim paramSecondaryCouleur() As String
+                Dim paramSecondaryTextCouleur() As String
+                Dim paramPrimaryTextCouleur() As String
+
+                paramCouleur = Functions.returningColorFromString(backColorString)
+                paramSecondaryCouleur = Functions.returningColorFromString(backSecondaryColorString)
+                paramSecondaryTextCouleur = Functions.returningColorFromString(textSecondaryColorString)
+                paramPrimaryTextCouleur = Functions.returningColorFromString(textColorString)
+
+                If paramCouleur(1).Equals("") Then
+                    GunaPanel1.BackColor = Color.FromName(paramCouleur(0))
+                    GunaPanel3.BackColor = Color.FromName(paramCouleur(0))
+                Else
+                    GunaPanel3.BackColor = Color.FromArgb(Integer.Parse(paramCouleur(0)), Integer.Parse(paramCouleur(1)), Integer.Parse(paramCouleur(2)), Integer.Parse(paramCouleur(3)))
+                    GunaPanel1.BackColor = Color.FromArgb(Integer.Parse(paramCouleur(0)), Integer.Parse(paramCouleur(1)), Integer.Parse(paramCouleur(2)), Integer.Parse(paramCouleur(3)))
+                End If
+
+            End If
+
+        End If
         GunaLabelDateDeTravail.Text = GlobalVariable.DateDeTravail
 
         If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CORRECTIONS") = 1 Then
@@ -168,8 +206,6 @@ Public Class GrandeCaisseForm
 
     Public Sub SituationDeCaisse()
 
-        'klg
-
         Dim CODE_CAISSIER_PRINCIPALE As String = ""
         Dim CODE_CAISSIER_CONNECTED As String = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
         Dim TYPE_CAISSE As String = "Caisse principale"
@@ -182,22 +218,40 @@ Public Class GrandeCaisseForm
 
         Dim getUserQuery As String = ""
 
-        If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CAISSE_PRINCIPALE_ECRITURE") = 0 Then
-            'LECTURE SEULE
-            'getUserQuery = "SELECT * FROM reglement WHERE IMPRIMER=@IMPRIMER AND CODE_CAISSIER=@CODE_CAISSIER AND MODE_REGLEMENT= @MODE_REGLEMENT  ORDER BY ID_REGLEMENT DESC"
-            getUserQuery = "SELECT * FROM reglement WHERE IMPRIMER=@IMPRIMER AND MODE_REGLEMENT= @MODE_REGLEMENT  ORDER BY ID_REGLEMENT DESC"
+        If Not caisseCommune Then
+
+            'Caisse Unique
+
+            If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CAISSE_PRINCIPALE_ECRITURE") = 0 Then
+                'LECTURE SEULE
+                'getUserQuery = "SELECT * FROM reglement WHERE IMPRIMER=@IMPRIMER AND CODE_CAISSIER=@CODE_CAISSIER AND MODE_REGLEMENT= @MODE_REGLEMENT  ORDER BY ID_REGLEMENT DESC"
+                getUserQuery = "SELECT * FROM reglement WHERE IMPRIMER=@IMPRIMER AND MODE_REGLEMENT IN ('Espèce','Cash')  ORDER BY ID_REGLEMENT DESC"
+
+            Else
+                'LECTURE ET ECRITURE
+                getUserQuery = "SELECT * FROM reglement WHERE IMPRIMER=@IMPRIMER AND CODE_CAISSIER = @CODE_CAISSIER_CONNECTED AND MODE_REGLEMENT IN ('Espèce','Cash') ORDER BY ID_REGLEMENT DESC"
+            End If
 
         Else
-            'LECTURE ET ECRITURE
-            getUserQuery = "SELECT * FROM reglement WHERE IMPRIMER=@IMPRIMER AND CODE_CAISSIER = @CODE_CAISSIER_CONNECTED AND MODE_REGLEMENT= @MODE_REGLEMENT OR IMPRIMER=@IMPRIMER AND CODE_CAISSIER = @CODE_CAISSIER_CONNECTED AND MODE_REGLEMENT= @MODE_REGLEMENT_ ORDER BY ID_REGLEMENT DESC"
+
+            'Caisse Commune
+
+            If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CAISSE_PRINCIPALE_ECRITURE") = 0 Then
+                'LECTURE SEULE
+                'getUserQuery = "SELECT * FROM reglement WHERE IMPRIMER=@IMPRIMER AND CODE_CAISSIER=@CODE_CAISSIER AND MODE_REGLEMENT= @MODE_REGLEMENT  ORDER BY ID_REGLEMENT DESC"
+                getUserQuery = "SELECT * FROM reglement WHERE IMPRIMER=@IMPRIMER AND MODE_REGLEMENT IN ('Espèce','Cash') ORDER BY ID_REGLEMENT DESC"
+
+            Else
+                'LECTURE ET ECRITURE
+                getUserQuery = "SELECT * FROM reglement WHERE IMPRIMER=@IMPRIMER AND MODE_REGLEMENT IN ('Espèce','Cash') ORDER BY ID_REGLEMENT DESC"
+            End If
+
         End If
 
         Dim command As New MySqlCommand(getUserQuery, GlobalVariable.connect)
 
         command.Parameters.Add("@CODE_CAISSIER", MySqlDbType.VarChar).Value = CODE_CAISSIER_PRINCIPALE
         command.Parameters.Add("@CODE_CAISSIER_CONNECTED", MySqlDbType.VarChar).Value = CODE_CAISSIER_CONNECTED
-        command.Parameters.Add("@MODE_REGLEMENT", MySqlDbType.VarChar).Value = "Espèce"
-        command.Parameters.Add("@MODE_REGLEMENT_", MySqlDbType.VarChar).Value = "Cash"
         command.Parameters.Add("@IMPRIMER", MySqlDbType.Int64).Value = 3
 
         Dim adapter As New MySqlDataAdapter
@@ -304,11 +358,11 @@ Public Class GrandeCaisseForm
 
         'ETAT_FACTURE = 0
         '1- DEMANDE DE DECAISSEMENT ECONOMAT
-        '2- RECETTE JOURNALIERE TRANSFEREE
+        '2- RECETTE JOURNALIERE TRANSFEREE OK
 
         'Dim query2 As String = "SELECT CODE_FACTURE As REFERENCE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT FROM transfert_recette WHERE ETAT_FACTURE = @ETAT_FACTURE AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateFin.ToString("yyyy-MM-dd") & "' ORDER BY DATE_FACTURE DESC"
 
-        Dim query2 As String = "SELECT ID_FACTURE, CODE_FACTURE As REFERENCE, DATE_FACTURE as DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, CODE_COMMANDE FROM transfert_recette WHERE ETAT_FACTURE = @ETAT_FACTURE ORDER BY ID_FACTURE DESC"
+        Dim query2 As String = "SELECT ID_FACTURE, CODE_FACTURE As REFERENCE, DATE_FACTURE as DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, CODE_COMMANDE FROM transfert_recette WHERE ETAT_FACTURE = @ETAT_FACTURE AND MONTANT_TTC > 0 ORDER BY ID_FACTURE DESC"
         Dim command2 As New MySqlCommand(query2, GlobalVariable.connect)
 
         command2.Parameters.Add("@ETAT_FACTURE", MySqlDbType.Int64).Value = ETAT_FACTURE
@@ -330,15 +384,12 @@ Public Class GrandeCaisseForm
         Dim totalReglement As Double = 0
 
         GunaDataGridViewRecetteTransactionEnAttente.Rows.Clear()
-        GunaDataGridViewDecaissement.Rows.Clear()
 
         For j = 0 To tableFacture.Rows.Count - 1
 
             'totalFacture = totalFacture + tableFacture.Rows(j)("MONTANT")
 
             If tableFacture.Rows(j)("CODE_COMMANDE") = "DEMANDE DE DECAISSEMENT" Or tableFacture.Rows(j)("CODE_COMMANDE") = "DISBURSEMENT REQUEST" Then
-                'EN RAPPORT AVEC UN BON DE COMMANDE OU UNE DEMANDE DE REAPPROVISIONNEMENT DE LA PETITE CAISSE
-                GunaDataGridViewDecaissement.Rows.Add(tableFacture.Rows(j)("ID_FACTURE"), tableFacture.Rows(j)("REFERENCE"), CDate(tableFacture.Rows(j)("DATE")).ToShortDateString, tableFacture.Rows(j)("LIBELLE"), Format(tableFacture.Rows(j)("MONTANT"), "#,##0"))
             Else
                 'TRANSFERT DE RECETTE DEPUIS UN POINT DE VENTE
                 GunaDataGridViewRecetteTransactionEnAttente.Rows.Add(tableFacture.Rows(j)("ID_FACTURE"), tableFacture.Rows(j)("REFERENCE"), CDate(tableFacture.Rows(j)("DATE")).ToShortDateString, tableFacture.Rows(j)("LIBELLE"), Format(tableFacture.Rows(j)("MONTANT"), "#,##0"))
@@ -348,15 +399,51 @@ Public Class GrandeCaisseForm
 
         Next
 
-        If Not GunaDataGridViewDecaissement Is Nothing Then
+        GunaDataGridViewRecetteTransactionEnAttente.Sort(GunaDataGridViewRecetteTransactionEnAttente.Columns(0), ListSortDirection.Descending)
 
-            If GunaDataGridViewDecaissement.Rows.Count > 0 Then
-                GunaDataGridViewDecaissement.Sort(GunaDataGridViewDecaissement.Columns(0), ListSortDirection.Descending)
-            End If
+    End Sub
+
+    Private Sub decaissementsEnAttente(ByVal DateDebut As Date, ByVal DateFin As Date, ByVal ETAT_FACTURE As Integer)
+
+        'ETAT_FACTURE = 0
+        '1- DEMANDE DE DECAISSEMENT ECONOMAT OK
+        '2- RECETTE JOURNALIERE TRANSFEREE 
+
+        'Dim query2 As String = "SELECT CODE_FACTURE As REFERENCE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT FROM transfert_recette WHERE ETAT_FACTURE = @ETAT_FACTURE AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateFin.ToString("yyyy-MM-dd") & "' ORDER BY DATE_FACTURE DESC"
+
+        Dim query2 As String = "SELECT ID_FACTURE, CODE_FACTURE As REFERENCE, DATE_FACTURE as DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, CODE_COMMANDE FROM transfert_recette WHERE ETAT_FACTURE = @ETAT_FACTURE ORDER BY ID_FACTURE DESC"
+        Dim command2 As New MySqlCommand(query2, GlobalVariable.connect)
+
+        command2.Parameters.Add("@ETAT_FACTURE", MySqlDbType.Int64).Value = ETAT_FACTURE
+        'command2.Parameters.Add("@CODE_COMMANDE", MySqlDbType.VarChar).Value = NATURE
+
+        Dim adapter2 As New MySqlDataAdapter(command2)
+        Dim tableFacture As New DataTable()
+
+        adapter2.Fill(tableFacture)
+
+        GunaDataGridViewDecaissement.Rows.Clear()
+
+        If tableFacture.Rows.Count > 0 Then
+
+            For j = 0 To tableFacture.Rows.Count - 1
+
+                If tableFacture.Rows(j)("CODE_COMMANDE") = "DEMANDE DE DECAISSEMENT" Or tableFacture.Rows(j)("CODE_COMMANDE") = "DISBURSEMENT REQUEST" Then
+                    'EN RAPPORT AVEC UN BON DE COMMANDE OU UNE DEMANDE DE REAPPROVISIONNEMENT DE LA PETITE CAISSE
+                    GunaDataGridViewDecaissement.Rows.Add(tableFacture.Rows(j)("ID_FACTURE"), tableFacture.Rows(j)("REFERENCE"), CDate(tableFacture.Rows(j)("DATE")).ToShortDateString, tableFacture.Rows(j)("LIBELLE"), Format(tableFacture.Rows(j)("MONTANT"), "#,##0"))
+                End If
+
+            Next
 
         End If
 
-        GunaDataGridViewRecetteTransactionEnAttente.Sort(GunaDataGridViewRecetteTransactionEnAttente.Columns(0), ListSortDirection.Descending)
+        If Not GunaDataGridViewDecaissement Is Nothing Then
+
+            If GunaDataGridViewDecaissement.Rows.Count > 0 Then
+                'GunaDataGridViewDecaissement.Sort(GunaDataGridViewDecaissement.Columns(2), ListSortDirection.Descending)
+            End If
+
+        End If
 
     End Sub
 
@@ -368,8 +455,12 @@ Public Class GrandeCaisseForm
 
         Dim query2 As String = ""
 
-        If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CAISSE_PRINCIPALE_ECRITURE") = 1 Then
-            query2 = "SELECT ID_FACTURE, CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT AVANCE', LETTRAGE, CODE_COMMANDE FROM transfert_recette WHERE ETAT_FACTURE = @ETAT_FACTURE AND CODE_UTILISATEUR_CREA=@CODE_UTILISATEUR_CREA ORDER BY ID_FACTURE DESC"
+        If Not caisseCommune Then
+            If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CAISSE_PRINCIPALE_ECRITURE") = 1 Then
+                query2 = "SELECT ID_FACTURE, CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT AVANCE', LETTRAGE, CODE_COMMANDE FROM transfert_recette WHERE ETAT_FACTURE = @ETAT_FACTURE AND CODE_UTILISATEUR_CREA=@CODE_UTILISATEUR_CREA ORDER BY ID_FACTURE DESC"
+            Else
+                query2 = "SELECT ID_FACTURE, CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT AVANCE', LETTRAGE, CODE_COMMANDE FROM transfert_recette WHERE ETAT_FACTURE = @ETAT_FACTURE  ORDER BY ID_FACTURE DESC"
+            End If
         Else
             query2 = "SELECT ID_FACTURE, CODE_FACTURE As REFERENCE, DATE_FACTURE AS DATE, LIBELLE_FACTURE AS LIBELLE, MONTANT_TTC AS MONTANT, MONTANT_AVANCE AS 'MONTANT AVANCE', LETTRAGE, CODE_COMMANDE FROM transfert_recette WHERE ETAT_FACTURE = @ETAT_FACTURE  ORDER BY ID_FACTURE DESC"
         End If
@@ -418,18 +509,19 @@ Public Class GrandeCaisseForm
         'query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE NUMERO_BLOC_NOTE = @NATURE AND DATE_REGLEMENT >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_REGLEMENT <= '" & DateFin.ToString("yyyy-MM-dd") & "' AND IMPRIMER = 3 OR NUMERO_BLOC_NOTE = @NATURE_2 AND DATE_REGLEMENT >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_REGLEMENT <= '" & DateFin.ToString("yyyy-MM-dd") & "' ORDER BY DATE_REGLEMENT DESC"
 
         'MODE LECTURE ON DOIT AFFICHER PAR APPORT AU CODE DE L'UTILISATEUR
-        If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CAISSE_PRINCIPALE_ECRITURE") = 1 Then
 
-            query3 = "SELECT ID_REGLEMENT, REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE NUMERO_BLOC_NOTE = @NATURE AND IMPRIMER = 3 AND CODE_CAISSIER=@CODE_CAISSIER OR NUMERO_BLOC_NOTE = @NATURE_2 AND IMPRIMER = 3 AND CODE_CAISSIER=@CODE_CAISSIER ORDER BY ID_REGLEMENT DESC"
-
+        If Not caisseCommune Then
+            If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CAISSE_PRINCIPALE_ECRITURE") = 1 Then
+                query3 = "SELECT ID_REGLEMENT, REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE NUMERO_BLOC_NOTE = @NATURE AND IMPRIMER = 3 AND CODE_CAISSIER=@CODE_CAISSIER OR NUMERO_BLOC_NOTE = @NATURE_2 AND IMPRIMER = 3 AND CODE_CAISSIER=@CODE_CAISSIER ORDER BY ID_REGLEMENT DESC"
+            Else
+                query3 = "SELECT ID_REGLEMENT, REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE NUMERO_BLOC_NOTE = @NATURE AND IMPRIMER = 3 OR NUMERO_BLOC_NOTE = @NATURE_2 AND IMPRIMER = 3 ORDER BY ID_REGLEMENT DESC"
+            End If
         Else
-
             query3 = "SELECT ID_REGLEMENT, REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE NUMERO_BLOC_NOTE = @NATURE AND IMPRIMER = 3 OR NUMERO_BLOC_NOTE = @NATURE_2 AND IMPRIMER = 3 ORDER BY ID_REGLEMENT DESC"
-
         End If
 
         'CODE_MODE = CODE_FACTURE
-
+    
 
         Dim command3 As New MySqlCommand(query3, GlobalVariable.connect)
 
@@ -641,16 +733,32 @@ Public Class GrandeCaisseForm
 
                 Dim elementDuBordereau As DataTable = econom.ArticleDunBordereauQuelconque(CODE_BORDEREAU, "ligne_bordereaux")
 
+                Dim QUANTITE As Double = 0
+                Dim PRIX_ACHAT As Double = 0
+                Dim COUT_DU_STOCK As Double = 0
+                Dim UNITE As String = 0
+
                 For i = 0 To elementDuBordereau.Rows.Count - 1
 
                     'Dim CODE_BORDEREAUX As String = econom.ArticleDunBordereauQuelconque(bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("UNITE")
                     Dim DESIGNATION As String = elementDuBordereau.Rows(i)("DESIGNATION")
                     'Dim CODE_ARTICLE As String = econom.ArticleDunBordereauQuelconque(bordereau.Rows(0)("CODE_BORDEREAUX"), "ligne_bordereaux").Rows(i)("CODE ARTICLE")
 
-                    Dim QUANTITE As Double = elementDuBordereau.Rows(i)("QUANTITE")
-                    Dim PRIX_ACHAT As Double = elementDuBordereau.Rows(i)("PRIX UNITAIRE")
-                    Dim COUT_DU_STOCK As Double = elementDuBordereau.Rows(i)("PRIX TOTAL")
-                    Dim UNITE As String = elementDuBordereau.Rows(i)("UNITE")
+                    If GlobalVariable.actualLanguageValue = 0 Then
+
+                        QUANTITE = elementDuBordereau.Rows(i)("QUANTITY")
+                        PRIX_ACHAT = elementDuBordereau.Rows(i)("UNIT PRICE")
+                        COUT_DU_STOCK = elementDuBordereau.Rows(i)("TOTAL PRICE")
+                        UNITE = elementDuBordereau.Rows(i)("UNIT")
+
+                    Else
+
+                        QUANTITE = elementDuBordereau.Rows(i)("QUANTITE")
+                        PRIX_ACHAT = elementDuBordereau.Rows(i)("PRIX UNITAIRE")
+                        COUT_DU_STOCK = elementDuBordereau.Rows(i)("PRIX TOTAL")
+                        UNITE = elementDuBordereau.Rows(i)("UNITE")
+
+                    End If
 
                     GunaDataGridViewDetailsFactures.Rows.Add(DESIGNATION, QUANTITE, Format(COUT_DU_STOCK, "#,##0"), UNITE)
 
@@ -660,6 +768,9 @@ Public Class GrandeCaisseForm
                 'LA LIGNE DE TRANSFERT EST UN APPROVISIONNEMENT DE FONDS ET  N'EST PAS ASSOCIE A UN BON DE COMMANDE
 
                 Dim query As String = "SELECT CODE_FACTURE, DATE_FACTURE, LIBELLE_FACTURE, MONTANT_TTC FROM ligne_facture WHERE CODE_UTILISATEUR_CREA = @CODE_UTILISATEUR_CREA AND ETAT_FACTURE = 1 AND DATE_FACTURE >= '" & DATE_FACTURE.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DATE_FACTURE.ToString("yyyy-MM-dd") & "' AND NUMERO_SERIE=@CODE_FACTURE ORDER BY ID_LIGNE_FACTURE ASC"
+                If caisseCommune Then
+                    query = "SELECT CODE_FACTURE, DATE_FACTURE, LIBELLE_FACTURE, MONTANT_TTC FROM ligne_facture WHERE ETAT_FACTURE = 1 AND DATE_FACTURE >= '" & DATE_FACTURE.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DATE_FACTURE.ToString("yyyy-MM-dd") & "' AND NUMERO_SERIE=@CODE_FACTURE ORDER BY ID_LIGNE_FACTURE ASC"
+                End If
 
                 Dim command As New MySqlCommand(query, GlobalVariable.connect)
                 command.Parameters.Add("@CODE_UTILISATEUR_CREA", MySqlDbType.VarChar).Value = CODE_UTILISATEUR_CREA
@@ -991,6 +1102,7 @@ Public Class GrandeCaisseForm
                                 If True Then
 
                                     Dim messageText As String = ""
+                                    Dim CODE_CATEGORY_DEPENSE As String = GunaTextBoxRefCompte.Text 'NUMERO COMPTE EXPLOITATION
 
                                     If GunaComboBoxNatureOperation.SelectedItem = "SORTIE DE FONDS" Or GunaComboBoxNatureOperation.SelectedItem = "CASH OUTFLOW" Then
 
@@ -1000,7 +1112,12 @@ Public Class GrandeCaisseForm
                                             messageText = "Fund successfully released !"
                                         End If
 
-                                        insererDepense = True
+                                        'On ne doit inserer ddans le compte que si on a defini on compte d'exploitation
+                                        Dim infoCompte As DataTable = Functions.getElementByCode(CODE_CATEGORY_DEPENSE, "compte_exploitation", "COMPTE")
+
+                                        If infoCompte.Rows.Count > 0 Then
+                                            insererDepense = True
+                                        End If
 
                                         '------------------------------- DEMANDE DE REAPPROVISIONNEMENT DE LA PETITE CAISSE -------------------------------------------------
 
@@ -1068,7 +1185,6 @@ Public Class GrandeCaisseForm
 
                                         If insererDepense Then
 
-                                            Dim CODE_CATEGORY_DEPENSE As String = GunaTextBoxRefCompte.Text 'NUMERO COMPTE EXPLOITATION
                                             Dim FAMILLE As String = GunaTextBoxiNTITUTLE.Text 'INTITULE COMPTE EXPLOITATION
                                             Dim SOUS_FAMILLE As String = NUM_REGLEMENT 'CODE DEPENSE
                                             Dim CODE As String = Functions.GeneratingRandomCodePanne("regroupement_depenses", "")
@@ -1193,6 +1309,8 @@ Public Class GrandeCaisseForm
 
                                 rafraichissementDelaFenetre()
 
+                                affichages()
+
                                 GlobalVariable.decaissemtnAssocie = ""
 
                                 GunaTextBoxCodeFacture.Clear()
@@ -1289,8 +1407,7 @@ Public Class GrandeCaisseForm
         GunaDataGridViewCompany.Visible = True
 
         Dim query As String = "Select NOM_CLIENT From client WHERE NOM_CLIENT Like '%" & GunaTextBoxEntreprise.Text & "%' AND CODE_AGENCE=@CODE_AGENCE AND TYPE_CLIENT=@TYPE_CLIENT 
-        OR
-        NOM_CLIENT Like '%" & GunaTextBoxEntreprise.Text & "%' AND CODE_AGENCE=@CODE_AGENCE AND TYPE_CLIENT=@TYPE_CLIENT_"
+        OR NOM_CLIENT Like '%" & GunaTextBoxEntreprise.Text & "%' AND CODE_AGENCE=@CODE_AGENCE AND TYPE_CLIENT=@TYPE_CLIENT_"
 
         Dim command As New MySqlCommand(query, GlobalVariable.connect)
         command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = GlobalVariable.codeAgence
@@ -2051,6 +2168,8 @@ Public Class GrandeCaisseForm
 
     Public Sub rafraichissementDelaFenetre()
 
+        'kklg
+
         'SITUATION DE CAISSE
         SituationDeCaisse()
 
@@ -2058,20 +2177,22 @@ Public Class GrandeCaisseForm
         Dim DateFin As Date = GlobalVariable.DateDeTravail
 
         Dim ETAT_FACTURE As Integer = 1
+        '---------------------------- OLD WAY ----------------------------------------------------------------------------------------------------
+        'listeDesOperationsParNature(DateDebut, DateFin, ETAT_FACTURE)
 
-        listeDesOperationsParNature(DateDebut, DateFin, ETAT_FACTURE)
+        'If GunaDataGridViewTransactionTerminee.Rows.Count > 0 Then
+        'GunaDataGridViewTransactionTerminee.Sort(GunaDataGridViewTransactionTerminee.Columns(1), ListSortDirection.Descending)
+        'End If
 
-        If GunaDataGridViewTransactionTerminee.Rows.Count > 0 Then
-            GunaDataGridViewTransactionTerminee.Sort(GunaDataGridViewTransactionTerminee.Columns(1), ListSortDirection.Descending)
-        End If
-
-        transactionsTraitees(DateDebut, DateFin, ETAT_FACTURE)
-
+        'transactionsTraitees(DateDebut, DateFin, ETAT_FACTURE)
+        '-----------------------------------------------------------------------------------------------------------------------------------------
         ETAT_FACTURE = 0
 
         transactionsEnAttente(DateDebut, DateFin, ETAT_FACTURE)
 
         GunaComboBoxNatureOperation.SelectedIndex = 0
+
+        '---------------------------- NEW WAY -------------------------
 
     End Sub
 
@@ -2208,8 +2329,6 @@ Public Class GrandeCaisseForm
             MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         End If
-
-
 
     End Sub
 
@@ -2467,6 +2586,45 @@ Public Class GrandeCaisseForm
 
         End If
 
+        affichages()
+
+    End Sub
+
+    Private Sub affichages()
+
+        Dim DateDebut As Date = GlobalVariable.DateDeTravail
+        Dim DateFin As Date = GlobalVariable.DateDeTravail
+
+        Dim ETAT_FACTURE As Integer = 0
+
+        If TabControl1.SelectedIndex = 0 Then
+            '"PENDING REVENUE TRANSACTIONS"
+
+        ElseIf TabControl1.SelectedIndex = 1 Then
+            '"PENDING DISBURSEMENT REQUESTS"
+            decaissementsEnAttente(DateDebut, DateFin, ETAT_FACTURE)
+        ElseIf TabControl1.SelectedIndex = 2 Then
+            '"FUNDS OUTFLOW"
+            fondsSorties(DateDebut, DateFin, ETAT_FACTURE)
+        ElseIf TabControl1.SelectedIndex = 3 Then
+            '"FUNDS INFOW"
+            fondsEntrees(DateDebut, DateFin, ETAT_FACTURE)
+        ElseIf TabControl1.SelectedIndex = 4 Then
+            '"INCOMING REVENUE"
+            recettes(DateDebut, DateFin, ETAT_FACTURE)
+        ElseIf TabControl1.SelectedIndex = 5 Then
+            '"COMPLETED TRANSACTIONS"
+            ETAT_FACTURE = 1
+
+            transactionsTraitees(DateDebut, DateFin, ETAT_FACTURE)
+
+            If GunaDataGridViewTransactionTerminee.Rows.Count > 0 Then
+                GunaDataGridViewTransactionTerminee.Sort(GunaDataGridViewTransactionTerminee.Columns(1), ListSortDirection.Descending)
+            End If
+
+        ElseIf TabControl1.SelectedIndex = 6 Then
+            '"BANK LOG"
+        End If
     End Sub
 
     Private Sub GunaAdvenceButton1_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButton1.Click
@@ -2475,27 +2633,79 @@ Public Class GrandeCaisseForm
     End Sub
 
     Private Sub GunaAdvenceButton2_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButton2.Click
+
+        'Transactions Terminées
+        Dim ETAT_FACTURE As Integer = 0
+        '---------------------------- OLD WAY ----------------------------------------------------------------------------------------------------
+        'listeDesOperationsParNature(DateDebut, DateFin, ETAT_FACTURE)
+        Dim DateDebut As Date = GlobalVariable.DateDeTravail
+        Dim DateFin As Date = GlobalVariable.DateDeTravail
+        'decaissementsEnAttente(DateDebut, DateFin, ETAT_FACTURE)
+
         TabControl1.SelectedIndex = 1
+
     End Sub
 
     Private Sub GunaAdvenceButton3_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButton3.Click
+
+        'Transactions Terminées
+        Dim ETAT_FACTURE As Integer = 0
+        '---------------------------- OLD WAY ----------------------------------------------------------------------------------------------------
+        'listeDesOperationsParNature(DateDebut, DateFin, ETAT_FACTURE)
+        Dim DateDebut As Date = GlobalVariable.DateDeTravail
+        Dim DateFin As Date = GlobalVariable.DateDeTravail
+        'fondsSorties(DateDebut, DateFin, ETAT_FACTURE)
+
         TabControl1.SelectedIndex = 2
     End Sub
 
     Private Sub GunaAdvenceButton4_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButton4.Click
+
+        'Transactions Terminées
+        Dim ETAT_FACTURE As Integer = 0
+        '---------------------------- OLD WAY ----------------------------------------------------------------------------------------------------
+        'listeDesOperationsParNature(DateDebut, DateFin, ETAT_FACTURE)
+        Dim DateDebut As Date = GlobalVariable.DateDeTravail
+        Dim DateFin As Date = GlobalVariable.DateDeTravail
+        'fondsEntrees(DateDebut, DateFin, ETAT_FACTURE)
+
         TabControl1.SelectedIndex = 3
     End Sub
 
     Private Sub GunaAdvenceButton7_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButton7.Click
+
+        'Transactions Terminées
+        Dim ETAT_FACTURE As Integer = 0
+        '---------------------------- OLD WAY ----------------------------------------------------------------------------------------------------
+        'listeDesOperationsParNature(DateDebut, DateFin, ETAT_FACTURE)
+        Dim DateDebut As Date = GlobalVariable.DateDeTravail
+        Dim DateFin As Date = GlobalVariable.DateDeTravail
+        'recettes(DateDebut, DateFin, ETAT_FACTURE)
+
         TabControl1.SelectedIndex = 4
     End Sub
 
     Private Sub GunaAdvenceButton6_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButton6.Click
+
         TabControl1.SelectedIndex = 6
     End Sub
 
     Private Sub GunaAdvenceButton5_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButton5.Click
+
+        'Transactions Terminées
+        Dim ETAT_FACTURE As Integer = 1
+        '---------------------------- OLD WAY ----------------------------------------------------------------------------------------------------
+        'listeDesOperationsParNature(DateDebut, DateFin, ETAT_FACTURE)
+        Dim DateDebut As Date = GlobalVariable.DateDeTravail
+        Dim DateFin As Date = GlobalVariable.DateDeTravail
+        'transactionsTraitees(DateDebut, DateFin, ETAT_FACTURE)
+
+        If GunaDataGridViewTransactionTerminee.Rows.Count > 0 Then
+            'GunaDataGridViewTransactionTerminee.Sort(GunaDataGridViewTransactionTerminee.Columns(1), ListSortDirection.Descending)
+        End If
+
         TabControl1.SelectedIndex = 5
+
     End Sub
 
     Private Sub GunaAdvenceButton9_Click(sender As Object, e As EventArgs) Handles GunaAdvenceButton9.Click
@@ -2506,7 +2716,7 @@ Public Class GrandeCaisseForm
     End Sub
 
     Private Sub listeDesOperationsParNature(ByVal DateDebut As Date, ByVal DateFin As Date, ByVal ETAT_FACTURE As Integer)
-
+        'kklg
         '------------------------------------------------------------------- FACTURES ---------------------------------------------------------------------------------------------
         'Dim totalTraitees As Double = 0
         Dim totalReglement As Double = 0
@@ -2522,15 +2732,24 @@ Public Class GrandeCaisseForm
             If GlobalVariable.actualLanguageValue = 1 Then
 
                 If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CAISSE_PRINCIPALE_ECRITURE") = 1 Then
-                    query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTREE DE FONDS','SORTIE DE FONDS','ENTREE DE RECETTE')  AND CODE_CAISSIER=@CODE_UTILISATEUR_CREA ORDER BY ID_REGLEMENT DESC"
+                    If Not caisseCommune Then
+                        query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTREE DE FONDS','SORTIE DE FONDS','ENTREE DE RECETTE')  AND CODE_CAISSIER=@CODE_UTILISATEUR_CREA ORDER BY ID_REGLEMENT DESC"
+                    Else
+                        query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTREE DE FONDS','SORTIE DE FONDS','ENTREE DE RECETTE') ORDER BY ID_REGLEMENT DESC"
+                    End If
                 Else
                     query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTREE DE FONDS','SORTIE DE FONDS','ENTREE DE RECETTE') ORDER BY ID_REGLEMENT DESC"
                 End If
 
             Else
 
+
                 If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CAISSE_PRINCIPALE_ECRITURE") = 1 Then
-                    query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTERING REVENUE','CASH INFLOW','CASH OUTFLOW')  AND CODE_CAISSIER=@CODE_UTILISATEUR_CREA ORDER BY ID_REGLEMENT DESC"
+                    If Not caisseCommune Then
+                        query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTERING REVENUE','CASH INFLOW','CASH OUTFLOW')  AND CODE_CAISSIER=@CODE_UTILISATEUR_CREA ORDER BY ID_REGLEMENT DESC"
+                    Else
+                        query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTERING REVENUE','CASH INFLOW','CASH OUTFLOW') ORDER BY ID_REGLEMENT DESC"
+                    End If
                 Else
                     query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTERING REVENUE','CASH INFLOW','CASH OUTFLOW') ORDER BY ID_REGLEMENT DESC"
                 End If
@@ -2550,7 +2769,7 @@ Public Class GrandeCaisseForm
 
         GunaDataGridViewFondsEntree.Rows.Clear()
         GunaDataGridViewRecetteEntree.Rows.Clear()
-        GunaDataGridViewFondsSorties.Rows.Clear()
+        'GunaDataGridViewFondsSorties.Rows.Clear()
 
         If tableReglement.Rows.Count > 0 Then
 
@@ -2585,6 +2804,238 @@ Public Class GrandeCaisseForm
         '---------------------------------------------------------------------------------------------------------------------
 
         'GunaDataGridViewListeFacture.Sort(GunaDataGridViewListeFacture.Columns(1), ListSortDirection.Descending)
+
+    End Sub
+
+    Private Sub fondsSorties(ByVal DateDebut As Date, ByVal DateFin As Date, ByVal ETAT_FACTURE As Integer)
+        'kklg
+        '------------------------------------------------------------------- FACTURES ---------------------------------------------------------------------------------------------
+        'Dim totalTraitees As Double = 0
+        Dim totalReglement As Double = 0
+
+        '-------------------------------------------------- END FACTURE ----------------------------------------------------------------------
+
+        '----------------------------------------------- REGLEMENT -----------------------------------------------------------
+
+        Dim query3 As String = ""
+
+        If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows.Count > 0 Then
+
+            If Not caisseCommune Then
+                'La caisse principale n'etant pas commune
+                If GlobalVariable.actualLanguageValue = 1 Then
+
+                    If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CAISSE_PRINCIPALE_ECRITURE") = 1 Then
+                        query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTREE DE FONDS','SORTIE DE FONDS','ENTREE DE RECETTE')  AND CODE_CAISSIER=@CODE_UTILISATEUR_CREA ORDER BY ID_REGLEMENT DESC"
+                    Else
+                        query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTREE DE FONDS','SORTIE DE FONDS','ENTREE DE RECETTE') ORDER BY ID_REGLEMENT DESC"
+                    End If
+
+                Else
+
+                    If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CAISSE_PRINCIPALE_ECRITURE") = 1 Then
+                        query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTERING REVENUE','CASH INFLOW','CASH OUTFLOW')  AND CODE_CAISSIER=@CODE_UTILISATEUR_CREA ORDER BY ID_REGLEMENT DESC"
+                    Else
+                        query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTERING REVENUE','CASH INFLOW','CASH OUTFLOW') ORDER BY ID_REGLEMENT DESC"
+                    End If
+
+                End If
+
+            Else
+
+                'Caisse Principale Commune
+
+                If GlobalVariable.actualLanguageValue = 1 Then
+                    query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTREE DE FONDS','SORTIE DE FONDS','ENTREE DE RECETTE') ORDER BY ID_REGLEMENT DESC"
+                Else
+                    query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTERING REVENUE','CASH INFLOW','CASH OUTFLOW') ORDER BY ID_REGLEMENT DESC"
+                End If
+
+            End If
+
+        End If
+
+        Dim command3 As New MySqlCommand(query3, GlobalVariable.connect)
+
+        command3.Parameters.Add("@CODE_UTILISATEUR_CREA", MySqlDbType.VarChar).Value = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+
+        Dim adapter3 As New MySqlDataAdapter(command3)
+        Dim tableReglement As New DataTable()
+
+        adapter3.Fill(tableReglement)
+
+        GunaDataGridViewFondsSorties.Rows.Clear()
+
+        If tableReglement.Rows.Count > 0 Then
+
+            For k = 0 To tableReglement.Rows.Count - 1
+
+                totalReglement += tableReglement.Rows(k)("MONTANT_VERSE")
+
+                If tableReglement.Rows(k)("NUMERO_BLOC_NOTE") = "SORTIE DE FONDS" Or tableReglement.Rows(k)("NUMERO_BLOC_NOTE") = "CASH OUTFLOW" Then
+
+                    GunaDataGridViewFondsSorties.Rows.Add(tableReglement.Rows(k)("NUM_REGLEMENT"), CDate(tableReglement.Rows(k)("DATE_REGLEMENT")).ToShortDateString, tableReglement.Rows(k)("REF_REGLEMENT"), Format(tableReglement.Rows(k)("MONTANT_VERSE") * -1, "#,##0"), "")
+
+                End If
+
+            Next
+
+        End If
+
+        '---------------------------------------------------------------------------------------------------------------------
+
+        GunaDataGridViewFondsSorties.Sort(GunaDataGridViewFondsSorties.Columns(1), ListSortDirection.Descending)
+
+    End Sub
+
+    Private Sub fondsEntrees(ByVal DateDebut As Date, ByVal DateFin As Date, ByVal ETAT_FACTURE As Integer)
+        'kklg
+        '------------------------------------------------------------------- FACTURES ---------------------------------------------------------------------------------------------
+        'Dim totalTraitees As Double = 0
+        Dim totalReglement As Double = 0
+
+        '-------------------------------------------------- END FACTURE ----------------------------------------------------------------------
+
+        '----------------------------------------------- REGLEMENT -----------------------------------------------------------
+
+        Dim query3 As String = ""
+
+        If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows.Count > 0 Then
+
+            If Not caisseCommune Then
+                If GlobalVariable.actualLanguageValue = 1 Then
+
+                    If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CAISSE_PRINCIPALE_ECRITURE") = 1 Then
+                        query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTREE DE FONDS','SORTIE DE FONDS','ENTREE DE RECETTE')  AND CODE_CAISSIER=@CODE_UTILISATEUR_CREA ORDER BY ID_REGLEMENT DESC"
+                    Else
+                        query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTREE DE FONDS','SORTIE DE FONDS','ENTREE DE RECETTE') ORDER BY ID_REGLEMENT DESC"
+                    End If
+
+                Else
+
+                    If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CAISSE_PRINCIPALE_ECRITURE") = 1 Then
+                        query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTERING REVENUE','CASH INFLOW','CASH OUTFLOW')  AND CODE_CAISSIER=@CODE_UTILISATEUR_CREA ORDER BY ID_REGLEMENT DESC"
+                    Else
+                        query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTERING REVENUE','CASH INFLOW','CASH OUTFLOW') ORDER BY ID_REGLEMENT DESC"
+                    End If
+
+                End If
+            Else
+                If GlobalVariable.actualLanguageValue = 1 Then
+                    query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTREE DE FONDS','SORTIE DE FONDS','ENTREE DE RECETTE') ORDER BY ID_REGLEMENT DESC"
+                Else
+                    query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTERING REVENUE','CASH INFLOW','CASH OUTFLOW') ORDER BY ID_REGLEMENT DESC"
+                End If
+            End If
+
+
+        End If
+
+        Dim command3 As New MySqlCommand(query3, GlobalVariable.connect)
+
+        command3.Parameters.Add("@CODE_UTILISATEUR_CREA", MySqlDbType.VarChar).Value = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+
+        Dim adapter3 As New MySqlDataAdapter(command3)
+        Dim tableReglement As New DataTable()
+
+        adapter3.Fill(tableReglement)
+
+        GunaDataGridViewFondsEntree.Rows.Clear()
+
+        If tableReglement.Rows.Count > 0 Then
+
+            For k = 0 To tableReglement.Rows.Count - 1
+
+                totalReglement += tableReglement.Rows(k)("MONTANT_VERSE")
+
+                If tableReglement.Rows(k)("NUMERO_BLOC_NOTE") = "ENTREE DE FONDS" Or tableReglement.Rows(k)("NUMERO_BLOC_NOTE") = "CASH INFLOW" Then
+                    GunaDataGridViewFondsEntree.Rows.Add(tableReglement.Rows(k)("NUM_REGLEMENT"), CDate(tableReglement.Rows(k)("DATE_REGLEMENT")).ToShortDateString, tableReglement.Rows(k)("REF_REGLEMENT"), "", Format(tableReglement.Rows(k)("MONTANT_VERSE"), "#,##0"))
+                End If
+
+            Next
+
+        End If
+
+        '---------------------------------------------------------------------------------------------------------------------
+
+        GunaDataGridViewFondsEntree.Sort(GunaDataGridViewFondsEntree.Columns(1), ListSortDirection.Descending)
+
+    End Sub
+
+    Private Sub recettes(ByVal DateDebut As Date, ByVal DateFin As Date, ByVal ETAT_FACTURE As Integer)
+        'kklg
+        '------------------------------------------------------------------- FACTURES ---------------------------------------------------------------------------------------------
+        'Dim totalTraitees As Double = 0
+        Dim totalReglement As Double = 0
+
+        '-------------------------------------------------- END FACTURE ----------------------------------------------------------------------
+
+        '----------------------------------------------- REGLEMENT -----------------------------------------------------------
+
+        Dim query3 As String = ""
+
+        If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows.Count > 0 Then
+
+            If Not caisseCommune Then
+                If GlobalVariable.actualLanguageValue = 1 Then
+
+                    If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CAISSE_PRINCIPALE_ECRITURE") = 1 Then
+                        query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTREE DE FONDS','SORTIE DE FONDS','ENTREE DE RECETTE')  AND CODE_CAISSIER=@CODE_UTILISATEUR_CREA ORDER BY ID_REGLEMENT DESC"
+                    Else
+                        query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTREE DE FONDS','SORTIE DE FONDS','ENTREE DE RECETTE') ORDER BY ID_REGLEMENT DESC"
+                    End If
+
+                Else
+
+                    If GlobalVariable.DroitAccesDeUtilisateurConnect.Rows(0)("CAISSE_PRINCIPALE_ECRITURE") = 1 Then
+                        query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTERING REVENUE','CASH INFLOW','CASH OUTFLOW')  AND CODE_CAISSIER=@CODE_UTILISATEUR_CREA ORDER BY ID_REGLEMENT DESC"
+                    Else
+                        query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTERING REVENUE','CASH INFLOW','CASH OUTFLOW') ORDER BY ID_REGLEMENT DESC"
+                    End If
+
+                End If
+            Else
+                If GlobalVariable.actualLanguageValue = 1 Then
+                    query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTREE DE FONDS','SORTIE DE FONDS','ENTREE DE RECETTE') ORDER BY ID_REGLEMENT DESC"
+
+                Else
+                    query3 = "SELECT REF_REGLEMENT, MODE_REGLEMENT , NUM_REGLEMENT, MONTANT_VERSE, DATE_REGLEMENT, CODE_MODE , LETTRAGE, NUMERO_BLOC_NOTE FROM reglement WHERE IMPRIMER = 3 AND NUMERO_BLOC_NOTE IN ('ENTERING REVENUE','CASH INFLOW','CASH OUTFLOW') ORDER BY ID_REGLEMENT DESC"
+
+                End If
+            End If
+
+
+        End If
+
+        Dim command3 As New MySqlCommand(query3, GlobalVariable.connect)
+
+        command3.Parameters.Add("@CODE_UTILISATEUR_CREA", MySqlDbType.VarChar).Value = GlobalVariable.ConnectedUser.Rows(0)("CODE_UTILISATEUR")
+
+        Dim adapter3 As New MySqlDataAdapter(command3)
+        Dim tableReglement As New DataTable()
+
+        adapter3.Fill(tableReglement)
+
+        GunaDataGridViewRecetteEntree.Rows.Clear()
+
+        If tableReglement.Rows.Count > 0 Then
+
+            For k = 0 To tableReglement.Rows.Count - 1
+
+                totalReglement += tableReglement.Rows(k)("MONTANT_VERSE")
+
+                If tableReglement.Rows(k)("NUMERO_BLOC_NOTE") = "ENTREE DE RECETTE" Or tableReglement.Rows(k)("NUMERO_BLOC_NOTE") = "ENTERING REVENUE" Then
+
+                    GunaDataGridViewRecetteEntree.Rows.Add(tableReglement.Rows(k)("NUM_REGLEMENT"), CDate(tableReglement.Rows(k)("DATE_REGLEMENT")).ToShortDateString, tableReglement.Rows(k)("REF_REGLEMENT"), "", Format(tableReglement.Rows(k)("MONTANT_VERSE"), "#,##0"))
+                End If
+
+            Next
+
+        End If
+
+        '---------------------------------------------------------------------------------------------------------------------
+
+        GunaDataGridViewRecetteEntree.Sort(GunaDataGridViewRecetteEntree.Columns(1), ListSortDirection.Descending)
 
     End Sub
 

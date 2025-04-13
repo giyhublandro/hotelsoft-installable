@@ -337,12 +337,12 @@ Partial Class DepotGarantieForm
         Me.GunaTextBoxNomClientCarte.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBoxNomClientCarte.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBoxNomClientCarte.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxNomClientCarte.Location = New System.Drawing.Point(329, 53)
+        Me.GunaTextBoxNomClientCarte.Location = New System.Drawing.Point(333, 53)
         Me.GunaTextBoxNomClientCarte.Name = "GunaTextBoxNomClientCarte"
         Me.GunaTextBoxNomClientCarte.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBoxNomClientCarte.Radius = 4
         Me.GunaTextBoxNomClientCarte.SelectedText = ""
-        Me.GunaTextBoxNomClientCarte.Size = New System.Drawing.Size(293, 32)
+        Me.GunaTextBoxNomClientCarte.Size = New System.Drawing.Size(305, 32)
         Me.GunaTextBoxNomClientCarte.TabIndex = 76
         '
         'GunaLabel41

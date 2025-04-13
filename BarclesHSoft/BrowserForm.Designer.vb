@@ -32,12 +32,15 @@ Partial Class BrowserForm
         'webView
         '
         Me.webView.AllowExternalDrop = True
+        Me.webView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.webView.CreationProperties = Nothing
         Me.webView.DefaultBackgroundColor = System.Drawing.Color.White
         Me.webView.Location = New System.Drawing.Point(0, 57)
         Me.webView.Name = "webView"
         Me.webView.Size = New System.Drawing.Size(1235, 473)
-        Me.webView.Source = New System.Uri("https://account.booking.com/sign-in", System.UriKind.Absolute)
+        Me.webView.Source = New System.Uri("https://booking.com", System.UriKind.Absolute)
         Me.webView.TabIndex = 0
         Me.webView.ZoomFactor = 1.0R
         '
@@ -56,7 +59,6 @@ Partial Class BrowserForm
         Me.addressBar.SelectedText = ""
         Me.addressBar.Size = New System.Drawing.Size(798, 30)
         Me.addressBar.TabIndex = 1
-        Me.addressBar.Text = "https://coup-de-balai.hotelsoft.cm/php/user.php?user_list"
         '
         'GunaButton1
         '

@@ -81,7 +81,7 @@ Partial Class ActivationForm
         '
         Me.GunaLabelTitre.AutoSize = True
         Me.GunaLabelTitre.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabelTitre.Location = New System.Drawing.Point(100, 7)
+        Me.GunaLabelTitre.Location = New System.Drawing.Point(8, 7)
         Me.GunaLabelTitre.Name = "GunaLabelTitre"
         Me.GunaLabelTitre.Size = New System.Drawing.Size(273, 17)
         Me.GunaLabelTitre.TabIndex = 74
@@ -227,7 +227,7 @@ Partial Class ActivationForm
         Me.GunaTextBox5.FocusedBaseColor = System.Drawing.Color.White
         Me.GunaTextBox5.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBox5.FocusedForeColor = System.Drawing.SystemColors.ControlText
-        Me.GunaTextBox5.Font = New System.Drawing.Font("Rockwell", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaTextBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaTextBox5.Location = New System.Drawing.Point(364, 17)
         Me.GunaTextBox5.MaxLength = 5
         Me.GunaTextBox5.Name = "GunaTextBox5"
@@ -248,7 +248,7 @@ Partial Class ActivationForm
         Me.GunaTextBox4.FocusedBaseColor = System.Drawing.Color.White
         Me.GunaTextBox4.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBox4.FocusedForeColor = System.Drawing.SystemColors.ControlText
-        Me.GunaTextBox4.Font = New System.Drawing.Font("Rockwell", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaTextBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaTextBox4.Location = New System.Drawing.Point(283, 17)
         Me.GunaTextBox4.MaxLength = 5
         Me.GunaTextBox4.Name = "GunaTextBox4"
@@ -269,7 +269,7 @@ Partial Class ActivationForm
         Me.GunaTextBox3.FocusedBaseColor = System.Drawing.Color.White
         Me.GunaTextBox3.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBox3.FocusedForeColor = System.Drawing.SystemColors.ControlText
-        Me.GunaTextBox3.Font = New System.Drawing.Font("Rockwell", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaTextBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaTextBox3.Location = New System.Drawing.Point(202, 17)
         Me.GunaTextBox3.MaxLength = 5
         Me.GunaTextBox3.Name = "GunaTextBox3"
@@ -290,7 +290,7 @@ Partial Class ActivationForm
         Me.GunaTextBox2.FocusedBaseColor = System.Drawing.Color.White
         Me.GunaTextBox2.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBox2.FocusedForeColor = System.Drawing.SystemColors.ControlText
-        Me.GunaTextBox2.Font = New System.Drawing.Font("Rockwell", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaTextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaTextBox2.Location = New System.Drawing.Point(121, 17)
         Me.GunaTextBox2.MaxLength = 5
         Me.GunaTextBox2.Name = "GunaTextBox2"
@@ -311,7 +311,7 @@ Partial Class ActivationForm
         Me.GunaTextBox1.FocusedBaseColor = System.Drawing.Color.White
         Me.GunaTextBox1.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBox1.FocusedForeColor = System.Drawing.SystemColors.ControlText
-        Me.GunaTextBox1.Font = New System.Drawing.Font("Rockwell", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaTextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GunaTextBox1.Location = New System.Drawing.Point(40, 17)
         Me.GunaTextBox1.MaxLength = 5
         Me.GunaTextBox1.Name = "GunaTextBox1"
@@ -325,50 +325,50 @@ Partial Class ActivationForm
         'GunaLabel10
         '
         Me.GunaLabel10.AutoSize = True
-        Me.GunaLabel10.Font = New System.Drawing.Font("Rockwell", 9.0!)
+        Me.GunaLabel10.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Me.GunaLabel10.Location = New System.Drawing.Point(347, 26)
         Me.GunaLabel10.Name = "GunaLabel10"
-        Me.GunaLabel10.Size = New System.Drawing.Size(11, 14)
+        Me.GunaLabel10.Size = New System.Drawing.Size(11, 15)
         Me.GunaLabel10.TabIndex = 12
         Me.GunaLabel10.Text = "-"
         '
         'GunaLabel9
         '
         Me.GunaLabel9.AutoSize = True
-        Me.GunaLabel9.Font = New System.Drawing.Font("Rockwell", 9.0!)
+        Me.GunaLabel9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Me.GunaLabel9.Location = New System.Drawing.Point(266, 26)
         Me.GunaLabel9.Name = "GunaLabel9"
-        Me.GunaLabel9.Size = New System.Drawing.Size(11, 14)
+        Me.GunaLabel9.Size = New System.Drawing.Size(11, 15)
         Me.GunaLabel9.TabIndex = 12
         Me.GunaLabel9.Text = "-"
         '
         'GunaLabel8
         '
         Me.GunaLabel8.AutoSize = True
-        Me.GunaLabel8.Font = New System.Drawing.Font("Rockwell", 9.0!)
+        Me.GunaLabel8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Me.GunaLabel8.Location = New System.Drawing.Point(185, 26)
         Me.GunaLabel8.Name = "GunaLabel8"
-        Me.GunaLabel8.Size = New System.Drawing.Size(11, 14)
+        Me.GunaLabel8.Size = New System.Drawing.Size(11, 15)
         Me.GunaLabel8.TabIndex = 12
         Me.GunaLabel8.Text = "-"
         '
         'GunaLabel7
         '
         Me.GunaLabel7.AutoSize = True
-        Me.GunaLabel7.Font = New System.Drawing.Font("Rockwell", 9.0!)
+        Me.GunaLabel7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Me.GunaLabel7.Location = New System.Drawing.Point(104, 26)
         Me.GunaLabel7.Name = "GunaLabel7"
-        Me.GunaLabel7.Size = New System.Drawing.Size(11, 14)
+        Me.GunaLabel7.Size = New System.Drawing.Size(11, 15)
         Me.GunaLabel7.TabIndex = 12
         Me.GunaLabel7.Text = "-"
         '
         'GunaLabel2
         '
         Me.GunaLabel2.AutoSize = True
-        Me.GunaLabel2.Font = New System.Drawing.Font("Rockwell", 12.0!)
+        Me.GunaLabel2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
         Me.GunaLabel2.Location = New System.Drawing.Point(358, 176)
         Me.GunaLabel2.Name = "GunaLabel2"
-        Me.GunaLabel2.Size = New System.Drawing.Size(96, 19)
+        Me.GunaLabel2.Size = New System.Drawing.Size(104, 20)
         Me.GunaLabel2.TabIndex = 12
         Me.GunaLabel2.Text = "SERIAL KEY"
         Me.GunaLabel2.Visible = False

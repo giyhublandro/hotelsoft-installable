@@ -5,9 +5,21 @@ Public Class LigneFacture
     'Creating an instance of database
     'Dim connect As New DataBaseManipulation()
 
-    Public Function insertLigneFactureGratuite(ByVal CODE_FACTURE As String, ByVal CODE_RESERVATION As String, ByVal CODE_MOUVEMENT As String, ByVal CODE_CHAMBRE As String, ByVal CODE_MODE_PAIEMENT As String, ByVal NUMERO_PIECE As String, ByVal CODE_ARTICLE As String, ByVal CODE_LOT As String, ByVal MONTANT_HT As Double, ByVal TAXE As Double, ByVal QUANTITE As Double, ByVal PRIX_UNITAIRE_TTC As Double, ByVal MONTANT_TTC As Double, ByVal DATE_FACTURE As Date, ByVal HEURE_FACTURE As DateTime, ByVal ETAT_FACTURE As Integer, ByVal DATE_OCCUPATION As Date, ByVal HEURE_OCCUPATION As DateTime, ByVal LIBELLE_FACTURE As String, ByVal TYPE_LIGNE_FACTURE As String, ByVal NUMERO_SERIE As String, ByVal NUMERO_ORDRE As Integer, ByVal DESCRIPTION As String, ByVal CODE_UTILISATEUR_CREA As String, ByVal CODE_AGENCE As String, ByVal MONTANT_REMISE As Double, ByVal MONTANT_TAXE As Double, ByVal NUMERO_SERIE_DEBUT As String, ByVal NUMERO_SERIE_FIN As String, ByVal CODE_MAGASIN As String, ByVal FUSIONNEE As String, Optional ByVal TYPE As String = "chambre", Optional ByVal NUMERO_BLOC_NOTE As String = "chambre", Optional ByVal GRIFFE_UTILISATEUR As String = "", Optional ByVal VALEUR_CONSO As Double = 0) As Boolean
+    Public Function insertLigneFactureGratuite(ByVal CODE_FACTURE As String, ByVal CODE_RESERVATION As String, ByVal CODE_MOUVEMENT As String, ByVal CODE_CHAMBRE As String,
+                                               ByVal CODE_MODE_PAIEMENT As String, ByVal NUMERO_PIECE As String, ByVal CODE_ARTICLE As String, ByVal CODE_LOT As String, ByVal MONTANT_HT As Double,
+                                               ByVal TAXE As Double, ByVal QUANTITE As Double, ByVal PRIX_UNITAIRE_TTC As Double, ByVal MONTANT_TTC As Double, ByVal DATE_FACTURE As Date,
+                                               ByVal HEURE_FACTURE As DateTime, ByVal ETAT_FACTURE As Integer, ByVal DATE_OCCUPATION As Date, ByVal HEURE_OCCUPATION As DateTime,
+                                               ByVal LIBELLE_FACTURE As String, ByVal TYPE_LIGNE_FACTURE As String, ByVal NUMERO_SERIE As String, ByVal NUMERO_ORDRE As Integer, ByVal DESCRIPTION As String,
+                                               ByVal CODE_UTILISATEUR_CREA As String, ByVal CODE_AGENCE As String, ByVal MONTANT_REMISE As Double, ByVal MONTANT_TAXE As Double,
+                                               ByVal NUMERO_SERIE_DEBUT As String, ByVal NUMERO_SERIE_FIN As String, ByVal CODE_MAGASIN As String, ByVal FUSIONNEE As String,
+                                               Optional ByVal TYPE As String = "chambre", Optional ByVal NUMERO_BLOC_NOTE As String = "chambre", Optional ByVal GRIFFE_UTILISATEUR As String = "",
+                                               Optional ByVal VALEUR_CONSO As Double = 0, Optional SERVEUR As String = "", Optional SORTIE As Integer = 0, Optional SORTIE_PAR As String = "") As Boolean
 
-        Dim insertQuery As String = "INSERT INTO `ligne_facture_gratuite` (`CODE_FACTURE`, `CODE_RESERVATION`, `CODE_MOUVEMENT`, `CODE_CHAMBRE`, `CODE_MODE_PAIEMENT`, `NUMERO_PIECE`, `CODE_ARTICLE`, `CODE_LOT`, `MONTANT_HT`, `TAXE`, `QUANTITE`, `PRIX_UNITAIRE_TTC`, `MONTANT_TTC`, `DATE_FACTURE`, `HEURE_FACTURE`, `ETAT_FACTURE`, `DATE_OCCUPATION`, `HEURE_OCCUPATION`, `LIBELLE_FACTURE`, `TYPE_LIGNE_FACTURE`, `NUMERO_SERIE`, `NUMERO_ORDRE`, `DESCRIPTION`, `CODE_UTILISATEUR_CREA`, `CODE_AGENCE`, `MONTANT_REMISE`, `MONTANT_TAXE`, `NUMERO_SERIE_DEBUT`, `NUMERO_SERIE_FIN`, `CODE_MAGASIN`, `FUSIONNEE`, `TYPE`, `NUMERO_BLOC_NOTE`,`GRIFFE_UTILISATEUR`,`VALEUR_CONSO`) VALUES (@value1,@value2,@value3,@value4,@value5,@value6,@value7,@value8,@value9,@value10,@value11,@value12,@value13,@value14,@value15,@value16,@value17,@value18,@value19,@value20,@value21,@value22,@value23,@value24,@value25,@value26,@value27,@value28,@value29,@value30,@value31,@value32,@value33,@value34,@value35)"
+        Dim insertQuery As String = "INSERT INTO `ligne_facture_gratuite` (`CODE_FACTURE`, `CODE_RESERVATION`, `CODE_MOUVEMENT`, `CODE_CHAMBRE`, `CODE_MODE_PAIEMENT`, `NUMERO_PIECE`, `CODE_ARTICLE`,
+`CODE_LOT`, `MONTANT_HT`, `TAXE`, `QUANTITE`, `PRIX_UNITAIRE_TTC`, `MONTANT_TTC`, `DATE_FACTURE`, `HEURE_FACTURE`, `ETAT_FACTURE`, `DATE_OCCUPATION`, `HEURE_OCCUPATION`, `LIBELLE_FACTURE`,
+`TYPE_LIGNE_FACTURE`, `NUMERO_SERIE`, `NUMERO_ORDRE`, `DESCRIPTION`, `CODE_UTILISATEUR_CREA`, `CODE_AGENCE`, `MONTANT_REMISE`, `MONTANT_TAXE`, `NUMERO_SERIE_DEBUT`, `NUMERO_SERIE_FIN`, `CODE_MAGASIN`,
+`FUSIONNEE`, `TYPE`, `NUMERO_BLOC_NOTE`,`GRIFFE_UTILISATEUR`,`VALEUR_CONSO`, `SERVEUR`, `SORTIE`, `SORTIE_PAR`) VALUES (@value1,@value2,@value3,@value4,@value5,@value6,@value7,@value8,@value9,@value10,@value11,@value12,@value13,
+@value14,@value15,@value16,@value17,@value18,@value19,@value20,@value21,@value22,@value23,@value24,@value25,@value26,@value27,@value28,@value29,@value30,@value31,@value32,@value33,@value34,@value35,@SERVEUR, @SORTIE, @SORTIE_PAR)"
 
         Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
 
@@ -45,8 +57,10 @@ Public Class LigneFacture
         command.Parameters.Add("@value32", MySqlDbType.VarChar).Value = TYPE
         command.Parameters.Add("@value33", MySqlDbType.VarChar).Value = NUMERO_BLOC_NOTE
         command.Parameters.Add("@value34", MySqlDbType.VarChar).Value = GRIFFE_UTILISATEUR
+        command.Parameters.Add("@SERVEUR", MySqlDbType.VarChar).Value = SERVEUR
         command.Parameters.Add("@value35", MySqlDbType.Double).Value = VALEUR_CONSO
-
+        command.Parameters.Add("@SORTIE", MySqlDbType.Int16).Value = SORTIE
+        command.Parameters.Add("@SORTIE_PAR", MySqlDbType.VarChar).Value = SORTIE_PAR
         'Opening the connection
         'connect.openConnection()
 
@@ -71,10 +85,15 @@ Public Class LigneFacture
                                        ByVal CODE_UTILISATEUR_CREA As String, ByVal CODE_AGENCE As String, ByVal MONTANT_REMISE As Double, ByVal MONTANT_TAXE As Double,
                                        ByVal NUMERO_SERIE_DEBUT As String, ByVal NUMERO_SERIE_FIN As String, ByVal CODE_MAGASIN As String, ByVal FUSIONNEE As String,
                                        Optional ByVal TYPE As String = "chambre", Optional ByVal NUMERO_BLOC_NOTE As String = "chambre",
-                                       Optional ByVal GRIFFE_UTILISATEUR As String = "", Optional ByVal VALEUR_CONSO As Double = 0) As Boolean
+                                       Optional ByVal GRIFFE_UTILISATEUR As String = "", Optional ByVal VALEUR_CONSO As Double = 0, Optional ByVal SERVEUR As String = "",
+                                       Optional SORTIE As Integer = 0, Optional ByVal SORTIE_PAR As String = "") As Boolean
 
-        Dim insertQuery As String = "INSERT INTO `ligne_facture` (`CODE_FACTURE`, `CODE_RESERVATION`, `CODE_MOUVEMENT`, `CODE_CHAMBRE`, `CODE_MODE_PAIEMENT`, `NUMERO_PIECE`, `CODE_ARTICLE`, `CODE_LOT`, `MONTANT_HT`, `TAXE`, `QUANTITE`, `PRIX_UNITAIRE_TTC`, `MONTANT_TTC`, `DATE_FACTURE`, `HEURE_FACTURE`, `ETAT_FACTURE`, `DATE_OCCUPATION`, `HEURE_OCCUPATION`, `LIBELLE_FACTURE`, `TYPE_LIGNE_FACTURE`, `NUMERO_SERIE`, `NUMERO_ORDRE`, `DESCRIPTION`, `CODE_UTILISATEUR_CREA`, `CODE_AGENCE`, `MONTANT_REMISE`, `MONTANT_TAXE`, `NUMERO_SERIE_DEBUT`, `NUMERO_SERIE_FIN`, `CODE_MAGASIN`, `FUSIONNEE`, `TYPE`, `NUMERO_BLOC_NOTE`,`GRIFFE_UTILISATEUR`,`VALEUR_CONSO`) 
-        VALUES (@value1,@value2,@value3,@value4,@value5,@value6,@value7,@value8,@value9,@value10,@value11,@value12,@value13,@value14,@value15,@value16,@value17,@value18,@value19,@value20,@value21,@value22,@value23,@value24,@value25,@value26,@value27,@value28,@value29,@value30,@value31,@value32,@value33,@value34,@value35)"
+        Dim insertQuery As String = "INSERT INTO `ligne_facture` (`CODE_FACTURE`, `CODE_RESERVATION`, `CODE_MOUVEMENT`, `CODE_CHAMBRE`, `CODE_MODE_PAIEMENT`, `NUMERO_PIECE`, `CODE_ARTICLE`, `CODE_LOT`, 
+`MONTANT_HT`, `TAXE`, `QUANTITE`, `PRIX_UNITAIRE_TTC`, `MONTANT_TTC`, `DATE_FACTURE`, `HEURE_FACTURE`, `ETAT_FACTURE`, `DATE_OCCUPATION`, `HEURE_OCCUPATION`, `LIBELLE_FACTURE`, `TYPE_LIGNE_FACTURE`, 
+`NUMERO_SERIE`, `NUMERO_ORDRE`, `DESCRIPTION`, `CODE_UTILISATEUR_CREA`, `CODE_AGENCE`, `MONTANT_REMISE`, `MONTANT_TAXE`, `NUMERO_SERIE_DEBUT`, `NUMERO_SERIE_FIN`, `CODE_MAGASIN`, `FUSIONNEE`, `TYPE`,
+`NUMERO_BLOC_NOTE`,`GRIFFE_UTILISATEUR`,`VALEUR_CONSO`, `SERVEUR`, `SORTIE`, `SORTIE_PAR`) 
+        VALUES (@value1,@value2,@value3,@value4,@value5,@value6,@value7,@value8,@value9,@value10,@value11,@value12,@value13,@value14,@value15,@value16,@value17,@value18,@value19,@value20,@value21,@value22,
+        @value23,@value24,@value25,@value26,@value27,@value28,@value29,@value30,@value31,@value32,@value33,@value34,@value35,@SERVEUR, @SORTIE, @SORTIE_PAR)"
 
         Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
 
@@ -112,7 +131,10 @@ Public Class LigneFacture
         command.Parameters.Add("@value32", MySqlDbType.VarChar).Value = TYPE
         command.Parameters.Add("@value33", MySqlDbType.VarChar).Value = NUMERO_BLOC_NOTE
         command.Parameters.Add("@value34", MySqlDbType.VarChar).Value = GRIFFE_UTILISATEUR
+        command.Parameters.Add("@SERVEUR", MySqlDbType.VarChar).Value = SERVEUR
         command.Parameters.Add("@value35", MySqlDbType.Double).Value = VALEUR_CONSO
+        command.Parameters.Add("@SORTIE", MySqlDbType.Int16).Value = SORTIE
+        command.Parameters.Add("@SORTIE_PAR", MySqlDbType.VarChar).Value = SORTIE_PAR
 
         'Opening the connection
         'connect.openConnection()
@@ -129,9 +151,21 @@ Public Class LigneFacture
     End Function
 
     'INSERTION DES LIGNES DU PAYMASTER
-    Public Function insertLigneFacturePM(ByVal CODE_FACTURE As String, ByVal CODE_RESERVATION As String, ByVal CODE_MOUVEMENT As String, ByVal CODE_CHAMBRE As String, ByVal CODE_MODE_PAIEMENT As String, ByVal NUMERO_PIECE As String, ByVal CODE_ARTICLE As String, ByVal CODE_LOT As String, ByVal MONTANT_HT As Double, ByVal TAXE As Double, ByVal QUANTITE As Double, ByVal PRIX_UNITAIRE_TTC As Double, ByVal MONTANT_TTC As Double, ByVal DATE_FACTURE As Date, ByVal HEURE_FACTURE As DateTime, ByVal ETAT_FACTURE As Integer, ByVal DATE_OCCUPATION As Date, ByVal HEURE_OCCUPATION As DateTime, ByVal LIBELLE_FACTURE As String, ByVal TYPE_LIGNE_FACTURE As String, ByVal NUMERO_SERIE As String, ByVal NUMERO_ORDRE As Integer, ByVal DESCRIPTION As String, ByVal CODE_UTILISATEUR_CREA As String, ByVal CODE_AGENCE As String, ByVal MONTANT_REMISE As Double, ByVal MONTANT_TAXE As Double, ByVal NUMERO_SERIE_DEBUT As String, ByVal NUMERO_SERIE_FIN As String, ByVal CODE_MAGASIN As String, ByVal FUSIONNEE As String, Optional ByVal TYPE As String = "chambre", Optional ByVal NUMERO_BLOC_NOTE As String = "chambre", Optional ByVal GRIFFE_UTILISATEUR As String = "", Optional ByVal VALEUR_CONSO As Double = 0) As Boolean
+    Public Function insertLigneFacturePM(ByVal CODE_FACTURE As String, ByVal CODE_RESERVATION As String, ByVal CODE_MOUVEMENT As String, ByVal CODE_CHAMBRE As String, ByVal CODE_MODE_PAIEMENT As String,
+                                         ByVal NUMERO_PIECE As String, ByVal CODE_ARTICLE As String, ByVal CODE_LOT As String, ByVal MONTANT_HT As Double, ByVal TAXE As Double, ByVal QUANTITE As Double,
+                                         ByVal PRIX_UNITAIRE_TTC As Double, ByVal MONTANT_TTC As Double, ByVal DATE_FACTURE As Date, ByVal HEURE_FACTURE As DateTime, ByVal ETAT_FACTURE As Integer,
+                                         ByVal DATE_OCCUPATION As Date, ByVal HEURE_OCCUPATION As DateTime, ByVal LIBELLE_FACTURE As String, ByVal TYPE_LIGNE_FACTURE As String, ByVal NUMERO_SERIE As String,
+                                         ByVal NUMERO_ORDRE As Integer, ByVal DESCRIPTION As String, ByVal CODE_UTILISATEUR_CREA As String, ByVal CODE_AGENCE As String, ByVal MONTANT_REMISE As Double,
+                                         ByVal MONTANT_TAXE As Double, ByVal NUMERO_SERIE_DEBUT As String, ByVal NUMERO_SERIE_FIN As String, ByVal CODE_MAGASIN As String, ByVal FUSIONNEE As String,
+                                         Optional ByVal TYPE As String = "chambre", Optional ByVal NUMERO_BLOC_NOTE As String = "chambre", Optional ByVal GRIFFE_UTILISATEUR As String = "",
+                                         Optional ByVal VALEUR_CONSO As Double = 0) As Boolean
 
-        Dim insertQuery As String = "INSERT INTO `ligne_facture_pm` (`CODE_FACTURE`, `CODE_RESERVATION`, `CODE_MOUVEMENT`, `CODE_CHAMBRE`, `CODE_MODE_PAIEMENT`, `NUMERO_PIECE`, `CODE_ARTICLE`, `CODE_LOT`, `MONTANT_HT`, `TAXE`, `QUANTITE`, `PRIX_UNITAIRE_TTC`, `MONTANT_TTC`, `DATE_FACTURE`, `HEURE_FACTURE`, `ETAT_FACTURE`, `DATE_OCCUPATION`, `HEURE_OCCUPATION`, `LIBELLE_FACTURE`, `TYPE_LIGNE_FACTURE`, `NUMERO_SERIE`, `NUMERO_ORDRE`, `DESCRIPTION`, `CODE_UTILISATEUR_CREA`, `CODE_AGENCE`, `MONTANT_REMISE`, `MONTANT_TAXE`, `NUMERO_SERIE_DEBUT`, `NUMERO_SERIE_FIN`, `CODE_MAGASIN`, `FUSIONNEE`, `TYPE`, `NUMERO_BLOC_NOTE`,`GRIFFE_UTILISATEUR`,`VALEUR_CONSO`) VALUES (@value1,@value2,@value3,@value4,@value5,@value6,@value7,@value8,@value9,@value10,@value11,@value12,@value13,@value14,@value15,@value16,@value17,@value18,@value19,@value20,@value21,@value22,@value23,@value24,@value25,@value26,@value27,@value28,@value29,@value30,@value31,@value32,@value33,@value34,@value35)"
+        Dim insertQuery As String = "INSERT INTO `ligne_facture_pm` (`CODE_FACTURE`, `CODE_RESERVATION`, `CODE_MOUVEMENT`, `CODE_CHAMBRE`, `CODE_MODE_PAIEMENT`, `NUMERO_PIECE`, `CODE_ARTICLE`, 
+                                    `CODE_LOT`, `MONTANT_HT`, `TAXE`, `QUANTITE`, `PRIX_UNITAIRE_TTC`, `MONTANT_TTC`, `DATE_FACTURE`, `HEURE_FACTURE`, `ETAT_FACTURE`, `DATE_OCCUPATION`, `HEURE_OCCUPATION`,
+                                    `LIBELLE_FACTURE`, `TYPE_LIGNE_FACTURE`, `NUMERO_SERIE`, `NUMERO_ORDRE`, `DESCRIPTION`, `CODE_UTILISATEUR_CREA`, `CODE_AGENCE`, `MONTANT_REMISE`, `MONTANT_TAXE`, 
+                                    `NUMERO_SERIE_DEBUT`, `NUMERO_SERIE_FIN`, `CODE_MAGASIN`, `FUSIONNEE`, `TYPE`, `NUMERO_BLOC_NOTE`,`GRIFFE_UTILISATEUR`,`VALEUR_CONSO`) 
+                                    VALUES (@value1,@value2,@value3,@value4,@value5,@value6,@value7,@value8,@value9,@value10,@value11,@value12,@value13,@value14,@value15,@value16,@value17,@value18,
+                                    @value19,@value20,@value21,@value22,@value23,@value24,@value25,@value26,@value27,@value28,@value29,@value30,@value31,@value32,@value33,@value34,@value35)"
 
         Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
 
@@ -242,10 +276,10 @@ Public Class LigneFacture
     'create a function to update the selected reservation
     Public Function InsertLigneBlocNoteCommande(ByVal NUMERO_BLOC_NOTE As String, ByVal CODE_FACTURE As String, ByVal CODE_CLIENT As String,
                                                 ByVal DATE_CREATION As Date, ByVal CODE_CAISSIER As String, ByVal NUMERO_BLOC_NOTE_VERIF As String,
-                                                 ByVal Optional CODE_CLIENT_FIDEL As String = "", ByVal Optional CODE_ELITE As String = "") As Boolean
+                                                 ByVal Optional CODE_CLIENT_FIDEL As String = "", ByVal Optional CODE_ELITE As String = "", ByVal Optional SERVEUR As String = "") As Boolean
 
-        Dim insertQuery As String = "INSERT INTO `ligne_facture_bloc_note`(NUMERO_BLOC_NOTE, CODE_FACTURE, CODE_CLIENT, DATE_CREATION, CODE_CAISSIER, NUMERO_BLOC_NOTE_VERIF, CODE_CLIENT_FIDEL, CODE_ELITE) 
-        VALUES (@value1, @value2, @value3, @value4, @value5, @value6, @CODE_CLIENT_FIDEL, @CODE_ELITE)"
+        Dim insertQuery As String = "INSERT INTO `ligne_facture_bloc_note`(NUMERO_BLOC_NOTE, CODE_FACTURE, CODE_CLIENT, DATE_CREATION, CODE_CAISSIER, NUMERO_BLOC_NOTE_VERIF, CODE_CLIENT_FIDEL, CODE_ELITE, SERVEUR) 
+        VALUES (@value1, @value2, @value3, @value4, @value5, @value6, @CODE_CLIENT_FIDEL, @CODE_ELITE, @SERVEUR)"
 
         Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
 
@@ -257,10 +291,7 @@ Public Class LigneFacture
         command.Parameters.Add("@value6", MySqlDbType.VarChar).Value = NUMERO_BLOC_NOTE_VERIF
         command.Parameters.Add("@CODE_CLIENT_FIDEL", MySqlDbType.VarChar).Value = CODE_CLIENT_FIDEL
         command.Parameters.Add("@CODE_ELITE", MySqlDbType.VarChar).Value = CODE_ELITE
-
-
-        'Opening the connection
-        'connect.openConnection()
+        command.Parameters.Add("@SERVEUR", MySqlDbType.VarChar).Value = SERVEUR
 
         'Excuting the command and testing if everything went on well
         If (command.ExecuteNonQuery() = 1) Then
@@ -274,9 +305,22 @@ Public Class LigneFacture
     End Function
 
     'insert a new client Catgeory
-    Public Function insertLigneFactureTemp(ByVal CODE_FACTURE As String, ByVal CODE_RESERVATION As String, ByVal CODE_MOUVEMENT As String, ByVal CODE_CHAMBRE As String, ByVal CODE_MODE_PAIEMENT As String, ByVal NUMERO_PIECE As String, ByVal CODE_ARTICLE As String, ByVal CODE_LOT As String, ByVal MONTANT_HT As Double, ByVal TAXE As Double, ByVal QUANTITE As Double, ByVal PRIX_UNITAIRE_TTC As Double, ByVal MONTANT_TTC As Double, ByVal DATE_FACTURE As Date, ByVal HEURE_FACTURE As DateTime, ByVal ETAT_FACTURE As Integer, ByVal DATE_OCCUPATION As Date, ByVal HEURE_OCCUPATION As DateTime, ByVal LIBELLE_FACTURE As String, ByVal TYPE_LIGNE_FACTURE As String, ByVal NUMERO_SERIE As String, ByVal NUMERO_ORDRE As Integer, ByVal DESCRIPTION As String, ByVal CODE_UTILISATEUR_CREA As String, ByVal CODE_AGENCE As String, ByVal MONTANT_REMISE As Double, ByVal MONTANT_TAXE As Double, ByVal NUMERO_SERIE_DEBUT As String, ByVal NUMERO_SERIE_FIN As String, ByVal CODE_MAGASIN As String, ByVal FUSIONNEE As String, Optional ByVal TYPE As String = "chambre", Optional ByVal TABLE_LIGNE As String = "ligne_facture", Optional ByVal NUMERO_BLOC_NOTE As String = "", Optional ByVal GRIFFE_UTILISATEUR As String = "", Optional ByVal VALEUR_CONSO As Double = 0) As Boolean
+    Public Function insertLigneFactureTemp(ByVal CODE_FACTURE As String, ByVal CODE_RESERVATION As String, ByVal CODE_MOUVEMENT As String, ByVal CODE_CHAMBRE As String, ByVal CODE_MODE_PAIEMENT As String,
+                                           ByVal NUMERO_PIECE As String, ByVal CODE_ARTICLE As String, ByVal CODE_LOT As String, ByVal MONTANT_HT As Double, ByVal TAXE As Double, ByVal QUANTITE As Double,
+                                           ByVal PRIX_UNITAIRE_TTC As Double, ByVal MONTANT_TTC As Double, ByVal DATE_FACTURE As Date, ByVal HEURE_FACTURE As DateTime, ByVal ETAT_FACTURE As Integer,
+                                           ByVal DATE_OCCUPATION As Date, ByVal HEURE_OCCUPATION As DateTime, ByVal LIBELLE_FACTURE As String, ByVal TYPE_LIGNE_FACTURE As String,
+                                           ByVal NUMERO_SERIE As String, ByVal NUMERO_ORDRE As Integer, ByVal DESCRIPTION As String, ByVal CODE_UTILISATEUR_CREA As String, ByVal CODE_AGENCE As String,
+                                           ByVal MONTANT_REMISE As Double, ByVal MONTANT_TAXE As Double, ByVal NUMERO_SERIE_DEBUT As String, ByVal NUMERO_SERIE_FIN As String, ByVal CODE_MAGASIN As String,
+                                           ByVal FUSIONNEE As String, Optional ByVal TYPE As String = "chambre", Optional ByVal TABLE_LIGNE As String = "ligne_facture",
+                                           Optional ByVal NUMERO_BLOC_NOTE As String = "", Optional ByVal GRIFFE_UTILISATEUR As String = "", Optional ByVal VALEUR_CONSO As Double = 0,
+                                           Optional ByVal SERVEUR As String = "") As Boolean
 
-        Dim insertQuery As String = "INSERT INTO `" & TABLE_LIGNE & "`(`CODE_FACTURE`, `CODE_RESERVATION`, `CODE_MOUVEMENT`, `CODE_CHAMBRE`, `CODE_MODE_PAIEMENT`, `NUMERO_PIECE`, `CODE_ARTICLE`, `CODE_LOT`, `MONTANT_HT`, `TAXE`, `QUANTITE`, `PRIX_UNITAIRE_TTC`, `MONTANT_TTC`, `DATE_FACTURE`, `HEURE_FACTURE`, `ETAT_FACTURE`, `DATE_OCCUPATION`, `HEURE_OCCUPATION`, `LIBELLE_FACTURE`, `TYPE_LIGNE_FACTURE`, `NUMERO_SERIE`, `NUMERO_ORDRE`, `DESCRIPTION`, `CODE_UTILISATEUR_CREA`, `CODE_AGENCE`, `MONTANT_REMISE`, `MONTANT_TAXE`, `NUMERO_SERIE_DEBUT`, `NUMERO_SERIE_FIN`, `CODE_MAGASIN`, `FUSIONNEE`, `TYPE`, `NUMERO_BLOC_NOTE`,`GRIFFE_UTILISATEUR`, `VALEUR_CONSO`) VALUES (@value1,@value2,@value3,@value4,@value5,@value6,@value7,@value8,@value9,@value10,@value11,@value12,@value13,@value14,@value15,@value16,@value17,@value18,@value19,@value20,@value21,@value22,@value23,@value24,@value25,@value26,@value27,@value28,@value29,@value30,@value31,@value32,@value33,@value34,@value35)"
+        Dim insertQuery As String = "INSERT INTO `" & TABLE_LIGNE & "`(`CODE_FACTURE`, `CODE_RESERVATION`, `CODE_MOUVEMENT`, `CODE_CHAMBRE`, `CODE_MODE_PAIEMENT`, `NUMERO_PIECE`, `CODE_ARTICLE`, 
+    `CODE_LOT`, `MONTANT_HT`, `TAXE`, `QUANTITE`, `PRIX_UNITAIRE_TTC`, `MONTANT_TTC`, `DATE_FACTURE`, `HEURE_FACTURE`, `ETAT_FACTURE`, `DATE_OCCUPATION`, `HEURE_OCCUPATION`, `LIBELLE_FACTURE`, 
+`TYPE_LIGNE_FACTURE`, `NUMERO_SERIE`, `NUMERO_ORDRE`, `DESCRIPTION`, `CODE_UTILISATEUR_CREA`, `CODE_AGENCE`, `MONTANT_REMISE`, `MONTANT_TAXE`, `NUMERO_SERIE_DEBUT`, `NUMERO_SERIE_FIN`, 
+`CODE_MAGASIN`, `FUSIONNEE`, `TYPE`, `NUMERO_BLOC_NOTE`,`GRIFFE_UTILISATEUR`, `VALEUR_CONSO`, `SERVEUR`) 
+    VALUES (@value1,@value2,@value3,@value4,@value5,@value6,@value7,@value8,@value9,@value10,@value11,@value12,@value13,@value14,@value15,@value16,@value17,@value18,@value19,@value20,@value21,
+@value22,@value23,@value24,@value25,@value26,@value27,@value28,@value29,@value30,@value31,@value32,@value33,@value34,@value35, @SERVEUR)"
 
         Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
 
@@ -314,6 +358,7 @@ Public Class LigneFacture
         command.Parameters.Add("@value32", MySqlDbType.VarChar).Value = TYPE
         command.Parameters.Add("@value33", MySqlDbType.VarChar).Value = NUMERO_BLOC_NOTE
         command.Parameters.Add("@value34", MySqlDbType.VarChar).Value = GRIFFE_UTILISATEUR
+        command.Parameters.Add("@SERVEUR", MySqlDbType.String).Value = SERVEUR
 
         command.Parameters.Add("@value35", MySqlDbType.Double).Value = VALEUR_CONSO
 
@@ -348,7 +393,6 @@ Public Class LigneFacture
     Public Function MigrationDeLigneFatureTempVersLigneFactureComptoire(ByVal CODE_BLOC_NOTE_TEMP As String)
 
         Dim ligneFactureTempContent As DataTable
-
         Dim mainCourantes As New MainCourantes()
 
         ligneFactureTempContent = Functions.getElementByCode(CODE_BLOC_NOTE_TEMP, "ligne_facture_temp", "NUMERO_BLOC_NOTE")
@@ -406,11 +450,14 @@ Public Class LigneFacture
                 Dim OLD_FUSIONNEE As String = ligneFactureTempContent.Rows(i)("FUSIONNEE")
 
                 Dim FUSIONNEE As String = ligneFactureTempContent.Rows(i)("FUSIONNEE")
+                NATURE = FUSIONNEE
                 Dim PRIX_UNITAIRE_TTC As Double = ligneFactureTempContent.Rows(i)("PRIX_UNITAIRE_TTC")
                 PRIX_VENTE = ligneFactureTempContent.Rows(i)("PRIX_UNITAIRE_TTC")
                 Dim MONTANT_TTC As Double = ligneFactureTempContent.Rows(i)("MONTANT_TTC")
                 Dim HEURE_FACTURE As DateTime = ligneFactureTempContent.Rows(i)("HEURE_FACTURE")
-
+                Dim SERVEUR As String = ligneFactureTempContent.Rows(i)("SERVEUR")
+                Dim SORTIE_PAR As String = ligneFactureTempContent.Rows(i)("SORTIE_PAR")
+                Dim SORTIE As String = ligneFactureTempContent.Rows(i)("SORTIE")
                 Dim FAMILLE_ARTICLE As String = ""
 
                 If articleInfo.Rows.Count > 0 Then
@@ -437,12 +484,12 @@ Public Class LigneFacture
 
                     Dim FIELD As String = ""
 
-                    If Trim(FAMILLE_ARTICLE) = "BOISSONS" Then
+                    If Trim(FAMILLE_ARTICLE) = "BOISSONS" Or Trim(FAMILLE_ARTICLE) = "DRINKS" Then
                         'TRAITEMENT DES BOISSONS
                         FIELD = "BAR"
                         mainCourantes.updateMainCouranteJournaliereConsommationBarRestau(CODE_MAIN_COURANTE_AUTRES, TABLE, FIELD, FIELDVALUE)
 
-                        If FUSIONNEE = "EAU MINERAL" Then
+                        If FUSIONNEE = "EAU MINERAL" Or FUSIONNEE = "MINERAL WATER" Then
                             FIELD = "CAFE"
                             mainCourantes.updateMainCouranteJournaliereConsommationBarRestau(CODE_MAIN_COURANTE_AUTRES, TABLE, FIELD, FIELDVALUE)
                         Else
@@ -455,11 +502,11 @@ Public Class LigneFacture
                             End If
                         End If
 
-                    ElseIf Trim(FAMILLE_ARTICLE) = "ALIMENTS(REPAS)" Then
+                    ElseIf Trim(FAMILLE_ARTICLE) = "ALIMENTS(REPAS)" Or Trim(FAMILLE_ARTICLE) = "FOOD(MEAL)" Then
 
                         'ON EXCLU LES REPAS DE TYPE PETIT DEJEUENER DU CONTROLE DU TEMPS
                         'If FUSIONNEE = "PETIT DEJEUNER" Then
-                        If FUSIONNEE = "PETIT DEJEUNER" Then
+                        If FUSIONNEE = "PETIT DEJEUNER" Or FUSIONNEE = "BREAKFAST" Then
                             FIELD = "PDJ"
                         Else
                             'TRAITEMENTS DES ALIMENTS
@@ -472,9 +519,9 @@ Public Class LigneFacture
 
                             'If NATURE = "PETIT DEJEUNER" Then
                             'FIELD = "PDJ"
-                            If Trim(NATURE).Equals("DEJEUNER") Then
+                            If Trim(NATURE).Equals("DEJEUNER") Or Trim(NATURE).Equals("LUNCH") Then
                                 FIELD = "DEJEUNER"
-                            ElseIf Trim(NATURE).Equals("DINER") Then
+                            ElseIf Trim(NATURE).Equals("DINER") Or Trim(NATURE).Equals("DINNER") Then
                                 FIELD = "DINER"
                             Else
                                 FIELD = "DEJEUNER"
@@ -564,15 +611,23 @@ Public Class LigneFacture
                 Dim GRIFFE_UTILISATEUR As String = ligneFactureTempContent.Rows(i)("GRIFFE_UTILISATEUR")
                 Dim VALEUR_CONSO As Double = ligneFactureTempContent.Rows(i)("VALEUR_CONSO")
 
-                insertLigneFacture(CODE_FACTURE, CODE_RESERVATION, CODE_MOUVEMENT, CODE_CHAMBRE, CODE_MODE_PAIEMENT, NUMERO_PIECE, CODE_ARTICLE, CODE_LOT, MONTANT_HT, TAXE, QUANTITE_LIGNE_FACTURE, PRIX_UNITAIRE_TTC, MONTANT_TTC, DATE_FACTURE, HEURE_FACTURE, ETAT_FACTURE, DATE_OCCUPATION, HEURE_OCCUPATION, LIBELLE_FACTURE, TYPE_LIGNE_FACTURE, NUMERO_SERIE, NUMERO_ORDRE, DESCRIPTION, CODE_UTILISATEUR_CREA, CODE_AGENCE, MONTANT_REMISE, MONTANT_TAXE, NUMERO_SERIE_DEBUT, NUMERO_SERIE_FIN, CODE_MAGASIN, FUSIONNEE, TYPE, NUMERO_BLOC_NOTE, GRIFFE_UTILISATEUR, VALEUR_CONSO)
+                insertLigneFacture(CODE_FACTURE, CODE_RESERVATION, CODE_MOUVEMENT, CODE_CHAMBRE, CODE_MODE_PAIEMENT, NUMERO_PIECE, CODE_ARTICLE, CODE_LOT, MONTANT_HT, TAXE, QUANTITE_LIGNE_FACTURE, PRIX_UNITAIRE_TTC, MONTANT_TTC, DATE_FACTURE, HEURE_FACTURE, ETAT_FACTURE, DATE_OCCUPATION, HEURE_OCCUPATION, LIBELLE_FACTURE, TYPE_LIGNE_FACTURE, NUMERO_SERIE, NUMERO_ORDRE, DESCRIPTION, CODE_UTILISATEUR_CREA, CODE_AGENCE, MONTANT_REMISE, MONTANT_TAXE, NUMERO_SERIE_DEBUT, NUMERO_SERIE_FIN, CODE_MAGASIN, FUSIONNEE, TYPE, NUMERO_BLOC_NOTE, GRIFFE_UTILISATEUR, VALEUR_CONSO, SERVEUR, SORTIE, SORTIE_PAR)
 
                 'MISE A JOURS DE LA FUSIONNEE DANS LIGNE FACTURES
                 'PAS BESOINS DE METTRE A JOURS SI ON TRAITE LE PETIT DEJEUNER
 
-                If FAMILLE_ARTICLE = "ALIMENTS(REPAS)" Then
-                    If Not FUSIONNEE = "PETIT DEJEUNER" Then
-                        miseAjoursSousFamilleArticleDansLigneFacture(CODE_FACTURE, NATURE, CODE_ARTICLE)
+                Dim mettreAjour As Boolean = True
+
+                If FAMILLE_ARTICLE = "ALIMENTS(REPAS)" Or FAMILLE_ARTICLE = "FOOD(MEAL)" Then
+                    If FUSIONNEE = "PETIT DEJEUNER" Or FUSIONNEE = "BREAKFAST" Then
+                        mettreAjour = False
                     End If
+                Else
+                    mettreAjour = False
+                End If
+
+                If mettreAjour Then
+                    miseAjoursSousFamilleArticleDansLigneFacture(CODE_FACTURE, NATURE, CODE_ARTICLE)
                 End If
 
                 Dim econom As New Economat()
@@ -601,7 +656,12 @@ Public Class LigneFacture
                         Dim QUANTITE_ARTICLE_A_DESTOCKER As Double = Functions.conversionEnPlusPetiteUnite(CODE_ARTICLE, QUANTITE_LIGNE_FACTURE, CODE_LOT) * -1 'UNITE_DE_VENTE
 
                         If ligneFactureTempContent.Rows(i)("VALEUR_CONSO") > 0 Then
-                            CODE_LOT = "CONSOMMATION"
+                            If GlobalVariable.actualLanguageValue = 0 Then
+                                CODE_LOT = "SHOT"
+                            Else
+                                CODE_LOT = "CONSOMMATION"
+                            End If
+
                         End If
 
                         'L'ARTICLE ETANT A LA CARTE IL NE FAIT PAS L'OBJET D'UN SUIVIE DE STOCK
@@ -688,7 +748,9 @@ Public Class LigneFacture
                 End If
 
             Next
+
             Return True
+
         Else
             Return False
         End If
@@ -705,14 +767,30 @@ Public Class LigneFacture
         Dim tempsDeVente As DateTime = momentDeVente.ToLongTimeString
         Dim natureRepas As String
 
-        If tempsDeVente >= temps1 And tempsDeVente <= temps2 Then
-            natureRepas = " DEJEUNER"
-        ElseIf tempsDeVente > temps2 And tempsDeVente <= temps3 Then
-            natureRepas = "DEJEUNER"
-        ElseIf tempsDeVente > temps3 And tempsDeVente <= temps4 Then
-            natureRepas = "DINER"
-        Else
-            natureRepas = "DINER"
+        If GlobalVariable.actualLanguageValue = 1 Then
+
+            If tempsDeVente >= temps1 And tempsDeVente <= temps2 Then
+                natureRepas = "DEJEUNER"
+            ElseIf tempsDeVente > temps2 And tempsDeVente <= temps3 Then
+                natureRepas = "DEJEUNER"
+            ElseIf tempsDeVente > temps3 And tempsDeVente <= temps4 Then
+                natureRepas = "DINER"
+            Else
+                natureRepas = "DINER"
+            End If
+
+        ElseIf GlobalVariable.actualLanguageValue = 0 Then
+
+            If tempsDeVente >= temps1 And tempsDeVente <= temps2 Then
+                natureRepas = "LUNCH"
+            ElseIf tempsDeVente > temps2 And tempsDeVente <= temps3 Then
+                natureRepas = "LUNCH"
+            ElseIf tempsDeVente > temps3 And tempsDeVente <= temps4 Then
+                natureRepas = "DINNER"
+            Else
+                natureRepas = "DINNER"
+            End If
+
         End If
 
         Return natureRepas
@@ -818,7 +896,7 @@ Public Class LigneFacture
             KIOSQUE_A_JOURNAUX = 0
             BLANCHISSERIE = 0
 
-        ElseIf pointDeVente = "SALON DE BEAUTE" Then
+        ElseIf pointDeVente = "SALON DE BEAUTE" Or pointDeVente = "BEAUTY SALON" Then
 
             BAR_RESTAURANT = 0
             SERVICES = 0
@@ -837,7 +915,7 @@ Public Class LigneFacture
             KIOSQUE_A_JOURNAUX = 0
             BLANCHISSERIE = 0
 
-        ElseIf pointDeVente = "BOUTIQUE" Then
+        ElseIf pointDeVente = "BOUTIQUE" Or pointDeVente = "SHOP" Then
 
             BAR_RESTAURANT = 0
             SERVICES = 0
@@ -875,7 +953,7 @@ Public Class LigneFacture
             KIOSQUE_A_JOURNAUX = 0
             BLANCHISSERIE = 0
 
-        ElseIf pointDeVente = "AUTRES" Then
+        ElseIf pointDeVente = "AUTRES" Or pointDeVente = "OTHERS" Then
 
             BAR_RESTAURANT = 0
             SERVICES = 0
@@ -911,7 +989,7 @@ Public Class LigneFacture
             KIOSQUE_A_JOURNAUX = 0
             BLANCHISSERIE = 0
 
-        ElseIf pointDeVente = "LOISIRS" Then
+        ElseIf pointDeVente = "LOISIRS" Or pointDeVente = "LEASURE" Then
 
             BAR_RESTAURANT = 0
             SERVICES = 0
@@ -930,7 +1008,7 @@ Public Class LigneFacture
             KIOSQUE_A_JOURNAUX = 0
             BLANCHISSERIE = 0
 
-        ElseIf pointDeVente = "KIOSQUE A JOURNAUX" Then
+        ElseIf pointDeVente = "KIOSQUE A JOURNAUX" Or pointDeVente = "NEWSPAPER STAND" Then
 
             BAR_RESTAURANT = 0
             SERVICES = 0
@@ -947,7 +1025,7 @@ Public Class LigneFacture
             End If
             BLANCHISSERIE = 0
 
-        ElseIf pointDeVente = "BLANCHISSERIE" Then
+        ElseIf pointDeVente = "BLANCHISSERIE" Or pointDeVente = "LAUNDRY" Then
 
             BAR_RESTAURANT = 0
             SERVICES = 0
@@ -1110,12 +1188,12 @@ Public Class LigneFacture
                     Dim FIELDVALUE As Double = MONTANT_TTC
                     Dim FIELD As String = ""
 
-                    If Trim(FAMILLE_ARTICLE) = "BOISSONS" Then
+                    If Trim(FAMILLE_ARTICLE) = "BOISSONS" Or Trim(FAMILLE_ARTICLE) = "DRINKS" Then
                         'TRAITEMENT DES BOISSONS
                         FIELD = "BAR"
                         mainsCourante.updateMainCouranteJournaliereConsommationBarRestau(CODE_MAIN_COURANTE_JOURNALIERE, TABLE, FIELD, FIELDVALUE)
 
-                        If FUSIONNEE = "EAU MINERAL" Then
+                        If FUSIONNEE = "EAU MINERAL" Or FUSIONNEE = "MINERAL WATER" Then
                             FIELD = "CAFE"
                             mainsCourante.updateMainCouranteJournaliereConsommationBarRestau(CODE_MAIN_COURANTE_JOURNALIERE, TABLE, FIELD, FIELDVALUE)
                         Else
@@ -1128,11 +1206,11 @@ Public Class LigneFacture
                             End If
                         End If
 
-                    ElseIf Trim(FAMILLE_ARTICLE) = "ALIMENTS(REPAS)" Then
+                    ElseIf Trim(FAMILLE_ARTICLE) = "ALIMENTS(REPAS)" Or Trim(FAMILLE_ARTICLE) = "FOOD(MEAL)" Then
 
                         'ON EXCLU LES REPAS DE TYPE PETIT DEJEUENER DU CONTROLE DU TEMPS
                         'If FUSIONNEE = "PETIT DEJEUNER" Then
-                        If FUSIONNEE = "PETIT DEJEUNER" Then
+                        If FUSIONNEE = "PETIT DEJEUNER" Or FUSIONNEE = "BREAKFAST" Then
                             FIELD = "PDJ"
                             mainsCourante.updateMainCouranteJournaliereConsommationBarRestau(CODE_MAIN_COURANTE_JOURNALIERE, TABLE, FIELD, FIELDVALUE)
                         Else
@@ -1146,9 +1224,9 @@ Public Class LigneFacture
 
                             '2- DETERMINATION DU CHAMP A METTRE AJOUR DANS 
 
-                            If Trim(NATURE).Equals("DEJEUNER") Then
+                            If Trim(NATURE).Equals("DEJEUNER") Or Trim(NATURE).Equals("LUNCH") Then
                                 FIELD = "DEJEUNER"
-                            ElseIf Trim(NATURE).Equals("DINER") Then
+                            ElseIf Trim(NATURE).Equals("DINER") Or Trim(NATURE).Equals("DINNER") Then
                                 FIELD = "DINER"
                             Else
                                 FIELD = "DEJEUNER"
@@ -1241,18 +1319,26 @@ Public Class LigneFacture
                 Dim TYPE As String = ligneFactureTempContent.Rows(i)("TYPE")
                 Dim NUMERO_BLOC_NOTE As String = ligneFactureTempContent.Rows(i)("NUMERO_BLOC_NOTE")
                 Dim GRIFFE_UTILISATEUR As String = ligneFactureTempContent.Rows(i)("GRIFFE_UTILISATEUR")
+                Dim SERVEUR As String = ligneFactureTempContent.Rows(i)("SERVEUR")
                 Dim VALEUR_CONSO As Double = ligneFactureTempContent.Rows(i)("VALEUR_CONSO")
 
-                insertLigneFacture(CODE_FACTURE, CODE_RESERVATION, CODE_MOUVEMENT, CODE_CHAMBRE, CODE_MODE_PAIEMENT, NUMERO_PIECE, CODE_ARTICLE, CODE_LOT, MONTANT_HT, TAXE, QUANTITE_LIGNE_FACTURE, PRIX_UNITAIRE_TTC, MONTANT_TTC, DATE_FACTURE, HEURE_FACTURE, ETAT_FACTURE, DATE_OCCUPATION, HEURE_OCCUPATION, LIBELLE_FACTURE, TYPE_LIGNE_FACTURE, NUMERO_SERIE, NUMERO_ORDRE, DESCRIPTION, CODE_UTILISATEUR_CREA, CODE_AGENCE, MONTANT_REMISE, MONTANT_TAXE, NUMERO_SERIE_DEBUT, NUMERO_SERIE_FIN, CODE_MAGASIN, FUSIONNEE, TYPE, NUMERO_BLOC_NOTE, GRIFFE_UTILISATEUR, VALEUR_CONSO)
+                insertLigneFacture(CODE_FACTURE, CODE_RESERVATION, CODE_MOUVEMENT, CODE_CHAMBRE, CODE_MODE_PAIEMENT, NUMERO_PIECE, CODE_ARTICLE, CODE_LOT, MONTANT_HT, TAXE, QUANTITE_LIGNE_FACTURE, PRIX_UNITAIRE_TTC, MONTANT_TTC, DATE_FACTURE, HEURE_FACTURE, ETAT_FACTURE, DATE_OCCUPATION, HEURE_OCCUPATION, LIBELLE_FACTURE, TYPE_LIGNE_FACTURE, NUMERO_SERIE, NUMERO_ORDRE, DESCRIPTION, CODE_UTILISATEUR_CREA, CODE_AGENCE, MONTANT_REMISE, MONTANT_TAXE, NUMERO_SERIE_DEBUT, NUMERO_SERIE_FIN, CODE_MAGASIN, FUSIONNEE, TYPE, NUMERO_BLOC_NOTE, GRIFFE_UTILISATEUR, VALEUR_CONSO, SERVEUR)
 
                 'MISE A JOURS DE LA FUSIONNEE DANS LIGNE FACTURES
 
-                If FAMILLE_ARTICLE = "ALIMENTS(REPAS)" Then
-                    If Not FUSIONNEE = "PETIT DEJEUNER" Then
-                        miseAjoursSousFamilleArticleDansLigneFacture(CODE_FACTURE, NATURE, CODE_ARTICLE)
+                Dim mettreAjour As Boolean = True
+
+                If FAMILLE_ARTICLE = "ALIMENTS(REPAS)" Or FAMILLE_ARTICLE = "FOOD(MEAL)" Then
+                    If FUSIONNEE = "PETIT DEJEUNER" Or FUSIONNEE = "BREAKFAST" Then
+                        mettreAjour = False
                     End If
+                Else
+                    mettreAjour = False
                 End If
 
+                If mettreAjour Then
+                    miseAjoursSousFamilleArticleDansLigneFacture(CODE_FACTURE, NATURE, CODE_ARTICLE)
+                End If
                 '------------------------------------------
                 Dim econom As New Economat()
 
@@ -1319,6 +1405,9 @@ Public Class LigneFacture
 
                     If ligneFactureTempContent.Rows(i)("VALEUR_CONSO") > 0 Then
                         CODE_LOT = "CONSOMMATION"
+                        If GlobalVariable.actualLanguageValue = 0 Then
+                            CODE_LOT = "SHOT"
+                        End If
                     End If
 
                     Dim CODE_BORDEREAUX_MOV As String = "vente"
@@ -1483,7 +1572,8 @@ Public Class LigneFacture
         '------------------------------------------------------------------------------------------------------------------------------------------------------
 
         'ON INSERT LE CODE DE LA FACTURE DE LA RECETTE DANS LE MODE DE REGLEMENT POUR LE RETROUVER AU NIVEAU DE LA CAISSE PRINCIPALE
-        Dim updateQuery1 As String = "UPDATE `reglement` SET `CODE_MODE`= @CODE_FACTURE_RECETTE, ETAT=@ETAT WHERE CODE_CAISSIER=@CODE_CAISSIER AND CODE_AGENCE=@CODE_AGENCE AND DATE_REGLEMENT >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_REGLEMENT <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND CODE_MODE=@OLD_CODE_MODE "
+        'Dim updateQuery1 As String = "UPDATE `reglement` SET `CODE_MODE`= @CODE_FACTURE_RECETTE, ETAT=@ETAT WHERE CODE_CAISSIER=@CODE_CAISSIER AND CODE_AGENCE=@CODE_AGENCE AND DATE_REGLEMENT >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_REGLEMENT <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND CODE_MODE=@OLD_CODE_MODE "
+        Dim updateQuery1 As String = "UPDATE `reglement` SET `CODE_MODE`= @CODE_FACTURE_RECETTE WHERE CODE_CAISSIER=@CODE_CAISSIER AND CODE_AGENCE=@CODE_AGENCE AND DATE_REGLEMENT >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_REGLEMENT <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND CODE_MODE=@OLD_CODE_MODE "
 
         Dim command1 As New MySqlCommand(updateQuery1, GlobalVariable.connect)
 
@@ -1692,6 +1782,38 @@ Public Class LigneFacture
 
     End Function
 
+
+    Public Function ListeDesCategoriesDArticleVendusParRubriqueFastFood(ByVal DateDebut As Date, ByVal DateFin As Date, ByVal ETAT_FACTURE As Integer, Optional ByVal CODE_CAISSIER As String = "") As DataTable
+
+        Dim Query As String = ""
+
+        If Trim(CODE_CAISSIER) = "" Then
+            Query = "SELECT DISTINCT FUSIONNEE As 'SOUS FAMILLE' FROM ligne_facture,ligne_facture_bloc_note WHERE  DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <='" & DateFin.ToString("yyyy-MM-dd") & "' 
+                AND FUSIONNEE NOT IN ('HEBERGEMENT','','TAXE DE SEJOURS','HALL RENTING','ACCOMMODATION','TOURIST TAX','LOCATION SALLE') AND 
+                AND ligne_facture_bloc_note.ETAT_FACTURE=@ETAT_FACTURE AND ligne_facture_bloc_note.NUMERO_BLOC_NOTE = ligne_facture.NUMERO_BLOC_NOTE
+                ORDER BY FUSIONNEE ASC"
+        Else
+            'SELECTION DES FAMIILE UNIQUEMENT VENDU PAR LE CAISSIER EN COURS
+            Query = "SELECT DISTINCT FUSIONNEE As 'SOUS FAMILLE' FROM ligne_facture,ligne_facture_bloc_note WHERE DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' 
+                AND DATE_FACTURE <='" & DateFin.ToString("yyyy-MM-dd") & "' AND FUSIONNEE NOT IN ('HEBERGEMENT','','TAXE DE SEJOURS','HALL RENTING','ACCOMMODATION','TOURIST TAX','LOCATION SALLE') AND SORTIE_PAR=@CODE_CAISSIER 
+                AND ligne_facture_bloc_note.ETAT_FACTURE=@ETAT_FACTURE AND ligne_facture_bloc_note.NUMERO_BLOC_NOTE = ligne_facture.NUMERO_BLOC_NOTE
+                ORDER BY FUSIONNEE ASC"
+        End If
+
+        Dim command As New MySqlCommand(Query, GlobalVariable.connect)
+
+        command.Parameters.Add("@CODE_CAISSIER", MySqlDbType.VarChar).Value = CODE_CAISSIER
+        command.Parameters.Add("@ETAT_FACTURE", MySqlDbType.Int64).Value = ETAT_FACTURE
+
+        Dim adapterList As New MySqlDataAdapter(command)
+        Dim table As New DataTable()
+
+        adapterList.Fill(table)
+
+        Return table
+
+    End Function
+
     Public Function ListeDesCategoriesDArticleVendusParRubrique(ByVal DateDebut As Date, ByVal DateFin As Date, ByVal ETAT_FACTURE As Integer, Optional ByVal CODE_CAISSIER As String = "") As DataTable
 
         Dim Query As String = ""
@@ -1839,17 +1961,13 @@ Public Class LigneFacture
     End Function
 
 
-    Public Function ListeDesArticlesVendusInventaire(ByVal DateDebut As Date, ByVal DateFin As Date, ByVal CODE_UTILISATEUR As String) As DataTable
+    Public Function ListeDesArticlesVendusInventaireFastFood(ByVal DateDebut As Date, ByVal DateFin As Date, ByVal CODE_UTILISATEUR As String) As DataTable
 
         Dim Query As String = ""
         ', LIBELLE_FACTURE, PRIX_UNITAIRE_TTC AS 'PRIX UNITAIRE', FUSIONNEE 
         If Not Trim(CODE_UTILISATEUR) = "" Then
-            'Query = "SELECT DISTINCT Trim(CODE_ARTICLE), PRIX_UNITAIRE_TTC AS 'PRIX UNITAIRE' FROM ligne_facture WHERE CODE_AGENCE=@CODE_AGENCE AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <='" & DateFin.ToString("yyyy-MM-dd") & "' AND CODE_UTILISATEUR_CREA=@CODE_UTILISATEUR AND FUSIONNEE NOT IN ('HEBERGEMENT','') ORDER BY DATE_FACTURE DESC"
-
-            Query = "SELECT DISTINCT CODE_ARTICLE FROM ligne_facture WHERE CODE_AGENCE=@CODE_AGENCE AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <='" & DateFin.ToString("yyyy-MM-dd") & "' AND CODE_UTILISATEUR_CREA=@CODE_UTILISATEUR AND FUSIONNEE NOT IN ('HEBERGEMENT','','TAXE DE SEJOURS','HALL RENTING','ACCOMMODATION','TOURIST TAX','LOCATION SALLE') ORDER BY LIBELLE_FACTURE ASC"
-
+            Query = "SELECT DISTINCT CODE_ARTICLE FROM ligne_facture WHERE CODE_AGENCE=@CODE_AGENCE AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <='" & DateFin.ToString("yyyy-MM-dd") & "' AND SORTIE_PAR=@CODE_UTILISATEUR AND FUSIONNEE NOT IN ('HEBERGEMENT','','TAXE DE SEJOURS','HALL RENTING','ACCOMMODATION','TOURIST TAX','LOCATION SALLE') ORDER BY LIBELLE_FACTURE ASC"
         Else
-            'Query = "SELECT DISTINCT CODE_ARTICLE, PRIX_UNITAIRE_TTC AS 'PRIX UNITAIRE' FROM ligne_facture WHERE CODE_AGENCE=@CODE_AGENCE AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <='" & DateFin.ToString("yyyy-MM-dd") & "' AND FUSIONNEE NOT IN ('HEBERGEMENT','') ORDER BY DATE_FACTURE DESC"
             Query = "SELECT DISTINCT CODE_ARTICLE FROM ligne_facture WHERE CODE_AGENCE=@CODE_AGENCE AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <='" & DateFin.ToString("yyyy-MM-dd") & "' AND FUSIONNEE NOT IN ('HEBERGEMENT','','TAXE DE SEJOURS','','HALL RENTING','ACCOMMODATION','TOURIST TAX','LOCATION SALLE') ORDER BY LIBELLE_FACTURE ASC"
         End If
 
@@ -1857,6 +1975,97 @@ Public Class LigneFacture
 
         command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = GlobalVariable.codeAgence
         command.Parameters.Add("@CODE_UTILISATEUR", MySqlDbType.VarChar).Value = CODE_UTILISATEUR
+
+        Dim adapterList As New MySqlDataAdapter(command)
+        Dim table As New DataTable()
+
+        adapterList.Fill(table)
+
+        Return table
+
+    End Function
+
+
+    Public Function ListeDesArticlesVendusInventaire(ByVal DateDebut As Date, ByVal DateFin As Date, ByVal CODE_UTILISATEUR As String) As DataTable
+
+        Dim Query As String = ""
+        ', LIBELLE_FACTURE, PRIX_UNITAIRE_TTC AS 'PRIX UNITAIRE', FUSIONNEE 
+        If Not Trim(CODE_UTILISATEUR) = "" Then
+            Query = "SELECT DISTINCT CODE_ARTICLE FROM ligne_facture WHERE CODE_AGENCE=@CODE_AGENCE AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <='" & DateFin.ToString("yyyy-MM-dd") & "' AND CODE_UTILISATEUR_CREA=@CODE_UTILISATEUR AND FUSIONNEE NOT IN ('HEBERGEMENT','','TAXE DE SEJOURS','HALL RENTING','ACCOMMODATION','TOURIST TAX','LOCATION SALLE') ORDER BY LIBELLE_FACTURE ASC"
+        Else
+            Query = "SELECT DISTINCT CODE_ARTICLE FROM ligne_facture WHERE CODE_AGENCE=@CODE_AGENCE AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <='" & DateFin.ToString("yyyy-MM-dd") & "' AND FUSIONNEE NOT IN ('HEBERGEMENT','','TAXE DE SEJOURS','','HALL RENTING','ACCOMMODATION','TOURIST TAX','LOCATION SALLE') ORDER BY LIBELLE_FACTURE ASC"
+        End If
+
+        Dim command As New MySqlCommand(Query, GlobalVariable.connect)
+
+        command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = GlobalVariable.codeAgence
+        command.Parameters.Add("@CODE_UTILISATEUR", MySqlDbType.VarChar).Value = CODE_UTILISATEUR
+
+        Dim adapterList As New MySqlDataAdapter(command)
+        Dim table As New DataTable()
+
+        adapterList.Fill(table)
+
+        Return table
+
+    End Function
+
+    Public Function ListeDesArticlesVendusInventairePartype_typeLigneFacture_issuer(ByVal DateDebut As Date, ByVal DateFin As Date, ByVal TYPE_LIGNE_FACTURE As String, ByVal CODE_UTILISATEUR_CREA As String) As DataTable
+
+        Dim Query As String = ""
+        ', LIBELLE_FACTURE, PRIX_UNITAIRE_TTC AS 'PRIX UNITAIRE', FUSIONNEE 
+
+        Query = "SELECT DISTINCT CODE_ARTICLE FROM ligne_facture WHERE CODE_UTILISATEUR_CREA=@CODE_UTILISATEUR_CREA AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <='" & DateFin.ToString("yyyy-MM-dd") & "' AND TYPE_LIGNE_FACTURE=@TYPE_LIGNE_FACTURE AND FUSIONNEE NOT IN ('HEBERGEMENT','','TAXE DE SEJOURS','HALL RENTING','ACCOMMODATION','TOURIST TAX','LOCATION SALLE') ORDER BY LIBELLE_FACTURE ASC"
+
+        Dim command As New MySqlCommand(Query, GlobalVariable.connect)
+
+        command.Parameters.Add("@CODE_UTILISATEUR_CREA", MySqlDbType.VarChar).Value = CODE_UTILISATEUR_CREA
+        command.Parameters.Add("@TYPE_LIGNE_FACTURE", MySqlDbType.VarChar).Value = TYPE_LIGNE_FACTURE
+
+        Dim adapterList As New MySqlDataAdapter(command)
+        Dim table As New DataTable()
+
+        adapterList.Fill(table)
+
+        Return table
+
+    End Function
+
+    Public Function ListeDesArticlesVendusInventairePartype_article_typeLigneFacture_issuer(ByVal DateDebut As Date, ByVal DateFin As Date, ByVal TYPE_LIGNE_FACTURE As String, ByVal CODE_UTILISATEUR_CREA As String) As DataTable
+
+        Dim Query As String = ""
+        ', LIBELLE_FACTURE, PRIX_UNITAIRE_TTC AS 'PRIX UNITAIRE', FUSIONNEE 
+
+        Query = "SELECT DISTINCT CODE_ARTICLE FROM ligne_facture WHERE CODE_UTILISATEUR_CREA=@CODE_UTILISATEUR_CREA AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <='" & DateFin.ToString("yyyy-MM-dd") & "' AND TYPE_LIGNE_FACTURE=@TYPE_LIGNE_FACTURE AND FUSIONNEE NOT IN ('HEBERGEMENT','','TAXE DE SEJOURS','HALL RENTING','ACCOMMODATION','TOURIST TAX','LOCATION SALLE') ORDER BY LIBELLE_FACTURE ASC"
+
+        Dim command As New MySqlCommand(Query, GlobalVariable.connect)
+
+        command.Parameters.Add("@CODE_UTILISATEUR_CREA", MySqlDbType.VarChar).Value = CODE_UTILISATEUR_CREA
+        command.Parameters.Add("@TYPE_LIGNE_FACTURE", MySqlDbType.VarChar).Value = TYPE_LIGNE_FACTURE
+
+        Dim adapterList As New MySqlDataAdapter(command)
+        Dim table As New DataTable()
+
+        adapterList.Fill(table)
+
+        Return table
+
+    End Function
+
+    Public Function ListeDesArticlesVendusInventairePartype_ligne_facture(ByVal DateDebut As Date, ByVal DateFin As Date, ByVal TYPE_LIGNE_FACTURE As String) As DataTable
+
+        Dim Query As String = ""
+        ', LIBELLE_FACTURE, PRIX_UNITAIRE_TTC AS 'PRIX UNITAIRE', FUSIONNEE 
+        If Not Trim(TYPE_LIGNE_FACTURE) = "" Then
+            Query = "SELECT DISTINCT CODE_ARTICLE FROM ligne_facture WHERE CODE_AGENCE=@CODE_AGENCE AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <='" & DateFin.ToString("yyyy-MM-dd") & "' AND TYPE_LIGNE_FACTURE=@TYPE_LIGNE_FACTURE AND FUSIONNEE NOT IN ('HEBERGEMENT','','TAXE DE SEJOURS','HALL RENTING','ACCOMMODATION','TOURIST TAX','LOCATION SALLE') ORDER BY LIBELLE_FACTURE ASC"
+        Else
+            Query = "SELECT DISTINCT CODE_ARTICLE FROM ligne_facture WHERE CODE_AGENCE=@CODE_AGENCE AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <='" & DateFin.ToString("yyyy-MM-dd") & "' AND FUSIONNEE NOT IN ('HEBERGEMENT','','TAXE DE SEJOURS','','HALL RENTING','ACCOMMODATION','TOURIST TAX','LOCATION SALLE') ORDER BY LIBELLE_FACTURE ASC"
+        End If
+
+        Dim command As New MySqlCommand(Query, GlobalVariable.connect)
+
+        command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = GlobalVariable.codeAgence
+        command.Parameters.Add("@TYPE_LIGNE_FACTURE", MySqlDbType.VarChar).Value = TYPE_LIGNE_FACTURE
 
         Dim adapterList As New MySqlDataAdapter(command)
         Dim table As New DataTable()
@@ -2016,6 +2225,83 @@ Public Class LigneFacture
         command.Parameters.Add("@CODE_UTILISATEUR", MySqlDbType.VarChar).Value = CODE_UTILISATEUR
         command.Parameters.Add("@CODE_ARTICLE", MySqlDbType.VarChar).Value = CODE_ARTICLE
         command.Parameters.Add("@CODE_MAGASIN", MySqlDbType.VarChar).Value = CODE_MAGASIN
+
+        Dim adapterList As New MySqlDataAdapter(command)
+        Dim table As New DataTable()
+
+        adapterList.Fill(table)
+
+        Return table
+
+    End Function
+
+
+    Public Function ListeDesArticlesVendusInventaireIndividuelFastFood(ByVal DateDebut As Date, ByVal DateFin As Date, ByVal CODE_UTILISATEUR As String, ByVal CODE_ARTICLE As String) As DataTable
+
+        Dim Query As String = ""
+
+        If Not Trim(CODE_UTILISATEUR) = "" Then
+            Query = "SELECT LIBELLE_FACTURE AS 'LIBELLE ARTICLE', QUANTITE, MONTANT_TTC AS 'MONTANT TOTAL', CODE_LOT FROM ligne_facture WHERE CODE_AGENCE=@CODE_AGENCE AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <='" & DateFin.ToString("yyyy-MM-dd") & "' AND SORTIE_PAR=@CODE_UTILISATEUR AND CODE_ARTICLE=@CODE_ARTICLE AND FUSIONNEE NOT IN ('HEBERGEMENT','','TAXE DE SEJOURS','HALL RENTING','ACCOMMODATION','TOURIST TAX','LOCATION SALLE') ORDER BY DATE_FACTURE DESC"
+        Else
+            Query = "SELECT LIBELLE_FACTURE AS 'LIBELLE ARTICLE', QUANTITE, MONTANT_TTC AS 'MONTANT TOTAL', CODE_LOT FROM ligne_facture WHERE CODE_AGENCE=@CODE_AGENCE AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <='" & DateFin.ToString("yyyy-MM-dd") & "' AND CODE_ARTICLE=@CODE_ARTICLE AND FUSIONNEE NOT IN ('HEBERGEMENT','','TAXE DE SEJOURS','HALL RENTING','ACCOMMODATION','TOURIST TAX','LOCATION SALLE') ORDER BY DATE_FACTURE DESC"
+        End If
+
+        Dim command As New MySqlCommand(Query, GlobalVariable.connect)
+
+        command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = GlobalVariable.codeAgence
+        command.Parameters.Add("@CODE_UTILISATEUR", MySqlDbType.VarChar).Value = CODE_UTILISATEUR
+        command.Parameters.Add("@CODE_ARTICLE", MySqlDbType.VarChar).Value = CODE_ARTICLE
+
+        Dim adapterList As New MySqlDataAdapter(command)
+        Dim table As New DataTable()
+
+        adapterList.Fill(table)
+
+        Return table
+
+    End Function
+
+
+    Public Function ListeDesArticlesVendusInventaireIndividuelTypeLigneFacture(ByVal DateDebut As Date, ByVal DateFin As Date, ByVal TYPE_LIGNE_FACTURE As String, ByVal CODE_ARTICLE As String) As DataTable
+
+        Dim Query As String = ""
+
+        If Not Trim(TYPE_LIGNE_FACTURE) = "" Then
+            Query = "SELECT LIBELLE_FACTURE AS 'LIBELLE ARTICLE', QUANTITE, MONTANT_TTC AS 'MONTANT TOTAL', CODE_LOT FROM ligne_facture WHERE CODE_AGENCE=@CODE_AGENCE AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <='" & DateFin.ToString("yyyy-MM-dd") & "' AND TYPE_LIGNE_FACTURE=@TYPE_LIGNE_FACTURE AND CODE_ARTICLE=@CODE_ARTICLE AND FUSIONNEE NOT IN ('HEBERGEMENT','','TAXE DE SEJOURS','HALL RENTING','ACCOMMODATION','TOURIST TAX','LOCATION SALLE') ORDER BY DATE_FACTURE DESC"
+        Else
+            Query = "SELECT LIBELLE_FACTURE AS 'LIBELLE ARTICLE', QUANTITE, MONTANT_TTC AS 'MONTANT TOTAL', CODE_LOT FROM ligne_facture WHERE CODE_AGENCE=@CODE_AGENCE AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <='" & DateFin.ToString("yyyy-MM-dd") & "' AND CODE_ARTICLE=@CODE_ARTICLE AND FUSIONNEE NOT IN ('HEBERGEMENT','','TAXE DE SEJOURS','HALL RENTING','ACCOMMODATION','TOURIST TAX','LOCATION SALLE') ORDER BY DATE_FACTURE DESC"
+        End If
+
+        Dim command As New MySqlCommand(Query, GlobalVariable.connect)
+
+        command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = GlobalVariable.codeAgence
+        command.Parameters.Add("@TYPE_LIGNE_FACTURE", MySqlDbType.VarChar).Value = TYPE_LIGNE_FACTURE
+        command.Parameters.Add("@CODE_ARTICLE", MySqlDbType.VarChar).Value = CODE_ARTICLE
+
+        Dim adapterList As New MySqlDataAdapter(command)
+        Dim table As New DataTable()
+
+        adapterList.Fill(table)
+
+        Return table
+
+    End Function
+
+
+    Public Function ListeDesArticlesVendusInventaireIndividuel_type_ligne_facture_issuer(ByVal DateDebut As Date, ByVal DateFin As Date, ByVal CODE_UTILISATEUR As String,
+                                                                                         ByVal CODE_ARTICLE As String, ByVal TYPE_LIGNE_FACTURE As String) As DataTable
+
+        Dim Query As String = ""
+
+        Query = "SELECT LIBELLE_FACTURE AS 'LIBELLE ARTICLE', QUANTITE, MONTANT_TTC AS 'MONTANT TOTAL', CODE_LOT FROM ligne_facture WHERE CODE_AGENCE=@CODE_AGENCE AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <='" & DateFin.ToString("yyyy-MM-dd") & "' AND CODE_UTILISATEUR_CREA=@CODE_UTILISATEUR AND CODE_ARTICLE=@CODE_ARTICLE 
+        AND FUSIONNEE NOT IN ('HEBERGEMENT','','TAXE DE SEJOURS','HALL RENTING','ACCOMMODATION','TOURIST TAX','LOCATION SALLE') AND TYPE_LIGNE_FACTURE=@TYPE_LIGNE_FACTURE ORDER BY DATE_FACTURE DESC"
+
+        Dim command As New MySqlCommand(Query, GlobalVariable.connect)
+
+        command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = GlobalVariable.codeAgence
+        command.Parameters.Add("@CODE_UTILISATEUR", MySqlDbType.VarChar).Value = CODE_UTILISATEUR
+        command.Parameters.Add("@CODE_ARTICLE", MySqlDbType.VarChar).Value = CODE_ARTICLE
+        command.Parameters.Add("@TYPE_LIGNE_FACTURE", MySqlDbType.VarChar).Value = TYPE_LIGNE_FACTURE
 
         Dim adapterList As New MySqlDataAdapter(command)
         Dim table As New DataTable()
@@ -2221,6 +2507,32 @@ Public Class LigneFacture
 
     End Function
 
+
+    Public Function ListeDesArticlesVendusParFamilleDunCaissierParRubriqueFastFood(ByVal CategoriePArent As String, ByVal DateDebut As Date, ByVal DateFin As Date, ByVal CODE_CAISSIER As String, ByVal ETAT_FACTURE As Integer) As DataTable
+
+        Dim Query As String = ""
+
+        Query = "SELECT CODE_ARTICLE AS ARTICLE, LIBELLE_FACTURE AS 'LIBELLE ARTICLE', QUANTITE, PRIX_UNITAIRE_TTC AS 'PRIX UNITAIRE', MONTANT_TTC AS 'MONTANT TOTAL' FROM ligne_facture, ligne_facture_bloc_note
+            WHERE CODE_AGENCE=@CODE_AGENCE AND DATE_FACTURE >= '" & DateDebut.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <='" & DateFin.ToString("yyyy-MM-dd") & "'
+            AND FUSIONNEE=@CATEGORIE_PARENT AND SORTIE_PAR = @CODE_CAISSIER 
+            AND ligne_facture_bloc_note.ETAT_FACTURE=@ETAT_FACTURE AND ligne_facture_bloc_note.NUMERO_BLOC_NOTE = ligne_facture.NUMERO_BLOC_NOTE"
+
+        Dim command As New MySqlCommand(Query, GlobalVariable.connect)
+
+        command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = GlobalVariable.codeAgence
+        command.Parameters.Add("@CATEGORIE_PARENT", MySqlDbType.VarChar).Value = CategoriePArent
+        command.Parameters.Add("@CODE_CAISSIER", MySqlDbType.VarChar).Value = CODE_CAISSIER
+        command.Parameters.Add("@ETAT_FACTURE", MySqlDbType.Int64).Value = ETAT_FACTURE
+
+        Dim adapterList As New MySqlDataAdapter(command)
+        Dim table As New DataTable()
+
+        adapterList.Fill(table)
+
+        Return table
+
+    End Function
+
     '7- LISTE DES VENTES SUR UNE PERIODE PAR RUBRIQUE COMPTOIR-EN CHAMBRE-OFFRES-DEBITEURS-EN SALLE
 
     Public Function ListeDesArticlesVendusParFamilleDunCaissierParRubrique(ByVal CategoriePArent As String, ByVal DateDebut As Date, ByVal DateFin As Date, ByVal CODE_CAISSIER As String, ByVal ETAT_FACTURE As Integer) As DataTable
@@ -2315,12 +2627,6 @@ Public Class LigneFacture
 
                 For i = 0 To ligne_reservation.Rows.Count - 1
 
-                    'ActivationForm.Show()
-                    'ActivationForm.TopMost = True
-                    'ActivationForm.GunaTextBoxMessage.Text = CODE_ARTICLE & " " & SUFFIX_LIBELLE_ARTICLE & " " & NUMERO_BLOC_NOTE_OU_RESERVATION & " " & ligne_reservation.Rows(i)("LIBELLE_FACTURE") & SUFFIX_LIBELLE_ARTICLE
-
-                    'Dim updateQuery As String = "UPDATE `ligne_facture` SET LIBELLE_FACTURE=@LIBELLE_FACTURE WHERE CODE_RESERVATION=@CODE_RESERVATION AND CODE_ARTICLE=@CODE_ARTICLE AND CODE_UTILISATEUR_CREA=@CODE_UTILISATEUR_CREA AND DATE_FACTURE >= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND DATE_FACTURE <= '" & DateDeSituation.ToString("yyyy-MM-dd") & "' AND ETAT =@ETAT"
-
                     Dim updateQuery As String = "UPDATE `ligne_facture` SET LIBELLE_FACTURE=@LIBELLE_FACTURE WHERE CODE_RESERVATION=@CODE_RESERVATION AND CODE_ARTICLE=@CODE_ARTICLE AND ID_LIGNE_FACTURE=@ID_LIGNE_FACTURE"
 
                     Dim command As New MySqlCommand(updateQuery, GlobalVariable.connect)
@@ -2367,7 +2673,7 @@ Public Class LigneFacture
             End If
             '---------------------------------------------------------------------
 
-            If FAMILLE_ARTICLE = "BOISSONS" Then
+            If FAMILLE_ARTICLE = "BOISSONS" Or FAMILLE_ARTICLE = "DRINKS" Then
                 'TRAITEMENT DES BOISSONS
                 FIELD = "BAR"
 
@@ -2375,7 +2681,7 @@ Public Class LigneFacture
 
                 mainsCourante.updateMainCouranteJournaliereEtAutresApresTransfert(CODE_MAIN_COURANTE_JOURNALIERE_2, TABLE_2, FIELD, FIELDVALUE)
 
-                If FUSIONNEE = "EAU MINERAL" Then
+                If FUSIONNEE = "EAU MINERAL" Or FUSIONNEE = "MINERAL WATER" Then
                     FIELD = "CAFE"
                     mainsCourante.updateMainCouranteJournaliereEtAutresApresTransfert(CODE_MAIN_COURANTE_JOURNALIERE_1, TABLE_1, FIELD, FIELDVALUE * -1)
 
@@ -2394,11 +2700,11 @@ Public Class LigneFacture
                     End If
                 End If
 
-            ElseIf FAMILLE_ARTICLE = "ALIMENTS(REPAS)" Then
+            ElseIf FAMILLE_ARTICLE = "ALIMENTS(REPAS)" Or FAMILLE_ARTICLE = "FOOD(MEAL)" Then
 
                 'ON EXCLU LES REPAS DE TYPE PETIT DEJEUENER DU CONTROLE DU TEMPS
                 'If FUSIONNEE = "PETIT DEJEUNER" Then
-                If FUSIONNEE = "PETIT DEJEUNER" Then
+                If FUSIONNEE = "PETIT DEJEUNER" Or FUSIONNEE = "BREAKFAST" Then
                     FIELD = "PDJ"
                 Else
 
@@ -2414,9 +2720,9 @@ Public Class LigneFacture
                     'If NATURE = "PETIT DEJEUNER" Then
                     'FIELD = "PDJ"
 
-                    If NATURE = "DEJEUNER" Then
+                    If NATURE = "DEJEUNER" Or NATURE = "LUNCH" Then
                         FIELD = "DEJEUNER"
-                    ElseIf NATURE = "DINER" Then
+                    ElseIf NATURE = "DINER" Or NATURE = "DINNER" Then
                         FIELD = "DINER"
                     Else
                         FIELD = "DEJEUNER"
@@ -2554,6 +2860,17 @@ Public Class LigneFacture
 
         End If
 
+        '--------------------- ON RECHERCHE LES EVENETUELS REGLEMENTS ASSOCIE A CE BLOC NOTE PUIS ON LES RATTACHE AU TRANSFERTS EN CHAMBRE-------------
+        Dim ListeDesRglementDuBlocNote As DataTable = Functions.GetAllElementsOnCondition(Trim(GlobalVariable.blocNoteARegler), "reglement", "NUMERO_BLOC_NOTE")
+        If ListeDesRglementDuBlocNote.Rows.Count > 0 Then
+
+            Dim NUM_REGLEMENT As String = ""
+
+            For i = 0 To ListeDesRglementDuBlocNote.Rows.Count - 1
+                NUM_REGLEMENT = ListeDesRglementDuBlocNote.Rows(i)("NUM_REGLEMENT")
+                Functions.updateOfFields("reglement", "CODE_RESERVATION", CODE_RESERVATION, "NUM_REGLEMENT", NUM_REGLEMENT, 2)
+            Next
+        End If
         '---------------------------------------------------------------------------------------------------------------------------------
 
     End Sub
@@ -2562,7 +2879,9 @@ Public Class LigneFacture
     Public Sub transfertDeLigneChargeEnChambreVersEnChambre(ByVal CODE_ARTICLE As String, ByVal CODE_CHAMBRE As String, ByVal NEW_CODE_RESERVATION As String, ByVal OLD_CODE_RESERVATION As String, ByVal CODE_FACTURE As String, ByVal NOM_CLIENT As String, ByVal ID_LIGNE_FACTURE As Integer)
 
         Dim SUFFIX_LIBELLE_ARTICLE As String = " VERS " & NOM_CLIENT & "/" & CODE_CHAMBRE & ""
-
+        If GlobalVariable.actualLanguageValue = 0 Then
+            SUFFIX_LIBELLE_ARTICLE = " TO " & NOM_CLIENT & "/" & CODE_CHAMBRE & ""
+        End If
         changementLibelleArticle(CODE_ARTICLE, OLD_CODE_RESERVATION, SUFFIX_LIBELLE_ARTICLE, ID_LIGNE_FACTURE)
 
         Dim updateQuery As String = "UPDATE `ligne_facture` Set CODE_RESERVATION=@NEW_CODE_RESERVATION, CODE_CHAMBRE=@CODE_CHAMBRE,CODE_MODE_PAIEMENT =@NOM_CLIENT 
@@ -2699,12 +3018,12 @@ Public Class LigneFacture
                     Dim FIELDVALUE As Double = MONTANT_TTC
                     Dim FIELD As String = ""
 
-                    If Trim(FAMILLE_ARTICLE) = "BOISSONS" Then
+                    If Trim(FAMILLE_ARTICLE) = "BOISSONS" Or Trim(FAMILLE_ARTICLE) = "DRINKS" Then
                         'TRAITEMENT DES BOISSONS
                         FIELD = "BAR"
                         mainsCourante.updateMainCouranteJournaliereConsommationBarRestau(CODE_MAIN_COURANTE_JOURNALIERE, TABLE, FIELD, FIELDVALUE)
 
-                        If FUSIONNEE = "EAU MINERAL" Then
+                        If FUSIONNEE = "EAU MINERAL" Or FUSIONNEE = "MINERAL WATER" Then
                             FIELD = "CAFE"
                             mainsCourante.updateMainCouranteJournaliereConsommationBarRestau(CODE_MAIN_COURANTE_JOURNALIERE, TABLE, FIELD, FIELDVALUE)
                         Else
@@ -2717,11 +3036,11 @@ Public Class LigneFacture
                             End If
                         End If
 
-                    ElseIf Trim(FAMILLE_ARTICLE) = "ALIMENTS(REPAS)" Then
+                    ElseIf Trim(FAMILLE_ARTICLE) = "ALIMENTS(REPAS)" Or Trim(FAMILLE_ARTICLE) = "FOOD(MEAL)" Then
 
                         'ON EXCLU LES REPAS DE TYPE PETIT DEJEUENER DU CONTROLE DU TEMPS
                         'If FUSIONNEE = "PETIT DEJEUNER" Then
-                        If FUSIONNEE = "PETIT DEJEUNER" Then
+                        If FUSIONNEE = "PETIT DEJEUNER" Or FUSIONNEE = "BREAKFAST" Then
                             FIELD = "PDJ"
                             mainsCourante.updateMainCouranteJournaliereConsommationBarRestau(CODE_MAIN_COURANTE_JOURNALIERE, TABLE, FIELD, FIELDVALUE)
                         Else
@@ -2735,9 +3054,9 @@ Public Class LigneFacture
 
                             '2- DETERMINATION DU CHAMP A METTRE AJOUR DANS 
 
-                            If Trim(NATURE).Equals("DEJEUNER") Then
+                            If Trim(NATURE).Equals("DEJEUNER") Or Trim(NATURE).Equals("LUNCH") Then
                                 FIELD = "DEJEUNER"
-                            ElseIf Trim(NATURE).Equals("DINER") Then
+                            ElseIf Trim(NATURE).Equals("DINER") Or Trim(NATURE).Equals("DINNER") Then
                                 FIELD = "DINER"
                             Else
                                 FIELD = "DEJEUNER"
@@ -2770,8 +3089,8 @@ Public Class LigneFacture
                 'MISE A JOURS DE LA MAINCOURANTE PAR APPORT A CHAQUE POINT DE VENTE
                 miseAjourDeLaMainCouranteParApportAPlusieursPointDeVente(NOM_ARTICLE, POINT_DE_VENTE, MONTANT_TTC, ANNULATION)
 
-                If FAMILLE_ARTICLE = "ALIMENTS(REPAS)" Then
-                    If Not FUSIONNEE = "PETIT DEJEUNER" Then
+                If FAMILLE_ARTICLE = "ALIMENTS(REPAS)" Or FAMILLE_ARTICLE = "FOOD(MEAL)" Then
+                    If Not FUSIONNEE = "PETIT DEJEUNER" Or Not FUSIONNEE = "BREAKFAST" Then
                         miseAjoursSousFamilleArticleDansLigneFacture(CODE_FACTURE, NATURE, CODE_ARTICLE)
                     End If
                 End If
@@ -2867,12 +3186,12 @@ Public Class LigneFacture
                     Dim FIELDVALUE As Double = MONTANT_TTC
                     Dim FIELD As String = ""
 
-                    If Trim(FAMILLE_ARTICLE) = "BOISSONS" Then
+                    If Trim(FAMILLE_ARTICLE) = "BOISSONS" Or Trim(FAMILLE_ARTICLE) = "DRINKS" Then
                         'TRAITEMENT DES BOISSONS
                         FIELD = "BAR"
                         mainsCourante.updateMainCouranteJournaliereConsommationBarRestau(CODE_MAIN_COURANTE_JOURNALIERE, TABLE, FIELD, FIELDVALUE)
 
-                        If FUSIONNEE = "EAU MINERAL" Then
+                        If FUSIONNEE = "EAU MINERAL" Or FUSIONNEE = "MINERAL WATER" Then
                             FIELD = "CAFE"
                             mainsCourante.updateMainCouranteJournaliereConsommationBarRestau(CODE_MAIN_COURANTE_JOURNALIERE, TABLE, FIELD, FIELDVALUE)
                         Else
@@ -2885,11 +3204,11 @@ Public Class LigneFacture
                             End If
                         End If
 
-                    ElseIf Trim(FAMILLE_ARTICLE) = "ALIMENTS(REPAS)" Then
+                    ElseIf Trim(FAMILLE_ARTICLE) = "ALIMENTS(REPAS)" Or Trim(FAMILLE_ARTICLE) = "FOOD(MEAL)" Then
 
                         'ON EXCLU LES REPAS DE TYPE PETIT DEJEUENER DU CONTROLE DU TEMPS
                         'If FUSIONNEE = "PETIT DEJEUNER" Then
-                        If FUSIONNEE = "PETIT DEJEUNER" Then
+                        If FUSIONNEE = "PETIT DEJEUNER" Or FUSIONNEE = "BREAKFAST" Then
                             FIELD = "PDJ"
                             mainsCourante.updateMainCouranteJournaliereConsommationBarRestau(CODE_MAIN_COURANTE_JOURNALIERE, TABLE, FIELD, FIELDVALUE)
                         Else
@@ -2903,9 +3222,9 @@ Public Class LigneFacture
 
                             '2- DETERMINATION DU CHAMP A METTRE AJOUR DANS 
 
-                            If Trim(NATURE).Equals("DEJEUNER") Then
+                            If Trim(NATURE).Equals("DEJEUNER") Or Trim(NATURE).Equals("LUNCH") Then
                                 FIELD = "DEJEUNER"
-                            ElseIf Trim(NATURE).Equals("DINER") Then
+                            ElseIf Trim(NATURE).Equals("DINER") Or Trim(NATURE).Equals("DINNER") Then
                                 FIELD = "DINER"
                             Else
                                 FIELD = "DEJEUNER"
@@ -2938,8 +3257,8 @@ Public Class LigneFacture
                 'MISE A JOURS DE LA MAINCOURANTE PAR APPORT A CHAQUE POINT DE VENTE
                 miseAjourDeLaMainCouranteParApportAPlusieursPointDeVente(NOM_ARTICLE, POINT_DE_VENTE, MONTANT_TTC, ANNULATION)
 
-                If FAMILLE_ARTICLE = "ALIMENTS(REPAS)" Then
-                    If Not FUSIONNEE = "PETIT DEJEUNER" Then
+                If FAMILLE_ARTICLE = "ALIMENTS(REPAS)" Or FAMILLE_ARTICLE = "FOOD(MEAL)" Then
+                    If Not FUSIONNEE = "PETIT DEJEUNER" Or Not FUSIONNEE = "BREAKFAST" Then
                         miseAjoursSousFamilleArticleDansLigneFacture(CODE_FACTURE, NATURE, CODE_ARTICLE)
                     End If
                 End If
@@ -2951,6 +3270,30 @@ Public Class LigneFacture
         End If
 
     End Sub
+
+
+
+    Public Function insertTri(ByVal LABEL_1 As String, ByVal NUMBER_1 As Integer, ByVal LABEL_2 As String, ByVal NUMBER_2 As Double)
+
+        Dim insertQuery As String = "INSERT INTO `tri_table`(`LABEL_1`, `NUMBER_1`, `LABEL_2`, `NUMBER_2`) VALUES (@LABEL_1,@NUMBER_1,@LABEL_2,@NUMBER_2)"
+
+        Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
+
+        command.Parameters.Add("@LABEL_1", MySqlDbType.VarChar).Value = LABEL_1
+        command.Parameters.Add("@LABEL_2", MySqlDbType.VarChar).Value = LABEL_2
+        command.Parameters.Add("@NUMBER_2", MySqlDbType.Double).Value = NUMBER_2
+        command.Parameters.Add("@NUMBER_1", MySqlDbType.Double).Value = NUMBER_1
+
+        'Excuting the command and testing if everything went on well
+        If (command.ExecuteNonQuery() = 1) Then
+            'connect.closeConnection()
+            Return True
+        Else
+            'connect.closeConnection()
+            Return False
+        End If
+
+    End Function
 
     'create a function to update the selected reservation
     Public Function insertGestionDesShifts(ByVal DATE_SHIFT As Date, ByVal INDEX_SHIFT As Integer, ByVal CODE_UTILISATEUR As String, ByVal CODE_MAGASIN As String, ByVal NOM_UTILISATEUR As String, ByVal HEURE_ARRIVEE As String, ByVal HEURE_DEPART As String, ByVal CHEMIN_DEBUT As String) As Boolean
@@ -3114,7 +3457,6 @@ Public Class LigneFacture
         Return table.Rows.Count
 
     End Function
-
 
     Public Sub updateMontantEncaissementDansBlocNote(ByVal BLOC_NOTE_EN_COURS As String, ByVal MONTANT_REGLEMENT As Double)
 

@@ -4,6 +4,9 @@ Public Class NotificationsForm
 
     Private Sub NotificationsForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        Dim language As New Languages()
+        language.notification(GlobalVariable.actualLanguageValue)
+
         'Profil
         Dim profils As String = "SELECT CODE_PROFIL, NOM_PROFIL FROM utilisateur_acces ORDER BY NOM_PROFIL ASC"
         Dim commandprofilsList As New MySqlCommand(profils, GlobalVariable.connect)
@@ -31,10 +34,14 @@ Public Class NotificationsForm
     End Sub
 
     Private Sub GunaButton3_Click(sender As Object, e As EventArgs) Handles GunaButton3.Click
-        GunaLabelNomDuNettoyeur.Text = "ENVOYER UN MESSAGE"
 
-        GunaComboBoxProfilUtilisateur.Visible = True
+        GunaLabelTitle.Text = "ENVOYER UN MESSAGE"
         GunaButtonEnvoyer.Text = "Envoyer"
+        If GlobalVariable.actualLanguageValue = 0 Then
+            GunaLabelTitle.Text = "SEND A MESSAGE"
+            GunaButtonEnvoyer.Text = "Send"
+        End If
+        GunaComboBoxProfilUtilisateur.Visible = True
         GunaPanelEcrire.BringToFront()
         GunaPanelEcrire.Visible = True
 
@@ -43,8 +50,6 @@ Public Class NotificationsForm
     End Sub
 
     Private Sub GunaButton4_Click(sender As Object, e As EventArgs) Handles GunaButton4.Click
-
-        GunaLabelNomDuNettoyeur.Text = "BOITE DE RECEPTION"
 
         GunaDataGridViewNotification.Columns.Clear()
 
@@ -66,6 +71,17 @@ Public Class NotificationsForm
 
         End If
 
+        Dim pluriel As String = ""
+
+        If notifications.Rows.Count > 1 Then
+            pluriel = "s"
+        End If
+
+        GunaLabelTitle.Text = "MESSAGE" & pluriel.ToUpper & " LU" & pluriel.ToUpper
+        If GlobalVariable.actualLanguageValue = 0 Then
+            GunaLabelTitle.Text = "READ MESSAGE" & pluriel.ToUpper
+        End If
+
         GunaPanelLire.BringToFront()
         GunaPanelLire.Visible = True
 
@@ -84,13 +100,13 @@ Public Class NotificationsForm
 
         sendMessage.sendMessage(CODE_PROFIL, MESSAGE, OBJET, DATE_ENVOI, EXPEDITEUR)
 
-        If Trim(GunaButtonEnvoyer.Text) = "Envoyer" Then
-
+        If GlobalVariable.actualLanguageValue = 0 Then
+            GunaButtonEnvoyer.Text = "Send"
+            MessageBox.Show("Message Successfully send", "Notifications", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Else
             GunaButtonEnvoyer.Text = "Envoyer"
+            MessageBox.Show("Message envoyé avec succès", "Notifications", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
-
-        MessageBox.Show("Message envoyé avec succès", "Notifications", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         Functions.SiplifiedClearTextBox(Me)
 
@@ -99,7 +115,7 @@ Public Class NotificationsForm
     'Affichage du message
     Private Sub GunaDataGridViewNotification_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GunaDataGridViewNotification.CellDoubleClick
 
-        If e.RowIndex >= 0 Then
+        If GunaDataGridViewNotification.Rows(e.RowIndex).Selected Then
 
             Dim userMessage As New User()
 
@@ -112,8 +128,7 @@ Public Class NotificationsForm
             Dim ETAT As Integer = 1
 
             userMessage.updateMessageState(ID_NOTIFICATION, ETAT)
-
-            GunaLabelNomDuNettoyeur.Text = "MESSAGE ENVOYE PAR " & row.Cells("CODE_PROFIL").Value.ToString
+            GunaLabelTitle.Text = "MESSAGE ENVOYE PAR " & row.Cells("CODE_PROFIL").Value.ToString
 
             GunaComboBoxProfilUtilisateur.SelectedValue = row.Cells("EXPEDITEUR").Value.ToString
 
@@ -124,6 +139,10 @@ Public Class NotificationsForm
             GunaTextBoxMessage.Text = row.Cells("MESSAGE").Value.ToString
 
             GunaButtonEnvoyer.Text = "Répondre"
+            If GlobalVariable.actualLanguageValue = 0 Then
+                GunaButtonEnvoyer.Text = "Reply"
+                GunaLabelTitle.Text = "MESSAGE SEND BY " & row.Cells("CODE_PROFIL").Value.ToString
+            End If
 
             GunaPanelEcrire.BringToFront()
 
@@ -132,13 +151,11 @@ Public Class NotificationsForm
             Dim notifications As DataTable = Functions.GetAllElementsOnTwoConditions(GlobalVariable.ConnectedUser.Rows(0)("CATEG_UTILISATEUR"), "notification", "CODE_PROFIL", 0, "ETAT_NOTIFCATION")
 
             If Trim(GunaTextBoxFromWhichWindow.Text).Equals("economat") Then
-
                 If notifications.Rows.Count > 0 Then
                     MainWindowEconomat.GunaLabelNotification.Text = "(" & notifications.Rows.Count & ")"
                 Else
                     MainWindowEconomat.GunaLabelNotification.Text = "(" & 0 & ")"
                 End If
-
             ElseIf Trim(GunaTextBoxFromWhichWindow.Text).Equals("cuisine") Then
                 If notifications.Rows.Count > 0 Then
                     MainWindowCuisineForm.GunaLabelNotification.Text = "(" & notifications.Rows.Count & ")"
@@ -186,7 +203,10 @@ Public Class NotificationsForm
 
         GunaDataGridViewNotification.Columns.Clear()
 
-        GunaLabelNomDuNettoyeur.Text = "BOITE DE RECEPTION : MESSAGES LUS"
+        GunaLabelTitle.Text = "BOITE DE RECEPTION : MESSAGES LUS"
+        If GlobalVariable.actualLanguageValue = 0 Then
+            GunaLabelTitle.Text = "READ MESSAGES"
+        End If
         GunaPanelLire.BringToFront()
         GunaPanelLire.Visible = True
 
@@ -215,10 +235,12 @@ Public Class NotificationsForm
 
     Private Sub messageNonLus()
 
-
         GunaDataGridViewNotification.Columns.Clear()
 
-        GunaLabelNomDuNettoyeur.Text = "BOITE DE RECEPTION : MESSAGES NON LUS"
+        GunaLabelTitle.Text = "BOITE DE RECEPTION : MESSAGES NON LUS"
+        If GlobalVariable.actualLanguageValue = 0 Then
+            GunaLabelTitle.Text = "UNREAD MESSAGES"
+        End If
         GunaPanelLire.BringToFront()
         GunaPanelLire.Visible = True
 
@@ -226,7 +248,10 @@ Public Class NotificationsForm
 
         If notifications.Rows.Count > 0 Then
 
-            GunaLabelNomDuNettoyeur.Text = "BOITE DE RECEPTION : MESSAGES NON LUS " & "(" & notifications.Rows.Count & ")"
+            GunaLabelTitle.Text = "BOITE DE RECEPTION : MESSAGES NON LUS " & "(" & notifications.Rows.Count & ")"
+            If GlobalVariable.actualLanguageValue = 0 Then
+                GunaLabelTitle.Text = "UNREAD MESSAGES " & "(" & notifications.Rows.Count & ")"
+            End If
 
             GunaDataGridViewNotification.DataSource = notifications
 
@@ -237,7 +262,10 @@ Public Class NotificationsForm
 
         Else
 
-            GunaLabelNomDuNettoyeur.Text = "BOITE DE RECEPTION "
+            GunaLabelTitle.Text = "BOITE DE RECEPTION "
+            If GlobalVariable.actualLanguageValue = 0 Then
+                GunaLabelTitle.Text = "MESSAGES"
+            End If
 
         End If
 
@@ -245,4 +273,5 @@ Public Class NotificationsForm
         GunaPanelLire.Visible = True
 
     End Sub
+
 End Class

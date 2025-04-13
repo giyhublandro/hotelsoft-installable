@@ -101,6 +101,7 @@ Partial Class CompanyForm
         Me.GunaLabel22 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel20 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaPanel1 = New Guna.UI.WinForms.GunaPanel()
+        Me.GunaCheckBoxConfig = New Guna.UI.WinForms.GunaCheckBox()
         Me.GunaLinePanelTop.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -1373,11 +1374,24 @@ Partial Class CompanyForm
         Me.GunaPanel1.Size = New System.Drawing.Size(799, 10)
         Me.GunaPanel1.TabIndex = 11
         '
+        'GunaCheckBoxConfig
+        '
+        Me.GunaCheckBoxConfig.BackColor = System.Drawing.SystemColors.Control
+        Me.GunaCheckBoxConfig.BaseColor = System.Drawing.Color.White
+        Me.GunaCheckBoxConfig.CheckedOffColor = System.Drawing.Color.Gray
+        Me.GunaCheckBoxConfig.CheckedOnColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaCheckBoxConfig.FillColor = System.Drawing.Color.White
+        Me.GunaCheckBoxConfig.Location = New System.Drawing.Point(4, 518)
+        Me.GunaCheckBoxConfig.Name = "GunaCheckBoxConfig"
+        Me.GunaCheckBoxConfig.Size = New System.Drawing.Size(20, 20)
+        Me.GunaCheckBoxConfig.TabIndex = 12
+        '
         'CompanyForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 550)
+        Me.Controls.Add(Me.GunaCheckBoxConfig)
         Me.Controls.Add(Me.GunaPanel1)
         Me.Controls.Add(Me.GunaButtonEnregistrer)
         Me.Controls.Add(Me.GunaButtonFermer)
@@ -1400,6 +1414,7 @@ Partial Class CompanyForm
         Me.TabPageDivers.ResumeLayout(False)
         Me.TabPageDivers.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents GunaImageButton1 As Guna.UI.WinForms.GunaImageButton
@@ -1479,4 +1494,5 @@ Partial Class CompanyForm
     Friend WithEvents GunaLabel33 As Guna.UI.WinForms.GunaLabel
     Friend WithEvents GunaButtonUpload As Guna.UI.WinForms.GunaButton
     Friend WithEvents GunaPictureBoxLogo As Guna.UI.WinForms.GunaPictureBox
+    Friend WithEvents GunaCheckBoxConfig As Guna.UI.WinForms.GunaCheckBox
 End Class

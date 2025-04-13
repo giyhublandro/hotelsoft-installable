@@ -17,9 +17,24 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
@@ -194,6 +209,12 @@
     <Compile Include="BarRestaurantCaisseEnregistreuseForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="BlanchisseurForm.Designer.vb">
+      <DependentUpon>BlanchisseurForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BlanchisseurForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ClubElite.vb" />
     <Compile Include="ClubEliteForm.Designer.vb">
       <DependentUpon>ClubEliteForm.vb</DependentUpon>
@@ -330,7 +351,21 @@
     <Compile Include="ConditionningForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ConfigClass.vb" />
+    <Compile Include="ConfigCustomizationClass.vb" />
+    <Compile Include="ConfigForm.Designer.vb">
+      <DependentUpon>ConfigForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Consigne.vb" />
+    <Compile Include="ConsolidationForm.Designer.vb">
+      <DependentUpon>ConsolidationForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ConsolidationForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ConsommationPreparation.Designer.vb">
       <DependentUpon>ConsommationPreparation.vb</DependentUpon>
     </Compile>
@@ -347,6 +382,12 @@
       <DependentUpon>CustomCommandForm.vb</DependentUpon>
     </Compile>
     <Compile Include="CustomCommandForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataBaseBackUpForm.Designer.vb">
+      <DependentUpon>DataBaseBackUpForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseBackUpForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DataBaseExportImportForm.Designer.vb">
@@ -369,6 +410,8 @@
     <Compile Include="DepotGarantieForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="DocumentsGenerationClass.vb" />
+    <Compile Include="DocumentsSendingClass.vb" />
     <Compile Include="EcritureComptable.vb" />
     <Compile Include="editionDeMasseForm.Designer.vb">
       <DependentUpon>editionDeMasseForm.vb</DependentUpon>
@@ -390,6 +433,12 @@
     <Compile Include="EvenementForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ExchangeForm.Designer.vb">
+      <DependentUpon>ExchangeForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ExchangeForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FabricationDeProformaForm.Designer.vb">
       <DependentUpon>FabricationDeProformaForm.vb</DependentUpon>
     </Compile>
@@ -403,6 +452,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Facture.vb" />
+    <Compile Include="FastFoodForm.Designer.vb">
+      <DependentUpon>FastFoodForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FastFoodForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FiscaliteForm.Designer.vb">
       <DependentUpon>FiscaliteForm.vb</DependentUpon>
     </Compile>
@@ -435,6 +490,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Functions.vb" />
+    <Compile Include="GenerationForm.Designer.vb">
+      <DependentUpon>GenerationForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GenerationForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GestionDesDepensesForm.Designer.vb">
       <DependentUpon>GestionDesDepensesForm.vb</DependentUpon>
     </Compile>
@@ -460,12 +521,19 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Impression.vb" />
+    <Compile Include="Language.vb" />
     <Compile Include="Languages.vb" />
     <Compile Include="Licence.vb" />
     <Compile Include="LoadData.Designer.vb">
       <DependentUpon>LoadData.vb</DependentUpon>
     </Compile>
     <Compile Include="LoadData.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainwindoMarketinngForm.Designer.vb">
+      <DependentUpon>MainwindoMarketinngForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MainwindoMarketinngForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainWindowComptabiliteForm.Designer.vb">
@@ -498,6 +566,7 @@
     <Compile Include="MainWindowTechnique.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MessagesSendingClass.vb" />
     <Compile Include="MiniReglementForm.Designer.vb">
       <DependentUpon>MiniReglementForm.vb</DependentUpon>
     </Compile>
@@ -533,6 +602,12 @@
     <Compile Include="NotificationsForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="OnlineForm.Designer.vb">
+      <DependentUpon>OnlineForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PanierForm.Designer.vb">
       <DependentUpon>PanierForm.vb</DependentUpon>
     </Compile>
@@ -544,6 +619,12 @@
       <DependentUpon>PasswordVerifivationForm.vb</DependentUpon>
     </Compile>
     <Compile Include="PasswordVerifivationForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProfilChoixForm.Designer.vb">
+      <DependentUpon>ProfilChoixForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ProfilChoixForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ReglementLettrageForm.Designer.vb">
@@ -590,6 +671,12 @@
     <Compile Include="RenvoiRapportForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="RestaurantBookingForm.Designer.vb">
+      <DependentUpon>RestaurantBookingForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RestaurantBookingForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="RoutageManuelForm.Designer.vb">
       <DependentUpon>RoutageManuelForm.vb</DependentUpon>
     </Compile>
@@ -607,6 +694,18 @@
       <DependentUpon>SynthesePetiteCaisseForm.vb</DependentUpon>
     </Compile>
     <Compile Include="SynthesePetiteCaisseForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TableListForm.Designer.vb">
+      <DependentUpon>TableListForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="TableListForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TablesForm.Designer.vb">
+      <DependentUpon>TablesForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="TablesForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TarifForm.Designer.vb">
@@ -808,6 +907,9 @@
     <EmbeddedResource Include="BarRestaurantCaisseEnregistreuseForm.resx">
       <DependentUpon>BarRestaurantCaisseEnregistreuseForm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BlanchisseurForm.resx">
+      <DependentUpon>BlanchisseurForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ClubEliteForm.resx">
       <DependentUpon>ClubEliteForm.vb</DependentUpon>
     </EmbeddedResource>
@@ -877,6 +979,12 @@
     <EmbeddedResource Include="ConditionningForm.resx">
       <DependentUpon>ConditionningForm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConfigForm.resx">
+      <DependentUpon>ConfigForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConsolidationForm.resx">
+      <DependentUpon>ConsolidationForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConsommationPreparation.resx">
       <DependentUpon>ConsommationPreparation.vb</DependentUpon>
     </EmbeddedResource>
@@ -885,6 +993,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CustomCommandForm.resx">
       <DependentUpon>CustomCommandForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataBaseBackUpForm.resx">
+      <DependentUpon>DataBaseBackUpForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataBaseExportImportForm.resx">
       <DependentUpon>DataBaseExportImportForm.vb</DependentUpon>
@@ -904,11 +1015,17 @@
     <EmbeddedResource Include="EvenementForm.resx">
       <DependentUpon>EvenementForm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ExchangeForm.resx">
+      <DependentUpon>ExchangeForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FabricationDeProformaForm.resx">
       <DependentUpon>FabricationDeProformaForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FacturationForm.resx">
       <DependentUpon>FacturationForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FastFoodForm.resx">
+      <DependentUpon>FastFoodForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FiscaliteForm.resx">
       <DependentUpon>FiscaliteForm.vb</DependentUpon>
@@ -930,6 +1047,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GeneralAccountForm.resx">
       <DependentUpon>GeneralAccountForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenerationForm.resx">
+      <DependentUpon>GenerationForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GestionDesDepensesForm.resx">
       <DependentUpon>GestionDesDepensesForm.vb</DependentUpon>
@@ -957,6 +1077,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainCouranteReceptionForm.resx">
       <DependentUpon>MainCouranteReceptionForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainwindoMarketinngForm.resx">
+      <DependentUpon>MainwindoMarketinngForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.vb</DependentUpon>
@@ -998,6 +1121,9 @@
     <EmbeddedResource Include="NotificationsForm.resx">
       <DependentUpon>NotificationsForm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="OnlineForm.resx">
+      <DependentUpon>OnlineForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PanierForm.resx">
       <DependentUpon>PanierForm.vb</DependentUpon>
     </EmbeddedResource>
@@ -1006,6 +1132,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PasswordVerifivationForm.resx">
       <DependentUpon>PasswordVerifivationForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProfilChoixForm.resx">
+      <DependentUpon>ProfilChoixForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReglementLettrageForm.resx">
       <DependentUpon>ReglementLettrageForm.vb</DependentUpon>
@@ -1040,6 +1169,9 @@
     <EmbeddedResource Include="RenvoiRapportForm.resx">
       <DependentUpon>RenvoiRapportForm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RestaurantBookingForm.resx">
+      <DependentUpon>RestaurantBookingForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RoomForm.resx">
       <DependentUpon>RoomForm.vb</DependentUpon>
     </EmbeddedResource>
@@ -1057,6 +1189,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SynthesePetiteCaisseForm.resx">
       <DependentUpon>SynthesePetiteCaisseForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TableListForm.resx">
+      <DependentUpon>TableListForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TablesForm.resx">
+      <DependentUpon>TablesForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TarifForm.resx">
       <DependentUpon>TarifForm.vb</DependentUpon>
@@ -1114,6 +1252,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="barcles_logo_blqnc_Yzg_icon %281%29.ico" />
+    <None Include="Resources\h1.png" />
+    <None Include="Resources\GILGAL.png" />
+    <None Include="Resources\WhatsApp Image 2024-08-26 at 20.50.141.jpeg" />
+    <None Include="Resources\WhatsApp Image 2024-08-26 at 20.50.14.jpeg" />
+    <None Include="Resources\Restaurantsoft-header-1-png.png" />
     <None Include="Resources\RESERVEE.png" />
     <None Include="Resources\OCCUPIED.png" />
     <None Include="Resources\MAINTENENANCE.png" />
@@ -1130,6 +1273,18 @@
     <None Include="images\barcles-name.png" />
     <None Include="Resources\ROOM_STATE.png" />
     <None Include="Resources\ROOM STATE.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 et x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Import Project="..\packages\Microsoft.Web.WebView2.1.0.1938.49\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\packages\Microsoft.Web.WebView2.1.0.1938.49\build\Microsoft.Web.WebView2.targets')" />
