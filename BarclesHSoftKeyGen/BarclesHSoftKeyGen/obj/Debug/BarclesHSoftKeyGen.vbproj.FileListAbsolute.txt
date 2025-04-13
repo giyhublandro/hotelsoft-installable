@@ -1,0 +1,28 @@
+C:\Users\hotelsoft\Documents\Visual Studio 2017\Projets\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\bin\Debug\BarclesHSoftKeyGen.exe.config
+C:\Users\hotelsoft\Documents\Visual Studio 2017\Projets\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\bin\Debug\BarclesHSoftKeyGen.exe
+C:\Users\hotelsoft\Documents\Visual Studio 2017\Projets\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\bin\Debug\BarclesHSoftKeyGen.pdb
+C:\Users\hotelsoft\Documents\Visual Studio 2017\Projets\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\bin\Debug\BarclesHSoftKeyGen.xml
+C:\Users\hotelsoft\Documents\Visual Studio 2017\Projets\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\obj\Debug\BarclesHSoftKeyGen.vbprojAssemblyReference.cache
+C:\Users\hotelsoft\Documents\Visual Studio 2017\Projets\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\obj\Debug\BarclesHSoftKeyGen.Resources.resources
+C:\Users\hotelsoft\Documents\Visual Studio 2017\Projets\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\obj\Debug\BarclesHSoftKeyGen.vbproj.GenerateResource.cache
+C:\Users\hotelsoft\Documents\Visual Studio 2017\Projets\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\obj\Debug\BarclesHSoftKeyGen.vbproj.CoreCompileInputs.cache
+C:\Users\hotelsoft\Documents\Visual Studio 2017\Projets\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\obj\Debug\BarclesHSoftKeyGen.exe
+C:\Users\hotelsoft\Documents\Visual Studio 2017\Projets\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\obj\Debug\BarclesHSoftKeyGen.xml
+C:\Users\hotelsoft\Documents\Visual Studio 2017\Projets\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\obj\Debug\BarclesHSoftKeyGen.pdb
+C:\Users\hotelsoft\Documents\Visual Studio 2017\Projets\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\bin\Debug\Guna.UI.dll
+C:\Users\hotelsoft\Documents\Visual Studio 2017\Projets\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\obj\Debug\BarclesHSoftKeyGen.Form1.resources
+C:\Users\hotelsoft\Documents\Visual Studio 2017\Projets\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\obj\Debug\BarclesHSoftKeyGen.vbproj.CopyComplete
+E:\HOTELSOFT\08.09.22\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\obj\Debug\BarclesHSoftKeyGen.vbprojAssemblyReference.cache
+E:\HOTELSOFT\08.09.22\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\obj\Debug\BarclesHSoftKeyGen.Form1.resources
+E:\HOTELSOFT\08.09.22\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\obj\Debug\BarclesHSoftKeyGen.Resources.resources
+E:\HOTELSOFT\08.09.22\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\obj\Debug\BarclesHSoftKeyGen.vbproj.GenerateResource.cache
+E:\HOTELSOFT\08.09.22\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\obj\Debug\BarclesHSoftKeyGen.vbproj.CoreCompileInputs.cache
+E:\HOTELSOFT\08.09.22\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\obj\Debug\BarclesHSoftKeyGen.exe
+E:\HOTELSOFT\08.09.22\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\obj\Debug\BarclesHSoftKeyGen.xml
+E:\HOTELSOFT\08.09.22\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\obj\Debug\BarclesHSoftKeyGen.pdb
+E:\HOTELSOFT\08.09.22\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\bin\Debug\BarclesHSoftKeyGen.exe.config
+E:\HOTELSOFT\08.09.22\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\bin\Debug\BarclesHSoftKeyGen.exe
+E:\HOTELSOFT\08.09.22\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\bin\Debug\BarclesHSoftKeyGen.pdb
+E:\HOTELSOFT\08.09.22\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\bin\Debug\BarclesHSoftKeyGen.xml
+E:\HOTELSOFT\08.09.22\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\bin\Debug\Guna.UI.dll
+E:\HOTELSOFT\08.09.22\BarclesHSoft\BarclesHSoftKeyGen\BarclesHSoftKeyGen\BarclesHSoftKeyGen\obj\Debug\BarclesHSoftKeyGen.vbproj.CopyComplete

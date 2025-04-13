@@ -1,0 +1,48 @@
+c:\users\garoppo\documents\visual studio 2015\Projects\BackRest\BackRest\bin\Debug\BackRest.exe.config
+c:\users\garoppo\documents\visual studio 2015\Projects\BackRest\BackRest\obj\Debug\BackRest.vbprojResolveAssemblyReference.cache
+c:\users\garoppo\documents\visual studio 2015\Projects\BackRest\BackRest\obj\Debug\BackRest.Form1.resources
+c:\users\garoppo\documents\visual studio 2015\Projects\BackRest\BackRest\obj\Debug\BackRest.Resources.resources
+c:\users\garoppo\documents\visual studio 2015\Projects\BackRest\BackRest\obj\Debug\BackRest.vbproj.GenerateResource.Cache
+c:\users\garoppo\documents\visual studio 2015\Projects\BackRest\BackRest\bin\Debug\BackRest.exe
+c:\users\garoppo\documents\visual studio 2015\Projects\BackRest\BackRest\bin\Debug\BackRest.pdb
+c:\users\garoppo\documents\visual studio 2015\Projects\BackRest\BackRest\bin\Debug\BackRest.xml
+c:\users\garoppo\documents\visual studio 2015\Projects\BackRest\BackRest\obj\Debug\BackRest.exe
+c:\users\garoppo\documents\visual studio 2015\Projects\BackRest\BackRest\obj\Debug\BackRest.xml
+c:\users\garoppo\documents\visual studio 2015\Projects\BackRest\BackRest\obj\Debug\BackRest.pdb
+C:\Users\ericl\Documents\Workplace\Rumah Coding\[01] Project Visual Studio\Backup-Restore-MySQL-Using-VB.Net\BackRest\bin\Debug\BackRest.exe.config
+C:\Users\ericl\Documents\Workplace\Rumah Coding\[01] Project Visual Studio\Backup-Restore-MySQL-Using-VB.Net\BackRest\obj\Debug\BackRest.exe
+C:\Users\ericl\Documents\Workplace\Rumah Coding\[01] Project Visual Studio\Backup-Restore-MySQL-Using-VB.Net\BackRest\obj\Debug\BackRest.xml
+C:\Users\ericl\Documents\Workplace\Rumah Coding\[01] Project Visual Studio\Backup-Restore-MySQL-Using-VB.Net\BackRest\obj\Debug\BackRest.pdb
+C:\Users\ericl\Documents\Workplace\Rumah Coding\[01] Project Visual Studio\Backup-Restore-MySQL-Using-VB.Net\BackRest\bin\Debug\BackRest.exe
+C:\Users\ericl\Documents\Workplace\Rumah Coding\[01] Project Visual Studio\Backup-Restore-MySQL-Using-VB.Net\BackRest\bin\Debug\BackRest.pdb
+C:\Users\ericl\Documents\Workplace\Rumah Coding\[01] Project Visual Studio\Backup-Restore-MySQL-Using-VB.Net\BackRest\bin\Debug\BackRest.xml
+C:\Users\ericl\Documents\Workplace\Rumah Coding\[01] Project Visual Studio\Backup-Restore-MySQL-Using-VB.Net\BackRest\obj\Debug\BackRest.vbprojResolveAssemblyReference.cache
+C:\Users\ericl\Documents\Workplace\Rumah Coding\[01] Project Visual Studio\Backup-Restore-MySQL-Using-VB.Net\BackRest\obj\Debug\BackRest.Form1.resources
+C:\Users\ericl\Documents\Workplace\Rumah Coding\[01] Project Visual Studio\Backup-Restore-MySQL-Using-VB.Net\BackRest\obj\Debug\BackRest.Resources.resources
+C:\Users\ericl\Documents\Workplace\Rumah Coding\[01] Project Visual Studio\Backup-Restore-MySQL-Using-VB.Net\BackRest\obj\Debug\BackRest.vbproj.GenerateResource.Cache
+C:\Users\LANDRO\Downloads\Backup-Restore-MySQL-Using-VB.Net-master\BackRest\bin\Debug\BackRest.exe.config
+C:\Users\LANDRO\Downloads\Backup-Restore-MySQL-Using-VB.Net-master\BackRest\bin\Debug\BackRest.exe
+C:\Users\LANDRO\Downloads\Backup-Restore-MySQL-Using-VB.Net-master\BackRest\bin\Debug\BackRest.pdb
+C:\Users\LANDRO\Downloads\Backup-Restore-MySQL-Using-VB.Net-master\BackRest\bin\Debug\BackRest.xml
+C:\Users\LANDRO\Downloads\Backup-Restore-MySQL-Using-VB.Net-master\BackRest\obj\Debug\BackRest.vbprojAssemblyReference.cache
+C:\Users\LANDRO\Downloads\Backup-Restore-MySQL-Using-VB.Net-master\BackRest\obj\Debug\BackRest.Form1.resources
+C:\Users\LANDRO\Downloads\Backup-Restore-MySQL-Using-VB.Net-master\BackRest\obj\Debug\BackRest.Resources.resources
+C:\Users\LANDRO\Downloads\Backup-Restore-MySQL-Using-VB.Net-master\BackRest\obj\Debug\BackRest.vbproj.GenerateResource.cache
+C:\Users\LANDRO\Downloads\Backup-Restore-MySQL-Using-VB.Net-master\BackRest\obj\Debug\BackRest.vbproj.CoreCompileInputs.cache
+C:\Users\LANDRO\Downloads\Backup-Restore-MySQL-Using-VB.Net-master\BackRest\obj\Debug\BackRest.exe
+C:\Users\LANDRO\Downloads\Backup-Restore-MySQL-Using-VB.Net-master\BackRest\obj\Debug\BackRest.xml
+C:\Users\LANDRO\Downloads\Backup-Restore-MySQL-Using-VB.Net-master\BackRest\obj\Debug\BackRest.pdb
+C:\Users\LANDRO\Documents\Visual Studio 2017\BarclesHSoft\Backup-Restoration\BackRest\bin\Debug\BackRest.exe.config
+C:\Users\LANDRO\Documents\Visual Studio 2017\BarclesHSoft\Backup-Restoration\BackRest\bin\Debug\BackRest.exe
+C:\Users\LANDRO\Documents\Visual Studio 2017\BarclesHSoft\Backup-Restoration\BackRest\bin\Debug\BackRest.pdb
+C:\Users\LANDRO\Documents\Visual Studio 2017\BarclesHSoft\Backup-Restoration\BackRest\bin\Debug\BackRest.xml
+C:\Users\LANDRO\Documents\Visual Studio 2017\BarclesHSoft\Backup-Restoration\BackRest\obj\Debug\BackRest.vbprojAssemblyReference.cache
+C:\Users\LANDRO\Documents\Visual Studio 2017\BarclesHSoft\Backup-Restoration\BackRest\obj\Debug\BackRest.Form1.resources
+C:\Users\LANDRO\Documents\Visual Studio 2017\BarclesHSoft\Backup-Restoration\BackRest\obj\Debug\BackRest.Resources.resources
+C:\Users\LANDRO\Documents\Visual Studio 2017\BarclesHSoft\Backup-Restoration\BackRest\obj\Debug\BackRest.vbproj.GenerateResource.cache
+C:\Users\LANDRO\Documents\Visual Studio 2017\BarclesHSoft\Backup-Restoration\BackRest\obj\Debug\BackRest.vbproj.CoreCompileInputs.cache
+C:\Users\LANDRO\Documents\Visual Studio 2017\BarclesHSoft\Backup-Restoration\BackRest\obj\Debug\BackRest.exe
+C:\Users\LANDRO\Documents\Visual Studio 2017\BarclesHSoft\Backup-Restoration\BackRest\obj\Debug\BackRest.xml
+C:\Users\LANDRO\Documents\Visual Studio 2017\BarclesHSoft\Backup-Restoration\BackRest\obj\Debug\BackRest.pdb
+C:\Users\LANDRO\Documents\Visual Studio 2017\BarclesHSoft\Backup-Restoration\BackRest\bin\Debug\Guna.UI.dll
+C:\Users\LANDRO\Documents\Visual Studio 2017\BarclesHSoft\Backup-Restoration\BackRest\obj\Debug\BackRest.vbproj.CopyComplete
