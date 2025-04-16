@@ -28097,4 +28097,9 @@ Public Class MainWindow
         DataBaseBackUpForm.Show()
         DataBaseBackUpForm.TopMost = True
     End Sub
+
+    Private Sub ExporterBaseDeDonnéesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExporterBaseDeDonnéesToolStripMenuItem.Click
+        DataBaseBackUpForm.Show()
+        DataBaseBackUpForm.TopMost = True
+    End Sub
 End Class

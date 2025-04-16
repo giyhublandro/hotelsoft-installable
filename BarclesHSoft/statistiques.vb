@@ -268,6 +268,10 @@ Public Class statistiques
 
         End If
 
+        Dim DateDebutStat As Date = Functions.firstDayOfMonth(GlobalVariable.DateDeTravail)
+        Dim DateFinStat As Date = GlobalVariable.DateDeTravail
+        Dim DateDebut As Date = GlobalVariable.DateDeTravail
+
         Dim enChambre As DataTable = Functions.getElementByCode(1, "reserve_conf", "ETAT_RESERVATION")
 
         If enChambre.Rows.Count > 0 Then
@@ -289,7 +293,18 @@ Public Class statistiques
 
         End If
 
-        Dim enChambreAnnuler As DataTable = Functions.getElementByCode(0, "reserve_conf", "ETAT_RESERVATION")
+        'Dim enChambreAnnuler As DataTable = Functions.getElementByCode(0, "reserve_conf", "ETAT_RESERVATION")
+
+        Dim query As String = "SELECT * FROM reserve_conf WHERE DATE_ENTTRE >= '" & DateDebutStat.ToString("yyyy-MM-dd") & "' AND DATE_SORTIE <='" & DateFinStat.ToString("yyyy-MM-dd") & "' AND TYPE=@TYPE AND ETAT_RESERVATION=@ETAT_RESERVATION AND DAY_USE=@DAY_USE ORDER BY CHAMBRE_ID ASC"
+
+        Dim command As New MySqlCommand(query, GlobalVariable.connect)
+        command.Parameters.Add("@TYPE", MySqlDbType.VarChar).Value = "chambre"
+        command.Parameters.Add("@DAY_USE", MySqlDbType.Int32).Value = 0
+        command.Parameters.Add("@ETAT_RESERVATION", MySqlDbType.Int32).Value = 0
+
+        Dim adapter As New MySqlDataAdapter(command)
+        Dim enChambreAnnuler As New DataTable()
+        adapter.Fill(enChambreAnnuler)
 
         If enChambreAnnuler.Rows.Count > 0 Then
 
@@ -314,7 +329,7 @@ Public Class statistiques
             TOTAL_DES_CHAMBRES = 1
         End If
 
-        If NOMBRE_DE_NUITEE = 0 Then
+        If NOMBRE_DE_NUITEE <= 0 Then
             NOMBRE_DE_NUITEE = 1
         End If
 

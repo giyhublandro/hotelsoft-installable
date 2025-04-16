@@ -584,6 +584,7 @@
             AgencyForm.GunaLabel53.Text = "CheckIn Elite Club Message"
             AgencyForm.GunaLabel62.Text = "Visit Max Time"
             AgencyForm.LinkLabel1.Text = "SETTINGS"
+            AgencyForm.GunaLabel41.Text = "Letter Head"
             AgencyForm.GunaLabel54.Text = "External Link"
             AgencyForm.GunaLabelGestCompany.Text = "MANAGEMENT OF COMPANY AGENCIES"
             AgencyForm.GunaButtonSecondSave.Text = "Update"
@@ -657,6 +658,7 @@
 
             AgencyForm.GunaCheckBoxClubElite.Text = "ELITE CLUB"
             AgencyForm.GunaCheckBoxImprimerB7.Text = "PRINT RECEIPT ON B7"
+            AgencyForm.GunaButton4.Text = "Save"
 
         ElseIf ActualLanguageValue = 1 Then
 
@@ -2038,8 +2040,7 @@
             MainWindow.GunaLabel127.Text = "To"
 
             MainWindow.GunaButtonHandOverForm.Text = "HAND OVER FORM"
-
-            MainWindow.SauvegardeBaseDeDonnéeToolStripMenuItem.Text = "DataBase"
+            MainWindow.SauvegardeBaseDeDonnéeToolStripMenuItem.Text = "Export / Tranfer DB"
 
         ElseIf ActualLanguageValue = 1 Then
 

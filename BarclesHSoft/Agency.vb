@@ -8,34 +8,40 @@ Public Class Agency
 
     'insert a new society
 
-    Public Function insertWhatsApp(ByVal NOM_AGENCE As String, ByVal CODE_AGENCE As String, ByVal FAX As String, ByVal EMAIL As String, ByVal TELEPHONE As String, ByVal VILLE As String, ByVal BOITE_POSTALE As String, ByVal PAYS As String, ByVal RUE As String, ByVal CATEGORIE_HOTEL As String) As Boolean
+    Public Function serveur_ftp(ByVal FICHIER As String, ByVal CHEMIN As String, ByVal COM_PORT As Integer, ByVal DELAI As Integer, ByVal MOT_DE_PASSE As String, ByVal MYSQL_DUMP As String) As Boolean
 
-        Dim insertQuery As String = "INSERT INTO `agence` (`NOM_AGENCE`,`CODE_AGENCE`, `FAX`, `EMAIL`, `TELEPHONE`, `VILLE`, `BOITE_POSTALE`, `PAYS`, `RUE`, `CATEGORIE_HOTEL`) VALUES (@NOM_AGENCE, @CODE_AGENCE, @FAX, @EMAIL, @TELEPHONE, @VILLE, @BOITE_POSTALE, @PAYS, @RUE, @CATEGORIE_HOTEL)"
-
+        Dim insertQuery As String = "UPDATE `serveur_ftp` SET `FICHIER`=@FICHIER, `CHEMIN`=@CHEMIN, `COM_PORT`=@COM_PORT, `DELAI`=@DELAI, `MOT_DE_PASSE`=@MOT_DE_PASSE, `MYSQL_DUMP`=@MYSQL_DUMP"
         Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
 
-        command.Parameters.Add("@NOM_AGENCE", MySqlDbType.VarChar).Value = NOM_AGENCE
-        command.Parameters.Add("@CODE_AGENCE", MySqlDbType.VarChar).Value = CODE_AGENCE
-        command.Parameters.Add("@FAX", MySqlDbType.VarChar).Value = FAX
-        command.Parameters.Add("@EMAIL", MySqlDbType.VarChar).Value = EMAIL
-        command.Parameters.Add("@TELEPHONE", MySqlDbType.VarChar).Value = TELEPHONE
-        command.Parameters.Add("@VILLE", MySqlDbType.VarChar).Value = VILLE
-        command.Parameters.Add("@BOITE_POSTALE", MySqlDbType.VarChar).Value = BOITE_POSTALE
-        command.Parameters.Add("@PAYS", MySqlDbType.VarChar).Value = PAYS
-        command.Parameters.Add("@RUE", MySqlDbType.VarChar).Value = RUE
-        command.Parameters.Add("@CATEGORIE_HOTEL", MySqlDbType.VarChar).Value = CATEGORIE_HOTEL
+        command.Parameters.Add("@FICHIER", MySqlDbType.VarChar).Value = FICHIER
+        command.Parameters.Add("@CHEMIN", MySqlDbType.VarChar).Value = CHEMIN
+        command.Parameters.Add("@COM_PORT", MySqlDbType.Int32).Value = COM_PORT
+        command.Parameters.Add("@DELAI", MySqlDbType.Int32).Value = DELAI
+        'command.Parameters.Add("@DERNIER_TRANSFERT", MySqlDbType.VarChar).Value = DERNIER_TRANSFERT
+        command.Parameters.Add("@MOT_DE_PASSE", MySqlDbType.VarChar).Value = MOT_DE_PASSE
+        command.Parameters.Add("@MYSQL_DUMP", MySqlDbType.VarChar).Value = MYSQL_DUMP
 
-        'Opening the connection
-        ''connect.openConnection()
+        If command.ExecuteNonQuery() Then
+            Return True
+        Else
+            Return False
+        End If
 
-        'Excuting the command and testing if everything went on well
-        'If (command.ExecuteNonQuery() = 1) Then
-        ''connect.closeConnection()
-        'Return True
-        'Else
-        ''connect.closeConnection()
-        'Return False
-        'End If
+    End Function
+
+    Public Function serveur_ftp_last_backup(ByVal FICHIER As String, ByVal CHEMIN As String) As Boolean
+
+        Dim insertQuery As String = "UPDATE `serveur_ftp` SET `FICHIER`=@FICHIER, `CHEMIN`=@CHEMIN"
+        Dim command As New MySqlCommand(insertQuery, GlobalVariable.connect)
+
+        command.Parameters.Add("@FICHIER", MySqlDbType.VarChar).Value = FICHIER
+        command.Parameters.Add("@CHEMIN", MySqlDbType.VarChar).Value = CHEMIN
+
+        If command.ExecuteNonQuery() Then
+            Return True
+        Else
+            Return False
+        End If
 
     End Function
 

@@ -623,6 +623,8 @@ Public Class AccueilForm
 
         End If
 
+        getFtpServer()
+
         Dim showCustomImage As Boolean = False
 
         If GlobalVariable.AgenceActuelle.Rows(0)("CONFIG") = 1 Then
@@ -995,6 +997,10 @@ Public Class AccueilForm
 
         End If
 
+    End Sub
+
+    Private Sub getFtpServer()
+        GlobalVariable.server_ftp = Functions.allTableFields("serveur_ftp")
     End Sub
 
 End Class

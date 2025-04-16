@@ -78,6 +78,7 @@ Partial Class AgencyForm
         Me.GunaTextBoxCheminSauvegardeAuto = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaTextBoxEmail = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaTextBoxTelephone = New Guna.UI.WinForms.GunaTextBox()
+        Me.GunaTextBoxVisitMax = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaTextBoxBp = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaTextBoxNom = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaTextBoxNumero = New Guna.UI.WinForms.GunaTextBox()
@@ -85,6 +86,7 @@ Partial Class AgencyForm
         Me.GunaLabel51 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel50 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel46 = New Guna.UI.WinForms.GunaLabel()
+        Me.GunaLabel62 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel33 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel3 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel55 = New Guna.UI.WinForms.GunaLabel()
@@ -101,22 +103,22 @@ Partial Class AgencyForm
         Me.GunaLabel2 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaButtonFermer = New Guna.UI.WinForms.GunaButton()
         Me.TabPageAdresseReseau = New System.Windows.Forms.TabPage()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.GunaButton4 = New Guna.UI.WinForms.GunaButton()
         Me.GunaButton3 = New Guna.UI.WinForms.GunaButton()
         Me.GunaTextBox13 = New Guna.UI.WinForms.GunaTextBox()
+        Me.GunaTextBox1 = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaTextBox22 = New Guna.UI.WinForms.GunaTextBox()
+        Me.GunaTextBox2 = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaTextBox23 = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaTextBox12 = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaTextBox10 = New Guna.UI.WinForms.GunaTextBox()
         Me.GunaTextBox11 = New Guna.UI.WinForms.GunaTextBox()
+        Me.GunaLabel63 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel12 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel16 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel15 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel11 = New Guna.UI.WinForms.GunaLabel()
+        Me.GunaLabel64 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel13 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLabel14 = New Guna.UI.WinForms.GunaLabel()
         Me.TabPageListeAgence = New System.Windows.Forms.TabPage()
@@ -216,8 +218,7 @@ Partial Class AgencyForm
         Me.GunaButtonSecondSave = New Guna.UI.WinForms.GunaButton()
         Me.GunaPanel1 = New Guna.UI.WinForms.GunaPanel()
         Me.GunaCheckBox1 = New Guna.UI.WinForms.GunaCheckBox()
-        Me.GunaLabel62 = New Guna.UI.WinForms.GunaLabel()
-        Me.GunaTextBoxVisitMax = New Guna.UI.WinForms.GunaTextBox()
+        Me.GunaLabel65 = New Guna.UI.WinForms.GunaLabel()
         Me.GunaLinePanelTop.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -225,7 +226,6 @@ Partial Class AgencyForm
         Me.GunaGroupBox1.SuspendLayout()
         CType(Me.GunaPictureBoxLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPageAdresseReseau.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         Me.TabPageListeAgence.SuspendLayout()
         CType(Me.GunaDataGridViewAgence, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
@@ -1084,6 +1084,30 @@ Partial Class AgencyForm
         Me.GunaTextBoxTelephone.Size = New System.Drawing.Size(113, 28)
         Me.GunaTextBoxTelephone.TabIndex = 6
         '
+        'GunaTextBoxVisitMax
+        '
+        Me.GunaTextBoxVisitMax.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.GunaTextBoxVisitMax.BackColor = System.Drawing.Color.Transparent
+        Me.GunaTextBoxVisitMax.BaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxVisitMax.BorderColor = System.Drawing.Color.Gainsboro
+        Me.GunaTextBoxVisitMax.BorderSize = 1
+        Me.GunaTextBoxVisitMax.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.GunaTextBoxVisitMax.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBoxVisitMax.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBoxVisitMax.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBoxVisitMax.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBoxVisitMax.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaTextBoxVisitMax.Location = New System.Drawing.Point(861, 110)
+        Me.GunaTextBoxVisitMax.Name = "GunaTextBoxVisitMax"
+        Me.GunaTextBoxVisitMax.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBoxVisitMax.Radius = 3
+        Me.GunaTextBoxVisitMax.SelectedText = ""
+        Me.GunaTextBoxVisitMax.Size = New System.Drawing.Size(95, 28)
+        Me.GunaTextBoxVisitMax.TabIndex = 3
+        Me.GunaTextBoxVisitMax.Text = "0"
+        Me.GunaTextBoxVisitMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'GunaTextBoxBp
         '
         Me.GunaTextBoxBp.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -1202,6 +1226,19 @@ Partial Class AgencyForm
         Me.GunaLabel46.Size = New System.Drawing.Size(50, 17)
         Me.GunaLabel46.TabIndex = 95
         Me.GunaLabel46.Text = "Langue"
+        '
+        'GunaLabel62
+        '
+        Me.GunaLabel62.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GunaLabel62.AutoSize = True
+        Me.GunaLabel62.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaLabel62.Location = New System.Drawing.Point(849, 91)
+        Me.GunaLabel62.Name = "GunaLabel62"
+        Me.GunaLabel62.Size = New System.Drawing.Size(114, 17)
+        Me.GunaLabel62.TabIndex = 95
+        Me.GunaLabel62.Text = " Temps Max Visite"
         '
         'GunaLabel33
         '
@@ -1414,20 +1451,24 @@ Partial Class AgencyForm
         '
         'TabPageAdresseReseau
         '
-        Me.TabPageAdresseReseau.Controls.Add(Me.GroupBox1)
         Me.TabPageAdresseReseau.Controls.Add(Me.GunaButton4)
         Me.TabPageAdresseReseau.Controls.Add(Me.GunaButton3)
         Me.TabPageAdresseReseau.Controls.Add(Me.GunaTextBox13)
+        Me.TabPageAdresseReseau.Controls.Add(Me.GunaTextBox1)
         Me.TabPageAdresseReseau.Controls.Add(Me.GunaTextBox22)
+        Me.TabPageAdresseReseau.Controls.Add(Me.GunaTextBox2)
         Me.TabPageAdresseReseau.Controls.Add(Me.GunaTextBox23)
         Me.TabPageAdresseReseau.Controls.Add(Me.GunaTextBox12)
         Me.TabPageAdresseReseau.Controls.Add(Me.GunaTextBox10)
         Me.TabPageAdresseReseau.Controls.Add(Me.GunaTextBox11)
+        Me.TabPageAdresseReseau.Controls.Add(Me.GunaLabel63)
         Me.TabPageAdresseReseau.Controls.Add(Me.GunaLabel12)
         Me.TabPageAdresseReseau.Controls.Add(Me.GunaLabel16)
         Me.TabPageAdresseReseau.Controls.Add(Me.GunaLabel15)
         Me.TabPageAdresseReseau.Controls.Add(Me.GunaLabel11)
+        Me.TabPageAdresseReseau.Controls.Add(Me.GunaLabel64)
         Me.TabPageAdresseReseau.Controls.Add(Me.GunaLabel13)
+        Me.TabPageAdresseReseau.Controls.Add(Me.GunaLabel65)
         Me.TabPageAdresseReseau.Controls.Add(Me.GunaLabel14)
         Me.TabPageAdresseReseau.Location = New System.Drawing.Point(4, 25)
         Me.TabPageAdresseReseau.Name = "TabPageAdresseReseau"
@@ -1436,52 +1477,6 @@ Partial Class AgencyForm
         Me.TabPageAdresseReseau.TabIndex = 1
         Me.TabPageAdresseReseau.Text = "Adresses Réseau"
         Me.TabPageAdresseReseau.UseVisualStyleBackColor = True
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.RadioButton3)
-        Me.GroupBox1.Controls.Add(Me.RadioButton2)
-        Me.GroupBox1.Controls.Add(Me.RadioButton1)
-        Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(122, 276)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(701, 56)
-        Me.GroupBox1.TabIndex = 116
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Type de point travail"
-        '
-        'RadioButton3
-        '
-        Me.RadioButton3.AutoSize = True
-        Me.RadioButton3.Location = New System.Drawing.Point(434, 23)
-        Me.RadioButton3.Name = "RadioButton3"
-        Me.RadioButton3.Size = New System.Drawing.Size(63, 22)
-        Me.RadioButton3.TabIndex = 0
-        Me.RadioButton3.TabStop = True
-        Me.RadioButton3.Text = "Siège"
-        Me.RadioButton3.UseVisualStyleBackColor = True
-        '
-        'RadioButton2
-        '
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(216, 23)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(179, 22)
-        Me.RadioButton2.TabIndex = 0
-        Me.RadioButton2.TabStop = True
-        Me.RadioButton2.Text = "Point de Consolidation "
-        Me.RadioButton2.UseVisualStyleBackColor = True
-        '
-        'RadioButton1
-        '
-        Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Location = New System.Drawing.Point(32, 23)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(145, 22)
-        Me.RadioButton1.TabIndex = 0
-        Me.RadioButton1.TabStop = True
-        Me.RadioButton1.Text = "Point Commercial"
-        Me.RadioButton1.UseVisualStyleBackColor = True
         '
         'GunaButton4
         '
@@ -1496,7 +1491,7 @@ Partial Class AgencyForm
         Me.GunaButton4.ForeColor = System.Drawing.Color.White
         Me.GunaButton4.Image = Nothing
         Me.GunaButton4.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButton4.Location = New System.Drawing.Point(576, 231)
+        Me.GunaButton4.Location = New System.Drawing.Point(658, 319)
         Me.GunaButton4.Name = "GunaButton4"
         Me.GunaButton4.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButton4.OnHoverBorderColor = System.Drawing.Color.Black
@@ -1504,9 +1499,9 @@ Partial Class AgencyForm
         Me.GunaButton4.OnHoverImage = Nothing
         Me.GunaButton4.OnPressedColor = System.Drawing.Color.Black
         Me.GunaButton4.Radius = 4
-        Me.GunaButton4.Size = New System.Drawing.Size(156, 40)
+        Me.GunaButton4.Size = New System.Drawing.Size(153, 28)
         Me.GunaButton4.TabIndex = 5
-        Me.GunaButton4.Text = "Hôtel Lock"
+        Me.GunaButton4.Text = "Enregistrer"
         Me.GunaButton4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'GunaButton3
@@ -1522,7 +1517,7 @@ Partial Class AgencyForm
         Me.GunaButton3.ForeColor = System.Drawing.Color.White
         Me.GunaButton3.Image = Nothing
         Me.GunaButton3.ImageSize = New System.Drawing.Size(20, 20)
-        Me.GunaButton3.Location = New System.Drawing.Point(513, 237)
+        Me.GunaButton3.Location = New System.Drawing.Point(487, 418)
         Me.GunaButton3.Name = "GunaButton3"
         Me.GunaButton3.OnHoverBaseColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaButton3.OnHoverBorderColor = System.Drawing.Color.Black
@@ -1534,6 +1529,7 @@ Partial Class AgencyForm
         Me.GunaButton3.TabIndex = 5
         Me.GunaButton3.Text = "..."
         Me.GunaButton3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.GunaButton3.Visible = False
         '
         'GunaTextBox13
         '
@@ -1542,19 +1538,43 @@ Partial Class AgencyForm
         Me.GunaTextBox13.BackColor = System.Drawing.Color.Transparent
         Me.GunaTextBox13.BaseColor = System.Drawing.Color.White
         Me.GunaTextBox13.BorderColor = System.Drawing.Color.DimGray
+        Me.GunaTextBox13.BorderSize = 1
         Me.GunaTextBox13.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.GunaTextBox13.FocusedBaseColor = System.Drawing.Color.White
         Me.GunaTextBox13.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBox13.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBox13.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBox13.Location = New System.Drawing.Point(482, 153)
+        Me.GunaTextBox13.Location = New System.Drawing.Point(437, 165)
         Me.GunaTextBox13.Name = "GunaTextBox13"
         Me.GunaTextBox13.PasswordChar = Global.Microsoft.VisualBasic.ChrW(9679)
         Me.GunaTextBox13.Radius = 3
         Me.GunaTextBox13.SelectedText = ""
-        Me.GunaTextBox13.Size = New System.Drawing.Size(320, 28)
+        Me.GunaTextBox13.Size = New System.Drawing.Size(209, 28)
         Me.GunaTextBox13.TabIndex = 115
         Me.GunaTextBox13.UseSystemPasswordChar = True
+        '
+        'GunaTextBox1
+        '
+        Me.GunaTextBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.GunaTextBox1.BackColor = System.Drawing.Color.Transparent
+        Me.GunaTextBox1.BaseColor = System.Drawing.Color.White
+        Me.GunaTextBox1.BorderColor = System.Drawing.Color.DimGray
+        Me.GunaTextBox1.BorderSize = 1
+        Me.GunaTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBox1.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBox1.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBox1.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaTextBox1.Location = New System.Drawing.Point(663, 162)
+        Me.GunaTextBox1.Name = "GunaTextBox1"
+        Me.GunaTextBox1.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBox1.Radius = 3
+        Me.GunaTextBox1.SelectedText = ""
+        Me.GunaTextBox1.Size = New System.Drawing.Size(63, 31)
+        Me.GunaTextBox1.TabIndex = 115
+        Me.GunaTextBox1.Text = "-1"
+        Me.GunaTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'GunaTextBox22
         '
@@ -1563,18 +1583,42 @@ Partial Class AgencyForm
         Me.GunaTextBox22.BackColor = System.Drawing.Color.Transparent
         Me.GunaTextBox22.BaseColor = System.Drawing.Color.White
         Me.GunaTextBox22.BorderColor = System.Drawing.Color.DimGray
+        Me.GunaTextBox22.BorderSize = 1
         Me.GunaTextBox22.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.GunaTextBox22.FocusedBaseColor = System.Drawing.Color.White
         Me.GunaTextBox22.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBox22.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBox22.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBox22.Location = New System.Drawing.Point(122, 205)
+        Me.GunaTextBox22.Location = New System.Drawing.Point(720, 105)
         Me.GunaTextBox22.Name = "GunaTextBox22"
         Me.GunaTextBox22.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBox22.Radius = 3
         Me.GunaTextBox22.SelectedText = ""
-        Me.GunaTextBox22.Size = New System.Drawing.Size(73, 28)
+        Me.GunaTextBox22.Size = New System.Drawing.Size(63, 32)
         Me.GunaTextBox22.TabIndex = 115
+        Me.GunaTextBox22.Text = "21"
+        Me.GunaTextBox22.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'GunaTextBox2
+        '
+        Me.GunaTextBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.GunaTextBox2.BackColor = System.Drawing.Color.Transparent
+        Me.GunaTextBox2.BaseColor = System.Drawing.Color.White
+        Me.GunaTextBox2.BorderColor = System.Drawing.Color.DimGray
+        Me.GunaTextBox2.BorderSize = 1
+        Me.GunaTextBox2.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.GunaTextBox2.FocusedBaseColor = System.Drawing.Color.White
+        Me.GunaTextBox2.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GunaTextBox2.FocusedForeColor = System.Drawing.SystemColors.ControlText
+        Me.GunaTextBox2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaTextBox2.Location = New System.Drawing.Point(205, 282)
+        Me.GunaTextBox2.Name = "GunaTextBox2"
+        Me.GunaTextBox2.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GunaTextBox2.Radius = 3
+        Me.GunaTextBox2.SelectedText = ""
+        Me.GunaTextBox2.Size = New System.Drawing.Size(606, 28)
+        Me.GunaTextBox2.TabIndex = 115
         '
         'GunaTextBox23
         '
@@ -1583,17 +1627,18 @@ Partial Class AgencyForm
         Me.GunaTextBox23.BackColor = System.Drawing.Color.Transparent
         Me.GunaTextBox23.BaseColor = System.Drawing.Color.White
         Me.GunaTextBox23.BorderColor = System.Drawing.Color.DimGray
+        Me.GunaTextBox23.BorderSize = 1
         Me.GunaTextBox23.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.GunaTextBox23.FocusedBaseColor = System.Drawing.Color.White
         Me.GunaTextBox23.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBox23.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBox23.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBox23.Location = New System.Drawing.Point(122, 237)
+        Me.GunaTextBox23.Location = New System.Drawing.Point(205, 224)
         Me.GunaTextBox23.Name = "GunaTextBox23"
         Me.GunaTextBox23.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBox23.Radius = 3
         Me.GunaTextBox23.SelectedText = ""
-        Me.GunaTextBox23.Size = New System.Drawing.Size(385, 28)
+        Me.GunaTextBox23.Size = New System.Drawing.Size(606, 28)
         Me.GunaTextBox23.TabIndex = 115
         '
         'GunaTextBox12
@@ -1603,17 +1648,18 @@ Partial Class AgencyForm
         Me.GunaTextBox12.BackColor = System.Drawing.Color.Transparent
         Me.GunaTextBox12.BaseColor = System.Drawing.Color.White
         Me.GunaTextBox12.BorderColor = System.Drawing.Color.DimGray
+        Me.GunaTextBox12.BorderSize = 1
         Me.GunaTextBox12.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.GunaTextBox12.FocusedBaseColor = System.Drawing.Color.White
         Me.GunaTextBox12.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBox12.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBox12.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBox12.Location = New System.Drawing.Point(122, 153)
+        Me.GunaTextBox12.Location = New System.Drawing.Point(205, 165)
         Me.GunaTextBox12.Name = "GunaTextBox12"
         Me.GunaTextBox12.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBox12.Radius = 3
         Me.GunaTextBox12.SelectedText = ""
-        Me.GunaTextBox12.Size = New System.Drawing.Size(320, 28)
+        Me.GunaTextBox12.Size = New System.Drawing.Size(214, 28)
         Me.GunaTextBox12.TabIndex = 115
         '
         'GunaTextBox10
@@ -1623,17 +1669,18 @@ Partial Class AgencyForm
         Me.GunaTextBox10.BackColor = System.Drawing.Color.Transparent
         Me.GunaTextBox10.BaseColor = System.Drawing.Color.White
         Me.GunaTextBox10.BorderColor = System.Drawing.Color.DimGray
+        Me.GunaTextBox10.BorderSize = 1
         Me.GunaTextBox10.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.GunaTextBox10.FocusedBaseColor = System.Drawing.Color.White
         Me.GunaTextBox10.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBox10.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBox10.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBox10.Location = New System.Drawing.Point(122, 98)
+        Me.GunaTextBox10.Location = New System.Drawing.Point(205, 105)
         Me.GunaTextBox10.Name = "GunaTextBox10"
         Me.GunaTextBox10.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBox10.Radius = 3
         Me.GunaTextBox10.SelectedText = ""
-        Me.GunaTextBox10.Size = New System.Drawing.Size(683, 32)
+        Me.GunaTextBox10.Size = New System.Drawing.Size(497, 32)
         Me.GunaTextBox10.TabIndex = 115
         '
         'GunaTextBox11
@@ -1643,18 +1690,32 @@ Partial Class AgencyForm
         Me.GunaTextBox11.BackColor = System.Drawing.Color.Transparent
         Me.GunaTextBox11.BaseColor = System.Drawing.Color.White
         Me.GunaTextBox11.BorderColor = System.Drawing.Color.DimGray
+        Me.GunaTextBox11.BorderSize = 1
         Me.GunaTextBox11.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.GunaTextBox11.FocusedBaseColor = System.Drawing.Color.White
         Me.GunaTextBox11.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.GunaTextBox11.FocusedForeColor = System.Drawing.SystemColors.ControlText
         Me.GunaTextBox11.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBox11.Location = New System.Drawing.Point(122, 47)
+        Me.GunaTextBox11.Location = New System.Drawing.Point(205, 51)
         Me.GunaTextBox11.Name = "GunaTextBox11"
         Me.GunaTextBox11.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.GunaTextBox11.Radius = 3
         Me.GunaTextBox11.SelectedText = ""
-        Me.GunaTextBox11.Size = New System.Drawing.Size(683, 28)
+        Me.GunaTextBox11.Size = New System.Drawing.Size(606, 28)
         Me.GunaTextBox11.TabIndex = 115
+        '
+        'GunaLabel63
+        '
+        Me.GunaLabel63.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GunaLabel63.AutoSize = True
+        Me.GunaLabel63.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaLabel63.Location = New System.Drawing.Point(717, 85)
+        Me.GunaLabel63.Name = "GunaLabel63"
+        Me.GunaLabel63.Size = New System.Drawing.Size(32, 17)
+        Me.GunaLabel63.TabIndex = 109
+        Me.GunaLabel63.Text = "Port"
         '
         'GunaLabel12
         '
@@ -1663,7 +1724,7 @@ Partial Class AgencyForm
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaLabel12.AutoSize = True
         Me.GunaLabel12.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel12.Location = New System.Drawing.Point(479, 133)
+        Me.GunaLabel12.Location = New System.Drawing.Point(434, 145)
         Me.GunaLabel12.Name = "GunaLabel12"
         Me.GunaLabel12.Size = New System.Drawing.Size(89, 17)
         Me.GunaLabel12.TabIndex = 109
@@ -1676,7 +1737,7 @@ Partial Class AgencyForm
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaLabel16.AutoSize = True
         Me.GunaLabel16.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel16.Location = New System.Drawing.Point(201, 211)
+        Me.GunaLabel16.Location = New System.Drawing.Point(731, 167)
         Me.GunaLabel16.Name = "GunaLabel16"
         Me.GunaLabel16.Size = New System.Drawing.Size(39, 17)
         Me.GunaLabel16.TabIndex = 109
@@ -1689,11 +1750,11 @@ Partial Class AgencyForm
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaLabel15.AutoSize = True
         Me.GunaLabel15.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel15.Location = New System.Drawing.Point(119, 186)
+        Me.GunaLabel15.Location = New System.Drawing.Point(666, 142)
         Me.GunaLabel15.Name = "GunaLabel15"
-        Me.GunaLabel15.Size = New System.Drawing.Size(102, 17)
+        Me.GunaLabel15.Size = New System.Drawing.Size(37, 17)
         Me.GunaLabel15.TabIndex = 109
-        Me.GunaLabel15.Text = "Délai Nettoyage"
+        Me.GunaLabel15.Text = "Délai"
         '
         'GunaLabel11
         '
@@ -1702,11 +1763,24 @@ Partial Class AgencyForm
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaLabel11.AutoSize = True
         Me.GunaLabel11.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel11.Location = New System.Drawing.Point(119, 133)
+        Me.GunaLabel11.Location = New System.Drawing.Point(202, 145)
         Me.GunaLabel11.Name = "GunaLabel11"
         Me.GunaLabel11.Size = New System.Drawing.Size(138, 17)
         Me.GunaLabel11.TabIndex = 109
         Me.GunaLabel11.Text = "Utilisateur Serveur FTP"
+        '
+        'GunaLabel64
+        '
+        Me.GunaLabel64.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GunaLabel64.AutoSize = True
+        Me.GunaLabel64.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaLabel64.Location = New System.Drawing.Point(205, 31)
+        Me.GunaLabel64.Name = "GunaLabel64"
+        Me.GunaLabel64.Size = New System.Drawing.Size(81, 17)
+        Me.GunaLabel64.TabIndex = 109
+        Me.GunaLabel64.Text = "Mysql dump"
         '
         'GunaLabel13
         '
@@ -1715,7 +1789,7 @@ Partial Class AgencyForm
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaLabel13.AutoSize = True
         Me.GunaLabel13.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel13.Location = New System.Drawing.Point(119, 78)
+        Me.GunaLabel13.Location = New System.Drawing.Point(202, 85)
         Me.GunaLabel13.Name = "GunaLabel13"
         Me.GunaLabel13.Size = New System.Drawing.Size(76, 17)
         Me.GunaLabel13.TabIndex = 109
@@ -1728,11 +1802,11 @@ Partial Class AgencyForm
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GunaLabel14.AutoSize = True
         Me.GunaLabel14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel14.Location = New System.Drawing.Point(119, 27)
+        Me.GunaLabel14.Location = New System.Drawing.Point(205, 202)
         Me.GunaLabel14.Name = "GunaLabel14"
-        Me.GunaLabel14.Size = New System.Drawing.Size(136, 17)
+        Me.GunaLabel14.Size = New System.Drawing.Size(77, 17)
         Me.GunaLabel14.TabIndex = 106
-        Me.GunaLabel14.Text = "Serveur des échanges"
+        Me.GunaLabel14.Text = "Sauvegarde"
         '
         'TabPageListeAgence
         '
@@ -3350,42 +3424,18 @@ Partial Class AgencyForm
         Me.GunaCheckBox1.TabIndex = 110
         Me.GunaCheckBox1.Visible = False
         '
-        'GunaLabel62
+        'GunaLabel65
         '
-        Me.GunaLabel62.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.GunaLabel65.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GunaLabel62.AutoSize = True
-        Me.GunaLabel62.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaLabel62.Location = New System.Drawing.Point(849, 91)
-        Me.GunaLabel62.Name = "GunaLabel62"
-        Me.GunaLabel62.Size = New System.Drawing.Size(114, 17)
-        Me.GunaLabel62.TabIndex = 95
-        Me.GunaLabel62.Text = " Temps Max Visite"
-        '
-        'GunaTextBoxVisitMax
-        '
-        Me.GunaTextBoxVisitMax.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.GunaTextBoxVisitMax.BackColor = System.Drawing.Color.Transparent
-        Me.GunaTextBoxVisitMax.BaseColor = System.Drawing.Color.White
-        Me.GunaTextBoxVisitMax.BorderColor = System.Drawing.Color.Gainsboro
-        Me.GunaTextBoxVisitMax.BorderSize = 1
-        Me.GunaTextBoxVisitMax.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.GunaTextBoxVisitMax.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.GunaTextBoxVisitMax.FocusedBaseColor = System.Drawing.Color.White
-        Me.GunaTextBoxVisitMax.FocusedBorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GunaTextBoxVisitMax.FocusedForeColor = System.Drawing.SystemColors.ControlText
-        Me.GunaTextBoxVisitMax.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GunaTextBoxVisitMax.Location = New System.Drawing.Point(861, 110)
-        Me.GunaTextBoxVisitMax.Name = "GunaTextBoxVisitMax"
-        Me.GunaTextBoxVisitMax.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.GunaTextBoxVisitMax.Radius = 3
-        Me.GunaTextBoxVisitMax.SelectedText = ""
-        Me.GunaTextBoxVisitMax.Size = New System.Drawing.Size(95, 28)
-        Me.GunaTextBoxVisitMax.TabIndex = 3
-        Me.GunaTextBoxVisitMax.Text = "0"
-        Me.GunaTextBoxVisitMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.GunaLabel65.AutoSize = True
+        Me.GunaLabel65.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GunaLabel65.Location = New System.Drawing.Point(205, 260)
+        Me.GunaLabel65.Name = "GunaLabel65"
+        Me.GunaLabel65.Size = New System.Drawing.Size(51, 17)
+        Me.GunaLabel65.TabIndex = 106
+        Me.GunaLabel65.Text = "Chemin"
         '
         'AgencyForm
         '
@@ -3411,8 +3461,6 @@ Partial Class AgencyForm
         CType(Me.GunaPictureBoxLogo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPageAdresseReseau.ResumeLayout(False)
         Me.TabPageAdresseReseau.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         Me.TabPageListeAgence.ResumeLayout(False)
         CType(Me.GunaDataGridViewAgence, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip1.ResumeLayout(False)
@@ -3452,10 +3500,6 @@ Partial Class AgencyForm
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents TabPageAdresseAgence As TabPage
     Friend WithEvents TabPageAdresseReseau As TabPage
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents RadioButton3 As RadioButton
-    Friend WithEvents RadioButton2 As RadioButton
-    Friend WithEvents RadioButton1 As RadioButton
     Friend WithEvents GunaButton4 As Guna.UI.WinForms.GunaButton
     Friend WithEvents GunaButton3 As Guna.UI.WinForms.GunaButton
     Friend WithEvents GunaTextBox13 As Guna.UI.WinForms.GunaTextBox
@@ -3630,4 +3674,9 @@ Partial Class AgencyForm
     Friend WithEvents GunaCheckBox3 As Guna.UI.WinForms.GunaCheckBox
     Friend WithEvents GunaLabel62 As Guna.UI.WinForms.GunaLabel
     Friend WithEvents GunaTextBoxVisitMax As Guna.UI.WinForms.GunaTextBox
+    Friend WithEvents GunaTextBox1 As Guna.UI.WinForms.GunaTextBox
+    Friend WithEvents GunaLabel63 As Guna.UI.WinForms.GunaLabel
+    Friend WithEvents GunaLabel64 As Guna.UI.WinForms.GunaLabel
+    Friend WithEvents GunaTextBox2 As Guna.UI.WinForms.GunaTextBox
+    Friend WithEvents GunaLabel65 As Guna.UI.WinForms.GunaLabel
 End Class

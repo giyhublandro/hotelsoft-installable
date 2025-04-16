@@ -166,6 +166,9 @@ Public Class GlobalVariable
     Public Shared Monnaie As DataTable
     'Agency
     Public Shared AgenceActuelle As DataTable
+
+    'FTP SERVER
+    Public Shared server_ftp As DataTable
     'Company
     Public Shared societe As DataTable
 

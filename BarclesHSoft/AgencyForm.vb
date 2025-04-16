@@ -15,16 +15,18 @@ Public Class AgencyForm
         language.agency(GlobalVariable.actualLanguageValue)
         language.autoLoadLanguageAgence(GunaComboBoxLangue, GlobalVariable.actualLanguageValue)
 
+        getFtpServerInfo()
+
         GunaComboBoxLangue.SelectedIndex = GlobalVariable.AgenceActuelle.Rows(0)("langue")
         'GunaComboBoxLangue.SelectedIndex = 0
 
-        TabControl1.TabPages.Remove(TabPageAdresseReseau)
+        'TabControl1.TabPages.Remove(TabPageAdresseReseau)
         'TabControl1.TabPages.Add(TabPageAdresseReseau)
 
         'We load the combobox with content from database
         CountryAndTownFromDataBase()
 
-        TabControl1.SelectedIndex = 1
+        TabControl1.SelectedIndex = 2
 
         'PERMET DE METTRE A JOURS LES INFORMATIONS LES TYPES DE CAMBRE DANS reserve_conf, reservation et reserve_temp
         'Functions.miseAjourDesDuTYpeDeChambreDansLeReservations()
@@ -33,6 +35,8 @@ Public Class AgencyForm
         'Functions.miseAjourReglementBanqueTransaction()
 
         loadLogoTypes()
+
+
 
         Dim showCustomImage As Boolean = False
 
@@ -58,6 +62,7 @@ Public Class AgencyForm
             GunaButtonCoinGauche.BaseColor = Functions.colorationWindow(buttonPanel)
             GunaButtonCoinDroit.BaseColor = Functions.colorationWindow(buttonPanel)
             GunaButtonSecondSave.BaseColor = Functions.colorationWindow(buttonPanel)
+            GunaButton4.BaseColor = Functions.colorationWindow(buttonPanel)
 
         End If
 
@@ -623,7 +628,7 @@ Public Class AgencyForm
 
             GunaDataGridViewAgence.Columns.Clear()
 
-            TabControl1.SelectedIndex = 1
+            TabControl1.SelectedIndex = 2
 
         End If
 
@@ -1239,4 +1244,69 @@ Public Class AgencyForm
             GunaCheckBox1.Checked = False
         End If
     End Sub
+
+    Private Sub GunaButton4_Click(sender As Object, e As EventArgs) Handles GunaButton4.Click
+
+        Dim HOTE As String = GunaTextBox10.Text
+        Dim NOM_UTILISATEUR As String = GunaTextBox12.Text
+        Dim COM_PORT As Integer = GunaTextBox22.Text
+        Dim DELAI As Integer = -1
+        If Not Trim(GunaTextBox1.Text).Equals("") Then
+            DELAI = GunaTextBox1.Text
+        End If
+        Dim MOT_DE_PASSE As String = GunaTextBox13.Text
+        Dim MYSQL_DUMP As String = GunaTextBox11.Text
+
+        Dim agence As New Agency()
+
+        Dim answer As Boolean = agence.serveur_ftp(HOTE, NOM_UTILISATEUR, COM_PORT, DELAI, MOT_DE_PASSE, MYSQL_DUMP)
+
+        If answer Then
+
+            If GlobalVariable.actualLanguageValue = 0 Then
+
+                languageMessage = "FTP information successfully updated"
+                languageTitle = "FTP"
+
+            ElseIf GlobalVariable.actualLanguageValue = 1 Then
+
+                languageMessage = "Serveur FTP mise à jours avec succès"
+                languageTitle = "Agence"
+
+            End If
+
+        Else
+
+            If GlobalVariable.actualLanguageValue = 0 Then
+
+                languageMessage = "FTP information Error"
+                languageTitle = "FTP"
+
+            ElseIf GlobalVariable.actualLanguageValue = 1 Then
+
+                languageMessage = "Serveur FTP Erreur"
+                languageTitle = "Agence"
+
+            End If
+        End If
+
+        GlobalVariable.server_ftp = Functions.allTableFields("serveur_ftp")
+
+        MessageBox.Show(languageMessage, languageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+    End Sub
+
+    Private Sub getFtpServerInfo()
+
+        GunaTextBox10.Text = GlobalVariable.server_ftp.Rows(0)("HOTE")
+        GunaTextBox12.Text = GlobalVariable.server_ftp.Rows(0)("NOM_UTILISATEUR")
+        GunaTextBox22.Text = GlobalVariable.server_ftp.Rows(0)("COM_PORT")
+        GunaTextBox1.Text = GlobalVariable.server_ftp.Rows(0)("DELAI")
+        GunaTextBox13.Text = GlobalVariable.server_ftp.Rows(0)("MOT_DE_PASSE")
+        GunaTextBox11.Text = GlobalVariable.server_ftp.Rows(0)("MYSQL_DUMP")
+        GunaTextBox2.Text = GlobalVariable.server_ftp.Rows(0)("CHEMIN")
+        GunaTextBox23.Text = GlobalVariable.server_ftp.Rows(0)("FICHIER")
+
+    End Sub
+
 End Class

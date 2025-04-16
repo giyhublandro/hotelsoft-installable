@@ -519,3 +519,4 @@ C:\Users\LANDRO\Documents\Visual Studio 2017\BarclesHSoft\BarclesHSoft\obj\Debug
 C:\Users\LANDRO\Documents\Visual Studio 2017\BarclesHSoft\BarclesHSoft\obj\Debug\BarclesHSoft.exe
 C:\Users\LANDRO\Documents\Visual Studio 2017\BarclesHSoft\BarclesHSoft\obj\Debug\BarclesHSoft.xml
 C:\Users\LANDRO\Documents\Visual Studio 2017\BarclesHSoft\BarclesHSoft\obj\Debug\BarclesHSoft.pdb
+C:\Users\LANDRO\Documents\Visual Studio 2017\BarclesHSoft\BarclesHSoft\obj\Debug\BarclesHSoft.vbprojAssemblyReference.cache
